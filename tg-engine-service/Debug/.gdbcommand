@@ -1,0 +1,4 @@
+set sysroot /home/sandeep/tizen-sdk-2.4/tools/smart-build-interface/../../platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-device.core
+set debug-file-directory /home/sandeep/tizen-sdk-2.4/tools/smart-build-interface/../../platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-device.core/usr/lib/debug
+set solib-search-path /home/sandeep/workspace_2_4/tg-engine-service/Debug
+dir /home/sandeep/tizen-sdk-2.4/tools/smart-build-interface/../../platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-device.core/usr/src/debug

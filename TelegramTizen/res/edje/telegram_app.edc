@@ -1,0 +1,30 @@
+collections {
+   group {
+   		name: "main";
+      parts {
+         part {
+         	name: "txt_title";
+            type: TEXT;
+            mouse_events: 0;
+            description {
+            	state: "default" 0.0;
+               	align: 0.0 0.0;
+               	rel1 { relative: 0.0 0.0; }
+               	rel2 { relative: 0.1 0.5; }
+               	text { font: "Tizen:style=regular"; size: 20; min: 1 1; }
+               	color: 0 0 0 255;
+            }
+         }
+         part {
+         	name: "btn_box";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	align: 0.0 0.0;
+               	rel1 { relative: 0.0 0.5; }
+               	rel2 { relative: 0.1 0.1; }               	               	
+            }
+         }
+      }
+   }
+}

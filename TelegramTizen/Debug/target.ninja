@@ -1,0 +1,2 @@
+build all: phony telegramtizen res
+default all
