@@ -44,20 +44,20 @@ void process_validation_command(char* code)
 	tg_data->get_string(TLS, code, tg_data->callback_arg);
 }
 
-void process_send_message_command(int buddy_id, int msg_type, char* msg_data, int type_of_chat)
+void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat)
 {
 	if (!msg_data || !TLS) {
 		return;
 	}
-	send_message_to_buddy(buddy_id, msg_type, msg_data, type_of_chat);
+	send_message_to_buddy(buddy_id, message_id, msg_type, msg_data, type_of_chat);
 }
 
-void process_send_media_command(int buddy_id, int msg_type, char* file_path)
+void process_send_media_command(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat)
 {
 	if (!file_path || !TLS) {
 		return;
 	}
-	send_media_to_buddy(buddy_id, msg_type, file_path);
+	send_media_to_buddy(buddy_id, message_id, media_id, msg_type, file_path, type_of_chat);
 }
 
 
@@ -518,9 +518,16 @@ void send_media_download_completed_response(int buddy_id, long long media_id, co
 		bundle_free(msg);
 	}
 
-	if (bundle_add_str(msg, "file_name", filename) != 0) {
-		ERR("Failed to add data by key to bundle");
-		bundle_free(msg);
+	if (filename) {
+		if (bundle_add_str(msg, "file_name", filename) != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else  {
+		if (bundle_add_str(msg, "file_name", "failed_to_load") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
 	}
 
     int result = SVC_RES_FAIL;

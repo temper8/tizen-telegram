@@ -7,16 +7,9 @@
 #include "tg_buddy_list.h"
 #include "tg_chat_conv_view.h"
 #include "contact_selection_view.h"
+#include "tg_buddy_conversation_view.h"
+#include "tg_buddy_chat_view.h"
 
-
-Evas_Object *on_list_main_icon_get(const char *icon_name, Evas_Object *parent)
-{
-    Evas_Object *icon = elm_image_add(parent);
-    elm_object_focus_set(icon, EINA_FALSE);
-    elm_image_file_set(icon, icon_name, NULL);
-    evas_object_show(icon);
-    return icon;
-}
 
 char* on_list_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
@@ -42,12 +35,19 @@ char* on_list_text_get_cb(void *data, Evas_Object *obj, const char *part)
 	tg_peer_info_s* user = item->use_data;
 
 	if (!strcmp(part,"elm.text")){
-		//return strdup(user->print_name);
+
+		char* user_name = replace(user->print_name, '_', " ");
+
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<align=left><font_size=30><color=#000000>%s</color></font_size></align>", user->print_name);
+		snprintf(buf, 512, "<align=left><font_size=30><color=#000000>%s</color></font_size></align>", user_name);
+
+		free(user_name);
+
 		return strdup(buf);
 
 	} else if (!strcmp(part, "elm.text.sub")) {
+
+#if 0
 		time_t t = user->last_seen_time;
 		const char *format = "last seen %b %d %Y at %H:%M";
 		struct tm lt;
@@ -61,10 +61,16 @@ char* on_list_text_get_cb(void *data, Evas_Object *obj, const char *part)
                                         sizeof(res), format);
                 exit(0);
         }
-
+#else
+        char* res = NULL;
+        if (item->last_message) {
+        	res = item->last_message;
+        } else {
+        	res = " ";
+        }
+#endif
         char buf[512] = {'\0'};
-        snprintf(buf, 512, "<align=center><font_size=25><color=#000000>%s</color></font_size></align>", res);
-
+        snprintf(buf, 512, "<align=left><font_size=25><color=#A4A4A4>%s</color></font_size></align>", res);
         return strdup(buf);
 	}
 
@@ -188,6 +194,7 @@ Evas_Object* on_list_content_get_cb(void *data, Evas_Object *obj, const char *pa
 {
 	Evas_Object *eo = NULL;
 	if (!strcmp(part, "elm.swallow.icon")) {
+#if 0
 		Evas_Object *image = NULL;
 		int id = (int) data;
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
@@ -216,6 +223,105 @@ Evas_Object* on_list_content_get_cb(void *data, Evas_Object *obj, const char *pa
 			elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
 			elm_layout_content_set(eo, "elm.swallow.content", image);
 		}
+#else
+#if 0
+		Evas_Object *layout = NULL;
+
+		char edj_path[PATH_MAX] = {0, };
+		layout = elm_layout_add(obj);
+		app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
+		elm_layout_file_set(layout, edj_path, "image_rounded_mask");
+		evas_object_show(layout);
+
+
+		Evas_Object *image = NULL;
+		int id = (int) data;
+		appdata_s* ad = evas_object_data_get(obj, "app_data");
+
+		int size = eina_list_count(ad->peer_list);
+
+		if (size <= 0) {
+			return eo;
+		}
+
+		peer_with_pic_s* item = eina_list_nth(ad->peer_list, id);
+		tg_peer_info_s* user = item->use_data;
+
+		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
+			image = on_list_main_icon_get(user->photo_path, obj);
+		} else {
+			image = on_list_main_icon_get(ui_utils_get_resource(FM_ICON_ROBO_BUDDY), obj);
+
+			//image = on_list_main_icon_get(ui_utils_get_resource(LIST_CONTACT_ROUND_MASK_ICON), obj);
+		}
+
+		item->contact_icon = image;
+		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, icon_del_cb, item);
+
+		if(image) {
+			eo = elm_layout_add(obj);
+			elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
+			elm_layout_content_set(eo, "elm.swallow.content", image);
+		}
+
+
+		Evas_Object *mask_image = NULL;
+		mask_image = on_list_main_icon_get(ui_utils_get_resource(LIST_CONTACT_ROUND_MASK_ICON), obj);
+
+		Evas_Object* mask_eo = elm_layout_add(obj);
+		elm_layout_theme_set(mask_eo, "layout", "list/C/type.3", "default");
+		elm_layout_content_set(mask_eo, "elm.swallow.content", mask_image);
+
+		elm_object_part_content_set(layout, "swallow.bg", mask_eo);
+		elm_object_part_content_set(layout, "swallow.image_rounded_mask", eo);
+
+		return layout;
+#endif
+
+
+		Evas_Object* button = elm_button_add(obj);
+		//elm_object_style_set(button, "transparent");
+		evas_object_size_hint_weight_set(button, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(button, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		//Evas_Object *mask_image = NULL;
+		//mask_image = on_list_main_icon_get(ui_utils_get_resource(LIST_CONTACT_ROUND_MASK_ICON), obj);
+		//elm_object_content_set(button, mask_image);
+
+
+		Evas_Object *image = NULL;
+		int id = (int) data;
+		appdata_s* ad = evas_object_data_get(obj, "app_data");
+
+		int size = eina_list_count(ad->peer_list);
+
+		if (size <= 0) {
+			return eo;
+		}
+
+		peer_with_pic_s* item = eina_list_nth(ad->peer_list, id);
+		tg_peer_info_s* user = item->use_data;
+
+		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
+			image = create_image_object_from_file(user->photo_path, obj);
+		} else {
+			image = create_image_object_from_file(ui_utils_get_resource(FM_ICON_ROBO_BUDDY), obj);
+		}
+
+		elm_image_fill_outside_set(image, EINA_TRUE);
+		elm_image_resizable_set(image, EINA_TRUE, EINA_TRUE);
+		elm_image_prescale_set(image, 100);
+
+		item->contact_icon = image;
+		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, icon_del_cb, item);
+
+		elm_object_part_content_set(button, "icon", image);
+
+		eo = elm_layout_add(obj);
+		elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
+		elm_layout_content_set(eo, "elm.swallow.content", button);
+
+		return eo;
+#endif
 	}
 	return eo;
 }
@@ -231,7 +337,9 @@ static void on_buddy_clicked(void *data, Evas_Object *obj, void *event_info)
 	peer_with_pic_s* sel_item = eina_list_nth(ad->peer_list, item_id);
 
 	ad->buddy_in_cahtting_data = sel_item->use_data;
-	launch_chat_conv_view_cb(ad, item_id);
+	//launch_chat_conv_view_cb(ad, item_id);
+	//launch_buddy_conversation_view(ad, item_id);
+	launch_buddy_chat_view_cb(ad, item_id);
 }
 
 void on_search_clicked(void *data, Evas_Object *obj, void *event_info)

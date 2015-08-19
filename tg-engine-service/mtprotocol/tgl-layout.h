@@ -477,6 +477,7 @@ struct tgl_message {
 	int unread;
 	int date;
 	int service;
+	int msg_state;
 	union {
 		struct tgl_message_action action;
 		struct {

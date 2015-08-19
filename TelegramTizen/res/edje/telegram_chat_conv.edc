@@ -1,4 +1,3 @@
-
 collections
 {   
 	images {
@@ -51,6 +50,147 @@ collections
     	}    	
 	}
 	
+	
+group
+{
+   	name: "chat_image_list_item_group";
+	parts{
+	    part {
+			name: "swallow.chat_image_list_item,bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; to, "swallow.chat_image_list_item"; }
+				rel2 { relative: 1.0 1.0; to, "swallow.chat_image_list_item"; }
+				color: 0 0 0 0;
+			}
+		}  
+		part{
+    		name: "chat_image_list_item_br";
+    		type:IMAGE;
+    		description{
+    			state: "default" 0.0;
+    			rel1 { relative: -0.1 -0.1; to, "swallow.chat_image_list_item,bg"; }
+    			rel2 { relative: 1.1 1.1; to, "swallow.chat_image_list_item,bg"; }
+    			image {
+    			    border: 13 12 15 11;    				    
+					normal: "msg_in_photo.9.png";
+				}
+    		}
+    	}
+		part{
+			name: "swallow.chat_image_list_item";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.6 0.1; }
+				rel2 { relative: 0.9 0.9; }    	
+				color: 0 0 0 0;			
+			}
+		}
+	}
+}
+	
+	
+	group
+	{
+       	name: "chat_image_item";
+    	parts{
+			part{
+    			name: "swallow.chat_item_bg_image";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    			}
+    		}
+    		part{
+    			name: "swallow.chat_image_size";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.3 0.4; }
+    				rel2 { relative: 0.6 0.6; }    	
+    				color: 0 0 0 0;			
+    			}
+    		}
+    		part{
+    			name: "swallow.chat_image_item";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.8 0.3; }
+    				rel2 { relative: 0.9 0.7; }    	
+    				color: 0 0 0 0;			
+    			}
+    		}
+    		part{
+    			name: "swallow.chat_image_progress";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.4 0.4; }
+    				rel2 { relative: 0.6 0.6; }    	
+    				color: 0 0 0 0;
+    			}
+    		}
+    	}
+	}
+	
+	
+	group
+	{
+       	name: "image_rounded_mask";
+    	parts{
+    		part {
+				name: "swallow.bg";
+				type:SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: -0.2 -0.2; to, "swallow.image_rounded_mask"; }
+					rel2 { relative: 1.2 1.2; to, "swallow.image_rounded_mask"; }
+					color: 0 0 0 0;
+				}
+			}
+    		part{
+    			name: "swallow.image_rounded_mask";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    			}
+    		}
+    	}   	
+	}
+	
+	group
+	{
+       	name: "chat_list_with_bg";
+    	parts{
+    	    part {
+				name: "swallow.bg";
+				type:SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					color: 0 0 0 0;
+				}
+			}
+    		part{
+    			name: "swallow.chat_list_with_bg";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0;}
+    				rel2 { relative: 1.0 1.0;}
+    			}
+    		}
+    	}   	
+	}
+	
 	group
 	{
        	name: "chat_bg_conv";
@@ -90,65 +230,106 @@ collections
     	}    	
 	}
 	
+
+group
+{
+	name: "chat_title_box";
+	parts{
+		part {
+			name: "swallow.profile_pic,bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; }
+				rel2 { relative: 0.2 1.0; }
+				color: 50 255 255 200;
+			}
+		} 
+		part{
+			name: "swallow.profile_pic";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.05 0.05; }
+				rel2 { relative: 0.15 0.95; } 				
+			}    	   			
+		}
+
+		part {
+			name: "swallow.profile_name,bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.2 0.0; }
+				rel2 { relative: 1.0 0.5; }
+				color: 50 255 255 200;
+			}
+		} 
+
+		part{
+			name: "swallow.profile_name";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.2 0.0; }
+				rel2 { relative: 1.0 0.5; }    				
+			}    	   			
+		}
+
+		part {
+			name: "swallow.profile_time,bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.2 0.5; }
+				rel2 { relative: 1.0 1.0; }
+				color: 50 255 255 200;
+			}
+		} 
+
+		part{
+			name: "swallow.profile_time";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.2 0.5; }
+				rel2 { relative: 1.0 1.0; }    				
+			}    	   			
+		}         	
+	}
+}
+
+
+
+	
     group
     {
        	name: "chat_conv";
     	parts{
-    	    part {
-				name: "swallow.chat_box,bg";
-				type: RECT;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; to, "swallow.chat_box"; }
-					rel2 { relative: 1.0 1.0; to, "swallow.chat_box"; }
-					color: 0 0 0 0;
-				}
-			}  
-			part{
-    			name: "chat_box_bg_image";
-    			type:IMAGE;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; to, "swallow.chat_box,bg"; }
-    				rel2 { relative: 1.0 1.0; to, "swallow.chat_box,bg"; }
-    				image {
-						normal: "chat_bg.jpg";
-					}
-    			}
-    		}
-    		part{
-    			name: "swallow.chat_box";
+    	   part{
+    			name: "swallow.title_box";
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 0.9; }    				
+    				rel2 { relative: 1.0 0.1; }
+    				align: 0.3 1.0;
+    				fixed: 0.5 1.0;
+    				min: 0 100;   				
     			}
     		}
-    		part {
-				name: "swallow.entry_box,bg";
-				type: RECT;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; to, "swallow.entry_box"; }
-					rel2 { relative: 1.0 1.0; to, "swallow.entry_box"; }
-					color: 0 0 0 0;
-				}
-			}  
-			part{
-    			name: "chat_entry_bg_image";
-    			type:IMAGE;
+    	   part{
+    			name: "swallow.chat_box";
+    			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; to, "swallow.entry_box,bg"; }
-    				rel2 { relative: 1.0 1.0; to, "swallow.entry_box,bg"; }
-    				image {
-						normal: "chat_bg.jpg";
-					}
+    				rel1 { relative: 0.0 0.1; }
+    				rel2 { relative: 1.0 0.9; }
+    				align: 0.5 1.0;
+    				fixed: 0.5 1.0;    				
     			}
     		}
-			 
-    		part{
+     		part{
     			name: "swallow.entry_box";
     			type:SWALLOW;
     			description{
@@ -170,14 +351,14 @@ collections
     	name: "chat_entry_box";
     	parts{
     		part{
-    			name: "swallow.attach_icon";
+    		    name: "swallow.smiely_icon";    			
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.1; }
     				rel2 { relative: 0.15 0.9; }
-    				min: 75 75;
-    				max: 75 75;
+    				min: 50 50;
+    				max: 50 50;
     			}
     		}
     		part {
@@ -200,7 +381,7 @@ collections
     			}
     		}
     		part{
-    			name: "swallow.smiely_icon";
+    			name: "swallow.attach_icon";
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;

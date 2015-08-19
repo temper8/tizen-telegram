@@ -9,6 +9,6 @@
 #define TG_REGISTRATION_H_
 #include "tg_common.h"
 
-extern void launch_registration_cb(void *data);
+extern void launch_registration_cb(appdata_s* ad);
 
 #endif /* TG_REGISTRATION_H_ */

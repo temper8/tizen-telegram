@@ -30,16 +30,10 @@ typedef struct appdata_chat_conv_view{
 static appdata_chat_conv_view_s chat_conv_view_data = {0,};
 
 
-typedef enum {
-	CHAT_MESSAGE_BUBBLE_NONE = 0,
-	CHAT_MESSAGE_BUBBLE_SENT,
-	CHAT_MESSAGE_BUBBLE_RECEIVE,
-	CHAT_MESSAGE_BUBBLE_LAST
-} Chat_message_Bubble_Style;
 
 #define CHAT_BUBBLE_TEXT_WIDTH 200
 #define CHAT_BUBBLE_MAIN_TEXT_STYLE "<font_size=30>%s</font_size>"
-#define CHAT_BUBBLE_SUB_TEXT_STYLE "<font_size=20 font_weight=Bold color=#000000>%s</font_size>"
+
 
 static Evas_Object *create_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const char *main_text, const char *sub_text);
 static Evas_Object *create_image_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const char *file_path, const char *sub_text, char* media_id);
@@ -61,12 +55,12 @@ static void on_chat_item_clicked(void *data, Evas_Object *obj, void *event_info)
 	}
 }
 
-void on_message_sent_to_buddy_successfully(tg_message_s *M, int type_of_chat)
+void on_message_sent_to_buddy_successfully(appdata_s* ad, tg_message_s *M, int type_of_chat)
 {
 	// update UI
 }
 
-void on_message_read_by_buddy_successfully(tg_message_s *M, int type_of_chat)
+void on_message_read_by_buddy_successfully(appdata_s* ad, tg_message_s *M, int type_of_chat)
 {
 	// update UI
 }
@@ -449,7 +443,7 @@ void send_message_to_buddy(appdata_chat_conv_view_s *ad)
 		return;
 
 	// send request to service
-	send_request_for_message_transport(ad->ad->service_client, ad->sel_item->use_data->peer_id, tgl_message_media_none, text_to_send, chat_conv_view_data.sel_item->use_data->peer_type);
+	//send_request_for_message_transport(ad->ad->service_client, ad->sel_item->use_data->peer_id, tgl_message_media_none, text_to_send, chat_conv_view_data.sel_item->use_data->peer_type);
 
 	bubble_table = create_bubble_table(ad->ad->win, CHAT_MESSAGE_BUBBLE_SENT,
 			elm_entry_entry_get(ad->text_entry),
@@ -466,7 +460,7 @@ void send_message_to_buddy(appdata_chat_conv_view_s *ad)
 void send_image_to_buddy(appdata_chat_conv_view_s *ad, const char* file_path)
 {
 	Evas_Object *bubble_table;
-	send_request_for_media_transport(ad->ad->service_client, ad->sel_item->use_data->peer_id, tgl_message_media_photo, file_path);
+	//send_request_for_media_transport(ad->ad->service_client, ad->sel_item->use_data->peer_id, tgl_message_media_photo, file_path);
 	int t = time(NULL); // to identify message after getting id.
 	char unique_id[50];
 	sprintf(unique_id, "%d", t);

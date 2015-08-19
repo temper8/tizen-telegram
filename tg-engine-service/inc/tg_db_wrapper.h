@@ -113,6 +113,7 @@
 #define MESSAGE_INFO_TABLE_DATE "date"
 #define MESSAGE_INFO_TABLE_SERVICE "service"
 #define MESSAGE_INFO_TABLE_MESSAGE "message"
+#define MESSAGE_INFO_TABLE_MESSAGE_STATE "message_state"
 #define MESSAGE_INFO_TABLE_MESSAGE_LENGTH "message_len"
 #define MESSAGE_INFO_TABLE_MEDIA_TYPE "media_type"
 #define MESSAGE_INFO_TABLE_MEDIA_ID "media_id"
@@ -169,6 +170,8 @@ void update_buddy_pic_db(char* file_path, char* table_name, int id);
 void create_buddy_msg_table(const char* table_name);
 
 void insert_buddy_msg_to_db(struct tgl_message *M);
+
+struct tgl_message* get_message_from_message_table(long long msg_id, char* table_name);
 
 void insert_msg_into_db(struct tgl_message *M, char* table_name, int unique_id);
 

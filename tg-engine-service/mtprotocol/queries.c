@@ -842,30 +842,33 @@ static int msg_send_on_answer(struct tgl_state *TLS, struct query *q)
 	long long y = *(long long *)q->extra;
 	tfree(q->extra, 8);
 	struct tgl_message *M = tgl_message_get(TLS, y);
-	if (M && M->id != id) {
-		bl_do_set_msg_id(TLS, M, id);
-	}
-	int date = fetch_int();
-	int pts = fetch_int();
-	int seq = fetch_int();
-	if (seq == TLS->seq + 1 && !(TLS->locks & TGL_LOCK_DIFF)) {
-		bl_do_set_date(TLS, date);
-		bl_do_set_pts(TLS, pts);
-		bl_do_msg_seq_update(TLS, id);
-	} else {
-		if (seq > TLS->seq + 1) {
-			vlogprintf(E_NOTICE, "Hole in seq\n");
-			tgl_do_get_difference(TLS, 0, 0, 0);
+
+	if (M) {
+		if (M && M->id != id) {
+			bl_do_set_msg_id(TLS, M, id);
 		}
-	}
-	if (x == CODE_messages_sent_message_link) {
-		assert(skip_type_any(TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(contacts_link))) >= 0);
-	}
-	if (M->flags & FLAG_PENDING) {
-		bl_do_set_message_sent(TLS, M);
-	}
-	if (q->callback) {
-		((void(*)(struct tgl_state *,void *, int, struct tgl_message *))q->callback)(TLS, q->callback_extra, 1, M);
+		int date = fetch_int();
+		int pts = fetch_int();
+		int seq = fetch_int();
+		if (seq == TLS->seq + 1 && !(TLS->locks & TGL_LOCK_DIFF)) {
+			bl_do_set_date(TLS, date);
+			bl_do_set_pts(TLS, pts);
+			bl_do_msg_seq_update(TLS, id);
+		} else {
+			if (seq > TLS->seq + 1) {
+				vlogprintf(E_NOTICE, "Hole in seq\n");
+				tgl_do_get_difference(TLS, 0, 0, 0);
+			}
+		}
+		if (x == CODE_messages_sent_message_link) {
+			assert(skip_type_any(TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(contacts_link))) >= 0);
+		}
+		if (M->flags & FLAG_PENDING) {
+			bl_do_set_message_sent(TLS, M);
+		}
+		if (q->callback) {
+			((void(*)(struct tgl_state *,void *, int, struct tgl_message *))q->callback)(TLS, q->callback_extra, 1, M);
+		}
 	}
 	return 0;
 }

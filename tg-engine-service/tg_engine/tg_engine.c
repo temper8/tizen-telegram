@@ -266,14 +266,10 @@ void tg_new_msg(struct tgl_state *TLS, struct tgl_message *M)
 
 void tg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
 {
-
 	for (int i = 0; i < num; i++) {
 		//struct tgl_message
 		struct tgl_message* message = list[i];
-
 		int identifier = -1;
-
-
 		tgl_peer_t* UC;
 		UC = tgl_peer_get(TLS, message->to_id);
 		struct tgl_user* buddy;
@@ -282,6 +278,9 @@ void tg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
 		if (buddy) {
 			phone = buddy->phone;
 		}
+
+		message->msg_state = TG_MESSAGE_STATE_READ;
+
 		char* tb_name = get_table_name_from_number(message->to_id.id);
 		update_msg_into_db(message, tb_name, identifier);
 		if (message->media.type == tgl_message_media_photo) {
@@ -289,9 +288,6 @@ void tg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
 		}
 		send_message_read_by_buddy_response(message->to_id.id, message->id, tb_name, phone, tgl_get_peer_type(message->to_id));
 		free(tb_name);
-
-
-
 	}
 
 }
@@ -444,11 +440,27 @@ void tg_chat_update(struct tgl_state *TLS, struct tgl_chat* chat_info, unsigned 
 		}
 	}
 #else
+
+#if 0
 	if (tg_data->is_group_creation_requested) {
 		if (flags == TGL_GROUP_CHAT_CREATED) {
 			tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, (void*)flags);
 		}
 	}
+#else
+
+	if (!(flags & TGL_UPDATE_CREATED)) {
+		printf("created");
+
+		if (!(flags & TGL_UPDATE_DELETED)) {
+			printf("updated");
+		} else {
+			printf("deleted");
+		}
+	}
+
+
+#endif
 #endif
 }
 
@@ -936,61 +948,42 @@ void on_user_info_loaded(struct tgl_state *TLSR, void *extra, int success, struc
 void on_message_sent_to_buddy(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *message)
 {
 	int identifier = (int)callback_extra;
+	tgl_peer_t* UC = tgl_peer_get(TLS, message->to_id);
+	struct tgl_user* buddy = &(UC->user);
+	char* phone = NULL;
+	if (buddy) {
+		phone = buddy->phone;
+	}
 
-#if 0
-	Eina_List* buddy_details_array = get_buddy_info(message->to_id.id);
-	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
-		if (buddy_details && eina_list_count(buddy_details) > 0) {
-			char* phone = eina_list_nth(buddy_details, 7);
-			if (phone) {
-				char* tb_name = get_table_name_from_number(phone);
-				update_msg_into_db(message,tb_name, identifier);
-				if (message->media.type == tgl_message_media_photo) {
-					update_sent_media_info_in_db(message, (long long)identifier);
-				}
-				// update message sent status to application.
-				// send message table name, message id, buddy id and phone number
-				send_message_sent_to_buddy_response(message->to_id.id, message->id, tb_name, phone);
-				free(tb_name);
-				free(phone);
-			}
-		}
-	}
-#else
 	if (success) {
-		tgl_peer_t* UC;
-		UC = tgl_peer_get(TLS, message->to_id);
-		struct tgl_user* buddy;
-		buddy = &(UC->user);
-		char* phone = NULL;
-		if (buddy) {
-			phone = buddy->phone;
-		}
-		char* tb_name = get_table_name_from_number(message->to_id.id);
-		update_msg_into_db(message, tb_name, identifier);
-		if (message->media.type == tgl_message_media_photo) {
-			update_sent_media_info_in_db(message, (long long)identifier);
-		}
-		send_message_sent_to_buddy_response(message->to_id.id, message->id, tb_name, phone, tgl_get_peer_type(message->to_id));
-		free(tb_name);
+		message->msg_state = TG_MESSAGE_STATE_SENT;
 	} else {
-		// message sent failed.
+		message->msg_state = TG_MESSAGE_STATE_FAILED;
 	}
-#endif
+
+	char* tb_name = get_table_name_from_number(message->to_id.id);
+	update_msg_into_db(message, tb_name, identifier);
+	if (message->media.type == tgl_message_media_photo) {
+		update_sent_media_info_in_db(message, (long long)identifier);
+	}
+	send_message_sent_to_buddy_response(message->to_id.id, message->id, tb_name, phone, tgl_get_peer_type(message->to_id));
+	free(tb_name);
 }
 
 void on_image_download_completed(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
 {
 	struct tgl_photo* photo_prop = (struct tgl_photo*)callback_extra;
-
-	if(photo_prop && filename) {
-		long long media_id = photo_prop->id;
-		int buddy_id = photo_prop->user_id;
-		update_receive_media_info_in_db(media_id, filename);
-		//send response to application
-		send_media_download_completed_response(buddy_id, media_id, filename);
-		free(photo_prop);
+	long long media_id = photo_prop->id;
+	int buddy_id = photo_prop->user_id;
+	if (success) {
+		if(photo_prop && filename) {
+			update_receive_media_info_in_db(media_id, filename);
+			//send response to application
+			send_media_download_completed_response(buddy_id, media_id, filename);
+			free(photo_prop);
+		}
+	} else {
+		send_media_download_completed_response(buddy_id, media_id, NULL);
 	}
 }
 
@@ -1077,6 +1070,7 @@ void media_download_request(int buddy_id, long long media_id)
 	Eina_List* img_details = get_image_details_from_db(media_id);
 
 	if(!img_details) {
+		send_media_download_completed_response(buddy_id, media_id, NULL);
 		return;
 	} else {
 
@@ -1580,72 +1574,39 @@ void media_download_request(int buddy_id, long long media_id)
 }
 
 
-void send_message_to_buddy(int buddy_id, int msg_type, char* msg_data, int type_of_chat)
+void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat)
 {
 	// get type of chat from buddy_id.
-	struct tgl_message msg;
-	msg.from_id.id = tg_data->id.id;
 
-	msg.date = 0;
-	msg.flags = 0;
-	msg.fwd_date = 0;
-	msg.fwd_from_id.id = 0;
-	msg.fwd_from_id.type = 0;
-	msg.id = 0;
-	msg.message = msg_data;
-	msg.message_len = strlen (msg_data);
-	msg.out = 0;
-	msg.service = 0;
-	msg.to_id.id = buddy_id;
-
-	msg.unread = 0;
-	msg.media.type = msg_type;
-
-#if 0
-	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
-
-	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
-		if (buddy_details && eina_list_count(buddy_details) > 0) {
-			char* phone = eina_list_nth(buddy_details, 7);
-			if (phone) {
-				// get table name from phone number
-				char* msg_table = get_table_name_from_number(phone);
-				int t = time(NULL);
-				insert_msg_into_db(&msg, msg_table, t);
-				tgl_do_send_message(TLS, msg.to_id, msg_data, strlen (msg_data), &on_message_sent_to_buddy, (void*)(t));
-				free(msg_table);
-				free(phone);
-				// buddy_details_array memory to be deleted
-			}
-		}
-	}
-#else
 	char* msg_table = get_table_name_from_number(buddy_id);
-	int t = time(NULL);
-	insert_msg_into_db(&msg, msg_table, t);
+	struct tgl_message* msg = get_message_from_message_table(message_id, msg_table);
 
-	if (type_of_chat == TGL_PEER_USER) {
-		msg.from_id.type = TGL_PEER_USER;
-		msg.to_id.type = TGL_PEER_USER;
-		tgl_do_send_message(TLS, msg.to_id, msg_data, strlen(msg_data), &on_message_sent_to_buddy, (void*)(t));
-	} else if (type_of_chat == TGL_PEER_CHAT) {
-		msg.from_id.type = TGL_PEER_CHAT;
-		msg.to_id.type = TGL_PEER_CHAT;
-		tgl_do_send_message(TLS, msg.to_id, msg_data, strlen(msg_data), &on_message_sent_to_buddy, (void*)(t));
-	} else if (type_of_chat == TGL_PEER_ENCR_CHAT) {
+	if (msg) {
+		if (type_of_chat == TGL_PEER_USER) {
+			msg->from_id.type = TGL_PEER_USER;
+			msg->to_id.type = TGL_PEER_USER;
+			tgl_do_send_message(TLS, msg->to_id, msg->message, strlen(msg->message), &on_message_sent_to_buddy, (void*)(msg->id));
+		} else if (type_of_chat == TGL_PEER_CHAT) {
+			msg->from_id.type = TGL_PEER_CHAT;
+			msg->to_id.type = TGL_PEER_CHAT;
+			tgl_do_send_message(TLS, msg->to_id, msg_data, strlen(msg_data), &on_message_sent_to_buddy, (void*)(msg->id));
+		} else if (type_of_chat == TGL_PEER_ENCR_CHAT) {
 
-	} else {
+		} else {
 
+		}
+		if (msg->message) {
+			free(msg->message);
+		}
+		free(msg);
 	}
-
 	free(msg_table);
-#endif
 }
 
 
-void send_media_to_buddy(int buddy_id, int msg_type, char* file_path)
+void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat)
 {
+#if 0
 	int t = time(NULL);
 	struct tgl_message msg;
 	msg.from_id.id = tg_data->id.id;
@@ -1666,31 +1627,49 @@ void send_media_to_buddy(int buddy_id, int msg_type, char* file_path)
 	msg.media.type = msg_type;
 	msg.media.photo.id = (long long)t;
 
-#if 0
-	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
-
-	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
-		if (buddy_details && eina_list_count(buddy_details) > 0) {
-			char* phone = eina_list_nth(buddy_details, 7);
-			if (phone) {
-				// get table name from phone number
-				char* msg_table = get_table_name_from_number(phone);
-
-				insert_msg_into_db(&msg, msg_table, t);
-				insert_media_info_to_db(&msg, file_path);
-				tgl_do_send_document(TLS, -1, msg.to_id, file_path, &on_message_sent_to_buddy, (void*) (t));
-				free(msg_table);
-				free(phone);
-			}
-		}
-	}
-#else
 	char* msg_table = get_table_name_from_number(buddy_id);
 	insert_msg_into_db(&msg, msg_table, t);
 	insert_media_info_to_db(&msg, file_path);
 	tgl_do_send_document(TLS, -1, msg.to_id, file_path, &on_message_sent_to_buddy, (void*) (t));
 	free(msg_table);
+#else
+
+	char* msg_table = get_table_name_from_number(buddy_id);
+	struct tgl_message* msg = get_message_from_message_table(message_id, msg_table);
+
+	if (msg) {
+		if (type_of_chat == TGL_PEER_USER) {
+
+			msg->from_id.type = TGL_PEER_USER;
+			msg->to_id.type = TGL_PEER_USER;
+
+
+			if (msg->media.type == tgl_message_media_photo) {
+				tgl_do_send_document(TLS, -1, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg->id));
+			}
+
+
+		} else if (type_of_chat == TGL_PEER_CHAT) {
+			msg->from_id.type = TGL_PEER_CHAT;
+			msg->to_id.type = TGL_PEER_CHAT;
+
+			if (msg->media.type == tgl_message_media_photo) {
+				tgl_do_send_document(TLS, -1, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg->id));
+			}
+
+
+		} else if (type_of_chat == TGL_PEER_ENCR_CHAT) {
+
+		} else {
+
+		}
+		if (msg->message) {
+			free(msg->message);
+		}
+		free(msg);
+	}
+	free(msg_table);
+
 #endif
 }
 

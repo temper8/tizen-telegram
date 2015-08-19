@@ -48,6 +48,10 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
     	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
     	int buddy_id = atoi(buddy_id_str);
 
+    	char* message_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "message_id", &message_id_str);
+    	int message_id = atoi(message_id_str);
+
     	char* msg_type_str = NULL;
     	res = bundle_get_str(rec_msg, "message_type", &msg_type_str);
     	int msg_type = atoi(msg_type_str);
@@ -59,7 +63,7 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
     	res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
     	int type_of_chat = atoi(type_of_chat_str);
 
-    	process_send_message_command(buddy_id, msg_type, msg_data_str, type_of_chat);
+    	process_send_message_command(buddy_id, message_id, msg_type, msg_data_str, type_of_chat);
 
     } else if (strcmp(cmd_key_val, "media_download_request") == 0) {
 
@@ -78,13 +82,26 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
     	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
     	int buddy_id = atoi(buddy_id_str);
 
+    	char* message_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "message_id", &message_id_str);
+    	int message_id = atoi(message_id_str);
+
+    	char* media_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "media_id", &media_id_str);
+    	int media_id = atoi(media_id_str);
+
     	char* msg_type_str = NULL;
     	res = bundle_get_str(rec_msg, "message_type", &msg_type_str);
     	int msg_type = atoi(msg_type_str);
 
     	char* file_path_str = NULL;
     	res = bundle_get_str(rec_msg, "file_path", &file_path_str);
-    	process_send_media_command(buddy_id, msg_type, file_path_str);
+
+    	char* type_of_chat_str = NULL;
+    	res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
+    	int type_of_chat = atoi(type_of_chat_str);
+
+    	process_send_media_command(buddy_id, message_id, media_id, msg_type, file_path_str, type_of_chat);
 
     } else if (strcmp(cmd_key_val, "profile_registration") == 0) {
 
@@ -251,6 +268,7 @@ bool service_app_create(void *data)
 	tg_data->is_login_activated = EINA_FALSE;
 	tg_data->is_group_creation_requested = EINA_FALSE;
 	tg_data->new_group_icon = NULL;
+	tg_data->is_first_time_registration = EINA_FALSE;
 
 	tg_engine_data_s* ad = data;
 

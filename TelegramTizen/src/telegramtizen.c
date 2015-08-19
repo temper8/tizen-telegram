@@ -9,6 +9,8 @@
 #include "device_contacts_manager.h"
 #include "contacts-db-utils.h"
 #include "server_requests.h"
+#include "tg_buddy_chat_view.h"
+#include "tg_init_screen.h"
 
 static void
 popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -267,6 +269,65 @@ void load_peer_data(appdata_s *ad)
 		peer_with_pic_s *item = (peer_with_pic_s*) malloc(sizeof (peer_with_pic_s));
 		item->use_data = peer_info;
 		item->contact_icon = NULL;
+
+		if (peer_info->last_msg_id > 0) {
+			// get message from message table.
+
+			char* tablename = get_table_name_from_number(peer_info->peer_id);
+			tg_message_s* msg = get_message_from_message_table(peer_info->last_msg_id, tablename);
+
+			if (msg) {
+				int media_type = msg->media_type;
+				if(media_type == tgl_message_media_none) {
+					if (msg->message && strlen(msg->message) > 0) {
+						item->last_message = strdup(msg->message);
+					} else {
+						item->last_message = strdup(" ");
+					}
+				} else if(media_type == tgl_message_media_photo) {
+					item->last_message = strdup("Image");
+				} else if(media_type == tgl_message_media_document) {
+					item->last_message = strdup("Document");
+				} else if(media_type == tgl_message_media_geo) {
+					item->last_message = strdup("Geo location");
+				} else if(media_type == tgl_message_media_contact) {
+					item->last_message = strdup("Contact");
+				} else if(media_type == tgl_message_media_unsupported) {
+					item->last_message = strdup(" ");
+				} else if(media_type == tgl_message_media_photo_encr) {
+					item->last_message = strdup("Image encrypted");
+				} else if(media_type == tgl_message_media_document_encr) {
+					item->last_message = strdup("Document encrypted");
+				} else  {
+					item->last_message = strdup(" ");
+				}
+
+				// delete message object
+
+				if(msg->message) {
+					free(msg->message);
+					msg->message = NULL;
+				}
+
+				if(msg->media_id) {
+					free(msg->media_id);
+					msg->media_id = NULL;
+				}
+
+				free(msg);
+				msg = NULL;
+
+			} else {
+				item->last_message = strdup(" ");
+			}
+
+			if (tablename) {
+				free(tablename);
+				tablename = NULL;
+			}
+
+		}
+
 		ad->peer_list = eina_list_append(ad->peer_list, item);
 	}
 	eina_list_free(peer_details);
@@ -800,13 +861,26 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     	if (type_of_chat == TGL_PEER_USER) {
     		if (app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
     				&& app->buddy_in_cahtting_data->peer_id == from_id) {
+#if 0
     			char* tablename = get_table_name_from_number(from_id);
     			tg_message_s* msg = get_message_from_message_table(message_id, tablename);
     			if (msg) {
     				on_chat_buddy_msg_receive(msg, type_of_chat);
     			}
+				if(msg->message) {
+					free(msg->message);
+					msg->message = NULL;
+				}
+
+				if(msg->media_id) {
+					free(msg->media_id);
+					msg->media_id = NULL;
+				}
     			free(tablename);
     			free(msg);
+#else
+    			on_message_received_from_buddy(app, message_id, type_of_chat);
+#endif
     		}
     	} else if (type_of_chat == TGL_PEER_CHAT) {
     		if (app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
@@ -816,6 +890,15 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     			if (msg) {
     				on_chat_buddy_msg_receive(msg, type_of_chat);
     			}
+				if(msg->message) {
+					free(msg->message);
+					msg->message = NULL;
+				}
+
+				if(msg->media_id) {
+					free(msg->media_id);
+					msg->media_id = NULL;
+				}
     			free(tablename);
     			free(msg);
     		}
@@ -845,14 +928,23 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 		if (msg && app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
 				&& app->buddy_in_cahtting_data->peer_id == buddy_id) {
-
 			// update message to sent state
 			// show_toast(app, "message sent successfully");
-			on_message_sent_to_buddy_successfully(msg, type_of_chat);
-
+			//on_message_sent_to_buddy_successfully(app, msg, type_of_chat);
+			on_message_state_changed(app, msg, type_of_chat);
 		}
+		if (msg) {
+			if(msg->message) {
+				free(msg->message);
+				msg->message = NULL;
+			}
 
-		free(msg);
+			if(msg->media_id) {
+				free(msg->media_id);
+				msg->media_id = NULL;
+			}
+			free(msg);
+		}
     } else if (strcmp(rec_key_val, "message_read_by_buddy") == 0) {
     	char* buddy_id_str = NULL;
     	result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
@@ -879,10 +971,21 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 			// update message to sent state
 			// show_toast(app, "message sent successfully");
-			on_message_read_by_buddy_successfully(msg, type_of_chat);
+			//on_message_read_by_buddy_successfully(app, msg, type_of_chat);
+			on_message_state_changed(app, msg, type_of_chat);
 		}
+		if (msg) {
+			if(msg->message) {
+				free(msg->message);
+				msg->message = NULL;
+			}
 
-		free(msg);
+			if(msg->media_id) {
+				free(msg->media_id);
+				msg->media_id = NULL;
+			}
+			free(msg);
+		}
     } else if (strcmp(rec_key_val, "media_download_completed") == 0) {
 
     	char* buddy_id_str = NULL;
@@ -899,7 +1002,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		if (file_name && app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
 				&& app->buddy_in_cahtting_data->peer_id == buddy_id) {
 			// update media to sent state
-			on_received_image_loaded(buddy_id, media_id, file_name);
+			//on_received_image_loaded(buddy_id, media_id, file_name);
+			on_image_download_completed(app, buddy_id, media_id, file_name);
 		}
     } else if (strcmp(rec_key_val, "name_registration_request") == 0) {
 
@@ -995,8 +1099,12 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     	char* buddy_id_str = NULL;
     	result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
     	int buddy_id = atoi(buddy_id_str);
-
     	// update to online or last seen, if current view is conversation.
+
+    	// sandeep
+		if (app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->peer_id == buddy_id) {
+			on_budy_state_changed(app, buddy_id);
+		}
 
     } else if (strcmp(rec_key_val, "type_status_updated") == 0) {
 
@@ -1115,6 +1223,10 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
 	switch(ad->current_app_state) {
+		case TG_INIT_SCREEN_STATE:
+			elm_win_lower(ad->win);
+			elm_exit();
+		break;
 		case TG_REGISTRATION_STATE:
 			elm_win_lower(ad->win);
 			elm_exit();
@@ -1133,6 +1245,11 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_exit();
 			break;
 		case TG_BUDDY_CHAT_CONV_STATE:
+			ad->buddy_in_cahtting_data = NULL;
+			if (ad->loaded_msg_list) {
+				eina_list_free(ad->loaded_msg_list);
+				ad->loaded_msg_list = NULL;
+			}
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_BUDDY_LIST_STATE;
 			//evas_object_show(ad->panel);
@@ -1211,11 +1328,18 @@ static void create_base_gui(appdata_s *ad)
 	elm_win_conformant_set(ad->win, EINA_TRUE);
 	elm_win_autodel_set(ad->win, EINA_TRUE);
 
+	elm_win_indicator_mode_set(ad->win, ELM_WIN_INDICATOR_SHOW);
+	elm_app_base_scale_set(1.8);
+
 	if (elm_win_wm_rotation_supported_get(ad->win)) {
 		int rots[4] = { 0, 90, 180, 270 };
 		elm_win_wm_rotation_available_rotations_set(ad->win, (const int *)(&rots), 4);
 	}
 
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_CUSTOM_WINSET_EDJ, edj_path, (int)PATH_MAX);
+
+	elm_theme_extension_add(NULL, edj_path);
 	evas_object_smart_callback_add(ad->win, "delete,request", win_delete_request_cb, NULL);
 
 	ad->conform = elm_conformant_add(ad->win);
@@ -1248,10 +1372,9 @@ static void create_base_gui(appdata_s *ad)
 	if (!user_info) {
 		elm_naviframe_item_pop(ad->nf);
 		ad->current_app_state = TG_REGISTRATION_STATE;
-		launch_registration_cb(ad);
-
+		//launch_registration_cb(ad);
 		//launch_first_registration_cb(ad);
-
+		launch_init_screen(ad);
 	} else {
 		//show_toast(ad, "user already registered");
 		load_registered_user_data(ad, user_info);
@@ -1280,6 +1403,7 @@ app_create(void *data)
 	ad->buddy_list = NULL;
 	ad->is_first_time_registration = EINA_FALSE;
 	ad->panel = NULL;
+	ad->loaded_msg_list = NULL;
 	create_base_gui(ad);
 	init_service(ad);
 	return true;
@@ -1379,3 +1503,7 @@ main(int argc, char *argv[])
 
 	return ret;
 }
+
+
+
+

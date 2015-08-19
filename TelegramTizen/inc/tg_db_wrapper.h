@@ -115,6 +115,7 @@
 #define MESSAGE_INFO_TABLE_DATE "date"
 #define MESSAGE_INFO_TABLE_SERVICE "service"
 #define MESSAGE_INFO_TABLE_MESSAGE "message"
+#define MESSAGE_INFO_TABLE_MESSAGE_STATE "message_state"
 #define MESSAGE_INFO_TABLE_MESSAGE_LENGTH "message_len"
 #define MESSAGE_INFO_TABLE_MEDIA_TYPE "media_type"
 #define MESSAGE_INFO_TABLE_MEDIA_ID "media_id"
@@ -173,5 +174,11 @@ tg_chat_info_s* get_chat_info(int chat_id);
 Eina_List* get_group_chat_details();
 
 Eina_List* get_all_peer_details();
+
+void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id);
+void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int height, int size);
+
+Eina_List* get_image_details_from_db(long long media_id);
+Eina_List* get_image_sizes_from_db(long long media_id);
 
 #endif /* TG_DB_WRAPPER_H_ */

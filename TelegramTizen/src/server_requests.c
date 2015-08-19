@@ -122,7 +122,7 @@ void send_request_for_validation(service_client* service_client, const char* sms
 	bundle_free(msg);
 }
 
-void send_request_for_message_transport(service_client* service_client, const int buddy_id, const int msg_type, const char* data, const int type_of_chat)
+void send_request_for_message_transport(service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat)
 {
 	if (!service_client || !data) {
 		// error
@@ -144,6 +144,14 @@ void send_request_for_message_transport(service_client* service_client, const in
 	sprintf(buddy_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char message_id_str[50];
+	sprintf(message_id_str, "%d", message_id);
+
+	if (bundle_add_str(msg, "message_id", message_id_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
@@ -178,7 +186,7 @@ void send_request_for_message_transport(service_client* service_client, const in
 	bundle_free(msg);
 }
 
-void send_request_for_media_transport(service_client* service_client, const int buddy_id, const int msg_type, const char* file_path)
+void send_request_for_media_transport(service_client* service_client, const int buddy_id, const int message_id, const int media_id,  const int msg_type, const char* file_path, const int type_of_chat)
 {
 	if (!service_client || !file_path) {
 		// error
@@ -204,6 +212,22 @@ void send_request_for_media_transport(service_client* service_client, const int 
 		bundle_free(msg);
 	}
 
+	char message_id_str[50];
+	sprintf(message_id_str, "%d", message_id);
+
+	if (bundle_add_str(msg, "message_id", message_id_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char media_id_str[50];
+	sprintf(media_id_str, "%d", media_id);
+
+	if (bundle_add_str(msg, "media_id", media_id_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
 	char msg_type_str[10];
 	sprintf(msg_type_str, "%d", msg_type);
 
@@ -213,6 +237,14 @@ void send_request_for_media_transport(service_client* service_client, const int 
 	}
 
 	if (bundle_add_str(msg, "file_path", file_path) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char type_of_chat_str[50];
+	sprintf(type_of_chat_str, "%d", type_of_chat);
+
+	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}

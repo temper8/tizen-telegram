@@ -178,8 +178,8 @@ typedef struct contact_data {
 } contact_data_s;
 
 
-void send_message_to_buddy(int buddy_id, int msg_type, char* msg_data, int type_of_chat);
-void send_media_to_buddy(int buddy_id, int msg_type, char* file_path);
+void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
+void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
 
 void media_download_request(int buddy_id, long long media_id);
 void add_contacts_to_user(int size, Eina_List* contact_list);

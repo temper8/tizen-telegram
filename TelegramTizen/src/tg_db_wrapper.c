@@ -727,6 +727,7 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_DATE);
 		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_SERVICE);
 		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_STATE);
 		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_LENGTH);
 		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
@@ -744,6 +745,7 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
@@ -839,31 +841,441 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 			free(temp_msg);
 		}
 
-		int *temp_message_len = (int*)eina_list_nth(ts_msg, 11);
+		int *temp_message_state = (int*)eina_list_nth(ts_msg, 11);
+		if (temp_message_state) {
+			message->msg_state  = *temp_message_state;
+			free(temp_message_state);
+		}
+
+		int *temp_message_len = (int*)eina_list_nth(ts_msg, 12);
 		if (temp_message_len) {
 			message->message_len  = *temp_message_len;
 			free(temp_message_len);
 		}
 
-		int *temp_media_type = (int*)eina_list_nth(ts_msg, 12);
+		int *temp_media_type = (int*)eina_list_nth(ts_msg, 13);
 		if (temp_media_type) {
 			message->media_type  = *temp_media_type;
 			free(temp_media_type);
 		}
 
-		char *temp_media_id = (char*)eina_list_nth(ts_msg, 13);
+		char *temp_media_id = (char*)eina_list_nth(ts_msg, 14);
 		if (temp_media_id) {
 			message->media_id  = strdup(temp_media_id);
 			free(temp_media_id);
 		}
 
-		int *temp_unique_id = (int*)eina_list_nth(ts_msg, 14);
+		int *temp_unique_id = (int*)eina_list_nth(ts_msg, 15);
 		if (temp_unique_id) {
 			message->unique_id  = *temp_unique_id;
 			free(temp_unique_id);
 		}
 	}
 	return message;
+}
+
+void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
+{
+	if(!M) {
+		return;
+	}
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	if(db) {
+		Eina_List* col_names = NULL;
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_DATE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FROM_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_TO_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_OUT_MSG);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNREAD);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_DATE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_SERVICE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_STATE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_LENGTH);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+
+
+		Eina_List* col_types = NULL;
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+		Eina_List* col_values = NULL;
+		col_values = eina_list_append(col_values, &(M->msg_id));
+		col_values = eina_list_append(col_values, &(M->flags));
+		col_values = eina_list_append(col_values, &(M->fwd_from_id));
+		col_values = eina_list_append(col_values, &(M->fwd_date));
+		col_values = eina_list_append(col_values, &(M->from_id));
+		col_values = eina_list_append(col_values, &(M->to_id));
+		col_values = eina_list_append(col_values, &(M->out));
+		col_values = eina_list_append(col_values, &(M->unread));
+		col_values = eina_list_append(col_values, &(M->date));
+		col_values = eina_list_append(col_values, &(M->service));
+
+		if(M->message)
+			col_values = eina_list_append(col_values, M->message);
+		else
+			col_values = eina_list_append(col_values, " ");
+
+		col_values = eina_list_append(col_values, &(M->msg_state));
+		col_values = eina_list_append(col_values, &(M->message_len));
+		col_values = eina_list_append(col_values, &(M->media_type));
+
+		col_values = eina_list_append(col_values, M->media_id);
+
+		col_values = eina_list_append(col_values, &unique_id);
+
+		Eina_Bool ret = insert_table(db, table_name, col_names, col_types,col_values);
+		if(!ret) {
+			//("error: database creation failed");
+		} else {
+
+		}
+		eina_list_free(col_names);
+		eina_list_free(col_types);
+		eina_list_free(col_values);
+		close_database(db);
+	}
+}
+
+void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int height, int size)
+{
+	if(!M || !file_path) {
+		return;
+	}
+
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	char* table_name = MEDIA_INFO_TABLE_NAME;
+
+	if(db) {
+		Eina_List* col_names = NULL;
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_ID);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_TYPE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_ACCESS_HASH);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_USER_ID);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DATE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_CAPTION);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_LONGITUDE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_LATITUDE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_SIZES_NUM);
+
+
+		/********************************************************************/
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA1);
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA2);
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA3);
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA4);
+
+
+		/********************************************************************/
+
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHONE_NO);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_FIRST_NAME);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_LAST_NAME);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_FILE_PATH);
+
+		Eina_List* col_types = NULL;
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		Eina_List* col_values = NULL;
+
+
+		int media_type = M->media_type;
+
+		if (media_type == tgl_message_media_photo) {
+
+			col_values = eina_list_append(col_values,M->media_id);
+			col_values = eina_list_append(col_values, &(media_type));
+
+			long temp_val = 0;
+
+			char access_hash_str[50];
+			sprintf(access_hash_str, "%lld", temp_val);
+
+			col_values = eina_list_append(col_values, access_hash_str);
+			col_values = eina_list_append(col_values, &(temp_val));
+			col_values = eina_list_append(col_values, &(M->date));
+
+			col_values = eina_list_append(col_values, "");
+
+			double longitude = 0.0f;
+			double latitude = 0.0f;
+
+			char long_str[50];
+			sprintf(long_str,"%lf",longitude);
+
+			char lat_str[50];
+			sprintf(lat_str,"%lf",latitude);
+
+			col_values = eina_list_append(col_values, long_str);
+			col_values = eina_list_append(col_values, long_str);
+
+
+
+			int temp_sizes = 4;
+			col_values = eina_list_append(col_values, &temp_sizes);
+
+
+			for (int j = 0; j < 4; j++) {
+
+				char* photo_type = "";
+				col_values = eina_list_append(col_values, photo_type);
+
+				int photo_loc_dc = -1;
+				col_values = eina_list_append(col_values, &photo_loc_dc);
+
+				col_values = eina_list_append(col_values, "");
+
+				int photo_loc_id = -1;
+				col_values = eina_list_append(col_values, &photo_loc_id);
+
+
+				col_values = eina_list_append(col_values, "");
+
+
+				col_values = eina_list_append(col_values, &width);
+
+				col_values = eina_list_append(col_values, &height);
+
+				col_values = eina_list_append(col_values, &size);
+
+				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_data);
+
+			}
+
+
+		} else if (media_type == tgl_message_media_document) {
+
+			int temp_val = 0;
+			col_values = eina_list_append(col_values, &(temp_val));
+			col_values = eina_list_append(col_values, &(temp_val));
+			col_values = eina_list_append(col_values, &(temp_val));
+			col_values = eina_list_append(col_values, &(temp_val));
+			col_values = eina_list_append(col_values, &(temp_val));
+
+
+			col_values = eina_list_append(col_values, "");
+
+			double longitude = 0.0f;
+			double latitude = 0.0f;
+
+			char long_str[50];
+			sprintf(long_str,"%lf",longitude);
+
+			char lat_str[50];
+			sprintf(lat_str,"%lf",latitude);
+
+			col_values = eina_list_append(col_values, long_str);
+			col_values = eina_list_append(col_values, long_str);
+			col_values = eina_list_append(col_values, &(temp_val));
+
+
+			for (int j = 0; j < 4; j++) {
+
+				char* photo_type = "";
+				col_values = eina_list_append(col_values, photo_type);
+
+				int photo_loc_dc = -1;
+				col_values = eina_list_append(col_values, &photo_loc_dc);
+
+				col_values = eina_list_append(col_values, "");
+
+				int photo_loc_id = -1;
+				col_values = eina_list_append(col_values, &photo_loc_id);
+
+				col_values = eina_list_append(col_values, "");
+
+				col_values = eina_list_append(col_values, &width);
+
+				col_values = eina_list_append(col_values, &height);
+
+				col_values = eina_list_append(col_values, &size);
+
+				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_data);
+
+			}
+		} else {
+			// To be checked
+			int dummy = 0;
+			col_values = eina_list_append(col_values, &(dummy));
+			col_values = eina_list_append(col_values, &(media_type));
+			col_values = eina_list_append(col_values, &(dummy));
+			col_values = eina_list_append(col_values, &(dummy));
+			col_values = eina_list_append(col_values, &(dummy));
+
+			col_values = eina_list_append(col_values, "");
+
+			double longitude = 0.0f;
+			double latitude = 0.0f;
+
+			char long_str[50];
+			sprintf(long_str,"%lf",longitude);
+
+			char lat_str[50];
+			sprintf(lat_str,"%lf",latitude);
+
+			col_values = eina_list_append(col_values, long_str);
+			col_values = eina_list_append(col_values, long_str);
+			col_values = eina_list_append(col_values, &(dummy));
+
+			for (int j = 0; j < 4; j++) {
+
+				char* photo_type = "";
+				col_values = eina_list_append(col_values, photo_type);
+
+				int photo_loc_dc = -1;
+				col_values = eina_list_append(col_values, &photo_loc_dc);
+
+				col_values = eina_list_append(col_values, "");
+
+				int photo_loc_id = -1;
+				col_values = eina_list_append(col_values, &photo_loc_id);
+
+
+				col_values = eina_list_append(col_values, "");
+
+				col_values = eina_list_append(col_values, &width);
+
+				col_values = eina_list_append(col_values, &height);
+
+				col_values = eina_list_append(col_values, &size);
+
+				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_data);
+			}
+		}
+
+		col_values = eina_list_append(col_values, "");
+
+		col_values = eina_list_append(col_values, "");
+
+		col_values = eina_list_append(col_values, "");
+
+		col_values = eina_list_append(col_values, file_path);
+
+		Eina_Bool ret = insert_table(db, table_name, col_names, col_types,col_values);
+		if(!ret) {
+			//("error: database creation failed");
+		} else {
+
+		}
+		eina_list_free(col_names);
+		eina_list_free(col_types);
+		eina_list_free(col_values);
+		close_database(db);
+	}
 }
 
 
@@ -921,3 +1333,191 @@ char* get_image_path_from_db(long long media_id)
 	return file_path;
 }
 
+Eina_List* get_image_sizes_from_db(long long media_id)
+{
+	Eina_List* vals = NULL;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	if(db) {
+		char* table_name = MEDIA_INFO_TABLE_NAME;
+		char usr_str[50];
+		sprintf(usr_str,"%lld",media_id);
+		char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
+		strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
+		strcat(where_clause, " = ");
+		strcat(where_clause, usr_str);
+
+		Eina_List* col_types = NULL;
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+		Eina_List* col_names = NULL;
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT4);
+		vals = get_values_from_table_sync(db, table_name, col_names, col_types, where_clause);
+		close_database(db);
+		eina_list_free(col_types);
+		eina_list_free(col_names);
+	}
+	return vals;
+}
+
+Eina_List* get_image_details_from_db(long long media_id)
+{
+	Eina_List* vals = NULL;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	if(db) {
+		char* table_name = MEDIA_INFO_TABLE_NAME;
+
+		char usr_str[50];
+		sprintf(usr_str,"%lld",media_id);
+		char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
+		strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
+		strcat(where_clause, " = ");
+		strcat(where_clause, usr_str);
+
+		Eina_List* col_types = NULL;
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+		Eina_List* col_names = NULL;
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_ID);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_TYPE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_ACCESS_HASH);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_USER_ID);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DATE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_CAPTION);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_LONGITUDE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_LATITUDE);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_SIZES_NUM);
+
+		/********************************************************************/
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE1);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA1);
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE2);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA2);
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE3);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA3);
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_TYPE4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_DC4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_VOL4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_ID4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_LOC_SECRET4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE4);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_DATA4);
+
+		/********************************************************************/
+
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHONE_NO);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_FIRST_NAME);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_LAST_NAME);
+		col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_FILE_PATH);
+
+		vals = get_values_from_table_sync(db, table_name, col_names, col_types, where_clause);
+		close_database(db);
+		eina_list_free(col_types);
+		eina_list_free(col_names);
+	}
+	return vals;
+}

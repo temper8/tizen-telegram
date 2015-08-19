@@ -165,9 +165,9 @@ Evas_Object* on_group_buddy_selection_part_content_get_cb(void *data, Evas_Objec
 		user_data_s* user = item->use_data;
 
 		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
-			image = buddy_widget_main_icon_get(user->photo_path, obj);
+			image = create_image_object_from_file(user->photo_path, obj);
 		} else {
-			image = buddy_widget_main_icon_get(ui_utils_get_resource(FM_ICON_ROBO_BUDDY), obj);
+			image = create_image_object_from_file(ui_utils_get_resource(FM_ICON_ROBO_BUDDY), obj);
 		}
 
 		item->contact_icon = image;

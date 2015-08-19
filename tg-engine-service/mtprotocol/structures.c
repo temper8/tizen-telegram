@@ -2077,7 +2077,7 @@ void tglm_update_message_id(struct tgl_state *TLS, struct tgl_message *M, long l
 
 void tglm_message_insert_tree(struct tgl_state *TLS, struct tgl_message *M)
 {
-	assert(M->id);
+	//assert(M->id);
 	TLS->message_tree = tree_insert_message(TLS->message_tree, M, lrand48());
 }
 

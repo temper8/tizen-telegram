@@ -14,8 +14,8 @@
 
 void process_registration_command(char* phone_no, Eina_Bool trough_sms);
 void process_validation_command(char* code);
-void process_send_message_command(int buddy_id, int msg_type, char* msg_data, int type_of_chat);
-void process_send_media_command(int buddy_id, int msg_type, char* file_path);
+void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
+void process_send_media_command(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
 void process_media_download_command(int buddy_id, long long media_id);
 void process_add_contacts_command(int size, Eina_List* contact_list);
 void process_new_group_create_command(Eina_List* buddy_ids, const char* group_name, const char* group_icon);
