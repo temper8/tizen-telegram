@@ -11,6 +11,7 @@
 #include "server_requests.h"
 #include "tg_buddy_chat_view.h"
 #include "tg_init_screen.h"
+#include "tg_user_main_view.h"
 
 static void
 popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -723,7 +724,13 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     			load_group_chat_data(app);
     			load_peer_data(app);
         		elm_naviframe_item_pop(app->nf);
-    			launch_buddy_list_cb(app);
+
+    			//launch_buddy_list_cb(app);
+
+        		launch_user_main_view_cb(app);
+
+
+
     		} else if (app->current_app_state == TG_BUDDY_LIST_STATE) {
     			refresh_buddy_list(app);
     		} else {
@@ -1226,18 +1233,31 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 		case TG_INIT_SCREEN_STATE:
 			elm_win_lower(ad->win);
 			elm_exit();
-		break;
+			break;
+		case TG_START_MESSAGING_VIEW_STATE:
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+			break;
 		case TG_REGISTRATION_STATE:
 			elm_win_lower(ad->win);
 			elm_exit();
 			break;
 		case TG_LOGIN_STATE:
+
+			if (ad->timer_value > 0) {
+				Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
+				if (timer)
+					ecore_timer_del(timer);
+			}
+
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_REGISTRATION_STATE;
 			break;
 		case TG_PROFILE_REGISTRATION_STATE:
-			ad->current_app_state = TG_REGISTRATION_STATE;
-			elm_naviframe_item_pop(ad->nf);
+/*			ad->current_app_state = TG_REGISTRATION_STATE;
+			elm_naviframe_item_pop(ad->nf);*/
+			elm_win_lower(ad->win);
+			elm_exit();
 			break;
 		case TG_BUDDY_LIST_STATE:
 			evas_object_data_set(ad->nf, "buddy_list", NULL);
@@ -1372,9 +1392,8 @@ static void create_base_gui(appdata_s *ad)
 	if (!user_info) {
 		elm_naviframe_item_pop(ad->nf);
 		ad->current_app_state = TG_REGISTRATION_STATE;
-		//launch_registration_cb(ad);
-		//launch_first_registration_cb(ad);
 		launch_init_screen(ad);
+		//launch_user_main_view_cb(ad);
 	} else {
 		//show_toast(ad, "user already registered");
 		load_registered_user_data(ad, user_info);
@@ -1383,7 +1402,8 @@ static void create_base_gui(appdata_s *ad)
 		load_peer_data(ad);
 		// Launch buddy list view
 		elm_naviframe_item_pop(ad->nf);
-		launch_buddy_list_cb(ad);
+		//launch_buddy_list_cb(ad);
+		launch_user_main_view_cb(ad);
 	}
 	//eina_list_free(user_info);
 }

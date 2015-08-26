@@ -335,7 +335,7 @@ Eina_List* get_all_peer_details()
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 		//peer_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL);
-		peer_details = get_values_from_table_sync_order_by(db, table_name, col_names, col_types, PEER_INFO_TABLE_LAST_MESSAGE_DATE, EINA_FALSE);
+		peer_details = get_values_from_table_sync_order_by(db, table_name, col_names, col_types, PEER_INFO_TABLE_LAST_MESSAGE_DATE, EINA_FALSE, NULL);
 
 		eina_list_free(col_names);
 		eina_list_free(col_types);
@@ -645,7 +645,15 @@ Eina_List* get_buddy_list_info()
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-		user_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL);
+
+		char* where_clause = (char*)malloc(strlen(BUDDY_INFO_TABLE_REAL_FIRST_NAME) + strlen(" <> ") + strlen("'Telegram'") + 1);
+		strcpy(where_clause, BUDDY_INFO_TABLE_REAL_FIRST_NAME);
+		strcat(where_clause, " <> ");
+		strcat(where_clause, "'Telegram'");
+
+
+		//user_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL);
+		user_details = get_values_from_table_sync_order_by(db, table_name, col_names, col_types, BUDDY_INFO_TABLE_PRINT_NAME, EINA_TRUE, where_clause);
 
 		eina_list_free(col_names);
 		eina_list_free(col_types);

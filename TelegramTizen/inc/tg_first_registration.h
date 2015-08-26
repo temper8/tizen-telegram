@@ -10,7 +10,7 @@
 
 #include "tg_common.h"
 
-extern void launch_first_registration_cb(void *data);
+extern void launch_first_registration_cb(appdata_s *ad);
 
 
 

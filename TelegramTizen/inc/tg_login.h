@@ -11,6 +11,6 @@
 
 #include "tg_common.h"
 
-extern void launch_login_cb(void *data);
+extern void launch_login_cb(appdata_s* ad);
 
 #endif /* TG_LOGIN_H_ */

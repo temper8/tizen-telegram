@@ -348,20 +348,6 @@ void on_search_clicked(void *data, Evas_Object *obj, void *event_info)
 	refresh_buddy_list(ad);
 }
 
-Evas_Object* create_button(Evas_Object *parent, char *style, char *text)
-{
-	Evas_Object *button;
-
-	button = elm_button_add(parent);
-	if (style)
-		elm_object_style_set(button, style);
-	if (text)
-		elm_object_text_set(button, text);
-	evas_object_show(button);
-
-	return button;
-}
-
 void left_panel_button_clicked_cb(void *data, Evas_Object * obj, void *event_info)
 {
 	appdata_s *ad = data;

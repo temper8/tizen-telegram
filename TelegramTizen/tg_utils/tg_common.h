@@ -32,6 +32,7 @@
 #define TELEGRAM_CUSTOM_WINSET_EDJ	"edje/telegram_theme.edj"
 #define TELEGRAM_CHAT_VIEW_EDJ	"edje/telegram_chat_view.edj"
 #define TELEGRAM_INIT_VIEW_EDJ	"edje/telegram_init_screen.edj"
+#define TELEGRAM_GENLIST_THEME_EDJ	"edje/telegram_genlist_theme.edj"
 
 
 #define GRP_MAIN "main"
@@ -41,9 +42,9 @@
 #define FM_ICON_PATH "images/"
 #define FM_ICON_ROBO_BUDDY       FM_ICON_PATH"robo_buddy.png"
 #define SEARCH_ICON FM_ICON_PATH"/search_icon.png"
-#define ATTACH_ICON FM_ICON_PATH"/attach_icon.png"
-#define SMILEY_ICON FM_ICON_PATH"/smiley_icon.png"
-#define SEND_ICON FM_ICON_PATH"/send_icon.png"
+#define ATTACH_ICON FM_ICON_PATH"/ic_ab_attach.png"
+#define SMILEY_ICON FM_ICON_PATH"/ic_msg_panel_smiles.png"
+#define SEND_ICON FM_ICON_PATH"/ic_send.png"
 #define CHAT_BG FM_ICON_PATH"/chat_bg.jpg"
 #define BLUR_BG FM_ICON_PATH"/blur_img.jpg"
 #define CAMERA_ICON FM_ICON_PATH"/camera-icon.png"
@@ -64,6 +65,19 @@
 #define FM_ICON_LOCATION       FM_ICON_PATH"ic_attach_location.png"
 
 
+#define TG_ICON_FLOATING_PENCIL       FM_ICON_PATH"floating_pencil.png"
+#define TG_ICON_FLOATING_BG       FM_ICON_PATH"floating_pressed.png"
+#define TG_SEARCH_ICON       FM_ICON_PATH"ic_ab_search.png"
+
+#define TG_MENU_GROUP       FM_ICON_PATH"menu_newgroup.png"
+#define TG_MENU_INVITE       FM_ICON_PATH"menu_invite.png"
+#define TG_MENU_CONTACTS       FM_ICON_PATH"menu_contacts.png"
+#define TG_MENU_SECRET       FM_ICON_PATH"menu_secret.png"
+#define TG_MENU_SETTINGS       FM_ICON_PATH"menu_settings.png"
+
+#define TG_CHAT_DEFAULT_BG       FM_ICON_PATH"background_hd.jpg"
+
+
 #define INIT_SCREEN_1       FM_ICON_PATH"screenshot_1.png"
 #define INIT_SCREEN_2       FM_ICON_PATH"screenshot_2.png"
 #define INIT_SCREEN_3       FM_ICON_PATH"screenshot_3.png"
@@ -71,6 +85,8 @@
 #define INIT_SCREEN_5       FM_ICON_PATH"screenshot_5.png"
 #define INIT_SCREEN_6       FM_ICON_PATH"screenshot_6.png"
 #define INIT_SCREEN_7       FM_ICON_PATH"screenshot_7.png"
+#define TG_NO_CHAT_LIST       FM_ICON_PATH"no_chat.png"
+
 
 
 
@@ -118,6 +134,24 @@ static char *phone_codes[SIZE_CODE][2] = { {"Argentina (+54)", "+54"},
 										{"United States (+1)" , "+1"}
 									     };
 
+
+
+#define NUMBER_OF_MENU_ITEMS 5
+
+#define MENU_NEW_GROUP "New Group"
+#define MENU_SECRET_CHAT "New secret Chat"
+#define MENU_CONTACTS "Contacts"
+#define MENU_INVITE_FRIENDS "Invite Friends"
+#define MENU_SETTINGS "settings"
+
+static char* main_view_menu_items[NUMBER_OF_MENU_ITEMS][2] = { {MENU_NEW_GROUP, TG_MENU_GROUP},
+										{MENU_SECRET_CHAT, TG_MENU_SECRET},
+										{MENU_CONTACTS, TG_MENU_CONTACTS},
+										{MENU_INVITE_FRIENDS, TG_MENU_INVITE},
+										{MENU_SETTINGS, TG_MENU_SETTINGS}
+									     };
+
+
 typedef enum {
 	CHAT_MESSAGE_BUBBLE_NONE = 0,
 	CHAT_MESSAGE_BUBBLE_SENT,
@@ -136,7 +170,7 @@ static Elm_Entry_Filter_Accept_Set accept_set = {
  };
 
 #define MAX_NUM_LENGTH 10
-
+#define MAX_CODE_LENGTH 5
 
 typedef struct {
 	int type;
@@ -187,7 +221,9 @@ typedef enum state_of_app {
 	TG_BUDDY_LIST_SELECTION_STATE,
 	TG_GROUP_CHAT_NAME_ENTRY_STATE,
 	TG_BUDDY_CHAT_STATE,
-	TG_BUDDY_CHAT_CONV_STATE
+	TG_BUDDY_CHAT_CONV_STATE,
+	TG_USER_MAIN_VIEW_STATE,
+	TG_START_MESSAGING_VIEW_STATE
 } state_of_app_s;
 
 enum tgl_typing_status {
@@ -340,6 +376,7 @@ typedef struct appdata {
 	service_client* service_client;
 	Eina_Bool is_first_time_registration;
 	Eina_List* loaded_msg_list;
+	int timer_value;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
@@ -378,6 +415,47 @@ static char*  trim(char * s)
 		++s, --l;
 
 	return strndup(s, l);
+}
+
+static Evas_Object* create_circle_button(Evas_Object *parent, char* text, char* filepath) {
+	Evas_Object *button, *image;
+	button= elm_button_add(parent);
+	elm_object_style_set(button, "circle");
+	if (text)
+		elm_object_text_set(button, text);
+	image = elm_image_add(button);
+	elm_image_file_set(image, filepath, NULL);
+	elm_image_resizable_set(image, EINA_TRUE, EINA_TRUE);
+	elm_object_part_content_set(button, "icon", image);
+	evas_object_smart_callback_add(button, "clicked", NULL, NULL);
+	evas_object_show(button);
+	return button;
+}
+
+static void on_menu_list_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+}
+
+static void on_user_list_search_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+	show_toast(ad, "search clicked");
+}
+
+static Evas_Object* create_button(Evas_Object *parent, char *style, char *text)
+{
+	Evas_Object *button;
+
+	button = elm_button_add(parent);
+	if (style)
+		elm_object_style_set(button, style);
+	if (text)
+		elm_object_text_set(button, text);
+	evas_object_show(button);
+
+	return button;
 }
 
 static int numbers_only(const char *s)
@@ -444,7 +522,7 @@ static Eina_Bool compare_date_with_current_date(int rtime) {
 	return EINA_FALSE;
 }
 
-static void telegram_set_mask_and_circular_pic(Evas_Object *image, char *image_path, char *mask_path, int width, int height)
+static void telegram_set_c(Evas_Object *image, char *image_path, char *mask_path, int width, int height)
 {
 	if (image == NULL)
 		return;

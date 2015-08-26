@@ -325,7 +325,7 @@ Eina_Bool get_values_from_table(sqlite3* db, const char* table_name, Eina_List* 
 	return EINA_TRUE;
 }
 
-Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc)
+Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause)
 {
 	Eina_List* query_vals = NULL;
 
@@ -397,6 +397,13 @@ Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_na
 	var_query = realloc(var_query, strlen(var_query) + strlen(table_name) + 1);
 	strcat(var_query, table_name);
 
+	if (where_clause) {
+		var_query = realloc(var_query, strlen(var_query)+strlen(" WHERE ") + 1);
+		strcat(var_query, " WHERE ");
+		var_query = realloc(var_query, strlen(var_query)+strlen(where_clause) + 1);
+		strcat(var_query, where_clause);
+	}
+
 	if (order_column) {
 		var_query = realloc(var_query, strlen(var_query)+strlen(" ORDER BY ") + 1);
 		strcat(var_query, " ORDER BY ");
@@ -410,6 +417,8 @@ Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_na
 			strcat(var_query, " DESC ");
 		}
 	}
+
+
 
 	var_query = realloc(var_query, strlen(var_query) + 2);
 	strcat(var_query, ";");
