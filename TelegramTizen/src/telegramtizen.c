@@ -12,6 +12,7 @@
 #include "tg_buddy_chat_view.h"
 #include "tg_init_screen.h"
 #include "tg_user_main_view.h"
+#include "tg_messaging_view.h"
 
 static void
 popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -669,23 +670,6 @@ void load_buddy_list_data(appdata_s *ad)
 	eina_list_free(user_info);
 }
 
-Eina_Bool event_idler_cb(void *data)
-{
-    appdata_s *app = data;
-	load_buddy_list_data(app);
-	load_group_chat_data(app);
-	load_peer_data(app);
-
-	if (app->current_app_state == TG_BUDDY_LIST_STATE) {
-    	refresh_buddy_list(app);
-		show_toast(app, "new group created");
-    } else {
-    	elm_naviframe_item_pop(app->nf);
-    	refresh_buddy_list(app);
-    }
-	return ECORE_CALLBACK_CANCEL;
-}
-
 static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 {
     int result = SVC_RES_FAIL;
@@ -732,7 +716,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 
     		} else if (app->current_app_state == TG_BUDDY_LIST_STATE) {
-    			refresh_buddy_list(app);
+    			////refresh_buddy_list(app);
     		} else {
 
     		}
@@ -756,12 +740,13 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     			load_group_chat_data(app);
     			load_peer_data(app);
         		elm_naviframe_item_pop(app->nf);
-    			launch_buddy_list_cb(app);
+    			//launch_buddy_list_cb(app);
+        		launch_user_main_view_cb(app);
     		} else if (app->current_app_state == TG_BUDDY_LIST_STATE) {
     			app->current_app_state = TG_BUDDY_LIST_STATE;
     			evas_object_show(app->panel);
     			elm_panel_hidden_set(app->panel, EINA_FALSE);
-    			refresh_buddy_list(app);
+    			////refresh_buddy_list(app);
     		} else {
 
     		}
@@ -842,56 +827,15 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
     	//load message from the received info.
     	// get phone number using buddy id.
-#if 0
-    	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
 
-    	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-    		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
-    		if (buddy_details && eina_list_count(buddy_details) > 0) {
-    			char* phone = eina_list_nth(buddy_details, 7);
-    			if (phone) {
-    				// get table name from phone number
-    				char* tablename = get_table_name_from_number(phone);
-    				tg_message_s* msg = get_message_from_message_table(message_id, tablename);
-    				// display in buddy list or conversation view
-    				//check conversation view is opened or not.
-    				if (msg && app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
-    						&& app->buddy_in_cahtting_data->peer_id == buddy_id) {
-    					on_chat_buddy_msg_receive(msg);
-    				}
-    				free(tablename);
-    				free(msg);
-    			}
-    		}
-    	}
-#else
     	if (type_of_chat == TGL_PEER_USER) {
-    		if (app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
-    				&& app->buddy_in_cahtting_data->peer_id == from_id) {
-#if 0
-    			char* tablename = get_table_name_from_number(from_id);
-    			tg_message_s* msg = get_message_from_message_table(message_id, tablename);
-    			if (msg) {
-    				on_chat_buddy_msg_receive(msg, type_of_chat);
-    			}
-				if(msg->message) {
-					free(msg->message);
-					msg->message = NULL;
-				}
-
-				if(msg->media_id) {
-					free(msg->media_id);
-					msg->media_id = NULL;
-				}
-    			free(tablename);
-    			free(msg);
-#else
-    			on_message_received_from_buddy(app, message_id, type_of_chat);
-#endif
+    		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
+    				&& app->buddy_in_cahtting_data->use_data->user_id.id == from_id) {
+    			on_text_message_received_from_buddy(app, message_id, type_of_chat);
     		}
     	} else if (type_of_chat == TGL_PEER_CHAT) {
-    		if (app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
-    				&& app->buddy_in_cahtting_data->peer_id == to_id) {
+    		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
+    				&& app->buddy_in_cahtting_data->use_data->user_id.id == to_id) {
     			char* tablename = get_table_name_from_number(to_id);
     			tg_message_s* msg = get_message_from_message_table(message_id, tablename);
     			if (msg) {
@@ -911,7 +855,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     		}
 
     	}
-#endif
+
     } else if (strcmp(rec_key_val, "message_sent_to_buddy") == 0) {
     	char* buddy_id_str = NULL;
     	result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
@@ -933,12 +877,10 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
     	tg_message_s* msg = get_message_from_message_table(message_id, table_name);
 
-		if (msg && app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
-				&& app->buddy_in_cahtting_data->peer_id == buddy_id) {
+		if (msg && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
+				&& app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
 			// update message to sent state
-			// show_toast(app, "message sent successfully");
-			//on_message_sent_to_buddy_successfully(app, msg, type_of_chat);
-			on_message_state_changed(app, msg, type_of_chat);
+			on_text_message_state_changed(app, msg, type_of_chat);
 		}
 		if (msg) {
 			if(msg->message) {
@@ -973,13 +915,11 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
     	tg_message_s* msg = get_message_from_message_table(message_id, table_name);
 
-		if (msg && app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
-				&& app->buddy_in_cahtting_data->peer_id == buddy_id) {
+		if (msg && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
+				&& app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
 
 			// update message to sent state
-			// show_toast(app, "message sent successfully");
-			//on_message_read_by_buddy_successfully(app, msg, type_of_chat);
-			on_message_state_changed(app, msg, type_of_chat);
+			on_text_message_state_changed(app, msg, type_of_chat);
 		}
 		if (msg) {
 			if(msg->message) {
@@ -1006,11 +946,10 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     	char* file_name = NULL;
     	result = bundle_get_str(rec_msg, "file_name", &file_name);
 
-		if (file_name && app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data
-				&& app->buddy_in_cahtting_data->peer_id == buddy_id) {
+		if (file_name && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
+				&& app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
 			// update media to sent state
-			//on_received_image_loaded(buddy_id, media_id, file_name);
-			on_image_download_completed(app, buddy_id, media_id, file_name);
+			on_media_download_completed(app, buddy_id, media_id, file_name);
 		}
     } else if (strcmp(rec_key_val, "name_registration_request") == 0) {
 
@@ -1071,11 +1010,11 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		load_peer_data(app);
 
 		if (app->current_app_state == TG_BUDDY_LIST_STATE) {
-        	refresh_buddy_list(app);
+        	//refresh_buddy_list(app);
 			show_toast(app, "new group created");
         } else {
         	elm_naviframe_item_pop(app->nf);
-        	refresh_buddy_list(app);
+        	//refresh_buddy_list(app);
         }
 #else
 		if (app->buddy_list) {
@@ -1089,7 +1028,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		app->current_app_state = TG_BUDDY_LIST_STATE;
 		evas_object_show(app->panel);
 		elm_panel_hidden_set(app->panel, EINA_FALSE);
-		refresh_buddy_list(app);
+		//refresh_buddy_list(app);
 		show_toast(app, "new group created");
 #endif
     } else if (strcmp(rec_key_val, "contact_updated") == 0) {
@@ -1109,8 +1048,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     	// update to online or last seen, if current view is conversation.
 
     	// sandeep
-		if (app->current_app_state ==  TG_BUDDY_CHAT_CONV_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->peer_id == buddy_id) {
-			on_budy_state_changed(app, buddy_id);
+		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
+			on_user_presence_state_changed(app, buddy_id);
 		}
 
     } else if (strcmp(rec_key_val, "type_status_updated") == 0) {
@@ -1234,6 +1173,14 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_win_lower(ad->win);
 			elm_exit();
 			break;
+		case TG_USER_MAIN_VIEW_STATE:
+			elm_win_lower(ad->win);
+			elm_exit();
+			break;
+		case TG_CHAT_MESSAGING_VIEW_STATE:
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_START_MESSAGING_VIEW_STATE;
+			break;
 		case TG_START_MESSAGING_VIEW_STATE:
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
@@ -1273,7 +1220,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_BUDDY_LIST_STATE;
 			//evas_object_show(ad->panel);
-			refresh_buddy_list(ad);
+			//refresh_buddy_list(ad);
 			break;
 		case TG_BUDDY_LIST_SELECTION_STATE:
 			if (ad->buddy_list) {
@@ -1287,7 +1234,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			ad->current_app_state = TG_BUDDY_LIST_STATE;
 			evas_object_show(ad->panel);
 			elm_panel_hidden_set(ad->panel, EINA_FALSE);
-			refresh_buddy_list(ad);
+			//refresh_buddy_list(ad);
 			break;
 		case TG_GROUP_CHAT_NAME_ENTRY_STATE:
 			if (ad->buddy_list) {
@@ -1301,7 +1248,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			ad->current_app_state = TG_BUDDY_LIST_STATE;
 			evas_object_show(ad->panel);
 			elm_panel_hidden_set(ad->panel, EINA_FALSE);
-			refresh_buddy_list(ad);
+			//refresh_buddy_list(ad);
 			break;
 		default:
 			break;

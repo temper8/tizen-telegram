@@ -24,6 +24,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#if 0
 #define TGL_MAX_DC_NUM 100
 #define TG_SERVER_1 "149.154.175.50"
 #define TG_SERVER_2 "149.154.167.51"
@@ -45,10 +46,33 @@
 #define TG_SERVER_TEST_IPV6_2 "2001:67c:4e8:f002::e"
 #define TG_SERVER_TEST_IPV6_3 "2001:b28:f23d:f003::e"
 #define TG_SERVER_TEST_DEFAULT 2
+#endif
+
+#define TGL_MAX_DC_NUM 100
+#define TG_SERVER_1 "149.154.175.50"
+#define TG_SERVER_2 "149.154.167.51"
+#define TG_SERVER_3 "149.154.175.100"
+#define TG_SERVER_4 "149.154.167.91"
+#define TG_SERVER_5 "149.154.171.5"
+#define TG_SERVER_IPV6_1 "2001:b28:f23d:f001::a"
+#define TG_SERVER_IPV6_2 "2001:67c:4e8:f002::a"
+#define TG_SERVER_IPV6_3 "2001:b28:f23d:f003::a"
+#define TG_SERVER_IPV6_4 "2001:67c:4e8:f004::a"
+#define TG_SERVER_IPV6_5 "2001:b28:f23f:f005::a"
+#define TG_SERVER_DEFAULT 2
+
+#define TG_SERVER_TEST_1 "149.154.175.10"
+#define TG_SERVER_TEST_2 "149.154.167.40"
+#define TG_SERVER_TEST_3 "149.154.175.117"
+#define TG_SERVER_TEST_IPV6_1 "2001:b28:f23d:f001::e"
+#define TG_SERVER_TEST_IPV6_2 "2001:67c:4e8:f002::e"
+#define TG_SERVER_TEST_IPV6_3 "2001:b28:f23d:f003::e"
+#define TG_SERVER_TEST_DEFAULT 2
 
 // JUST RANDOM STRING
 #define TGL_BUILD "7832"
-#define TGL_VERSION "1.2.0"
+//#define TGL_VERSION "1.2.0"
+#define TGL_VERSION "2.0.3"
 
 #define TGL_ENCRYPTED_LAYER 17
 #define TGL_SCHEME_LAYER 22

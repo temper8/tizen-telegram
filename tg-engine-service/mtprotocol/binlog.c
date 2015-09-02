@@ -1590,7 +1590,7 @@ void tgl_replay_log(struct tgl_state *TLS)
 {
 	if (!TLS->binlog_enabled) { return; }
 	if (access(TLS->binlog_name, F_OK) < 0) {
-		printf("No binlog found. Creating new one\n");
+		//printf("No binlog found. Creating new one\n");
 		create_new_binlog(TLS);
 	}
 	int fd = open(TLS->binlog_name, O_RDONLY);

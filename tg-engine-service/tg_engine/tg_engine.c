@@ -450,12 +450,12 @@ void tg_chat_update(struct tgl_state *TLS, struct tgl_chat* chat_info, unsigned 
 #else
 
 	if (!(flags & TGL_UPDATE_CREATED)) {
-		printf("created");
+		//printf("created");
 
 		if (!(flags & TGL_UPDATE_DELETED)) {
-			printf("updated");
+			//printf("updated");
 		} else {
-			printf("deleted");
+			//printf("deleted");
 		}
 	}
 
@@ -745,7 +745,7 @@ void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success
 {
 	struct tgl_chat *chat_info = callback_extra;
 
-	if(filename) {
+	if (filename) {
 		update_chat_info_to_db(chat_info, filename);
 		update_buddy_pic_db(filename, PEER_INFO_TABLE_NAME, chat_info->id.id);
 		send_buddy_profile_pic_updated_response(chat_info->id.id, filename);
@@ -756,7 +756,7 @@ void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int succes
 {
 	struct tgl_user *buddy = callback_extra;
 
-	if(buddy && buddy->id.id == tg_data->id.id) {
+	if (buddy && buddy->id.id == tg_data->id.id) {
 		if(filename) {
 			update_buddy_pic_db(filename, USER_INFO_TABLE_NAME, buddy->id.id);
 			send_buddy_profile_pic_updated_response(buddy->id.id, filename);
@@ -764,7 +764,7 @@ void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int succes
 		return;
 	}
 
-	if(filename) {
+	if (filename) {
 		update_buddy_pic_db(filename, BUDDY_INFO_TABLE_NAME, buddy->id.id);
 		update_buddy_pic_db(filename, PEER_INFO_TABLE_NAME, buddy->id.id);
 		send_buddy_profile_pic_updated_response(buddy->id.id, filename);
@@ -1711,7 +1711,7 @@ int str_empty(char *str)
 void parse_config(void)
 {
 	if (!disable_output) {
-		printf("libconfig not enabled\n");
+		//printf("libconfig not enabled\n");
 	}
 
 	char* rsa_path = ui_utils_get_resource(DEFAULT_RSA_FILE_NAME);
@@ -1722,8 +1722,9 @@ void parse_config(void)
 		mkdir(config_full_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 	}
 
-	if (remove(rsa_file_name) == 0)
-		printf("File successfully deleted\n");
+	if (remove(rsa_file_name) == 0) {
+		//printf("File successfully deleted\n");
+	}
 
 	tasprintf(&downloads_directory, "%s%s/%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY, DOWNLOADS_DIRECTORY);
 
@@ -1741,7 +1742,7 @@ void parse_config(void)
 	tgl_set_download_directory(TLS, downloads_directory);
 	if (!mkdir(downloads_directory, CONFIG_DIRECTORY_MODE)) {
 		if (!disable_output) {
-			printf("[%s] created\n", downloads_directory);
+			//printf("[%s] created\n", downloads_directory);
 		}
 	}
 }
@@ -1771,7 +1772,7 @@ void running_for_first_time(void)
 		config_file_fd = open(config_filename, O_CREAT | O_RDWR, 0600);
 		if (config_file_fd == -1)  {
 			perror("open[config_file]");
-			printf("I: config_file=[%s]\n", config_filename);
+			//printf("I: config_file=[%s]\n", config_filename);
 			exit(EXIT_FAILURE);
 		}
 		if (write(config_file_fd, DEFAULT_CONFIG_CONTENTS, strlen(DEFAULT_CONFIG_CONTENTS)) <= 0) {

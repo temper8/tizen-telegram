@@ -7,9 +7,9 @@
 #include "tg_buddy_list.h"
 #include "tg_chat_conv_view.h"
 #include "contact_selection_view.h"
-#include "tg_buddy_conversation_view.h"
 #include "tg_buddy_chat_view.h"
 
+void refresh_buddy_list(void *data);
 
 char* on_list_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
@@ -337,9 +337,8 @@ static void on_buddy_clicked(void *data, Evas_Object *obj, void *event_info)
 	peer_with_pic_s* sel_item = eina_list_nth(ad->peer_list, item_id);
 
 	ad->buddy_in_cahtting_data = sel_item->use_data;
-	//launch_chat_conv_view_cb(ad, item_id);
-	//launch_buddy_conversation_view(ad, item_id);
-	launch_buddy_chat_view_cb(ad, item_id);
+
+	//launch_buddy_chat_view_cb(ad, item_id);
 }
 
 void on_search_clicked(void *data, Evas_Object *obj, void *event_info)

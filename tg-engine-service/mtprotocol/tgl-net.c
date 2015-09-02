@@ -80,9 +80,9 @@ static void th_feedback(void *data, Ecore_Thread *th, void *msg)
 }
 
 // BONUS (optional): called after th_do returns and has NOT been cancelled
-static void th_end(void *data, Ecore_Thread *th) { printf("thread ended\n"); }
+static void th_end(void *data, Ecore_Thread *th) {  }
 // BONUS (optional): called in mainloop AFTER thread has finished cancelling
-static void th_cancel(void *data, Ecore_Thread *th) { printf("thread cancelled\n"); }
+static void th_cancel(void *data, Ecore_Thread *th) { }
 
 
 

@@ -43,8 +43,10 @@
 #define FM_ICON_ROBO_BUDDY       FM_ICON_PATH"robo_buddy.png"
 #define SEARCH_ICON FM_ICON_PATH"/search_icon.png"
 #define ATTACH_ICON FM_ICON_PATH"/ic_ab_attach.png"
-#define SMILEY_ICON FM_ICON_PATH"/ic_msg_panel_smiles.png"
-#define SEND_ICON FM_ICON_PATH"/ic_send.png"
+#define SMILEY_ICON_UNPRESSED FM_ICON_PATH"/ic_msg_panel_smiles_pressed.png"
+#define SMILEY_ICON_PRESSED FM_ICON_PATH"/ic_msg_panel_smiles_unpressed.png"
+#define SEND_UNPRESSED_ICON FM_ICON_PATH"/ic_send_pressed.png"
+#define SEND_PRESSED_ICON FM_ICON_PATH"/ic_send_unpressed.png"
 #define CHAT_BG FM_ICON_PATH"/chat_bg.jpg"
 #define BLUR_BG FM_ICON_PATH"/blur_img.jpg"
 #define CAMERA_ICON FM_ICON_PATH"/camera-icon.png"
@@ -59,7 +61,7 @@
 
 
 #define FM_ICON_CAMERA       FM_ICON_PATH"floating_camera.png"
-#define FM_ICON_GALLERY       FM_ICON_PATH"ic_attach_photo.png"
+#define FM_ICON_GALLERY       FM_ICON_PATH"ic_attach_gallery.png"
 #define FM_ICON_VIDEO       FM_ICON_PATH"ic_attach_video.png"
 #define FM_ICON_FILE       FM_ICON_PATH"ic_attach_doc.png"
 #define FM_ICON_LOCATION       FM_ICON_PATH"ic_attach_location.png"
@@ -87,7 +89,11 @@
 #define INIT_SCREEN_7       FM_ICON_PATH"screenshot_7.png"
 #define TG_NO_CHAT_LIST       FM_ICON_PATH"no_chat.png"
 
-
+#define POPUP_TEXT_TAKE_PHOTO "Take photo"
+#define POPUP_TEXT_TAKE_GALLERY "Gallery"
+#define POPUP_TEXT_TAKE_VIDEO "Video"
+#define POPUP_TEXT_TAKE_FILE "File"
+#define POPUP_TEXT_TAKE_LOCATION "Location"
 
 
 #define LIST_CONTACT_ROUND_MASK_ICON FM_ICON_PATH"/info_page_pic_mask.png"
@@ -223,7 +229,8 @@ typedef enum state_of_app {
 	TG_BUDDY_CHAT_STATE,
 	TG_BUDDY_CHAT_CONV_STATE,
 	TG_USER_MAIN_VIEW_STATE,
-	TG_START_MESSAGING_VIEW_STATE
+	TG_START_MESSAGING_VIEW_STATE,
+	TG_CHAT_MESSAGING_VIEW_STATE
 } state_of_app_s;
 
 enum tgl_typing_status {
@@ -371,7 +378,8 @@ typedef struct appdata {
 	tgl_peer_id_t user_id;
 	state_of_app_s current_app_state;
 	user_data_s current_user_data;
-	tg_peer_info_s* buddy_in_cahtting_data;
+	//tg_peer_info_s* buddy_in_cahtting_data;
+	user_data_with_pic_s* buddy_in_cahtting_data;
 	Eina_Bool is_network_connected;
 	service_client* service_client;
 	Eina_Bool is_first_time_registration;

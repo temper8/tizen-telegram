@@ -12,7 +12,7 @@
 
 #include "tg_common.h"
 
-extern void launch_buddy_list_cb(void *data);
-extern void refresh_buddy_list(void *data);
+/*extern void launch_buddy_list_cb(void *data);
+extern void refresh_buddy_list(void *data);*/
 
 #endif /* TG_BUDDY_LIST_H_ */

@@ -856,7 +856,7 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.smiley_icon = elm_image_add(chat_conv_view_data.entry_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.smiley_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.smiley_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(chat_conv_view_data.smiley_icon, ui_utils_get_resource(SMILEY_ICON), NULL);
+    elm_image_file_set(chat_conv_view_data.smiley_icon, ui_utils_get_resource(SMILEY_ICON_UNPRESSED), NULL);
     elm_image_resizable_set(chat_conv_view_data.smiley_icon, EINA_TRUE, EINA_TRUE);
     evas_object_show(chat_conv_view_data.smiley_icon);
     evas_object_smart_callback_add(chat_conv_view_data.smiley_icon, "clicked", on_smiley_clicked, &chat_conv_view_data);
@@ -865,7 +865,7 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.send_icon = elm_image_add(chat_conv_view_data.entry_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.send_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.send_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(chat_conv_view_data.send_icon, ui_utils_get_resource(SEND_ICON), NULL);
+    elm_image_file_set(chat_conv_view_data.send_icon, ui_utils_get_resource(SEND_PRESSED_ICON), NULL);
     elm_image_resizable_set(chat_conv_view_data.send_icon, EINA_TRUE, EINA_TRUE);
     evas_object_show(chat_conv_view_data.send_icon);
     evas_object_smart_callback_add(chat_conv_view_data.send_icon, "clicked", on_send_clicked, &chat_conv_view_data);
