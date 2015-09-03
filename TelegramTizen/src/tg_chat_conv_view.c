@@ -29,11 +29,8 @@ typedef struct appdata_chat_conv_view{
 
 static appdata_chat_conv_view_s chat_conv_view_data = {0,};
 
-
-
 #define CHAT_BUBBLE_TEXT_WIDTH 200
 #define CHAT_BUBBLE_MAIN_TEXT_STYLE "<font_size=30>%s</font_size>"
-
 
 static Evas_Object *create_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const char *main_text, const char *sub_text);
 static Evas_Object *create_image_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const char *file_path, const char *sub_text, char* media_id);
@@ -48,7 +45,7 @@ static void on_chat_item_clicked(void *data, Evas_Object *obj, void *event_info)
 	long long media_id = atoll(media_id_str);
 	char* file_path = get_image_path_from_db(media_id);
 	if (!file_path || strlen(file_path) <= 0) {
-	    // request service to download the image.
+		// request service to download the image.
 		send_request_for_image_downloading(chat_conv_view_data.ad->service_client, chat_conv_view_data.sel_item->use_data->peer_id, media_id);
 	} else {
 
@@ -118,8 +115,6 @@ static void on_attach_clicked(void *data, Evas_Object *obj, void *event_info)
 	app_control_destroy(app_control);
 }
 
-
-
 static void on_text_entry_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	elm_entry_input_panel_hide(chat_conv_view_data.text_entry);
@@ -127,15 +122,12 @@ static void on_text_entry_clicked(void *data, Evas_Object *obj, void *event_info
 	elm_entry_input_panel_show(chat_conv_view_data.text_entry);
 }
 
-
-
 static void on_smiley_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	elm_entry_input_panel_hide(chat_conv_view_data.text_entry);
 	elm_entry_input_panel_layout_set(chat_conv_view_data.text_entry,ELM_INPUT_PANEL_LAYOUT_EMOTICON);
 	elm_entry_input_panel_show(chat_conv_view_data.text_entry);
 }
-
 
 #if 0
 void on_chat_buddy_msg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
@@ -166,10 +158,10 @@ void on_buddy_pic_msg_loaded(struct tgl_state *TLS, void *callback_extra, int su
 
 		update_photo_info_in_db(M, filename, 0);
 
-    	bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
-    			filename,
-    			res);
-    	//evas_object_smart_callback_add(bubble_table, "clicked", on_chat_item_clicked, filename);
+		bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
+				filename,
+				res);
+		//evas_object_smart_callback_add(bubble_table, "clicked", on_chat_item_clicked, filename);
 		evas_object_show(bubble_table);
 		elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);
 		evas_object_event_callback_add(chat_conv_view_data.main_box, EVAS_CALLBACK_RESIZE, bubble_msg_resize_cb, &chat_conv_view_data);
@@ -196,42 +188,41 @@ void on_chat_buddy_msg_receive(tg_message_s *M, int type_of_chat)
 			char res[32];
 			(void) localtime_r(&t, &lt);
 
-	        if (strftime(res, sizeof(res), format, &lt) == 0) {
-	                (void) fprintf(stderr,  "strftime(3): cannot format supplied "
-	                                        "date/time into buffer of size %u "
-	                                        "using: '%s'\n",
-	                                        sizeof(res), format);
-	                //exit(0);
-	        }
+			if (strftime(res, sizeof(res), format, &lt) == 0) {
+				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+						"date/time into buffer of size %u "
+						"using: '%s'\n",
+						sizeof(res), format);
+				//exit(0);
+			}
 
-	        if(M->media_type == tgl_message_media_none) {
+			if(M->media_type == tgl_message_media_none) {
 
-	        	bubble_table = create_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
-	        			M->message,
-	        			res);
+				bubble_table = create_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
+						M->message,
+						res);
 				evas_object_show(bubble_table);
 				elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);
 				evas_object_event_callback_add(chat_conv_view_data.main_box, EVAS_CALLBACK_RESIZE, bubble_msg_resize_cb, &chat_conv_view_data);
-	        } else if(M->media_type == tgl_message_media_photo) {
-	        	// load photo
+			} else if(M->media_type == tgl_message_media_photo) {
+				// load photo
 #if 0
-	        	struct tgl_photo* pic = &(M->media.photo);
-	        	if(pic) {
-	        		tgl_do_load_photo(TLS, pic ,&on_buddy_pic_msg_loaded,M);
-	        	}
+				struct tgl_photo* pic = &(M->media.photo);
+				if(pic) {
+					tgl_do_load_photo(TLS, pic ,&on_buddy_pic_msg_loaded,M);
+				}
 #endif
-	        	char* path = ui_utils_get_resource(BLUR_BG);
-	        	bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
-	        			path,
-	        			res, M->media_id);
-	        	evas_object_show(bubble_table);
-	        	elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);
-	        	evas_object_event_callback_add(chat_conv_view_data.main_box, EVAS_CALLBACK_RESIZE, bubble_msg_resize_cb, &chat_conv_view_data);
-	        }
+				char* path = ui_utils_get_resource(BLUR_BG);
+				bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
+						path,
+						res, M->media_id);
+				evas_object_show(bubble_table);
+				elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);
+				evas_object_event_callback_add(chat_conv_view_data.main_box, EVAS_CALLBACK_RESIZE, bubble_msg_resize_cb, &chat_conv_view_data);
+			}
 		}
 	}
 }
-
 
 static int chat_history_db_callback(void *data, int argc, char **argv, char **azColName) {
 
@@ -321,13 +312,13 @@ static int chat_history_db_callback(void *data, int argc, char **argv, char **az
 			//exit(0);
 		}
 		if(is_sent_msg) {
-	    	bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_SENT,
-	    			img_path,
-	    			res, (void*)media_id_str);
+			bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_SENT,
+					img_path,
+					res, (void*)media_id_str);
 		} else {
-	    	bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
-	    			img_path,
-	    			res, (void*)media_id_str);
+			bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
+					img_path,
+					res, (void*)media_id_str);
 		}
 		evas_object_show(bubble_table);
 		elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);
@@ -415,7 +406,6 @@ void on_msg_sent_to_buddy(struct tgl_state *TLS, void *callback_extra, int succe
 }
 #endif
 
-
 void
 bubble_msg_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
@@ -430,7 +420,6 @@ bubble_msg_resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 
 	evas_object_event_callback_del(ad->main_box, EVAS_CALLBACK_RESIZE, bubble_msg_resize_cb);
 }
-
 
 void send_message_to_buddy(appdata_chat_conv_view_s *ad)
 {
@@ -538,7 +527,6 @@ static void load_chat_history(appdata_chat_conv_view_s *ad)
 #endif
 }
 
-
 Evas_Object* create_image_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const char *file_path, const char *sub_text, char* media_id)
 {
 	Evas_Object *bubble_table,*main_box, *sub_box, *main_image, *sub_label;
@@ -570,29 +558,29 @@ Evas_Object* create_image_bubble_table(Evas_Object *parent, Chat_message_Bubble_
 	main_box = elm_box_add(bubble_table);
 	evas_object_size_hint_align_set(main_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(main_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_show(main_box);
+	evas_object_show(main_box);
 
 
-    main_image = elm_image_add(bubble_table);
+	main_image = elm_image_add(bubble_table);
 
-    if (elm_image_file_set(main_image, file_path, NULL) == EINA_FALSE) {
-    	// TODO:
-    }
+	if (elm_image_file_set(main_image, file_path, NULL) == EINA_FALSE) {
+		// TODO:
+	}
 
 	int win_w, win_h;
 	elm_win_screen_size_get(chat_conv_view_data.ad->win, NULL, NULL, &win_w, &win_h);
 
-    int w;
-    int h;
-    elm_image_object_size_get(main_image, &w, &h);
-    elm_image_resizable_set(main_image, EINA_TRUE, EINA_TRUE);
+	int w;
+	int h;
+	elm_image_object_size_get(main_image, &w, &h);
+	elm_image_resizable_set(main_image, EINA_TRUE, EINA_TRUE);
 
-    //evas_object_size_hint_min_set(main_image, w, h);
-    evas_object_size_hint_min_set(main_image, 400, 400);
+	//evas_object_size_hint_min_set(main_image, w, h);
+	evas_object_size_hint_min_set(main_image, 400, 400);
 
-    evas_object_size_hint_max_set(main_image, 3*(win_w/4), (win_h/4));
-    //evas_object_resize(main_image, w, h);
-    elm_image_aspect_fixed_set(main_image,EINA_TRUE);
+	evas_object_size_hint_max_set(main_image, 3*(win_w/4), (win_h/4));
+	//evas_object_resize(main_image, w, h);
+	elm_image_aspect_fixed_set(main_image,EINA_TRUE);
 
 	evas_object_repeat_events_set(main_image, EINA_TRUE);
 
@@ -607,7 +595,7 @@ Evas_Object* create_image_bubble_table(Evas_Object *parent, Chat_message_Bubble_
 	sub_box = elm_box_add(bubble_table);
 	evas_object_size_hint_align_set(sub_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(sub_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_show(sub_box);
+	evas_object_show(sub_box);
 
 	/* Make a mark up text to string buffer for sub label widget */
 	eina_strbuf_append_printf(strbuf, CHAT_BUBBLE_SUB_TEXT_STYLE, sub_text);
@@ -687,7 +675,7 @@ create_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const 
 	main_box = elm_box_add(bubble_table);
 	evas_object_size_hint_align_set(main_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(main_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_show(main_box);
+	evas_object_show(main_box);
 
 
 	main_label = elm_label_add(bubble_table);
@@ -704,7 +692,7 @@ create_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const 
 	sub_box = elm_box_add(bubble_table);
 	evas_object_size_hint_align_set(sub_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(sub_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_show(sub_box);
+	evas_object_show(sub_box);
 
 	/* Make a mark up text to string buffer for sub label widget */
 	eina_strbuf_append_printf(strbuf, CHAT_BUBBLE_SUB_TEXT_STYLE, sub_text);
@@ -745,12 +733,10 @@ create_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const 
 	return bubble_table;
 }
 
-
 static void on_send_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	send_message_to_buddy(data);
 }
-
 
 void launch_chat_conv_view_cb(void *data, int user_id)
 {
@@ -779,10 +765,10 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.chat_bg_box = elm_box_add(chat_conv_view_data.chat_bg_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.chat_bg_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.chat_bg_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_object_part_content_set(chat_conv_view_data.chat_bg_box_layout, "swallow.chat_bg_box", chat_conv_view_data.chat_bg_box);
-    evas_object_show(chat_conv_view_data.chat_bg_box);
+	elm_object_part_content_set(chat_conv_view_data.chat_bg_box_layout, "swallow.chat_bg_box", chat_conv_view_data.chat_bg_box);
+	evas_object_show(chat_conv_view_data.chat_bg_box);
 
-    chat_conv_view_data.main_layout = elm_layout_add(ad->win);
+	chat_conv_view_data.main_layout = elm_layout_add(ad->win);
 	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(chat_conv_view_data.main_layout, edj_path, "chat_conv");
 	evas_object_size_hint_min_set(chat_conv_view_data.main_layout, w, h);
@@ -791,14 +777,14 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.chat_box = elm_box_add(chat_conv_view_data.main_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.chat_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.chat_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_object_part_content_set(chat_conv_view_data.main_layout, "swallow.chat_box", chat_conv_view_data.chat_box);
-    evas_object_show(chat_conv_view_data.chat_box);
+	elm_object_part_content_set(chat_conv_view_data.main_layout, "swallow.chat_box", chat_conv_view_data.chat_box);
+	evas_object_show(chat_conv_view_data.chat_box);
 
 	chat_conv_view_data.entry_box = elm_box_add(chat_conv_view_data.main_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.entry_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.entry_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_object_part_content_set(chat_conv_view_data.main_layout, "swallow.entry_box", chat_conv_view_data.entry_box);
-    evas_object_show(chat_conv_view_data.entry_box);
+	elm_object_part_content_set(chat_conv_view_data.main_layout, "swallow.entry_box", chat_conv_view_data.entry_box);
+	evas_object_show(chat_conv_view_data.entry_box);
 
 	chat_conv_view_data.scroll_view = elm_scroller_add(chat_conv_view_data.chat_box);
 	evas_object_size_hint_align_set(chat_conv_view_data.scroll_view, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -816,12 +802,12 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.main_box = elm_box_add(chat_conv_view_data.chat_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.main_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.main_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_object_part_content_set(chat_conv_view_data.chat_box_layout, "swallow.chat_box", chat_conv_view_data.main_box);
-    elm_box_align_set(chat_conv_view_data.main_box,0.0, 1.0);
-    elm_box_padding_set(chat_conv_view_data.main_box, 25, 25);
-    elm_box_homogeneous_set(chat_conv_view_data.main_box, EINA_FALSE);
+	elm_object_part_content_set(chat_conv_view_data.chat_box_layout, "swallow.chat_box", chat_conv_view_data.main_box);
+	elm_box_align_set(chat_conv_view_data.main_box,0.0, 1.0);
+	elm_box_padding_set(chat_conv_view_data.main_box, 25, 25);
+	elm_box_homogeneous_set(chat_conv_view_data.main_box, EINA_FALSE);
 
-    evas_object_show(chat_conv_view_data.main_box);
+	evas_object_show(chat_conv_view_data.main_box);
 	elm_object_content_set(chat_conv_view_data.scroll_view, chat_conv_view_data.chat_box_layout);
 
 
@@ -837,10 +823,10 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.attach_icon = elm_image_add(chat_conv_view_data.entry_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.attach_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.attach_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(chat_conv_view_data.attach_icon, ui_utils_get_resource(ATTACH_ICON), NULL);
-    elm_image_resizable_set(chat_conv_view_data.attach_icon, EINA_TRUE, EINA_TRUE);
-    evas_object_show(chat_conv_view_data.attach_icon);
-    evas_object_smart_callback_add(chat_conv_view_data.attach_icon, "clicked", on_attach_clicked, &chat_conv_view_data);
+	elm_image_file_set(chat_conv_view_data.attach_icon, ui_utils_get_resource(ATTACH_ICON), NULL);
+	elm_image_resizable_set(chat_conv_view_data.attach_icon, EINA_TRUE, EINA_TRUE);
+	evas_object_show(chat_conv_view_data.attach_icon);
+	evas_object_smart_callback_add(chat_conv_view_data.attach_icon, "clicked", on_attach_clicked, &chat_conv_view_data);
 	elm_object_part_content_set(chat_conv_view_data.entry_box_layout, "swallow.attach_icon", chat_conv_view_data.attach_icon);
 
 	chat_conv_view_data.text_entry = elm_entry_add(chat_conv_view_data.entry_box_layout);
@@ -856,19 +842,19 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	chat_conv_view_data.smiley_icon = elm_image_add(chat_conv_view_data.entry_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.smiley_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.smiley_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(chat_conv_view_data.smiley_icon, ui_utils_get_resource(SMILEY_ICON_UNPRESSED), NULL);
-    elm_image_resizable_set(chat_conv_view_data.smiley_icon, EINA_TRUE, EINA_TRUE);
-    evas_object_show(chat_conv_view_data.smiley_icon);
-    evas_object_smart_callback_add(chat_conv_view_data.smiley_icon, "clicked", on_smiley_clicked, &chat_conv_view_data);
+	elm_image_file_set(chat_conv_view_data.smiley_icon, ui_utils_get_resource(SMILEY_ICON_UNPRESSED), NULL);
+	elm_image_resizable_set(chat_conv_view_data.smiley_icon, EINA_TRUE, EINA_TRUE);
+	evas_object_show(chat_conv_view_data.smiley_icon);
+	evas_object_smart_callback_add(chat_conv_view_data.smiley_icon, "clicked", on_smiley_clicked, &chat_conv_view_data);
 	elm_object_part_content_set(chat_conv_view_data.entry_box_layout, "swallow.smiely_icon", chat_conv_view_data.smiley_icon);
 
 	chat_conv_view_data.send_icon = elm_image_add(chat_conv_view_data.entry_box_layout);
 	evas_object_size_hint_align_set(chat_conv_view_data.send_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(chat_conv_view_data.send_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(chat_conv_view_data.send_icon, ui_utils_get_resource(SEND_PRESSED_ICON), NULL);
-    elm_image_resizable_set(chat_conv_view_data.send_icon, EINA_TRUE, EINA_TRUE);
-    evas_object_show(chat_conv_view_data.send_icon);
-    evas_object_smart_callback_add(chat_conv_view_data.send_icon, "clicked", on_send_clicked, &chat_conv_view_data);
+	elm_image_file_set(chat_conv_view_data.send_icon, ui_utils_get_resource(SEND_PRESSED_ICON), NULL);
+	elm_image_resizable_set(chat_conv_view_data.send_icon, EINA_TRUE, EINA_TRUE);
+	evas_object_show(chat_conv_view_data.send_icon);
+	evas_object_smart_callback_add(chat_conv_view_data.send_icon, "clicked", on_send_clicked, &chat_conv_view_data);
 	elm_object_part_content_set(chat_conv_view_data.entry_box_layout, "swallow.send_icon", chat_conv_view_data.send_icon);
 
 	/******************************************************************************************************/
@@ -878,23 +864,23 @@ void launch_chat_conv_view_cb(void *data, int user_id)
 	//elm_box_pack_end(chat_conv_view_data.chat_bg_box, chat_conv_view_data.main_layout);
 
 	Elm_Object_Item* chat_nav_item = elm_naviframe_item_push(ad->nf, chat_conv_view_data.sel_item->use_data->print_name, NULL, NULL, chat_conv_view_data.main_layout, NULL);
-    elm_object_item_part_content_set(chat_nav_item, "title_left_btn", chat_conv_view_data.sel_item->contact_icon);
+	elm_object_item_part_content_set(chat_nav_item, "title_left_btn", chat_conv_view_data.sel_item->contact_icon);
 
-    load_chat_history(&chat_conv_view_data);
+	load_chat_history(&chat_conv_view_data);
 
 #if 0
-    set_msg_mark_read_app_callback(&on_chat_buddy_msg_marked_read);
+	set_msg_mark_read_app_callback(&on_chat_buddy_msg_marked_read);
 	set_msg_received_app_callback(&on_chat_buddy_msg_receive);
 #endif
 
 
 	evas_object_event_callback_add(chat_conv_view_data.main_box, EVAS_CALLBACK_RESIZE, bubble_msg_resize_cb, &chat_conv_view_data);
 
-/*	char* path = ui_utils_get_resource(SEARCH_ICON);
-	Evas_Object *bubble_table = NULL;
-	bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_SENT,
-			path,
-			"10:50");
-	elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);*/
+	/*	char* path = ui_utils_get_resource(SEARCH_ICON);
+		Evas_Object *bubble_table = NULL;
+		bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_SENT,
+		path,
+		"10:50");
+		elm_box_pack_end(chat_conv_view_data.main_box, bubble_table);*/
 
 }

@@ -1,19 +1,18 @@
-/*
- * tg_db_manager.c
- *
- *  Created on: Jun 1, 2015
- *      Author: sandeep
+/**
+ * @file tg_db_manager.c
+ * @date Jun 1, 2015
+ * @auhtor sandeep
  */
 
 #include "tg_db_manager.h"
 #include <malloc.h>
 #include <string.h>
 
-
 sqlite3* create_database(char* database_name)
 {
-	if(!database_name)
+	if(!database_name) {
 		return NULL;
+	}
 
 	int ret;
 	sqlite3 *db;

@@ -1,8 +1,7 @@
-/*
- * group_chat_entry_view.c
- *
- *  Created on: Jul 11, 2015
- *      Author: sandeep
+/**
+ * @file group_chat_entry_view.c
+ * @date Jul 11, 2015
+ * @author sandeep
  */
 
 #include "group_chat_entry_view.h"
@@ -113,7 +112,6 @@ void on_image_load_options_cb(void *data, Evas_Object *obj, void *event_info)
 	evas_object_show(popup);
 }
 
-
 void on_group_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 {
 	// nothing to do
@@ -182,7 +180,6 @@ Evas_Object* on_group_buddy_selection_part_content_get_cb(void *data, Evas_Objec
 	return eo;
 }
 
-
 void on_group_chat_done_buton_clicked(void *data, Evas_Object *object, void *event_info)
 {
 	Evas_Object* name_entry = data;
@@ -228,7 +225,6 @@ void on_group_chat_cancel_buton_clicked(void *data, Evas_Object *object, void *e
 	elm_panel_hidden_set(ad->panel, EINA_FALSE);
 }
 
-
 void launch_group_chat_name_entry_view(void *data)
 {
 	appdata_s* ad = data;
@@ -240,23 +236,23 @@ void launch_group_chat_name_entry_view(void *data)
 
 	char edj_path[PATH_MAX] = {0, };
 
-    Evas_Object* main_layout = elm_layout_add(ad->win);
+	Evas_Object* main_layout = elm_layout_add(ad->win);
 	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(main_layout, edj_path, "group_chat_entry");
 	evas_object_size_hint_min_set(main_layout, w, h);
 	evas_object_show(main_layout);
 
-    Evas_Object* entry_layout = elm_layout_add(ad->win);
+	Evas_Object* entry_layout = elm_layout_add(ad->win);
 	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(entry_layout, edj_path, "group_chat_photo_name_entry");
 	evas_object_show(entry_layout);
 	elm_object_part_content_set(main_layout, "swallow.group_chat_entry_box", entry_layout);
 
 	Evas_Object* cam_icon = elm_image_add(main_layout);
-    elm_image_file_set(cam_icon, ui_utils_get_resource(CAMERA_ICON), NULL);
-    evas_object_show(cam_icon);
+	elm_image_file_set(cam_icon, ui_utils_get_resource(CAMERA_ICON), NULL);
+	evas_object_show(cam_icon);
 
-    evas_object_smart_callback_add(cam_icon, "clicked", on_image_load_options_cb, (void*)cam_icon);
+	evas_object_smart_callback_add(cam_icon, "clicked", on_image_load_options_cb, (void*)cam_icon);
 	elm_object_part_content_set(entry_layout, "swallow.cam_box", cam_icon);
 
 	Evas_Object* name_entry = elm_entry_add(main_layout);
@@ -265,15 +261,15 @@ void launch_group_chat_name_entry_view(void *data)
 	elm_object_part_content_set(entry_layout, "swallow.entry_box", name_entry);
 
 
-    Eina_List* selected_buddies = NULL;
+	Eina_List* selected_buddies = NULL;
 
-    for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-    	user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-    	user_data_s* user = item->use_data;
-    	if (user->is_selected) {
-    		selected_buddies = eina_list_append(selected_buddies, item);
-    	}
-    }
+	for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
+		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+		user_data_s* user = item->use_data;
+		if (user->is_selected) {
+			selected_buddies = eina_list_append(selected_buddies, item);
+		}
+	}
 
 	static Elm_Genlist_Item_Class itc;
 
@@ -336,5 +332,3 @@ void launch_group_chat_name_entry_view(void *data)
 	elm_object_item_part_content_set(chat_nav_item, "title_left_btn", cancel_btn);
 
 }
-
-

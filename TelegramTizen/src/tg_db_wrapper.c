@@ -1,12 +1,10 @@
-/*
- * tg_db_wrapper.c
- *
- *  Created on: Jun 26, 2015
- *      Author: sandeep
+/**
+ * @file tg_db_wrapper.c
+ * @date Jun 26, 2015
+ * @author sandeep
  */
 
 #include "tg_db_wrapper.h"
-
 
 void create_data_base_tables()
 {
@@ -559,7 +557,6 @@ tg_chat_info_s* get_chat_info(int chat_id)
 	}
 	return chat_info;
 }
-
 
 Eina_List* get_registered_user_info()
 {
@@ -1285,7 +1282,6 @@ void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int he
 		close_database(db);
 	}
 }
-
 
 char* get_image_path_from_db(long long media_id)
 {

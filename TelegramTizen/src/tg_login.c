@@ -1,8 +1,7 @@
-/*
- * tg_login.c
- *
- *  Created on: May 20, 2015
- *      Author: sandeep
+/**
+ * @file tg_login.c
+ * @author sandeep
+ * @date May 20, 2015
  */
 
 #include "tg_login.h"
@@ -10,9 +9,7 @@
 #include "tg_first_registration.h"
 
 #define TIMER_TEXT "We will call in "
-
 #define CODE_INFO_TEXT "We've sent an SMS with an activation code to your phone "
-
 
 static void on_code_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
@@ -222,23 +219,23 @@ void launch_login_cb(appdata_s* ad)
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Your code", NULL, NULL, scroller, NULL);
 
-    Evas_Object *done_btn = elm_button_add(ad->nf);
-    elm_object_style_set(done_btn, "naviframe/title_icon");
-    elm_object_text_set(done_btn, "Done");
-    evas_object_smart_callback_add(done_btn, "clicked", on_code_entry_done_clicked, ad);
+	Evas_Object *done_btn = elm_button_add(ad->nf);
+	elm_object_style_set(done_btn, "naviframe/title_icon");
+	elm_object_text_set(done_btn, "Done");
+	evas_object_smart_callback_add(done_btn, "clicked", on_code_entry_done_clicked, ad);
 
 
-    Evas_Object *cancel_btn = elm_label_add(ad->nf);
-    elm_object_style_set(cancel_btn, "naviframe/title_icon");
+	Evas_Object *cancel_btn = elm_label_add(ad->nf);
+	elm_object_style_set(cancel_btn, "naviframe/title_icon");
 
 
 
-    elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
-    elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
+	elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
+	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
 
-    evas_object_data_set(ad->nf, "code_done_btn", (void*)done_btn);
-    elm_object_disabled_set(done_btn, EINA_TRUE);
+	evas_object_data_set(ad->nf, "code_done_btn", (void*)done_btn);
+	elm_object_disabled_set(done_btn, EINA_TRUE);
 
-    start_timer(ad);
+	start_timer(ad);
 
 }

@@ -225,89 +225,89 @@ int tglq_query_error(struct tgl_state *TLS, long long id)
 		int error_handled = 0;
 
 		switch (error_code) {
-		case 303:
-			// migrate
-		{
-			int offset = -1;
-			if (error_len >= 15 && !memcmp(error, "PHONE_MIGRATE_", 14)) {
-				offset = 14;
-			}
-			if (error_len >= 17 && !memcmp(error, "NETWORK_MIGRATE_", 16)) {
-				offset = 16;
-			}
-			if (error_len >= 14 && !memcmp(error, "USER_MIGRATE_", 13)) {
-				offset = 13;
-			}
-			if (offset >= 0) {
-				int i = 0;
-				while(offset < error_len && error[offset] >= '0' && error[offset] <= '9') {
-					i = i * 10 + error[offset] - '0';
-					offset ++;
+			case 303:
+				// migrate
+				{
+					int offset = -1;
+					if (error_len >= 15 && !memcmp(error, "PHONE_MIGRATE_", 14)) {
+						offset = 14;
+					}
+					if (error_len >= 17 && !memcmp(error, "NETWORK_MIGRATE_", 16)) {
+						offset = 16;
+					}
+					if (error_len >= 14 && !memcmp(error, "USER_MIGRATE_", 13)) {
+						offset = 13;
+					}
+					if (offset >= 0) {
+						int i = 0;
+						while(offset < error_len && error[offset] >= '0' && error[offset] <= '9') {
+							i = i * 10 + error[offset] - '0';
+							offset ++;
+						}
+						if (i > 0 && i < TGL_MAX_DC_NUM) {
+							bl_do_set_working_dc(TLS, i);
+							q->flags &= ~QUERY_ACK_RECEIVED;
+							//q->session_id = 0;
+							//struct tgl_dc *DC = q->DC;
+							//if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
+							q->session_id = 0;
+							//}
+							q->DC = TLS->DC_working;
+							TLS->timer_methods->insert(q->ev, 0);
+							error_handled = 1;
+							res = 1;
+						}
+					}
 				}
-				if (i > 0 && i < TGL_MAX_DC_NUM) {
-					bl_do_set_working_dc(TLS, i);
-					q->flags &= ~QUERY_ACK_RECEIVED;
-					//q->session_id = 0;
-					//struct tgl_dc *DC = q->DC;
-					//if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
+				break;
+			case 400:
+				// nothing to handle
+				// bad user input probably
+				break;
+			case 401:
+				if (!(TLS->locks & TGL_LOCK_PASSWORD)) {
+					TLS->locks |= TGL_LOCK_PASSWORD;
+					tgl_do_check_password(TLS, NULL, NULL);
+				}
+				q->flags &= ~QUERY_ACK_RECEIVED;
+				TLS->timer_methods->insert(q->ev, 1);
+				struct tgl_dc *DC = q->DC;
+				if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
 					q->session_id = 0;
-					//}
-					q->DC = TLS->DC_working;
-					TLS->timer_methods->insert(q->ev, 0);
+				}
+				error_handled = 1;
+				break;
+			case 403:
+				// privacy violation
+				break;
+			case 404:
+				// not found
+				break;
+			case 420:
+				// flood
+			case 500:
+				// internal error
+			default:
+				// anything else. Treated as internal error
+				{
+					int wait;
+					if (strncmp(error, "FLOOD_WAIT_", 11)) {
+						if (error_code == 420) {
+							vlogprintf(E_ERROR, "error = '%s'\n", error);
+						}
+						wait = 10;
+					} else {
+						wait = atoll(error + 11);
+					}
+					q->flags &= ~QUERY_ACK_RECEIVED;
+					TLS->timer_methods->insert(q->ev, wait);
+					struct tgl_dc *DC = q->DC;
+					if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
+						q->session_id = 0;
+					}
 					error_handled = 1;
-					res = 1;
 				}
-			}
-		}
-		break;
-		case 400:
-			// nothing to handle
-			// bad user input probably
-			break;
-		case 401:
-			if (!(TLS->locks & TGL_LOCK_PASSWORD)) {
-				TLS->locks |= TGL_LOCK_PASSWORD;
-				tgl_do_check_password(TLS, NULL, NULL);
-			}
-			q->flags &= ~QUERY_ACK_RECEIVED;
-			TLS->timer_methods->insert(q->ev, 1);
-			struct tgl_dc *DC = q->DC;
-			if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
-				q->session_id = 0;
-			}
-			error_handled = 1;
-			break;
-		case 403:
-			// privacy violation
-			break;
-		case 404:
-			// not found
-			break;
-		case 420:
-			// flood
-		case 500:
-			// internal error
-		default:
-			// anything else. Treated as internal error
-		{
-			int wait;
-			if (strncmp(error, "FLOOD_WAIT_", 11)) {
-				if (error_code == 420) {
-					vlogprintf(E_ERROR, "error = '%s'\n", error);
-				}
-				wait = 10;
-			} else {
-				wait = atoll(error + 11);
-			}
-			q->flags &= ~QUERY_ACK_RECEIVED;
-			TLS->timer_methods->insert(q->ev, wait);
-			struct tgl_dc *DC = q->DC;
-			if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
-				q->session_id = 0;
-			}
-			error_handled = 1;
-		}
-		break;
+				break;
 		}
 
 		if (error_handled) {
@@ -494,9 +494,9 @@ static int q_list_on_error(struct tgl_state *TLS, struct query *q, int error_cod
 }
 
 static struct query_methods help_get_config_methods = {
-		.on_answer = help_get_config_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(config)
+	.on_answer = help_get_config_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(config)
 };
 
 void tgl_do_help_get_config(struct tgl_state *TLS, void(*callback)(struct tgl_state *,void *, int), void *callback_extra)
@@ -546,9 +546,9 @@ static int send_code_on_error(struct tgl_state *TLS, struct query *q, int error_
 }
 
 static struct query_methods send_code_methods = {
-		.on_answer = send_code_on_answer,
-		.on_error = send_code_on_error,
-		.type = TYPE_TO_PARAM(auth_sent_code)
+	.on_answer = send_code_on_answer,
+	.on_error = send_code_on_error,
+	.type = TYPE_TO_PARAM(auth_sent_code)
 };
 
 void tgl_do_send_code(struct tgl_state *TLS, const char *user, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, int registered, const char *hash), void *callback_extra)
@@ -576,9 +576,9 @@ static int phone_call_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods phone_call_methods = {
-		.on_answer = phone_call_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = phone_call_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 void tgl_do_phone_call(struct tgl_state *TLS, const char *user, const char *hash,void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -619,9 +619,9 @@ static int sign_in_on_error(struct tgl_state *TLS, struct query *q, int error_co
 }
 
 static struct query_methods sign_in_methods = {
-		.on_answer = sign_in_on_answer,
-		.on_error = sign_in_on_error,
-		.type = TYPE_TO_PARAM(auth_authorization)
+	.on_answer = sign_in_on_answer,
+	.on_error = sign_in_on_error,
+	.type = TYPE_TO_PARAM(auth_authorization)
 };
 
 int tgl_do_send_code_result(struct tgl_state *TLS, const char *user, const char *hash, const char *code, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *Self), void *callback_extra)
@@ -673,9 +673,9 @@ static int get_contacts_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods get_contacts_methods = {
-		.on_answer = get_contacts_on_answer,
-		.on_error = q_list_on_error,
-		.type = TYPE_TO_PARAM(contacts_contacts)
+	.on_answer = get_contacts_on_answer,
+	.on_error = q_list_on_error,
+	.type = TYPE_TO_PARAM(contacts_contacts)
 };
 
 
@@ -888,15 +888,15 @@ static int msg_send_on_error(struct tgl_state *TLS, struct query *q, int error_c
 }
 
 static struct query_methods msg_send_methods = {
-		.on_answer = msg_send_on_answer,
-		.on_error = msg_send_on_error,
-		.type = TYPE_TO_PARAM(messages_sent_message)
+	.on_answer = msg_send_on_answer,
+	.on_error = msg_send_on_error,
+	.type = TYPE_TO_PARAM(messages_sent_message)
 };
 
 static struct query_methods msg_send_encr_methods = {
-		.on_answer = msg_send_encr_on_answer,
-		.on_error = msg_send_encr_on_error,
-		.type = TYPE_TO_PARAM(messages_sent_encrypted_message)
+	.on_answer = msg_send_encr_on_answer,
+	.on_error = msg_send_encr_on_error,
+	.type = TYPE_TO_PARAM(messages_sent_encrypted_message)
 };
 
 void tgl_do_send_encr_msg_action(struct tgl_state *TLS, struct tgl_message *M, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
@@ -933,39 +933,39 @@ void tgl_do_send_encr_msg_action(struct tgl_state *TLS, struct tgl_message *M, v
 	}
 
 	switch (M->action.type) {
-	case tgl_message_action_notify_layer:
-		out_int(CODE_decrypted_message_action_notify_layer);
-		out_int(M->action.layer);
-		break;
-	case tgl_message_action_set_message_ttl:
-		out_int(CODE_decrypted_message_action_set_message_t_t_l);
-		out_int(M->action.ttl);
-		break;
-	case tgl_message_action_request_key:
-		out_int(CODE_decrypted_message_action_request_key);
-		out_long(M->action.exchange_id);
-		out_cstring((void *)M->action.g_a, 256);
-		break;
-	case tgl_message_action_accept_key:
-		out_int(CODE_decrypted_message_action_accept_key);
-		out_long(M->action.exchange_id);
-		out_cstring((void *)M->action.g_a, 256);
-		out_long(M->action.key_fingerprint);
-		break;
-	case tgl_message_action_commit_key:
-		out_int(CODE_decrypted_message_action_commit_key);
-		out_long(M->action.exchange_id);
-		out_long(M->action.key_fingerprint);
-		break;
-	case tgl_message_action_abort_key:
-		out_int(CODE_decrypted_message_action_abort_key);
-		out_long(M->action.exchange_id);
-		break;
-	case tgl_message_action_noop:
-		out_int(CODE_decrypted_message_action_noop);
-		break;
-	default:
-		assert(0);
+		case tgl_message_action_notify_layer:
+			out_int(CODE_decrypted_message_action_notify_layer);
+			out_int(M->action.layer);
+			break;
+		case tgl_message_action_set_message_ttl:
+			out_int(CODE_decrypted_message_action_set_message_t_t_l);
+			out_int(M->action.ttl);
+			break;
+		case tgl_message_action_request_key:
+			out_int(CODE_decrypted_message_action_request_key);
+			out_long(M->action.exchange_id);
+			out_cstring((void *)M->action.g_a, 256);
+			break;
+		case tgl_message_action_accept_key:
+			out_int(CODE_decrypted_message_action_accept_key);
+			out_long(M->action.exchange_id);
+			out_cstring((void *)M->action.g_a, 256);
+			out_long(M->action.key_fingerprint);
+			break;
+		case tgl_message_action_commit_key:
+			out_int(CODE_decrypted_message_action_commit_key);
+			out_long(M->action.exchange_id);
+			out_long(M->action.key_fingerprint);
+			break;
+		case tgl_message_action_abort_key:
+			out_int(CODE_decrypted_message_action_abort_key);
+			out_long(M->action.exchange_id);
+			break;
+		case tgl_message_action_noop:
+			out_int(CODE_decrypted_message_action_noop);
+			break;
+		default:
+			assert(0);
 	}
 	encr_finish(&P->encr_chat);
 
@@ -1148,15 +1148,15 @@ static int mark_read_encr_on_error(struct tgl_state *TLS, struct query *q, int e
 }
 
 static struct query_methods mark_read_methods = {
-		.on_answer = mark_read_on_receive,
-		.on_error = mark_read_on_error,
-		.type = TYPE_TO_PARAM(messages_affected_history)
+	.on_answer = mark_read_on_receive,
+	.on_error = mark_read_on_error,
+	.type = TYPE_TO_PARAM(messages_affected_history)
 };
 
 static struct query_methods mark_read_encr_methods = {
-		.on_answer = mark_read_encr_on_receive,
-		.on_error = mark_read_encr_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = mark_read_encr_on_receive,
+	.on_error = mark_read_encr_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 void tgl_do_messages_mark_read(struct tgl_state *TLS, tgl_peer_id_t id, int max_id, int offset, void(*callback)(struct tgl_state *TLS, void *callback_extra, int), void *callback_extra)
@@ -1293,9 +1293,9 @@ static int get_history_on_error(struct tgl_state *TLS, struct query *q, int erro
 }
 
 static struct query_methods get_history_methods = {
-		.on_answer = get_history_on_answer,
-		.on_error = get_history_on_error,
-		.type = TYPE_TO_PARAM(messages_messages)
+	.on_answer = get_history_on_answer,
+	.on_error = get_history_on_error,
+	.type = TYPE_TO_PARAM(messages_messages)
 };
 
 void tgl_do_get_local_history(struct tgl_state *TLS, tgl_peer_id_t id, int limit, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[]), void *callback_extra)
@@ -1466,9 +1466,9 @@ static int get_dialogs_on_error(struct tgl_state *TLS, struct query *q, int erro
 }
 
 static struct query_methods get_dialogs_methods = {
-		.on_answer = get_dialogs_on_answer,
-		.on_error = get_dialogs_on_error,
-		.type = TYPE_TO_PARAM(messages_dialogs)
+	.on_answer = get_dialogs_on_answer,
+	.on_error = get_dialogs_on_error,
+	.type = TYPE_TO_PARAM(messages_dialogs)
 };
 
 void tgl_do_get_dialog_list(struct tgl_state *TLS, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, int size, tgl_peer_id_t peers[], int last_msg_id[], int unread_count[]), void *callback_extra)
@@ -1508,23 +1508,23 @@ static void out_peer_id(struct tgl_state *TLS, tgl_peer_id_t id)
 {
 	tgl_peer_t *U;
 	switch (tgl_get_peer_type(id)) {
-	case TGL_PEER_CHAT:
-		out_int(CODE_input_peer_chat);
-		out_int(tgl_get_peer_id(id));
-		break;
-	case TGL_PEER_USER:
-		U = tgl_peer_get(TLS, id);
-		if (U && U->user.access_hash) {
-			out_int(CODE_input_peer_foreign);
+		case TGL_PEER_CHAT:
+			out_int(CODE_input_peer_chat);
 			out_int(tgl_get_peer_id(id));
-			out_long(U->user.access_hash);
-		} else {
-			out_int(CODE_input_peer_contact);
-			out_int(tgl_get_peer_id(id));
-		}
-		break;
-	default:
-		assert(0);
+			break;
+		case TGL_PEER_USER:
+			U = tgl_peer_get(TLS, id);
+			if (U && U->user.access_hash) {
+				out_int(CODE_input_peer_foreign);
+				out_int(tgl_get_peer_id(id));
+				out_long(U->user.access_hash);
+			} else {
+				out_int(CODE_input_peer_contact);
+				out_int(tgl_get_peer_id(id));
+			}
+			break;
+		default:
+			assert(0);
 	}
 }
 
@@ -1615,27 +1615,27 @@ static int send_file_part_on_error(struct tgl_state *TLS, struct query *q, int e
 }
 
 static struct query_methods send_file_part_methods = {
-		.on_answer = send_file_part_on_answer,
-		.on_error = send_file_part_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = send_file_part_on_answer,
+	.on_error = send_file_part_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 static struct query_methods send_file_methods = {
-		.on_answer = send_file_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(messages_stated_message)
+	.on_answer = send_file_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(messages_stated_message)
 };
 
 static struct query_methods set_photo_methods = {
-		.on_answer = set_photo_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(photos_photo)
+	.on_answer = set_photo_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(photos_photo)
 };
 
 static struct query_methods send_encr_file_methods = {
-		.on_answer = send_encr_file_on_answer,
-		.on_error = msg_send_encr_on_error,
-		.type = TYPE_TO_PARAM(messages_sent_encrypted_message)
+	.on_answer = send_encr_file_on_answer,
+	.on_error = msg_send_encr_on_error,
+	.type = TYPE_TO_PARAM(messages_sent_encrypted_message)
 };
 
 static void send_avatar_end(struct tgl_state *TLS, struct send_file *f, void *callback, void *callback_extra)
@@ -2047,9 +2047,9 @@ int set_profile_name_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods set_profile_name_methods = {
-		.on_answer = set_profile_name_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(user)
+	.on_answer = set_profile_name_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(user)
 };
 
 void tgl_do_set_profile_name(struct tgl_state *TLS, char *first_name, char *last_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
@@ -2095,9 +2095,9 @@ int contact_search_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods contact_search_methods = {
-		.on_answer = contact_search_on_answer,
-		.on_error = q_list_on_error,
-		.type = TYPE_TO_PARAM(contacts_found)
+	.on_answer = contact_search_on_answer,
+	.on_error = q_list_on_error,
+	.type = TYPE_TO_PARAM(contacts_found)
 };
 
 void tgl_do_contact_search(struct tgl_state *TLS, char *name, int limit, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, int cnt, struct tgl_user *U[]), void *callback_extra)
@@ -2147,9 +2147,9 @@ static int fwd_msg_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods fwd_msg_methods = {
-		.on_answer = fwd_msg_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(messages_stated_message)
+	.on_answer = fwd_msg_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(messages_stated_message)
 };
 
 void tgl_do_forward_message(struct tgl_state *TLS, tgl_peer_id_t id, int n, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
@@ -2230,20 +2230,20 @@ void tgl_do_forward_media(struct tgl_state *TLS, tgl_peer_id_t id, int n, void(*
 	out_int(CODE_messages_send_media);
 	out_peer_id(TLS, id);
 	switch (M->media.type) {
-	case tgl_message_media_photo:
-		out_int(CODE_input_media_photo);
-		out_int(CODE_input_photo);
-		out_long(M->media.photo.id);
-		out_long(M->media.photo.access_hash);
-		break;
-	case tgl_message_media_document:
-		out_int(CODE_input_media_document);
-		out_int(CODE_input_document);
-		out_long(M->media.document.id);
-		out_long(M->media.document.access_hash);
-		break;
-	default:
-		assert(0);
+		case tgl_message_media_photo:
+			out_int(CODE_input_media_photo);
+			out_int(CODE_input_photo);
+			out_long(M->media.photo.id);
+			out_long(M->media.photo.access_hash);
+			break;
+		case tgl_message_media_document:
+			out_int(CODE_input_media_document);
+			out_int(CODE_input_document);
+			out_long(M->media.document.id);
+			out_long(M->media.document.access_hash);
+			break;
+		default:
+			assert(0);
 	}
 	long long r;
 	tglt_secure_random(&r, 8);
@@ -2351,9 +2351,9 @@ static int rename_chat_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods rename_chat_methods = {
-		.on_answer = rename_chat_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(messages_stated_message)
+	.on_answer = rename_chat_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(messages_stated_message)
 };
 
 void tgl_do_rename_chat(struct tgl_state *TLS, tgl_peer_id_t id, char *name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
@@ -2376,9 +2376,9 @@ static int chat_info_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods chat_info_methods = {
-		.on_answer = chat_info_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(messages_chat_full)
+	.on_answer = chat_info_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(messages_chat_full)
 };
 
 void tgl_do_get_chat_info(struct tgl_state *TLS, tgl_peer_id_t id, int offline_mode, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *C), void *callback_extra)
@@ -2415,9 +2415,9 @@ static int user_info_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods user_info_methods = {
-		.on_answer = user_info_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(user_full)
+	.on_answer = user_info_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(user_full)
 };
 
 void tgl_do_get_user_info(struct tgl_state *TLS, tgl_peer_id_t id, int offline_mode, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
@@ -2559,9 +2559,9 @@ static int download_on_error(struct tgl_state *TLS, struct query *q, int error_c
 }
 
 static struct query_methods download_methods = {
-		.on_answer = download_on_answer,
-		.on_error = download_on_error,
-		.type = TYPE_TO_PARAM(upload_file)
+	.on_answer = download_on_answer,
+	.on_error = download_on_error,
+	.type = TYPE_TO_PARAM(upload_file)
 };
 
 static void load_next_part(struct tgl_state *TLS, struct download *D, void *callback, void *callback_extra)
@@ -2736,9 +2736,9 @@ static int import_auth_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods import_auth_methods = {
-		.on_answer = import_auth_on_answer,
-		.on_error = fail_on_error,
-		.type = TYPE_TO_PARAM(auth_authorization)
+	.on_answer = import_auth_on_answer,
+	.on_error = fail_on_error,
+	.type = TYPE_TO_PARAM(auth_authorization)
 };
 
 static int export_auth_on_answer(struct tgl_state *TLS, struct query *q)
@@ -2760,9 +2760,9 @@ static int export_auth_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods export_auth_methods = {
-		.on_answer = export_auth_on_answer,
-		.on_error = fail_on_error,
-		.type = TYPE_TO_PARAM(auth_exported_authorization)
+	.on_answer = export_auth_on_answer,
+	.on_error = fail_on_error,
+	.type = TYPE_TO_PARAM(auth_exported_authorization)
 };
 
 void tgl_do_export_auth(struct tgl_state *TLS, int num, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -2811,9 +2811,9 @@ static int add_contact_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods add_contact_methods = {
-		.on_answer = add_contact_on_answer,
-		.on_error = q_list_on_error,
-		.type = TYPE_TO_PARAM(contacts_imported_contacts)
+	.on_answer = add_contact_on_answer,
+	.on_error = q_list_on_error,
+	.type = TYPE_TO_PARAM(contacts_imported_contacts)
 };
 
 void tgl_do_add_contact(struct tgl_state *TLS, const char *phone, int phone_len, const char *first_name, int first_name_len, const char *last_name, int last_name_len, int force, void(*callback)(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[]), void *callback_extra)
@@ -2844,9 +2844,9 @@ static int del_contact_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods del_contact_methods = {
-		.on_answer = del_contact_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(contacts_link)
+	.on_answer = del_contact_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(contacts_link)
 };
 
 void tgl_do_del_contact(struct tgl_state *TLS, tgl_peer_id_t id, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -2962,9 +2962,9 @@ static int msg_search_on_error(struct tgl_state *TLS, struct query *q, int error
 }
 
 static struct query_methods msg_search_methods = {
-		.on_answer = msg_search_on_answer,
-		.on_error = msg_search_on_error,
-		.type = TYPE_TO_PARAM(messages_messages)
+	.on_answer = msg_search_on_answer,
+	.on_error = msg_search_on_error,
+	.type = TYPE_TO_PARAM(messages_messages)
 };
 
 void _tgl_do_msg_search(struct tgl_state *TLS, tgl_peer_id_t id, int from, int to, int limit, int offset, int max_id, char *s, int list_offset, int list_size, struct tgl_message **list, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[]), void *callback_extra)
@@ -3035,9 +3035,9 @@ static int contacts_search_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods contacts_search_methods = {
-		.on_answer = contacts_search_on_answer,
-		.on_error = q_list_on_error,
-		.type = TYPE_TO_PARAM(contacts_found)
+	.on_answer = contacts_search_on_answer,
+	.on_error = q_list_on_error,
+	.type = TYPE_TO_PARAM(contacts_found)
 };
 
 void tgl_do_contacts_search(struct tgl_state *TLS, int limit, const char *s, void(*callback)(struct tgl_state *, void *callback_extra, int success, int size, struct tgl_user *users[]), void *callback_extra)
@@ -3087,15 +3087,15 @@ static int encr_accept_on_error(struct tgl_state *TLS, struct query *q, int erro
 }
 
 static struct query_methods send_encr_accept_methods  = {
-		.on_answer = send_encr_accept_on_answer,
-		.on_error = encr_accept_on_error,
-		.type = TYPE_TO_PARAM(encrypted_chat)
+	.on_answer = send_encr_accept_on_answer,
+	.on_error = encr_accept_on_error,
+	.type = TYPE_TO_PARAM(encrypted_chat)
 };
 
 static struct query_methods send_encr_request_methods  = {
-		.on_answer = send_encr_request_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(encrypted_chat)
+	.on_answer = send_encr_request_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(encrypted_chat)
 };
 
 //int encr_root;
@@ -3312,9 +3312,9 @@ static int get_dh_config_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods get_dh_config_methods  = {
-		.on_answer = get_dh_config_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(messages_dh_config)
+	.on_answer = get_dh_config_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(messages_dh_config)
 };
 
 void tgl_do_accept_encr_chat_request(struct tgl_state *TLS, struct tgl_secret_chat *E, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_secret_chat *E), void *callback_extra)
@@ -3442,8 +3442,8 @@ static int get_difference_on_answer(struct tgl_state *TLS, struct query *q)
 		fetch_int();
 		//write_state_file();
 		/*for (i = 0; i < ml_pos; i++) {
-      print_message(ML[i]);
-    }*/
+		  print_message(ML[i]);
+		  }*/
 		for (i = 0; i < ml_pos; i++) {
 			//TLS->callback.new_msg(ML[i]);
 			bl_do_msg_update(TLS, ML[i]->id);
@@ -3473,21 +3473,21 @@ static int get_difference_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods lookup_state_methods = {
-		.on_answer = lookup_state_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(updates_state)
+	.on_answer = lookup_state_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(updates_state)
 };
 
 static struct query_methods get_state_methods = {
-		.on_answer = get_state_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(updates_state)
+	.on_answer = get_state_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(updates_state)
 };
 
 static struct query_methods get_difference_methods = {
-		.on_answer = get_difference_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(updates_difference)
+	.on_answer = get_difference_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(updates_difference)
 };
 
 void tgl_do_lookup_state(struct tgl_state *TLS)
@@ -3533,33 +3533,33 @@ void tgl_do_get_difference(struct tgl_state *TLS, int sync_from_start, void(*cal
 /* {{{ Visualize key */
 /*char *colors[4] = {COLOR_GREY, COLOR_CYAN, COLOR_BLUE, COLOR_GREEN};
 
-void tgl_do_visualize_key(tgl_peer_id_t id) {
+  void tgl_do_visualize_key(tgl_peer_id_t id) {
   assert(tgl_get_peer_type(id) == TGL_PEER_ENCR_CHAT);
   tgl_peer_t *P = tgl_peer_get(TLS, id);
   assert(P);
   if (P->encr_chat.state != sc_ok) {
-    rprintf("Chat is not initialized yet\n");
-    return;
+  rprintf("Chat is not initialized yet\n");
+  return;
   }
   unsigned char buf[20];
   SHA1((void *)P->encr_chat.key, 256, buf);
   print_start();
   int i;
   for (i = 0; i < 16; i++) {
-    int x = buf[i];
-    int j;
-    for (j = 0; j < 4; j ++) {
-      push_color(colors[x & 3]);
-      push_color(COLOR_INVERSE);
-      printf("  ");
-      pop_color();
-      pop_color();
-      x = x >> 2;
-    }
-    if (i & 1) { printf("\n"); }
+  int x = buf[i];
+  int j;
+  for (j = 0; j < 4; j ++) {
+  push_color(colors[x & 3]);
+  push_color(COLOR_INVERSE);
+  printf("  ");
+  pop_color();
+  pop_color();
+  x = x >> 2;
+  }
+  if (i & 1) { printf("\n"); }
   }
   print_end();
-}*/
+  }*/
 
 void tgl_do_visualize_key(struct tgl_state *TLS, tgl_peer_id_t id, unsigned char buf[16])
 {
@@ -3577,9 +3577,9 @@ void tgl_do_visualize_key(struct tgl_state *TLS, tgl_peer_id_t id, unsigned char
 }
 
 static struct query_methods add_user_to_chat_methods = {
-		.on_answer = fwd_msg_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(messages_stated_message)
+	.on_answer = fwd_msg_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(messages_stated_message)
 };
 
 void tgl_do_add_user_to_chat(struct tgl_state *TLS, tgl_peer_id_t chat_id, tgl_peer_id_t id, int limit, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
@@ -3634,9 +3634,9 @@ void tgl_do_create_secret_chat(struct tgl_state *TLS, tgl_peer_id_t id, void(*ca
 }
 
 static struct query_methods create_group_chat_methods = {
-		.on_answer = fwd_msg_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(messages_stated_message)
+	.on_answer = fwd_msg_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(messages_stated_message)
 };
 
 void tgl_do_create_group_chat(struct tgl_state *TLS, tgl_peer_id_t id, char *chat_topic, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
@@ -3709,9 +3709,9 @@ static int delete_msg_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods delete_msg_methods = {
-		.on_answer = delete_msg_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(bare_int))
+	.on_answer = delete_msg_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(bare_int))
 };
 
 void tgl_do_delete_msg(struct tgl_state *TLS, long long id, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -3737,9 +3737,9 @@ static int restore_msg_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods restore_msg_methods = {
-		.on_answer = restore_msg_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(bare_int))
+	.on_answer = restore_msg_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(bare_int))
 };
 
 void tgl_do_restore_msg(struct tgl_state *TLS, long long id, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -3767,9 +3767,9 @@ static int export_card_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods export_card_methods = {
-		.on_answer = export_card_on_answer,
-		.on_error = q_list_on_error,
-		.type = TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(bare_int))
+	.on_answer = export_card_on_answer,
+	.on_error = q_list_on_error,
+	.type = TYPE_TO_PARAM_1(vector, TYPE_TO_PARAM(bare_int))
 };
 
 void tgl_do_export_card(struct tgl_state *TLS, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, int size, int *card), void *callback_extra)
@@ -3790,9 +3790,9 @@ static int import_card_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods import_card_methods = {
-		.on_answer = import_card_on_answer,
-		.on_error = q_ptr_on_error,
-		.type = TYPE_TO_PARAM(user)
+	.on_answer = import_card_on_answer,
+	.on_error = q_ptr_on_error,
+	.type = TYPE_TO_PARAM(user)
 };
 
 void tgl_do_import_card(struct tgl_state *TLS, int size, int *card, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
@@ -3815,9 +3815,9 @@ static int send_typing_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods send_typing_methods = {
-		.on_answer = send_typing_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = send_typing_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 void tgl_do_send_typing(struct tgl_state *TLS, tgl_peer_id_t id, enum tgl_typing_status status, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -3827,37 +3827,37 @@ void tgl_do_send_typing(struct tgl_state *TLS, tgl_peer_id_t id, enum tgl_typing
 		out_int(CODE_messages_set_typing);
 		out_peer_id(TLS, id);
 		switch (status) {
-		case tgl_typing_none:
-		case tgl_typing_typing:
-			out_int(CODE_send_message_typing_action);
-			break;
-		case tgl_typing_cancel:
-			out_int(CODE_send_message_cancel_action);
-			break;
-		case tgl_typing_record_video:
-			out_int(CODE_send_message_record_video_action);
-			break;
-		case tgl_typing_upload_video:
-			out_int(CODE_send_message_upload_video_action);
-			break;
-		case tgl_typing_record_audio:
-			out_int(CODE_send_message_record_audio_action);
-			break;
-		case tgl_typing_upload_audio:
-			out_int(CODE_send_message_upload_audio_action);
-			break;
-		case tgl_typing_upload_photo:
-			out_int(CODE_send_message_upload_photo_action);
-			break;
-		case tgl_typing_upload_document:
-			out_int(CODE_send_message_upload_document_action);
-			break;
-		case tgl_typing_geo:
-			out_int(CODE_send_message_geo_location_action);
-			break;
-		case tgl_typing_choose_contact:
-			out_int(CODE_send_message_choose_contact_action);
-			break;
+			case tgl_typing_none:
+			case tgl_typing_typing:
+				out_int(CODE_send_message_typing_action);
+				break;
+			case tgl_typing_cancel:
+				out_int(CODE_send_message_cancel_action);
+				break;
+			case tgl_typing_record_video:
+				out_int(CODE_send_message_record_video_action);
+				break;
+			case tgl_typing_upload_video:
+				out_int(CODE_send_message_upload_video_action);
+				break;
+			case tgl_typing_record_audio:
+				out_int(CODE_send_message_record_audio_action);
+				break;
+			case tgl_typing_upload_audio:
+				out_int(CODE_send_message_upload_audio_action);
+				break;
+			case tgl_typing_upload_photo:
+				out_int(CODE_send_message_upload_photo_action);
+				break;
+			case tgl_typing_upload_document:
+				out_int(CODE_send_message_upload_document_action);
+				break;
+			case tgl_typing_geo:
+				out_int(CODE_send_message_geo_location_action);
+				break;
+			case tgl_typing_choose_contact:
+				out_int(CODE_send_message_choose_contact_action);
+				break;
 		}
 		tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &send_typing_methods, 0, callback, callback_extra);
 	} else {
@@ -3879,8 +3879,8 @@ static int ext_query_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods ext_query_methods = {
-		.on_answer = ext_query_on_answer,
-		.on_error = q_list_on_error
+	.on_answer = ext_query_on_answer,
+	.on_error = q_list_on_error
 };
 
 void tgl_do_send_extf(struct tgl_state *TLS, char *data, int data_len, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, char *buf), void *callback_extra)
@@ -3943,9 +3943,9 @@ static int set_password_on_error(struct tgl_state *TLS, struct query *q, int err
 }
 
 static struct query_methods set_password_methods = {
-		.on_answer = set_password_on_answer,
-		.on_error = set_password_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = set_password_on_answer,
+	.on_error = set_password_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 static void tgl_do_act_set_password(struct tgl_state *TLS, char *current_password, char *new_password, char *current_salt, int l, char *new_salt, int l2, char *hint, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
@@ -4085,9 +4085,9 @@ static int set_get_password_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods set_get_password_methods = {
-		.on_answer = set_get_password_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(account_password)
+	.on_answer = set_get_password_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(account_password)
 };
 
 void tgl_do_set_password(struct tgl_state *TLS, char *hint, void(*callback)(struct tgl_state *TLS, void *extra, int success), void *callback_extra)
@@ -4122,9 +4122,9 @@ static int check_password_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods check_password_methods = {
-		.on_answer = check_password_on_answer,
-		.on_error = check_password_on_error,
-		.type = TYPE_TO_PARAM(auth_authorization)
+	.on_answer = check_password_on_answer,
+	.on_error = check_password_on_error,
+	.type = TYPE_TO_PARAM(auth_authorization)
 };
 
 
@@ -4225,9 +4225,9 @@ static int check_get_password_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods check_get_password_methods = {
-		.on_answer = check_get_password_on_answer,
-		.on_error = check_get_password_on_error,
-		.type = TYPE_TO_PARAM(account_password)
+	.on_answer = check_get_password_on_answer,
+	.on_error = check_get_password_on_error,
+	.type = TYPE_TO_PARAM(account_password)
 };
 
 void tgl_do_check_password(struct tgl_state *TLS, void(*callback)(struct tgl_state *TLS, void *extra, int success), void *callback_extra)
@@ -4289,9 +4289,9 @@ static int send_broadcast_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods send_broadcast_methods = {
-		.on_answer = send_broadcast_on_answer,
-		.on_error = q_list_on_error,
-		.type = TYPE_TO_PARAM(messages_stated_messages)
+	.on_answer = send_broadcast_on_answer,
+	.on_error = q_list_on_error,
+	.type = TYPE_TO_PARAM(messages_stated_messages)
 };
 
 void tgl_do_send_broadcast(struct tgl_state *TLS, int num, tgl_peer_id_t id[], const char *text, int text_len, void(*callback)(struct tgl_state *TLS, void *extra, int success, int num, struct tgl_message *ML[]), void *callback_extra)
@@ -4348,9 +4348,9 @@ static int send_bind_on_error(struct tgl_state *TLS, struct query *q, int error_
 }
 
 static struct query_methods send_bind_temp_methods = {
-		.on_answer = send_bind_temp_on_answer,
-		.on_error = send_bind_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = send_bind_temp_on_answer,
+	.on_error = send_bind_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 void tgl_do_send_bind_temp_key(struct tgl_state *TLS, struct tgl_dc *D, long long nonce, int expires_at, void *data, int len, long long msg_id)
@@ -4376,9 +4376,9 @@ static int update_status_on_answer(struct tgl_state *TLS, struct query *q)
 }
 
 static struct query_methods update_status_methods = {
-		.on_answer = update_status_on_answer,
-		.on_error = q_void_on_error,
-		.type = TYPE_TO_PARAM(bool)
+	.on_answer = update_status_on_answer,
+	.on_error = q_void_on_error,
+	.type = TYPE_TO_PARAM(bool)
 };
 
 void tgl_do_update_status(struct tgl_state *TLS, int online, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)

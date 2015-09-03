@@ -1,8 +1,7 @@
-/*
- * tg_registration.c
- *
- *  Created on: May 19, 2015
- *      Author: sandeep
+/**
+ * @file tg_registration.c
+ * @date May 19, 2015
+ * @author sandeep
  */
 
 #include "tg_registration.h"
@@ -11,7 +10,6 @@
 #include "tg_login.h"
 #include "device_contacts_manager.h"
 #include "contacts-db-utils.h"
-
 
 static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
@@ -147,7 +145,6 @@ static void on_country_name_list_clicked(void *data, Evas_Object *obj, void *eve
 	evas_object_data_set(ad->nf, "country_name_popup", country_name_popup);
 }
 
-
 void launch_registration_cb(appdata_s* ad)
 {
 	if (!ad) {
@@ -235,21 +232,21 @@ void launch_registration_cb(appdata_s* ad)
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Your phone", NULL, NULL, scroller, NULL);
 
-    Evas_Object *cancel_btn = elm_button_add(ad->nf);
-    elm_object_style_set(cancel_btn, "naviframe/title_icon");
-    elm_object_text_set(cancel_btn, "Cancel");
-    evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad);
+	Evas_Object *cancel_btn = elm_button_add(ad->nf);
+	elm_object_style_set(cancel_btn, "naviframe/title_icon");
+	elm_object_text_set(cancel_btn, "Cancel");
+	evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad);
 
-    Evas_Object *done_btn = elm_button_add(ad->nf);
-    elm_object_style_set(done_btn, "naviframe/title_icon");
-    elm_object_text_set(done_btn, "Done");
-    evas_object_smart_callback_add(done_btn, "clicked", on_naviframe_done_clicked, ad);
+	Evas_Object *done_btn = elm_button_add(ad->nf);
+	elm_object_style_set(done_btn, "naviframe/title_icon");
+	elm_object_text_set(done_btn, "Done");
+	evas_object_smart_callback_add(done_btn, "clicked", on_naviframe_done_clicked, ad);
 
 
-    elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
-    elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
+	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
+	elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
 
-    evas_object_data_set(ad->nf, "reg_done_btn", (void*)done_btn);
-    evas_object_data_set(ad->nf, "reg_cancel_btn", (void*)cancel_btn);
-    elm_object_disabled_set(done_btn, EINA_TRUE);
+	evas_object_data_set(ad->nf, "reg_done_btn", (void*)done_btn);
+	evas_object_data_set(ad->nf, "reg_cancel_btn", (void*)cancel_btn);
+	elm_object_disabled_set(done_btn, EINA_TRUE);
 }

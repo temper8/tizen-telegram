@@ -286,27 +286,27 @@ void tglt_secure_random(void *s, int l)
 {
 	if (RAND_bytes(s, l) <= 0) {
 		/*if (allow_weak_random) {
-      RAND_pseudo_bytes(s, l);
-    } else {*/
+		  RAND_pseudo_bytes(s, l);
+		  } else {*/
 		assert(0 && "End of random. If you want, you can start with -w");
 		//}
 	}
 }
 
 struct tgl_allocator tgl_allocator_debug = {
-		.alloc = tgl_alloc_debug,
-		.realloc = tgl_realloc_debug,
-		.free = tgl_free_debug,
-		.check = tgl_check_debug,
-		.exists = tgl_exists_debug
+	.alloc = tgl_alloc_debug,
+	.realloc = tgl_realloc_debug,
+	.free = tgl_free_debug,
+	.check = tgl_check_debug,
+	.exists = tgl_exists_debug
 };
 
 struct tgl_allocator tgl_allocator_release = {
-		.alloc = tgl_alloc_release,
-		.realloc = tgl_realloc_release,
-		.free = tgl_free_release,
-		.check = tgl_check_release,
-		.exists = tgl_exists_release
+	.alloc = tgl_alloc_release,
+	.realloc = tgl_realloc_release,
+	.free = tgl_free_release,
+	.check = tgl_check_release,
+	.exists = tgl_exists_release
 };
 
 struct tgl_allocator *tgl_allocator = &tgl_allocator_release;

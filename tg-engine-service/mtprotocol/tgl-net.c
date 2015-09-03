@@ -1,4 +1,4 @@
-/* 
+/*
     This file is part of tgl-library
 
     This library is free software; you can redistribute it and/or
@@ -84,8 +84,6 @@ static void th_end(void *data, Ecore_Thread *th) {  }
 // BONUS (optional): called in mainloop AFTER thread has finished cancelling
 static void th_cancel(void *data, Ecore_Thread *th) { }
 
-
-
 static void start_ping_timer(struct connection *c);
 
 Eina_Bool ping_alarm(void *arg)
@@ -163,8 +161,8 @@ int tgln_write_out(struct connection *c, const void *_data, int len)
 	assert(len > 0);
 	int x = 0;
 	if (!c->out_bytes) {
-/*		Ecore_Idler *idler_for_event;
-		idler_for_event = ecore_idler_add(th_do, c);*/
+		/*		Ecore_Idler *idler_for_event;
+				idler_for_event = ecore_idler_add(th_do, c);*/
 
 		if(c->thrd) {
 			ecore_thread_cancel(c->thrd);
@@ -278,21 +276,20 @@ static int max_connection_fd;
 static void rotate_port(struct connection *c)
 {
 	switch(c->port) {
-	case 443:
-		c->port = 80;
-		break;
-	case 80:
-		c->port = 25;
-		break;
-	case 25:
-		c->port = 443;
-		break;
+		case 443:
+			c->port = 80;
+			break;
+		case 80:
+			c->port = 25;
+			break;
+		case 25:
+			c->port = 443;
+			break;
 	}
 }
 
 static void try_read(struct connection *c);
 static void try_write(struct connection *c);
-
 
 static Eina_Bool conn_try_read(void *arg, Ecore_Fd_Handler *handler)
 {
@@ -315,8 +312,8 @@ void conn_try_write(void *arg)
 
 	try_write(c);
 	if (c->out_bytes) {
-/*		Ecore_Idler *idler_for_event;
-		idler_for_event = ecore_idler_add(th_do, c);*/
+		/*		Ecore_Idler *idler_for_event;
+				idler_for_event = ecore_idler_add(th_do, c);*/
 		if(c->thrd) {
 			ecore_thread_cancel(c->thrd);
 			c->thrd = NULL;
@@ -695,13 +692,13 @@ static void tgln_free(struct connection *c)
 }
 
 struct tgl_net_methods tgl_conn_methods = {
-		.write_out = tgln_write_out,
-		.read_in = tgln_read_in,
-		.read_in_lookup = tgln_read_in_lookup,
-		.flush_out = tgln_flush_out,
-		.incr_out_packet_num = incr_out_packet_num,
-		.get_dc = get_dc,
-		.get_session = get_session,
-		.create_connection = tgln_create_connection,
-		.free = tgln_free
+	.write_out = tgln_write_out,
+	.read_in = tgln_read_in,
+	.read_in_lookup = tgln_read_in_lookup,
+	.flush_out = tgln_flush_out,
+	.incr_out_packet_num = incr_out_packet_num,
+	.get_dc = get_dc,
+	.get_session = get_session,
+	.create_connection = tgln_create_connection,
+	.free = tgln_free
 };

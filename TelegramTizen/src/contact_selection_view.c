@@ -1,8 +1,7 @@
-/*
- * contact_selection_view.c
- *
- *  Created on: Jul 9, 2015
- *      Author: sandeep
+/**
+ * @file contact_selection_view.c
+ * @author sandeep
+ * @date Jul 9, 2015
  */
 
 #include "contact_selection_view.h"
@@ -13,20 +12,20 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	Evas_Object *layout = elm_object_item_part_content_get(event_info, "elm.swallow.end");
-    Evas_Object *checkbox = elm_object_part_content_get(layout, "elm.swallow.content");
-    Eina_Bool checked = elm_check_state_get(checkbox);
-    checked = !checked;
-    elm_check_state_set(checkbox, checked);
+	Evas_Object *checkbox = elm_object_part_content_get(layout, "elm.swallow.content");
+	Eina_Bool checked = elm_check_state_get(checkbox);
+	checked = !checked;
+	elm_check_state_set(checkbox, checked);
 
-    int id = (int)data;
-    appdata_s* ad = evas_object_data_get(obj, "app_data");
+	int id = (int)data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
-    if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
-    	if(id == 0) {
-    		for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-    			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-    			user_data_s* user = item->use_data;
-    			user->is_selected = checked;
+	if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
+		if(id == 0) {
+			for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
+				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+				user_data_s* user = item->use_data;
+				user->is_selected = checked;
 
 
 				Elm_Object_Item* list_item = elm_genlist_nth_item_get(obj, i+1);
@@ -36,8 +35,8 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
 					elm_check_state_set(lcheckbox, checked);
 				}
-    		}
-    	} else {
+			}
+		} else {
 			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, id - 1);
 			user_data_s* user = item->use_data;
 			user->is_selected = checked;
@@ -68,8 +67,8 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 					elm_check_state_set(lcheckbox, all_items_selected);
 				}
 			}
-    	}
-    }
+		}
+	}
 }
 
 char* on_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
@@ -99,12 +98,12 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	Eina_Bool checked = elm_check_state_get(obj);
 	Evas_Object* buddy_gen_list = evas_object_data_get(obj, "buddy_gen_list");
-    if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
-    	if(id == 0) {
-    		for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-    			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-    			user_data_s* user = item->use_data;
-    			user->is_selected = checked;
+	if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
+		if(id == 0) {
+			for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
+				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+				user_data_s* user = item->use_data;
+				user->is_selected = checked;
 
 				Elm_Object_Item* list_item = elm_genlist_nth_item_get(buddy_gen_list, i + 1);
 				if (list_item) {
@@ -113,8 +112,8 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
 					elm_check_state_set(lcheckbox, checked);
 				}
-    		}
-    	} else {
+			}
+		} else {
 			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, id - 1);
 			user_data_s* user = item->use_data;
 			user->is_selected = checked;
@@ -145,8 +144,8 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 					elm_check_state_set(lcheckbox, all_items_selected);
 				}
 			}
-    	}
-    }
+		}
+	}
 }
 
 Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj, const char *part)
@@ -320,5 +319,3 @@ void launch_contact_selction_view(void *data)
 	elm_object_item_part_content_set(buddy_sel_nav_item, "title_left_btn", cancel_btn);
 
 }
-
-

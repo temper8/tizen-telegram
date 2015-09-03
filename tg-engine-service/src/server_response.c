@@ -1,8 +1,7 @@
-/*
- * server_response.c
- *
- *  Created on: Jun 26, 2015
- *      Author: sandeep
+/**
+ * @file server_response.c
+ * @date Jun 26, 2015
+ * @file sandeep
  */
 
 #include "server_response.h"
@@ -106,8 +105,8 @@ void send_registration_response(Eina_Bool is_success)
 		}
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -135,8 +134,8 @@ void send_new_group_added_response(int chat_id)
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -168,8 +167,8 @@ void send_chat_profile_pic_updated_response(int chat_id, char* filename)
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -190,8 +189,8 @@ void send_name_registration_response()
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -211,8 +210,8 @@ void send_add_contacts_request()
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -245,8 +244,8 @@ void send_contacts_and_chats_load_done_response(Eina_Bool is_success)
 		}
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -279,8 +278,8 @@ void send_contacts_load_done_response(Eina_Bool is_success)
 		}
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -314,8 +313,8 @@ void send_buddy_profile_pic_updated_response(int buddy_id, char* file_path)
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -368,8 +367,8 @@ void send_message_received_response(int from_id, int to_id, long long message_id
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -424,8 +423,8 @@ void send_message_read_by_buddy_response(int buddy_id, int message_id, char* tab
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -480,8 +479,8 @@ void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* tab
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -530,8 +529,8 @@ void send_media_download_completed_response(int buddy_id, long long media_id, co
 		}
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -568,8 +567,8 @@ void send_contact_updated_response(int buddy_id, char* update_message)
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -598,8 +597,8 @@ void send_buddy_status_updated_response(int buddy_id)
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
@@ -641,8 +640,8 @@ void send_buddy_type_notification_response(int buddy_id, char* budy_name, int ty
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = tg_server_send_message(tg_data->tg_server, msg);
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
 
 	if(result != SVC_RES_OK) {
 		// error: cient not ready

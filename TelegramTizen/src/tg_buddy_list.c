@@ -1,8 +1,7 @@
-/*
- * tg_buddy_list.c
- *
- *  Created on: May 21, 2015
- *      Author: sandeep
+/**
+ * @file tg_buddy_list.c
+ * @date May 21, 2015
+ * @author sandeep
  */
 #include "tg_buddy_list.h"
 #include "tg_chat_conv_view.h"
@@ -54,24 +53,24 @@ char* on_list_text_get_cb(void *data, Evas_Object *obj, const char *part)
 		char res[32];
 		(void) localtime_r(&t, &lt);
 
-        if (strftime(res, sizeof(res), format, &lt) == 0) {
-                (void) fprintf(stderr,  "strftime(3): cannot format supplied "
-                                        "date/time into buffer of size %u "
-                                        "using: '%s'\n",
-                                        sizeof(res), format);
-                exit(0);
-        }
+		if (strftime(res, sizeof(res), format, &lt) == 0) {
+			(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+					"date/time into buffer of size %u "
+					"using: '%s'\n",
+					sizeof(res), format);
+			exit(0);
+		}
 #else
-        char* res = NULL;
-        if (item->last_message) {
-        	res = item->last_message;
-        } else {
-        	res = " ";
-        }
+		char* res = NULL;
+		if (item->last_message) {
+			res = item->last_message;
+		} else {
+			res = " ";
+		}
 #endif
-        char buf[512] = {'\0'};
-        snprintf(buf, 512, "<align=left><font_size=25><color=#A4A4A4>%s</color></font_size></align>", res);
-        return strdup(buf);
+		char buf[512] = {'\0'};
+		snprintf(buf, 512, "<align=left><font_size=25><color=#A4A4A4>%s</color></font_size></align>", res);
+		return strdup(buf);
 	}
 
 	return NULL;
@@ -92,7 +91,6 @@ void list_back_cb(void *data, Evas_Object *obj, void *event_info)
 	Evas_Object *panel = data;
 	elm_panel_hidden_set(panel, EINA_TRUE);
 }
-
 
 void on_new_group_chat_clicked(void *data, Evas_Object *obj, void *event_info)
 {
@@ -130,7 +128,6 @@ Evas_Object* create_panel_list(appdata_s* ad, Evas_Object *parent)
 	evas_object_show(list);
 	return list;
 }
-
 
 void panel_scroll_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -437,27 +434,27 @@ void launch_buddy_list_cb(void *data)
 	evas_object_show(buddy_list);
 	//elm_box_pack_end(nf, buddy_list);
 
-    Evas_Object *left_button = elm_button_add(ad->layout);
-    elm_object_style_set(left_button, "naviframe/title_icon");
-    Evas_Object *licon = elm_image_add(ad->layout);
-    elm_image_file_set(licon, ui_utils_get_resource(SEARCH_ICON), NULL);
+	Evas_Object *left_button = elm_button_add(ad->layout);
+	elm_object_style_set(left_button, "naviframe/title_icon");
+	Evas_Object *licon = elm_image_add(ad->layout);
+	elm_image_file_set(licon, ui_utils_get_resource(SEARCH_ICON), NULL);
 
-    elm_image_resizable_set(licon, EINA_TRUE, EINA_TRUE);
+	elm_image_resizable_set(licon, EINA_TRUE, EINA_TRUE);
 
-    evas_object_smart_callback_add(left_button, "clicked", on_search_clicked, ad);
-    elm_object_content_set(left_button, licon);
-    evas_object_show(left_button);
+	evas_object_smart_callback_add(left_button, "clicked", on_search_clicked, ad);
+	elm_object_content_set(left_button, licon);
+	evas_object_show(left_button);
 
-    detail_nav_item = elm_naviframe_item_push(nf, "Buddy List", NULL, NULL, buddy_list, NULL);
-    elm_object_item_part_content_set(detail_nav_item, "title_right_btn", left_button);
+	detail_nav_item = elm_naviframe_item_push(nf, "Buddy List", NULL, NULL, buddy_list, NULL);
+	elm_object_item_part_content_set(detail_nav_item, "title_right_btn", left_button);
 
 	/* left panel toggle button */
-    Evas_Object *btn1 = create_button(ad->nf, "naviframe/drawers", NULL);
+	Evas_Object *btn1 = create_button(ad->nf, "naviframe/drawers", NULL);
 	evas_object_smart_callback_add(btn1, "clicked", left_panel_button_clicked_cb, ad);
 	elm_object_item_part_content_set(detail_nav_item, "title_left_btn", btn1);
 
 	evas_object_data_set(nf, "buddy_list", buddy_list);
 
-    eext_object_event_callback_add(nf, EEXT_CALLBACK_MORE, buddylist_naviframe_more_cb, ad);
+	eext_object_event_callback_add(nf, EEXT_CALLBACK_MORE, buddylist_naviframe_more_cb, ad);
 
 }

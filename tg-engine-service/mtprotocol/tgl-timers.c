@@ -91,8 +91,8 @@ void tgl_timer_free(struct tgl_timer *t)
 }
 
 struct tgl_timer_methods tgl_libevent_timers = {
-		.alloc = tgl_timer_alloc,
-		.insert = tgl_timer_insert,
-		.remove = tgl_timer_delete,
-		.free = tgl_timer_free
+	.alloc = tgl_timer_alloc,
+	.insert = tgl_timer_insert,
+	.remove = tgl_timer_delete,
+	.free = tgl_timer_free
 };

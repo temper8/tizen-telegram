@@ -1,8 +1,7 @@
-/*
- * tg_engine.c
- *
- *  Created on: Jun 24, 2015
- *      Author: sandeep
+/**
+ * @file tg_engine.c
+ * @author sandeep
+ * @date Jun 24, 2015
  */
 
 #include "tg_engine.h"
@@ -42,8 +41,9 @@ void write_dc(struct tgl_dc *DC, void *extra)
 
 void write_auth_file(void)
 {
-	if (binlog_enabled)
+	if (binlog_enabled) {
 		return;
+	}
 	int auth_file_fd = open(get_auth_key_filename(), O_CREAT | O_RDWR, 0600);
 	assert(auth_file_fd >= 0);
 	int x = DC_SERIALIZED_MAGIC;
@@ -720,25 +720,25 @@ char* tg_create_print_name(struct tgl_state *TLS, tgl_peer_id_t id, const char *
 }
 
 struct tgl_update_callback upd_cb = {
-		.new_msg = tg_new_msg,
-		.marked_read = tg_marked_read,
-		.logprintf = tg_logprintf,
-		.get_string = tg_get_string,
-		.logged_in = tg_logged_in,
-		.started = tg_started,
-		.type_notification = tg_type_notification,
-		.type_in_chat_notification = tg_type_in_chat_notification,
-		.type_in_secret_chat_notification = tg_type_in_secret_chat_notification,
-		.status_notification = tg_status_notification,
-		.user_registered = tg_user_registered,
-		.user_activated = tg_user_activated,
-		.new_authorization = tg_new_authorization,
-		.user_update = tg_user_update,
-		.chat_update = tg_chat_update,
-		.secret_chat_update = tg_secret_chat_update,
-		.msg_receive = tg_msg_receive,
-		.our_id = tg_our_id,
-		.user_status_update = tg_user_status_update
+	.new_msg = tg_new_msg,
+	.marked_read = tg_marked_read,
+	.logprintf = tg_logprintf,
+	.get_string = tg_get_string,
+	.logged_in = tg_logged_in,
+	.started = tg_started,
+	.type_notification = tg_type_notification,
+	.type_in_chat_notification = tg_type_in_chat_notification,
+	.type_in_secret_chat_notification = tg_type_in_secret_chat_notification,
+	.status_notification = tg_status_notification,
+	.user_registered = tg_user_registered,
+	.user_activated = tg_user_activated,
+	.new_authorization = tg_new_authorization,
+	.user_update = tg_user_update,
+	.chat_update = tg_chat_update,
+	.secret_chat_update = tg_secret_chat_update,
+	.msg_receive = tg_msg_receive,
+	.our_id = tg_our_id,
+	.user_status_update = tg_user_status_update
 };
 
 void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
@@ -906,22 +906,22 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 		struct tgl_user* buddy;
 		struct tgl_chat* chat_info;
 		switch (tgl_get_peer_type(peers[i])) {
-		case TGL_PEER_USER:
-			buddy = &(UC->user);
-			if (buddy) {
-				char* msg_table = get_table_name_from_number(buddy->id.id);
-				create_buddy_msg_table(msg_table);
-				free(msg_table);
-				insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
-				tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
-			}
-			break;
-		case TGL_PEER_CHAT:
-			chat_info = &(UC->chat);
-			tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
-			break;
-		case TGL_PEER_ENCR_CHAT:
-			break;
+			case TGL_PEER_USER:
+				buddy = &(UC->user);
+				if (buddy) {
+					char* msg_table = get_table_name_from_number(buddy->id.id);
+					create_buddy_msg_table(msg_table);
+					free(msg_table);
+					insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
+					tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
+				}
+				break;
+			case TGL_PEER_CHAT:
+				chat_info = &(UC->chat);
+				tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
+				break;
+			case TGL_PEER_ENCR_CHAT:
+				break;
 		}
 	}
 	send_contacts_and_chats_load_done_response(EINA_TRUE);
@@ -1014,11 +1014,11 @@ void on_contact_added(struct tgl_state *TLS,void *callback_extra, int success, i
 
 void on_new_group_created(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M)
 {
-	  if (!success) {
-		  // send fail notification
-	  } else {
-		  // send success notofication
-	  }
+	if (!success) {
+		// send fail notification
+	} else {
+		// send success notofication
+	}
 }
 
 void create_new_group(Eina_List* buddy_ids, const char* group_name, const char* group_icon)
@@ -1028,14 +1028,14 @@ void create_new_group(Eina_List* buddy_ids, const char* group_name, const char* 
 	}
 	int users_num = eina_list_count(buddy_ids);
 
-	  static tgl_peer_id_t ids[1000];
-	  int i;
-	  for (i = 0; i < users_num; i++) {
-		  char* buddy_id_str = (char*)eina_list_nth(buddy_ids, i);
-		  int buddy_id = atoi(buddy_id_str);
-	      ids[i].id = buddy_id;
-	      ids[i].type = TGL_PEER_USER;
-	  }
+	static tgl_peer_id_t ids[1000];
+	int i;
+	for (i = 0; i < users_num; i++) {
+		char* buddy_id_str = (char*)eina_list_nth(buddy_ids, i);
+		int buddy_id = atoi(buddy_id_str);
+		ids[i].id = buddy_id;
+		ids[i].type = TGL_PEER_USER;
+	}
 	tgl_do_create_group_chat_ex(TLS, users_num, ids, group_name, on_new_group_created, group_icon);
 	tg_data->is_group_creation_requested = EINA_TRUE;
 	if (tg_data->new_group_icon) {
@@ -1573,7 +1573,6 @@ void media_download_request(int buddy_id, long long media_id)
 #endif
 }
 
-
 void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat)
 {
 	// get type of chat from buddy_id.
@@ -1602,7 +1601,6 @@ void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg
 	}
 	free(msg_table);
 }
-
 
 void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat)
 {

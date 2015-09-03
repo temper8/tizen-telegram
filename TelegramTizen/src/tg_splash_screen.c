@@ -1,8 +1,7 @@
-/*
- * tg_splash_screen.c
- *
- *  Created on: Jun 12, 2015
- *      Author: sandeep
+/**
+ * @file tg_splash_screen.c
+ * @date Jun 12, 2015
+ * @author sandeep
  */
 #include "tg_splash_screen.h"
 

@@ -1,8 +1,7 @@
-/*
- * server_requests.c
- *
- *  Created on: Jun 26, 2015
- *      Author: sandeep
+/**
+ * @file server_requests.c
+ * @date Jun 26, 2015
+ * @author sandeep
  */
 
 #include "server_requests.h"
@@ -44,8 +43,8 @@ void send_request_for_registration(service_client* service_client, const char* p
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error
@@ -81,8 +80,8 @@ void send_request_for_profile_registration(service_client* service_client, const
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error
@@ -113,8 +112,8 @@ void send_request_for_validation(service_client* service_client, const char* sms
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if (result != SVC_RES_OK) {
 		// error
@@ -177,8 +176,8 @@ void send_request_for_message_transport(service_client* service_client, const in
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error
@@ -249,8 +248,8 @@ void send_request_for_media_transport(service_client* service_client, const int 
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error
@@ -293,8 +292,8 @@ void send_request_for_image_downloading(service_client* service_client, const in
 		bundle_free(msg);
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error
@@ -383,8 +382,8 @@ void send_contacts_list_to_server(service_client* service_client, Eina_List* con
 	}
 
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error
@@ -458,8 +457,8 @@ void send_group_creation_request_to_server(service_client* service_client, Eina_
 		}
 	}
 
-    int result = SVC_RES_FAIL;
-    result = service_client_send_message(service_client, msg);
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
 
 	if(result != SVC_RES_OK) {
 		// error

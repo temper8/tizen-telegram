@@ -1,8 +1,7 @@
-/*
- * tg_db_wrapper.c
- *
- *  Created on: Jun 26, 2015
- *      Author: sandeep
+/**
+ * @file tg_db_wrapper.c
+ * @date Jun 26, 2015
+ * @author sandeep
  */
 
 #include "tg_db_wrapper.h"
@@ -868,7 +867,6 @@ void insert_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 	}
 }
 
-
 void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 {
 	if(!M) {
@@ -1019,7 +1017,6 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		close_database(db);
 	}
 }
-
 
 Eina_List* get_registered_user_info()
 {
@@ -2054,7 +2051,6 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 	}
 }
 
-
 void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 {
 	if(!M) {
@@ -2470,7 +2466,6 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		close_database(db);
 	}
 }
-
 
 Eina_List* get_image_details_from_db(long long media_id)
 {

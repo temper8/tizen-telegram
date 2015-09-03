@@ -169,7 +169,6 @@ int tgl_serialize_bignum(BIGNUM *b, char *buffer, int maxlen)
 	return reqlen;
 }
 
-
 long long tgl_do_compute_rsa_key_fingerprint(RSA *key)
 {
 	static char tempbuff[4096];
@@ -226,7 +225,6 @@ void tgl_out_cstring_careful(const char *str, long len)
 	}
 	packet_ptr =(int *) dest;
 }
-
 
 void tgl_out_data(const void *data, long len)
 {
@@ -395,5 +393,3 @@ int tgl_pad_aes_decrypt(char *from, int from_len, char *to, int size)
 	AES_ige_encrypt((unsigned char *) from,(unsigned char *) to, from_len, &aes_key, aes_iv, AES_DECRYPT);
 	return from_len;
 }
-
-
