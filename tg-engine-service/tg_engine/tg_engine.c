@@ -21,15 +21,16 @@ static void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, in
 void write_dc(struct tgl_dc *DC, void *extra)
 {
 	int auth_file_fd = *(int *)extra;
-	if (!DC) {
-		int x = 0;
+	int x;
+
+	x = !!DC;
+
+	if (!x) {
 		assert(write(auth_file_fd, &x, 4) == 4);
 		return;
-	} else {
-		int x = 1;
-		assert(write(auth_file_fd, &x, 4) == 4);
 	}
 
+	assert(write(auth_file_fd, &x, 4) == 4);
 	assert(DC->has_auth);
 	assert(write(auth_file_fd, &DC->port, 4) == 4);
 	int l = strlen(DC->ip);
@@ -44,7 +45,9 @@ void write_auth_file(void)
 	if (binlog_enabled) {
 		return;
 	}
+
 	int auth_file_fd = open(get_auth_key_filename(), O_CREAT | O_RDWR, 0600);
+
 	assert(auth_file_fd >= 0);
 	int x = DC_SERIALIZED_MAGIC;
 	assert(write(auth_file_fd, &x, 4) == 4);
@@ -149,9 +152,12 @@ void read_secret_chat_file(void)
 {
 	if (binlog_enabled)
 		return;
+
 	int secret_chat_fd = open(get_secret_chat_filename(), O_RDWR, 0600);
-	if (secret_chat_fd < 0)
+
+	if (secret_chat_fd < 0) {
 		return;
+	}
 	//assert(secret_chat_fd >= 0);
 	int x;
 	if (read(secret_chat_fd, &x, 4) < 4) { close(secret_chat_fd); return; }
@@ -274,14 +280,14 @@ void tg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
 		UC = tgl_peer_get(TLS, message->to_id);
 		struct tgl_user* buddy;
 		buddy = &(UC->user);
-		char* phone = NULL;
+		char *phone = NULL;
 		if (buddy) {
 			phone = buddy->phone;
 		}
 
 		message->msg_state = TG_MESSAGE_STATE_READ;
 
-		char* tb_name = get_table_name_from_number(message->to_id.id);
+		char *tb_name = get_table_name_from_number(message->to_id.id);
 		update_msg_into_db(message, tb_name, identifier);
 		if (message->media.type == tgl_message_media_photo) {
 			update_sent_media_info_in_db(message, (long long)message->media.photo.id);
@@ -366,17 +372,17 @@ void tg_started(struct tgl_state *TLS)
 
 void tg_type_notification(struct tgl_state *TLS, struct tgl_user* buddy, enum tgl_typing_status status)
 {
-	char* name_of_buddy = NULL;
+	char *name_of_buddy = NULL;
 
 	if (buddy->first_name && buddy->last_name) {
-		name_of_buddy = (char*)malloc(strlen(buddy->first_name) + strlen(buddy->last_name) + 1);
+		name_of_buddy = (char *)malloc(strlen(buddy->first_name) + strlen(buddy->last_name) + 1);
 		strcpy(name_of_buddy, buddy->first_name);
 		strcat(name_of_buddy, buddy->last_name);
 	} else if(buddy->first_name) {
-		name_of_buddy = (char*)malloc(strlen(buddy->first_name) + 1);
+		name_of_buddy = (char *)malloc(strlen(buddy->first_name) + 1);
 		strcpy(name_of_buddy, buddy->first_name);
 	} else {
-		name_of_buddy = (char*)malloc(strlen(" ") + 1);
+		name_of_buddy = (char *)malloc(strlen(" ") + 1);
 		strcpy(name_of_buddy, " ");
 	}
 
@@ -464,118 +470,113 @@ void tg_chat_update(struct tgl_state *TLS, struct tgl_chat* chat_info, unsigned 
 #endif
 }
 
+static inline void send_message(struct tgl_user *buddy, const char *str, const char *name_of_buddy, int name_of_buddy_len)
+{
+	char *update_msg;
+	int len;
+
+	/**
+	 * "%s phone number updated" will be changed to IDS_STRING for i18n.
+	 */
+	len = name_of_buddy_len + strlen(str);
+	update_msg = (char *)malloc(len + 1);
+	if (!update_msg) {
+		return;
+	}
+
+	snprintf(update_msg, len, str, name_of_buddy);
+	send_contact_updated_response(buddy->id.id, update_msg);
+	free(update_msg);
+}
+
 void tg_user_update(struct tgl_state *TLS, struct tgl_user *buddy, unsigned flags)
 {
-	char* update_msg = NULL;
+	char *name_of_buddy;
+	int name_of_buddy_len;
+	static const char *NO_NAME = " ";
 
-	char* name_of_buddy = NULL;
+	if (flags & TGL_UPDATE_CREATED) {
+		return;
+	}
 
 	if (buddy->first_name && buddy->last_name) {
-		name_of_buddy = (char*)malloc(strlen(buddy->first_name) + strlen(buddy->last_name) + 1);
+		int first_len = strlen(buddy->first_name);
+		int last_len = strlen(buddy->last_name);
+
+		name_of_buddy_len = first_len + last_len;
+
+		name_of_buddy = (char *)malloc(name_of_buddy_len + 1);
+
 		strcpy(name_of_buddy, buddy->first_name);
-		strcat(name_of_buddy, buddy->last_name);
+		strcpy(name_of_buddy + first_len, buddy->last_name);
 	} else if(buddy->first_name) {
-		name_of_buddy = (char*)malloc(strlen(buddy->first_name) + 1);
-		strcpy(name_of_buddy, buddy->first_name);
+		name_of_buddy = strdup(buddy->first_name);
+		name_of_buddy_len = strlen(name_of_buddy);
 	} else {
-		name_of_buddy = (char*)malloc(strlen(" ") + 1);
-		strcpy(name_of_buddy, " ");
+		name_of_buddy = NO_NAME;
+		name_of_buddy_len = strlen(NO_NAME);
 	}
 
-	if (!(flags & TGL_UPDATE_CREATED)) {
-		if (!(flags & TGL_UPDATE_DELETED)) {
+	if (!name_of_buddy) {
+		/**
+		 * @note
+		 * Unable to allocate heap for buddy name
+		 */
+		name_of_buddy = NO_NAME;
+		name_of_buddy_len = strlen(NO_NAME);
+	}
 
-			insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
+	if (!(flags & TGL_UPDATE_DELETED)) {
+		insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
 
-			//mprintf (ev, " updated");
-			if (flags & TGL_UPDATE_PHONE) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" phone number updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " phone number updated.");
-			}
-			if (flags & TGL_UPDATE_CONTACT) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" contact updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " contact updated.");
-			}
-			if (flags & TGL_UPDATE_PHOTO) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" photo updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " photo updated.");
-
-				tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
-			}
-			if (flags & TGL_UPDATE_BLOCKED) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" contact blocked.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " contact blocked.");
-			}
-			if (flags & TGL_UPDATE_REAL_NAME) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" name updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " name updated.");
-			}
-			if (flags & TGL_UPDATE_NAME) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" contact name updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " contact name updated.");
-			}
-			if (flags & TGL_UPDATE_REQUESTED) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" status updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " status updated.");
-			}
-			if (flags & TGL_UPDATE_WORKING) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" status updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " status updated.");
-			}
-			if (flags & TGL_UPDATE_FLAGS) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" flags updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " flags updated.");
-			}
-			if (flags & TGL_UPDATE_TITLE) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" title updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " title updated.");
-			}
-			if (flags & TGL_UPDATE_ADMIN) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" admin updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " admin updated.");
-			}
-			if (flags & TGL_UPDATE_MEMBERS) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" members updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " members updated.");
-			}
-			if (flags & TGL_UPDATE_ACCESS_HASH) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" access hash updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " access hash updated.");
-			}
-			if (flags & TGL_UPDATE_USERNAME) {
-				update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" username updated.") + 1);
-				strcpy(update_msg, name_of_buddy);
-				strcat(update_msg, " username updated.");
-			}
-		} else {
-			update_msg = (char*)malloc(strlen(name_of_buddy) + strlen(" contact deleted.") + 1);
-			strcpy(update_msg, name_of_buddy);
-			strcat(update_msg, " contact deleted.");
+		if (flags & TGL_UPDATE_PHONE) {
+			send_message(buddy, "%s phone number updated.", name_of_buddy, name_of_buddy_len);
 		}
+		if (flags & TGL_UPDATE_CONTACT) {
+			send_message(buddy, "%s contact updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_PHOTO) {
+			send_message(buddy, "%s photo updated.", name_of_buddy, name_of_buddy_len);
+			tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
+		}
+		if (flags & TGL_UPDATE_BLOCKED) {
+			send_message(buddy, "%s contact blocked.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_REAL_NAME) {
+			send_message(buddy, "%s name updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_NAME) {
+			send_message(buddy, "%s contact name updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_REQUESTED) {
+			send_message(buddy, "%s status updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_WORKING) {
+			send_message(buddy, "%s status updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_FLAGS) {
+			send_message(buddy, "%s flags updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_TITLE) {
+			send_message(buddy, "%s title updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_ADMIN) {
+			send_message(buddy, "%s admin updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_MEMBERS) {
+			send_message(buddy, "%s memgers updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_ACCESS_HASH) {
+			send_message(buddy, "%s access hash updated.", name_of_buddy, name_of_buddy_len);
+		}
+		if (flags & TGL_UPDATE_USERNAME) {
+			send_message(buddy, "%s username updated.", name_of_buddy, name_of_buddy_len);
+		}
+	} else {
+		send_message(buddy, "%s contact deleted.", name_of_buddy, name_of_buddy_len);
 	}
 
-	if (update_msg) {
-		// send message to application.
-		send_contact_updated_response(buddy->id.id, update_msg);
-
-		free(update_msg);
-		update_msg = NULL;
-	}
-
-	if (name_of_buddy) {
+	if (name_of_buddy != NO_NAME) {
 		free(name_of_buddy);
 		name_of_buddy = NULL;
 	}
@@ -593,7 +594,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 		if (M->flags & (FLAG_MESSAGE_EMPTY | FLAG_DELETED)) {
 			return;
 		}
-		if (!(M->flags & FLAG_CREATED)) {
+		if ((M->flags & FLAG_CREATED)) {
 			return;
 		}
 		if (M->service) {
@@ -714,7 +715,7 @@ void tg_user_status_update(struct tgl_state *TLS, struct tgl_user *U)
 
 }
 
-char* tg_create_print_name(struct tgl_state *TLS, tgl_peer_id_t id, const char *a1, const char *a2, const char *a3, const char *a4)
+char *tg_create_print_name(struct tgl_state *TLS, tgl_peer_id_t id, const char *a1, const char *a2, const char *a3, const char *a4)
 {
 	return NULL;
 }
@@ -777,10 +778,10 @@ void on_new_group_icon_loaded(struct tgl_state *TLS, void *callback_extra, int s
 
 	if(tg_data->new_group_icon) {
 
-		char* msg_table = get_table_name_from_number(chat_info->id.id);
+		char *msg_table = get_table_name_from_number(chat_info->id.id);
 		create_buddy_msg_table(msg_table);
 
-		char* msg_data = "group icon changed.";
+		char *msg_data = "group icon changed.";
 		struct tgl_message msg;
 		msg.from_id.id = 0;
 		msg.from_id.type = 0;
@@ -817,7 +818,7 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 		return;
 	}
 
-	char* msg_table = get_table_name_from_number(chat_info->id.id);
+	char *msg_table = get_table_name_from_number(chat_info->id.id);
 	create_buddy_msg_table(msg_table);
 
 
@@ -837,7 +838,7 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 
 		/*************** insert service message ********************/
 
-		char* msg_data = "new group created.";
+		char *msg_data = "new group created.";
 		struct tgl_message msg;
 		msg.from_id.id = 0;
 		msg.from_id.type = 0;
@@ -884,7 +885,7 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 {
 	for (int i = size - 1; i >= 0; i--) {
 		struct tgl_user *buddy = contacts[i];
-		char* msg_table = get_table_name_from_number(buddy->id.id);
+		char *msg_table = get_table_name_from_number(buddy->id.id);
 		create_buddy_msg_table(msg_table);
 		free(msg_table);
 
@@ -909,7 +910,7 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 		case TGL_PEER_USER:
 			buddy = &(UC->user);
 			if (buddy) {
-				char* msg_table = get_table_name_from_number(buddy->id.id);
+				char *msg_table = get_table_name_from_number(buddy->id.id);
 				create_buddy_msg_table(msg_table);
 				free(msg_table);
 				insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
@@ -950,7 +951,7 @@ void on_message_sent_to_buddy(struct tgl_state *TLS, void *callback_extra, int s
 	int identifier = (int)callback_extra;
 	tgl_peer_t* UC = tgl_peer_get(TLS, message->to_id);
 	struct tgl_user* buddy = &(UC->user);
-	char* phone = NULL;
+	char *phone = NULL;
 	if (buddy) {
 		phone = buddy->phone;
 	}
@@ -961,7 +962,7 @@ void on_message_sent_to_buddy(struct tgl_state *TLS, void *callback_extra, int s
 		message->msg_state = TG_MESSAGE_STATE_FAILED;
 	}
 
-	char* tb_name = get_table_name_from_number(message->to_id.id);
+	char *tb_name = get_table_name_from_number(message->to_id.id);
 	update_msg_into_db(message, tb_name, identifier);
 	if (message->media.type == tgl_message_media_photo) {
 		update_sent_media_info_in_db(message, (long long)identifier);
@@ -997,9 +998,9 @@ void on_contact_added(struct tgl_state *TLS,void *callback_extra, int success, i
 		contact_data_s* contact = eina_list_nth(data->contact_list_to_add, data->current_index);
 
 		if (contact) {
-			char* first_name = contact->first_name;
-			char* last_name = contact->last_name;
-			char* phone_number = contact->phone_number;
+			char *first_name = contact->first_name;
+			char *last_name = contact->last_name;
+			char *phone_number = contact->phone_number;
 			tgl_do_add_contact(TLS, phone_number, strlen(phone_number), first_name, strlen(first_name), last_name, strlen(last_name), 0, on_contact_added, data);
 		}
 
@@ -1021,7 +1022,7 @@ void on_new_group_created(struct tgl_state *TLS, void *callback_extra, int succe
 	}
 }
 
-void create_new_group(Eina_List* buddy_ids, const char* group_name, const char* group_icon)
+void create_new_group(Eina_List* buddy_ids, const char *group_name, const char *group_icon)
 {
 	if (!buddy_ids || ! group_name) {
 		return;
@@ -1031,7 +1032,7 @@ void create_new_group(Eina_List* buddy_ids, const char* group_name, const char* 
 	static tgl_peer_id_t ids[1000];
 	int i;
 	for (i = 0; i < users_num; i++) {
-		char* buddy_id_str = (char*)eina_list_nth(buddy_ids, i);
+		char *buddy_id_str = (char *)eina_list_nth(buddy_ids, i);
 		int buddy_id = atoi(buddy_id_str);
 		ids[i].id = buddy_id;
 		ids[i].type = TGL_PEER_USER;
@@ -1054,9 +1055,9 @@ void add_contacts_to_user(int size, Eina_List* contact_list)
 	if (eina_list_count(contact_list) > 0) {
 		contact_data_s* contact = eina_list_nth(contact_list, 0);
 		if (contact) {
-			char* first_name = contact->first_name;
-			char* last_name = contact->last_name;
-			char* phone_number = contact->phone_number;
+			char *first_name = contact->first_name;
+			char *last_name = contact->last_name;
+			char *phone_number = contact->phone_number;
 			tg_data->current_index = 0;
 			tgl_do_add_contact(TLS, phone_number, strlen(phone_number) ,first_name, strlen(first_name), last_name, strlen(last_name), 0, on_contact_added, tg_data);
 		}
@@ -1074,59 +1075,59 @@ void media_download_request(int buddy_id, long long media_id)
 		return;
 	} else {
 
-		char* media_id_str = 0;
+		char *media_id_str = 0;
 		int media_type = 0;
-		char* access_hash_str = 0;
+		char *access_hash_str = 0;
 		int user_id = 0;
 		int date = 0;
-		char* caption = 0;
-		char* longitude = 0;
-		char* latitude = 0;
+		char *caption = 0;
+		char *longitude = 0;
+		char *latitude = 0;
 		int sizes = 0;
-		char* phone_no = 0;
-		char* first_name = 0;
-		char* last_name = 0;
-		char* file_path = 0;
+		char *phone_no = 0;
+		char *first_name = 0;
+		char *last_name = 0;
+		char *file_path = 0;
 
-		char* photo_type1 = 0;
+		char *photo_type1 = 0;
 		int photo_loc_dc1 = 0;
-		char* photo_loc_vol_str1 = 0;
+		char *photo_loc_vol_str1 = 0;
 		int photo_loc_id1 = 0;
-		char* photo_loc_sec_str1 = 0;
+		char *photo_loc_sec_str1 = 0;
 		int photo_width1 = 0;
 		int photo_height1 = 0;
 		int photo_size1 = 0;
-		char* photo_data1 = 0;
+		char *photo_data1 = 0;
 
-		char* photo_type2 = 0;
+		char *photo_type2 = 0;
 		int photo_loc_dc2 = 0;
-		char* photo_loc_vol_str2 = 0;
+		char *photo_loc_vol_str2 = 0;
 		int photo_loc_id2 = 0;
-		char* photo_loc_sec_str2 = 0;
+		char *photo_loc_sec_str2 = 0;
 		int photo_width2 = 0;
 		int photo_height2 = 0;
 		int photo_size2 = 0;
-		char* photo_data2 = 0;
+		char *photo_data2 = 0;
 
-		char* photo_type3 = 0;
+		char *photo_type3 = 0;
 		int photo_loc_dc3 = 0;
-		char* photo_loc_vol_str3 = 0;
+		char *photo_loc_vol_str3 = 0;
 		int photo_loc_id3 = 0;
-		char* photo_loc_sec_str3 = 0;
+		char *photo_loc_sec_str3 = 0;
 		int photo_width3 = 0;
 		int photo_height3 = 0;
 		int photo_size3 = 0;
-		char* photo_data3 = 0;
+		char *photo_data3 = 0;
 
-		char* photo_type4 = 0;
+		char *photo_type4 = 0;
 		int photo_loc_dc4 = 0;
-		char* photo_loc_vol_str4 = 0;
+		char *photo_loc_vol_str4 = 0;
 		int photo_loc_id4 = 0;
-		char* photo_loc_sec_str4 = 0;
+		char *photo_loc_sec_str4 = 0;
 		int photo_width4 = 0;
 		int photo_height4 = 0;
 		int photo_size4 = 0;
-		char* photo_data4 = 0;
+		char *photo_data4 = 0;
 
 
 		int row_count = eina_list_count(img_details);
@@ -1134,7 +1135,7 @@ void media_download_request(int buddy_id, long long media_id)
 		for (int i = 0 ; i < row_count ; i++) {
 			Eina_List* row_vals = eina_list_nth(img_details, i);
 
-			char* temp_media_id = (char*)eina_list_nth(row_vals, 0);
+			char *temp_media_id = (char *)eina_list_nth(row_vals, 0);
 
 			if(temp_media_id) {
 				media_id_str = strdup(temp_media_id);
@@ -1148,7 +1149,7 @@ void media_download_request(int buddy_id, long long media_id)
 				free(temp_media_type);
 			}
 
-			char* temp_access_hash = (char*)eina_list_nth(row_vals, 2);
+			char *temp_access_hash = (char *)eina_list_nth(row_vals, 2);
 
 			if(temp_access_hash) {
 				access_hash_str = strdup(temp_access_hash);
@@ -1169,21 +1170,21 @@ void media_download_request(int buddy_id, long long media_id)
 				free(temp_date);
 			}
 
-			char* temp_caption = (char*)eina_list_nth(row_vals, 5);
+			char *temp_caption = (char *)eina_list_nth(row_vals, 5);
 
 			if(temp_caption) {
 				caption = strdup(temp_caption);
 				free(temp_caption);
 			}
 
-			char* temp_longitude = (char*)eina_list_nth(row_vals, 6);
+			char *temp_longitude = (char *)eina_list_nth(row_vals, 6);
 
 			if(temp_longitude) {
 				longitude = strdup(temp_longitude);
 				free(temp_longitude);
 			}
 
-			char* temp_latitude = (char*)eina_list_nth(row_vals, 7);
+			char *temp_latitude = (char *)eina_list_nth(row_vals, 7);
 
 			if(temp_latitude) {
 				latitude = strdup(temp_latitude);
@@ -1199,7 +1200,7 @@ void media_download_request(int buddy_id, long long media_id)
 
 			/***************************************************************/
 
-			char* temp_photo_type1 = (char*)eina_list_nth(row_vals, 9);
+			char *temp_photo_type1 = (char *)eina_list_nth(row_vals, 9);
 			if (temp_photo_type1 && strlen(temp_photo_type1) > 0) {
 				photo_type1 =strdup(temp_photo_type1);
 				free(temp_photo_type1);
@@ -1213,7 +1214,7 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_loc_vol1 = (char*)eina_list_nth(row_vals, 11);
+			char *temp_photo_loc_vol1 = (char *)eina_list_nth(row_vals, 11);
 			if(temp_photo_loc_vol1 && strlen(temp_photo_loc_vol1) > 0) {
 				photo_loc_vol_str1 = strdup(temp_photo_loc_vol1);
 				free(temp_photo_loc_vol1);
@@ -1226,7 +1227,7 @@ void media_download_request(int buddy_id, long long media_id)
 				free(temp_photo_loc_id1);
 			}
 
-			char* temp_photo_loc_sec1 = (char*)eina_list_nth(row_vals, 13);
+			char *temp_photo_loc_sec1 = (char *)eina_list_nth(row_vals, 13);
 			if(temp_photo_loc_sec1 && strlen(temp_photo_loc_sec1) > 0) {
 				photo_loc_sec_str1 = strdup(temp_photo_loc_sec1);
 				free(temp_photo_loc_sec1);
@@ -1253,14 +1254,14 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_data1 = (char*)eina_list_nth(row_vals, 17);
+			char *temp_photo_data1 = (char *)eina_list_nth(row_vals, 17);
 			if(temp_photo_data1 && strlen(temp_photo_data1) > 0) {
 				photo_data1 = strdup(temp_photo_data1);
 				free(temp_photo_data1);
 			}
 
 
-			char* temp_photo_type2 = (char*)eina_list_nth(row_vals, 18);
+			char *temp_photo_type2 = (char *)eina_list_nth(row_vals, 18);
 			if (temp_photo_type2 && strlen(temp_photo_type2) > 0) {
 				photo_type2 =strdup(temp_photo_type2);
 				free(temp_photo_type2);
@@ -1274,7 +1275,7 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_loc_vol2 = (char*)eina_list_nth(row_vals, 20);
+			char *temp_photo_loc_vol2 = (char *)eina_list_nth(row_vals, 20);
 			if(temp_photo_loc_vol2 && strlen(temp_photo_loc_vol2) > 0) {
 				photo_loc_vol_str2 = strdup(temp_photo_loc_vol2);
 				free(temp_photo_loc_vol2);
@@ -1287,7 +1288,7 @@ void media_download_request(int buddy_id, long long media_id)
 				free(temp_photo_loc_id2);
 			}
 
-			char* temp_photo_loc_sec2 = (char*)eina_list_nth(row_vals, 22);
+			char *temp_photo_loc_sec2 = (char *)eina_list_nth(row_vals, 22);
 			if(temp_photo_loc_sec2 && strlen(temp_photo_loc_sec2) > 0) {
 				photo_loc_sec_str2 = strdup(temp_photo_loc_sec2);
 				free(temp_photo_loc_sec2);
@@ -1314,13 +1315,13 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_data2 = (char*)eina_list_nth(row_vals, 26);
+			char *temp_photo_data2 = (char *)eina_list_nth(row_vals, 26);
 			if(temp_photo_data2 && strlen(temp_photo_data2) > 0) {
 				photo_data2 = strdup(temp_photo_data2);
 				free(temp_photo_data2);
 			}
 
-			char* temp_photo_type3 = (char*)eina_list_nth(row_vals, 27);
+			char *temp_photo_type3 = (char *)eina_list_nth(row_vals, 27);
 			if (temp_photo_type3 && strlen(temp_photo_type3) > 0) {
 				photo_type3 =strdup(temp_photo_type3);
 				free(temp_photo_type3);
@@ -1334,7 +1335,7 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_loc_vol3 = (char*)eina_list_nth(row_vals, 29);
+			char *temp_photo_loc_vol3 = (char *)eina_list_nth(row_vals, 29);
 			if(temp_photo_loc_vol3 && strlen(temp_photo_loc_vol3) > 0) {
 				photo_loc_vol_str3 = strdup(temp_photo_loc_vol3);
 				free(temp_photo_loc_vol3);
@@ -1347,7 +1348,7 @@ void media_download_request(int buddy_id, long long media_id)
 				free(temp_photo_loc_id3);
 			}
 
-			char* temp_photo_loc_sec3 = (char*)eina_list_nth(row_vals, 31);
+			char *temp_photo_loc_sec3 = (char *)eina_list_nth(row_vals, 31);
 			if(temp_photo_loc_sec3 && strlen(temp_photo_loc_sec3) > 0) {
 				photo_loc_sec_str3 = strdup(temp_photo_loc_sec3);
 				free(temp_photo_loc_sec3);
@@ -1374,13 +1375,13 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_data3 = (char*)eina_list_nth(row_vals, 35);
+			char *temp_photo_data3 = (char *)eina_list_nth(row_vals, 35);
 			if(temp_photo_data3 && strlen(temp_photo_data3) > 0) {
 				photo_data3 = strdup(temp_photo_data3);
 				free(temp_photo_data3);
 			}
 
-			char* temp_photo_type4 = (char*)eina_list_nth(row_vals, 36);
+			char *temp_photo_type4 = (char *)eina_list_nth(row_vals, 36);
 			if (temp_photo_type4 && strlen(temp_photo_type4) > 0) {
 				photo_type4 =strdup(temp_photo_type4);
 				free(temp_photo_type4);
@@ -1394,7 +1395,7 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_loc_vol4 = (char*)eina_list_nth(row_vals, 38);
+			char *temp_photo_loc_vol4 = (char *)eina_list_nth(row_vals, 38);
 			if(temp_photo_loc_vol4 && strlen(temp_photo_loc_vol4) > 0) {
 				photo_loc_vol_str4 = strdup(temp_photo_loc_vol4);
 				free(temp_photo_loc_vol4);
@@ -1407,7 +1408,7 @@ void media_download_request(int buddy_id, long long media_id)
 				free(temp_photo_loc_id4);
 			}
 
-			char* temp_photo_loc_sec4 = (char*)eina_list_nth(row_vals, 40);
+			char *temp_photo_loc_sec4 = (char *)eina_list_nth(row_vals, 40);
 			if(temp_photo_loc_sec4 && strlen(temp_photo_loc_sec4) > 0) {
 				photo_loc_sec_str4 = strdup(temp_photo_loc_sec4);
 				free(temp_photo_loc_sec4);
@@ -1434,7 +1435,7 @@ void media_download_request(int buddy_id, long long media_id)
 			}
 
 
-			char* temp_photo_data4 = (char*)eina_list_nth(row_vals, 44);
+			char *temp_photo_data4 = (char *)eina_list_nth(row_vals, 44);
 			if(temp_photo_data4 && strlen(temp_photo_data4) > 0) {
 				photo_data4 = strdup(temp_photo_data4);
 				free(temp_photo_data4);
@@ -1443,28 +1444,28 @@ void media_download_request(int buddy_id, long long media_id)
 
 			/**************************************************************/
 
-			char* temp_phone_no = (char*)eina_list_nth(row_vals, 45);
+			char *temp_phone_no = (char *)eina_list_nth(row_vals, 45);
 
 			if(temp_phone_no && strlen(temp_phone_no) > 0) {
 				phone_no = strdup(temp_phone_no);
 				free(temp_phone_no);
 			}
 
-			char* temp_first_name = (char*)eina_list_nth(row_vals, 46);
+			char *temp_first_name = (char *)eina_list_nth(row_vals, 46);
 
 			if(temp_first_name && strlen(temp_first_name) > 0) {
 				first_name = strdup(temp_first_name);
 				free(temp_first_name);
 			}
 
-			char* temp_last_name = (char*)eina_list_nth(row_vals, 47);
+			char *temp_last_name = (char *)eina_list_nth(row_vals, 47);
 
 			if(temp_last_name && strlen(temp_last_name) > 0) {
 				last_name = strdup(temp_last_name);
 				free(temp_last_name);
 			}
 
-			char* temp_file_path = (char*)eina_list_nth(row_vals, 48);
+			char *temp_file_path = (char *)eina_list_nth(row_vals, 48);
 
 			if(temp_file_path && strlen(temp_file_path) > 0) {
 				file_path = strdup(temp_file_path);
@@ -1573,11 +1574,11 @@ void media_download_request(int buddy_id, long long media_id)
 #endif
 }
 
-void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat)
+void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char *msg_data, int type_of_chat)
 {
 	// get type of chat from buddy_id.
 
-	char* msg_table = get_table_name_from_number(buddy_id);
+	char *msg_table = get_table_name_from_number(buddy_id);
 	struct tgl_message* msg = get_message_from_message_table(message_id, msg_table);
 
 	if (msg) {
@@ -1602,7 +1603,7 @@ void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg
 	free(msg_table);
 }
 
-void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat)
+void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char *file_path, int type_of_chat)
 {
 #if 0
 	int t = time(NULL);
@@ -1625,14 +1626,14 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 	msg.media.type = msg_type;
 	msg.media.photo.id = (long long)t;
 
-	char* msg_table = get_table_name_from_number(buddy_id);
+	char *msg_table = get_table_name_from_number(buddy_id);
 	insert_msg_into_db(&msg, msg_table, t);
 	insert_media_info_to_db(&msg, file_path);
 	tgl_do_send_document(TLS, -1, msg.to_id, file_path, &on_message_sent_to_buddy, (void*) (t));
 	free(msg_table);
 #else
 
-	char* msg_table = get_table_name_from_number(buddy_id);
+	char *msg_table = get_table_name_from_number(buddy_id);
 	struct tgl_message* msg = get_message_from_message_table(message_id, msg_table);
 
 	if (msg) {
@@ -1671,7 +1672,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 #endif
 }
 
-static const char* _ui_utils_get_res_path()
+static const char *_ui_utils_get_res_path()
 {
 	char res_folder_path[PATH_MAX] = {'\0'};
 	if (res_folder_path[0] == '\0') {
@@ -1682,7 +1683,7 @@ static const char* _ui_utils_get_res_path()
 	return res_folder_path;
 }
 
-static char* ui_utils_get_resource(const char *res_name)
+static char *ui_utils_get_resource(const char *res_name)
 {
 	static char res_path[PATH_MAX] = {'\0'};
 	snprintf(res_path, PATH_MAX, "%s%s", _ui_utils_get_res_path(), res_name);
@@ -1712,7 +1713,7 @@ void parse_config(void)
 		//printf("libconfig not enabled\n");
 	}
 
-	char* rsa_path = ui_utils_get_resource(DEFAULT_RSA_FILE_NAME);
+	char *rsa_path = ui_utils_get_resource(DEFAULT_RSA_FILE_NAME);
 	tasprintf(&rsa_file_name, "%s", rsa_path);
 	tasprintf(&config_full_path, "%s%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY);
 	struct stat st = {0};
