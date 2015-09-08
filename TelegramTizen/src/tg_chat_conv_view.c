@@ -613,26 +613,26 @@ Evas_Object* create_image_bubble_table(Evas_Object *parent, Chat_message_Bubble_
 	elm_box_pack_end(sub_box,sub_label);
 
 	switch (style) {
-		case CHAT_MESSAGE_BUBBLE_SENT:
-			chat_conv_view_data.sent_pics = eina_list_append(chat_conv_view_data.sent_pics, main_image);
-			elm_object_part_content_set(layout, "swallow.chat_send_pic", main_image);
-			evas_object_size_hint_align_set(bubble_table, 1.0, 0.0);
-			evas_object_size_hint_align_set(sub_label, 1.0, EVAS_HINT_FILL);
-			elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
-			elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
-			break;
-		case CHAT_MESSAGE_BUBBLE_RECEIVE:
-			chat_conv_view_data.receive_pics = eina_list_append(chat_conv_view_data.receive_pics, main_image);
-			elm_object_part_content_set(layout, "swallow.chat_recv_pic", main_image);
-			evas_object_size_hint_align_set(bubble_table, 0.0, 0.0);
-			evas_object_size_hint_align_set(sub_label, 0.0, EVAS_HINT_FILL);
-			elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
-			elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
-			break;
-		case CHAT_MESSAGE_BUBBLE_NONE:
-		case CHAT_MESSAGE_BUBBLE_LAST:
-		default:
-			break;
+	case CHAT_MESSAGE_BUBBLE_SENT:
+		chat_conv_view_data.sent_pics = eina_list_append(chat_conv_view_data.sent_pics, main_image);
+		elm_object_part_content_set(layout, "swallow.chat_send_pic", main_image);
+		evas_object_size_hint_align_set(bubble_table, 1.0, 0.0);
+		evas_object_size_hint_align_set(sub_label, 1.0, EVAS_HINT_FILL);
+		elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
+		elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
+		break;
+	case CHAT_MESSAGE_BUBBLE_RECEIVE:
+		chat_conv_view_data.receive_pics = eina_list_append(chat_conv_view_data.receive_pics, main_image);
+		elm_object_part_content_set(layout, "swallow.chat_recv_pic", main_image);
+		evas_object_size_hint_align_set(bubble_table, 0.0, 0.0);
+		evas_object_size_hint_align_set(sub_label, 0.0, EVAS_HINT_FILL);
+		elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
+		elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
+		break;
+	case CHAT_MESSAGE_BUBBLE_NONE:
+	case CHAT_MESSAGE_BUBBLE_LAST:
+	default:
+		break;
 	}
 
 	return bubble_table;
@@ -710,24 +710,24 @@ create_bubble_table(Evas_Object *parent, Chat_message_Bubble_Style style, const 
 	elm_box_pack_end(sub_box,sub_label);
 
 	switch (style) {
-		case CHAT_MESSAGE_BUBBLE_SENT:
-			elm_object_part_content_set(layout, "swallow.chat_send_text", main_label);
-			evas_object_size_hint_align_set(bubble_table, 1.0, 0.0);
-			evas_object_size_hint_align_set(sub_label, 1.0, EVAS_HINT_FILL);
-			elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
-			elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
-			break;
-		case CHAT_MESSAGE_BUBBLE_RECEIVE:
-			elm_object_part_content_set(layout, "swallow.chat_recv_text", main_label);
-			evas_object_size_hint_align_set(bubble_table, 0.0, 0.0);
-			evas_object_size_hint_align_set(sub_label, 0.0, EVAS_HINT_FILL);
-			elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
-			elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
-			break;
-		case CHAT_MESSAGE_BUBBLE_NONE:
-		case CHAT_MESSAGE_BUBBLE_LAST:
-		default:
-			break;
+	case CHAT_MESSAGE_BUBBLE_SENT:
+		elm_object_part_content_set(layout, "swallow.chat_send_text", main_label);
+		evas_object_size_hint_align_set(bubble_table, 1.0, 0.0);
+		evas_object_size_hint_align_set(sub_label, 1.0, EVAS_HINT_FILL);
+		elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
+		elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
+		break;
+	case CHAT_MESSAGE_BUBBLE_RECEIVE:
+		elm_object_part_content_set(layout, "swallow.chat_recv_text", main_label);
+		evas_object_size_hint_align_set(bubble_table, 0.0, 0.0);
+		evas_object_size_hint_align_set(sub_label, 0.0, EVAS_HINT_FILL);
+		elm_table_pack(bubble_table, main_box, 0, 0, 1, 1);
+		elm_table_pack(bubble_table, sub_box, 0, 1, 1, 1);
+		break;
+	case CHAT_MESSAGE_BUBBLE_NONE:
+	case CHAT_MESSAGE_BUBBLE_LAST:
+	default:
+		break;
 	}
 
 	return bubble_table;

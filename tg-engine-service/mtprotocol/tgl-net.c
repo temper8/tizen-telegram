@@ -283,15 +283,15 @@ static int max_connection_fd;
 static void rotate_port(struct connection *c)
 {
 	switch(c->port) {
-		case 443:
-			c->port = 80;
-			break;
-		case 80:
-			c->port = 25;
-			break;
-		case 25:
-			c->port = 443;
-			break;
+	case 443:
+		c->port = 80;
+		break;
+	case 80:
+		c->port = 25;
+		break;
+	case 25:
+		c->port = 443;
+		break;
 	}
 }
 

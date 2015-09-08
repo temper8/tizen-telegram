@@ -222,18 +222,18 @@ void on_connection_type_changed_cb(connection_type_e type, void *user_data)
 		err_code = connection_get_wifi_state(tg_data->connection, &wifi_state);
 		if (err_code == CONNECTION_ERROR_NONE) {
 			switch (wifi_state)	{
-				case CONNECTION_WIFI_STATE_DEACTIVATED:
-					tg_data->is_network_connected = EINA_FALSE;
-					break;
-				case CONNECTION_WIFI_STATE_DISCONNECTED:
-					tg_data->is_network_connected = EINA_FALSE;
-					break;
-				case CONNECTION_WIFI_STATE_CONNECTED:
-					tg_data->is_network_connected = EINA_TRUE;
-					break;
-				default:
-					tg_data->is_network_connected = EINA_FALSE;
-					break;
+			case CONNECTION_WIFI_STATE_DEACTIVATED:
+				tg_data->is_network_connected = EINA_FALSE;
+				break;
+			case CONNECTION_WIFI_STATE_DISCONNECTED:
+				tg_data->is_network_connected = EINA_FALSE;
+				break;
+			case CONNECTION_WIFI_STATE_CONNECTED:
+				tg_data->is_network_connected = EINA_TRUE;
+				break;
+			default:
+				tg_data->is_network_connected = EINA_FALSE;
+				break;
 			}
 		}
 	} else if(type == CONNECTION_TYPE_CELLULAR) {
@@ -311,18 +311,18 @@ bool service_app_create(void *data)
 		err_code = connection_get_wifi_state(tg_data->connection, &wifi_state);
 		if (err_code == CONNECTION_ERROR_NONE) {
 			switch (wifi_state)	{
-				case CONNECTION_WIFI_STATE_DEACTIVATED:
-					tg_data->is_network_connected = EINA_FALSE;
-					break;
-				case CONNECTION_WIFI_STATE_DISCONNECTED:
-					tg_data->is_network_connected = EINA_FALSE;
-					break;
-				case CONNECTION_WIFI_STATE_CONNECTED:
-					tg_data->is_network_connected = EINA_TRUE;
-					break;
-				default:
-					tg_data->is_network_connected = EINA_FALSE;
-					break;
+			case CONNECTION_WIFI_STATE_DEACTIVATED:
+				tg_data->is_network_connected = EINA_FALSE;
+				break;
+			case CONNECTION_WIFI_STATE_DISCONNECTED:
+				tg_data->is_network_connected = EINA_FALSE;
+				break;
+			case CONNECTION_WIFI_STATE_CONNECTED:
+				tg_data->is_network_connected = EINA_TRUE;
+				break;
+			default:
+				tg_data->is_network_connected = EINA_FALSE;
+				break;
 			}
 		}
 

@@ -84,29 +84,29 @@ char *tgls_default_create_print_name(struct tgl_state *TLS, tgl_peer_id_t id, co
 enum tgl_typing_status tglf_fetch_typing(void)
 {
 	switch (fetch_int()) {
-		case CODE_send_message_typing_action:
-			return tgl_typing_typing;
-		case CODE_send_message_cancel_action:
-			return tgl_typing_cancel;
-		case CODE_send_message_record_video_action:
-			return tgl_typing_record_video;
-		case CODE_send_message_upload_video_action:
-			return tgl_typing_upload_video;
-		case CODE_send_message_record_audio_action:
-			return tgl_typing_record_audio;
-		case CODE_send_message_upload_audio_action:
-			return tgl_typing_upload_audio;
-		case CODE_send_message_upload_photo_action:
-			return tgl_typing_upload_photo;
-		case CODE_send_message_upload_document_action:
-			return tgl_typing_upload_document;
-		case CODE_send_message_geo_location_action:
-			return tgl_typing_geo;
-		case CODE_send_message_choose_contact_action:
-			return tgl_typing_choose_contact;
-		default:
-			assert(0);
-			return tgl_typing_none;
+	case CODE_send_message_typing_action:
+		return tgl_typing_typing;
+	case CODE_send_message_cancel_action:
+		return tgl_typing_cancel;
+	case CODE_send_message_record_video_action:
+		return tgl_typing_record_video;
+	case CODE_send_message_upload_video_action:
+		return tgl_typing_upload_video;
+	case CODE_send_message_record_audio_action:
+		return tgl_typing_record_audio;
+	case CODE_send_message_upload_audio_action:
+		return tgl_typing_upload_audio;
+	case CODE_send_message_upload_photo_action:
+		return tgl_typing_upload_photo;
+	case CODE_send_message_upload_document_action:
+		return tgl_typing_upload_document;
+	case CODE_send_message_geo_location_action:
+		return tgl_typing_geo;
+	case CODE_send_message_choose_contact_action:
+		return tgl_typing_choose_contact;
+	default:
+		assert(0);
+		return tgl_typing_none;
 	}
 }
 
@@ -133,73 +133,73 @@ int tglf_fetch_user_status(struct tgl_state *TLS, struct tgl_user_status *S, str
 {
 	unsigned x = fetch_int();
 	switch (x) {
-		case CODE_user_status_empty:
-			if (S->online) {
-				tgl_insert_status_update(TLS, U);
-				if (S->online == 1) {
-					tgl_remove_status_expire(TLS, U);
-				}
+	case CODE_user_status_empty:
+		if (S->online) {
+			tgl_insert_status_update(TLS, U);
+			if (S->online == 1) {
+				tgl_remove_status_expire(TLS, U);
 			}
-			S->online = 0;
-			S->when = 0;
-			break;
-		case CODE_user_status_online:
-			{
-				int when = fetch_int();
-				if (S->online != 1) {
+		}
+		S->online = 0;
+		S->when = 0;
+		break;
+	case CODE_user_status_online:
+		{
+			int when = fetch_int();
+			if (S->online != 1) {
+				S->when = when;
+				tgl_insert_status_update(TLS, U);
+				tgl_insert_status_expire(TLS, U);
+				S->online = 1;
+			} else {
+				if (when != S->when) {
 					S->when = when;
-					tgl_insert_status_update(TLS, U);
+					tgl_remove_status_expire(TLS, U);
 					tgl_insert_status_expire(TLS, U);
-					S->online = 1;
-				} else {
-					if (when != S->when) {
-						S->when = when;
-						tgl_remove_status_expire(TLS, U);
-						tgl_insert_status_expire(TLS, U);
-					}
 				}
 			}
-			break;
-		case CODE_user_status_offline:
-			if (S->online != -1) {
-				tgl_insert_status_update(TLS, U);
-				if (S->online == 1) {
-					tgl_remove_status_expire(TLS, U);
-				}
+		}
+		break;
+	case CODE_user_status_offline:
+		if (S->online != -1) {
+			tgl_insert_status_update(TLS, U);
+			if (S->online == 1) {
+				tgl_remove_status_expire(TLS, U);
 			}
-			S->online = -1;
-			S->when = fetch_int();
-			break;
-		case CODE_user_status_recently:
-			if (S->online != -2) {
-				tgl_insert_status_update(TLS, U);
-				if (S->online == 1) {
-					tgl_remove_status_expire(TLS, U);
-				}
+		}
+		S->online = -1;
+		S->when = fetch_int();
+		break;
+	case CODE_user_status_recently:
+		if (S->online != -2) {
+			tgl_insert_status_update(TLS, U);
+			if (S->online == 1) {
+				tgl_remove_status_expire(TLS, U);
 			}
-			S->online = -2;
-			break;
-		case CODE_user_status_last_week:
-			if (S->online != -3) {
-				tgl_insert_status_update(TLS, U);
-				if (S->online == 1) {
-					tgl_remove_status_expire(TLS, U);
-				}
+		}
+		S->online = -2;
+		break;
+	case CODE_user_status_last_week:
+		if (S->online != -3) {
+			tgl_insert_status_update(TLS, U);
+			if (S->online == 1) {
+				tgl_remove_status_expire(TLS, U);
 			}
-			S->online = -3;
-			break;
-		case CODE_user_status_last_month:
-			if (S->online != -4) {
-				tgl_insert_status_update(TLS, U);
-				if (S->online == 1) {
-					tgl_remove_status_expire(TLS, U);
-				}
+		}
+		S->online = -3;
+		break;
+	case CODE_user_status_last_month:
+		if (S->online != -4) {
+			tgl_insert_status_update(TLS, U);
+			if (S->online == 1) {
+				tgl_remove_status_expire(TLS, U);
 			}
-			S->online = -4;
-			break;
-		default:
-			vlogprintf(E_ERROR, "x = 0x%08x\n", x);
-			assert(0);
+		}
+		S->online = -4;
+		break;
+	default:
+		vlogprintf(E_ERROR, "x = 0x%08x\n", x);
+		assert(0);
 	}
 	return 0;
 }
@@ -653,33 +653,33 @@ void tglf_fetch_document_attribute(struct tgl_state *TLS, struct tgl_document *V
 {
 	unsigned x = fetch_int();
 	switch (x) {
-		case CODE_document_attribute_image_size:
-			V->flags |= FLAG_DOCUMENT_IMAGE;
-			V->w = fetch_int();
-			V->h = fetch_int();
-			return;
-		case CODE_document_attribute_animated:
-			V->flags |= FLAG_DOCUMENT_ANIMATED;
-			return;
-		case CODE_document_attribute_sticker:
-			V->flags |= FLAG_DOCUMENT_STICKER;
-			return;
-		case CODE_document_attribute_video:
-			V->flags |= FLAG_DOCUMENT_VIDEO;
-			V->duration = fetch_int();
-			V->w = fetch_int();
-			V->h = fetch_int();
-			return;
-		case CODE_document_attribute_audio:
-			V->flags |= FLAG_DOCUMENT_AUDIO;
-			V->duration = fetch_int();
-			return;
-		case CODE_document_attribute_filename:
-			V->caption = fetch_str_dup();
-			return;
-		default:
-			vlogprintf(E_ERROR, "x = 0x%08x\n", x);
-			assert(0);
+	case CODE_document_attribute_image_size:
+		V->flags |= FLAG_DOCUMENT_IMAGE;
+		V->w = fetch_int();
+		V->h = fetch_int();
+		return;
+	case CODE_document_attribute_animated:
+		V->flags |= FLAG_DOCUMENT_ANIMATED;
+		return;
+	case CODE_document_attribute_sticker:
+		V->flags |= FLAG_DOCUMENT_STICKER;
+		return;
+	case CODE_document_attribute_video:
+		V->flags |= FLAG_DOCUMENT_VIDEO;
+		V->duration = fetch_int();
+		V->w = fetch_int();
+		V->h = fetch_int();
+		return;
+	case CODE_document_attribute_audio:
+		V->flags |= FLAG_DOCUMENT_AUDIO;
+		V->duration = fetch_int();
+		return;
+	case CODE_document_attribute_filename:
+		V->caption = fetch_str_dup();
+		return;
+	default:
+		vlogprintf(E_ERROR, "x = 0x%08x\n", x);
+		assert(0);
 	}
 }
 
@@ -720,52 +720,52 @@ void tglf_fetch_message_action(struct tgl_state *TLS, struct tgl_message_action 
 	memset(M, 0, sizeof(*M));
 	unsigned x = fetch_int();
 	switch (x) {
-		case CODE_message_action_empty:
-			M->type = tgl_message_action_none;
-			break;
-		case CODE_message_action_geo_chat_create:
-			{
-				M->type = tgl_message_action_geo_chat_create;
-				int l = prefetch_strlen(); // title
-				char *s = fetch_str(l);
-				int l2 = prefetch_strlen(); // checkin
-				char *s2 = fetch_str(l2);
-				vlogprintf(E_ERROR, "Message action: Created geochat %.*s in address %.*s. You are in magic land now, since nobody ever tested geochats in this app\n", l, s, l2, s2);
-			}
-			break;
-		case CODE_message_action_geo_chat_checkin:
-			M->type = tgl_message_action_geo_chat_checkin;
-			break;
-		case CODE_message_action_chat_create:
-			M->type = tgl_message_action_chat_create;
-			M->title = fetch_str_dup();
-			assert(fetch_int() ==(int)CODE_vector);
-			M->user_num = fetch_int();
-			M->users = talloc(M->user_num * 4);
-			fetch_ints(M->users, M->user_num);
-			break;
-		case CODE_message_action_chat_edit_title:
-			M->type = tgl_message_action_chat_edit_title;
-			M->new_title = fetch_str_dup();
-			break;
-		case CODE_message_action_chat_edit_photo:
-			M->type = tgl_message_action_chat_edit_photo;
-			tglf_fetch_photo(TLS, &M->photo);
-			break;
-		case CODE_message_action_chat_delete_photo:
-			M->type = tgl_message_action_chat_delete_photo;
-			break;
-		case CODE_message_action_chat_add_user:
-			M->type = tgl_message_action_chat_add_user;
-			M->user = fetch_int();
-			break;
-		case CODE_message_action_chat_delete_user:
-			M->type = tgl_message_action_chat_delete_user;
-			M->user = fetch_int();
-			break;
-		default:
-			vlogprintf(E_ERROR, "type = %d\n", x);
-			assert(0);
+	case CODE_message_action_empty:
+		M->type = tgl_message_action_none;
+		break;
+	case CODE_message_action_geo_chat_create:
+		{
+			M->type = tgl_message_action_geo_chat_create;
+			int l = prefetch_strlen(); // title
+			char *s = fetch_str(l);
+			int l2 = prefetch_strlen(); // checkin
+			char *s2 = fetch_str(l2);
+			vlogprintf(E_ERROR, "Message action: Created geochat %.*s in address %.*s. You are in magic land now, since nobody ever tested geochats in this app\n", l, s, l2, s2);
+		}
+		break;
+	case CODE_message_action_geo_chat_checkin:
+		M->type = tgl_message_action_geo_chat_checkin;
+		break;
+	case CODE_message_action_chat_create:
+		M->type = tgl_message_action_chat_create;
+		M->title = fetch_str_dup();
+		assert(fetch_int() ==(int)CODE_vector);
+		M->user_num = fetch_int();
+		M->users = talloc(M->user_num * 4);
+		fetch_ints(M->users, M->user_num);
+		break;
+	case CODE_message_action_chat_edit_title:
+		M->type = tgl_message_action_chat_edit_title;
+		M->new_title = fetch_str_dup();
+		break;
+	case CODE_message_action_chat_edit_photo:
+		M->type = tgl_message_action_chat_edit_photo;
+		tglf_fetch_photo(TLS, &M->photo);
+		break;
+	case CODE_message_action_chat_delete_photo:
+		M->type = tgl_message_action_chat_delete_photo;
+		break;
+	case CODE_message_action_chat_add_user:
+		M->type = tgl_message_action_chat_add_user;
+		M->user = fetch_int();
+		break;
+	case CODE_message_action_chat_delete_user:
+		M->type = tgl_message_action_chat_delete_user;
+		M->user = fetch_int();
+		break;
+	default:
+		vlogprintf(E_ERROR, "type = %d\n", x);
+		assert(0);
 	}
 }
 
@@ -867,45 +867,45 @@ void tglf_fetch_message_media(struct tgl_state *TLS, struct tgl_message_media *M
 	//M->type = fetch_int();
 	int x = fetch_int();
 	switch (x) {
-		case CODE_message_media_empty:
-			M->type = tgl_message_media_none;
-			break;
-		case CODE_message_media_photo:
-			M->type = tgl_message_media_photo;
-			tglf_fetch_photo(TLS, &M->photo);
-			break;
-		case CODE_message_media_video:
-			M->type = tgl_message_media_document;
-			tglf_fetch_video(TLS, &M->document);
-			break;
-		case CODE_message_media_audio:
-			M->type = tgl_message_media_document;
-			tglf_fetch_audio(TLS, &M->document);
-			break;
-		case CODE_message_media_document:
-			M->type = tgl_message_media_document;
-			tglf_fetch_document(TLS, &M->document);
-			break;
-		case CODE_message_media_geo:
-			M->type = tgl_message_media_geo;
-			tglf_fetch_geo(TLS, &M->geo);
-			break;
-		case CODE_message_media_contact:
-			M->type = tgl_message_media_contact;
-			M->phone = fetch_str_dup();
-			M->first_name = fetch_str_dup();
-			M->last_name = fetch_str_dup();
-			M->user_id = fetch_int();
-			break;
-		case CODE_message_media_unsupported:
-			M->type = tgl_message_media_unsupported;
-			M->data_size = prefetch_strlen();
-			M->data = talloc(M->data_size);
-			memcpy(M->data, fetch_str(M->data_size), M->data_size);
-			break;
-		default:
-			vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
-			assert(0);
+	case CODE_message_media_empty:
+		M->type = tgl_message_media_none;
+		break;
+	case CODE_message_media_photo:
+		M->type = tgl_message_media_photo;
+		tglf_fetch_photo(TLS, &M->photo);
+		break;
+	case CODE_message_media_video:
+		M->type = tgl_message_media_document;
+		tglf_fetch_video(TLS, &M->document);
+		break;
+	case CODE_message_media_audio:
+		M->type = tgl_message_media_document;
+		tglf_fetch_audio(TLS, &M->document);
+		break;
+	case CODE_message_media_document:
+		M->type = tgl_message_media_document;
+		tglf_fetch_document(TLS, &M->document);
+		break;
+	case CODE_message_media_geo:
+		M->type = tgl_message_media_geo;
+		tglf_fetch_geo(TLS, &M->geo);
+		break;
+	case CODE_message_media_contact:
+		M->type = tgl_message_media_contact;
+		M->phone = fetch_str_dup();
+		M->first_name = fetch_str_dup();
+		M->last_name = fetch_str_dup();
+		M->user_id = fetch_int();
+		break;
+	case CODE_message_media_unsupported:
+		M->type = tgl_message_media_unsupported;
+		M->data_size = prefetch_strlen();
+		M->data = talloc(M->data_size);
+		memcpy(M->data, fetch_str(M->data_size), M->data_size);
+		break;
+	default:
+		vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
+		assert(0);
 	}
 }
 
@@ -915,147 +915,147 @@ void tglf_fetch_message_media_encrypted(struct tgl_state *TLS, struct tgl_messag
 	unsigned x = fetch_int();
 	int l;
 	switch (x) {
-		case CODE_decrypted_message_media_empty:
-			M->type = tgl_message_media_none;
-			//M->type = CODE_message_media_empty;
-			break;
-		case CODE_decrypted_message_media_photo:
-			M->type = tgl_message_media_photo_encr;
-			//M->type = x;
-			l = prefetch_strlen();
-			fetch_str(l); // thumb
-			fetch_int(); // thumb_w
-			fetch_int(); // thumb_h
-			M->encr_photo.w = fetch_int();
-			M->encr_photo.h = fetch_int();
-			M->encr_photo.size = fetch_int();
+	case CODE_decrypted_message_media_empty:
+		M->type = tgl_message_media_none;
+		//M->type = CODE_message_media_empty;
+		break;
+	case CODE_decrypted_message_media_photo:
+		M->type = tgl_message_media_photo_encr;
+		//M->type = x;
+		l = prefetch_strlen();
+		fetch_str(l); // thumb
+		fetch_int(); // thumb_w
+		fetch_int(); // thumb_h
+		M->encr_photo.w = fetch_int();
+		M->encr_photo.h = fetch_int();
+		M->encr_photo.size = fetch_int();
 
-			l = prefetch_strlen ();
-			assert(l > 0);
-			M->encr_photo.key = talloc(32);
-			memset(M->encr_photo.key, 0, 32);
-			if (l <= 32) {
-				memcpy(M->encr_photo.key +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_photo.key, fetch_str(l) +(l - 32), 32);
-			}
-			M->encr_photo.iv = talloc(32);
-			l = prefetch_strlen ();
-			assert(l > 0);
-			memset(M->encr_photo.iv, 0, 32);
-			if (l <= 32) {
-				memcpy(M->encr_photo.iv +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_photo.iv, fetch_str(l) +(l - 32), 32);
-			}
-			break;
-		case CODE_decrypted_message_media_video:
-		case CODE_decrypted_message_media_video_l12:
-			//M->type = CODE_decrypted_message_media_video;
-			M->type = tgl_message_media_document_encr;
-			M->encr_document.flags = FLAG_DOCUMENT_VIDEO;
+		l = prefetch_strlen ();
+		assert(l > 0);
+		M->encr_photo.key = talloc(32);
+		memset(M->encr_photo.key, 0, 32);
+		if (l <= 32) {
+			memcpy(M->encr_photo.key +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_photo.key, fetch_str(l) +(l - 32), 32);
+		}
+		M->encr_photo.iv = talloc(32);
+		l = prefetch_strlen ();
+		assert(l > 0);
+		memset(M->encr_photo.iv, 0, 32);
+		if (l <= 32) {
+			memcpy(M->encr_photo.iv +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_photo.iv, fetch_str(l) +(l - 32), 32);
+		}
+		break;
+	case CODE_decrypted_message_media_video:
+	case CODE_decrypted_message_media_video_l12:
+		//M->type = CODE_decrypted_message_media_video;
+		M->type = tgl_message_media_document_encr;
+		M->encr_document.flags = FLAG_DOCUMENT_VIDEO;
 
-			l = prefetch_strlen();
-			fetch_str(l); // thumb
-			fetch_int(); // thumb_w
-			fetch_int(); // thumb_h
-			M->encr_document.duration = fetch_int();
-			if (x == CODE_decrypted_message_media_video) {
-				M->encr_document.mime_type = fetch_str_dup();
-			}
-			M->encr_document.w = fetch_int();
-			M->encr_document.h = fetch_int();
-			M->encr_document.size = fetch_int();
-
-			l = prefetch_strlen ();
-			assert(l > 0);
-			M->encr_document.key = talloc0(32);
-			if (l <= 32) {
-				memcpy(M->encr_document.key +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_document.key, fetch_str(l) +(l - 32), 32);
-			}
-			M->encr_document.iv = talloc(32);
-			l = prefetch_strlen ();
-			assert(l > 0);
-			memset(M->encr_document.iv, 0, 32);
-			if (l <= 32) {
-				memcpy(M->encr_document.iv +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_document.iv, fetch_str(l) +(l - 32), 32);
-			}
-			break;
-		case CODE_decrypted_message_media_audio:
-		case CODE_decrypted_message_media_audio_l12:
-			M->type = tgl_message_media_document_encr;
-			M->encr_document.flags = FLAG_DOCUMENT_AUDIO;
-
-			M->encr_document.duration = fetch_int();
-			if (x == CODE_decrypted_message_media_audio) {
-				M->encr_document.mime_type = fetch_str_dup();
-			}
-			M->encr_document.size = fetch_int();
-
-			l = prefetch_strlen ();
-			assert(l > 0);
-			M->encr_document.key = talloc0(32);
-			if (l <= 32) {
-				memcpy(M->encr_document.key +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_document.key, fetch_str(l) +(l - 32), 32);
-			}
-			M->encr_document.iv = talloc0(32);
-			l = prefetch_strlen ();
-			assert(l > 0);
-			if (l <= 32) {
-				memcpy(M->encr_document.iv +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_document.iv, fetch_str(l) +(l - 32), 32);
-			}
-			break;
-		case CODE_decrypted_message_media_document:
-			M->type = tgl_message_media_document_encr;
-			M->encr_document.flags = 0;
-			l = prefetch_strlen();
-			fetch_str(l); // thumb
-			fetch_int(); // thumb_w
-			fetch_int(); // thumb_h
-			M->encr_document.caption = fetch_str_dup();
+		l = prefetch_strlen();
+		fetch_str(l); // thumb
+		fetch_int(); // thumb_w
+		fetch_int(); // thumb_h
+		M->encr_document.duration = fetch_int();
+		if (x == CODE_decrypted_message_media_video) {
 			M->encr_document.mime_type = fetch_str_dup();
-			M->encr_document.size = fetch_int();
+		}
+		M->encr_document.w = fetch_int();
+		M->encr_document.h = fetch_int();
+		M->encr_document.size = fetch_int();
 
-			l = prefetch_strlen ();
-			assert(l > 0);
-			M->encr_document.key = talloc0(32);
-			if (l <= 32) {
-				memcpy(M->encr_document.key +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_document.key, fetch_str(l) +(l - 32), 32);
-			}
-			M->encr_document.iv = talloc0(32);
-			l = prefetch_strlen ();
-			assert(l > 0);
-			if (l <= 32) {
-				memcpy(M->encr_document.iv +(32 - l), fetch_str(l), l);
-			} else {
-				memcpy(M->encr_document.iv, fetch_str(l) +(l - 32), 32);
-			}
-			break;
-		case CODE_decrypted_message_media_geo_point:
-			M->type = tgl_message_media_geo;
-			M->geo.latitude = fetch_double();
-			M->geo.longitude = fetch_double();
-			break;
-		case CODE_decrypted_message_media_contact:
-			M->type = tgl_message_media_contact;
-			M->phone = fetch_str_dup();
-			M->first_name = fetch_str_dup();
-			M->last_name = fetch_str_dup();
-			M->user_id = fetch_int();
-			break;
-		default:
-			vlogprintf(E_ERROR, "type = 0x%08x\n", x);
-			assert(0);
+		l = prefetch_strlen ();
+		assert(l > 0);
+		M->encr_document.key = talloc0(32);
+		if (l <= 32) {
+			memcpy(M->encr_document.key +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_document.key, fetch_str(l) +(l - 32), 32);
+		}
+		M->encr_document.iv = talloc(32);
+		l = prefetch_strlen ();
+		assert(l > 0);
+		memset(M->encr_document.iv, 0, 32);
+		if (l <= 32) {
+			memcpy(M->encr_document.iv +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_document.iv, fetch_str(l) +(l - 32), 32);
+		}
+		break;
+	case CODE_decrypted_message_media_audio:
+	case CODE_decrypted_message_media_audio_l12:
+		M->type = tgl_message_media_document_encr;
+		M->encr_document.flags = FLAG_DOCUMENT_AUDIO;
+
+		M->encr_document.duration = fetch_int();
+		if (x == CODE_decrypted_message_media_audio) {
+			M->encr_document.mime_type = fetch_str_dup();
+		}
+		M->encr_document.size = fetch_int();
+
+		l = prefetch_strlen ();
+		assert(l > 0);
+		M->encr_document.key = talloc0(32);
+		if (l <= 32) {
+			memcpy(M->encr_document.key +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_document.key, fetch_str(l) +(l - 32), 32);
+		}
+		M->encr_document.iv = talloc0(32);
+		l = prefetch_strlen ();
+		assert(l > 0);
+		if (l <= 32) {
+			memcpy(M->encr_document.iv +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_document.iv, fetch_str(l) +(l - 32), 32);
+		}
+		break;
+	case CODE_decrypted_message_media_document:
+		M->type = tgl_message_media_document_encr;
+		M->encr_document.flags = 0;
+		l = prefetch_strlen();
+		fetch_str(l); // thumb
+		fetch_int(); // thumb_w
+		fetch_int(); // thumb_h
+		M->encr_document.caption = fetch_str_dup();
+		M->encr_document.mime_type = fetch_str_dup();
+		M->encr_document.size = fetch_int();
+
+		l = prefetch_strlen ();
+		assert(l > 0);
+		M->encr_document.key = talloc0(32);
+		if (l <= 32) {
+			memcpy(M->encr_document.key +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_document.key, fetch_str(l) +(l - 32), 32);
+		}
+		M->encr_document.iv = talloc0(32);
+		l = prefetch_strlen ();
+		assert(l > 0);
+		if (l <= 32) {
+			memcpy(M->encr_document.iv +(32 - l), fetch_str(l), l);
+		} else {
+			memcpy(M->encr_document.iv, fetch_str(l) +(l - 32), 32);
+		}
+		break;
+	case CODE_decrypted_message_media_geo_point:
+		M->type = tgl_message_media_geo;
+		M->geo.latitude = fetch_double();
+		M->geo.longitude = fetch_double();
+		break;
+	case CODE_decrypted_message_media_contact:
+		M->type = tgl_message_media_contact;
+		M->phone = fetch_str_dup();
+		M->first_name = fetch_str_dup();
+		M->last_name = fetch_str_dup();
+		M->user_id = fetch_int();
+		break;
+	default:
+		vlogprintf(E_ERROR, "type = 0x%08x\n", x);
+		assert(0);
 	}
 }
 
@@ -1063,91 +1063,91 @@ void tglf_fetch_message_action_encrypted(struct tgl_state *TLS, struct tgl_messa
 {
 	unsigned x = fetch_int();
 	switch (x) {
-		case CODE_decrypted_message_action_set_message_t_t_l:
-			M->type = tgl_message_action_set_message_ttl;
-			M->ttl = fetch_int();
-			break;
-		case CODE_decrypted_message_action_read_messages:
-			M->type = tgl_message_action_read_messages;
-			{
-				assert(fetch_int() == CODE_vector);
-				int n = fetch_int();
-				M->read_cnt = n;
-				while(n -- > 0) {
-					long long id = fetch_long();
-					struct tgl_message *N = tgl_message_get(TLS, id);
-					if (N) {
-						N->unread = 0;
-					}
+	case CODE_decrypted_message_action_set_message_t_t_l:
+		M->type = tgl_message_action_set_message_ttl;
+		M->ttl = fetch_int();
+		break;
+	case CODE_decrypted_message_action_read_messages:
+		M->type = tgl_message_action_read_messages;
+		{
+			assert(fetch_int() == CODE_vector);
+			int n = fetch_int();
+			M->read_cnt = n;
+			while(n -- > 0) {
+				long long id = fetch_long();
+				struct tgl_message *N = tgl_message_get(TLS, id);
+				if (N) {
+					N->unread = 0;
 				}
 			}
-			break;
-		case CODE_decrypted_message_action_delete_messages:
-			M->type = tgl_message_action_delete_messages;
-			{
-				assert(fetch_int() == CODE_vector);
-				int n = fetch_int();
-				M->delete_cnt = n;
-				while(n -- > 0) {
-					fetch_long();
-				}
+		}
+		break;
+	case CODE_decrypted_message_action_delete_messages:
+		M->type = tgl_message_action_delete_messages;
+		{
+			assert(fetch_int() == CODE_vector);
+			int n = fetch_int();
+			M->delete_cnt = n;
+			while(n -- > 0) {
+				fetch_long();
 			}
-			break;
-		case CODE_decrypted_message_action_screenshot_messages:
-			M->type = tgl_message_action_screenshot_messages;
-			{
-				assert(fetch_int() == CODE_vector);
-				int n = fetch_int();
-				M->screenshot_cnt = n;
-				while(n -- > 0) {
-					fetch_long();
-				}
+		}
+		break;
+	case CODE_decrypted_message_action_screenshot_messages:
+		M->type = tgl_message_action_screenshot_messages;
+		{
+			assert(fetch_int() == CODE_vector);
+			int n = fetch_int();
+			M->screenshot_cnt = n;
+			while(n -- > 0) {
+				fetch_long();
 			}
-			break;
-		case CODE_decrypted_message_action_notify_layer:
-			M->type = tgl_message_action_notify_layer;
-			M->layer = fetch_int();
-			break;
-		case CODE_decrypted_message_action_flush_history:
-			M->type = tgl_message_action_flush_history;
-			break;
-		case CODE_decrypted_message_action_typing:
-			M->type = tgl_message_action_typing;
-			M->typing = tglf_fetch_typing();
-			break;
-		case CODE_decrypted_message_action_resend:
-			M->type = tgl_message_action_resend;
-			M->start_seq_no = fetch_int();
-			M->end_seq_no = fetch_int();
-			break;
-		case CODE_decrypted_message_action_noop:
-			M->type = tgl_message_action_noop;
-			break;
-		case CODE_decrypted_message_action_request_key:
-			M->type = tgl_message_action_request_key;
-			M->exchange_id = fetch_long();
-			M->g_a = talloc(256);
-			fetch256(M->g_a);
-			break;
-		case CODE_decrypted_message_action_accept_key:
-			M->type = tgl_message_action_accept_key;
-			M->exchange_id = fetch_long();
-			M->g_a = talloc(256);
-			fetch256(M->g_a);
-			M->key_fingerprint = fetch_long();
-			break;
-		case CODE_decrypted_message_action_commit_key:
-			M->type = tgl_message_action_commit_key;
-			M->exchange_id = fetch_long();
-			M->key_fingerprint = fetch_long();
-			break;
-		case CODE_decrypted_message_action_abort_key:
-			M->type = tgl_message_action_abort_key;
-			M->exchange_id = fetch_long();
-			break;
-		default:
-			vlogprintf(E_ERROR, "x = 0x%08x\n", x);
-			assert(0);
+		}
+		break;
+	case CODE_decrypted_message_action_notify_layer:
+		M->type = tgl_message_action_notify_layer;
+		M->layer = fetch_int();
+		break;
+	case CODE_decrypted_message_action_flush_history:
+		M->type = tgl_message_action_flush_history;
+		break;
+	case CODE_decrypted_message_action_typing:
+		M->type = tgl_message_action_typing;
+		M->typing = tglf_fetch_typing();
+		break;
+	case CODE_decrypted_message_action_resend:
+		M->type = tgl_message_action_resend;
+		M->start_seq_no = fetch_int();
+		M->end_seq_no = fetch_int();
+		break;
+	case CODE_decrypted_message_action_noop:
+		M->type = tgl_message_action_noop;
+		break;
+	case CODE_decrypted_message_action_request_key:
+		M->type = tgl_message_action_request_key;
+		M->exchange_id = fetch_long();
+		M->g_a = talloc(256);
+		fetch256(M->g_a);
+		break;
+	case CODE_decrypted_message_action_accept_key:
+		M->type = tgl_message_action_accept_key;
+		M->exchange_id = fetch_long();
+		M->g_a = talloc(256);
+		fetch256(M->g_a);
+		M->key_fingerprint = fetch_long();
+		break;
+	case CODE_decrypted_message_action_commit_key:
+		M->type = tgl_message_action_commit_key;
+		M->exchange_id = fetch_long();
+		M->key_fingerprint = fetch_long();
+		break;
+	case CODE_decrypted_message_action_abort_key:
+		M->type = tgl_message_action_abort_key;
+		M->exchange_id = fetch_long();
+		break;
+	default:
+		vlogprintf(E_ERROR, "x = 0x%08x\n", x);
+		assert(0);
 	}
 }
 
@@ -1801,81 +1801,81 @@ void tgls_free_document(struct tgl_state *TLS, struct tgl_document *D)
 void tgls_free_message_media(struct tgl_state *TLS, struct tgl_message_media *M)
 {
 	switch (M->type) {
-		case tgl_message_media_none:
-		case tgl_message_media_geo:
-			return;
-			//case tgl_message_media_audio:
-			//  tgls_free_audio(TLS, &M->audio);
-			//  return;
-		case tgl_message_media_photo:
-			tgls_free_photo(TLS, &M->photo);
-			return;
-			//case tgl_message_media_video:
-			//  tgls_free_video(TLS, &M->video);
-			//  return;
-		case tgl_message_media_contact:
-			tfree_str(M->phone);
-			tfree_str(M->first_name);
-			tfree_str(M->last_name);
-			return;
-		case tgl_message_media_document:
-			tgls_free_document(TLS, &M->document);
-			return;
-		case tgl_message_media_unsupported:
-			tfree(M->data, M->data_size);
-			return;
-		case tgl_message_media_photo_encr:
-			//case tgl_message_media_video_encr:
-			//case tgl_message_media_audio_encr:
-		case tgl_message_media_document_encr:
-			tfree_secure(M->encr_photo.key, 32);
-			tfree_secure(M->encr_photo.iv, 32);
-			return;
-		default:
-			vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
-			assert(0);
+	case tgl_message_media_none:
+	case tgl_message_media_geo:
+		return;
+		//case tgl_message_media_audio:
+		//  tgls_free_audio(TLS, &M->audio);
+		//  return;
+	case tgl_message_media_photo:
+		tgls_free_photo(TLS, &M->photo);
+		return;
+		//case tgl_message_media_video:
+		//  tgls_free_video(TLS, &M->video);
+		//  return;
+	case tgl_message_media_contact:
+		tfree_str(M->phone);
+		tfree_str(M->first_name);
+		tfree_str(M->last_name);
+		return;
+	case tgl_message_media_document:
+		tgls_free_document(TLS, &M->document);
+		return;
+	case tgl_message_media_unsupported:
+		tfree(M->data, M->data_size);
+		return;
+	case tgl_message_media_photo_encr:
+		//case tgl_message_media_video_encr:
+		//case tgl_message_media_audio_encr:
+	case tgl_message_media_document_encr:
+		tfree_secure(M->encr_photo.key, 32);
+		tfree_secure(M->encr_photo.iv, 32);
+		return;
+	default:
+		vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
+		assert(0);
 	}
 }
 
 void tgls_free_message_action(struct tgl_state *TLS, struct tgl_message_action *M)
 {
 	switch (M->type) {
-		case tgl_message_action_none:
-			return;
-		case tgl_message_action_chat_create:
-			tfree_str(M->title);
-			tfree(M->users, M->user_num * 4);
-			return;
-		case tgl_message_action_chat_edit_title:
-			tfree_str(M->new_title);
-			return;
-		case tgl_message_action_chat_edit_photo:
-			tgls_free_photo(TLS, &M->photo);
-			return;
-		case tgl_message_action_chat_delete_photo:
-		case tgl_message_action_chat_add_user:
-		case tgl_message_action_chat_delete_user:
-		case tgl_message_action_geo_chat_create:
-		case tgl_message_action_geo_chat_checkin:
-		case tgl_message_action_set_message_ttl:
-		case tgl_message_action_read_messages:
-		case tgl_message_action_delete_messages:
-		case tgl_message_action_screenshot_messages:
-		case tgl_message_action_flush_history:
-		case tgl_message_action_typing:
-		case tgl_message_action_resend:
-		case tgl_message_action_notify_layer:
-		case tgl_message_action_commit_key:
-		case tgl_message_action_abort_key:
-		case tgl_message_action_noop:
-			return;
-		case tgl_message_action_request_key:
-		case tgl_message_action_accept_key:
-			tfree(M->g_a, 256);
-			return;
-			/*  default:
-				vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
-				assert(0);*/
+	case tgl_message_action_none:
+		return;
+	case tgl_message_action_chat_create:
+		tfree_str(M->title);
+		tfree(M->users, M->user_num * 4);
+		return;
+	case tgl_message_action_chat_edit_title:
+		tfree_str(M->new_title);
+		return;
+	case tgl_message_action_chat_edit_photo:
+		tgls_free_photo(TLS, &M->photo);
+		return;
+	case tgl_message_action_chat_delete_photo:
+	case tgl_message_action_chat_add_user:
+	case tgl_message_action_chat_delete_user:
+	case tgl_message_action_geo_chat_create:
+	case tgl_message_action_geo_chat_checkin:
+	case tgl_message_action_set_message_ttl:
+	case tgl_message_action_read_messages:
+	case tgl_message_action_delete_messages:
+	case tgl_message_action_screenshot_messages:
+	case tgl_message_action_flush_history:
+	case tgl_message_action_typing:
+	case tgl_message_action_resend:
+	case tgl_message_action_notify_layer:
+	case tgl_message_action_commit_key:
+	case tgl_message_action_abort_key:
+	case tgl_message_action_noop:
+		return;
+	case tgl_message_action_request_key:
+	case tgl_message_action_accept_key:
+		tfree(M->g_a, 256);
+		return;
+		/*  default:
+			vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
+			assert(0);*/
 	}
 	vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
 	assert(0);
@@ -1993,18 +1993,18 @@ void tglm_message_add_peer(struct tgl_state *TLS, struct tgl_message *M)
 		P = talloc0(sizeof(*P));
 		P->id = id;
 		switch (tgl_get_peer_type(id)) {
-			case TGL_PEER_USER:
-				TLS->users_allocated ++;
-				break;
-			case TGL_PEER_CHAT:
-				TLS->chats_allocated ++;
-				break;
-			case TGL_PEER_GEO_CHAT:
-				TLS->geo_chats_allocated ++;
-				break;
-			case TGL_PEER_ENCR_CHAT:
-				TLS->encr_chats_allocated ++;
-				break;
+		case TGL_PEER_USER:
+			TLS->users_allocated ++;
+			break;
+		case TGL_PEER_CHAT:
+			TLS->chats_allocated ++;
+			break;
+		case TGL_PEER_GEO_CHAT:
+			TLS->geo_chats_allocated ++;
+			break;
+		case TGL_PEER_ENCR_CHAT:
+			TLS->encr_chats_allocated ++;
+			break;
 		}
 		TLS->peer_tree = tree_insert_peer(TLS->peer_tree, P, lrand48());
 		increase_peer_size(TLS);

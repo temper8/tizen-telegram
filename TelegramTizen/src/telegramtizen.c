@@ -1069,50 +1069,50 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		char* type_status_message = NULL;
 
 		switch (type_status) {
-			case tgl_typing_none:
-				type_status_message = (char*)malloc(strlen("doing nothing") + 1);
-				strcpy(type_status_message, "doing nothing");
-				break;
-			case tgl_typing_typing:
-				type_status_message = (char*)malloc(strlen("typing") + 1);
-				strcpy(type_status_message, "typing");
-				break;
-			case tgl_typing_cancel:
-				type_status_message = (char*)malloc(strlen("deleting typed message") + 1);
-				strcpy(type_status_message, "deleting typed message");
-				break;
-			case tgl_typing_record_video:
-				type_status_message = (char*)malloc(strlen("recording video") + 1);
-				strcpy(type_status_message, "recording video");
-				break;
-			case tgl_typing_upload_video:
-				type_status_message = (char*)malloc(strlen("uploading video") + 1);
-				strcpy(type_status_message, "uploading video");
-				break;
-			case tgl_typing_record_audio:
-				type_status_message = (char*)malloc(strlen("recording audio") + 1);
-				strcpy(type_status_message, "recording audio");
-				break;
-			case tgl_typing_upload_audio:
-				type_status_message = (char*)malloc(strlen("uploading audio") + 1);
-				strcpy(type_status_message, "uploading audio");
-				break;
-			case tgl_typing_upload_photo:
-				type_status_message = (char*)malloc(strlen("uploading photo") + 1);
-				strcpy(type_status_message, "uploading photo");
-				break;
-			case tgl_typing_upload_document:
-				type_status_message = (char*)malloc(strlen("uploading document") + 1);
-				strcpy(type_status_message, "uploading document");
-				break;
-			case tgl_typing_geo:
-				type_status_message = (char*)malloc(strlen("choosing location") + 1);
-				strcpy(type_status_message, "choosing location");
-				break;
-			case tgl_typing_choose_contact:
-				type_status_message = (char*)malloc(strlen("choosing contact") + 1);
-				strcpy(type_status_message, "choosing contact");
-				break;
+		case tgl_typing_none:
+			type_status_message = (char*)malloc(strlen("doing nothing") + 1);
+			strcpy(type_status_message, "doing nothing");
+			break;
+		case tgl_typing_typing:
+			type_status_message = (char*)malloc(strlen("typing") + 1);
+			strcpy(type_status_message, "typing");
+			break;
+		case tgl_typing_cancel:
+			type_status_message = (char*)malloc(strlen("deleting typed message") + 1);
+			strcpy(type_status_message, "deleting typed message");
+			break;
+		case tgl_typing_record_video:
+			type_status_message = (char*)malloc(strlen("recording video") + 1);
+			strcpy(type_status_message, "recording video");
+			break;
+		case tgl_typing_upload_video:
+			type_status_message = (char*)malloc(strlen("uploading video") + 1);
+			strcpy(type_status_message, "uploading video");
+			break;
+		case tgl_typing_record_audio:
+			type_status_message = (char*)malloc(strlen("recording audio") + 1);
+			strcpy(type_status_message, "recording audio");
+			break;
+		case tgl_typing_upload_audio:
+			type_status_message = (char*)malloc(strlen("uploading audio") + 1);
+			strcpy(type_status_message, "uploading audio");
+			break;
+		case tgl_typing_upload_photo:
+			type_status_message = (char*)malloc(strlen("uploading photo") + 1);
+			strcpy(type_status_message, "uploading photo");
+			break;
+		case tgl_typing_upload_document:
+			type_status_message = (char*)malloc(strlen("uploading document") + 1);
+			strcpy(type_status_message, "uploading document");
+			break;
+		case tgl_typing_geo:
+			type_status_message = (char*)malloc(strlen("choosing location") + 1);
+			strcpy(type_status_message, "choosing location");
+			break;
+		case tgl_typing_choose_contact:
+			type_status_message = (char*)malloc(strlen("choosing contact") + 1);
+			strcpy(type_status_message, "choosing contact");
+			break;
 		}
 
 		// update UI. may be contacts view or conversation view.
@@ -1168,89 +1168,89 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
 	switch(ad->current_app_state) {
-		case TG_INIT_SCREEN_STATE:
-			elm_win_lower(ad->win);
-			elm_exit();
-			break;
-		case TG_USER_MAIN_VIEW_STATE:
-			elm_win_lower(ad->win);
-			elm_exit();
-			break;
-		case TG_CHAT_MESSAGING_VIEW_STATE:
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_START_MESSAGING_VIEW_STATE;
-			break;
-		case TG_START_MESSAGING_VIEW_STATE:
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
-			break;
-		case TG_REGISTRATION_STATE:
-			elm_win_lower(ad->win);
-			elm_exit();
-			break;
-		case TG_LOGIN_STATE:
+	case TG_INIT_SCREEN_STATE:
+		elm_win_lower(ad->win);
+		elm_exit();
+		break;
+	case TG_USER_MAIN_VIEW_STATE:
+		elm_win_lower(ad->win);
+		elm_exit();
+		break;
+	case TG_CHAT_MESSAGING_VIEW_STATE:
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_START_MESSAGING_VIEW_STATE;
+		break;
+	case TG_START_MESSAGING_VIEW_STATE:
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+		break;
+	case TG_REGISTRATION_STATE:
+		elm_win_lower(ad->win);
+		elm_exit();
+		break;
+	case TG_LOGIN_STATE:
 
-			if (ad->timer_value > 0) {
-				Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
-				if (timer)
-					ecore_timer_del(timer);
-			}
+		if (ad->timer_value > 0) {
+			Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
+			if (timer)
+				ecore_timer_del(timer);
+		}
 
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_REGISTRATION_STATE;
-			break;
-		case TG_PROFILE_REGISTRATION_STATE:
-			/*			ad->current_app_state = TG_REGISTRATION_STATE;
-						elm_naviframe_item_pop(ad->nf);*/
-			elm_win_lower(ad->win);
-			elm_exit();
-			break;
-		case TG_BUDDY_LIST_STATE:
-			evas_object_data_set(ad->nf, "buddy_list", NULL);
-			elm_win_lower(ad->win);
-			elm_exit();
-			break;
-		case TG_BUDDY_CHAT_CONV_STATE:
-			ad->buddy_in_cahtting_data = NULL;
-			if (ad->loaded_msg_list) {
-				eina_list_free(ad->loaded_msg_list);
-				ad->loaded_msg_list = NULL;
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_REGISTRATION_STATE;
+		break;
+	case TG_PROFILE_REGISTRATION_STATE:
+		/*			ad->current_app_state = TG_REGISTRATION_STATE;
+					elm_naviframe_item_pop(ad->nf);*/
+		elm_win_lower(ad->win);
+		elm_exit();
+		break;
+	case TG_BUDDY_LIST_STATE:
+		evas_object_data_set(ad->nf, "buddy_list", NULL);
+		elm_win_lower(ad->win);
+		elm_exit();
+		break;
+	case TG_BUDDY_CHAT_CONV_STATE:
+		ad->buddy_in_cahtting_data = NULL;
+		if (ad->loaded_msg_list) {
+			eina_list_free(ad->loaded_msg_list);
+			ad->loaded_msg_list = NULL;
+		}
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_BUDDY_LIST_STATE;
+		//evas_object_show(ad->panel);
+		//refresh_buddy_list(ad);
+		break;
+	case TG_BUDDY_LIST_SELECTION_STATE:
+		if (ad->buddy_list) {
+			for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
+				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+				user_data_s* user = item->use_data;
+				user->is_selected = EINA_FALSE;
 			}
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_BUDDY_LIST_STATE;
-			//evas_object_show(ad->panel);
-			//refresh_buddy_list(ad);
-			break;
-		case TG_BUDDY_LIST_SELECTION_STATE:
-			if (ad->buddy_list) {
-				for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-					user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-					user_data_s* user = item->use_data;
-					user->is_selected = EINA_FALSE;
-				}
+		}
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_BUDDY_LIST_STATE;
+		evas_object_show(ad->panel);
+		elm_panel_hidden_set(ad->panel, EINA_FALSE);
+		//refresh_buddy_list(ad);
+		break;
+	case TG_GROUP_CHAT_NAME_ENTRY_STATE:
+		if (ad->buddy_list) {
+			for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
+				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+				user_data_s* user = item->use_data;
+				user->is_selected = EINA_FALSE;
 			}
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_BUDDY_LIST_STATE;
-			evas_object_show(ad->panel);
-			elm_panel_hidden_set(ad->panel, EINA_FALSE);
-			//refresh_buddy_list(ad);
-			break;
-		case TG_GROUP_CHAT_NAME_ENTRY_STATE:
-			if (ad->buddy_list) {
-				for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-					user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-					user_data_s* user = item->use_data;
-					user->is_selected = EINA_FALSE;
-				}
-			}
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_BUDDY_LIST_STATE;
-			evas_object_show(ad->panel);
-			elm_panel_hidden_set(ad->panel, EINA_FALSE);
-			//refresh_buddy_list(ad);
-			break;
-		default:
-			break;
+		}
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_BUDDY_LIST_STATE;
+		evas_object_show(ad->panel);
+		elm_panel_hidden_set(ad->panel, EINA_FALSE);
+		//refresh_buddy_list(ad);
+		break;
+	default:
+		break;
 	}
 }
 

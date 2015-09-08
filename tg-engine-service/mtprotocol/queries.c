@@ -225,89 +225,89 @@ int tglq_query_error(struct tgl_state *TLS, long long id)
 		int error_handled = 0;
 
 		switch (error_code) {
-			case 303:
-				// migrate
-				{
-					int offset = -1;
-					if (error_len >= 15 && !memcmp(error, "PHONE_MIGRATE_", 14)) {
-						offset = 14;
+		case 303:
+			// migrate
+			{
+				int offset = -1;
+				if (error_len >= 15 && !memcmp(error, "PHONE_MIGRATE_", 14)) {
+					offset = 14;
+				}
+				if (error_len >= 17 && !memcmp(error, "NETWORK_MIGRATE_", 16)) {
+					offset = 16;
+				}
+				if (error_len >= 14 && !memcmp(error, "USER_MIGRATE_", 13)) {
+					offset = 13;
+				}
+				if (offset >= 0) {
+					int i = 0;
+					while(offset < error_len && error[offset] >= '0' && error[offset] <= '9') {
+						i = i * 10 + error[offset] - '0';
+						offset ++;
 					}
-					if (error_len >= 17 && !memcmp(error, "NETWORK_MIGRATE_", 16)) {
-						offset = 16;
-					}
-					if (error_len >= 14 && !memcmp(error, "USER_MIGRATE_", 13)) {
-						offset = 13;
-					}
-					if (offset >= 0) {
-						int i = 0;
-						while(offset < error_len && error[offset] >= '0' && error[offset] <= '9') {
-							i = i * 10 + error[offset] - '0';
-							offset ++;
-						}
-						if (i > 0 && i < TGL_MAX_DC_NUM) {
-							bl_do_set_working_dc(TLS, i);
-							q->flags &= ~QUERY_ACK_RECEIVED;
-							//q->session_id = 0;
-							//struct tgl_dc *DC = q->DC;
-							//if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
-							q->session_id = 0;
-							//}
-							q->DC = TLS->DC_working;
-							TLS->timer_methods->insert(q->ev, 0);
-							error_handled = 1;
-							res = 1;
-						}
+					if (i > 0 && i < TGL_MAX_DC_NUM) {
+						bl_do_set_working_dc(TLS, i);
+						q->flags &= ~QUERY_ACK_RECEIVED;
+						//q->session_id = 0;
+						//struct tgl_dc *DC = q->DC;
+						//if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
+						q->session_id = 0;
+						//}
+						q->DC = TLS->DC_working;
+						TLS->timer_methods->insert(q->ev, 0);
+						error_handled = 1;
+						res = 1;
 					}
 				}
-				break;
-			case 400:
-				// nothing to handle
-				// bad user input probably
-				break;
-			case 401:
-				if (!(TLS->locks & TGL_LOCK_PASSWORD)) {
-					TLS->locks |= TGL_LOCK_PASSWORD;
-					tgl_do_check_password(TLS, NULL, NULL);
+			}
+			break;
+		case 400:
+			// nothing to handle
+			// bad user input probably
+			break;
+		case 401:
+			if (!(TLS->locks & TGL_LOCK_PASSWORD)) {
+				TLS->locks |= TGL_LOCK_PASSWORD;
+				tgl_do_check_password(TLS, NULL, NULL);
+			}
+			q->flags &= ~QUERY_ACK_RECEIVED;
+			TLS->timer_methods->insert(q->ev, 1);
+			struct tgl_dc *DC = q->DC;
+			if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
+				q->session_id = 0;
+			}
+			error_handled = 1;
+			break;
+		case 403:
+			// privacy violation
+			break;
+		case 404:
+			// not found
+			break;
+		case 420:
+			// flood
+		case 500:
+			// internal error
+		default:
+			// anything else. Treated as internal error
+			{
+				int wait;
+				if (strncmp(error, "FLOOD_WAIT_", 11)) {
+					if (error_code == 420) {
+						vlogprintf(E_ERROR, "error = '%s'\n", error);
+					}
+					wait = 10;
+				} else {
+					wait = atoll(error + 11);
 				}
 				q->flags &= ~QUERY_ACK_RECEIVED;
-				TLS->timer_methods->insert(q->ev, 1);
+				TLS->timer_methods->insert(q->ev, wait);
 				struct tgl_dc *DC = q->DC;
 				if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
 					q->session_id = 0;
 				}
 				error_handled = 1;
-				break;
-			case 403:
-				// privacy violation
-				break;
-			case 404:
-				// not found
-				break;
-			case 420:
-				// flood
-			case 500:
-				// internal error
-			default:
-				// anything else. Treated as internal error
-				{
-					int wait;
-					if (strncmp(error, "FLOOD_WAIT_", 11)) {
-						if (error_code == 420) {
-							vlogprintf(E_ERROR, "error = '%s'\n", error);
-						}
-						wait = 10;
-					} else {
-						wait = atoll(error + 11);
-					}
-					q->flags &= ~QUERY_ACK_RECEIVED;
-					TLS->timer_methods->insert(q->ev, wait);
-					struct tgl_dc *DC = q->DC;
-					if (!(DC->flags & 4) && !(q->flags & QUERY_FORCE_SEND)) {
-						q->session_id = 0;
-					}
-					error_handled = 1;
-				}
-				break;
+			}
+			break;
 		}
 
 		if (error_handled) {
@@ -933,39 +933,39 @@ void tgl_do_send_encr_msg_action(struct tgl_state *TLS, struct tgl_message *M, v
 	}
 
 	switch (M->action.type) {
-		case tgl_message_action_notify_layer:
-			out_int(CODE_decrypted_message_action_notify_layer);
-			out_int(M->action.layer);
-			break;
-		case tgl_message_action_set_message_ttl:
-			out_int(CODE_decrypted_message_action_set_message_t_t_l);
-			out_int(M->action.ttl);
-			break;
-		case tgl_message_action_request_key:
-			out_int(CODE_decrypted_message_action_request_key);
-			out_long(M->action.exchange_id);
-			out_cstring((void *)M->action.g_a, 256);
-			break;
-		case tgl_message_action_accept_key:
-			out_int(CODE_decrypted_message_action_accept_key);
-			out_long(M->action.exchange_id);
-			out_cstring((void *)M->action.g_a, 256);
-			out_long(M->action.key_fingerprint);
-			break;
-		case tgl_message_action_commit_key:
-			out_int(CODE_decrypted_message_action_commit_key);
-			out_long(M->action.exchange_id);
-			out_long(M->action.key_fingerprint);
-			break;
-		case tgl_message_action_abort_key:
-			out_int(CODE_decrypted_message_action_abort_key);
-			out_long(M->action.exchange_id);
-			break;
-		case tgl_message_action_noop:
-			out_int(CODE_decrypted_message_action_noop);
-			break;
-		default:
-			assert(0);
+	case tgl_message_action_notify_layer:
+		out_int(CODE_decrypted_message_action_notify_layer);
+		out_int(M->action.layer);
+		break;
+	case tgl_message_action_set_message_ttl:
+		out_int(CODE_decrypted_message_action_set_message_t_t_l);
+		out_int(M->action.ttl);
+		break;
+	case tgl_message_action_request_key:
+		out_int(CODE_decrypted_message_action_request_key);
+		out_long(M->action.exchange_id);
+		out_cstring((void *)M->action.g_a, 256);
+		break;
+	case tgl_message_action_accept_key:
+		out_int(CODE_decrypted_message_action_accept_key);
+		out_long(M->action.exchange_id);
+		out_cstring((void *)M->action.g_a, 256);
+		out_long(M->action.key_fingerprint);
+		break;
+	case tgl_message_action_commit_key:
+		out_int(CODE_decrypted_message_action_commit_key);
+		out_long(M->action.exchange_id);
+		out_long(M->action.key_fingerprint);
+		break;
+	case tgl_message_action_abort_key:
+		out_int(CODE_decrypted_message_action_abort_key);
+		out_long(M->action.exchange_id);
+		break;
+	case tgl_message_action_noop:
+		out_int(CODE_decrypted_message_action_noop);
+		break;
+	default:
+		assert(0);
 	}
 	encr_finish(&P->encr_chat);
 
@@ -1508,23 +1508,23 @@ static void out_peer_id(struct tgl_state *TLS, tgl_peer_id_t id)
 {
 	tgl_peer_t *U;
 	switch (tgl_get_peer_type(id)) {
-		case TGL_PEER_CHAT:
-			out_int(CODE_input_peer_chat);
+	case TGL_PEER_CHAT:
+		out_int(CODE_input_peer_chat);
+		out_int(tgl_get_peer_id(id));
+		break;
+	case TGL_PEER_USER:
+		U = tgl_peer_get(TLS, id);
+		if (U && U->user.access_hash) {
+			out_int(CODE_input_peer_foreign);
 			out_int(tgl_get_peer_id(id));
-			break;
-		case TGL_PEER_USER:
-			U = tgl_peer_get(TLS, id);
-			if (U && U->user.access_hash) {
-				out_int(CODE_input_peer_foreign);
-				out_int(tgl_get_peer_id(id));
-				out_long(U->user.access_hash);
-			} else {
-				out_int(CODE_input_peer_contact);
-				out_int(tgl_get_peer_id(id));
-			}
-			break;
-		default:
-			assert(0);
+			out_long(U->user.access_hash);
+		} else {
+			out_int(CODE_input_peer_contact);
+			out_int(tgl_get_peer_id(id));
+		}
+		break;
+	default:
+		assert(0);
 	}
 }
 
@@ -2230,20 +2230,20 @@ void tgl_do_forward_media(struct tgl_state *TLS, tgl_peer_id_t id, int n, void(*
 	out_int(CODE_messages_send_media);
 	out_peer_id(TLS, id);
 	switch (M->media.type) {
-		case tgl_message_media_photo:
-			out_int(CODE_input_media_photo);
-			out_int(CODE_input_photo);
-			out_long(M->media.photo.id);
-			out_long(M->media.photo.access_hash);
-			break;
-		case tgl_message_media_document:
-			out_int(CODE_input_media_document);
-			out_int(CODE_input_document);
-			out_long(M->media.document.id);
-			out_long(M->media.document.access_hash);
-			break;
-		default:
-			assert(0);
+	case tgl_message_media_photo:
+		out_int(CODE_input_media_photo);
+		out_int(CODE_input_photo);
+		out_long(M->media.photo.id);
+		out_long(M->media.photo.access_hash);
+		break;
+	case tgl_message_media_document:
+		out_int(CODE_input_media_document);
+		out_int(CODE_input_document);
+		out_long(M->media.document.id);
+		out_long(M->media.document.access_hash);
+		break;
+	default:
+		assert(0);
 	}
 	long long r;
 	tglt_secure_random(&r, 8);
@@ -3827,37 +3827,37 @@ void tgl_do_send_typing(struct tgl_state *TLS, tgl_peer_id_t id, enum tgl_typing
 		out_int(CODE_messages_set_typing);
 		out_peer_id(TLS, id);
 		switch (status) {
-			case tgl_typing_none:
-			case tgl_typing_typing:
-				out_int(CODE_send_message_typing_action);
-				break;
-			case tgl_typing_cancel:
-				out_int(CODE_send_message_cancel_action);
-				break;
-			case tgl_typing_record_video:
-				out_int(CODE_send_message_record_video_action);
-				break;
-			case tgl_typing_upload_video:
-				out_int(CODE_send_message_upload_video_action);
-				break;
-			case tgl_typing_record_audio:
-				out_int(CODE_send_message_record_audio_action);
-				break;
-			case tgl_typing_upload_audio:
-				out_int(CODE_send_message_upload_audio_action);
-				break;
-			case tgl_typing_upload_photo:
-				out_int(CODE_send_message_upload_photo_action);
-				break;
-			case tgl_typing_upload_document:
-				out_int(CODE_send_message_upload_document_action);
-				break;
-			case tgl_typing_geo:
-				out_int(CODE_send_message_geo_location_action);
-				break;
-			case tgl_typing_choose_contact:
-				out_int(CODE_send_message_choose_contact_action);
-				break;
+		case tgl_typing_none:
+		case tgl_typing_typing:
+			out_int(CODE_send_message_typing_action);
+			break;
+		case tgl_typing_cancel:
+			out_int(CODE_send_message_cancel_action);
+			break;
+		case tgl_typing_record_video:
+			out_int(CODE_send_message_record_video_action);
+			break;
+		case tgl_typing_upload_video:
+			out_int(CODE_send_message_upload_video_action);
+			break;
+		case tgl_typing_record_audio:
+			out_int(CODE_send_message_record_audio_action);
+			break;
+		case tgl_typing_upload_audio:
+			out_int(CODE_send_message_upload_audio_action);
+			break;
+		case tgl_typing_upload_photo:
+			out_int(CODE_send_message_upload_photo_action);
+			break;
+		case tgl_typing_upload_document:
+			out_int(CODE_send_message_upload_document_action);
+			break;
+		case tgl_typing_geo:
+			out_int(CODE_send_message_geo_location_action);
+			break;
+		case tgl_typing_choose_contact:
+			out_int(CODE_send_message_choose_contact_action);
+			break;
 		}
 		tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &send_typing_methods, 0, callback, callback_extra);
 	} else {

@@ -144,32 +144,31 @@ static int _service_client_convert_msg_port_result(const int err)
 {
 	int result = SVC_RES_FAIL;
 
-	switch (err)
-	{
-		case MESSAGE_PORT_ERROR_NONE:
-			result = SVC_RES_OK;
-			break;
-		case MESSAGE_PORT_ERROR_IO_ERROR:
-			ERR("MessagePort error: i/o error");
-			break;
-		case MESSAGE_PORT_ERROR_OUT_OF_MEMORY:
-			ERR("MessagePort error: out of memory");
-			break;
-		case MESSAGE_PORT_ERROR_INVALID_PARAMETER:
-			ERR("MessagePort error: invalid parameter");
-			break;
-		case MESSAGE_PORT_ERROR_PORT_NOT_FOUND:
-			ERR("MessagePort error: message port not found");
-			break;
-		case MESSAGE_PORT_ERROR_CERTIFICATE_NOT_MATCH:
-			ERR("MessagePort error: certificate not match");
-			break;
-		case MESSAGE_PORT_ERROR_MAX_EXCEEDED:
-			ERR("MessagePort error: max exceeded");
-			break;
-		default:
-			ERR("MessagePort error: unknown error");
-			break;
+	switch (err) {
+	case MESSAGE_PORT_ERROR_NONE:
+		result = SVC_RES_OK;
+		break;
+	case MESSAGE_PORT_ERROR_IO_ERROR:
+		ERR("MessagePort error: i/o error");
+		break;
+	case MESSAGE_PORT_ERROR_OUT_OF_MEMORY:
+		ERR("MessagePort error: out of memory");
+		break;
+	case MESSAGE_PORT_ERROR_INVALID_PARAMETER:
+		ERR("MessagePort error: invalid parameter");
+		break;
+	case MESSAGE_PORT_ERROR_PORT_NOT_FOUND:
+		ERR("MessagePort error: message port not found");
+		break;
+	case MESSAGE_PORT_ERROR_CERTIFICATE_NOT_MATCH:
+		ERR("MessagePort error: certificate not match");
+		break;
+	case MESSAGE_PORT_ERROR_MAX_EXCEEDED:
+		ERR("MessagePort error: max exceeded");
+		break;
+	default:
+		ERR("MessagePort error: unknown error");
+		break;
 	}
 	return result;
 }

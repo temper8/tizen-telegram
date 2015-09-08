@@ -906,22 +906,22 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 		struct tgl_user* buddy;
 		struct tgl_chat* chat_info;
 		switch (tgl_get_peer_type(peers[i])) {
-			case TGL_PEER_USER:
-				buddy = &(UC->user);
-				if (buddy) {
-					char* msg_table = get_table_name_from_number(buddy->id.id);
-					create_buddy_msg_table(msg_table);
-					free(msg_table);
-					insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
-					tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
-				}
-				break;
-			case TGL_PEER_CHAT:
-				chat_info = &(UC->chat);
-				tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
-				break;
-			case TGL_PEER_ENCR_CHAT:
-				break;
+		case TGL_PEER_USER:
+			buddy = &(UC->user);
+			if (buddy) {
+				char* msg_table = get_table_name_from_number(buddy->id.id);
+				create_buddy_msg_table(msg_table);
+				free(msg_table);
+				insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
+				tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
+			}
+			break;
+		case TGL_PEER_CHAT:
+			chat_info = &(UC->chat);
+			tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
+			break;
+		case TGL_PEER_ENCR_CHAT:
+			break;
 		}
 	}
 	send_contacts_and_chats_load_done_response(EINA_TRUE);

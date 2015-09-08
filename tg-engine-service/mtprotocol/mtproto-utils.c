@@ -39,23 +39,23 @@ int tglmp_check_DH_params(struct tgl_state *TLS, BIGNUM *p, int g)
 
 	int res = 0;
 	switch (g) {
-		case 2:
-			if (x != 7) { res = -1; }
-			break;
-		case 3:
-			if (x % 3 != 2) { res = -1; }
-			break;
-		case 4:
-			break;
-		case 5:
-			if (x % 5 != 1 && x % 5 != 4) { res = -1; }
-			break;
-		case 6:
-			if (x != 19 && x != 23) { res = -1; }
-			break;
-		case 7:
-			if (x % 7 != 3 && x % 7 != 5 && x % 7 != 6) { res = -1; }
-			break;
+	case 2:
+		if (x != 7) { res = -1; }
+		break;
+	case 3:
+		if (x % 3 != 2) { res = -1; }
+		break;
+	case 4:
+		break;
+	case 5:
+		if (x % 5 != 1 && x % 5 != 4) { res = -1; }
+		break;
+	case 6:
+		if (x != 19 && x != 23) { res = -1; }
+		break;
+	case 7:
+		if (x % 7 != 3 && x % 7 != 5 && x % 7 != 6) { res = -1; }
+		break;
 	}
 
 	if (res < 0 || !check_prime(TLS, p)) {

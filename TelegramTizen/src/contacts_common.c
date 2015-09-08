@@ -52,85 +52,65 @@ void sc_common_get_contact_properties(sc_common_contact_fields field_type, unsig
 	unsigned temp_parent_property_id = 0;
 	const char *temp_child_uri = NULL;
 	unsigned temp_child_property_id = 0;
-	switch(field_type)
-	{
-		case CF_ADDRESSBOOK:
-			{
-				//Not needed
-				break;
-			}
-		case CF_FIRST_NAME:
-			{
-				temp_parent_property_id = _contacts_contact.name;
-				temp_child_uri = _contacts_name._uri;
-				temp_child_property_id = _contacts_name.first;
-				break;
-			}
-		case CF_LAST_NAME:
-			{
-				temp_parent_property_id = _contacts_contact.name;
-				temp_child_uri = _contacts_name._uri;
-				temp_child_property_id = _contacts_name.last;
-				break;
-			}
-		case CF_PHONE_NUMBER:
-			{
-				temp_parent_property_id = _contacts_contact.number;
-				temp_child_uri = _contacts_number._uri;
-				temp_child_property_id = _contacts_number.number;
-				break;
-			}
-		case CF_EMAIL:
-			{
-				temp_parent_property_id = _contacts_contact.email;
-				temp_child_uri = _contacts_email._uri;
-				temp_child_property_id = _contacts_email.email;
-				break;
-			}
-		case CF_URL:
-			{
-				temp_parent_property_id = _contacts_contact.url;
-				temp_child_uri = _contacts_url._uri;
-				temp_child_property_id = _contacts_url.url;
-				break;
-			}
-		case CF_COMPANY:
-			{
-				temp_parent_property_id = _contacts_contact.company;
-				temp_child_uri = _contacts_company._uri;
-				temp_child_property_id = _contacts_company.name;
-				break;
-			}
-		case CF_BIRTHDAY:
-			{
-				temp_parent_property_id = _contacts_contact.event;
-				temp_child_uri = _contacts_event._uri;
-				temp_child_property_id = _contacts_event.date;
-				break;
-			}
-		case CF_NOTE:
-			{
-				temp_parent_property_id = _contacts_contact.note;
-				temp_child_uri = _contacts_note._uri;
-				temp_child_property_id = _contacts_note.note;
-				break;
-			}
-		case CF_MAX:
-			{
-				//Not correct field type
-				break;
-			}
+
+	switch(field_type) {
+	case CF_ADDRESSBOOK:
+		//Not needed
+		break;
+	case CF_FIRST_NAME:
+		temp_parent_property_id = _contacts_contact.name;
+		temp_child_uri = _contacts_name._uri;
+		temp_child_property_id = _contacts_name.first;
+		break;
+	case CF_LAST_NAME:
+		temp_parent_property_id = _contacts_contact.name;
+		temp_child_uri = _contacts_name._uri;
+		temp_child_property_id = _contacts_name.last;
+		break;
+	case CF_PHONE_NUMBER:
+		temp_parent_property_id = _contacts_contact.number;
+		temp_child_uri = _contacts_number._uri;
+		temp_child_property_id = _contacts_number.number;
+		break;
+	case CF_EMAIL:
+		temp_parent_property_id = _contacts_contact.email;
+		temp_child_uri = _contacts_email._uri;
+		temp_child_property_id = _contacts_email.email;
+		break;
+	case CF_URL:
+		temp_parent_property_id = _contacts_contact.url;
+		temp_child_uri = _contacts_url._uri;
+		temp_child_property_id = _contacts_url.url;
+		break;
+	case CF_COMPANY:
+		temp_parent_property_id = _contacts_contact.company;
+		temp_child_uri = _contacts_company._uri;
+		temp_child_property_id = _contacts_company.name;
+		break;
+	case CF_BIRTHDAY:
+		temp_parent_property_id = _contacts_contact.event;
+		temp_child_uri = _contacts_event._uri;
+		temp_child_property_id = _contacts_event.date;
+		break;
+	case CF_NOTE:
+		temp_parent_property_id = _contacts_contact.note;
+		temp_child_uri = _contacts_note._uri;
+		temp_child_property_id = _contacts_note.note;
+		break;
+	case CF_MAX:
+		//Not correct field type
+		break;
 	}
-	if(parent_property_id)
-	{
+
+	if(parent_property_id) {
 		*parent_property_id = temp_parent_property_id;
 	}
-	if(child_uri)
-	{
+
+	if(child_uri) {
 		*child_uri = temp_child_uri;
 	}
-	if(child_property_id)
-	{
+
+	if(child_property_id) {
 		*child_property_id = temp_child_property_id;
 	}
 }
