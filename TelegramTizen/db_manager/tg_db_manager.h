@@ -19,6 +19,7 @@ extern Eina_Bool get_values_from_table(sqlite3* db, const char* table_name, Eina
 extern Eina_List* get_values_from_table_sync(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* where_clause);
 extern Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause);
 extern Eina_Bool close_database(sqlite3* db);
+extern int get_number_of_rows(sqlite3* db, char* table_name, char* where_clause);
 
 
 

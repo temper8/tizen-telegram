@@ -15,6 +15,7 @@ void send_request_for_profile_registration(service_client* service_client, const
 void send_request_for_validation(service_client* service_client, const char* sms_code);
 // type_of_chat 0-buddy, 1-group_chat 2-encrpted_chat
 void send_request_for_message_transport(service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat);
+void send_request_for_marked_as_read(service_client* service_client, const int buddy_id, const int type_of_chat);
 void send_request_for_image_downloading(service_client* service_client, const int buddy_id, const long long media_id);
 void send_request_for_media_transport(service_client* service_client, const int buddy_id, const int message_id, const int media_id,  const int msg_type, const char* file_path, const int type_of_chat);
 void send_contacts_list_to_server(service_client* service_client, Eina_List* contacts_list);

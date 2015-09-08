@@ -63,7 +63,8 @@ struct connection {
 	Ecore_Timer* ping_ev;
 	Ecore_Timer* fail_ev;
 	Ecore_Fd_Handler *read_ev;
-	Ecore_Thread *thrd;
+	//Ecore_Thread *thrd;
+	Ecore_Timer* write_ev;
 	double last_receive_time;
 };
 

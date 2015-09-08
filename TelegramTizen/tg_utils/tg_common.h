@@ -40,6 +40,7 @@
 #define DEFAULT_TG_DATABASE_PATH "/opt/usr/media/telegram/tg_data_base.db"
 
 #define FM_ICON_PATH "images/"
+#define DEFAULT_PROFILE_PIC       FM_ICON_PATH"default_profile_pic.png"
 #define FM_ICON_ROBO_BUDDY       FM_ICON_PATH"robo_buddy.png"
 #define SEARCH_ICON FM_ICON_PATH"/search_icon.png"
 #define ATTACH_ICON FM_ICON_PATH"/ic_ab_attach.png"
@@ -335,6 +336,7 @@ typedef struct peer_with_pic {
 	Evas_Object *name_object;
 	Evas_Object *msg_object;
 	char *last_message;
+	Eina_Bool is_out_message;
 } peer_with_pic_s;
 
 typedef struct group_chat_with_pic {
@@ -361,6 +363,20 @@ typedef struct tg_message {
 	int unique_id;
 } tg_message_s;
 
+typedef struct tg_main_list_item {
+	char* peer_print_name;
+	int peer_id;
+	int peer_type;
+	char* last_message;
+	int last_msg_status;
+	int last_msg_type;
+	int number_of_unread_msgs;
+	int last_seen_time;
+	Eina_Bool is_out_msg;
+	char* profile_pic_path;
+	Evas_Object* profile_pic;
+} tg_main_list_item_s;
+
 typedef struct appdata {
 	Evas_Object* win;
 	Evas_Object* layout;
@@ -373,6 +389,10 @@ typedef struct appdata {
 	Eina_List* buddy_list;
 	Eina_List* group_chat_list;
 	Eina_List* peer_list;
+
+	Eina_List* main_list;
+
+
 	int curtimezoneoffset;
 	int curtimeformat;
 	tgl_peer_id_t user_id;

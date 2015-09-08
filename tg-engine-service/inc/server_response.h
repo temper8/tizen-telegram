@@ -15,6 +15,7 @@
 void process_registration_command(char* phone_no, Eina_Bool trough_sms);
 void process_validation_command(char* code);
 void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
+void process_marked_as_read_command(int buddy_id, int type_of_chat);
 void process_send_media_command(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
 void process_media_download_command(int buddy_id, long long media_id);
 void process_add_contacts_command(int size, Eina_List* contact_list);
@@ -27,7 +28,7 @@ void send_contacts_load_done_response(Eina_Bool is_success);
 void send_contacts_and_chats_load_done_response(Eina_Bool is_success);
 void send_buddy_profile_pic_updated_response(int buddy_id, char* file_path);
 void send_message_received_response(int from_id, int to_id, long long message_id, int type_of_chat);
-void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat);
+void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat);
 void send_message_read_by_buddy_response(int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat);
 void send_media_download_completed_response(int buddy_id, long long media_id, const char* filename);
 void send_new_group_added_response(int chat_id);

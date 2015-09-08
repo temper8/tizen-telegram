@@ -43,7 +43,8 @@
 
 #define PROGNAME "telegram-tizen"
 #define VERSION "0.01"
-#define CONFIG_DIRECTORY ".telegram-tizen"
+//#define CONFIG_DIRECTORY ".telegram-tizen"
+#define CONFIG_DIRECTORY "telegram_tizen"
 #define CONFIG_FILE "config"
 #define AUTH_KEY_FILE "auth"
 #define STATE_FILE "state"
@@ -177,7 +178,7 @@ typedef struct contact_data {
 	char* phone_number;
 } contact_data_s;
 
-
+void send_do_mark_read_messages(int buddy_id, int type_of_chat);
 void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
 void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
 

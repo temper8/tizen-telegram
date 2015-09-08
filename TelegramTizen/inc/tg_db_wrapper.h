@@ -165,6 +165,8 @@ Eina_List* get_buddy_list_info();
 
 Eina_List* get_buddy_info(int buddy_id);
 
+char* get_profile_pic_path(int buddy_id);
+
 tg_message_s* get_message_from_message_table(long long msg_id, char* table_name);
 
 char* get_image_path_from_db(long long media_id);
@@ -180,5 +182,8 @@ void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int he
 
 Eina_List* get_image_details_from_db(long long media_id);
 Eina_List* get_image_sizes_from_db(long long media_id);
+
+tg_message_s* get_latest_message_from_message_table(char* table_name);
+int get_unread_message_count(char* table_name);
 
 #endif /* TG_DB_WRAPPER_H_ */

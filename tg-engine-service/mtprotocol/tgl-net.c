@@ -58,6 +58,7 @@ static void conn_try_write(void *arg);
 
 #define PING_TIMEOUT 10
 
+#if 0
 //static Eina_Bool th_do(void *data)
 static void th_do(void *data, Ecore_Thread *th)
 {
@@ -170,7 +171,13 @@ int tgln_write_out(struct connection *c, const void *_data, int len)
 		}
 
 		c->thrd = ecore_thread_feedback_run(th_do, th_feedback, th_end, th_cancel, c, EINA_FALSE);
-
+#else
+		if(c->write_ev) {
+			ecore_timer_del(c->write_ev);
+			c->write_ev = NULL;
+		}
+		c->write_ev = ecore_timer_add(0.000001, write_call, c);
+#endif
 	}
 
 	if (!c->out_head) {
@@ -409,11 +416,12 @@ struct connection *tgln_create_connection(struct tgl_state *TLS, const char *hos
 	c->state = conn_connecting;
 	c->last_receive_time = tglt_get_double_time();
 	c->flags = 0;
-	c->thrd = 0;
+	//c->thrd = 0;
+	c->write_ev = 0;
 	assert(!Connections[fd]);
 	Connections[fd] = c;
 
-	Ecore_Timer* timer = ecore_timer_add(5, read_timer_alarm, c);
+	Ecore_Timer* timer = ecore_timer_add(2, read_timer_alarm, c);
 	if(!timer) {
 		//handle error
 	}
@@ -457,11 +465,12 @@ static void restart_connection(struct connection *c)
 
 	c->fd = fd;
 	c->state = conn_connecting;
-	c->thrd = 0;
+	//c->thrd = 0;
+	c->write_ev = 0;
 	c->last_receive_time = tglt_get_double_time();
 	start_ping_timer(c);
 	Connections[fd] = c;
-	Ecore_Timer* timer = ecore_timer_add(5, read_timer_alarm, c);
+	Ecore_Timer* timer = ecore_timer_add(2, read_timer_alarm, c);
 	if(!timer) {
 
 	}
@@ -482,11 +491,17 @@ static void fail_connection(struct connection *c)
 		ecore_main_fd_handler_del(c->read_ev);
 		c->read_ev = NULL;
 	}
+#if 0
 	if(c->thrd) {
 		ecore_thread_cancel(c->thrd);
 		c->thrd = NULL;
 	}
-
+#else
+	if(c->write_ev) {
+		ecore_timer_del(c->write_ev);
+		c->write_ev = NULL;
+	}
+#endif
 	rotate_port(c);
 	struct connection_buffer *b = c->out_head;
 	while(b) {
@@ -517,6 +532,7 @@ static void try_write(struct connection *c)
 
 	while(c->out_head) {
 		int r = write(c->fd, c->out_head->rptr, c->out_head->wptr - c->out_head->rptr);
+		int err_no = errno;
 		if (r >= 0) {
 			x += r;
 			c->out_head->rptr += r;
@@ -600,6 +616,7 @@ static void try_read(struct connection *c)
 
 	while(1) {
 		int r = read(c->fd, c->in_tail->wptr, c->in_tail->end - c->in_tail->wptr);
+		int err_no = errno;
 		if (r > 0) {
 			c->last_receive_time = tglt_get_double_time();
 			stop_ping_timer(c);
@@ -679,11 +696,17 @@ static void tgln_free(struct connection *c)
 		ecore_main_fd_handler_del(c->read_ev);
 		c->read_ev = NULL;
 	}
+#if 0
 	if(c->thrd) {
 		ecore_thread_cancel(c->thrd);
 		c->thrd = NULL;
 	}
-
+#else
+	if(c->write_ev) {
+		ecore_timer_del(c->write_ev);
+		c->write_ev = NULL;
+	}
+#endif
 	if (c->fd >= 0) {
 		Connections[c->fd] = 0; close(c->fd);
 	}
