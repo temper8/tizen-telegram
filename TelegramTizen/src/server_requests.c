@@ -121,6 +121,45 @@ void send_request_for_validation(service_client* service_client, const char* sms
 	bundle_free(msg);
 }
 
+void send_request_for_marked_as_read(service_client* service_client, const int buddy_id, const int type_of_chat)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "marked_as_read") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+	char type_of_chat_str[50];
+	sprintf(type_of_chat_str, "%d", type_of_chat);
+
+	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+	int result = SVC_RES_FAIL;
+	result = service_client_send_message(service_client, msg);
+
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
 void send_request_for_message_transport(service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat)
 {
 	if (!service_client || !data) {

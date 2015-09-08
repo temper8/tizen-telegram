@@ -353,16 +353,11 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 void tg_logged_in(struct tgl_state *TLS)
 {
 	write_auth_file();
-	if (tg_data->is_first_time_registration) {
-		// send contact list to add friends.
-		send_add_contacts_request();
-	} else {
-		int offline_mode = 0;
-		tgl_peer_id_t t_id;
-		t_id.id = TLS->our_id;
-		t_id.type = TGL_PEER_USER;
-		tgl_do_get_user_info(TLS, t_id, offline_mode, &on_user_info_loaded, NULL);
-	}
+	int offline_mode = 0;
+	tgl_peer_id_t t_id;
+	t_id.id = TLS->our_id;
+	t_id.type = TGL_PEER_USER;
+	tgl_do_get_user_info(TLS, t_id, offline_mode, &on_user_info_loaded, NULL);
 }
 
 void tg_started(struct tgl_state *TLS)
@@ -594,7 +589,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 		if (M->flags & (FLAG_MESSAGE_EMPTY | FLAG_DELETED)) {
 			return;
 		}
-		if ((M->flags & FLAG_CREATED)) {
+		if (!(M->flags & FLAG_CREATED)) {
 			return;
 		}
 		if (M->service) {
@@ -940,35 +935,48 @@ void on_user_info_loaded(struct tgl_state *TLSR, void *extra, int success, struc
 
 	insert_buddy_into_db(USER_INFO_TABLE_NAME, buddy);
 
-	//tgl_do_update_contact_list(TLS, on_contacts_received, NULL);
-
-	tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
-
+	if (tg_data->is_first_time_registration) {
+		// send contact list to add friends.
+		send_add_contacts_request();
+	} else {
+		tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
+	}
 }
 
 void on_message_sent_to_buddy(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *message)
 {
-	int identifier = (int)callback_extra;
-	tgl_peer_t* UC = tgl_peer_get(TLS, message->to_id);
-	struct tgl_user* buddy = &(UC->user);
-	char *phone = NULL;
-	if (buddy) {
-		phone = buddy->phone;
-	}
+	struct tgl_message* org_msg = (struct tgl_message*)callback_extra;
 
-	if (success) {
-		message->msg_state = TG_MESSAGE_STATE_SENT;
+	if (success && message) {
+		tgl_peer_t* UC = tgl_peer_get(TLS, message->to_id);
+		if (UC) {
+			message->msg_state = TG_MESSAGE_STATE_SENT;
+			char* tb_name = get_table_name_from_number(message->to_id.id);
+			update_msg_into_db(message, tb_name, org_msg->id);
+			if (message->media.type == tgl_message_media_photo) {
+				update_sent_media_info_in_db(message, (long long)org_msg->id);
+			}
+			send_message_sent_to_buddy_response(message->to_id.id, message->id, tb_name, EINA_TRUE, tgl_get_peer_type(message->to_id));
+			free(tb_name);
+		}
 	} else {
-		message->msg_state = TG_MESSAGE_STATE_FAILED;
+		if (org_msg) {
+			org_msg->msg_state = TG_MESSAGE_STATE_FAILED;
+			char* tb_name = get_table_name_from_number(org_msg->to_id.id);
+			update_msg_into_db(org_msg, tb_name, org_msg->id);
+			if (org_msg->media.type == tgl_message_media_photo) {
+				update_sent_media_info_in_db(org_msg, (long long)org_msg->id);
+			}
+			send_message_sent_to_buddy_response(org_msg->to_id.id, org_msg->id, tb_name, EINA_FALSE, tgl_get_peer_type(org_msg->to_id));
+			free(tb_name);
+		}
 	}
-
-	char *tb_name = get_table_name_from_number(message->to_id.id);
-	update_msg_into_db(message, tb_name, identifier);
-	if (message->media.type == tgl_message_media_photo) {
-		update_sent_media_info_in_db(message, (long long)identifier);
+	if (org_msg) {
+		if (org_msg->message) {
+			free(org_msg->message);
+		}
+		free(org_msg);
 	}
-	send_message_sent_to_buddy_response(message->to_id.id, message->id, tb_name, phone, tgl_get_peer_type(message->to_id));
-	free(tb_name);
 }
 
 void on_image_download_completed(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
@@ -1005,11 +1013,7 @@ void on_contact_added(struct tgl_state *TLS,void *callback_extra, int success, i
 		}
 
 	} else {
-		int offline_mode = 0;
-		tgl_peer_id_t t_id;
-		t_id.id = TLS->our_id;
-		t_id.type = TGL_PEER_USER;
-		tgl_do_get_user_info(TLS, t_id, offline_mode, &on_user_info_loaded, NULL);
+		tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
 	}
 }
 
@@ -1574,6 +1578,20 @@ void media_download_request(int buddy_id, long long media_id)
 #endif
 }
 
+void on_mark_read_callback(struct tgl_state *TLS, void *callback_extra, int success)
+{
+	// message read sent successfully. update to UI if needed.
+}
+
+void send_do_mark_read_messages(int buddy_id, int type_of_chat)
+{
+	tgl_peer_id_t chat_id;
+	chat_id.id = buddy_id;
+	chat_id.type = type_of_chat;
+
+	tgl_do_mark_read(TLS, chat_id, &on_mark_read_callback , (void*)(&chat_id));
+}
+
 void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char *msg_data, int type_of_chat)
 {
 	// get type of chat from buddy_id.
@@ -1585,20 +1603,16 @@ void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char *msg
 		if (type_of_chat == TGL_PEER_USER) {
 			msg->from_id.type = TGL_PEER_USER;
 			msg->to_id.type = TGL_PEER_USER;
-			tgl_do_send_message(TLS, msg->to_id, msg->message, strlen(msg->message), &on_message_sent_to_buddy, (void*)(msg->id));
+			tgl_do_send_message(TLS, msg->to_id, msg->message, strlen(msg->message), &on_message_sent_to_buddy, (void*)(msg));
 		} else if (type_of_chat == TGL_PEER_CHAT) {
 			msg->from_id.type = TGL_PEER_CHAT;
 			msg->to_id.type = TGL_PEER_CHAT;
-			tgl_do_send_message(TLS, msg->to_id, msg_data, strlen(msg_data), &on_message_sent_to_buddy, (void*)(msg->id));
+			tgl_do_send_message(TLS, msg->to_id, msg_data, strlen(msg_data), &on_message_sent_to_buddy, (void*)(msg));
 		} else if (type_of_chat == TGL_PEER_ENCR_CHAT) {
 
 		} else {
 
 		}
-		if (msg->message) {
-			free(msg->message);
-		}
-		free(msg);
 	}
 	free(msg_table);
 }
@@ -1644,7 +1658,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 
 
 			if (msg->media.type == tgl_message_media_photo) {
-				tgl_do_send_document(TLS, -1, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg->id));
+				tgl_do_send_document(TLS, -1, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg));
 			}
 
 
@@ -1653,7 +1667,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 			msg->to_id.type = TGL_PEER_CHAT;
 
 			if (msg->media.type == tgl_message_media_photo) {
-				tgl_do_send_document(TLS, -1, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg->id));
+				tgl_do_send_document(TLS, -1, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg));
 			}
 
 
@@ -1662,10 +1676,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 		} else {
 
 		}
-		if (msg->message) {
-			free(msg->message);
-		}
-		free(msg);
+
 	}
 	free(msg_table);
 

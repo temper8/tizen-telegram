@@ -658,6 +658,57 @@ Eina_List* get_buddy_list_info()
 	return user_details;
 }
 
+char* get_profile_pic_path(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+	char* profile_pic_path = NULL;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	if (db) {
+		char* table_name = BUDDY_INFO_TABLE_NAME;
+		Eina_List* col_names = NULL;
+		col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PHOTO_PATH);
+
+		Eina_List* col_types = NULL;
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+
+		char buddy_id_str[50];
+		sprintf(buddy_id_str, "%d", buddy_id);
+
+		char* where_clause = (char*)malloc(strlen(BUDDY_INFO_TABLE_BUDDY_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+		strcpy(where_clause, BUDDY_INFO_TABLE_BUDDY_ID);
+		strcat(where_clause, " = ");
+		strcat(where_clause, buddy_id_str);
+
+		buddy_details_array = get_values_from_table_sync(db, table_name, col_names, col_types, where_clause);
+		free(where_clause);
+
+
+
+		if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+			Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+			if (buddy_details && eina_list_count(buddy_details) > 0) {
+				char* pic_path = (char*)eina_list_nth(buddy_details, 0);
+
+				if (pic_path && strlen(pic_path) > 0) {
+					profile_pic_path = strdup(pic_path);
+				}
+
+				for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
+					void* val = eina_list_nth(buddy_details, i);
+					free(val);
+				}
+				eina_list_free(buddy_details);
+			}
+			eina_list_free(buddy_details_array);
+		}
+
+		eina_list_free(col_names);
+		eina_list_free(col_types);
+	}
+	return profile_pic_path;
+}
+
 Eina_List* get_buddy_info(int buddy_id)
 {
 	Eina_List* user_details = NULL;
@@ -711,6 +762,196 @@ Eina_List* get_buddy_info(int buddy_id)
 		eina_list_free(col_types);
 	}
 	return user_details;
+}
+
+int get_unread_message_count(char* table_name)
+{
+	// number of rows, having out == 1 and unread == 0
+
+	if (!table_name) {
+		return 0;
+	}
+	int num_of_rows = 0;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	if (db) {
+		char* where_clause = NULL;
+		char unread_str[50];
+		sprintf(unread_str, "%d", 1);
+
+		char out_str[50];
+		sprintf(out_str, "%d", 0);
+
+		where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(unread_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_OUT_MSG) + strlen(" = ") + strlen(out_str) + 1);
+		strcpy(where_clause, MESSAGE_INFO_TABLE_UNREAD);
+		strcat(where_clause, " = ");
+		strcat(where_clause, unread_str);
+		strcat(where_clause, " AND ");
+		strcat(where_clause, MESSAGE_INFO_TABLE_OUT_MSG);
+		strcat(where_clause, " = ");
+		strcat(where_clause, out_str);
+		num_of_rows = get_number_of_rows(db, table_name, where_clause);
+		free(where_clause);
+	}
+	return num_of_rows;
+}
+
+
+tg_message_s* get_latest_message_from_message_table(char* table_name)
+{
+	tg_message_s* message = NULL;
+
+	Eina_List* message_details = NULL;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	if (db) {
+		Eina_List* col_names = NULL;
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_DATE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FROM_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_TO_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_OUT_MSG);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNREAD);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_DATE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_SERVICE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_STATE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_LENGTH);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
+		col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+
+		Eina_List* col_types = NULL;
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+		message_details = get_values_from_table_sync_order_by(db, table_name, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_FALSE, NULL);
+
+		eina_list_free(col_names);
+		eina_list_free(col_types);
+	}
+
+	if (message_details && eina_list_count(message_details) > 0) {
+		Eina_List* ts_msg = eina_list_nth(message_details, 0);
+
+		message = (tg_message_s*)malloc(sizeof(tg_message_s));
+
+
+		int *temp_msg_id = (int*)eina_list_nth(ts_msg, 0);
+		if (temp_msg_id) {
+			message->msg_id  = *temp_msg_id;
+			free(temp_msg_id);
+		}
+
+		int *temp_flags = (int*)eina_list_nth(ts_msg, 1);
+		if (temp_flags) {
+			message->flags  = *temp_flags;
+			free(temp_flags);
+		}
+
+
+		int *temp_fwd_from_id = (int*)eina_list_nth(ts_msg, 2);
+		if (temp_fwd_from_id) {
+			message->fwd_from_id  = *temp_fwd_from_id;
+			free(temp_fwd_from_id);
+		}
+
+
+		int *temp_fwd_date = (int*)eina_list_nth(ts_msg, 3);
+		if (temp_fwd_date) {
+			message->fwd_date  = *temp_fwd_date;
+			free(temp_fwd_date);
+		}
+
+
+		int *temp_from_id = (int*)eina_list_nth(ts_msg, 4);
+		if (temp_from_id) {
+			message->from_id  = *temp_from_id;
+			free(temp_from_id);
+		}
+
+		int *temp_to_id = (int*)eina_list_nth(ts_msg, 5);
+		if (temp_to_id) {
+			message->to_id  = *temp_to_id;
+			free(temp_to_id);
+		}
+
+		int *temp_out = (int*)eina_list_nth(ts_msg, 6);
+		if (temp_out) {
+			message->out  = *temp_out;
+			free(temp_out);
+		}
+
+		int *temp_unread = (int*)eina_list_nth(ts_msg, 7);
+		if (temp_unread) {
+			message->unread  = *temp_unread;
+			free(temp_unread);
+		}
+
+		int *temp_date = (int*)eina_list_nth(ts_msg, 8);
+		if (temp_date) {
+			message->date  = *temp_date;
+			free(temp_date);
+		}
+
+		int *temp_service = (int*)eina_list_nth(ts_msg, 9);
+		if (temp_service) {
+			message->service  = *temp_service;
+			free(temp_service);
+		}
+
+		char *temp_msg = (char*)eina_list_nth(ts_msg, 10);
+		if (temp_msg) {
+			message->message  = strdup(temp_msg);
+			free(temp_msg);
+		}
+
+		int *temp_message_state = (int*)eina_list_nth(ts_msg, 11);
+		if (temp_message_state) {
+			message->msg_state  = *temp_message_state;
+			free(temp_message_state);
+		}
+
+		int *temp_message_len = (int*)eina_list_nth(ts_msg, 12);
+		if (temp_message_len) {
+			message->message_len  = *temp_message_len;
+			free(temp_message_len);
+		}
+
+		int *temp_media_type = (int*)eina_list_nth(ts_msg, 13);
+		if (temp_media_type) {
+			message->media_type  = *temp_media_type;
+			free(temp_media_type);
+		}
+
+		char *temp_media_id = (char*)eina_list_nth(ts_msg, 14);
+		if (temp_media_id) {
+			message->media_id  = strdup(temp_media_id);
+			free(temp_media_id);
+		}
+
+		int *temp_unique_id = (int*)eina_list_nth(ts_msg, 15);
+		if (temp_unique_id) {
+			message->unique_id  = *temp_unique_id;
+			free(temp_unique_id);
+		}
+	}
+	return message;
+
 }
 
 tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)

@@ -37,8 +37,10 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 	Evas_Object* country_code_btn = evas_object_data_get(ad->nf, "country_code_btn");
 	Evas_Object* pn_number_entry = evas_object_data_get(ad->nf, "pn_number_entry");
 
-	char buf[256] = {'\0',};
-	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(pn_number_entry));
+
+	char* phone_num = elm_entry_markup_to_utf8(elm_object_text_get(pn_number_entry));
+	char* cunt_code = elm_entry_markup_to_utf8(elm_object_text_get(country_code_btn));
+
 
 	char code_buf[256] = {'\0',};
 	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
@@ -46,15 +48,18 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 	char country_code[256] = {'\0',};
 	snprintf(country_code, sizeof(country_code), "%s", elm_object_text_get(country_code_btn));
 
-	if (strlen(buf) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0) {
+	if (strlen(phone_num) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0) {
 		char phone_number[256];
-		strcpy(phone_number, country_code);
-		strcat(phone_number, buf);
+		strcpy(phone_number, cunt_code);
+		strcat(phone_number, phone_num);
 		ad->phone_number = strdup(phone_number);
 		send_request_for_registration(ad->service_client, ad->phone_number, EINA_TRUE);
 	} else {
 
 	}
+
+	free(phone_num);
+	free(cunt_code);
 
 }
 

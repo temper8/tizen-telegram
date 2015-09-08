@@ -193,6 +193,27 @@ void load_peer_data(appdata_s *ad)
 	ad->peer_list = NULL;
 
 
+	if (ad->main_list) {
+		for (int i = 0; i < eina_list_count(ad->main_list) ; i++) {
+			tg_main_list_item_s* main_item = eina_list_nth(ad->peer_list, i);
+
+			if (main_item->peer_print_name) {
+				free(main_item->peer_print_name);
+				main_item->peer_print_name = NULL;
+			}
+			if (main_item->last_message) {
+				free(main_item->last_message);
+				main_item->last_message = NULL;
+			}
+			if (main_item->profile_pic_path) {
+				free(main_item->profile_pic_path);
+				main_item->profile_pic_path = NULL;
+			}
+		}
+		eina_list_free(ad->main_list);
+	}
+	ad->main_list = NULL;
+
 	Eina_List* peer_details = get_all_peer_details();
 
 	for (int i = 0; i < eina_list_count(peer_details) ; i++) {
@@ -221,6 +242,8 @@ void load_peer_data(appdata_s *ad)
 		if (temp_msg_id) {
 			peer_info->last_msg_id  = atoll(temp_msg_id);
 			free(temp_msg_id);
+		} else {
+			peer_info->last_msg_id = 0;
 		}
 
 		int *temp_last_msg_date = (int*)eina_list_nth(ts_msg, 4);
@@ -233,6 +256,8 @@ void load_peer_data(appdata_s *ad)
 		if (temp_print_name) {
 			peer_info->print_name  = strdup(temp_print_name);
 			free(temp_print_name);
+		} else {
+			peer_info->print_name = NULL;
 		}
 
 		int *temp_struct_ver = (int*)eina_list_nth(ts_msg, 6);
@@ -257,6 +282,8 @@ void load_peer_data(appdata_s *ad)
 		if (temp_pic_path) {
 			peer_info->photo_path = strdup(temp_pic_path);
 			free(temp_pic_path);
+		} else {
+			peer_info->photo_path = NULL;
 		}
 
 		int *temp_pic_id = (int*)eina_list_nth(ts_msg, 10);
@@ -276,7 +303,8 @@ void load_peer_data(appdata_s *ad)
 			// get message from message table.
 
 			char* tablename = get_table_name_from_number(peer_info->peer_id);
-			tg_message_s* msg = get_message_from_message_table(peer_info->last_msg_id, tablename);
+			//tg_message_s* msg = get_message_from_message_table(peer_info->last_msg_id, tablename);
+			tg_message_s* msg = get_latest_message_from_message_table(tablename);
 
 			if (msg) {
 				int media_type = msg->media_type;
@@ -304,8 +332,25 @@ void load_peer_data(appdata_s *ad)
 					item->last_message = strdup(" ");
 				}
 
-				// delete message object
+				tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+				main_list_item->peer_id = peer_info->peer_id;
+				main_list_item->peer_type = peer_info->peer_type;
+				main_list_item->peer_print_name = strdup(peer_info->print_name);
+				main_list_item->last_seen_time = msg->date;
+				main_list_item->profile_pic = NULL;
+				main_list_item->last_message = strdup(item->last_message);
+				main_list_item->last_msg_type = msg->media_type;
+				main_list_item->is_out_msg = msg->out;
+				main_list_item->last_msg_status = msg->msg_state;
+				main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
+				if (peer_info->photo_path) {
+					main_list_item->profile_pic_path = strdup(peer_info->photo_path);
+				} else {
+					main_list_item->profile_pic_path = NULL;
+				}
+				ad->main_list = eina_list_append(ad->main_list, main_list_item);
 
+				// delete message object
 				if(msg->message) {
 					free(msg->message);
 					msg->message = NULL;
@@ -321,6 +366,25 @@ void load_peer_data(appdata_s *ad)
 
 			} else {
 				item->last_message = strdup(" ");
+				if (peer_info->peer_type == TGL_PEER_CHAT) {
+					tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+					main_list_item->peer_id = peer_info->peer_id;
+					main_list_item->peer_type = peer_info->peer_type;
+					main_list_item->peer_print_name = strdup(peer_info->print_name);
+					main_list_item->last_seen_time = peer_info->last_seen_time;
+					main_list_item->profile_pic = NULL;
+					main_list_item->last_message = strdup(item->last_message);
+					main_list_item->last_msg_type = -1;
+					main_list_item->is_out_msg = -1;
+					main_list_item->last_msg_status = -1;
+					main_list_item->number_of_unread_msgs = 0;
+					if (peer_info->photo_path) {
+						main_list_item->profile_pic_path = strdup(peer_info->photo_path);
+					} else {
+						main_list_item->profile_pic_path = NULL;
+					}
+					ad->main_list = eina_list_append(ad->main_list, main_list_item);
+				}
 			}
 
 			if (tablename) {
@@ -333,6 +397,13 @@ void load_peer_data(appdata_s *ad)
 		ad->peer_list = eina_list_append(ad->peer_list, item);
 	}
 	eina_list_free(peer_details);
+}
+
+void load_main_list_data(appdata_s *ad)
+{
+	if (!ad || !ad->peer_list) {
+		return;
+	}
 }
 
 void load_group_chat_data(appdata_s *ad)
@@ -553,10 +624,20 @@ void load_buddy_list_data(appdata_s *ad)
 	for (int i = 0 ; i < row_count ; i++) {
 		Eina_List* row_vals = eina_list_nth(user_info, i);
 
+		int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+
+		if (ad->user_id.id == (*temp_user_id)) {
+			for (int i = 0 ; i < eina_list_count(row_vals); i++) {
+				void* val = eina_list_nth(row_vals, i);
+				free(val);
+			}
+			continue;
+		}
+
 		user_data_s* user_data = (user_data_s*)malloc(sizeof(user_data_s));
 		user_data->is_selected = EINA_FALSE;
 
-		int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+
 		if (temp_user_id) {
 			user_data->user_id.id = *temp_user_id;
 			user_data->user_id.type = TGL_PEER_USER;
@@ -684,7 +765,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		result = bundle_get_str(rec_msg, "is_success", &is_success_val);
 
 		if (strncmp("true", is_success_val, strlen("true")) == 0) {
-			show_toast(app, is_success_val);
+    		//show_toast(app, is_success_val);
 			// Launch login view
 			elm_naviframe_item_pop(app->nf);
 			launch_login_cb(data);
@@ -768,13 +849,16 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			// registerd user.
 			// to be handled
 		} else {
-#if 0
 			// update buddy list in appdata.
 			if(app->buddy_list) {
 				int size = eina_list_count(app->buddy_list);
 				for (int i = 0 ; i < size ; i++) {
 					user_data_with_pic_s *item = eina_list_nth(app->buddy_list, i);
 					if (item->use_data->user_id.id == user_id) {
+    					if (item->use_data->photo_path) {
+    						free(item->use_data->photo_path);
+    						item->use_data->photo_path = NULL;
+    					}
 						item->use_data->photo_path = strdup(pic_file_path);
 						if (item->contact_icon) {
 							elm_image_file_set(item->contact_icon, pic_file_path, NULL);
@@ -783,12 +867,15 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 					}
 				}
 			}
-#else
 			if(app->peer_list) {
 				int size = eina_list_count(app->peer_list);
 				for (int i = 0 ; i < size ; i++) {
 					peer_with_pic_s *item = eina_list_nth(app->peer_list, i);
 					if (item->use_data->peer_id == user_id) {
+    					if (item->use_data->photo_path) {
+    						free(item->use_data->photo_path);
+    						item->use_data->photo_path = NULL;
+    					}
 						item->use_data->photo_path = strdup(pic_file_path);
 						if (item->contact_icon) {
 							elm_image_file_set(item->contact_icon, pic_file_path, NULL);
@@ -798,7 +885,24 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 				}
 			}
 
-#endif
+    		if(app->main_list) {
+    			int size = eina_list_count(app->main_list);
+    			for (int i = 0 ; i < size ; i++) {
+    				tg_main_list_item_s *item = eina_list_nth(app->main_list, i);
+    				if (item->peer_id == user_id) {
+    					if (item->profile_pic_path) {
+    						free(item->profile_pic_path);
+    						item->profile_pic_path = NULL;
+    					}
+    					item->profile_pic_path = strdup(pic_file_path);
+    					if (item->profile_pic) {
+    						elm_image_file_set(item->profile_pic, pic_file_path, NULL);
+    					}
+    					break;
+    				}
+    			}
+    		}
+
 		}
 	} else if (strcmp(rec_key_val, "message_received") == 0) {
 
@@ -868,8 +972,15 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		char* table_name = NULL;
 		result = bundle_get_str(rec_msg, "table_name", &table_name);
 
-		char* phone_number = NULL;
-		result = bundle_get_str(rec_msg, "phone_number", &phone_number);
+
+		Eina_Bool is_success = EINA_FALSE;
+		char* is_success_val = NULL;
+		result = bundle_get_str(rec_msg, "is_success", &is_success_val);
+		if (strncmp("true", is_success_val, strlen("true")) == 0) {
+			is_success = EINA_TRUE;
+		} else {
+			is_success = EINA_FALSE;
+		}
 
 		char* type_of_chat_str = NULL;
 		result = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
@@ -1040,7 +1151,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 		char* update_msg = NULL;
 		result = bundle_get_str(rec_msg, "update_message", &update_msg);
-		show_toast(app, update_msg);
+    	//show_toast(app, update_msg);
 	} else if (strcmp(rec_key_val, "buddy_status_updated") == 0) {
 		char* buddy_id_str = NULL;
 		result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
@@ -1366,6 +1477,7 @@ app_create(void *data)
 	appdata_s *ad = data;
 	ad->phone_number = NULL;
 	ad->buddy_list = NULL;
+	ad->main_list = NULL;
 	ad->is_first_time_registration = EINA_FALSE;
 	ad->panel = NULL;
 	ad->loaded_msg_list = NULL;

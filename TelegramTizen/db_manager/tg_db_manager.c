@@ -324,6 +324,40 @@ Eina_Bool get_values_from_table(sqlite3* db, const char* table_name, Eina_List* 
 	return EINA_TRUE;
 }
 
+int get_number_of_rows(sqlite3* db, char* table_name, char* where_clause)
+{
+	int no_of_rows = 0;
+	if (!db || !table_name) {
+		return no_of_rows;
+	}
+
+	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + 1);
+	strcpy(row_cnt_qry, "SELECT COUNT(*) FROM ");
+	strcat(row_cnt_qry, table_name);
+
+	if (where_clause) {
+		row_cnt_qry = realloc(row_cnt_qry, strlen(row_cnt_qry)+strlen(" WHERE ") + 1);
+		strcat(row_cnt_qry, " WHERE ");
+		row_cnt_qry = realloc(row_cnt_qry, strlen(row_cnt_qry)+strlen(where_clause) + 1);
+		strcat(row_cnt_qry, where_clause);
+	}
+	row_cnt_qry = realloc(row_cnt_qry, strlen(row_cnt_qry) + 2);
+	strcat(row_cnt_qry, ";");
+
+	sqlite3_stmt *stmt;
+	if (sqlite3_prepare_v2(db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
+		if (sqlite3_step(stmt) == SQLITE_ERROR) {
+			no_of_rows = 0;
+		} else {
+			no_of_rows = sqlite3_column_int(stmt, 0);
+		}
+		sqlite3_finalize(stmt);
+	}
+
+	free(row_cnt_qry);
+	return no_of_rows;
+}
+
 Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause)
 {
 	Eina_List* query_vals = NULL;

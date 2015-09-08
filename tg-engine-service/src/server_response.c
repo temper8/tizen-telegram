@@ -51,6 +51,14 @@ void process_send_message_command(int buddy_id, int message_id, int msg_type, ch
 	send_message_to_buddy(buddy_id, message_id, msg_type, msg_data, type_of_chat);
 }
 
+void process_marked_as_read_command(int buddy_id, int type_of_chat)
+{
+	if (!TLS) {
+		return;
+	}
+	send_do_mark_read_messages(buddy_id, type_of_chat);
+}
+
 void process_send_media_command(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat)
 {
 	if (!file_path || !TLS) {
@@ -432,7 +440,7 @@ void send_message_read_by_buddy_response(int buddy_id, int message_id, char* tab
 	bundle_free(msg);
 }
 
-void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat)
+void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -466,9 +474,16 @@ void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* tab
 		bundle_free(msg);
 	}
 
-	if (bundle_add_str(msg, "phone_number", phone) != 0) {
-		ERR("Failed to add data by key to bundle");
-		bundle_free(msg);
+	if (is_success) {
+		if (bundle_add_str(msg, "is_success", "true") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else {
+		if (bundle_add_str(msg, "is_success", "false") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
 	}
 
 	char type_of_chat_str[50];

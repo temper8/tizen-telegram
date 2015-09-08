@@ -1,0 +1,314 @@
+/*
+ * tg_start_messaging_view.c
+ *
+ *  Created on: Aug 22, 2015
+ *      Author: sandeep
+ */
+
+#include "tg_start_messaging_view.h"
+#include "tg_buddy_chat_view.h"
+#include "tg_db_wrapper.h"
+#include "tg_messaging_view.h"
+
+static void on_new_msg_menu_item_selected(void *data, Evas_Object *obj, void *event_info)
+{
+	int index = (int)data;
+}
+
+
+static char* on_new_msg_menu_item_name_get_cb(void *data, Evas_Object *obj, const char *part)
+{
+		if (!strcmp(part,"elm.text"))
+		{
+			int id = (int) data;
+
+			char temp_text[256];
+			sprintf(temp_text, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
+
+			return strdup(temp_text);
+		}
+		else return NULL;
+}
+
+static Evas_Object* on_new_msg_menu_item_image_get_cb(void *data, Evas_Object *obj, const char *part)
+{
+	int id = (int)data;
+	if (!strcmp(part, "elm.swallow.icon")) {
+		Evas_Object *img = elm_image_add(obj);
+		elm_image_file_set(img, ui_utils_get_resource(main_view_menu_items[id][1]), NULL);
+		evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(36), ELM_SCALE_SIZE(36));
+		return img;
+	}
+	return NULL;
+}
+
+
+char* get_budy_state(appdata_s* ad, int buddy_id)
+{
+	if (!ad)
+		return NULL;
+	char time_str[256]={0,};
+	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+			int* temp_online = (int*)eina_list_nth(buddy_details, 12);
+			int is_online = *temp_online;
+			int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
+			int last_seen = *temp_last_seen;
+
+			char *format = NULL;
+			Eina_Bool is_today = compare_date_with_current_date(last_seen);
+
+			if (is_online > 0) {
+				strcpy(time_str,"online");
+			} else {
+				time_t t = last_seen;
+
+				if (is_today) {
+					format = "last seen at Today, %I:%M %P";
+				} else {
+					format = "last seen at %d/%b/%Y, %I:%M %P";
+				}
+
+				struct tm lt;
+				char res[256];
+				(void) localtime_r(&t, &lt);
+
+				if (strftime(res, sizeof(res), format, &lt) == 0) {
+					(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+							"date/time into buffer of size %u "
+							"using: '%s'\n",
+							sizeof(res), format);
+				}
+				snprintf(time_str, sizeof(time_str), "<align=left><font_size=30><color=#808080>%s</color></font_size></align>", res);
+			}
+
+			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
+				void* val = eina_list_nth(buddy_details, i);
+				free(val);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+	return strdup(time_str);
+}
+
+static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+
+	int item_id = (int) data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+
+	user_data_with_pic_s* sel_item = eina_list_nth(ad->buddy_list, item_id);
+
+	ad->buddy_in_cahtting_data = sel_item;
+
+	launch_messaging_view_cb(ad, item_id);
+	//launch_buddy_chat_view_cb(ad, item_id);
+
+}
+
+char* on_buddy_list_name_requested(void *data, Evas_Object *obj, const char *part)
+{
+
+	int id = (int) data;
+
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+
+	int size = eina_list_count(ad->buddy_list);
+
+	if (size <= 0) {
+		if (!strcmp(part,"elm.text")){
+			char buf[512] = {'\0'};
+			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", "No Items");
+			return strdup(buf);
+
+		} else if (!strcmp(part, "elm.text.sub")) {
+			return NULL;
+		}
+	}
+
+	user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
+	user_data_s* user = item->use_data;
+
+	if (!strcmp(part,"elm.text")){
+		char* user_name = replace(user->print_name, '_', " ");
+		char buf[512] = {'\0'};
+		snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
+		free(user_name);
+		return strdup(buf);
+
+	} else if (!strcmp(part, "elm.text.sub")) {
+		char* last_seen = get_budy_state(ad, user->user_id.id);
+		if (last_seen) {
+			return last_seen;
+		}
+	}
+
+	return NULL;
+}
+
+void on_chat_icon_deleted(void *data, Evas *e, Evas_Object *icon, void *event_info)
+{
+	user_data_with_pic_s *item  = data;
+	item->contact_icon = NULL;
+}
+
+Evas_Object* on_buddy_list_image_requested(void *data, Evas_Object *obj, const char *part)
+{
+	Evas_Object *eo = NULL;
+	if (!strcmp(part, "elm.swallow.icon")) {
+
+		int id = (int) data;
+		appdata_s* ad = evas_object_data_get(obj, "app_data");
+		int size = eina_list_count(ad->buddy_list);
+		if (size <= 0) {
+			return eo;
+		}
+		user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
+		user_data_s* user = item->use_data;
+		Evas_Object *profile_pic = NULL;
+		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
+			profile_pic = create_image_object_from_file(user->photo_path, obj);
+/*			elm_image_resizable_set(profile_pic, EINA_TRUE, EINA_TRUE);
+			elm_image_smooth_set(profile_pic, EINA_FALSE);
+			elm_image_aspect_fixed_set(profile_pic, EINA_TRUE);
+			elm_image_fill_outside_set(profile_pic, EINA_FALSE);
+			elm_image_editable_set(profile_pic, EINA_TRUE);
+			int pre_scale = elm_image_prescale_get(profile_pic);
+			elm_image_prescale_set(profile_pic, pre_scale/4);
+			evas_object_resize(profile_pic, 128, 128);*/
+		} else {
+			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
+		}
+
+		item->contact_icon = profile_pic;
+		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, on_chat_icon_deleted, item);
+
+		char edj_path[PATH_MAX] = {0, };
+		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(user_pic_layout);
+		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
+
+		eo = elm_layout_add(obj);
+		elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
+		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+	}
+	return eo;
+}
+
+
+
+void launch_start_messaging_view(appdata_s* ad)
+{
+	if (!ad)
+		return;
+
+	ad->current_app_state = TG_START_MESSAGING_VIEW_STATE;
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+
+
+	Evas_Object* scroller = elm_scroller_add(ad->nf);
+	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
+	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+
+	Evas_Object* layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(layout, edj_path, "start_messaging_layout");
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(layout);
+	elm_object_content_set(scroller, layout);
+
+
+	/******************* menu items ****************************/
+	Evas_Object* menu_gen_list = elm_genlist_add(ad->nf);
+	elm_list_mode_set(menu_gen_list, ELM_LIST_COMPRESS);
+	elm_genlist_mode_set(menu_gen_list, ELM_LIST_COMPRESS);
+	evas_object_size_hint_weight_set(menu_gen_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(menu_gen_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
+	static Elm_Genlist_Item_Class itc;
+	itc.item_style = "type1";
+	itc.func.text_get = on_new_msg_menu_item_name_get_cb;
+	itc.func.content_get = on_new_msg_menu_item_image_get_cb;
+	itc.func.state_get = NULL;
+	itc.func.del = NULL;
+
+	for (int i = 0; i < 2; i++) {
+		elm_genlist_item_append(menu_gen_list, &itc, (void *)i, NULL, ELM_GENLIST_ITEM_NONE, on_new_msg_menu_item_selected, (void*)i);
+	}
+	evas_object_show(menu_gen_list);
+	elm_object_part_content_set(layout, "menu_layout", menu_gen_list);
+	evas_object_smart_callback_add(menu_gen_list, "selected", on_menu_list_clicked_cb, ad);
+	/******************* menu items ****************************/
+
+	/***************** contacts header *************************/
+	Evas_Object* contact_lbl = elm_label_add(ad->nf);
+	evas_object_show(contact_lbl);
+	evas_object_size_hint_weight_set(contact_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(contact_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_object_text_set(contact_lbl, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=45>&nbsp;&nbsp;Contacts</font_size></font>");
+	elm_object_part_content_set(layout, "contacts_header", contact_lbl);
+	/***************** contacts header *************************/
+
+
+	/***************** contacts list *************************/
+
+	int i;
+	static Elm_Genlist_Item_Class itc1;
+	Evas_Object *buddy_list = elm_genlist_add(ad->nf);
+	elm_list_mode_set(buddy_list, ELM_LIST_COMPRESS);
+	elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
+	evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_data_set(buddy_list, "app_data", ad);
+
+	itc1.item_style = "double_label";
+	itc1.func.text_get = on_buddy_list_name_requested;
+	itc1.func.content_get = on_buddy_list_image_requested;
+	itc1.func.state_get = NULL;
+	itc1.func.del = NULL;
+
+	int size = eina_list_count(ad->buddy_list);
+
+	if(size > 0) {
+		for (i = 0; i < size; i++) {
+			elm_genlist_item_append(buddy_list, &itc1, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_item_clicked, (void*) i);
+		}
+	} else {
+		i = 1;
+		elm_genlist_item_append(buddy_list, &itc1, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+	}
+
+	evas_object_show(buddy_list);
+	elm_object_part_content_set(layout, "contacts_layout", buddy_list);
+	/***************** contacts list *************************/
+
+
+	Evas_Object* search_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(search_layout, edj_path, "title_search_layout");
+	evas_object_size_hint_weight_set(search_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(search_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(search_layout);
+    Evas_Object *search_icon = elm_image_add(layout);
+    elm_image_file_set(search_icon, ui_utils_get_resource(TG_SEARCH_ICON), NULL);
+    evas_object_show(search_icon);
+    elm_object_part_content_set(search_layout, "search_box", search_icon);
+    evas_object_smart_callback_add(search_icon, "clicked", on_user_list_search_clicked, ad);
+
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Regular color=#ffffff align=left><font_size=40>New Message</font_size></font>", NULL, NULL, scroller, NULL);
+	elm_object_item_part_content_set(navi_item, "title_right_btn", search_layout);
+
+}
+
+

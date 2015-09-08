@@ -84,6 +84,23 @@ static void th_feedback(void *data, Ecore_Thread *th, void *msg)
 static void th_end(void *data, Ecore_Thread *th) {  }
 // BONUS (optional): called in mainloop AFTER thread has finished cancelling
 static void th_cancel(void *data, Ecore_Thread *th) { }
+#else
+
+static Eina_Bool write_call(void* data)
+{
+	struct connection *c = data;
+	fd_set writeset;
+	FD_ZERO(&writeset);
+
+	FD_SET(c->fd, &writeset);
+	select(c->fd + 1, NULL, &writeset, NULL, NULL);
+	conn_try_write(c);
+	return ECORE_CALLBACK_CANCEL;
+}
+
+
+#endif
+
 
 static void start_ping_timer(struct connection *c);
 
@@ -164,7 +181,7 @@ int tgln_write_out(struct connection *c, const void *_data, int len)
 	if (!c->out_bytes) {
 		/*		Ecore_Idler *idler_for_event;
 				idler_for_event = ecore_idler_add(th_do, c);*/
-
+#if 0
 		if(c->thrd) {
 			ecore_thread_cancel(c->thrd);
 			c->thrd = NULL;
@@ -321,12 +338,20 @@ void conn_try_write(void *arg)
 	if (c->out_bytes) {
 		/*		Ecore_Idler *idler_for_event;
 				idler_for_event = ecore_idler_add(th_do, c);*/
+#if 0
 		if(c->thrd) {
 			ecore_thread_cancel(c->thrd);
 			c->thrd = NULL;
 		}
 
 		c->thrd = ecore_thread_feedback_run(th_do, th_feedback, th_end, th_cancel, c, EINA_FALSE);
+#else
+		if(c->write_ev) {
+			ecore_timer_del(c->write_ev);
+			c->write_ev = NULL;
+		}
+		c->write_ev = ecore_timer_add(0.000001, write_call, c);
+#endif
 	}
 }
 
