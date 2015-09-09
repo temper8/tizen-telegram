@@ -999,7 +999,9 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 
 		char* where_clause = NULL;
 		char msg_id_str[50];
-		sprintf(msg_id_str,"%d",msg_id);
+
+		sprintf(msg_id_str, "%lld", msg_id);
+
 		where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + 1);
 		strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
 		strcat(where_clause, " = ");
@@ -1343,9 +1345,15 @@ void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int he
 			col_values = eina_list_append(col_values,M->media_id);
 			col_values = eina_list_append(col_values, &(media_type));
 
-			long temp_val = 0;
-
+			long long temp_val = 0;
 			char access_hash_str[50];
+
+			/**
+			 * @todo
+			 * Should implement this to get the temp_val.
+			 * Currently it is ZERO always.
+			 */
+
 			sprintf(access_hash_str, "%lld", temp_val);
 
 			col_values = eina_list_append(col_values, access_hash_str);
@@ -1533,8 +1541,8 @@ char* get_image_path_from_db(long long media_id)
 		char* table_name = MEDIA_INFO_TABLE_NAME;
 
 		char usr_str[50];
-		sprintf(usr_str,"%lld",media_id);
-		char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = '") + strlen(usr_str) + strlen("'") + 1);
+		sprintf(usr_str, "%lld", media_id);
+		char* where_clause = (char *)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = '") + strlen(usr_str) + strlen("'") + 1);
 		strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 		strcat(where_clause, " = '");
 		strcat(where_clause, usr_str);
@@ -1766,3 +1774,5 @@ Eina_List* get_image_details_from_db(long long media_id)
 	}
 	return vals;
 }
+
+

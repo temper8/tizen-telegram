@@ -8,7 +8,15 @@
 #include "tg_user_main_view.h"
 #include "tg_start_messaging_view.h"
 
-
+static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
+{
+	Evas_Object *icon = elm_image_add(parent);
+	evas_object_size_hint_weight_set(icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_image_file_set(icon, icon_name, NULL);
+	evas_object_show(icon);
+	return icon;
+}
 
 static void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info)
 {
@@ -44,9 +52,14 @@ static Evas_Object* on_menu_item_image_get_cb(void *data, Evas_Object *obj, cons
 
 static void on_menu_item_selected(void *data, Evas_Object *obj, void *event_info)
 {
-	int index = (int)data;
+	int index __attribute__((unused)) = (int)data;
 }
 
+static void on_menu_list_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+}
 
 Evas_Object* create_side_panel_list(appdata_s* ad, Evas_Object *parent)
 {
@@ -442,6 +455,12 @@ Evas_Object* on_buddy_photo_requested(void *data, Evas_Object *obj, const char *
 	return eo;
 }
 
+
+static void on_user_list_search_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+	show_toast(ad, "search clicked");
+}
 
 void launch_user_main_view_cb(appdata_s* ad)
 {

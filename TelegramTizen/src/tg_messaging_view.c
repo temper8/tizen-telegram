@@ -9,7 +9,17 @@
 #include "tg_db_wrapper.h"
 #include "server_requests.h"
 
-static Evas_Object * image_item_provider(void *data, Evas_Object *entry, const char *item)
+static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
+{
+	Evas_Object *icon = elm_image_add(parent);
+	evas_object_size_hint_weight_set(icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_image_file_set(icon, icon_name, NULL);
+	evas_object_show(icon);
+	return icon;
+}
+
+static inline Evas_Object * image_item_provider(void *data, Evas_Object *entry, const char *item)
 {
 	Evas_Object* layout = NULL;
     if (!strcmp(item, "itemprovider"))
@@ -27,14 +37,17 @@ static Evas_Object * image_item_provider(void *data, Evas_Object *entry, const c
 
 		// get media details.
 
-		char* img_path = get_image_path_from_db(atoll(msg->media_id));
+		char *img_path = get_image_path_from_db(atoll(msg->media_id));
 
 		if (img_path == NULL || strlen(img_path) == 0) {
 
 			int img_size = (int)evas_object_data_get(entry, "media_size");
 			char img_size_str[10];
+			const char *tmp;
+
 			sprintf(img_size_str, "%dkbs", img_size);
-			img_path = ui_utils_get_resource(BLUR_BG);
+			tmp = ui_utils_get_resource(BLUR_BG);
+			img_path = strdup(tmp);
 			char edj_path[PATH_MAX] = {0, };
 			app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
 
@@ -225,7 +238,9 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 
 				if (img_path == NULL || strlen(img_path) == 0) {
-					img_path = ui_utils_get_resource(BLUR_BG);
+					const char *tmp;
+					tmp = ui_utils_get_resource(BLUR_BG);
+					img_path = strdup(tmp);
 					is_blur_image = EINA_TRUE;
 				}
 
@@ -291,8 +306,8 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 									sizeof(res), format);
 						}
 
-						char time_str[20]={0,};
-						snprintf(time_str, sizeof(time_str), res);
+						char time_str[20] = {0,};
+						strncpy(time_str, res, sizeof(time_str));
 
 						char temp_time[256] = {0,};
 						snprintf(temp_time, sizeof(temp_time), "<font=Tizen:style=Regular color=#000000 align=left><font_size=30>%s</font_size></font>", time_str);
@@ -717,7 +732,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			}
 
 			char time_str[20]={0,};
-			snprintf(time_str, sizeof(time_str), res);
+			strncpy(time_str, res, sizeof(time_str));
 			elm_object_part_text_set(entry, "time", time_str);
 
 			Evas_Object *status_obj;
@@ -1388,7 +1403,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
 	user_data_s* user = sel_item->use_data;
-	Evas_Object *profile_pic = NULL;
+	Evas_Object *profile_pic;
 	if (user->photo_path && strcmp(user->photo_path, "") != 0) {
 		profile_pic = create_image_object_from_file(user->photo_path, layout);
 	} else {

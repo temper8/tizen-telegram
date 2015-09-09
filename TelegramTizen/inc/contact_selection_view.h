@@ -11,5 +11,4 @@
 
 extern void launch_contact_selction_view(void *data);
 
-
 #endif /* CONTACT_SELECTION_VIEW_H_ */

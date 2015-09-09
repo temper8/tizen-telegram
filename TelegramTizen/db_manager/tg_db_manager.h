@@ -20,7 +20,9 @@ extern Eina_List* get_values_from_table_sync(sqlite3* db, const char* table_name
 extern Eina_List* get_values_from_table_sync_order_by(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause);
 extern Eina_Bool close_database(sqlite3* db);
 extern int get_number_of_rows(sqlite3* db, char* table_name, char* where_clause);
-
-
+extern Eina_List *tg_db_get_user_info(sqlite3 *db, tgl_peer_id_t *user_id);
+extern Eina_List *tg_db_get_chat_info(sqlite3 *db, const char *table_name);
+extern tg_peer_info_s *tg_db_get_peer_info(sqlite3 *db, const char *table, int peer_id);
+extern Eina_List *tg_db_get_messages(sqlite3 *db, const char *table_name);
 
 #endif /* TG_DB_MANAGER_H_ */

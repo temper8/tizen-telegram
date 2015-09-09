@@ -406,7 +406,7 @@ void send_message_read_by_buddy_response(int buddy_id, int message_id, char* tab
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%ld",message_id);
+	sprintf(msg_id_str,"%d", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -462,7 +462,7 @@ void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* tab
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%ld",message_id);
+	sprintf(msg_id_str,"%d", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");

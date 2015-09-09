@@ -322,12 +322,12 @@ Eina_Bool get_values_from_table(sqlite3* db, const char* table_name, Eina_List* 
 	return EINA_TRUE;
 }
 
-Eina_List* get_values_from_table_sync(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* where_clause)
+Eina_List *get_values_from_table_sync(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* where_clause)
 {
 	Eina_List* query_vals = NULL;
 
 	if (!db || !table_name) {
-		return NULL;
+		return (Eina_List *)NULL;
 	}
 
 	/*****No rows identification*****/
@@ -352,7 +352,7 @@ Eina_List* get_values_from_table_sync(sqlite3* db, const char* table_name, Eina_
 
 	free(row_cnt_qry);
 	if(no_of_rows <= 0) {
-		return EINA_FALSE;
+		return (Eina_List *)NULL;
 	}
 
 	/********************************/

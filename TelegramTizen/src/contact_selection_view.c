@@ -7,6 +7,16 @@
 #include "contact_selection_view.h"
 #include "group_chat_entry_view.h"
 
+static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
+{
+	Evas_Object *icon = elm_image_add(parent);
+	evas_object_size_hint_weight_set(icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_image_file_set(icon, icon_name, NULL);
+	evas_object_show(icon);
+	return icon;
+}
+
 void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 {
 	Elm_Object_Item *it = event_info;
@@ -275,7 +285,7 @@ void launch_contact_selction_view(void *data)
 
 	evas_object_data_set(buddy_gen_list, "app_data", ad);
 	Eina_Bool all_items_selected = EINA_FALSE;
-	evas_object_data_set(buddy_gen_list, "all_selected", (void*)all_items_selected);
+	evas_object_data_set(buddy_gen_list, "all_selected", (void *)((int)all_items_selected));
 
 	itc.item_style = "default_style";
 	itc.func.text_get = on_buddy_name_get_cb;

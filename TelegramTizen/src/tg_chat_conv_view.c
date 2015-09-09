@@ -212,7 +212,7 @@ void on_chat_buddy_msg_receive(tg_message_s *M, int type_of_chat)
 					tgl_do_load_photo(TLS, pic ,&on_buddy_pic_msg_loaded,M);
 				}
 #endif
-				char* path = ui_utils_get_resource(BLUR_BG);
+				const char *path = ui_utils_get_resource(BLUR_BG);
 				bubble_table = create_image_bubble_table(chat_conv_view_data.ad->win, CHAT_MESSAGE_BUBBLE_RECEIVE,
 						path,
 						res, M->media_id);
@@ -290,7 +290,7 @@ static int chat_history_db_callback(void *data, int argc, char **argv, char **az
 
 		long long media_id = atoll(media_id_str);
 
-		char* img_path = get_image_path_from_db(media_id);
+		const char* img_path = get_image_path_from_db(media_id);
 
 		if (img_path == NULL || strlen(img_path) == 0) {
 			img_path = ui_utils_get_resource(BLUR_BG);

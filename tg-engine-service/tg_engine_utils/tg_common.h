@@ -24,10 +24,8 @@ typedef enum MESSAGE_STATE {
 	TG_MESSAGE_STATE_UNKNOWN
 } TG_MESSAGE_STATE;
 
-
-
 //static char* get_table_name_from_number(const char* phone_no)
-static char* get_table_name_from_number(const int id)
+static char *get_table_name_from_number(const int id)
 {
 	char id_str[50];
 	sprintf(id_str, "%d", id);

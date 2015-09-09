@@ -10,6 +10,17 @@
 
 static Evas_Object* get_single_box(appdata_s* ad, Eina_Bool is_next);
 static Evas_Object* get_next_previous_box(appdata_s* ad);
+
+static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
+{
+	Evas_Object *icon = elm_image_add(parent);
+	evas_object_size_hint_weight_set(icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_image_file_set(icon, icon_name, NULL);
+	evas_object_show(icon);
+	return icon;
+}
+
 static void on_next_btn_clicked(void* data, Evas_Object* obj, void* event)
 {
 	appdata_s* ad = data;

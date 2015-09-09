@@ -570,10 +570,10 @@ struct tgl_message* get_message_from_message_table(long long msg_id, char* table
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 		col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-		char* where_clause = NULL;
+		char *where_clause = NULL;
 		char msg_id_str[50];
-		sprintf(msg_id_str,"%d",msg_id);
-		where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + 1);
+		sprintf(msg_id_str, "%lld", msg_id);
+		where_clause = (char *)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + 1);
 		strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
 		strcat(where_clause, " = ");
 		strcat(where_clause, msg_id_str);
@@ -680,7 +680,6 @@ struct tgl_message* get_message_from_message_table(long long msg_id, char* table
 
 		char *temp_media_id = (char*)eina_list_nth(ts_msg, 14);
 
-		char* dummy_val = "";
 		char *eptr;
 		if(message->media.type == tgl_message_media_none) {
 
@@ -811,40 +810,40 @@ void insert_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		col_values = eina_list_append(col_values, &(M->message_len));
 		col_values = eina_list_append(col_values, &(M->media.type));
 
-		char* dummy_val = "";
+		char *dummy_val = "";
 		if(M->media.type == tgl_message_media_none) {
 			col_values = eina_list_append(col_values, (dummy_val));
 		} else if(M->media.type == tgl_message_media_photo) {
 
-			char* temp_media_id[50];
+			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld", M->media.photo.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_document) {
 
-			char* temp_media_id[50];
-			sprintf(temp_media_id, "%lld", M->media.document.dc_id);
+			char temp_media_id[50];
+			sprintf(temp_media_id, "%d", M->media.document.dc_id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_geo) {
 			col_values = eina_list_append(col_values, (dummy_val));
 		} else if(M->media.type == tgl_message_media_contact) {
 
-			char* temp_media_id[50];
-			sprintf(temp_media_id, "%lld",M->media.user_id);
+			char temp_media_id[50];
+			sprintf(temp_media_id, "%d",M->media.user_id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_unsupported) {
 			col_values = eina_list_append(col_values, (dummy_val));
 		} else if(M->media.type == tgl_message_media_photo_encr) {
 
-			char* temp_media_id[50];
+			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld",M->media.encr_photo.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_document_encr) {
 
-			char* temp_media_id[50];
+			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld",M->media.document.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
@@ -935,40 +934,40 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		col_values = eina_list_append(col_values, &(M->message_len));
 		col_values = eina_list_append(col_values, &(M->media.type));
 
-		char* dummy_val = "";
+		char *dummy_val = "";
 		if(M->media.type == tgl_message_media_none) {
 			col_values = eina_list_append(col_values, (dummy_val));
 		} else if(M->media.type == tgl_message_media_photo) {
 
-			char* temp_media_id[50];
+			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld", M->media.photo.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_document) {
 
-			char* temp_media_id[50];
-			sprintf(temp_media_id, "%lld", M->media.document.dc_id);
+			char temp_media_id[50];
+			sprintf(temp_media_id, "%d", M->media.document.dc_id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_geo) {
 			col_values = eina_list_append(col_values, (dummy_val));
 		} else if(M->media.type == tgl_message_media_contact) {
 
-			char* temp_media_id[50];
-			sprintf(temp_media_id, "%lld",M->media.user_id);
+			char temp_media_id[50];
+			sprintf(temp_media_id, "%d",M->media.user_id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_unsupported) {
 			col_values = eina_list_append(col_values, (dummy_val));
 		} else if(M->media.type == tgl_message_media_photo_encr) {
 
-			char* temp_media_id[50];
+			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld",M->media.encr_photo.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else if(M->media.type == tgl_message_media_document_encr) {
 
-			char* temp_media_id[50];
+			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld",M->media.document.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
@@ -982,7 +981,7 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		}
 
 
-		char* where_clause = NULL;
+		char *where_clause = NULL;
 
 		if (unique_id > 0) {
 
@@ -996,8 +995,8 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		} else {
 
 			char usr_str[50];
-			sprintf(usr_str,"%d",M->id);
-			where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(usr_str) + 1);
+			sprintf(usr_str,"%lld", M->id);
+			where_clause = (char *)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(usr_str) + 1);
 			strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
 			strcat(where_clause, " = ");
 			strcat(where_clause, usr_str);
@@ -1067,7 +1066,6 @@ Eina_List* get_registered_user_info()
 Eina_Bool is_chat_id_already_exists(struct tgl_chat *chat_info)
 {
 	// get chat name chat id from chat_info_table
-	int t = 0;
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	if(db) {
 		char* table_name = CHAT_INFO_TABLE_NAME;
@@ -1875,7 +1873,6 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 				int photo_loc_dc = -1;
 				col_values = eina_list_append(col_values, &photo_loc_dc);
 
-				int photo_loc_vol = -1;
 				col_values = eina_list_append(col_values, "");
 
 				int photo_loc_id = -1;
@@ -1928,31 +1925,35 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 
 			for (int j = 0; j < 4; j++) {
 
-				char* photo_type = "";
+				char *photo_type;
+				int *photo_loc_dc;
+				int *photo_loc_id;
+				int *photo_width;
+				int *photo_height;
+				int *photo_size;
+				char *photo_data;
+
+				photo_type = strdup(" ");
+				photo_loc_dc = malloc(sizeof(*photo_loc_dc));
+				*photo_loc_dc = -1;
+				photo_loc_id = malloc(sizeof(*photo_loc_id));
+				*photo_loc_id = -1;
+				photo_width = malloc(sizeof(*photo_width));
+				*photo_width = -1;
+				photo_height = malloc(sizeof(*photo_height));
+				*photo_height = -1;
+				photo_size = malloc(sizeof(*photo_size));
+				*photo_size = -1;
+				photo_data = strdup(" ");
+
 				col_values = eina_list_append(col_values, photo_type);
-
-				int photo_loc_dc = -1;
-				col_values = eina_list_append(col_values, &photo_loc_dc);
-
-				int photo_loc_vol = -1;
-				col_values = eina_list_append(col_values, "");
-
-				int photo_loc_id = -1;
-				col_values = eina_list_append(col_values, &photo_loc_id);
-
-
-				col_values = eina_list_append(col_values, "");
-
-				int photo_width = -1;
-				col_values = eina_list_append(col_values, &photo_width);
-
-				int photo_height = -1;
-				col_values = eina_list_append(col_values, &photo_height);
-
-				int photo_size = -1;
-				col_values = eina_list_append(col_values, &photo_size);
-
-				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_loc_dc);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_loc_id);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_width);
+				col_values = eina_list_append(col_values, photo_height);
+				col_values = eina_list_append(col_values, photo_size);
 				col_values = eina_list_append(col_values, photo_data);
 
 			}
@@ -1982,31 +1983,30 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 
 			for (int j = 0; j < 4; j++) {
 
-				char* photo_type = "";
+				char* photo_type = strdup(" ");
+				int *photo_loc_dc = malloc(sizeof(*photo_loc_dc));
+				int *photo_loc_vol = malloc(sizeof(*photo_loc_vol));
+				int *photo_loc_id = malloc(sizeof(*photo_loc_id));
+				int *photo_width = malloc(sizeof(*photo_width));
+				int *photo_height = malloc(sizeof(*photo_height));
+				int *photo_size = malloc(sizeof(*photo_size));
+				char* photo_data = strdup(" ");
+
+				*photo_loc_dc = -1;
+				*photo_loc_vol = -1;
+				*photo_loc_id = -1;
+				*photo_width = -1;
+				*photo_height = -1;
+				*photo_size = -1;
+
 				col_values = eina_list_append(col_values, photo_type);
-
-				int photo_loc_dc = -1;
-				col_values = eina_list_append(col_values, &photo_loc_dc);
-
-				int photo_loc_vol = -1;
-				col_values = eina_list_append(col_values, "");
-
-				int photo_loc_id = -1;
-				col_values = eina_list_append(col_values, &photo_loc_id);
-
-
-				col_values = eina_list_append(col_values, "");
-
-				int photo_width = -1;
-				col_values = eina_list_append(col_values, &photo_width);
-
-				int photo_height = -1;
-				col_values = eina_list_append(col_values, &photo_height);
-
-				int photo_size = -1;
-				col_values = eina_list_append(col_values, &photo_size);
-
-				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_loc_dc);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_loc_id);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_width);
+				col_values = eina_list_append(col_values, photo_height);
+				col_values = eina_list_append(col_values, photo_size);
 				col_values = eina_list_append(col_values, photo_data);
 			}
 		}
@@ -2270,31 +2270,30 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 			int j = i;
 			for (j = i; j < 4; j++) {
 
-				char* photo_type = "";
+				char* photo_type = strdup(" ");
+				int *photo_loc_dc = malloc(sizeof(*photo_loc_dc));
+				int *photo_loc_vol = malloc(sizeof(*photo_loc_vol));
+				int *photo_loc_id = malloc(sizeof(*photo_loc_id));
+				int *photo_width = malloc(sizeof(*photo_width));
+				int *photo_height = malloc(sizeof(*photo_height));
+				int *photo_size = malloc(sizeof(*photo_size));
+				char* photo_data = strdup(" ");
+
+				*photo_loc_dc = -1;
+				*photo_loc_vol = -1;
+				*photo_loc_id = -1;
+				*photo_width = -1;
+				*photo_height = -1;
+				*photo_size = -1;
+
 				col_values = eina_list_append(col_values, photo_type);
-
-				int photo_loc_dc = -1;
-				col_values = eina_list_append(col_values, &photo_loc_dc);
-
-				int photo_loc_vol = -1;
-				col_values = eina_list_append(col_values, "");
-
-				int photo_loc_id = -1;
-				col_values = eina_list_append(col_values, &photo_loc_id);
-
-
-				col_values = eina_list_append(col_values, "");
-
-				int photo_width = -1;
-				col_values = eina_list_append(col_values, &photo_width);
-
-				int photo_height = -1;
-				col_values = eina_list_append(col_values, &photo_height);
-
-				int photo_size = -1;
-				col_values = eina_list_append(col_values, &photo_size);
-
-				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_loc_dc);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_loc_id);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_width);
+				col_values = eina_list_append(col_values, photo_height);
+				col_values = eina_list_append(col_values, photo_size);
 				col_values = eina_list_append(col_values, photo_data);
 
 			}
@@ -2329,31 +2328,30 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 
 			for (int j = 0; j < 4; j++) {
 
-				char* photo_type = "";
+				char* photo_type = strdup(" ");
+				int *photo_loc_dc = malloc(sizeof(*photo_loc_dc));
+				int *photo_loc_vol = malloc(sizeof(*photo_loc_vol));
+				int *photo_loc_id = malloc(sizeof(*photo_loc_id));
+				int *photo_width = malloc(sizeof(*photo_width));
+				int *photo_height = malloc(sizeof(*photo_height));
+				int *photo_size = malloc(sizeof(*photo_size));
+				char* photo_data = strdup(" ");
+
+				*photo_loc_dc = -1;
+				*photo_loc_vol = -1;
+				*photo_loc_id = -1;
+				*photo_width = -1;
+				*photo_height = -1;
+				*photo_size = -1;
+
 				col_values = eina_list_append(col_values, photo_type);
-
-				int photo_loc_dc = -1;
-				col_values = eina_list_append(col_values, &photo_loc_dc);
-
-				int photo_loc_vol = -1;
-				col_values = eina_list_append(col_values, "");
-
-				int photo_loc_id = -1;
-				col_values = eina_list_append(col_values, &photo_loc_id);
-
-
-				col_values = eina_list_append(col_values, "");
-
-				int photo_width = -1;
-				col_values = eina_list_append(col_values, &photo_width);
-
-				int photo_height = -1;
-				col_values = eina_list_append(col_values, &photo_height);
-
-				int photo_size = -1;
-				col_values = eina_list_append(col_values, &photo_size);
-
-				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_loc_dc);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_loc_id);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_width);
+				col_values = eina_list_append(col_values, photo_height);
+				col_values = eina_list_append(col_values, photo_size);
 				col_values = eina_list_append(col_values, photo_data);
 
 			}
@@ -2383,31 +2381,30 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 
 			for (int j = 0; j < 4; j++) {
 
-				char* photo_type = "";
+				char* photo_type = strdup(" ");
+				int *photo_loc_dc = malloc(sizeof(*photo_loc_dc));
+				int *photo_loc_vol = malloc(sizeof(*photo_loc_vol));
+				int *photo_loc_id = malloc(sizeof(*photo_loc_id));
+				int *photo_width = malloc(sizeof(*photo_width));
+				int *photo_height = malloc(sizeof(*photo_height));
+				int *photo_size = malloc(sizeof(*photo_size));
+				char* photo_data = strdup(" ");
+
+				*photo_loc_dc = -1;
+				*photo_loc_vol = -1;
+				*photo_loc_id = -1;
+				*photo_width = -1;
+				*photo_height = -1;
+				*photo_size = -1;
+
 				col_values = eina_list_append(col_values, photo_type);
-
-				int photo_loc_dc = -1;
-				col_values = eina_list_append(col_values, &photo_loc_dc);
-
-				int photo_loc_vol = -1;
-				col_values = eina_list_append(col_values, "");
-
-				int photo_loc_id = -1;
-				col_values = eina_list_append(col_values, &photo_loc_id);
-
-
-				col_values = eina_list_append(col_values, "");
-
-				int photo_width = -1;
-				col_values = eina_list_append(col_values, &photo_width);
-
-				int photo_height = -1;
-				col_values = eina_list_append(col_values, &photo_height);
-
-				int photo_size = -1;
-				col_values = eina_list_append(col_values, &photo_size);
-
-				char* photo_data = "";
+				col_values = eina_list_append(col_values, photo_loc_dc);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_loc_id);
+				col_values = eina_list_append(col_values, strdup(" "));
+				col_values = eina_list_append(col_values, photo_width);
+				col_values = eina_list_append(col_values, photo_height);
+				col_values = eina_list_append(col_values, photo_size);
 				col_values = eina_list_append(col_values, photo_data);
 			}
 		}

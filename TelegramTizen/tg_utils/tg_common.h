@@ -261,17 +261,17 @@ typedef enum MESSAGE_STATE {
 
 typedef struct user_data {
 	tgl_peer_id_t user_id;
-	char* print_name;
+	char *print_name;
 	int structure_version;
-	char* photo_path;
+	char *photo_path;
 	int photo_id;
-	char* first_name;
-	char* last_name;
-	char* phone;
+	char *first_name;
+	char *last_name;
+	char *phone;
 	int access_hash;
-	char* real_first_name;
-	char* real_last_name;
-	char* username;
+	char *real_first_name;
+	char *real_last_name;
+	char *username;
 	int online;
 	int last_seen;
 	Eina_Bool is_selected;
@@ -411,7 +411,6 @@ extern void show_toast(appdata_s* ad, char* value);
 extern void layout_back_cb(void *data, Evas_Object *obj, void *event_info);
 extern void tg_login_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
 extern void detail_list_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
-extern void load_rec_msg_to_db(struct tgl_state *TLS, struct tgl_message *M);
 extern void create_buddy_msg_table(const char* table_name);
 extern void load_buddy_list_data(appdata_s *ad);
 extern void load_group_chat_data(appdata_s *ad);
@@ -430,7 +429,7 @@ static char *trim(char *s) {
 }
 #endif
 
-static char*  trim(char * s)
+static inline char*  trim(char * s)
 {
 	if (!s)
 		return NULL;
@@ -460,17 +459,6 @@ static Evas_Object* create_circle_button(Evas_Object *parent, char* text, char* 
 	return button;
 }
 
-static void on_menu_list_clicked_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	Elm_Object_Item *it = event_info;
-	elm_genlist_item_selected_set(it, EINA_FALSE);
-}
-
-static void on_user_list_search_clicked(void *data, Evas_Object *obj, void *event_info)
-{
-	appdata_s* ad = data;
-	show_toast(ad, "search clicked");
-}
 
 static Evas_Object* create_button(Evas_Object *parent, char *style, char *text)
 {
@@ -500,7 +488,7 @@ static void app_get_resource(const char *edj_file_in, char *edj_path_out, int ed
 	}
 }
 
-static void telegram_image_mask_delete_cb(Evas_Object *obj)
+static inline void telegram_image_mask_delete_cb(Evas_Object *obj)
 {
 	if (obj == NULL)
 		return;
@@ -550,61 +538,27 @@ static Eina_Bool compare_date_with_current_date(int rtime) {
 	return EINA_FALSE;
 }
 
-static void telegram_set_c(Evas_Object *image, char *image_path, char *mask_path, int width, int height)
-{
-	if (image == NULL)
-		return;
-	if (image_path == NULL)
-		return;
-
-	Evas_Object *img_obj = NULL;
-	void *mask;
-	//if (image_path != NULL)
-	//mask = ea_image_effect_mask(image_path, mask_path, width, height, 0, 0);
-	img_obj = elm_image_object_get(image);
-	evas_object_image_colorspace_set(img_obj, EVAS_COLORSPACE_ARGB8888);
-	evas_object_image_size_set(img_obj, width, height);
-	evas_object_image_data_set(img_obj, mask);
-	evas_object_image_alpha_set(img_obj, EINA_TRUE);
-	evas_object_event_callback_add(img_obj, EVAS_CALLBACK_DEL, telegram_image_mask_delete_cb, NULL);
-}
-
-static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
-{
-    Evas_Object *icon = elm_image_add(parent);
-    evas_object_size_hint_weight_set(icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    evas_object_size_hint_align_set(icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
-    elm_object_focus_set(icon, EINA_FALSE);
-    elm_image_file_set(icon, icon_name, NULL);
-    evas_object_show(icon);
-    return icon;
-}
-
-static void buddy_icon_del_cb(void *data, Evas *e, Evas_Object *icon, void *event_info)
+static inline void buddy_icon_del_cb(void *data, Evas *e, Evas_Object *icon, void *event_info)
 {
 	user_data_with_pic_s *item  = data;
 	item->contact_icon = NULL;
 }
 
-static const char *_ui_utils_get_res_path()
-{
-	char res_folder_path[PATH_MAX] = {'\0'};
-	if (res_folder_path[0] == '\0') {
-		char *res_path_buff = app_get_resource_path();
-		strncpy(res_folder_path, res_path_buff, PATH_MAX-1);
-		free(res_path_buff);
-	}
-	return res_folder_path;
-}
-
-static char *ui_utils_get_resource(const char *res_name)
+static inline  const char *ui_utils_get_resource(const char *res_name)
 {
 	static char res_path[PATH_MAX] = {'\0'};
-	snprintf(res_path, PATH_MAX, "%s%s", _ui_utils_get_res_path(), res_name);
+
+	char *res_path_buff = app_get_resource_path();
+	if (!res_path_buff) {
+		return NULL;
+	}
+	snprintf(res_path, sizeof(res_path) - 1, "%s%s", res_path_buff, res_name);
+	free(res_path_buff);
+
 	return res_path;
 }
 
-static char* get_current_time()
+static inline char *get_current_time()
 {
 	Eina_Strbuf *strbuf = eina_strbuf_new();
 	time_t local_time = time(NULL);
@@ -619,17 +573,20 @@ static char* get_current_time()
 	return ret;
 }
 
-static char *replace(const char *s, char ch, const char *repl)
+static inline char *replace(const char *s, char ch, const char *repl)
 {
 	int count = 0;
 	const char *t;
-	for(t=s; *t; t++)
+
+	for(t = s; *t; t++) {
 		count += (*t == ch);
+	}
 
 	size_t rlen = strlen(repl);
-	char *res = malloc(strlen(s) + (rlen-1)*count + 1);
+	char *res = malloc(strlen(s) + (rlen - 1) * count + 1);
 	char *ptr = res;
-	for(t=s; *t; t++) {
+
+	for(t = s; *t; t++) {
 		if(*t == ch) {
 			memcpy(ptr, repl, rlen);
 			ptr += rlen;
@@ -637,293 +594,302 @@ static char *replace(const char *s, char ch, const char *repl)
 			*ptr++ = *t;
 		}
 	}
+
 	*ptr = 0;
 	return res;
 }
 
-static Evas_Object * create_scroller(Evas_Object *parent)
+static inline Evas_Object * create_scroller(Evas_Object *parent)
 {
 	Evas_Object *scroller = elm_scroller_add(parent);
+	if (!scroller) {
+		/**
+		 * @todo
+		 * Handling this exceptional cases.
+		 */
+		return NULL;
+	}
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_FALSE);
 	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_OFF);
 	evas_object_show(scroller);
 	return scroller;
 }
 
-static int telegram_is_drm_file(const char *file_path)
+static inline int telegram_is_drm_file(const char *file_path)
 {
 	return 0;
 }
 
-static TELEGRAM_APP_FILE_TYPE_E __telegram_common_get_file_type_by_file_ext(const char * file_ext, const char * fullpath)
+static inline TELEGRAM_APP_FILE_TYPE_E __telegram_common_get_file_type_by_file_ext(const char *file_ext, const char *fullpath)
 {
-	int i = 0;
+	const char *ptr;
 
 	if (file_ext == NULL) {
 		LOGI("file_ext is NULL");
 		return TELEGRAM_APP_FILE_TYPE_ETC;
 	}
 
-	switch (file_ext[i]) {
+	ptr = file_ext + 1;
+	switch (*file_ext) {
 	case 'a':
 	case 'A':
-		if (strcasecmp("ASF", &file_ext[i]) == 0) {
+		if (strcasecmp("SF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("AMR", &file_ext[i]) == 0) {
+		if (strcasecmp("MR", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VOICE;
 		}
-		if (strcasecmp("AWB", &file_ext[i]) == 0) {
+		if (strcasecmp("WB", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VOICE;
 		}
-		if (strcasecmp("AAC", &file_ext[i]) == 0) {
+		if (strcasecmp("AC", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("AVI", &file_ext[i]) == 0) {
+		if (strcasecmp("VI", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
 		break;
 
 	case 'b':
 	case 'B':
-		if (strcasecmp("BMP", &file_ext[i]) == 0) {
+		if (strcasecmp("MP", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
 		break;
 
 	case 'd':
 	case 'D':
-		if (strcasecmp("DOC", &file_ext[i]) == 0) {
+		if (strcasecmp("OC", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DOC;
 		}
-		if (strcasecmp("DOCX", &file_ext[i]) == 0) {
+		if (strcasecmp("OCX", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DOC;
 		}
-		if (strcasecmp("DIVX", &file_ext[i]) == 0) {
+		if (strcasecmp("IVX", ptr) == 0) {
 			if (telegram_is_drm_file(fullpath) == 0) {
 				return TELEGRAM_APP_FILE_TYPE_DRM;
 			} else {
 				return TELEGRAM_APP_FILE_TYPE_VIDEO;
 			}
 		}
-		if (strcasecmp("DCF", &file_ext[i]) == 0) {
+		if (strcasecmp("CF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DRM;
 		}
-		if (strcasecmp("DM", &file_ext[i]) == 0) {
+		if (strcasecmp("M", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DRM;
 		}
 		break;
 
 	case 'g':
 	case 'G':
-		if (strcasecmp("GIF", &file_ext[i]) == 0) {
+		if (strcasecmp("IF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
-		if (strcasecmp("G72", &file_ext[i]) == 0) {
+		if (strcasecmp("72", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
 		break;
 
 	case 'h':
 	case 'H':
-		if (strcasecmp("HTML", &file_ext[i]) == 0) {
+		if (strcasecmp("TML", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_HTML;
 		}
-		if (strcasecmp("HTM", &file_ext[i]) == 0) {
+		if (strcasecmp("TM", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_HTML;
 		}
 		break;
 
 	case 'i':
 	case 'I':
-		if (strcasecmp("IMY", &file_ext[i]) == 0) {
+		if (strcasecmp("MY", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("ICS", &file_ext[i]) == 0) {
+		if (strcasecmp("CS", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VCALENDAR;
 		}
 		break;
 
 	case 'j':
 	case 'J':
-		if (strcasecmp("JPG", &file_ext[i]) == 0) {
+		if (strcasecmp("PG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
-		if (strcasecmp("JPEG", &file_ext[i]) == 0) {
+		if (strcasecmp("PEG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
-		if (strcasecmp("JPE", &file_ext[i]) == 0) {
+		if (strcasecmp("PE", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
 		break;
 
 	case 'm':
 	case 'M':
-		if (strcasecmp("MMF", &file_ext[i]) == 0) {
+		if (strcasecmp("MF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("MP3", &file_ext[i]) == 0) {
+		if (strcasecmp("P3", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("MID", &file_ext[i]) == 0) {
+		if (strcasecmp("ID", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("MIDI", &file_ext[i]) == 0) {
+		if (strcasecmp("IDI", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("MP4", &file_ext[i]) == 0) {
+		if (strcasecmp("P4", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("MPG", &file_ext[i]) == 0) {
+		if (strcasecmp("PG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("MPEG", &file_ext[i]) == 0) {
+		if (strcasecmp("PEG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("M4A", &file_ext[i]) == 0) {
+		if (strcasecmp("4A", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("M3G", &file_ext[i]) == 0) {
+		if (strcasecmp("3G", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_FLASH;
 		}
-		if (strcasecmp("MXMF", &file_ext[i]) == 0) {
+		if (strcasecmp("XMF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("MKV", &file_ext[i]) == 0) {
+		if (strcasecmp("KV", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
 		break;
 
 	case 'o':
 	case 'O':
-		if (strcasecmp("opml", &file_ext[i]) == 0) {
+		if (strcasecmp("pml", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_RSS;
 		}
-		if (strcasecmp("ODF", &file_ext[i]) == 0) {
+		if (strcasecmp("DF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DRM;
 		}
-		if (strcasecmp("ORO", &file_ext[i]) == 0) {
+		if (strcasecmp("RO", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DRM;
 		}
 		break;
 
 	case 'p':
 	case 'P':
-		if (strcasecmp("PNG", &file_ext[i]) == 0) {
+		if (strcasecmp("NG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
-		if (strcasecmp("PJPEG", &file_ext[i]) == 0) {
+		if (strcasecmp("JPEG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
-		if (strcasecmp("PDF", &file_ext[i]) == 0) {
+		if (strcasecmp("DF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_PDF;
 		}
-		if (strcasecmp("PPT", &file_ext[i]) == 0) {
+		if (strcasecmp("PT", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_PPT;
 		}
-		if (strcasecmp("PPTX", &file_ext[i]) == 0) {
+		if (strcasecmp("PTX", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_PPT;
 		}
 		break;
 
 	case 'r':
 	case 'R':
-		if (strcasecmp("RO", &file_ext[i]) == 0) {
+		if (strcasecmp("O", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_DRM;
 		}
 		break;
 
 	case 's':
 	case 'S':
-		if (strcasecmp("SDP", &file_ext[i]) == 0) {
+		if (strcasecmp("DP", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("SPM", &file_ext[i]) == 0) {
+		if (strcasecmp("PM", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("SMP", &file_ext[i]) == 0) {
+		if (strcasecmp("MP", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("SPF", &file_ext[i]) == 0) {
+		if (strcasecmp("PF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("SWF", &file_ext[i]) == 0) {
+		if (strcasecmp("WF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_FLASH;
 		}
-		if (strcasecmp("SVG", &file_ext[i]) == 0) {
+		if (strcasecmp("VG", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_SVG;
 		}
-		if (strcasecmp("SVGZ", &file_ext[i]) == 0) {
+		if (strcasecmp("VGZ", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_SVG;
 		}
 		break;
 
 	case 't':
 	case 'T':
-		if (strcasecmp("TXT", &file_ext[i]) == 0) {
+		if (strcasecmp("XT", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_TXT;
 		}
-		if (strcasecmp("TPK", &file_ext[i]) == 0) {
+		if (strcasecmp("PK", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_TPK;
 		}
 		break;
 
 	case 'v':
 	case 'V':
-		if (strcasecmp("VCF", &file_ext[i]) == 0) {
+		if (strcasecmp("CF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VCONTACT;
 		}
-		if (strcasecmp("VTS", &file_ext[i]) == 0) {
+		if (strcasecmp("TS", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VCALENDAR;
 		}
-		if (strcasecmp("VCS", &file_ext[i]) == 0) {
+		if (strcasecmp("CS", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VCALENDAR;
 		}
 		break;
 
 	case 'w':
 	case 'W':
-		if (strcasecmp("WAV", &file_ext[i]) == 0) {
+		if (strcasecmp("AV", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("WBMP", &file_ext[i]) == 0) {
+		if (strcasecmp("BMP", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_IMAGE;
 		}
-		if (strcasecmp("WGT", &file_ext[i]) == 0) {
+		if (strcasecmp("GT", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_WGT;
 		}
-		if (strcasecmp("WMA", &file_ext[i]) == 0) {
+		if (strcasecmp("MA", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("WMV", &file_ext[i]) == 0) {
+		if (strcasecmp("MV", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
 		break;
 
 	case 'x':
 	case 'X':
-		if (strcasecmp("XLS", &file_ext[i]) == 0) {
+		if (strcasecmp("LS", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_EXCEL;
 		}
-		if (strcasecmp("XLSX", &file_ext[i]) == 0) {
+		if (strcasecmp("LSX", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_EXCEL;
 		}
-		if (strcasecmp("XMF", &file_ext[i]) == 0) {
+		if (strcasecmp("MF", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_MUSIC;
 		}
-		if (strcasecmp("XHTML", &file_ext[i]) == 0) {
+		if (strcasecmp("HTML", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_HTML;
 		}
 		break;
 
 	case '3':
-		if (strcasecmp("3GP", &file_ext[i]) == 0) {
+		if (strcasecmp("GP", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("3GPP", &file_ext[i]) == 0) {
+		if (strcasecmp("GPP", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
-		if (strcasecmp("3G2", &file_ext[i]) == 0) {
+		if (strcasecmp("G2", ptr) == 0) {
 			return TELEGRAM_APP_FILE_TYPE_VIDEO;
 		}
 		break;
@@ -931,9 +897,7 @@ static TELEGRAM_APP_FILE_TYPE_E __telegram_common_get_file_type_by_file_ext(cons
 	return TELEGRAM_APP_FILE_TYPE_ETC;
 }
 
-
-
-static char* telegram_common_get_file_ext(const char *a_pszfile_name)
+static inline char* telegram_common_get_file_ext(const char *a_pszfile_name)
 {
 	if (a_pszfile_name != NULL) {
 		int nlen = strlen(a_pszfile_name);
@@ -953,7 +917,7 @@ static char* telegram_common_get_file_ext(const char *a_pszfile_name)
 }
 
 
-static TELEGRAM_APP_FILE_TYPE_E telegram_common_get_file_type(const char *filepath)
+static inline TELEGRAM_APP_FILE_TYPE_E telegram_common_get_file_type(const char *filepath)
 {
 	TELEGRAM_APP_FILE_TYPE_E file_type = TELEGRAM_APP_FILE_TYPE_NONE;
 	if(filepath == NULL)

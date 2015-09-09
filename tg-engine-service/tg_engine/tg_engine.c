@@ -298,7 +298,7 @@ void tg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
 
 }
 
-void tg_logprintf(const char *format, ...)  __attribute__((format(printf, 1, 2)))
+void tg_logprintf(const char *format, ...)
 {
 
 }
@@ -508,7 +508,7 @@ void tg_user_update(struct tgl_state *TLS, struct tgl_user *buddy, unsigned flag
 		name_of_buddy = strdup(buddy->first_name);
 		name_of_buddy_len = strlen(name_of_buddy);
 	} else {
-		name_of_buddy = NO_NAME;
+		name_of_buddy = (char *)NO_NAME;
 		name_of_buddy_len = strlen(NO_NAME);
 	}
 
@@ -517,7 +517,7 @@ void tg_user_update(struct tgl_state *TLS, struct tgl_user *buddy, unsigned flag
 		 * @note
 		 * Unable to allocate heap for buddy name
 		 */
-		name_of_buddy = NO_NAME;
+		name_of_buddy = (char *)NO_NAME;
 		name_of_buddy_len = strlen(NO_NAME);
 	}
 
@@ -1683,21 +1683,19 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 #endif
 }
 
-static const char *_ui_utils_get_res_path()
-{
-	char res_folder_path[PATH_MAX] = {'\0'};
-	if (res_folder_path[0] == '\0') {
-		char *res_path_buff = app_get_resource_path();
-		strncpy(res_folder_path, res_path_buff, PATH_MAX-1);
-		free(res_path_buff);
-	}
-	return res_folder_path;
-}
-
 static char *ui_utils_get_resource(const char *res_name)
 {
 	static char res_path[PATH_MAX] = {'\0'};
-	snprintf(res_path, PATH_MAX, "%s%s", _ui_utils_get_res_path(), res_name);
+	char *path;
+
+	path = app_get_resource_path();
+	if (!path) {
+		return NULL;
+	}
+
+	snprintf(res_path, PATH_MAX, "%s%s", path, res_name);
+	free(path);
+
 	return res_path;
 }
 

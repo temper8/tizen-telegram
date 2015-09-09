@@ -9,7 +9,6 @@
 #include "device_contacts_manager.h"
 #include "contacts-db-utils.h"
 #include "server_requests.h"
-#include "tg_buddy_chat_view.h"
 #include "tg_init_screen.h"
 #include "tg_user_main_view.h"
 #include "tg_messaging_view.h"
@@ -1110,7 +1109,6 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 		char* chat_id_str = NULL;
 		result = bundle_get_str(rec_msg, "chat_id", &chat_id_str);
-		int chat_id = atoi(chat_id_str);
 
 #if 0
 		// get group chat details from database.(chat info)
@@ -1143,11 +1141,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		show_toast(app, "new group created");
 #endif
 	} else if (strcmp(rec_key_val, "contact_updated") == 0) {
-
-
 		char* buddy_id_str = NULL;
 		result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
-		int buddy_id = atoi(buddy_id_str);
 
 		char* update_msg = NULL;
 		result = bundle_get_str(rec_msg, "update_message", &update_msg);
@@ -1167,7 +1162,6 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 		char* buddy_id_str = NULL;
 		result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
-		int buddy_id = atoi(buddy_id_str);
 
 		char* buddy_name = NULL;
 		result = bundle_get_str(rec_msg, "buddy_name", &buddy_name);

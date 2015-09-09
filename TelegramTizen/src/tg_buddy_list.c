@@ -6,9 +6,18 @@
 #include "tg_buddy_list.h"
 #include "tg_chat_conv_view.h"
 #include "contact_selection_view.h"
-#include "tg_buddy_chat_view.h"
 
 void refresh_buddy_list(void *data);
+
+static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
+{
+	Evas_Object *icon = elm_image_add(parent);
+	evas_object_size_hint_weight_set(icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_image_file_set(icon, icon_name, NULL);
+	evas_object_show(icon);
+	return icon;
+}
 
 char* on_list_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
@@ -331,7 +340,7 @@ static void on_buddy_clicked(void *data, Evas_Object *obj, void *event_info)
 	int item_id = (int) data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
-	peer_with_pic_s* sel_item = eina_list_nth(ad->peer_list, item_id);
+	peer_with_pic_s *sel_item = eina_list_nth(ad->peer_list, item_id);
 
 	ad->buddy_in_cahtting_data = sel_item->use_data;
 
