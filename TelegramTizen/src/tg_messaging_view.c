@@ -307,7 +307,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						}
 
 						char time_str[20] = {0,};
-						strncpy(time_str, res, sizeof(time_str));
+						snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 
 						char temp_time[256] = {0,};
 						snprintf(temp_time, sizeof(temp_time), "<font=Tizen:style=Regular color=#000000 align=left><font_size=30>%s</font_size></font>", time_str);
@@ -582,7 +582,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						}
 
 						char time_str[20]={0,};
-						snprintf(time_str, sizeof(time_str), res);
+						snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 
 						char temp_time[256] = {0,};
 						snprintf(temp_time, sizeof(temp_time), "<font=Tizen:style=Regular color=#000000 align=left><font_size=30>%s</font_size></font>", time_str);
@@ -732,7 +732,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			}
 
 			char time_str[20]={0,};
-			strncpy(time_str, res, sizeof(time_str));
+			snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 			elm_object_part_text_set(entry, "time", time_str);
 
 			Evas_Object *status_obj;
@@ -1108,7 +1108,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				}
 
 				char time_str[256]={0,};
-				snprintf(time_str, sizeof(time_str), "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", res);
+				snprintf(time_str, sizeof(time_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", res);
 
 				elm_object_text_set(profile_time,time_str);
 			}
