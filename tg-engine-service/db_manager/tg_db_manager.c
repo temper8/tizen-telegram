@@ -4,6 +4,7 @@
  * @author sandeep
  */
 
+#include <stdio.h>
 #include <malloc.h>
 #include <errno.h>
 #include <string.h>

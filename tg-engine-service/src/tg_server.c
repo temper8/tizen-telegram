@@ -15,7 +15,7 @@ static void _on_message_received_cb(int port_id, const char *rem_app_name, const
 
 tg_server *tg_server_create()
 {
-	tg_server *const proxy = calloc(1 , sizeof(tg_server));
+	tg_server *const proxy = calloc(1 , sizeof(*proxy));
 	return proxy;
 }
 

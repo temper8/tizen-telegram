@@ -2816,7 +2816,7 @@ static struct query_methods add_contact_methods = {
 	.type = TYPE_TO_PARAM(contacts_imported_contacts)
 };
 
-void tgl_do_add_contact(struct tgl_state *TLS, const char *phone, int phone_len, const char *first_name, int first_name_len, const char *last_name, int last_name_len, int force, void(*callback)(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[]), void *callback_extra)
+void tgl_do_add_contact(struct tgl_state *TLS, const char *phone, const char *first_name, const char *last_name, int force, void(*callback)(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[]), void *callback_extra)
 {
 	clear_packet();
 	out_int(CODE_contacts_import_contacts);
@@ -2826,9 +2826,9 @@ void tgl_do_add_contact(struct tgl_state *TLS, const char *phone, int phone_len,
 	long long r;
 	tglt_secure_random(&r, 8);
 	out_long(r);
-	out_cstring(phone, phone_len);
-	out_cstring(first_name, first_name_len);
-	out_cstring(last_name, last_name_len);
+	out_cstring(phone, strlen(phone));
+	out_cstring(first_name, strlen(first_name));
+	out_cstring(last_name, strlen(last_name));
 	out_int(force ? CODE_bool_true : CODE_bool_false);
 	tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &add_contact_methods, 0, callback, callback_extra);
 }
@@ -3666,7 +3666,7 @@ void tgl_do_create_group_chat(struct tgl_state *TLS, tgl_peer_id_t id, char *cha
 	tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &create_group_chat_methods, 0, callback, callback_extra);
 }
 
-void tgl_do_create_group_chat_ex(struct tgl_state *TLS, int users_num, tgl_peer_id_t ids[], char *chat_topic, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
+void tgl_do_create_group_chat_ex(struct tgl_state *TLS, int users_num, tgl_peer_id_t ids[], const char *chat_topic, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
 {
 	clear_packet();
 	out_int(CODE_messages_create_chat);

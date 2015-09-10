@@ -25,14 +25,17 @@ typedef enum MESSAGE_STATE {
 } TG_MESSAGE_STATE;
 
 //static char* get_table_name_from_number(const char* phone_no)
-static char *get_table_name_from_number(const int id)
+static inline char *get_table_name_from_number(const int id)
 {
-	char id_str[50];
-	sprintf(id_str, "%d", id);
-	char* msg_table = (char*)malloc(strlen("tg_") + strlen(id_str) + strlen("_msg") + 1);
-	strcpy(msg_table, "tg_");
-	strcat(msg_table, id_str);
-	strcat(msg_table, "_msg");
+	char *msg_table;
+
+	msg_table = (char *)malloc(32);
+	if (!msg_table) {
+		return NULL;
+	}
+
+	snprintf(msg_table, 32, "tg_%d_msg", id);
+
 	return msg_table;
 }
 

@@ -38,7 +38,6 @@
 
 #include <Elementary.h>
 #include <efl_extension.h>
-#include "server_response.h"
 #include <net_connection.h>
 
 #define PROGNAME "telegram-tizen"
@@ -71,35 +70,6 @@
   "# This is an empty config file\n" \
   "# Feel free to put something here\n"
 
-int verbosity;
-int msg_num_mode;
-char *default_username;
-char *config_filename;
-char *prefix;
-char *auth_file_name;
-char *state_file_name;
-char *secret_chat_file_name;
-char *downloads_directory;
-char *config_directory;
-char *binlog_file_name;
-char *lua_file;
-int binlog_enabled;
-extern int log_level;
-int sync_from_start;
-int allow_weak_random;
-int disable_colors;
-int readline_disabled;
-int disable_output;
-int reset_authorization;
-int port;
-int use_ids;
-int ipv6_enabled;
-char *start_command;
-char *rsa_file_name;
-char *config_full_path;
-int need_dc_list_update;
-struct tgl_state *TLS;
-
 extern void logprintf (const char *format, ...) __attribute__ ((format (printf, 1, 2)));
 extern void check_type_sizes(void);
 extern int str_empty(char *str);
@@ -108,28 +78,12 @@ extern void running_for_first_time(void);
 extern void init_tl_engine();
 extern void write_auth_file(void);
 
-static char* get_config_filename(void)
-{
-  return config_filename;
-}
-
-static char* get_auth_key_filename(void)
-{
-  return auth_file_name;
-}
-
-static char* get_state_filename(void)
-{
-  return state_file_name;
-}
-
-static char* get_secret_chat_filename (void) {
-  return secret_chat_file_name;
-}
-
-static char* get_downloads_directory (void) {
-  return downloads_directory;
-}
+extern char *tgl_engine_get_auth_key_filename(void);
+extern char *tgl_engine_get_state_filename(void);
+extern char *tgl_engine_get_secret_chat_filename(void);
+extern char *tgl_engine_get_downloads_directory (void);
+extern struct tgl_state *tgl_engine_get_TLS(void);
+extern void tgl_engine_destroy_TLS(void);
 
 extern void on_user_info_loaded(struct tgl_state *TLSR, void *extra, int success, struct tgl_user *U);
 
@@ -144,41 +98,40 @@ typedef enum TG_ENGINE_STATE {
 
 typedef struct tg_engine_data {
 	tgl_peer_id_t id;
-	char* phone_number;
-	char* sms_code;
-	char* first_name;
-	char* last_name;
-	tg_server* tg_server;
+	char *phone_number;
+	char *sms_code;
+	char *first_name;
+	char *last_name;
+	tg_server *tg_server;
 	tg_engine_state tg_state;
-	void(*get_string)(struct tgl_state *TLS, char *string, void *arg);
-	void* callback_arg;
+	void (*get_string)(struct tgl_state *TLS, char *string, void *arg);
+	void *callback_arg;
 	Eina_Bool is_first_time_registration;
-	Eina_List* contact_list_to_add;
+	Eina_List *contact_list_to_add;
 	int current_index;
 	Eina_Bool is_network_connected;
 	Eina_Bool is_login_activated;
 	connection_h connection;
 	Eina_Bool is_group_creation_requested;
-	char* new_group_icon;
+	char *new_group_icon;
+	Ecore_Idler *lazy_init_idler;
 } tg_engine_data_s;
-
-tg_engine_data_s* tg_data;
-
 
 typedef struct contact_data {
 	int contact_id;
-	char* display_name;
-	char* first_name;
-	char* last_name;
-	char* phone_number;
+	char *display_name;
+	char *first_name;
+	char *last_name;
+	char *phone_number;
 } contact_data_s;
 
-void send_do_mark_read_messages(int buddy_id, int type_of_chat);
-void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
-void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
 
-void media_download_request(int buddy_id, long long media_id);
-void add_contacts_to_user(int size, Eina_List* contact_list);
-void create_new_group(Eina_List* buddy_ids, const char* group_name, const char* group_icon);
+extern void send_do_mark_read_messages(int buddy_id, int type_of_chat);
+extern void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
+extern void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
+
+extern void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long media_id);
+extern void add_contacts_to_user(tg_engine_data_s *tg_data, int size, Eina_List* contact_list);
+extern void create_new_group(tg_engine_data_s *tg_data, Eina_List* buddy_ids, const char* group_name, const char* group_icon);
 
 #endif /* TG_ENGINE_H_ */

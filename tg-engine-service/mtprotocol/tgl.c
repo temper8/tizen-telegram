@@ -46,9 +46,10 @@ void tgl_set_download_directory(struct tgl_state *TLS, const char *path)
 	TLS->downloads_directory = tstrdup(path);
 }
 
-void tgl_set_callback(struct tgl_state *TLS, struct tgl_update_callback *cb)
+void tgl_set_callback(struct tgl_state *TLS, struct tgl_update_callback *cb, void *cbdata)
 {
 	TLS->callback = *cb;
+	TLS->callback_data = cbdata;
 }
 
 void tgl_set_rsa_key(struct tgl_state *TLS, const char *key)
@@ -99,10 +100,19 @@ void tgl_register_app_id(struct tgl_state *TLS, int app_id, char *app_hash)
 
 struct tgl_state *tgl_state_alloc(void)
 {
-	struct tgl_state *TLS =(struct tgl_state *)malloc(sizeof(*TLS));
-	if (!TLS) { return NULL; }
-	memset(TLS, 0, sizeof(*TLS));
+	struct tgl_state *TLS;
+
+	TLS = (struct tgl_state *)calloc(1, sizeof(*TLS));
+	if (!TLS) {
+		return NULL;
+	}
+
 	return TLS;
+}
+
+void tgl_state_free(struct tgl_state *TLS)
+{
+	free(TLS);
 }
 
 void tgl_incr_verbosity(struct tgl_state *TLS)

@@ -4,48 +4,53 @@
  * @file sandeep
  */
 
-#include "server_response.h"
 #include <bundle.h>
 #include "logger.h"
+#include "tg_engine.h"
+#include "server_response.h"
 
-void process_registration_command(char* phone_no, Eina_Bool trough_sms)
+
+void process_registration_command(tg_engine_data_s *tg_data, char* phone_no, Eina_Bool trough_sms)
 {
 	if (tg_data->tg_state != TG_ENGINE_STATE_REGISTRATION || !phone_no) {
 		return;
 	}
 
-	if (!tg_data || !TLS) {
+	if (!tg_data || !tgl_engine_get_TLS()) {
 		// service not running. error handling
 		return;
 	}
 
-	if (tg_data ->phone_number) {
+	if (tg_data->phone_number) {
 		free(tg_data->phone_number);
+	}
+	if (phone_no) {
+		tg_data->phone_number = strdup(phone_no);
+	} else {
 		tg_data->phone_number = NULL;
 	}
 
-	tg_data->phone_number = strdup(phone_no);
 	if (tg_data->get_string) {
-		tg_data->get_string(TLS, tg_data->phone_number, tg_data->callback_arg);
+		tg_data->get_string(tgl_engine_get_TLS(), tg_data->phone_number, tg_data->callback_arg);
 	}
 }
 
-void process_validation_command(char* code)
+void process_validation_command(tg_engine_data_s *tg_data, char* code)
 {
 	if (tg_data->tg_state != TG_ENGINE_STATE_CODE_REQUEST || !code) {
 		return;
 	}
 
-	if (!tg_data || !TLS) {
+	if (!tg_data || !tgl_engine_get_TLS()) {
 		// service not running. error handling
 		return;
 	}
-	tg_data->get_string(TLS, code, tg_data->callback_arg);
+	tg_data->get_string(tgl_engine_get_TLS(), code, tg_data->callback_arg);
 }
 
 void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat)
 {
-	if (!msg_data || !TLS) {
+	if (!msg_data || !tgl_engine_get_TLS()) {
 		return;
 	}
 	send_message_to_buddy(buddy_id, message_id, msg_type, msg_data, type_of_chat);
@@ -53,7 +58,7 @@ void process_send_message_command(int buddy_id, int message_id, int msg_type, ch
 
 void process_marked_as_read_command(int buddy_id, int type_of_chat)
 {
-	if (!TLS) {
+	if (!tgl_engine_get_TLS()) {
 		return;
 	}
 	send_do_mark_read_messages(buddy_id, type_of_chat);
@@ -61,61 +66,64 @@ void process_marked_as_read_command(int buddy_id, int type_of_chat)
 
 void process_send_media_command(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat)
 {
-	if (!file_path || !TLS) {
+	if (!file_path || !tgl_engine_get_TLS()) {
 		return;
 	}
 	send_media_to_buddy(buddy_id, message_id, media_id, msg_type, file_path, type_of_chat);
 }
 
 
-void process_media_download_command(int buddy_id, long long media_id)
+void process_media_download_command(tg_engine_data_s *tg_data, int buddy_id, long long media_id)
 {
-	media_download_request(buddy_id, media_id);
+	media_download_request(tg_data, buddy_id, media_id);
 }
 
-void process_add_contacts_command(int size, Eina_List* contact_list)
+void process_add_contacts_command(tg_engine_data_s *tg_data, int size, Eina_List* contact_list)
 {
-	add_contacts_to_user(size, contact_list);
+	add_contacts_to_user(tg_data, size, contact_list);
 }
 
-void process_new_group_create_command(Eina_List* buddy_ids, const char* group_name, const char* group_icon)
+void process_new_group_create_command(tg_engine_data_s *tg_data, Eina_List* buddy_ids, const char* group_name, const char* group_icon)
 {
-	create_new_group(buddy_ids, group_name, group_icon);
+	create_new_group(tg_data, buddy_ids, group_name, group_icon);
 }
 
-void send_registration_response(Eina_Bool is_success)
+void send_registration_response(tg_engine_data_s *tg_data, Eina_Bool is_success)
 {
-	bundle *msg = bundle_create();
-	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+	bundle *msg;
+	int result;
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != BUNDLE_ERROR_NONE)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
+		return;
 	}
 
-	if (bundle_add_str(msg, "command", "registration_done") != 0) {
+	if (bundle_add_str(msg, "command", "registration_done") != BUNDLE_ERROR_NONE) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
+		return;
 	}
 
-	if (bundle_add_str(msg, "phone_number", tg_data->phone_number) != 0)	{
+	if (bundle_add_str(msg, "phone_number", tg_data->phone_number) != BUNDLE_ERROR_NONE)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
+		return;
 	}
 
-	if (is_success) {
-		if (bundle_add_str(msg, "is_success", "true") != 0) {
-			ERR("Failed to add data by key to bundle");
-			bundle_free(msg);
-		}
-	} else {
-		if (bundle_add_str(msg, "is_success", "false") != 0) {
-			ERR("Failed to add data by key to bundle");
-			bundle_free(msg);
-		}
+	if (bundle_add_str(msg, "is_success", is_success ? "true" : "false") != BUNDLE_ERROR_NONE) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
 	}
 
-	int result = SVC_RES_FAIL;
+	result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
-
 	if(result != SVC_RES_OK) {
 		// error: cient not ready
 	}
@@ -123,7 +131,7 @@ void send_registration_response(Eina_Bool is_success)
 	bundle_free(msg);
 }
 
-void send_new_group_added_response(int chat_id)
+void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -152,7 +160,7 @@ void send_new_group_added_response(int chat_id)
 	bundle_free(msg);
 }
 
-void send_chat_profile_pic_updated_response(int chat_id, char* filename)
+void send_chat_profile_pic_updated_response(tg_engine_data_s *tg_data, int chat_id, char* filename)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -185,7 +193,7 @@ void send_chat_profile_pic_updated_response(int chat_id, char* filename)
 	bundle_free(msg);
 }
 
-void send_name_registration_response()
+void send_name_registration_response(tg_engine_data_s *tg_data)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -206,7 +214,7 @@ void send_name_registration_response()
 	bundle_free(msg);
 }
 
-void send_add_contacts_request()
+void send_add_contacts_request(tg_engine_data_s *tg_data)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -227,7 +235,7 @@ void send_add_contacts_request()
 	bundle_free(msg);
 }
 
-void send_contacts_and_chats_load_done_response(Eina_Bool is_success)
+void send_contacts_and_chats_load_done_response(tg_engine_data_s *tg_data, Eina_Bool is_success)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -261,7 +269,7 @@ void send_contacts_and_chats_load_done_response(Eina_Bool is_success)
 	bundle_free(msg);
 }
 
-void send_contacts_load_done_response(Eina_Bool is_success)
+void send_contacts_load_done_response(tg_engine_data_s *tg_data, Eina_Bool is_success)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -295,7 +303,7 @@ void send_contacts_load_done_response(Eina_Bool is_success)
 	bundle_free(msg);
 }
 
-void send_buddy_profile_pic_updated_response(int buddy_id, char* file_path)
+void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, int buddy_id, char* file_path)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -330,7 +338,7 @@ void send_buddy_profile_pic_updated_response(int buddy_id, char* file_path)
 	bundle_free(msg);
 }
 
-void send_message_received_response(int from_id, int to_id, long long message_id, int type_of_chat)
+void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int type_of_chat)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -384,7 +392,7 @@ void send_message_received_response(int from_id, int to_id, long long message_id
 	bundle_free(msg);
 }
 
-void send_message_read_by_buddy_response(int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat)
+void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -440,7 +448,7 @@ void send_message_read_by_buddy_response(int buddy_id, int message_id, char* tab
 	bundle_free(msg);
 }
 
-void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat)
+void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -503,7 +511,7 @@ void send_message_sent_to_buddy_response(int buddy_id, int message_id, char* tab
 	bundle_free(msg);
 }
 
-void send_media_download_completed_response(int buddy_id, long long media_id, const char* filename)
+void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, long long media_id, const char* filename)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -553,7 +561,7 @@ void send_media_download_completed_response(int buddy_id, long long media_id, co
 	bundle_free(msg);
 }
 
-void send_contact_updated_response(int buddy_id, char* update_message)
+void send_contact_updated_response(tg_engine_data_s *tg_data, int buddy_id, char* update_message)
 {
 	if (!update_message) {
 		return;
@@ -591,7 +599,7 @@ void send_contact_updated_response(int buddy_id, char* update_message)
 	bundle_free(msg);
 }
 
-void send_buddy_status_updated_response(int buddy_id)
+void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -621,7 +629,7 @@ void send_buddy_status_updated_response(int buddy_id)
 	bundle_free(msg);
 }
 
-void send_buddy_type_notification_response(int buddy_id, char* budy_name, int type_status)
+void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_id, char* budy_name, int type_status)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{

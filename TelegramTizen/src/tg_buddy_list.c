@@ -378,7 +378,6 @@ void refresh_buddy_list(void *data)
 	if (buddy_list) {
 		int i = 0;
 		int size;
-		Eina_List *l;
 		static Elm_Genlist_Item_Class itc = {
 			.item_style = "double_label",
 			.func.text_get = on_list_text_get_cb,
