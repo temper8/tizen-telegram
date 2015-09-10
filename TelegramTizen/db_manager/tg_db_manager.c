@@ -482,18 +482,28 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 }
 
-Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* where_clause)
+Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* wc)
 {
 	sqlite3_stmt *stmt;
 	const char *name;
 	int query_len;
 	Eina_List *l;
 	Eina_List *result = NULL;
+	Eina_List *record;
 	char *query;
 	char *ptr;
 	int ret;
 	const char *type;
 	int col;
+
+	char* where_clause = NULL;
+
+	if (wc) {
+		where_clause = (char*)malloc(strlen("WHERE ") + strlen(wc) + 1);
+		strcpy(where_clause, "WHERE ");
+		strcat(where_clause, wc);
+	}
+
 
 	if (!s_info.db || !table_name || !column_names) {
 		return NULL;
@@ -537,50 +547,65 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		return NULL;
 	}
 
-	l = column_types;
-	col = 0;
+
 	while(sqlite3_step(stmt) == SQLITE_ROW) {
-		type = eina_list_data_get(l);
-		if (!strncmp(type, "INTEGER", strlen("INTEGER"))) {
-			int temp;
-			int *val;
-
-			temp = sqlite3_column_int64(stmt, col);
-			val = malloc(sizeof(int));
-			if (!val) {
+		col = 0;
+		record = NULL;
+		EINA_LIST_FOREACH(column_types, l, type) {
+			if (!type) {
 				/**
-				 * @todo
-				 * Handling exceptional cases.
+				 * @note
+				 * Not possible
 				 */
-			}
-			*val = temp;
-
-			result = eina_list_append(result, val);
-		} else if (!strncmp(type, "TEXT", strlen("TEXT"))) {
-			char *val;
-			const char *text;
-
-			text = (const char *)sqlite3_column_text(stmt, col);
-			if (!text || text[0] == '\0') {
-				val = strdup("_null_");
-			} else {
-				val = strdup(text);
-			}
-			if (!val) {
-				/**
-				 * @todo
-				 * Handling exceptional cases
-				 */
+				continue;
 			}
 
-			result = eina_list_append(result, val);
+			if (!strncmp(type, "INTEGER", strlen("INTEGER"))) {
+				int temp;
+				int *val;
+
+				temp = sqlite3_column_int64(stmt, col);
+				val = malloc(sizeof(int));
+				if (!val) {
+					/**
+					 * @todo
+					 * Handling exceptional cases.
+					 */
+				}
+				*val = temp;
+
+				record = eina_list_append(record, val);
+			} else if (!strncmp(type, "TEXT", strlen("TEXT"))) {
+				char *val;
+				const char *text;
+
+				text = (const char *)sqlite3_column_text(stmt, col);
+				if (!text || text[0] == '\0') {
+					val = strdup("_null_");
+				} else {
+					val = strdup(text);
+				}
+				if (!val) {
+					/**
+					 * @todo
+					 * Handling exceptional cases
+					 */
+				} else {
+					record = eina_list_append(record, val);
+				}
+			}
+			col++;
 		}
-
-		l = eina_list_next(l);
-		col++;
+		result = eina_list_append(result, record);
 	}
 
 	sqlite3_finalize(stmt);
+
+	if (where_clause) {
+		free(where_clause);
+		where_clause = NULL;
+	}
+
 	return result;
 }
 

@@ -936,6 +936,92 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 
 }
 
+void update_msg_into_db(tg_message_s *M, char* table_name)
+{
+	if(!M) {
+		return;
+	}
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_DATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FROM_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_TO_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_OUT_MSG);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNREAD);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_DATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_SERVICE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_STATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_LENGTH);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	Eina_List* col_values = NULL;
+	col_values = eina_list_append(col_values, &(M->msg_id));
+	col_values = eina_list_append(col_values, &(M->flags));
+	col_values = eina_list_append(col_values, &(M->fwd_from_id));
+	col_values = eina_list_append(col_values, &(M->fwd_date));
+	col_values = eina_list_append(col_values, &(M->from_id));
+	col_values = eina_list_append(col_values, &(M->to_id));
+	col_values = eina_list_append(col_values, &(M->out));
+	col_values = eina_list_append(col_values, &(M->unread));
+	col_values = eina_list_append(col_values, &(M->date));
+	col_values = eina_list_append(col_values, &(M->service));
+
+	if(M->message)
+		col_values = eina_list_append(col_values, M->message);
+	else
+		col_values = eina_list_append(col_values, " ");
+
+	col_values = eina_list_append(col_values, &(M->msg_state));
+	col_values = eina_list_append(col_values, &(M->message_len));
+	col_values = eina_list_append(col_values, &(M->media_type));
+
+	col_values = eina_list_append(col_values, (M->media_id));
+
+
+	char* where_clause = NULL;
+
+	char usr_str[50];
+	sprintf(usr_str,"%d",M->msg_id);
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(usr_str) + 1);
+	strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, usr_str);
+
+	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
+
+	if(!ret) {
+		//("error: database creation failed");
+	} else {
+
+	}
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	eina_list_free(col_values);
+}
+
+
 tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 {
 	tg_message_s* message = NULL;
@@ -1101,6 +1187,89 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 		}
 	}
 	return message;
+}
+
+
+
+void insert_or_update_peer_into_database(tg_peer_info_s* UC)
+{
+	if (!UC) {
+		return;
+	}
+
+	char* table_name = PEER_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = NULL;
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_CHAT_ID);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_PEER_TYPE);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_FLAGS);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_MESSAGE_ID);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_MESSAGE_DATE);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_PRINT_NAME);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_STRUCT_VERSION);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_NO_OF_UNREAD_MESSAGES);
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_SEEN_TIME);
+	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PHOTO_PATH);
+	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PHOTO_ID);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+	Eina_List* col_values = NULL;
+	col_values = eina_list_append(col_values, &(UC->peer_id));
+	col_values = eina_list_append(col_values, &(UC->peer_type));
+	col_values = eina_list_append(col_values, &(UC->flags));
+	char last_msg_id_str[50];
+	sprintf(last_msg_id_str, "%lld", UC->last_msg_id);
+	col_values = eina_list_append(col_values, last_msg_id_str);
+
+	// last message date
+
+	col_values = eina_list_append(col_values, &(UC->last_msg_date));
+
+
+	if (UC->print_name) {
+		col_values = eina_list_append(col_values, UC->print_name);
+	} else {
+		col_values = eina_list_append(col_values, "");
+	}
+
+	col_values = eina_list_append(col_values, &(UC->struct_version));
+	col_values = eina_list_append(col_values, &(UC->no_of_unread_msgs));
+	col_values = eina_list_append(col_values, &(UC->last_seen_time));
+	col_values = eina_list_append(col_values, UC->photo_path);
+
+	col_values = eina_list_append(col_values, &(UC->photo_id));
+
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
+	if(!ret) {
+		// already exist. So update the table
+		char* where_clause = NULL;
+		char user_id_str[50];
+		sprintf(user_id_str,"%d",UC->peer_id);
+		where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(user_id_str) + 1);
+		strcpy(where_clause, PEER_INFO_TABLE_CHAT_ID);
+		strcat(where_clause, " = ");
+		strcat(where_clause, user_id_str);
+		ret = update_table(table_name, col_names, col_types, col_values, where_clause);
+	} else {
+
+	}
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	eina_list_free(col_values);
+	
 }
 
 void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)

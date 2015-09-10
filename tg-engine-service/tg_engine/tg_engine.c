@@ -595,7 +595,7 @@ void tg_user_update(struct tgl_state *TLS, struct tgl_user *buddy, unsigned flag
 		}
 		if (flags & TGL_UPDATE_PHOTO) {
 			send_message(TLS->callback_data, buddy, "%s photo updated.", name_of_buddy, name_of_buddy_len);
-			tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
+			//tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
 		}
 		if (flags & TGL_UPDATE_BLOCKED) {
 			send_message(TLS->callback_data, buddy, "%s contact blocked.", name_of_buddy, name_of_buddy_len);
@@ -906,7 +906,7 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 
 		/*************** insert service message ********************/
 
-		char *msg_data = "new group created.";
+		char* msg_data = "new group created.";
 		struct tgl_message msg;
 		msg.from_id.id = 0;
 		msg.from_id.type = 0;
@@ -953,7 +953,7 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 {
 	for (int i = size - 1; i >= 0; i--) {
 		struct tgl_user *buddy = contacts[i];
-		char *msg_table = get_table_name_from_number(buddy->id.id);
+		char* msg_table = get_table_name_from_number(buddy->id.id);
 		create_buddy_msg_table(msg_table);
 		free(msg_table);
 
@@ -962,7 +962,7 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 	}
 
 	// inform client that contact loading is done.
-	send_contacts_load_done_response(TLS->callback_data, EINA_TRUE);
+	//send_contacts_load_done_response(EINA_TRUE);
 }
 
 void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, int success, int size, tgl_peer_id_t peers[], int last_msg_id[], int unread_count[])
@@ -972,25 +972,27 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 		UC = tgl_peer_get(TLS, peers[i]);
 		// insert into peer table
 		insert_peer_into_database(UC, last_msg_id[i], unread_count[i]);
-		struct tgl_user* buddy;
+		//struct tgl_user* buddy;
 		struct tgl_chat* chat_info;
 		switch (tgl_get_peer_type(peers[i])) {
-		case TGL_PEER_USER:
-			buddy = &(UC->user);
-			if (buddy) {
-				char *msg_table = get_table_name_from_number(buddy->id.id);
-				create_buddy_msg_table(msg_table);
-				free(msg_table);
-				insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
-				tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
-			}
-			break;
-		case TGL_PEER_CHAT:
-			chat_info = &(UC->chat);
-			tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
-			break;
-		case TGL_PEER_ENCR_CHAT:
-			break;
+			case TGL_PEER_USER:
+#if 0
+				buddy = &(UC->user);
+				if (buddy) {
+					char* msg_table = get_table_name_from_number(buddy->id.id);
+					create_buddy_msg_table(msg_table);
+					free(msg_table);
+					insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
+					tgl_do_get_user_info(TLS, buddy->id, 0, &on_buddy_info_loaded, NULL);
+				}
+#endif
+				break;
+			case TGL_PEER_CHAT:
+				chat_info = &(UC->chat);
+				tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
+				break;
+			case TGL_PEER_ENCR_CHAT:
+				break;
 		}
 	}
 	send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
@@ -1014,6 +1016,7 @@ void on_user_info_loaded(struct tgl_state *TLS, void *extra, int success, struct
 		// send contact list to add friends.
 		send_add_contacts_request();
 	} else {
+		tgl_do_update_contact_list(TLS, on_contacts_received, NULL);
 		tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
 	}
 }

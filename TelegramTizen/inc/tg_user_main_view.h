@@ -11,6 +11,6 @@
 #include "tg_common.h"
 
 extern void launch_user_main_view_cb(appdata_s* ad);
-
+extern void refresh_main_view_list(appdata_s* ad);
 
 #endif /* TG_USER_MAIN_VIEW_H_ */

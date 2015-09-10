@@ -1,0 +1,1366 @@
+
+
+
+collections {
+
+ #define WIN_WIDTH 720
+ #define WIN_HEIGHT 1280
+
+
+#define PADDING_LEFT(param_padding_name, param_padding_size) \
+	part \
+	{ \
+		name: param_padding_name; \
+		type: SPACER; \
+		scale: 1; \
+		mouse_events:  0;\
+		description \
+		{ \
+			state: "default" 0.0; \
+			min: param_padding_size 0; \
+			fixed: 1 0; \
+			rel1{relative: 0.0 0.0;} \
+			rel2{relative: 0.0 1.0;} \
+			align: 0.0 0.0; \
+		} \
+	}
+	
+	#define PADDING_TOP(param_padding_name, param_padding_size) \
+	part \
+	{ \
+		name: param_padding_name; \
+		type: SPACER; \
+		scale: 1; \
+		mouse_events:  0;\
+		description \
+		{ \
+			state: "default" 0.0; \
+			min: 0 param_padding_size ; \
+			fixed: 0 1; \
+			rel1{relative: 0.0 0.0;} \
+			rel2{relative: 1.0 0.0;} \
+			align: 0.0 0.0; \
+		} \
+	}
+	
+	#define PADDING_BOTTOM(param_padding_name, param_padding_size) \
+	part \
+	{ \
+		name: param_padding_name; \
+		type: SPACER; \
+		scale: 1; \
+		mouse_events:  0;\
+		description \
+		{ \
+			state: "default" 0.0; \
+			min: 0 param_padding_size; \
+			fixed: 0 1; \
+			rel1{relative: 0.0 1.0;} \
+			rel2{relative: 1.0 1.0;} \
+			align: 0.0 1.0; \
+		} \
+	}
+	
+	#define PADDING_RIGHT(param_padding_name, param_padding_size) \
+	part \
+	{ \
+		name: param_padding_name; \
+		type: SPACER; \
+		scale: 1; \
+		mouse_events:  0;\
+		description \
+		{ \
+			state: "default" 0.0; \
+			min: param_padding_size 0; \
+			fixed: 1 0; \
+			rel1{relative: 1.0 0.0;} \
+			rel2{relative: 1.0 1.0;} \
+			align: 1.0 0.0; \
+		} \
+	}
+
+#define PART_DISCLIP \
+	part \
+	{ \
+		name: "disclip"; \
+		type: RECT; \
+		description \
+		{ \
+			state: "default" 0.0; \
+		} \
+		description \
+		{ \
+			state: "disabled" 0.0; \
+			inherit: "default" 0.0; \
+			color: 255 255 255 64; \
+		} \
+	}
+
+
+
+
+	images {
+		image: "camera_btn_gallery_mask.png" COMP;
+	}
+
+   group {
+   	  name: "init_screen";
+      parts {
+         part {
+         	name: "main_image";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: -0.1 -0.1; }
+               	rel2 { relative: 1.1 0.9; }
+            }
+         }
+       	part {
+        	name: "start_btn";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.2 0.4; }
+               	rel2 { relative: 0.8 0.55; }               	               	
+            }
+         }
+         part {
+         	name: "button_box_bg";
+            type: RECT;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.0 0.9; }
+               	rel2 { relative: 1.0 1.0; }
+               	color: 255 255 255 255;               	               	
+            }
+         }
+         part {
+         	name: "button_box";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.0 0.9; }
+               	rel2 { relative: 1.0 1.0; }               	               	
+            }
+         }
+      }
+   }
+   
+   group {
+   	  name: "bg_screen";
+   	 	 parts {
+   	        part {
+         	name: "country_name";
+            type: SWALLOW;            
+            	description {
+            		state: "default" 0.0;
+               		rel1 { relative: 0.1 0.1; }
+               		rel2 { relative: 0.9 0.3; }       
+            	}   	  
+   	  	 	}
+   		}
+   }
+   
+   group {
+   	  name: "registration_screen";
+      parts {
+          part {
+         	name: "screen_bg";
+            type: RECT;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.0 0.0; }
+               	rel2 { relative: 1.0 1.0; }
+               	color: 255 255 255 255;
+            }
+         }
+         part {
+         	name: "country_name";
+            type: SWALLOW;
+            scale: 1;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.1; }
+               	rel2 { relative: 0.9 0.2; }
+            }
+         }
+         part {
+        	name: "country_code,bg";
+            type: RECT;
+            scale: 1;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.25; }
+               	rel2 { relative: 0.3 0.35; }
+               	color: 220 220 220 255;     	               	
+            }
+         }
+       	part {
+        	name: "country_code";
+            type: SWALLOW;
+            scale: 1;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.25; }
+               	rel2 { relative: 0.3 0.35; }
+            }
+         }
+         part {
+         	name: "phone_number_entry,bg";
+            type: RECT;
+            scale: 1;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.32 0.25; }
+               	rel2 { relative: 0.9 0.35; }
+               	color: 220 220 220 255;
+            }
+         }
+
+         part {
+         	name: "phone_number_entry";
+            type: SWALLOW;
+            scale: 1;            
+            description {
+            	state: "default" 0.0;
+            	fixed: 1 1;
+            	align: 0.0 0.5;
+               	rel1 { relative: 0.32 0.25; }
+               	rel2 { relative: 0.9 0.35; }
+            }
+         }
+
+         part {
+         	name: "text_display";
+            type: SWALLOW;
+            scale: 1;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.13 0.45; }
+               	rel2 { relative: 0.87 0.65; }
+            }
+         }
+         
+      }
+   }
+   
+   
+   group {
+   	  name: "code_check_screen";
+      parts {
+          part {
+         	name: "screen_bg";
+            type: RECT;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.0 0.0; }
+               	rel2 { relative: 1.0 1.0; }
+               	color: 255 255 255 255;
+            }
+         }
+         part {
+         	name: "phone_status";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.02; }
+               	rel2 { relative: 0.91 0.08; }
+               	color: 222 222 222 222;
+            }
+         }
+        part {
+        	name: "code_entry,bg";
+            type: RECT;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.1; }
+               	rel2 { relative: 0.9 0.2; }
+               	color: 222 222 222 222;               	               	
+            }
+        }
+       	part {
+        	name: "code_entry";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.1; }
+               	rel2 { relative: 0.9 0.2; }
+            }
+         }
+         
+         part {
+         	name: "timer_text";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.25; }
+               	rel2 { relative: 0.8 3; }
+               	color: 222 222 222 222;               	               	
+            }
+         }
+         
+         part {
+         	name: "wrong_num_btn";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.1 0.35; }
+               	rel2 { relative: 0.9 0.4; }
+               	color: 222 222 222 222;           	               	
+            }
+         }
+         
+      }
+   }
+   
+   	group {
+	  name: "name_reg_screen";
+   		parts {
+   		    part {
+		      	name: "name_reg_screen_bg";
+        		type: RECT;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 1.0; }
+         		}
+      		}
+      		part {
+		      	name: "setup_guide_text";
+        		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.2; }
+            		rel2 { relative: 0.9 0.25; }
+         		}
+      		}
+      		part {
+     			name: "first_name_entry,bg";
+         		type: RECT;            
+         		description {
+         		state: "default" 0.0;
+            		rel1 { relative: 0.1 0.26; }
+            		rel2 { relative: 0.9 0.36; }
+            		color: 222 222 222 222;                	               	
+         		}
+      		}
+      
+     		part {
+     			name: "first_name_entry";
+         		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.26; }
+            		rel2 { relative: 0.9 0.36; }
+         		}
+      		}
+      		part {
+      			name: "second_name_entry,bg";
+         		type: RECT;            
+         		description {
+      		   		state: "default" 0.0;
+            		rel1 { relative: 0.1 0.39; }
+            		rel2 { relative: 0.9 0.49; }
+            		color: 222 222 222 222;                	               	
+         		}
+      		}
+      		part {
+      		name: "second_name_entry";
+         		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.39; }
+            		rel2 { relative: 0.9 0.49; }
+		         }
+      		}
+      
+   		}
+	}
+	
+	
+	group {
+	  name: "user_main_screen";
+   		parts {
+      		part {
+		      	name: "main_box";
+        		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 1.0; }
+            		color: 222 222 100 222;
+         		}
+      		}
+      		part {
+     			name: "new_chat_icon";
+         		type: SWALLOW;            
+         		description {
+         		state: "default" 0.0;
+            		rel1 { relative: 0.75 0.85; }
+            		rel2 { relative: 0.85 0.95; }
+            		color: 50 50 111 111;                	               	
+         		}
+      		}
+   		}
+	}
+	
+	
+	group {
+	  name: "user_main_screen_new";
+   		parts {
+   		   part {
+		      	name: "main_box,bg";
+        		type: RECT;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 1.0; }
+            		color: 255 255 255 255;
+         		}
+      		}
+      		part {
+		      	name: "main_box";
+        		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 1.0; }
+            		color: 222 222 100 222;
+         		}
+      		}
+      		part {
+     			name: "new_chat_icon";
+         		type: SWALLOW;            
+         		description {
+         		state: "default" 0.0;
+            		rel1 { relative: 0.65 0.85; }
+            		rel2 { relative: 0.95 0.95; }
+         		}
+      		}
+   		}
+	}
+	
+	group {
+	  name: "user_main_screen_side_panel";
+   		parts {
+   		    part {
+		      	name: "main_box,bg";
+        		type: RECT;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 0.3; }
+            		color: 61 185 204 255;
+         		}
+      		}
+      		part {
+		      	name: "main_box";
+        		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 0.3; }
+            		color: 61 185 204 255;
+         		}
+      		}
+      		part {
+     			name: "options_box";
+         		type: SWALLOW;            
+         		description {
+         		state: "default" 0.0;
+            		rel1 { relative: 0.0 0.3; }
+            		rel2 { relative: 1.0 1.0; }
+            		color: 111 111 100 111;
+         		}
+      		}
+   		}
+	}
+	
+	group {
+	  name: "title_search_layout";
+   		parts {
+      		part {
+		      	name: "search_box";
+        		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.4 0.3; }
+            		rel2 { relative: 0.9 0.8; }
+            		color: 123 235 76 100;
+         		}
+      		}
+   		}
+	}
+	
+	group {
+	  name: "menu_user_layout";
+   		parts {
+      		part {
+		      	name: "user_photo_box";
+        		type: SWALLOW;      
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.3 0.2; }
+            		rel2 { relative: 0.7 0.6; }
+            		color: 56 235 76 76;
+         		}
+      		}
+      		part {
+		      	name: "user_name_box";
+        		type: SWALLOW;      
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.65; }
+            		rel2 { relative: 0.9 0.78; }
+            		color: 23 234 76 97;
+         		}
+      		}
+      		part {
+		      	name: "phone_number_box";
+        		type: SWALLOW;      
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.82; }
+            		rel2 { relative: 0.9 0.95; }
+            		color: 54 12 98 100;
+         		}
+      		}
+   		}
+	}
+	
+	group { 
+	  name: circle_layout;
+      parts {
+         part { 
+            name: masking;
+            type: IMAGE;
+            precise_is_inside: 1;
+            description { 
+               state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               image.normal: camera_btn_gallery_mask.png;
+            }
+         }
+         part { 
+            name: content;
+            type: SWALLOW;
+            clip_to: masking;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.05;
+               rel2.relative: 1.0 0.95;
+            }
+         }
+      }
+    }
+	
+	
+	
+	group {
+	  name: "start_messaging_layout";
+   		parts {
+      		part {
+		      	name: "menu_layout";
+        		type: SWALLOW;
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.0; }
+            		rel2 { relative: 1.0 0.25; }
+            		color: 23 234 76 97;
+         		}
+      		}
+      		part {
+		      	name: "contacts_header,bg";
+        		type: RECT;
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.25; }
+            		rel2 { relative: 1.0 0.32; }
+            		color: 96 96 96 255;
+         		}
+      		}
+      		part {
+		      	name: "contacts_header";
+        		type: SWALLOW;
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.25; }
+            		rel2 { relative: 1.0 0.32; }
+            		color: 96 96 96 255;
+         		}
+      		}
+      		part {
+		      	name: "contacts_layout";
+        		type: SWALLOW;
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.32; }
+            		rel2 { relative: 1.0 1.0; }
+            		color: 54 12 98 100;
+         		}
+      		}
+   		}
+	}
+	
+	group
+    {
+       	name: "chat_messaging_layout";
+    	parts{
+    		part {
+    			name: "bg";
+    			type:RECT;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    				color: 0 0 0 0;
+    			}
+    		}
+    		
+
+    	   part{
+    			name: "swallow.title_box.bg";
+    			type:RECT;
+    			scale: 1;
+    			description{
+    				state: "default" 0.0;
+    				min: WIN_WIDTH 62;
+    				max: WIN_WIDTH 62;
+    				fixed: 1 1;
+    				align: 0 0;
+    				rel1 { relative: 0.0 0.0; to: "bg"; }
+    				rel2 { relative: 0.0 0.0; to: "bg"; }
+    				color: 61 185 204 255;
+    			}
+    		}
+    		
+    	   part{
+    			name: "swallow.title_box";
+    			type:SWALLOW;
+    			scale: 1;
+    			description{
+    				state: "default" 0.0;
+    				min: WIN_WIDTH 62;
+    				max: WIN_WIDTH 62;
+    				fixed: 1 1;
+    				align: 0 0;
+    				rel1 { relative: 0.0 0.0; to: "bg"; }
+    				rel2 { relative: 0.0 0.0; to: "bg"; }
+    				color: 50 23 55 255;
+    			}
+    		}
+    	   part{
+    			name: "swallow.chat_box";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 1.0; to_x: "bg"; to_y: "swallow.title_box"; }
+    				rel2 { relative: 1.0 0.0; to_x: "bg"; to_y: "swallow.entry_box"; }
+    				color: 27 54 87 255;
+    			}
+    		}
+     		part{
+    			name: "swallow.entry_box";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				min: WIN_WIDTH 100;
+    				max: WIN_WIDTH 100;
+    				fixed: 1 1;
+    				align: 0 1;
+    				rel1 { relative: 0.0 1.0; to: "bg"; }
+    				rel2 { relative: 1.0 1.0; to: "bg"; }
+    				color: 50 100 255 255;
+    			}
+    		}
+    	}    	
+    }
+    
+    
+    group
+    {
+    	name: "full_screen";
+    	parts{
+    		part{
+    			name:"swallow.fullscreen";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				min: 30 30;
+					max: 30 30;	
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    			}
+    		}
+    	}
+    }
+    
+	
+	group
+    {
+    	name: "chat_entry_box";
+    	parts{
+    	    part {
+				name: "bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					color: 255 255 255 255;
+				}
+		   }  
+    	   part {
+				name: "layout_divider,bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 0.01; }
+					color: 61 185 204 255;
+				}
+			}  
+    		part{
+    		    name: "swallow.smiely_icon";    			
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.05 0.2; }
+    				rel2 { relative: 0.15 0.92; }
+    			}
+    		}
+   		
+   		    part {
+				name: "swallow.text_entry,bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.97; to, "swallow.text_entry"; }
+					rel2 { relative: 1.0 1.0; to, "swallow.text_entry"; }
+					color: 0 0 255 255;
+				}
+			}  
+   		
+    		part{
+    			name: "swallow.text_entry";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.16 0.1; }
+    				rel2 { relative: 0.74 0.9; }
+    			}
+    		}
+    		part{
+    			name: "swallow.attach_icon";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.75 0.2; }
+    				rel2 { relative: 0.85 0.92; }
+    			}
+    		}
+    		part{
+    			name: "swallow.send_icon";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.87 0.1; }
+    				rel2 { relative: 0.97 0.97; }
+    			}
+    		}
+    	}
+    }
+    
+    group
+    {
+    	name: "custom_gen_list";
+    	parts{
+    		part {
+    			name: "swallow.gen_list.bg";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    				color: 0 0 0 0;
+    			}
+    		}
+    		part{
+    			name: "swallow.gen_list";
+    			type:SWALLOW;
+    			scale: 1;
+    			description{
+    				state: "default" 0.0;
+    				align: 0 0;
+    				rel1 { relative: 0.0 0.0; to: "swallow.gen_list.bg"; }
+    				rel2 { relative: 1.0 1.0; to: "swallow.gen_list.bg"; }
+    				color: 50 23 55 255;
+    			}
+    		}
+    	}
+    }
+    
+group
+{
+	name: "message_title_box";
+	parts{
+
+		part{
+			name: "swallow.profile_pic";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.01 0.1; }
+				rel2 { relative: 0.1 0.9; }
+				min: 60 60;
+				max: 60 60;			
+			}    	   			
+		}
+
+		part{
+			name: "swallow.profile_name";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.1 0.1; }
+				rel2 { relative: 0.8 0.5; }    				
+			}    	   			
+		}
+		part{
+			name: "swallow.profile_time";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.1 0.5; }
+				rel2 { relative: 0.8 1.0; }    				
+			}    	   			
+		}         	
+	}
+}
+
+	images {
+		image: "bubble_sent_bg.#.png" COMP;
+		image: "msg_in_photo.9.png" COMP;
+		image: "msg_out_photo.9.png" COMP;
+	}
+
+
+group
+{
+	name: "chat_media_send_box";
+	parts{
+		part {
+			name: "chat_send_bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; to, "swallow.chat_send_image"; }
+				rel2 { relative: 1.0 1.0; to, "swallow.chat_send_image"; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "chat_send_image";
+			type:IMAGE;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: -0.1 -0.1; to, "chat_send_bg"; }
+				rel2 { relative: 1.1 1.1; to, "chat_send_bg"; }
+				image {
+				    border: 10 10 20 20;  				    
+					normal: "msg_out_photo.9.png";
+				}				
+			}
+		}
+		part{
+			name: "swallow.chat_send_image";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; }
+				rel2 { relative: 0.6 1.0; }
+				color: 0 0 0 0;
+			}
+		}				
+	}
+}
+
+group
+{
+	name: "chat_send_image_box";
+	parts{
+		part{
+			name: "swallow.chat_sender_name";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.02; }
+				rel2 { relative: 0.9 0.12; }
+				color: 0 0 0 0;
+			}
+		}	
+		part{
+			name: "swallow.chat_send_image";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.15; }
+				rel2 { relative: 1.0 0.85; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "swallow.chat_send_time";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.7 0.88; }
+				rel2 { relative: 1.0 1.0; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "status_icon";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.55 0.88; }
+				rel2 { relative: 0.65 0.98; }
+				color: 0 0 0 0;
+			}
+		}					
+	}
+}
+
+    
+group
+{
+	name: "list_image_send_item";
+	parts{
+	    part{
+			name: "bg";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.0 0.0; }
+				rel2 { relative: 1.0 1.0; }
+				color: 225 237 241 255;
+			}    	   			
+		}
+		part{
+			name: "top_spacer";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.4 0.0; }
+				rel2 { relative: 1.0 0.1; }
+				color: 0 0 0 0;
+			}    	   			
+		}
+	
+		part{
+			name: "swallow.img_bg";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				min: WIN_WIDTH/2 100;
+    			max: WIN_WIDTH/2 100;
+				rel1 { 
+					relative: 0.4 0.1; 
+				}
+				rel2 { 
+					relative: 0.9 0.9;
+				}
+				color: 0 0 0 0;
+			}    	   			
+		}
+		part{
+			name: "bottom_spacer";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.4 0.9; }
+				rel2 { relative: 1.0 1.0; }
+				color: 0 0 0 0;
+			}    	   			
+		}
+		part{
+			name: "right_spacer";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.9 0.0; }
+				rel2 { relative: 1.0 1.0; }
+				color: 0 0 0 0;
+			}    	   			
+		}
+	}
+}
+
+
+group
+{
+	name: "chat_media_recv_box";
+	parts{
+		part {
+			name: "chat_send_bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; to, "swallow.chat_send_image"; }
+				rel2 { relative: 1.0 1.0; to, "swallow.chat_send_image"; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "chat_send_image";
+			type:IMAGE;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: -0.1 -0.1; to, "chat_send_bg"; }
+				rel2 { relative: 1.1 1.1; to, "chat_send_bg"; }
+				image {
+				    border: 10 10 20 20;    				    
+					normal: "msg_in_photo.9.png";
+				}
+			}
+			description {
+				state: "img_bg" 0.0;
+				inherit: "default" 0.0;
+				rel1 { to: "swallow.chat_send_image"; offset: -3 -3; }
+				rel2 { to: "swallow.chat_send_image"; offset: 3 3; }
+			}
+		}
+		part{
+			name: "swallow.chat_send_image";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; }
+				rel2 { relative: 0.6 1.0; }
+			}
+		}				
+	}
+	programs {
+		program {
+			name: "change.bg.img";
+			source: "chat_send_image";
+			signal: "chagne.bg.img";
+			action: STATE_SET "img_bg" 0.0;
+			target: "chat_send_image";
+		}
+		program {
+			name: "change.bg.text";
+			source: "chat_send_image";
+			signal: "chagne.bg.text";
+			action: STATE_SET "default" 0.0;
+			target: "chat_send_image";
+		}
+	}
+}
+	
+images {
+	image: "ic_attach_download.png" COMP;
+}
+
+
+
+group
+{
+	name: "chat_recv_image_box";
+	parts{
+		part{
+			name: "swallow.chat_sender_name";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.02; }
+				rel2 { relative: 0.9 0.12; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "swallow.chat_recv_image";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.15; }
+				rel2 { relative: 1.0 0.85; }
+			}
+		}
+		
+		part{
+			name: "swallow.chat_recv_time";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.7 0.88; }
+				rel2 { relative: 1.0 1.0; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "status_icon";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.55 0.88; }
+				rel2 { relative: 0.65 0.98; }
+				color: 0 0 0 0;
+			}
+		}	
+	}
+}
+
+group
+{
+	name: "chat_recv_image_info_box";
+	parts{
+	    part{
+			name: "swallow.chat_recv_image,size";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.1 0.1; }
+				rel2 { relative: 0.7 0.9; }
+				color: 255 0 0 255;
+			}
+		}
+		part{
+			name: "swallow.chat_recv_image,download";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.8 0.1; }
+				rel2 { relative: 1.0 0.9; }
+			}
+		}
+		part{
+			name: "swallow.chat_recv_image,progress";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.4 0.1; }
+				rel2 { relative: 0.7 0.9; }
+				color: 255 0 0 255;
+			}
+		}
+	}
+}
+
+group
+{
+	name: "list_image_recv_item";
+	parts{
+		part{
+			name: "bg";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.0 0.0; }
+				rel2 { relative: 1.0 1.0; }
+				color: 225 237 241 255;
+			}    	   			
+		}
+		part{
+			name: "top_spacer";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.1 0.0; }
+				rel2 { relative: 1.1 0.1; }
+				color: 0 0 0 0;
+			}    	   			
+		}
+		
+		part{
+			name: "swallow.img_bg";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				min: WIN_WIDTH/2 100;
+    			max: WIN_WIDTH/2 100;
+				rel1 { 
+					relative: 0.1 0.1; 
+				}
+				rel2 { 
+					relative: 1.1 0.9;
+				}
+				color: 0 0 0 0;
+			}    	   			
+		}
+		
+		part{
+			name: "swallow.image_info";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.3 0.45; }
+				rel2 { relative: 0.5 0.65; }
+				color: 0 0 255 255;
+			}
+		}
+			
+		part{
+			name: "bottom_spacer";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 0.1 0.9; }
+				rel2 { relative: 1.1 1.0; }
+				color: 0 0 0 0;
+			}    	   			
+		}
+		part{
+			name: "right_spacer";
+			type:RECT;
+			description{
+				state: "default" 0.0;				
+				rel1 { relative: 1.0 0.0; }
+				rel2 { relative: 1.1 1.0; }
+				color: 0 0 0 0;
+			}    	   			
+		}
+	}
+}
+
+
+
+group
+{
+	name: "chat_image_send_box";
+	parts{
+		part {
+			name: "bg";
+			type: RECT;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 0.0 0.0; to, "swallow.send_image"; }
+				rel2 { relative: 1.0 1.0; to, "swallow.send_image"; }
+				color: 0 0 0 0;
+			}
+		}
+		part{
+			name: "send_image_bg";
+			type:IMAGE;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: -0.1 -0.1; to, "bg"; }
+				rel2 { relative: 1.1 1.1; to, "bg"; }
+				image {
+				    border: 20 50 20 50;    				    
+					normal: "msg_out_photo.9.png";
+				}
+			}
+		}
+		part{
+			name: "swallow.send_image";
+			type:SWALLOW;
+			description{
+				state: "default" 0.0;
+				rel1 { relative: 0.2 0.2; }
+				rel2 { relative: 0.8 0.8; }
+			}
+		}				
+	}
+}
+
+
+	group { 
+	  name: circle_item;
+      parts {
+         part { 
+            name: masking;
+            type: IMAGE;
+            precise_is_inside: 1;
+            description { 
+               state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               image.normal: camera_btn_gallery_mask.png;
+            }
+         }
+         part {
+            name: content_bg;
+            type: RECT;
+            clip_to: masking;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 0 255 0 255;
+            }
+         }
+         
+         part {
+            name: content;
+            type: SWALLOW;
+            clip_to: masking;
+            description {
+               state: default 0.0;
+               rel1.relative: 0.1 0.1;
+               rel2.relative: 0.9 0.9;
+            }
+         }
+      }
+    }
+    
+    group { 
+	  name: "main_list_status_item";
+      parts {
+         part { 
+            name: "swallow.date";
+            type: SWALLOW;            
+            description { 
+               state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 0.5;
+               color: 255 0 0 255;               
+            }
+         }
+         part {
+            name: "swallow.status";
+            type: SWALLOW;            
+            description {
+               state: default 0.0;
+               min: 50 50;
+               max: 50 50;
+               rel1.relative: 0.0 0.5;
+               rel2.relative: 1.0 1.0;
+               color: 0 255 0 255;
+            }
+         }
+ 
+      }
+    }
+    
+   group { 
+	  name: "main_list_name_status_item";
+      parts {
+         part { 
+            name: "swallow.name";
+            type: SWALLOW;            
+            description { 
+               state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 0.5;
+               color: 255 0 0 255;               
+            }
+         }
+         part {
+            name: "swallow.status";
+            type: SWALLOW;            
+            description {
+               state: default 0.0;
+               rel1.relative: 0.0 0.5;
+               rel2.relative: 1.0 1.0;
+               color: 0 255 0 255;
+            }
+         }
+ 
+      }
+    }
+
+	
+}

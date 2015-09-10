@@ -177,6 +177,8 @@ Eina_List* get_group_chat_details();
 
 Eina_List* get_all_peer_details();
 
+void insert_or_update_peer_into_database(tg_peer_info_s* UC);
+
 void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id);
 void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int height, int size);
 
@@ -185,5 +187,7 @@ Eina_List* get_image_sizes_from_db(long long media_id);
 
 tg_message_s* get_latest_message_from_message_table(char* table_name);
 int get_unread_message_count(char* table_name);
+
+extern void update_msg_into_db(tg_message_s *M, char* table_name);
 
 #endif /* TG_DB_WRAPPER_H_ */

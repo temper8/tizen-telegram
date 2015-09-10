@@ -266,7 +266,7 @@ void on_connection_type_changed_cb(connection_type_e type, void *user_data)
 	if (tg_data->is_network_connected && !tg_data->is_login_activated) {
 
 		if (!tg_data->lazy_init_idler) {
-			tg_data->lazy_init_idler = ecore_idler_add(event_idler_cb, NULL);
+			tg_data->lazy_init_idler = ecore_idler_add(event_idler_cb, tg_data);
 		}
 	}
 }

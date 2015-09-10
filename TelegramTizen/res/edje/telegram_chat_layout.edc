@@ -1,0 +1,58 @@
+collections {
+   
+
+group    {
+   name: "chat_messaging_layout";
+   parts{
+      part{
+         name: "swallow.title_box";
+         type:SWALLOW;
+         scale: 1;
+         description{
+            state: "default" 0.0;
+            min: 254 100;
+            fixed: 1 1;
+            rel1 {
+               relative: 0.0 0.0;
+            }
+            rel2 {
+               relative: 1.0 0.1;
+            }
+            color: 50 23 55 255;
+         }
+      }
+      part{
+         name: "swallow.chat_box";
+         type:RECT;
+         description{
+            state: "default" 0.0;
+            rel1 {
+               relative: 0.0 0.1;
+            }
+            rel2 {
+               relative: 1.0 0.85;
+            }
+            color: 27 54 87 255;
+         }
+      }
+      part{
+         name: "swallow.entry_box";
+         type:SWALLOW;
+            scale: 1;;
+         description{
+            state: "default" 0.0;
+               min: 254 100;;
+            fixed: 1 1;
+            rel1 {
+               relative: 0.0 0.85;
+            }
+            rel2 {
+               relative: 1.0 1.0;
+            }
+            color: 50 100 255 255;
+         }
+      }
+   }
+}
+
+}

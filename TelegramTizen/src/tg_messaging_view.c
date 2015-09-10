@@ -85,6 +85,28 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 		if (msg) {
 
+			peer_with_pic_s* pic_peer_item = ad->peer_in_cahtting_data;
+			if (pic_peer_item) {
+				tg_peer_info_s* peer_item = pic_peer_item->use_data;
+				// update peer table
+				if (peer_item) {
+					peer_item->last_msg_id = msg->msg_id;
+					peer_item->last_msg_date =  msg->date;
+					insert_or_update_peer_into_database(peer_item);
+				}
+			}
+
+			if (msg->out) {
+
+			} else {
+				// update un read
+				if (msg->unread) {
+					msg->unread = 0;
+
+					update_msg_into_db(msg, tablename);
+
+				}
+			}
 
 			if (msg->media_type == tgl_message_media_photo) {
 
@@ -169,7 +191,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 									sizeof(res), format);
 						}
 
-						char time_str[20] = {0,};
+						char time_str[20]={0,};
 						snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 
 						char temp_time[256] = {0,};
@@ -665,6 +687,7 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
 
 	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->user_id.id, sel_item->use_data->user_id.type);
+	ad->is_last_msg_changed = EINA_TRUE;
 }
 
 
@@ -842,6 +865,18 @@ void on_text_message_state_changed(appdata_s* ad, tg_message_s *msg, int type_of
 	if (!ad)
 		return;
 
+
+	peer_with_pic_s* pic_peer_item = ad->peer_in_cahtting_data;
+	if (pic_peer_item) {
+		tg_peer_info_s* peer_item = pic_peer_item->use_data;
+		// update peer table
+		if (peer_item) {
+			peer_item->last_msg_id = msg->msg_id;
+			peer_item->last_msg_date =  msg->date;
+			insert_or_update_peer_into_database(peer_item);
+		}
+	}
+
 	if (ad->loaded_msg_list && eina_list_count(ad->loaded_msg_list) > 0) {
 		for (int i = eina_list_count(ad->loaded_msg_list) - 1 ; i >= 0; i--) {
 			Evas_Object* entry = eina_list_nth(ad->loaded_msg_list, i);
@@ -926,6 +961,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	Elm_Object_Item* item = elm_genlist_item_append(chat_list, &itc, (void *)unique_id, NULL, ELM_GENLIST_ITEM_NONE, on_text_message_clicked, (void*)unique_id);
 	elm_genlist_item_show(item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
 	elm_entry_entry_set(text_entry, "");
+	ad->is_last_msg_changed = EINA_TRUE;
 }
 
 
@@ -1242,12 +1278,10 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 		return;
 
 	ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
+	ad->is_last_msg_changed = EINA_FALSE;
 
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
-
-
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
@@ -1264,7 +1298,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
 	user_data_s* user = sel_item->use_data;
-	Evas_Object *profile_pic;
+	Evas_Object *profile_pic = NULL;
 	if (user->photo_path && strcmp(user->photo_path, "") != 0) {
 		profile_pic = create_image_object_from_file(user->photo_path, layout);
 	} else {

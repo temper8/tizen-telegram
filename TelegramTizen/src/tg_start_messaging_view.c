@@ -24,6 +24,7 @@ static void on_new_msg_menu_item_selected(void *data, Evas_Object *obj, void *ev
 	// int index = (int)data;
 }
 
+
 static char* on_new_msg_menu_item_name_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 		if (!strcmp(part,"elm.text"))
@@ -112,12 +113,21 @@ static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	user_data_with_pic_s* sel_item = eina_list_nth(ad->buddy_list, item_id);
-
 	ad->buddy_in_cahtting_data = sel_item;
 
-	launch_messaging_view_cb(ad, item_id);
-	//launch_buddy_chat_view_cb(ad, item_id);
 
+	for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
+		peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
+		tg_peer_info_s* item = pic_item->use_data;
+
+		if (item->peer_id == sel_item->use_data->user_id.id) {
+			ad->peer_in_cahtting_data = pic_item;
+			break;
+		}
+	}
+
+	elm_naviframe_item_pop(ad->nf);
+	launch_messaging_view_cb(ad, item_id);
 }
 
 char* on_buddy_list_name_requested(void *data, Evas_Object *obj, const char *part)
@@ -232,6 +242,8 @@ void launch_start_messaging_view(appdata_s* ad)
 		return;
 
 	ad->current_app_state = TG_START_MESSAGING_VIEW_STATE;
+	ad->buddy_in_cahtting_data = NULL;
+	ad->peer_in_cahtting_data = NULL;
 
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);

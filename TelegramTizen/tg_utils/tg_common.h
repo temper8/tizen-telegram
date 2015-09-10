@@ -261,17 +261,17 @@ typedef enum MESSAGE_STATE {
 
 typedef struct user_data {
 	tgl_peer_id_t user_id;
-	char *print_name;
+	char* print_name;
 	int structure_version;
-	char *photo_path;
+	char* photo_path;
 	int photo_id;
-	char *first_name;
-	char *last_name;
-	char *phone;
+	char* first_name;
+	char* last_name;
+	char* phone;
 	int access_hash;
-	char *real_first_name;
-	char *real_last_name;
-	char *username;
+	char* real_first_name;
+	char* real_last_name;
+	char* username;
 	int online;
 	int last_seen;
 	Eina_Bool is_selected;
@@ -368,6 +368,7 @@ typedef struct tg_main_list_item {
 	int peer_id;
 	int peer_type;
 	char* last_message;
+	int last_msg_id;
 	int last_msg_status;
 	int last_msg_type;
 	int number_of_unread_msgs;
@@ -375,6 +376,10 @@ typedef struct tg_main_list_item {
 	Eina_Bool is_out_msg;
 	char* profile_pic_path;
 	Evas_Object* profile_pic;
+	Evas_Object* user_name_lbl;
+	Evas_Object* status_lbl;
+	Evas_Object* date_lbl;
+	Evas_Object* msg_status_lbl;
 } tg_main_list_item_s;
 
 typedef struct appdata {
@@ -398,13 +403,14 @@ typedef struct appdata {
 	tgl_peer_id_t user_id;
 	state_of_app_s current_app_state;
 	user_data_s current_user_data;
-	//tg_peer_info_s* buddy_in_cahtting_data;
+	peer_with_pic_s* peer_in_cahtting_data;
 	user_data_with_pic_s* buddy_in_cahtting_data;
 	Eina_Bool is_network_connected;
 	service_client* service_client;
 	Eina_Bool is_first_time_registration;
 	Eina_List* loaded_msg_list;
 	int timer_value;
+	Eina_Bool is_last_msg_changed;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
@@ -415,6 +421,7 @@ extern void create_buddy_msg_table(const char* table_name);
 extern void load_buddy_list_data(appdata_s *ad);
 extern void load_group_chat_data(appdata_s *ad);
 extern void load_peer_data(appdata_s *ad);
+extern void load_main_list_data(appdata_s *ad);
 
 #if 0
 static char *trim(char *s) {
