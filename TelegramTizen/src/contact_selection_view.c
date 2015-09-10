@@ -160,13 +160,19 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 
 Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj, const char *part)
 {
-
 	Evas_Object *eo = NULL;
+	appdata_s *ad;
+	int id;
+
+	id = (int)data;
+
+	ad = evas_object_data_get(obj, "app_data");
+	if (!ad) {
+		return NULL;
+	}
 
 	if (!strcmp(part, "elm.swallow.icon")) {
 		Evas_Object *image = NULL;
-		int id = (int) data;
-		appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 		if (id == 0 && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
 			return eo;
@@ -175,7 +181,7 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, id - 1);
 		user_data_s* user = item->use_data;
 
-		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
+		if (user->photo_path && strcmp(user->photo_path, " ") != 0) {
 			image = create_image_object_from_file(user->photo_path, obj);
 		} else {
 			image = create_image_object_from_file(ui_utils_get_resource(FM_ICON_ROBO_BUDDY), obj);
@@ -190,8 +196,6 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 			elm_layout_content_set(eo, "elm.swallow.content", image);
 		}
 	} else if (!strcmp(part, "elm.swallow.end")) {
-		int id = (int) data;
-		appdata_s* ad = evas_object_data_get(obj, "app_data");
 		if (id == 0 && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
 
 			Eina_Bool all_items_selected = (Eina_Bool)evas_object_data_get(obj, "all_selected");
@@ -223,7 +227,6 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 		evas_object_data_set(check, "buddy_gen_list", obj);
 		evas_object_smart_callback_add(check, "changed", on_item_checkbox_sel_cb, data);
 		elm_layout_content_set(eo, "elm.swallow.content", check);
-		return eo;
 	} else {
 
 	}
