@@ -337,7 +337,7 @@ static void on_buddy_clicked(void *data, Evas_Object *obj, void *event_info)
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 
-	int item_id = (int) data;
+	int item_id = (int)data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	peer_with_pic_s *sel_item = eina_list_nth(ad->peer_list, item_id);
@@ -356,13 +356,19 @@ void on_search_clicked(void *data, Evas_Object *obj, void *event_info)
 void left_panel_button_clicked_cb(void *data, Evas_Object * obj, void *event_info)
 {
 	appdata_s *ad = data;
-	if (!elm_object_disabled_get(ad->panel)) elm_panel_toggle(ad->panel);
+
+	if (!elm_object_disabled_get(ad->panel)) {
+		elm_panel_toggle(ad->panel);
+	}
 }
 
 void buddylist_naviframe_more_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
-	if (!elm_object_disabled_get(ad->panel)) elm_panel_toggle(ad->panel);
+
+	if (!elm_object_disabled_get(ad->panel)) {
+		elm_panel_toggle(ad->panel);
+	}
 }
 
 void refresh_buddy_list(void *data)
@@ -370,6 +376,16 @@ void refresh_buddy_list(void *data)
 	appdata_s* ad = data;
 	Evas_Object *buddy_list = evas_object_data_get(ad->nf, "buddy_list");
 	if (buddy_list) {
+		int i = 0;
+		int size;
+		Eina_List *l;
+		static Elm_Genlist_Item_Class itc = {
+			.item_style = "double_label",
+			.func.text_get = on_list_text_get_cb,
+			.func.content_get = on_list_content_get_cb,
+			.func.state_get = NULL,
+			.func.del = NULL,
+		};
 
 		elm_genlist_clear(buddy_list);
 
@@ -377,15 +393,7 @@ void refresh_buddy_list(void *data)
 		load_group_chat_data(ad);
 		load_peer_data(ad);
 
-		int i = 0;
-		static Elm_Genlist_Item_Class itc;
-		itc.item_style = "double_label";
-		itc.func.text_get = on_list_text_get_cb;
-		itc.func.content_get = on_list_content_get_cb;
-		itc.func.state_get = NULL;
-		itc.func.del = NULL;
-
-		int size = eina_list_count(ad->peer_list);
+		size = eina_list_count(ad->peer_list);
 		if(size > 0) {
 			for (i = 0; i < size; i++) {
 				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_clicked, (void*) i);
@@ -395,49 +403,44 @@ void refresh_buddy_list(void *data)
 			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_clicked, (void*) i);
 		}
 		evas_object_show(buddy_list);
-
 	}
 }
 
 void launch_buddy_list_cb(void *data)
 {
+	int i;
+	Evas_Object *buddy_list;
 	appdata_s* ad = data;
-
 	Evas_Object *nf = ad->nf;
 	Elm_Object_Item* detail_nav_item = NULL;
+	int size;
+	static Elm_Genlist_Item_Class itc = {
+		.item_style = "double_label",
+		.func.text_get = on_list_text_get_cb,
+		.func.content_get = on_list_content_get_cb,
+		.func.state_get = NULL,
+		.func.del = NULL,
+	};
 
 	ad->current_app_state = TG_BUDDY_LIST_STATE;
 	elm_layout_theme_set(ad->layout, "layout", "drawer", "panel");
 	create_main_view(ad);
-
-	int i;
-	static Elm_Genlist_Item_Class itc;
-	Evas_Object *buddy_list = NULL;
 
 	buddy_list = elm_genlist_add(nf);
 	elm_list_mode_set(buddy_list, ELM_LIST_COMPRESS);
 	elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
-
-
 	evas_object_data_set(buddy_list, "app_data", ad);
 
-	itc.item_style = "double_label";
-	itc.func.text_get = on_list_text_get_cb;
-	itc.func.content_get = on_list_content_get_cb;
-	itc.func.state_get = NULL;
-	itc.func.del = NULL;
-
-	int size = eina_list_count(ad->peer_list);
-
+	size = eina_list_count(ad->peer_list);
 	if(size > 0) {
 		for (i = 0; i < size; i++) {
-			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_clicked, (void*) i);
+			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_clicked, (void *)i);
 		}
 	} else {
 		i = 1;
-		elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_clicked, (void*) i);
+		elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_clicked, (void *)i);
 	}
 
 	evas_object_show(buddy_list);
@@ -465,5 +468,4 @@ void launch_buddy_list_cb(void *data)
 	evas_object_data_set(nf, "buddy_list", buddy_list);
 
 	eext_object_event_callback_add(nf, EEXT_CALLBACK_MORE, buddylist_naviframe_more_cb, ad);
-
 }

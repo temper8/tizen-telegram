@@ -1480,6 +1480,7 @@ app_create(void *data)
 	ad->loaded_msg_list = NULL;
 	create_base_gui(ad);
 	init_service(ad);
+
 	return true;
 }
 

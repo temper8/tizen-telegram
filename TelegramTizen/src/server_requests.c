@@ -145,8 +145,7 @@ void send_request_for_validation(service_client* service_client, const char* sms
 void send_request_for_marked_as_read(service_client* service_client, const int buddy_id, const int type_of_chat)
 {
 	bundle *msg;
-	char type_of_chat_str[50];
-	char buddy_id_str[50];
+	char tmp[50];
 	int result;
 
 	if (!service_client) {
@@ -171,16 +170,16 @@ void send_request_for_marked_as_read(service_client* service_client, const int b
 		return;
 	}
 
-	snprintf(buddy_id_str, sizeof(buddy_id_str) - 1, "%d", buddy_id);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
 
-	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	snprintf(type_of_chat_str, sizeof(type_of_chat_str) - 1, "%d", type_of_chat);
-	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0)	{
+	snprintf(tmp, sizeof(tmp) - 1, "%d", type_of_chat);
+	if (bundle_add_str(msg, "type_of_chat", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -195,11 +194,8 @@ void send_request_for_marked_as_read(service_client* service_client, const int b
 
 void send_request_for_message_transport(service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat)
 {
-	char buddy_id_str[50];
+	char tmp[50];
 	bundle *msg;
-	char message_id_str[50];
-	char msg_type_str[10];
-	char type_of_chat_str[50];
 	int result;
 
 	if (!service_client || !data) {
@@ -224,25 +220,25 @@ void send_request_for_message_transport(service_client* service_client, const in
 		return;
 	}
 
-	snprintf(buddy_id_str, sizeof(buddy_id_str), "%d", buddy_id);
+	snprintf(tmp, sizeof(tmp), "%d", buddy_id);
 
-	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	snprintf(message_id_str, sizeof(message_id_str) - 1, "%d", message_id);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", message_id);
 
-	if (bundle_add_str(msg, "message_id", message_id_str) != 0)	{
+	if (bundle_add_str(msg, "message_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	snprintf(msg_type_str, sizeof(msg_type_str) - 1, "%d", msg_type);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", msg_type);
 
-	if (bundle_add_str(msg, "message_type", msg_type_str) != 0)	{
+	if (bundle_add_str(msg, "message_type", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -255,9 +251,9 @@ void send_request_for_message_transport(service_client* service_client, const in
 	}
 
 
-	snprintf(type_of_chat_str, sizeof(type_of_chat_str), "%d", type_of_chat);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", type_of_chat);
 
-	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0)	{
+	if (bundle_add_str(msg, "type_of_chat", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -273,11 +269,7 @@ void send_request_for_message_transport(service_client* service_client, const in
 void send_request_for_media_transport(service_client* service_client, const int buddy_id, const int message_id, const int media_id,  const int msg_type, const char* file_path, const int type_of_chat)
 {
 	bundle *msg;
-	char buddy_id_str[50];
-	char message_id_str[50];
-	char media_id_str[50];
-	char msg_type_str[10];
-	char type_of_chat_str[50];
+	char tmp[50];
 	int result;
 
 	if (!service_client || !file_path) {
@@ -302,32 +294,32 @@ void send_request_for_media_transport(service_client* service_client, const int 
 		return;
 	}
 
-	snprintf(buddy_id_str, sizeof(buddy_id_str) - 1, "%d", buddy_id);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
 
-	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	snprintf(message_id_str, sizeof(message_id_str) - 1, "%d", message_id);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", message_id);
 
-	if (bundle_add_str(msg, "message_id", message_id_str) != 0)	{
+	if (bundle_add_str(msg, "message_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	snprintf(media_id_str, sizeof(media_id_str) - 1, "%d", media_id);
-	if (bundle_add_str(msg, "media_id", media_id_str) != 0)	{
+	snprintf(tmp, sizeof(tmp) - 1, "%d", media_id);
+	if (bundle_add_str(msg, "media_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	sprintf(msg_type_str, "%d", msg_type);
+	sprintf(tmp, "%d", msg_type);
 
-	if (bundle_add_str(msg, "message_type", msg_type_str) != 0)	{
+	if (bundle_add_str(msg, "message_type", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -339,9 +331,9 @@ void send_request_for_media_transport(service_client* service_client, const int 
 		return;
 	}
 
-	snprintf(type_of_chat_str, sizeof(type_of_chat_str) - 1, "%d", type_of_chat);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", type_of_chat);
 
-	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0)	{
+	if (bundle_add_str(msg, "type_of_chat", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -358,8 +350,7 @@ void send_request_for_media_transport(service_client* service_client, const int 
 void send_request_for_image_downloading(service_client* service_client, const int buddy_id, const long long  media_id)
 {
 	bundle *msg;
-	char buddy_id_str[50];
-	char media_id_str[50];
+	char tmp[50];
 	int result;
 
 	if (!service_client) {
@@ -384,16 +375,16 @@ void send_request_for_image_downloading(service_client* service_client, const in
 		return;
 	}
 
-	snprintf(buddy_id_str, sizeof(buddy_id_str) - 1, "%d", buddy_id);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
 
-	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
 
 
-	snprintf(media_id_str, sizeof(media_id_str) - 1, "%lld", media_id);
-	if (bundle_add_str(msg, "media_id", media_id_str) != 0)	{
+	snprintf(tmp, sizeof(tmp) - 1, "%lld", media_id);
+	if (bundle_add_str(msg, "media_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
@@ -409,10 +400,7 @@ void send_contacts_list_to_server(service_client* service_client, Eina_List* con
 {
 	bundle *msg;
 	int count;
-	char count_str[50];
-	char first_name_key[20];
-	char last_name_key[20];
-	char phone_number_key[20];
+	char tmp[50];
 	char *first_name;
 	char *last_name;
 	char *phone_number;
@@ -443,10 +431,9 @@ void send_contacts_list_to_server(service_client* service_client, Eina_List* con
 	}
 
 	count = eina_list_count(contacts_list);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", count);
 
-	snprintf(count_str, sizeof(count_str) - 1, "%d", count);
-
-	if (bundle_add_str(msg, "count", count_str) != 0) {
+	if (bundle_add_str(msg, "count", tmp) != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -475,23 +462,22 @@ void send_contacts_list_to_server(service_client* service_client, Eina_List* con
 			last_name = "";
 		}
 
-		snprintf(first_name_key, sizeof(first_name_key) - 1, "first_name_%d", i);
-		snprintf(last_name_key, sizeof(last_name_key) - 1, "last_name_%d", i);
-		snprintf(phone_number_key, sizeof(phone_number_key) - 1, "phone_number_%d", i);
-
-		if (bundle_add_str(msg, first_name_key, first_name) != 0) {
+		snprintf(tmp, sizeof(tmp) - 1, "first_name_%d", i);
+		if (bundle_add_str(msg, tmp, first_name) != 0) {
 			ERR("Failed to add data by key to bundle");
 			bundle_free(msg);
 			return;
 		}
 
-		if (bundle_add_str(msg, last_name_key, last_name) != 0) {
+		snprintf(tmp, sizeof(tmp) - 1, "last_name_%d", i);
+		if (bundle_add_str(msg, tmp, last_name) != 0) {
 			ERR("Failed to add data by key to bundle");
 			bundle_free(msg);
 			return;
 		}
 
-		if (bundle_add_str(msg, phone_number_key, phone_number) != 0) {
+		snprintf(tmp, sizeof(tmp) - 1, "phone_number_%d", i);
+		if (bundle_add_str(msg, tmp, phone_number) != 0) {
 			ERR("Failed to add data by key to bundle");
 			bundle_free(msg);
 			return;
@@ -515,12 +501,11 @@ void send_group_creation_request_to_server(service_client* service_client, Eina_
 {
 	bundle *msg;
 	int count;
-	char count_str[50];
+	char tmp[50];
 	user_data_with_pic_s *item;
 	user_data_s *contact_data;
 	Eina_List *l;
 	int i;
-	char buddy_id_str[50];
 	char buddy_id_key[20];
 	int result;
 
@@ -547,9 +532,9 @@ void send_group_creation_request_to_server(service_client* service_client, Eina_
 	}
 
 	count = eina_list_count(buddy_list);
-	snprintf(count_str, sizeof(count_str) - 1, "%d", count);
+	snprintf(tmp, sizeof(tmp) - 1, "%d", count);
 
-	if (bundle_add_str(msg, "count", count_str) != 0) {
+	if (bundle_add_str(msg, "count", tmp) != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -563,10 +548,10 @@ void send_group_creation_request_to_server(service_client* service_client, Eina_
 			continue;
 		}
 
-		snprintf(buddy_id_str, sizeof(buddy_id_str) - 1, "%d", contact_data->user_id.id);
+		snprintf(tmp, sizeof(tmp) - 1, "%d", contact_data->user_id.id);
 		snprintf(buddy_id_key, sizeof(buddy_id_key) - 1, "buddy_id_%d", i);
 
-		if (bundle_add_str(msg, buddy_id_key, buddy_id_str) != 0) {
+		if (bundle_add_str(msg, buddy_id_key, tmp) != 0) {
 			ERR("Failed to add data by key to bundle");
 			bundle_free(msg);
 			return;
@@ -574,7 +559,6 @@ void send_group_creation_request_to_server(service_client* service_client, Eina_
 
 		i++;
 	}
-
 
 	if (bundle_add_str(msg, "group_name", group_name) != 0) {
 		ERR("Failed to add data by key to bundle");
