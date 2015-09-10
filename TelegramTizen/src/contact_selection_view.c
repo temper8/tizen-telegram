@@ -194,7 +194,7 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
 		if (id == 0 && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
 
-			Eina_Bool all_items_selected = evas_object_data_get(obj, "all_selected");
+			Eina_Bool all_items_selected = (Eina_Bool)evas_object_data_get(obj, "all_selected");
 
 			eo = elm_layout_add(obj);
 			elm_layout_theme_set(eo, "layout", "list/C/type.2", "default");

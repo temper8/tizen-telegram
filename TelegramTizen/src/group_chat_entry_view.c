@@ -196,14 +196,14 @@ void on_group_chat_done_buton_clicked(void *data, Evas_Object *object, void *eve
 	appdata_s* ad = evas_object_data_get(name_entry, "app_data");
 
 	// Load chat name entry view
-	char* temp_group_name = elm_object_text_get(name_entry);
+	const char *temp_group_name = elm_object_text_get(name_entry);
 	if (!temp_group_name) {
 		elm_object_text_set(name_entry, "");
 		show_toast(ad, "Enter a valid name to group");
 		return;
 	}
 
-	char* group_name = trim(temp_group_name);
+	char *group_name = trim(temp_group_name);
 
 	if (!group_name || strlen(group_name) <= 0) {
 		elm_object_text_set(name_entry, "");

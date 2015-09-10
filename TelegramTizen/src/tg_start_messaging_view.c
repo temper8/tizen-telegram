@@ -21,7 +21,7 @@ static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Ob
 
 static void on_new_msg_menu_item_selected(void *data, Evas_Object *obj, void *event_info)
 {
-	int index = (int)data;
+	// int index = (int)data;
 }
 
 static char* on_new_msg_menu_item_name_get_cb(void *data, Evas_Object *obj, const char *part)
