@@ -516,13 +516,11 @@ static void load_chat_history(appdata_chat_conv_view_s *ad)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
-	Eina_Bool ret = get_values_from_table(db, tablename, col_names, &chat_history_db_callback, NULL, NULL);
+	Eina_Bool ret = get_values_from_table(tablename, col_names, &chat_history_db_callback, NULL, NULL);
 	if(!ret) {
 		//show_toast("DB Error: Failed to load chat");
 	}
 	eina_list_free(col_names);
-	close_database(db);
 	free(tablename);
 #endif
 }

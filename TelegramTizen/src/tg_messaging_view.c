@@ -1100,15 +1100,13 @@ void load_chat_history(Evas_Object* chat_list)
 
 	char* tablename = get_table_name_from_number(buddy_id);
 
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
 
-	Eina_List* vals = get_values_from_table_sync(db, tablename, col_names, col_types, NULL);
-	close_database(db);
+	Eina_List* vals = get_values_from_table_sync(tablename, col_names, col_types, NULL);
 
 	if(!vals) {
 

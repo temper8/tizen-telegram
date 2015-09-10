@@ -1469,6 +1469,9 @@ app_create(void *data)
 	 */
 
 	appdata_s *ad = data;
+
+	tg_db_init();
+
 	ad->phone_number = NULL;
 	ad->buddy_list = NULL;
 	ad->main_list = NULL;
@@ -1507,6 +1510,8 @@ app_terminate(void *data)
 		service_client_destroy(app_data->service_client);
 		app_data->service_client = NULL;
 	}
+
+	tg_db_fini();
 }
 
 static void

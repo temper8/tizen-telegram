@@ -7,20 +7,6 @@
 #include "tg_db_manager.h"
 #include <string.h>
 
-sqlite3* create_database(char* database_name)
-{
-	if(!database_name)
-		return NULL;
-
-	int ret;
-	sqlite3 *db;
-	ret = sqlite3_open(database_name, &db);
-	//ret = sqlite3_open_v2(database_name, &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE, NULL);
-	if(ret) {
-		return NULL;
-	}
-	return db;
-}
 
 Eina_Bool create_table(sqlite3* db, const char* table_name, Eina_List* column_names, Eina_List* column_types)
 {
@@ -431,14 +417,5 @@ Eina_List *get_values_from_table_sync(sqlite3* db, const char* table_name, Eina_
 
 	free(var_query);
 	return query_vals;
-}
-
-Eina_Bool close_database(sqlite3* db)
-{
-	if(db) {
-		sqlite3_close(db);
-		return EINA_TRUE;
-	}
-	return EINA_FALSE;
 }
 
