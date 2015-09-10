@@ -268,6 +268,8 @@ bool service_app_create(void *data)
 {
 	int result;
 
+	tg_db_init();
+
 	tg_data->tg_state = TG_ENGINE_STATE_REGISTRATION;
 	tg_data->phone_number = NULL;
 	tg_data->first_name = NULL;
@@ -388,6 +390,8 @@ void service_app_terminate(void *data)
 		free(tg_data);
 		tg_data = NULL;
 	}
+
+	tg_db_fini();
 	return;
 }
 

@@ -131,11 +131,6 @@ static char* get_downloads_directory (void) {
   return downloads_directory;
 }
 
-static char* get_binlog_file_name(void)
-{
-  return binlog_file_name;
-}
-
 extern void on_user_info_loaded(struct tgl_state *TLSR, void *extra, int success, struct tgl_user *U);
 
 typedef enum TG_ENGINE_STATE {
