@@ -24,6 +24,8 @@ typedef enum MESSAGE_STATE {
 	TG_MESSAGE_STATE_UNKNOWN
 } TG_MESSAGE_STATE;
 
+extern const char *tg_common_to_string(const char *fmt, ...);
+
 //static char* get_table_name_from_number(const char* phone_no)
 static inline char *get_table_name_from_number(const int id)
 {

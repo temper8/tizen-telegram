@@ -496,15 +496,6 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	const char *type;
 	int col;
 
-	char* where_clause = NULL;
-
-	if (wc) {
-		where_clause = (char*)malloc(strlen("WHERE ") + strlen(wc) + 1);
-		strcpy(where_clause, "WHERE ");
-		strcat(where_clause, wc);
-	}
-
-
 	if (!s_info.db || !table_name || !column_names) {
 		return NULL;
 	}
@@ -516,7 +507,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 
 	query_len += strlen(" FROM ");
 	query_len += strlen(table_name) + 1;
-	query_len += (where_clause ? strlen(where_clause) : 0);
+	query_len += (wc ? strlen(wc) + 7 : 0);
 	query_len += 2;
 
 	query = malloc(query_len);
@@ -537,7 +528,10 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		ptr++;
 	}
 
-	ptr += sprintf(ptr, " FROM %s %s;", table_name, where_clause ? where_clause : "");
+	ptr += sprintf(ptr, " FROM %s", table_name);
+	if (wc) {
+		ptr += sprintf(ptr, " WHERE %s", wc);
+	}
 
 	LOGD("Query: %s", query);
 
@@ -546,7 +540,6 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	if (ret != SQLITE_OK) {
 		return NULL;
 	}
-
 
 	while(sqlite3_step(stmt) == SQLITE_ROW) {
 		col = 0;
@@ -600,15 +593,8 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	}
 
 	sqlite3_finalize(stmt);
-
-	if (where_clause) {
-		free(where_clause);
-		where_clause = NULL;
-	}
-
 	return result;
 }
-
 
 int tg_db_init(void)
 {

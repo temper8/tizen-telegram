@@ -348,21 +348,7 @@ struct tgl_secret_chat {
 	long long exchange_key_fingerprint;
 };
 
-typedef union tgl_peer {
-	struct {
-		tgl_peer_id_t id;
-		int flags;
-		struct tgl_message *last;
-		char *print_name;
-		int structure_version;
-		struct tgl_file_location photo_big;
-		struct tgl_file_location photo_small;
-		struct tgl_photo photo;
-	};
-	struct tgl_user user;
-	struct tgl_chat chat;
-	struct tgl_secret_chat encr_chat;
-} tgl_peer_t;
+
 /*
 struct tgl_video {
   long long id;
@@ -487,5 +473,22 @@ struct tgl_message {
 		};
 	};
 };
+
+typedef union tgl_peer {
+	struct {
+		tgl_peer_id_t id;
+		int flags;
+		struct tgl_message *last;
+		char *print_name;
+		int structure_version;
+		struct tgl_file_location photo_big;
+		struct tgl_file_location photo_small;
+		struct tgl_photo photo;
+	};
+	struct tgl_user user;
+	struct tgl_chat chat;
+	struct tgl_secret_chat encr_chat;
+} tgl_peer_t;
+
 #pragma pack(pop)
 #endif

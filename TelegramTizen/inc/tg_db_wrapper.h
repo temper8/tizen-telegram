@@ -163,7 +163,7 @@ Eina_List* get_registered_user_info();
 
 Eina_List* get_buddy_list_info();
 
-Eina_List* get_buddy_info(int buddy_id);
+struct tgl_user* get_buddy_info(int buddy_id);
 
 char* get_profile_pic_path(int buddy_id);
 

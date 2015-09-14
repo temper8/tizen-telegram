@@ -56,6 +56,8 @@ char* get_budy_state(appdata_s* ad, int buddy_id)
 {
 	if (!ad)
 		return NULL;
+
+
 	char time_str[256]={0,};
 	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
 	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {

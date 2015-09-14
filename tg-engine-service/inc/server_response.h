@@ -8,8 +8,6 @@
 #ifndef SERVER_RESPONSE_H_
 #define SERVER_RESPONSE_H_
 
-
-
 extern void process_registration_command(tg_engine_data_s *tg_data, char *phone_no, Eina_Bool trough_sms);
 extern void process_validation_command(tg_engine_data_s *tg_data, char *code);
 extern void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);

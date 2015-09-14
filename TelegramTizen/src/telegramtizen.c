@@ -1,3 +1,4 @@
+#include <errno.h>
 #include "telegramtizen.h"
 #include "tg_splash_screen.h"
 #include "tg_registration.h"
@@ -11,6 +12,7 @@
 #include "tg_user_main_view.h"
 #include "tg_messaging_view.h"
 #include "tg_start_messaging_view.h"
+#include "tg_common.h"
 
 static void
 popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -319,110 +321,136 @@ void load_main_list_data(appdata_s *ad)
 		if (item) {
 			tg_peer_info_s* peer_info = item->use_data;
 			if(peer_info) {
-				//if (peer_info->last_msg_id > 0) {
+				tg_main_list_item_s *list_item;
+				// get message from message table.
+				const char *tablename;
+				//tg_message_s* msg = get_message_from_message_table(peer_info->last_msg_id, tablename);
+				tg_message_s *msg;
 
-					// get message from message table.
+				tablename = tg_common_to_string("tg_%d_msg", peer_info->peer_id);
+				if (!tablename) {
+					ERR("Unable to convert a string for peer_id");
+					return;
+				}
 
-					char* tablename = get_table_name_from_number(peer_info->peer_id);
-					//tg_message_s* msg = get_message_from_message_table(peer_info->last_msg_id, tablename);
-					tg_message_s* msg = get_latest_message_from_message_table(tablename);
+				msg = get_latest_message_from_message_table(tablename);
+				if (!msg) {
+					ERR("Unable to get messages");
+					return;
+				}
 
-					if (msg) {
-						int media_type = msg->media_type;
-						if(media_type == tgl_message_media_none) {
-							if (msg->message && strlen(msg->message) > 0) {
-								item->last_message = strdup(msg->message);
-							} else {
-								item->last_message = strdup(" ");
-							}
-						} else if(media_type == tgl_message_media_photo) {
-							item->last_message = strdup("Image");
-						} else if(media_type == tgl_message_media_document) {
-							item->last_message = strdup("Document");
-						} else if(media_type == tgl_message_media_geo) {
-							item->last_message = strdup("Geo location");
-						} else if(media_type == tgl_message_media_contact) {
-							item->last_message = strdup("Contact");
-						} else if(media_type == tgl_message_media_unsupported) {
-							item->last_message = strdup(" ");
-						} else if(media_type == tgl_message_media_photo_encr) {
-							item->last_message = strdup("Image encrypted");
-						} else if(media_type == tgl_message_media_document_encr) {
-							item->last_message = strdup("Document encrypted");
-						} else  {
-							item->last_message = strdup(" ");
+				switch (msg->media_type) {
+				case tgl_message_media_photo:
+					item->last_message = strdup("Image");
+					break;
+				case tgl_message_media_document:
+					item->last_message = strdup("Document");
+					break;
+				case tgl_message_media_geo:
+					item->last_message = strdup("Geo location");
+					break;
+				case tgl_message_media_contact:
+					item->last_message = strdup("Contact");
+					break;
+				case tgl_message_media_photo_encr:
+					item->last_message = strdup("Image encrypted");
+					break;
+				case tgl_message_media_document_encr:
+					item->last_message = strdup("Document encrypted");
+					break;
+				case tgl_message_media_none:
+					if (msg->message && strlen(msg->message) > 0) {
+						item->last_message = strdup(msg->message);
+						if (item->last_message) {
+							break;
 						}
+						ERR("strdup: %d", errno);
+					}
+					/* Fall through to default in this case */
+				case tgl_message_media_unsupported:
+				default:
+					item->last_message = strdup(" ");
+					break;
+				}
 
-						tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
-						main_list_item->peer_id = peer_info->peer_id;
-						main_list_item->peer_type = peer_info->peer_type;
-						main_list_item->peer_print_name = strdup(peer_info->print_name);
-						main_list_item->last_seen_time = msg->date;
-						main_list_item->profile_pic = NULL;
-						main_list_item->last_msg_id = msg->msg_id;
-						main_list_item->last_message = strdup(item->last_message);
-						main_list_item->last_msg_type = msg->media_type;
-						main_list_item->is_out_msg = msg->out;
-						main_list_item->last_msg_status = msg->msg_state;
-						main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
-						if (peer_info->photo_path) {
-							main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-						} else {
-							main_list_item->profile_pic_path = NULL;
-						}
-						main_list_item->user_name_lbl = NULL;
-						main_list_item->status_lbl = NULL;
-						main_list_item->date_lbl = NULL;
-						main_list_item->msg_status_lbl = NULL;
-						ad->main_list = eina_list_append(ad->main_list, main_list_item);
+				list_item = (tg_main_list_item_s *)malloc(sizeof(*item));
+				if (!list_item) {
+					ERR("Unable to allocate heap for an item");
+					break;
+				}
+				list_item->peer_id = peer_info->peer_id;
+				list_item->peer_type = peer_info->peer_type;
+				list_item->peer_print_name = strdup(peer_info->print_name);
+				if (!list_item->peer_print_name) {
+					free(list_item);
+					ERR("Unable to allocate heap for print_name");
+					break;
+				}
+				list_item->last_seen_time = msg->date;
+				list_item->profile_pic = NULL;
+				list_item->last_msg_id = msg->msg_id;
+				list_item->last_message = strdup(item->last_message);
+				if (!list_item->last_message) {
+					free(list_item->peer_print_name);
+					free(list_item);
+					ERR("Unable to allocate heap for peer_print_name");
+					break;
+				}
+				list_item->last_msg_type = msg->media_type;
+				list_item->is_out_msg = msg->out;
+				list_item->last_msg_status = msg->msg_state;
+				list_item->number_of_unread_msgs = get_unread_message_count(tablename);
+				if (peer_info->photo_path) {
+					list_item->profile_pic_path = strdup(peer_info->photo_path);
+				} else {
+					list_item->profile_pic_path = NULL;
+				}
+				list_item->user_name_lbl = NULL;
+				list_item->status_lbl = NULL;
+				list_item->date_lbl = NULL;
+				list_item->msg_status_lbl = NULL;
+				ad->main_list = eina_list_append(ad->main_list, list_item);
 
-						// delete message object
-						if(msg->message) {
-							free(msg->message);
-							msg->message = NULL;
-						}
+				// delete message object
+				if(msg->message) {
+					free(msg->message);
+					msg->message = NULL;
+				}
 
-						if(msg->media_id) {
-							free(msg->media_id);
-							msg->media_id = NULL;
-						}
+				if(msg->media_id) {
+					free(msg->media_id);
+					msg->media_id = NULL;
+				}
 
-						free(msg);
-						msg = NULL;
+				free(msg);
+				msg = NULL;
 
+			} else {
+				item->last_message = strdup(" ");
+				if (peer_info->peer_type == TGL_PEER_CHAT) {
+					tg_main_list_item_s* item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+					item->peer_id = peer_info->peer_id;
+					item->peer_type = peer_info->peer_type;
+					item->peer_print_name = strdup(peer_info->print_name);
+					item->last_seen_time = peer_info->last_seen_time;
+					item->profile_pic = NULL;
+					item->last_message = strdup(item->last_message);
+					item->last_msg_type = -1;
+					item->is_out_msg = -1;
+					item->last_msg_id = -1;
+					item->last_msg_status = -1;
+					item->number_of_unread_msgs = 0;
+					if (peer_info->photo_path) {
+						item->profile_pic_path = strdup(peer_info->photo_path);
 					} else {
-						item->last_message = strdup(" ");
-						if (peer_info->peer_type == TGL_PEER_CHAT) {
-							tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
-							main_list_item->peer_id = peer_info->peer_id;
-							main_list_item->peer_type = peer_info->peer_type;
-							main_list_item->peer_print_name = strdup(peer_info->print_name);
-							main_list_item->last_seen_time = peer_info->last_seen_time;
-							main_list_item->profile_pic = NULL;
-							main_list_item->last_message = strdup(item->last_message);
-							main_list_item->last_msg_type = -1;
-							main_list_item->is_out_msg = -1;
-							main_list_item->last_msg_id = -1;
-							main_list_item->last_msg_status = -1;
-							main_list_item->number_of_unread_msgs = 0;
-							if (peer_info->photo_path) {
-								main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-							} else {
-								main_list_item->profile_pic_path = NULL;
-							}
-							main_list_item->user_name_lbl = NULL;
-							main_list_item->status_lbl = NULL;
-							main_list_item->date_lbl = NULL;
-							main_list_item->msg_status_lbl = NULL;
-							ad->main_list = eina_list_append(ad->main_list, main_list_item);
-						}
+						item->profile_pic_path = NULL;
 					}
-
-					if (tablename) {
-						free(tablename);
-						tablename = NULL;
-					}
-				//}
+					item->user_name_lbl = NULL;
+					item->status_lbl = NULL;
+					item->date_lbl = NULL;
+					item->msg_status_lbl = NULL;
+					ad->main_list = eina_list_append(ad->main_list, item);
+				}
 			}
 		}
 	}

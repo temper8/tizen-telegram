@@ -920,4 +920,5 @@ typedef struct Buddy {
 
 extern void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max);
 
+extern const char *tg_common_to_string(const char *fmt, ...);
 #endif /* TG_COMMON_H_ */
