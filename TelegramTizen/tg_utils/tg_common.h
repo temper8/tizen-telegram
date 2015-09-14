@@ -235,7 +235,7 @@ typedef enum state_of_app {
 } state_of_app_s;
 
 enum tgl_typing_status {
-	tgl_typing_none = 1,
+	tgl_typing_none = 10001,
 	tgl_typing_typing,
 	tgl_typing_cancel,
 	tgl_typing_record_video,
@@ -371,6 +371,7 @@ typedef struct tg_main_list_item {
 	int last_msg_id;
 	int last_msg_status;
 	int last_msg_type;
+	int last_msg_service;
 	int number_of_unread_msgs;
 	int last_seen_time;
 	Eina_Bool is_out_msg;

@@ -15,5 +15,5 @@ extern void on_text_message_received_from_buddy(appdata_s* ad, long long message
 extern void on_text_message_state_changed(appdata_s* ad, tg_message_s *msg, int type_of_chat);
 extern void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id, const char* file_path);
 extern void on_user_presence_state_changed(appdata_s* ad, int buddy_id);
-
+extern void on_user_status_changed(appdata_s* ad, char* status);
 #endif /* TG_MESSAGING_VIEW_H_ */

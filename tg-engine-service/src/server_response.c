@@ -511,7 +511,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	bundle_free(msg);
 }
 
-void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, long long media_id, const char* filename)
+void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -528,6 +528,14 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 	sprintf(usr_id_str,"%d",buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char to_id_str[50];
+	sprintf(to_id_str,"%d",to_id);
+
+	if (bundle_add_str(msg, "to_peer_id", to_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
@@ -618,6 +626,54 @@ void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id)
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
+	}
+
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+	bundle_free(msg);
+}
+
+void send_buddy_status_notification_response(tg_engine_data_s *tg_data, int buddy_id, char* budy_name, int online)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "user_status_updated") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char usr_id_str[50];
+	sprintf(usr_id_str,"%d",buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "buddy_name", budy_name) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (online) {
+		if (bundle_add_str(msg, "user_status", "online") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else {
+		if (bundle_add_str(msg, "user_status", "offline") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+
 	}
 
 	int result = SVC_RES_FAIL;

@@ -663,7 +663,16 @@ group
 	{
 		name: "group_chat_entry";
     	parts{
-
+    		part{
+    			name: "group_chat_entry_box,bg";
+    			type:RECT;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 0.2; }
+    				color: 255 255 255 255;    				
+    			}
+    		}
     		part{
     			name: "swallow.group_chat_entry_box";
     			type:SWALLOW;
@@ -673,13 +682,33 @@ group
     				rel2 { relative: 1.0 0.2; }    				
     			}
     		}
+    		part {
+		      	name: "contacts_header,bg";
+        		type: RECT;
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.2; }
+            		rel2 { relative: 1.0 0.27; }
+            		color: 96 96 96 255;
+         		}
+      		}
+      		part {
+		      	name: "swallow.contacts_header";
+        		type: SWALLOW;
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.0 0.2; }
+            		rel2 { relative: 1.0 0.27; }
+            		color: 96 96 96 255;
+         		}
+      		}
 	 
     		part{
     			name: "swallow.group_chat_buddy_list_box";
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.2;}
+    				rel1 { relative: 0.0 0.27;}
     				rel2 { relative: 1.0 1.0;}
     				align: 0.5 1.0;
     				fixed: 0.5 1.0;
@@ -689,7 +718,7 @@ group
     		}
     	}   
 	}
-	
+		
 	group
 	{
 		name: "group_chat_photo_name_entry";
@@ -703,28 +732,25 @@ group
     				rel2 { relative: 0.25 0.8; }    				
     			}
     		}
-    		
-    		part {
-				name: "entry_box,border";
-				type: RECT;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.3 0.45; }
-					rel2 { relative: 0.95 0.75; }
-					color: 100 100 100 100;
-				}
-			}
+			
+			part {
+      			name: "entry_box,bg";
+         		type: RECT;            
+         		description {
+      		   		state: "default" 0.0;
+					rel1 { relative: 0.3 0.3; }
+					rel2 { relative: 0.95 0.65; }
+            		color: 222 222 222 222;                	               	
+         		}
+      		}
 		 
     		part{
     			name: "swallow.entry_box";
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.3 0.45;}
-    				rel2 { relative: 0.95 0.75;}
-    				align: 0.5 1.0;
-    				fixed: 0.5 1.0;
-    				min: 0 100;    								
+    				rel1 { relative: 0.3 0.3;}
+    				rel2 { relative: 0.95 0.65;}  								
     				color: 50 100 255 255;
     			}
     		}

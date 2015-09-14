@@ -1257,7 +1257,7 @@ void insert_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 	if (photo_path) {
 		col_values = eina_list_append(col_values, photo_path);
 	} else {
-		col_values = eina_list_append(col_values, " ");
+		col_values = eina_list_append(col_values, "");
 	}
 
 	if(chat_info->title)

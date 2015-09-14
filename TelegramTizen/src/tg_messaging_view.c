@@ -59,7 +59,7 @@ void on_chat_media_item_clicked(void* data, Evas_Object* layout, void* event_inf
 		elm_object_part_content_set(img_info_layout, "swallow.chat_recv_image,progress", progressbar);
 		evas_object_show(progressbar);
 
-		send_request_for_image_downloading(ad->service_client, ad->buddy_in_cahtting_data->use_data->user_id.id, media_id);
+		send_request_for_image_downloading(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, media_id);
 	}
 
 }
@@ -76,8 +76,8 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 		int user_id = (int)evas_object_data_get(chat_list, "user_id");
 		//Evas_Object* text_entry = evas_object_data_set(chat_list, "text_entry");
 
-		user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
-		int buddy_id = sel_item->use_data->user_id.id;
+		peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+		int buddy_id = sel_item->use_data->peer_id;
 
 		char* tablename = get_table_name_from_number(buddy_id);
 		tg_message_s* msg = get_message_from_message_table(message_id, tablename);
@@ -241,7 +241,19 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						if(msg->out) {
 							sender_name = replace(ad->current_user_data.print_name, '_', " ");
 						} else {
-							sender_name = replace(sel_item->use_data->print_name, '_', " ");
+							if (sel_item->use_data->peer_type == TGL_PEER_USER) {
+								sender_name = replace(sel_item->use_data->print_name, '_', " ");
+							} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+								int from_id = msg->from_id;
+								// get name of buddy
+								char* buddy_name = get_buddy_name_from_id(from_id);
+								if (buddy_name) {
+									sender_name = replace(buddy_name, '_', " ");
+									free(buddy_name);
+								}
+							} else {
+								sender_name = replace(sel_item->use_data->print_name, '_', " ");
+							}
 						}
 
 						char temp_name[256] = {0,};
@@ -499,7 +511,19 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						if(msg->out) {
 							sender_name = replace(ad->current_user_data.print_name, '_', " ");
 						} else {
-							sender_name = replace(sel_item->use_data->print_name, '_', " ");
+							if (sel_item->use_data->peer_type == TGL_PEER_USER) {
+								sender_name = replace(sel_item->use_data->print_name, '_', " ");
+							} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+								int from_id = msg->from_id;
+								// get name of buddy
+								char* buddy_name = get_buddy_name_from_id(from_id);
+								if (buddy_name) {
+									sender_name = replace(buddy_name, '_', " ");
+									free(buddy_name);
+								}
+							} else {
+								sender_name = replace(sel_item->use_data->print_name, '_', " ");
+							}
 						}
 
 						char temp_name[256] = {0,};
@@ -556,7 +580,21 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else {
 				elm_layout_theme_set(layout, "layout", "bubble", "readmessage1/default");
 				elm_object_style_set(entry, "readmessage1");
-				sender_name = replace(sel_item->use_data->print_name, '_', " ");
+
+				if (sel_item->use_data->peer_type == TGL_PEER_USER) {
+					sender_name = replace(sel_item->use_data->print_name, '_', " ");
+				} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+					int from_id = msg->from_id;
+					// get name of buddy
+					char* buddy_name = get_buddy_name_from_id(from_id);
+					if (buddy_name) {
+						sender_name = replace(buddy_name, '_', " ");
+						free(buddy_name);
+					}
+				} else {
+					sender_name = replace(sel_item->use_data->print_name, '_', " ");
+				}
+
 			}
 
 			elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
@@ -684,10 +722,11 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	elm_genlist_item_show(item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
 
 	int user_id = (int)evas_object_data_get(chat_list, "user_id");
-	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
+	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->user_id.id, sel_item->use_data->user_id.type);
+	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
 	ad->is_last_msg_changed = EINA_TRUE;
+	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
 }
 
 
@@ -917,7 +956,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	int user_id = (int)evas_object_data_get(chat_list, "user_id");
 	Evas_Object* text_entry = evas_object_data_get(chat_list, "text_entry");
 
-	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
+	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
 	const char* text_to_send = elm_entry_entry_get(text_entry);
 	if (!text_to_send || (strlen(text_to_send) == 0))
@@ -940,7 +979,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	msg.media_id = "";
 	msg.out = 1;
 	msg.service = 0;
-	msg.to_id = sel_item->use_data->user_id.id;
+	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
 
@@ -950,7 +989,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	free(msg_table);
 
 	// send request to service
-	send_request_for_message_transport(ad->service_client, sel_item->use_data->user_id.id, msg.msg_id, tgl_message_media_none, text_to_send, sel_item->use_data->user_id.type);
+	send_request_for_message_transport(ad->service_client, sel_item->use_data->peer_id, msg.msg_id, tgl_message_media_none, text_to_send, sel_item->use_data->peer_type);
 
 	static Elm_Genlist_Item_Class itc;
 	itc.item_style = "entry";
@@ -964,61 +1003,121 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	ad->is_last_msg_changed = EINA_TRUE;
 }
 
+void on_user_status_changed(appdata_s* ad, char* status)
+{
+	if (!ad || !status)
+		return;
+
+	Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
+	char status_str[256]={0,};
+	snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", status);
+	elm_object_text_set(profile_time,status_str);
+}
 
 void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 {
 	if (!ad)
 		return;
+	int type_of_chat = ad->peer_in_cahtting_data->use_data->peer_type;
 
-	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
-	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
-		if (buddy_details && eina_list_count(buddy_details) > 0) {
-			int* temp_online = (int*)eina_list_nth(buddy_details, 12);
-			int is_online = *temp_online;
-			int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
-			int last_seen = *temp_last_seen;
+	if (type_of_chat == TGL_PEER_USER) {
 
-			Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
+		Eina_List* buddy_details_array = get_buddy_info(buddy_id);
+		if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+			Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+			if (buddy_details && eina_list_count(buddy_details) > 0) {
+				int* temp_online = (int*)eina_list_nth(buddy_details, 12);
+				int is_online = *temp_online;
+				int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
+				int last_seen = *temp_last_seen;
 
-			char *format = NULL;
-			Eina_Bool is_today = compare_date_with_current_date(last_seen);
+				Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
 
-			if (is_online > 0) {
-				elm_object_text_set(profile_time,"online");
-			} else {
-				time_t t = last_seen;
+				char *format = NULL;
+				Eina_Bool is_today = compare_date_with_current_date(last_seen);
 
-				if (is_today) {
-					format = "Last seen at Today, %I:%M %P";
+				if (is_online > 0) {
+					char status_str[256]={0,};
+					snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", "online");
+					elm_object_text_set(profile_time,status_str);
 				} else {
-					format = "Last seen at %d/%b/%Y, %I:%M %P";
+					time_t t = last_seen;
+
+					if (is_today) {
+						format = "Last seen Today at %I:%M %P";
+					} else {
+						format = "Last seen %d/%b/%Y at %I:%M %P";
+					}
+
+					struct tm lt;
+					char res[256];
+					(void) localtime_r(&t, &lt);
+
+					if (strftime(res, sizeof(res), format, &lt) == 0) {
+						(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+								"date/time into buffer of size %u "
+								"using: '%s'\n",
+								sizeof(res), format);
+					}
+
+					char time_str[256]={0,};
+					snprintf(time_str, sizeof(time_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", res);
+
+					elm_object_text_set(profile_time,time_str);
 				}
 
-				struct tm lt;
-				char res[256];
-				(void) localtime_r(&t, &lt);
-
-				if (strftime(res, sizeof(res), format, &lt) == 0) {
-					(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-							"date/time into buffer of size %u "
-							"using: '%s'\n",
-							sizeof(res), format);
+				for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
+					void* val = eina_list_nth(buddy_details, i);
+					free(val);
 				}
-
-				char time_str[256]={0,};
-				snprintf(time_str, sizeof(time_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", res);
-
-				elm_object_text_set(profile_time,time_str);
+				eina_list_free(buddy_details);
 			}
-
-			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
-				void* val = eina_list_nth(buddy_details, i);
-				free(val);
-			}
-			eina_list_free(buddy_details);
+			eina_list_free(buddy_details_array);
 		}
-		eina_list_free(buddy_details_array);
+
+	} else if (type_of_chat == TGL_PEER_CHAT) {
+		tg_chat_info_s* chat_info = get_chat_info(buddy_id);
+
+		int user_list_size = chat_info->users_num;
+		int online_members = 0;
+
+		for (int i = 0; i < user_list_size; i++) {
+			int is_online = get_buddy_online_status(chat_info->chat_users[i]);
+			if (is_online > 0) {
+				online_members++;
+			}
+		}
+
+
+		Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
+		if (online_members == 0) {
+			char status_str[256]={0,};
+			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%d members</font_size></font>", user_list_size);
+			elm_object_text_set(profile_time,status_str);
+		} else {
+			char status_str[256]={0,};
+			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%d members, %d online</font_size></font>", user_list_size, online_members);
+			elm_object_text_set(profile_time,status_str);
+		}
+
+
+		if (chat_info) {
+			if(chat_info->print_title) {
+				free(chat_info->print_title);
+				chat_info->print_title = NULL;
+			}
+			if(chat_info->photo_path) {
+				free(chat_info->photo_path);
+				chat_info->photo_path = NULL;
+			}
+			if(chat_info->title) {
+				free(chat_info->title);
+				chat_info->title = NULL;
+			}
+
+		}
+
+
 	}
 }
 
@@ -1066,7 +1165,7 @@ void send_image_message_to_buddy(void *data, const char* file_path)
 	appdata_s* ad = evas_object_data_get(chat_list, "app_data");
 	int user_id = (int)evas_object_data_get(chat_list, "user_id");
 
-	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
+	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
 	int unique_id = time(NULL);
 
@@ -1088,7 +1187,7 @@ void send_image_message_to_buddy(void *data, const char* file_path)
 	msg.media_id = strdup(unique_id_str);
 	msg.out = 1;
 	msg.service = 0;
-	msg.to_id = sel_item->use_data->user_id.id;
+	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
 
@@ -1111,7 +1210,7 @@ void send_image_message_to_buddy(void *data, const char* file_path)
 	free(msg_table);
 
 	// send request to service
-	send_request_for_media_transport(ad->service_client, sel_item->use_data->user_id.id, msg.msg_id, unique_id, tgl_message_media_photo, file_path, TGL_PEER_USER);
+	send_request_for_media_transport(ad->service_client, sel_item->use_data->peer_id, msg.msg_id, unique_id, tgl_message_media_photo, file_path, sel_item->use_data->peer_type);
 
 	static Elm_Genlist_Item_Class itc;
 	itc.item_style = "entry";
@@ -1131,8 +1230,8 @@ void load_chat_history(Evas_Object* chat_list)
 	appdata_s* ad = evas_object_data_get(chat_list, "app_data");
 	int user_id = (int)evas_object_data_get(chat_list, "user_id");
 
-	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
-	int buddy_id = sel_item->use_data->user_id.id;
+	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+	int buddy_id = sel_item->use_data->peer_id;
 
 	char* tablename = get_table_name_from_number(buddy_id);
 
@@ -1296,8 +1395,8 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 
 
-	user_data_with_pic_s *sel_item =  eina_list_nth(ad->buddy_list, user_id);
-	user_data_s* user = sel_item->use_data;
+	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+	tg_peer_info_s* user = sel_item->use_data;
 	Evas_Object *profile_pic = NULL;
 	if (user->photo_path && strcmp(user->photo_path, "") != 0) {
 		profile_pic = create_image_object_from_file(user->photo_path, layout);
@@ -1396,7 +1495,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	//elm_object_content_set(title_scroller, title_layout);
 
-	on_user_presence_state_changed(ad, sel_item->use_data->user_id.id);
+	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
 
 	elm_object_part_content_set(layout, "swallow.title_box", title_layout);
 
@@ -1482,6 +1581,6 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	elm_naviframe_item_simple_push(ad->nf, scroller);
 	load_chat_history(chat_conv_list);
-	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->user_id.id, sel_item->use_data->user_id.type);
+	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
 }
 

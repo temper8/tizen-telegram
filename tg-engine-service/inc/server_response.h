@@ -28,11 +28,12 @@ extern void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, i
 extern void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int type_of_chat);
 extern void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat);
 extern void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat);
-extern void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, long long media_id, const char* filename);
+extern void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);
 extern void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id);
 extern void send_chat_profile_pic_updated_response(tg_engine_data_s *tg_data, int chat_id, char* filename);
 extern void send_contact_updated_response(tg_engine_data_s *tg_data, int buddy_id, char* update_message);
 extern void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id);
 extern void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id);
 extern void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_id, char* budy_name, int type_status);
+extern void send_buddy_status_notification_response(tg_engine_data_s *tg_data, int buddy_id, char* budy_name, int online);
 #endif /* SERVER_RESPONSE_H_ */

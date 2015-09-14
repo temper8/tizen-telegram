@@ -8,6 +8,7 @@
 #include "tg_user_main_view.h"
 #include "tg_start_messaging_view.h"
 #include "tg_messaging_view.h"
+#include "contact_selection_view.h"
 
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
@@ -53,7 +54,13 @@ static Evas_Object* on_menu_item_image_get_cb(void *data, Evas_Object *obj, cons
 
 static void on_menu_item_selected(void *data, Evas_Object *obj, void *event_info)
 {
-	int index __attribute__((unused)) = (int)data;
+	//int index __attribute__((unused)) = (int)data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	int id = (int) data;
+	if (id == 0) {
+		launch_contact_selction_view(ad);
+	}
+
 }
 
 static void on_menu_list_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -146,6 +153,8 @@ Evas_Object* create_side_panel_list(appdata_s* ad, Evas_Object *parent)
 	elm_genlist_mode_set(menu_gen_list, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(menu_gen_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(menu_gen_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
+	evas_object_data_set(menu_gen_list, "app_data", ad);
 
 	static Elm_Genlist_Item_Class itc;
 	itc.item_style = "type1";
@@ -255,11 +264,12 @@ void on_main_chat_item_clicked(void *data, Evas_Object *obj, void *event_info)
 
 	tg_main_list_item_s* sel_item = eina_list_nth(ad->main_list, item_id);
 
-	if (sel_item->peer_type == TGL_PEER_CHAT) {
+/*	if (sel_item->peer_type == TGL_PEER_CHAT) {
 		// to be handled.
 		return;
-	}
-
+	}*/
+	ad->buddy_in_cahtting_data = NULL;
+	ad->peer_in_cahtting_data = NULL;
 	int buddy_id = -1;
 	for (int i = 0; i < eina_list_count(ad->buddy_list); i++) {
 		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
@@ -267,7 +277,6 @@ void on_main_chat_item_clicked(void *data, Evas_Object *obj, void *event_info)
 
 		if (user_data->user_id.id == sel_item->peer_id) {
 			ad->buddy_in_cahtting_data = item;
-			buddy_id = i;
 			break;
 		}
 	}
@@ -278,6 +287,7 @@ void on_main_chat_item_clicked(void *data, Evas_Object *obj, void *event_info)
 
 		if (item->peer_id == sel_item->peer_id) {
 			ad->peer_in_cahtting_data = pic_item;
+			buddy_id = i;
 			break;
 		}
 	}
@@ -411,7 +421,7 @@ Evas_Object* on_buddy_photo_requested(void *data, Evas_Object *obj, const char *
 
 		elm_object_part_content_set(user_status_layout, "swallow.date", time_lbl);
 
-		if (item->is_out_msg) {
+		if (item->is_out_msg && !(item->last_msg_service)) {
 			Evas_Object *status_obj;
 			status_obj = elm_icon_add(obj);
 			evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -509,13 +519,18 @@ Evas_Object* on_buddy_photo_requested(void *data, Evas_Object *obj, const char *
         char status_buf[126] = {'\0'};
         if(len_org_str > 25) {
         	strncpy(res, org_msg, 24);
-        	//snprintf(status_buf, 512, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
-        	sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+        	if(item->last_msg_service) {
+        		sprintf(status_buf,"<font=Tizen:style=Italic color=#158CB0 align=left><font_size=30>%s</font_size></font>", res);
+        	} else {
+        		sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+        	}
         } else {
-        	//snprintf(status_buf, 512, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
-        	sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+        	if(item->last_msg_service) {
+        		sprintf(status_buf, "<font=Tizen:style=Italic color=#158CB0 align=left><font_size=30>%s</font_size></font>", org_msg);
+        	} else {
+        		sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+        	}
         }
-
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);
@@ -541,13 +556,12 @@ Evas_Object* on_buddy_photo_requested(void *data, Evas_Object *obj, const char *
 
 void refresh_main_view_list(appdata_s* ad)
 {
+	load_peer_data(ad);
+	load_main_list_data(ad);
 	Evas_Object *buddy_list = evas_object_data_get(ad->nf, "buddy_list");
 	if (buddy_list) {
 
 		elm_genlist_clear(buddy_list);
-
-		load_peer_data(ad);
-		load_main_list_data(ad);
 
 		int i = 0;
 		static Elm_Genlist_Item_Class itc;
@@ -568,6 +582,48 @@ void refresh_main_view_list(appdata_s* ad)
 		}
 		evas_object_show(buddy_list);
 
+	} else {
+
+		int size = eina_list_count(ad->main_list);
+		if (size > 0) {
+
+			Evas_Object* no_chat_img = evas_object_data_get(ad->nf, "no_chat_image");
+			if(no_chat_img) {
+				evas_object_del(no_chat_img);
+			}
+
+			Evas_Object* bg_box = evas_object_data_get(ad->nf, "main_list_box");
+			if (bg_box) {
+				int i;
+				static Elm_Genlist_Item_Class itc;
+				Evas_Object *buddy_list = elm_genlist_add(ad->nf);
+				elm_list_mode_set(buddy_list, ELM_LIST_COMPRESS);
+				elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
+				evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+				evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+				evas_object_data_set(buddy_list, "app_data", ad);
+
+				itc.item_style = "type1";
+				//itc.func.text_get = on_buddy_name_requested;
+				itc.func.text_get = NULL;
+				itc.func.content_get = on_buddy_photo_requested;
+				itc.func.state_get = NULL;
+				itc.func.del = NULL;
+
+				int size = eina_list_count(ad->main_list);
+				if(size > 0) {
+					for (i = 0; i < size; i++) {
+						elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_main_chat_item_clicked, (void*) i);
+					}
+				} else {
+					i = 1;
+					elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_main_chat_item_clicked, (void*) i);
+				}
+				evas_object_show(buddy_list);
+				elm_box_pack_end(bg_box, buddy_list);
+				evas_object_data_set(ad->nf, "buddy_list", buddy_list);
+			}
+		}
 	}
 }
 
@@ -610,6 +666,9 @@ void launch_user_main_view_cb(appdata_s* ad)
 
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
 		Evas_Object* no_chat_img = create_image_object_from_file(ui_utils_get_resource(TG_NO_CHAT_LIST), layout);
+
+		evas_object_data_set(ad->nf, "no_chat_image", no_chat_img);
+
 		elm_box_pack_end(bg_box, no_chat_img);
 	} else {
 		int i;
@@ -641,7 +700,7 @@ void launch_user_main_view_cb(appdata_s* ad)
 		elm_box_pack_end(bg_box, buddy_list);
 		evas_object_data_set(ad->nf, "buddy_list", buddy_list);
 	}
-
+	evas_object_data_set(ad->nf, "main_list_box", bg_box);
 	/************** no chat item-- *********************/
 
     Evas_Object *pencil_icon = elm_image_add(layout);

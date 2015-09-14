@@ -182,6 +182,9 @@ void load_peer_data(appdata_s *ad)
 					free(item->photo_path);
 					item->photo_path = NULL;
 				}
+				pic_item->contact_icon = NULL;
+				pic_item->msg_object = NULL;
+				pic_item->name_object = NULL;
 				free(item);
 			}
 			free(pic_item);
@@ -305,6 +308,12 @@ void load_main_list_data(appdata_s *ad)
 				free(main_item->profile_pic_path);
 				main_item->profile_pic_path = NULL;
 			}
+			main_item->date_lbl = NULL;
+			main_item->msg_status_lbl = NULL;
+			main_item->profile_pic = NULL;
+			main_item->profile_pic_path = NULL;
+			main_item->status_lbl = NULL;
+			main_item->user_name_lbl = NULL;
 		}
 		eina_list_free(ad->main_list);
 	}
@@ -328,29 +337,39 @@ void load_main_list_data(appdata_s *ad)
 					tg_message_s* msg = get_latest_message_from_message_table(tablename);
 
 					if (msg) {
-						int media_type = msg->media_type;
-						if(media_type == tgl_message_media_none) {
+
+						if (msg->service) {
 							if (msg->message && strlen(msg->message) > 0) {
 								item->last_message = strdup(msg->message);
 							} else {
 								item->last_message = strdup(" ");
 							}
-						} else if(media_type == tgl_message_media_photo) {
-							item->last_message = strdup("Image");
-						} else if(media_type == tgl_message_media_document) {
-							item->last_message = strdup("Document");
-						} else if(media_type == tgl_message_media_geo) {
-							item->last_message = strdup("Geo location");
-						} else if(media_type == tgl_message_media_contact) {
-							item->last_message = strdup("Contact");
-						} else if(media_type == tgl_message_media_unsupported) {
-							item->last_message = strdup(" ");
-						} else if(media_type == tgl_message_media_photo_encr) {
-							item->last_message = strdup("Image encrypted");
-						} else if(media_type == tgl_message_media_document_encr) {
-							item->last_message = strdup("Document encrypted");
-						} else  {
-							item->last_message = strdup(" ");
+						} else {
+
+							int media_type = msg->media_type;
+							if(media_type == tgl_message_media_none) {
+								if (msg->message && strlen(msg->message) > 0) {
+									item->last_message = strdup(msg->message);
+								} else {
+									item->last_message = strdup(" ");
+								}
+							} else if(media_type == tgl_message_media_photo) {
+								item->last_message = strdup("Image");
+							} else if(media_type == tgl_message_media_document) {
+								item->last_message = strdup("Document");
+							} else if(media_type == tgl_message_media_geo) {
+								item->last_message = strdup("Geo location");
+							} else if(media_type == tgl_message_media_contact) {
+								item->last_message = strdup("Contact");
+							} else if(media_type == tgl_message_media_unsupported) {
+								item->last_message = strdup(" ");
+							} else if(media_type == tgl_message_media_photo_encr) {
+								item->last_message = strdup("Image encrypted");
+							} else if(media_type == tgl_message_media_document_encr) {
+								item->last_message = strdup("Document encrypted");
+							} else  {
+								item->last_message = strdup(" ");
+							}
 						}
 
 						tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
@@ -364,6 +383,7 @@ void load_main_list_data(appdata_s *ad)
 						main_list_item->last_msg_type = msg->media_type;
 						main_list_item->is_out_msg = msg->out;
 						main_list_item->last_msg_status = msg->msg_state;
+						main_list_item->last_msg_service = msg->service;
 						main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
 						if (peer_info->photo_path) {
 							main_list_item->profile_pic_path = strdup(peer_info->photo_path);
@@ -401,6 +421,7 @@ void load_main_list_data(appdata_s *ad)
 							main_list_item->profile_pic = NULL;
 							main_list_item->last_message = strdup(item->last_message);
 							main_list_item->last_msg_type = -1;
+							main_list_item->last_msg_service = 0;
 							main_list_item->is_out_msg = -1;
 							main_list_item->last_msg_id = -1;
 							main_list_item->last_msg_status = -1;
@@ -851,7 +872,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			} else if (app->current_app_state == TG_BUDDY_LIST_STATE) {
 				app->current_app_state = TG_BUDDY_LIST_STATE;
 				evas_object_show(app->panel);
-				elm_panel_hidden_set(app->panel, EINA_FALSE);
+				//elm_panel_hidden_set(app->panel, EINA_FALSE);
 				////refresh_buddy_list(app);
 			} else {
 
@@ -959,7 +980,16 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			int main_list_size = eina_list_count(app->main_list);
 			for (int i = 0; i < main_list_size; i++) {
 				tg_main_list_item_s* sel_item = eina_list_nth(app->main_list, i);
-				if (sel_item->peer_id == from_id ) {
+
+				int id_to_check;
+				if (type_of_chat == TGL_PEER_USER) {
+					id_to_check = from_id;
+				} else {
+					id_to_check = to_id;
+				}
+
+
+				if (sel_item->peer_id == id_to_check ) {
 
 					// update last message
 
@@ -969,29 +999,38 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 					if (msg) {
 
-						int media_type = msg->media_type;
-						if(media_type == tgl_message_media_none) {
+						if (msg->service) {
 							if (msg->message && strlen(msg->message) > 0) {
 								sel_item->last_message = strdup(msg->message);
 							} else {
 								sel_item->last_message = strdup(" ");
 							}
-						} else if(media_type == tgl_message_media_photo) {
-							sel_item->last_message = strdup("Image");
-						} else if(media_type == tgl_message_media_document) {
-							sel_item->last_message = strdup("Document");
-						} else if(media_type == tgl_message_media_geo) {
-							sel_item->last_message = strdup("Geo location");
-						} else if(media_type == tgl_message_media_contact) {
-							sel_item->last_message = strdup("Contact");
-						} else if(media_type == tgl_message_media_unsupported) {
-							sel_item->last_message = strdup(" ");
-						} else if(media_type == tgl_message_media_photo_encr) {
-							sel_item->last_message = strdup("Image encrypted");
-						} else if(media_type == tgl_message_media_document_encr) {
-							sel_item->last_message = strdup("Document encrypted");
-						} else  {
-							sel_item->last_message = strdup(" ");
+						} else {
+
+							int media_type = msg->media_type;
+							if(media_type == tgl_message_media_none) {
+								if (msg->message && strlen(msg->message) > 0) {
+									sel_item->last_message = strdup(msg->message);
+								} else {
+									sel_item->last_message = strdup(" ");
+								}
+							} else if(media_type == tgl_message_media_photo) {
+								sel_item->last_message = strdup("Image");
+							} else if(media_type == tgl_message_media_document) {
+								sel_item->last_message = strdup("Document");
+							} else if(media_type == tgl_message_media_geo) {
+								sel_item->last_message = strdup("Geo location");
+							} else if(media_type == tgl_message_media_contact) {
+								sel_item->last_message = strdup("Contact");
+							} else if(media_type == tgl_message_media_unsupported) {
+								sel_item->last_message = strdup(" ");
+							} else if(media_type == tgl_message_media_photo_encr) {
+								sel_item->last_message = strdup("Image encrypted");
+							} else if(media_type == tgl_message_media_document_encr) {
+								sel_item->last_message = strdup("Document encrypted");
+							} else  {
+								sel_item->last_message = strdup(" ");
+							}
 						}
 						sel_item->last_msg_id = msg->msg_id;
 						sel_item->last_msg_type = msg->media_type;
@@ -1022,11 +1061,17 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 					        char status_buf[126] = {'\0'};
 					        if(len_org_str > 25) {
 					        	strncpy(res, org_msg, 24);
-					        	//snprintf(status_buf, 512, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
-					        	sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+					        	if(msg->service) {
+					        		sprintf(status_buf,"<font=Tizen:style=Italic color=#158CB0 align=left><font_size=30>%s</font_size></font>", res);
+					        	} else {
+					        		sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+					        	}
 					        } else {
-					        	//snprintf(status_buf, 512, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
-					        	snprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        	if(msg->service) {
+					        		sprintf(status_buf, "<font=Tizen:style=Italic color=#158CB0 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        	} else {
+					        		sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        	}
 					        }
 							elm_object_text_set(sel_item->status_lbl, status_buf);
 						}
@@ -1084,20 +1129,19 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 							elm_object_part_content_set(sel_item->msg_status_lbl, "swallow.status", msg_status);
 
 						}
-					}
-					if(msg->message) {
-						free(msg->message);
-						msg->message = NULL;
+						if(msg->message) {
+							free(msg->message);
+							msg->message = NULL;
+						}
+
+						if(msg->media_id) {
+							free(msg->media_id);
+							msg->media_id = NULL;
+						}
+						free(msg);
 					}
 
-					if(msg->media_id) {
-						free(msg->media_id);
-						msg->media_id = NULL;
-					}
 					free(tablename);
-					free(msg);
-
-
 					break;
 				}
 			}
@@ -1107,30 +1151,31 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 
 		if (type_of_chat == TGL_PEER_USER) {
-			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
-					&& app->buddy_in_cahtting_data->use_data->user_id.id == from_id) {
+			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
+					&& app->peer_in_cahtting_data->use_data->peer_id == from_id) {
 				on_text_message_received_from_buddy(app, message_id, type_of_chat);
 			}
 
 		} else if (type_of_chat == TGL_PEER_CHAT) {
-			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
-					&& app->buddy_in_cahtting_data->use_data->user_id.id == to_id) {
+			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
+					&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
 				char* tablename = get_table_name_from_number(to_id);
 				tg_message_s* msg = get_message_from_message_table(message_id, tablename);
 				if (msg) {
 					// To be handled.
-				}
-				if(msg->message) {
-					free(msg->message);
-					msg->message = NULL;
-				}
+					on_text_message_received_from_buddy(app, message_id, type_of_chat);
+					if(msg->message) {
+						free(msg->message);
+						msg->message = NULL;
+					}
 
-				if(msg->media_id) {
-					free(msg->media_id);
-					msg->media_id = NULL;
+					if(msg->media_id) {
+						free(msg->media_id);
+						msg->media_id = NULL;
+					}
 				}
-				free(tablename);
 				free(msg);
+				free(tablename);
 			}
 		}
 
@@ -1154,6 +1199,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			is_success = EINA_TRUE;
 		} else {
 			is_success = EINA_FALSE;
+			show_toast(app, "message sent failed");
 		}
 
 		char* type_of_chat_str = NULL;
@@ -1163,7 +1209,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		tg_message_s* msg = get_message_from_message_table(message_id, table_name);
 
 		if (msg ) {
-			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
+			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data && app->peer_in_cahtting_data->use_data->peer_id == buddy_id) {
 				// update message to sent state
 				on_text_message_state_changed(app, msg, type_of_chat);
 			}
@@ -1221,7 +1267,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		tg_message_s* msg = get_message_from_message_table(message_id, table_name);
 
 		if (msg ) {
-			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
+			if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data && app->peer_in_cahtting_data->use_data->peer_id == buddy_id) {
 				// update message to sent state
 				on_text_message_state_changed(app, msg, type_of_chat);
 			}
@@ -1262,6 +1308,10 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
 		int buddy_id = atoi(buddy_id_str);
 
+		char* to_id_str = NULL;
+		result = bundle_get_str(rec_msg, "to_peer_id", &to_id_str);
+		int to_id = atoi(to_id_str);
+
 		char* media_id_str = NULL;
 		result = bundle_get_str(rec_msg, "media_id", &media_id_str);
 		long long media_id = atoll(media_id_str);
@@ -1269,8 +1319,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		char* file_name = NULL;
 		result = bundle_get_str(rec_msg, "file_name", &file_name);
 
-		if (file_name && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data
-				&& app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
+		if (file_name && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
+				&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
 			// update media to sent state
 			on_media_download_completed(app, buddy_id, media_id, file_name);
 		}
@@ -1341,19 +1391,16 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			//refresh_buddy_list(app);
 		}
 #else
-		if (app->buddy_list) {
-			for (int i = 0 ; i < eina_list_count(app->buddy_list) ; i++) {
-				user_data_with_pic_s *item = eina_list_nth(app->buddy_list, i);
-				user_data_s* user = item->use_data;
-				user->is_selected = EINA_FALSE;
-			}
+
+		if (app->current_app_state == TG_USER_MAIN_VIEW_STATE) {
+			refresh_main_view_list(app);
+		} else {
+			refresh_main_view_list(app);
+			elm_naviframe_item_pop(app->nf);
+			app->current_app_state = TG_USER_MAIN_VIEW_STATE;
+			evas_object_show(app->panel);
+			//elm_panel_hidden_set(app->panel, EINA_FALSE);
 		}
-		elm_naviframe_item_pop(app->nf);
-		app->current_app_state = TG_BUDDY_LIST_STATE;
-		evas_object_show(app->panel);
-		elm_panel_hidden_set(app->panel, EINA_FALSE);
-		//refresh_buddy_list(app);
-		show_toast(app, "new group created");
 #endif
 	} else if (strcmp(rec_key_val, "contact_updated") == 0) {
 
@@ -1483,7 +1530,6 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 						if (sel_item->msg_status_lbl) {
 
 						}
-
 						break;
 					}
 				}
@@ -1491,10 +1537,76 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 		}
 
+		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
+			on_user_status_changed(app, type_status_message);
+		}
 
 		if (type_status_message) {
 			free(type_status_message);
 			type_status_message = NULL;
+		}
+
+	} else if (strcmp(rec_key_val, "user_status_updated") == 0) {
+
+		char* buddy_id_str = NULL;
+		result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+		int buddy_id = atoi(buddy_id_str);
+
+		char* buddy_name = NULL;
+		result = bundle_get_str(rec_msg, "buddy_name", &buddy_name);
+
+		if (app->current_app_state ==  TG_USER_MAIN_VIEW_STATE) {
+			if (app->main_list) {
+				int main_list_size = eina_list_count(app->main_list);
+				for (int i = 0; i < main_list_size; i++) {
+					tg_main_list_item_s* sel_item = eina_list_nth(app->main_list, i);
+					if (sel_item->peer_id == buddy_id ) {
+						// update last message
+
+						if (sel_item->profile_pic) {
+
+						}
+
+						if (sel_item->user_name_lbl) {
+
+						}
+
+						if (sel_item->status_lbl) {
+					        char* org_msg = NULL;
+					        if (sel_item->last_message) {
+					        	org_msg = sel_item->last_message;
+					        } else {
+					        	org_msg = "";
+					        }
+
+					        int len_org_str = strlen(org_msg);
+
+					        char res[25] = {'\0'};
+					        char status_buf[126] = {'\0'};
+					        if(len_org_str > 25) {
+					        	strncpy(res, org_msg, 24);
+					        	sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+					        } else {
+					        	snprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        }
+							elm_object_text_set(sel_item->status_lbl, status_buf);
+						}
+
+						if (sel_item->date_lbl) {
+
+						}
+						if (sel_item->msg_status_lbl) {
+
+						}
+
+						break;
+					}
+				}
+			}
+
+		}
+		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->buddy_in_cahtting_data && app->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
+			on_user_presence_state_changed(app, buddy_id);
 		}
 
 	} else {
@@ -1615,7 +1727,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_BUDDY_LIST_STATE;
 			evas_object_show(ad->panel);
-			elm_panel_hidden_set(ad->panel, EINA_FALSE);
+			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
 			//refresh_buddy_list(ad);
 			break;
 		case TG_GROUP_CHAT_NAME_ENTRY_STATE:
@@ -1629,7 +1741,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_BUDDY_LIST_STATE;
 			evas_object_show(ad->panel);
-			elm_panel_hidden_set(ad->panel, EINA_FALSE);
+			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
 			//refresh_buddy_list(ad);
 			break;
 		default:

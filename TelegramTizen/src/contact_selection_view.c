@@ -88,17 +88,24 @@ char* on_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 
 	if (id == 0 && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", "Select all");
+		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=40>%s</font_size></font>", "Select all");
 		return strdup(buf);
 	}
 
-	user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, id - 1);
-	user_data_s* user = item->use_data;
-	if (!strcmp(part,"elm.text")){
-		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<align=left><font_size=30><color=#000000>%s</color></font_size></align>", user->print_name);
-		return strdup(buf);
+	if (ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
+		user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id - 1);
+		user_data_s* user = item->use_data;
+
+		if (!strcmp(part,"elm.text")){
+			char* user_name = replace(user->print_name, '_', " ");
+			char buf[512] = {'\0'};
+			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
+			free(user_name);
+			return strdup(buf);
+
+		}
 	}
+
 	return NULL;
 }
 
@@ -181,19 +188,29 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, id - 1);
 		user_data_s* user = item->use_data;
 
-		if (user->photo_path && strcmp(user->photo_path, " ") != 0) {
+		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
 			image = create_image_object_from_file(user->photo_path, obj);
 		} else {
-			image = create_image_object_from_file(ui_utils_get_resource(FM_ICON_ROBO_BUDDY), obj);
+			image = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
 		}
 
 		item->contact_icon = image;
 		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, buddy_icon_del_cb, item);
 
 		if(image) {
+			char edj_path[PATH_MAX] = {0, };
+			app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+			Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+			elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+			evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+			evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+			evas_object_show(user_pic_layout);
+			elm_object_part_content_set(user_pic_layout, "content", image);
+
 			eo = elm_layout_add(obj);
 			elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
-			elm_layout_content_set(eo, "elm.swallow.content", image);
+			elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+
 		}
 	} else if (!strcmp(part, "elm.swallow.end")) {
 		if (id == 0 && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
@@ -277,6 +294,13 @@ void launch_contact_selction_view(void *data)
 {
 	appdata_s* ad = data;
 	ad->current_app_state = TG_BUDDY_LIST_SELECTION_STATE;
+
+	if (ad->panel) {
+		evas_object_hide(ad->panel);
+		elm_panel_hidden_set(ad->panel, EINA_TRUE);
+	}
+
+
 	elm_layout_theme_set(ad->layout, "layout", "application", "default");
 	static Elm_Genlist_Item_Class itc;
 
@@ -312,18 +336,14 @@ void launch_contact_selction_view(void *data)
 
 	Evas_Object* done_btn = elm_button_add(ad->layout);
 	elm_object_style_set(done_btn, "naviframe/title_icon");
-	Evas_Object* done_icon = elm_image_add(ad->layout);
-	elm_image_file_set(done_icon, ui_utils_get_resource(FM_OK_BUTTON), NULL);
 	evas_object_smart_callback_add(done_btn, "clicked", on_done_buton_clicked, ad);
-	elm_object_content_set(done_btn, done_icon);
+	elm_object_text_set(done_btn, "Done");
 	evas_object_show(done_btn);
 
 	Evas_Object* cancel_btn = elm_button_add(ad->layout);
 	elm_object_style_set(cancel_btn, "naviframe/title_icon");
-	Evas_Object* cancel_icon = elm_image_add(ad->layout);
-	elm_image_file_set(cancel_icon, ui_utils_get_resource(FM_CANCEL_BUTTON), NULL);
 	evas_object_smart_callback_add(cancel_btn, "clicked", on_cancel_buton_clicked, ad);
-	elm_object_content_set(cancel_btn, cancel_icon);
+	elm_object_text_set(cancel_btn, "Cancel");
 	evas_object_show(cancel_btn);
 
 	Elm_Object_Item* buddy_sel_nav_item = NULL;
