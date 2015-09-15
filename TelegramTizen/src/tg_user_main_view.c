@@ -69,38 +69,54 @@ static void on_menu_list_clicked_cb(void *data, Evas_Object *obj, void *event_in
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
 
-Evas_Object* create_side_panel_list(appdata_s* ad, Evas_Object *parent)
+Evas_Object* create_side_panel_list(appdata_s *ad, Evas_Object *parent)
 {
-
 	char edj_path[PATH_MAX] = {0, };
+	Evas_Object *scroller;
+	Evas_Object *layout;
+	Evas_Object *user_info_layout;
+	Evas_Object *profile_pic;
+	Evas_Object *user_pic_layout;
+	Evas_Object *user_name;
+	Evas_Object *phone_no_lbl;
+	Evas_Object *menu_gen_list;
+	const char *tmp;
+	char *full_name;
+	char *phone_no;
+	int full_name_len;
+	int i;
+	static Elm_Genlist_Item_Class itc = {
+		.item_style = "type1",
+		.func.text_get = on_menu_item_name_get_cb,
+		.func.content_get = on_menu_item_image_get_cb,
+		.func.state_get = NULL,
+		.func.del = NULL,
+	};
+
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
-	Evas_Object* scroller = elm_scroller_add(ad->nf);
+	scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
 	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
-	Evas_Object* layout = elm_layout_add(ad->nf);
+	layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "user_main_screen_side_panel");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
 
-
-	Evas_Object* user_info_layout = elm_layout_add(ad->nf);
+	user_info_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(user_info_layout, edj_path, "menu_user_layout");
 	evas_object_size_hint_weight_set(user_info_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(user_info_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(user_info_layout);
 	elm_object_part_content_set(layout, "main_box", user_info_layout);
 
-
 	/*********** user info ********************/
+	profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), ad->nf);
 
-	Evas_Object* profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), ad->nf);
-
-
-	Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+	user_pic_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
 	evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -109,46 +125,69 @@ Evas_Object* create_side_panel_list(appdata_s* ad, Evas_Object *parent)
 
 	elm_object_part_content_set(user_info_layout, "user_photo_box", user_pic_layout);
 
+	full_name_len = 0;
+	if (ad->current_user_data.first_name) {
+		full_name_len += strlen(ad->current_user_data.first_name) + 1;
+	}
 
-	char* full_name = (char*)malloc(strlen(ad->current_user_data.first_name) + strlen(" ") + strlen(ad->current_user_data.last_name) + 1);
-	strcpy(full_name, ad->current_user_data.first_name);
-	strcat(full_name, " ");
-	strcat(full_name, ad->current_user_data.last_name);
+	if (ad->current_user_data.last_name) {
+		full_name_len += strlen(ad->current_user_data.last_name) + 1;
+	}
 
+	if (full_name_len) {
+		full_name = malloc(full_name_len);
+		if (!full_name) {
+			evas_object_del(scroller);
+			evas_object_del(layout);
+			evas_object_del(user_info_layout);
+			evas_object_del(profile_pic);
+			evas_object_del(user_pic_layout);
+			return NULL;
+		}
+		snprintf(full_name, full_name_len, "%s%s%s",
+				ad->current_user_data.first_name ? ad->current_user_data.first_name : "",
+				ad->current_user_data.first_name ? " " : "",
+				ad->current_user_data.last_name ? ad->current_user_data.last_name : "");
+	} else {
+		full_name = NULL;
+	}
 
-	char* phone_no = (char*)malloc(strlen(ad->current_user_data.phone) + strlen("+") + 1);
-	strcpy(phone_no, "+");
-	strcat(phone_no, ad->current_user_data.phone);
+	if (ad->current_user_data.phone) {
+		int len;
+		len = strlen(ad->current_user_data.phone) + strlen("+");
+		phone_no = malloc(len + 1);
+		if (!phone_no) {
+			free(full_name);
+			evas_object_del(scroller);
+			evas_object_del(layout);
+			evas_object_del(user_info_layout);
+			evas_object_del(profile_pic);
+			evas_object_del(user_pic_layout);
+			return NULL;
+		}
 
-	char temp_full_name[256];
-	sprintf(temp_full_name, "<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", full_name);
+		snprintf(phone_no, len, "+%s", ad->current_user_data.phone);
+	}
 
-
-	char temp_phone_no[256];
-	sprintf(temp_phone_no, "<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", phone_no);
-
-
-	Evas_Object* user_name = elm_label_add(ad->nf);
-	elm_object_text_set(user_name, temp_full_name);
+	user_name = elm_label_add(ad->nf);
+	tmp = tg_common_to_string("<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", full_name);
+	elm_object_text_set(user_name, tmp);
 	elm_label_ellipsis_set(user_name, EINA_TRUE);
 	evas_object_show(user_name);
 	elm_object_part_content_set(user_info_layout, "user_name_box", user_name);
 
-	Evas_Object* phone_no_lbl = elm_label_add(ad->nf);
-	elm_object_text_set(phone_no_lbl, temp_phone_no);
+	phone_no_lbl = elm_label_add(ad->nf);
+	tmp = tg_common_to_string("<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", phone_no);
+	elm_object_text_set(phone_no_lbl, tmp);
 	elm_label_ellipsis_set(phone_no_lbl, EINA_TRUE);
 	evas_object_show(phone_no_lbl);
 	elm_object_part_content_set(user_info_layout, "phone_number_box", phone_no_lbl);
 
-
 	free(full_name);
 	free(phone_no);
 
-
 	/*********** user info ********************/
-
-
-	Evas_Object* menu_gen_list = elm_genlist_add(parent);
+	menu_gen_list = elm_genlist_add(parent);
 	elm_list_mode_set(menu_gen_list, ELM_LIST_COMPRESS);
 	elm_genlist_mode_set(menu_gen_list, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(menu_gen_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -156,29 +195,24 @@ Evas_Object* create_side_panel_list(appdata_s* ad, Evas_Object *parent)
 
 	evas_object_data_set(menu_gen_list, "app_data", ad);
 
-	static Elm_Genlist_Item_Class itc;
-	itc.item_style = "type1";
-	itc.func.text_get = on_menu_item_name_get_cb;
-	itc.func.content_get = on_menu_item_image_get_cb;
-	itc.func.state_get = NULL;
-	itc.func.del = NULL;
-
-	for (int i = 0; i < NUMBER_OF_MENU_ITEMS; i++) {
+	for (i = 0; i < NUMBER_OF_MENU_ITEMS; i++) {
 		elm_genlist_item_append(menu_gen_list, &itc, (void *)i, NULL, ELM_GENLIST_ITEM_NONE, on_menu_item_selected, (void*)i);
 	}
+
 	evas_object_show(menu_gen_list);
 	elm_object_part_content_set(layout, "options_box", menu_gen_list);
 	evas_object_smart_callback_add(menu_gen_list, "selected", on_menu_list_clicked_cb, ad);
+
 	return scroller;
-
 }
-
 
 void on_side_panel_scroll_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Elm_Panel_Scroll_Info *ev = event_info;
 	Evas_Object *bg = data;
-	int col = 127 * ev->rel_x;
+	int col;
+
+	col = 127 * ev->rel_x;
 	evas_object_color_set(bg, 0, 0, 0, col);
 }
 

@@ -953,14 +953,17 @@ void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int succes
 			update_buddy_pic_db(filename, USER_INFO_TABLE_NAME, buddy->id.id);
 			send_buddy_profile_pic_updated_response(TLS->callback_data, buddy->id.id, filename);
 		}
+
 		return;
 	}
 
-	if (filename) {
-		update_buddy_pic_db(filename, BUDDY_INFO_TABLE_NAME, buddy->id.id);
-		update_buddy_pic_db(filename, PEER_INFO_TABLE_NAME, buddy->id.id);
-		send_buddy_profile_pic_updated_response(TLS->callback_data, buddy->id.id, filename);
+	if (!filename) {
+		return;
 	}
+
+	update_buddy_pic_db(filename, BUDDY_INFO_TABLE_NAME, buddy->id.id);
+	update_buddy_pic_db(filename, PEER_INFO_TABLE_NAME, buddy->id.id);
+	send_buddy_profile_pic_updated_response(TLS->callback_data, buddy->id.id, filename);
 }
 
 #if 0
