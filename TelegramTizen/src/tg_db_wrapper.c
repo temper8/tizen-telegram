@@ -8,7 +8,7 @@
 
 void create_data_base_tables()
 {
-	char* table_name = USER_INFO_TABLE_NAME;
+	char *table_name = USER_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_ID);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PRINT_NAME);
@@ -298,7 +298,7 @@ void create_data_base_tables()
 Eina_List* get_all_peer_details()
 {
 	Eina_List* peer_details = NULL;
-	char* table_name = PEER_INFO_TABLE_NAME;
+	char *table_name = PEER_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 
 	col_names = eina_list_append(col_names, PEER_INFO_TABLE_CHAT_ID);
@@ -338,7 +338,7 @@ Eina_List* get_all_peer_details()
 Eina_List* get_group_chat_details()
 {
 	Eina_List* chat_details = NULL;
-	char* table_name = CHAT_INFO_TABLE_NAME;
+	char *table_name = CHAT_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_CHAT_ID);
 	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_FLAGS);
@@ -385,7 +385,7 @@ tg_chat_info_s* get_chat_info(int chat_id)
 {
 	Eina_List* chat_details = NULL;
 
-	char* table_name = CHAT_INFO_TABLE_NAME;
+	char *table_name = CHAT_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_CHAT_ID);
 	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_FLAGS);
@@ -550,7 +550,7 @@ Eina_List* get_registered_user_info()
 {
 	Eina_List* user_details = NULL;
 
-	char* table_name = USER_INFO_TABLE_NAME;
+	char *table_name = USER_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_ID);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PRINT_NAME);
@@ -595,7 +595,7 @@ Eina_List* get_buddy_list_info()
 {
 	Eina_List* user_details = NULL;
 
-	char* table_name = BUDDY_INFO_TABLE_NAME;
+	char *table_name = BUDDY_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_BUDDY_ID);
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PRINT_NAME);
@@ -649,7 +649,7 @@ char* get_profile_pic_path(int buddy_id)
 	Eina_List* buddy_details_array = NULL;
 	char* profile_pic_path = NULL;
 
-	char* table_name = BUDDY_INFO_TABLE_NAME;
+	char *table_name = BUDDY_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PHOTO_PATH);
 
@@ -700,7 +700,7 @@ char* get_buddy_name_from_id(int buddy_id)
 	Eina_List* buddy_details_array = NULL;
 	char* profile_name = NULL;
 
-	char* table_name = BUDDY_INFO_TABLE_NAME;
+	char *table_name = BUDDY_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PRINT_NAME);
 
@@ -749,7 +749,7 @@ int  get_buddy_online_status(int buddy_id)
 {
 	Eina_List* buddy_details_array = NULL;
 
-	char* table_name = BUDDY_INFO_TABLE_NAME;
+	char *table_name = BUDDY_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_ONLINE_STATUS);
 
@@ -795,11 +795,11 @@ int  get_buddy_online_status(int buddy_id)
 	return is_online;
 }
 
-Eina_List* get_buddy_info(int buddy_id)
+Eina_List *get_buddy_info(int buddy_id)
 {
 	Eina_List* user_details = NULL;
 
-	char* table_name = BUDDY_INFO_TABLE_NAME;
+	char *table_name = BUDDY_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_BUDDY_ID);
 	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PRINT_NAME);
@@ -849,7 +849,7 @@ Eina_List* get_buddy_info(int buddy_id)
 	return user_details;
 }
 
-int get_unread_message_count(char* table_name)
+int get_unread_message_count(const char *table_name)
 {
 	// number of rows, having out == 1 and unread == 0
 
@@ -887,7 +887,7 @@ int get_unread_message_count(char* table_name)
 }
 
 
-tg_message_s* get_latest_message_from_message_table(char* table_name)
+tg_message_s* get_latest_message_from_message_table(const char *table_name)
 {
 	tg_message_s* message = NULL;
 
@@ -1044,7 +1044,7 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 
 }
 
-void update_msg_into_db(tg_message_s *M, char* table_name)
+void update_msg_into_db(tg_message_s *M, const char *table_name)
 {
 	if(!M) {
 		return;
@@ -1130,7 +1130,7 @@ void update_msg_into_db(tg_message_s *M, char* table_name)
 }
 
 
-tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
+tg_message_s* get_message_from_message_table(long long msg_id, const char *table_name)
 {
 	tg_message_s* message = NULL;
 
@@ -1305,7 +1305,7 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 		return;
 	}
 
-	char* table_name = PEER_INFO_TABLE_NAME;
+	char *table_name = PEER_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = NULL;
 	col_names = eina_list_append(col_names, PEER_INFO_TABLE_CHAT_ID);
@@ -1380,7 +1380,7 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 	
 }
 
-void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
+void insert_msg_into_db(tg_message_s *M, const char *table_name, int unique_id)
 {
 	if(!M) {
 		return;
@@ -1467,7 +1467,7 @@ void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int he
 		return;
 	}
 
-	char* table_name = MEDIA_INFO_TABLE_NAME;
+	char *table_name = MEDIA_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_TYPE);
@@ -1789,7 +1789,7 @@ char* get_image_path_from_db(long long media_id)
 	char* file_path = NULL;
 
 
-	char* table_name = MEDIA_INFO_TABLE_NAME;
+	char *table_name = MEDIA_INFO_TABLE_NAME;
 
 	char usr_str[50];
 	sprintf(usr_str, "%lld", media_id);
@@ -1838,7 +1838,7 @@ Eina_List* get_image_sizes_from_db(long long media_id)
 {
 	Eina_List* vals = NULL;
 
-	char* table_name = MEDIA_INFO_TABLE_NAME;
+	char *table_name = MEDIA_INFO_TABLE_NAME;
 	char usr_str[50];
 	sprintf(usr_str,"%lld",media_id);
 	char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
@@ -1883,7 +1883,7 @@ Eina_List* get_image_sizes_from_db(long long media_id)
 Eina_List* get_image_details_from_db(long long media_id)
 {
 	Eina_List* vals = NULL;
-	char* table_name = MEDIA_INFO_TABLE_NAME;
+	char *table_name = MEDIA_INFO_TABLE_NAME;
 
 	char usr_str[50];
 	sprintf(usr_str,"%lld",media_id);

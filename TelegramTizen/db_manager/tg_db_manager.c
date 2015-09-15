@@ -351,7 +351,7 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	return EINA_TRUE;
 }
 
-int get_number_of_rows(char* table_name, char* where_clause)
+int get_number_of_rows(const char *table_name, char* where_clause)
 {
 	int no_of_rows = 0;
 	if (!table_name) {

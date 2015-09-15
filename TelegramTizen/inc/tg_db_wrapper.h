@@ -157,41 +157,41 @@
 #define TG_DB_COLUMN_TEXT "TEXT"
 
 
-void create_data_base_tables();
+extern void create_data_base_tables();
 
-Eina_List* get_registered_user_info();
+extern Eina_List *get_registered_user_info();
 
-Eina_List* get_buddy_list_info();
+extern Eina_List *get_buddy_list_info();
 
-struct tgl_user* get_buddy_info(int buddy_id);
+extern Eina_List *get_buddy_info(int buddy_id);
 
-char* get_profile_pic_path(int buddy_id);
+extern char *get_profile_pic_path(int buddy_id);
 
-tg_message_s* get_message_from_message_table(long long msg_id, char* table_name);
+extern tg_message_s *get_message_from_message_table(long long msg_id, const char *table_name);
 
-char* get_image_path_from_db(long long media_id);
+extern char *get_image_path_from_db(long long media_id);
 
-tg_chat_info_s* get_chat_info(int chat_id);
+extern tg_chat_info_s *get_chat_info(int chat_id);
 
-Eina_List* get_group_chat_details();
+extern Eina_List *get_group_chat_details();
 
-Eina_List* get_all_peer_details();
+extern Eina_List *get_all_peer_details();
 
-void insert_or_update_peer_into_database(tg_peer_info_s* UC);
+extern void insert_or_update_peer_into_database(tg_peer_info_s* UC);
 
-void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id);
-void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int height, int size);
+extern void insert_msg_into_db(tg_message_s *M, const char *table_name, int unique_id);
+extern void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int height, int size);
 
-Eina_List* get_image_details_from_db(long long media_id);
-Eina_List* get_image_sizes_from_db(long long media_id);
+extern Eina_List *get_image_details_from_db(long long media_id);
+extern Eina_List *get_image_sizes_from_db(long long media_id);
 
-tg_message_s* get_latest_message_from_message_table(char* table_name);
-int get_unread_message_count(char* table_name);
+extern tg_message_s *get_latest_message_from_message_table(const char *table_name);
+extern int get_unread_message_count(const char *table_name);
 
-extern void update_msg_into_db(tg_message_s *M, char* table_name);
+extern void update_msg_into_db(tg_message_s *M, const char *table_name);
 
-char* get_buddy_name_from_id(int buddy_id);
+extern char* get_buddy_name_from_id(int buddy_id);
 
-int  get_buddy_online_status(int buddy_id);
+extern int  get_buddy_online_status(int buddy_id);
 
 #endif /* TG_DB_WRAPPER_H_ */
