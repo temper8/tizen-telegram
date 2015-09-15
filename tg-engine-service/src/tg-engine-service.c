@@ -8,213 +8,372 @@
 #include <net_connection.h>
 #include "tg_db_wrapper.h"
 
-static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
+static void registration_handler(bundle *rec_msg, void *data)
 {
 	tg_engine_data_s *tg_data = data;
-	int result = SVC_RES_FAIL;
-	RETVM_IF(!tg_data, result, "Data is NULL");
-	char *cmd_key_val = NULL;
+	Eina_Bool th_sms = EINA_TRUE;
+	char *ph_no_key_val = NULL;
+	char *sms_key_val = NULL;
+	int result;
 
-	int res = bundle_get_str(rec_msg, "command", &cmd_key_val);
-
-	if (strcmp(cmd_key_val, "registration") == 0) {
-		char *ph_no_key_val = NULL;
-		char *sms_key_val = NULL;
-		res = bundle_get_str(rec_msg, "phone_number", &ph_no_key_val);
-		res = bundle_get_str(rec_msg, "through_sms", &sms_key_val);
-
-		Eina_Bool th_sms = EINA_TRUE;
-
-		if (strcmp(sms_key_val, "true") == 0) {
-			th_sms = EINA_TRUE;
-		} else {
-			th_sms = EINA_FALSE;
-		}
-
-		process_registration_command(tg_data, ph_no_key_val, th_sms);
-
-	} else if (strcmp(cmd_key_val, "code_validation") == 0) {
-
-		char* sms_code_val = NULL;
-		res = bundle_get_str(rec_msg, "sms_code", &sms_code_val);
-		process_validation_command(tg_data, sms_code_val);
-
-	} else if (strcmp(cmd_key_val, "message_transport") == 0) {
-
-		char* buddy_id_str = NULL;
-		res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
-		int buddy_id = atoi(buddy_id_str);
-
-		char* message_id_str = NULL;
-		res = bundle_get_str(rec_msg, "message_id", &message_id_str);
-		int message_id = atoi(message_id_str);
-
-		char* msg_type_str = NULL;
-		res = bundle_get_str(rec_msg, "message_type", &msg_type_str);
-		int msg_type = atoi(msg_type_str);
-
-		char* msg_data_str = NULL;
-		res = bundle_get_str(rec_msg, "message_data", &msg_data_str);
-
-		char* type_of_chat_str = NULL;
-		res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
-		int type_of_chat = atoi(type_of_chat_str);
-
-		process_send_message_command(buddy_id, message_id, msg_type, msg_data_str, type_of_chat);
-
-    } else if (strcmp(cmd_key_val, "marked_as_read") == 0) {
-    	char* buddy_id_str = NULL;
-    	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
-    	int buddy_id = atoi(buddy_id_str);
-
-    	char* type_of_chat_str = NULL;
-    	res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
-    	int type_of_chat = atoi(type_of_chat_str);
-    	process_marked_as_read_command(buddy_id, type_of_chat);
-	} else if (strcmp(cmd_key_val, "media_download_request") == 0) {
-
-		char* buddy_id_str = NULL;
-		res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
-		int buddy_id = atoi(buddy_id_str);
-
-		char* media_id_str = NULL;
-		res = bundle_get_str(rec_msg, "media_id", &media_id_str);
-		long long media_id = atoll(media_id_str);
-		process_media_download_command(tg_data, buddy_id, media_id);
-
-	} else if (strcmp(cmd_key_val, "media_transport") == 0) {
-
-		char* buddy_id_str = NULL;
-		res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
-		int buddy_id = atoi(buddy_id_str);
-
-		char* message_id_str = NULL;
-		res = bundle_get_str(rec_msg, "message_id", &message_id_str);
-		int message_id = atoi(message_id_str);
-
-		char* media_id_str = NULL;
-		res = bundle_get_str(rec_msg, "media_id", &media_id_str);
-		int media_id = atoi(media_id_str);
-
-		char* msg_type_str = NULL;
-		res = bundle_get_str(rec_msg, "message_type", &msg_type_str);
-		int msg_type = atoi(msg_type_str);
-
-		char* file_path_str = NULL;
-		res = bundle_get_str(rec_msg, "file_path", &file_path_str);
-
-		char* type_of_chat_str = NULL;
-		res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
-		int type_of_chat = atoi(type_of_chat_str);
-
-		process_send_media_command(buddy_id, message_id, media_id, msg_type, file_path_str, type_of_chat);
-
-	} else if (strcmp(cmd_key_val, "profile_registration") == 0) {
-
-		char* first_name = NULL;
-		char* last_name = NULL;
-
-		res = bundle_get_str(rec_msg, "first_name", &first_name);
-		if (res == BUNDLE_ERROR_NONE && first_name) {
-			tg_data->first_name = strdup(first_name);
-		}
-
-		res = bundle_get_str(rec_msg, "last_name", &last_name);
-		if (res == BUNDLE_ERROR_NONE && last_name) {
-			tg_data->last_name = strdup(last_name);
-		}
-
-		if (tg_data->tg_state == TG_ENGINE_STATE_PROFILE_FIRST_NAME_REGISTRATION && tg_data->get_string) {
-			tg_data->get_string(tgl_engine_get_TLS(), tg_data->first_name, tg_data->callback_arg);
-		}
-	} else if (strcmp(cmd_key_val, "device_contact_list") == 0) {
-
-		char* count_str = NULL;
-		res = bundle_get_str(rec_msg, "count", &count_str);
-		int size = atoi(count_str);
-		Eina_List* contact_list = NULL;
-
-		for (int count = 0 ; count < size ; count++) {
-			contact_data_s* contact = (contact_data_s*)malloc(sizeof(contact_data_s));
-			contact->first_name = NULL;
-			contact->last_name = NULL;
-			contact->phone_number = NULL;
-
-			char count_str[10];
-			sprintf(count_str, "%d", count);
-
-			char first_name_key[20];
-			strcpy(first_name_key, "first_name_");
-			strcat(first_name_key, count_str);
-
-			char last_name_key[20];
-			strcpy(last_name_key, "last_name_");
-			strcat(last_name_key, count_str);
-
-			char phone_number_key[20];
-			strcpy(phone_number_key, "phone_number_");
-			strcat(phone_number_key, count_str);
-
-			char* first_name = NULL;
-			res = bundle_get_str(rec_msg, first_name_key, &first_name);
-
-			if (first_name) {
-				contact->first_name = strdup(first_name);
-			}
-
-			char* last_name = NULL;
-			res = bundle_get_str(rec_msg, last_name_key, &last_name);
-
-			if (last_name) {
-				contact->last_name = strdup(last_name);
-			}
-
-			char* phone_number = NULL;
-			res = bundle_get_str(rec_msg, phone_number_key, &phone_number);
-
-			if (phone_number) {
-				contact->phone_number = strdup(phone_number);
-			}
-			contact_list = eina_list_append(contact_list, contact);
-		}
-
-		process_add_contacts_command(tg_data, size, contact_list);
-
-	} else if (strcmp(cmd_key_val, "group_creation_request") == 0) {
-		char* count_str = NULL;
-		res = bundle_get_str(rec_msg, "count", &count_str);
-		int size = atoi(count_str);
-		Eina_List* buddy_ids = NULL;
-
-		for (int count = 0 ; count < size ; count++) {
-			char count_str[10];
-			sprintf(count_str, "%d", count);
-
-			char buddy_id_key[20];
-			strcpy(buddy_id_key, "buddy_id_");
-			strcat(buddy_id_key, count_str);
-
-			char* buddy_id = NULL;
-			res = bundle_get_str(rec_msg, buddy_id_key, &buddy_id);
-
-			buddy_ids = eina_list_append(buddy_ids, buddy_id);
-		}
-
-		char* temp_group_name = NULL;
-		res = bundle_get_str(rec_msg, "group_name", &temp_group_name);
-		char* group_name = strdup(temp_group_name);
-
-		char* temp_group_image = NULL;
-		res = bundle_get_str(rec_msg, "group_image", &temp_group_image);
-		char* group_image = strdup(temp_group_image);
-
-		process_new_group_create_command(tg_data, buddy_ids, group_name, group_image);
-
-	} else {
-
+	result = bundle_get_str(rec_msg, "phone_number", &ph_no_key_val);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
 	}
 
-	return result;
+	result = bundle_get_str(rec_msg, "through_sms", &sms_key_val);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	th_sms = !strcmp(sms_key_val, "true");
+
+	process_registration_command(tg_data, ph_no_key_val, th_sms);
+}
+
+static void code_validation_handler(bundle *rec_msg, void *data)
+{
+	int result;
+	tg_engine_data_s *tg_data = data;
+	char* sms_code_val = NULL;
+
+	result = bundle_get_str(rec_msg, "sms_code", &sms_code_val);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	process_validation_command(tg_data, sms_code_val);
+}
+
+static void message_transport_handler(bundle *rec_msg, void *data)
+{
+	char *tmp = NULL;
+	char* msg_data_str = NULL;
+	int message_id;
+	int buddy_id;
+	int result;
+	int msg_type;
+	int type_of_chat;
+
+	result = bundle_get_str(rec_msg, "buddy_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	buddy_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "message_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	message_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "message_type", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	msg_type = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "message_data", &msg_data_str);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	result = bundle_get_str(rec_msg, "type_of_chat", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	type_of_chat = atoi(tmp);
+
+	process_send_message_command(buddy_id, message_id, msg_type, msg_data_str, type_of_chat);
+}
+
+static void marked_as_read_handler(bundle *rec_msg, void *data)
+{
+	int result;
+	int buddy_id;
+	char *tmp;
+	int type_of_chat;
+
+	result = bundle_get_str(rec_msg, "buddy_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	buddy_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "type_of_chat", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	type_of_chat = atoi(tmp);
+	process_marked_as_read_command(buddy_id, type_of_chat);
+}
+
+static void media_download_request_handler(bundle *rec_msg, void *data)
+{
+	tg_engine_data_s *tg_data = data;
+	int result;
+	char *tmp;
+	int buddy_id;
+	long long media_id;
+
+	result = bundle_get_str(rec_msg, "buddy_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	buddy_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "media_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	media_id = atoll(tmp);
+
+	process_media_download_command(tg_data, buddy_id, media_id);
+}
+
+static void media_transport_handler(bundle *rec_msg, void *data)
+{
+	int result;
+	int buddy_id;
+	int message_id;
+	int media_id;
+	int msg_type;
+	char *tmp;
+	char *file_path_str = NULL;
+	int type_of_chat;
+
+	result = bundle_get_str(rec_msg, "buddy_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	buddy_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "message_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	message_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "media_id", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	media_id = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "message_type", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	msg_type = atoi(tmp);
+
+	result = bundle_get_str(rec_msg, "file_path", &file_path_str);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	result = bundle_get_str(rec_msg, "type_of_chat", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	type_of_chat = atoi(tmp);
+
+	process_send_media_command(buddy_id, message_id, media_id, msg_type, file_path_str, type_of_chat);
+}
+
+static void profile_registration_handler(bundle *rec_msg, void *data)
+{
+	int result;
+	tg_engine_data_s *tg_data = data;
+	char* first_name = NULL;
+	char* last_name = NULL;
+
+	result = bundle_get_str(rec_msg, "first_name", &first_name);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	tg_data->first_name = strdup(first_name);
+
+	result = bundle_get_str(rec_msg, "last_name", &last_name);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	tg_data->last_name = strdup(last_name);
+
+	if (tg_data->tg_state == TG_ENGINE_STATE_PROFILE_FIRST_NAME_REGISTRATION && tg_data->get_string) {
+		tg_data->get_string(tgl_engine_get_TLS(), tg_data->first_name, tg_data->callback_arg);
+	}
+}
+
+static void device_contact_list_handler(bundle *rec_msg, void *data)
+{
+	int result;
+	tg_engine_data_s *tg_data = data;
+	char *tmp = NULL;
+	int size;
+	int count;
+	Eina_List* contact_list = NULL;
+	contact_data_s *contact;
+
+	result = bundle_get_str(rec_msg, "count", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+
+	size = atoi(tmp);
+
+	for (count = 0 ; count < size; count++) {
+		contact = (contact_data_s *)malloc(sizeof(*contact));
+		if (!contact) {
+			break;
+		}
+
+		contact->first_name = NULL;
+		contact->last_name = NULL;
+		contact->phone_number = NULL;
+
+		tmp = (char *)tg_common_to_string("first_name_%d", count);
+		result = bundle_get_str(rec_msg, tmp, &tmp);
+		if (result == BUNDLE_ERROR_NONE) {
+			contact->first_name = strdup(tmp);
+		}
+
+		tmp = (char *)tg_common_to_string("last_name_%d", count);
+		result = bundle_get_str(rec_msg, tmp, &tmp);
+		if (result == BUNDLE_ERROR_NONE) {
+			contact->last_name = strdup(tmp);
+		}
+
+		tmp = (char *)tg_common_to_string("phone_number_%d", count);
+		result = bundle_get_str(rec_msg, tmp, &tmp);
+		if (result == BUNDLE_ERROR_NONE) {
+			contact->phone_number = strdup(tmp);
+		}
+
+		contact_list = eina_list_append(contact_list, contact);
+	}
+
+	process_add_contacts_command(tg_data, size, contact_list);
+}
+
+static void group_creation_request_handler(bundle *rec_msg, void *data)
+{
+	int result;
+	tg_engine_data_s *tg_data = data;
+	char *tmp = NULL;
+	int size;
+	int count;
+	Eina_List* buddy_ids = NULL;
+	char *group_name;
+	char *group_image;
+
+	result = bundle_get_str(rec_msg, "count", &tmp);
+	if (result != BUNDLE_ERROR_NONE) {
+		return;
+	}
+	size = atoi(tmp);
+
+	for (count = 0 ; count < size; count++) {
+		tmp = (char *)tg_common_to_string("buddy_id_%d", count);
+		result = bundle_get_str(rec_msg, tmp, &tmp);
+		if (result != BUNDLE_ERROR_NONE) {
+			goto out;
+		}
+		buddy_ids = eina_list_append(buddy_ids, strdup(tmp));
+	}
+
+	result = bundle_get_str(rec_msg, "group_name", &group_name);
+	if (result != BUNDLE_ERROR_NONE) {
+		goto out;
+	}
+
+	result = bundle_get_str(rec_msg, "group_image", &group_image);
+	if (result != BUNDLE_ERROR_NONE) {
+		goto out;
+	}
+
+	process_new_group_create_command(tg_data, buddy_ids, group_name, group_image);
+
+out:
+	EINA_LIST_FREE(buddy_ids, tmp) {
+		free(tmp);
+	}
+}
+
+static int _on_tg_server_msg_received_cb(void *data, bundle * const rec_msg)
+{
+	int i;
+	int result = SVC_RES_FAIL;
+	RETVM_IF(!data, result, "Data is NULL");
+	char *cmd_key_val = NULL;
+	struct _msg_handler {
+		const char *key;
+		void (*handler)(bundle *, void *);
+	} msg_handlers[] = {
+		[0] = {
+			.key = "registration",
+			.handler = registration_handler,
+		},
+		[1] = {
+			.key = "code_validation",
+			.handler = code_validation_handler,
+		},
+		[2] = {
+			.key = "message_transport",
+			.handler = message_transport_handler,
+		},
+		[3] = {
+			.key = "marked_as_read",
+			.handler = marked_as_read_handler,
+		},
+		[4] = {
+			.key = "media_download_request",
+			.handler = media_download_request_handler,
+		},
+		[5] = {
+			.key = "media_transport",
+			.handler = media_transport_handler,
+		},
+		[6] = {
+			.key = "profile_registration",
+			.handler = profile_registration_handler,
+		},
+		[7] = {
+			.key = "device_contact_list",
+			.handler = device_contact_list_handler,
+		},
+		[8] = {
+			.key = "group_creation_request",
+			.handler = group_creation_request_handler,
+		},
+		[9] = {
+			.key = NULL,
+			.handler = NULL,
+		},
+	};
+
+	result = bundle_get_str(rec_msg, "command", &cmd_key_val);
+	if (result != BUNDLE_ERROR_NONE) {
+		return result;
+	}
+
+	for (i = 0; msg_handlers[i].key; i++) {
+		if (strcmp(msg_handlers[i].key, cmd_key_val)) {
+			continue;
+		}
+
+		if (!msg_handlers[i].handler) {
+			break;
+		}
+
+		msg_handlers[i].handler(rec_msg, data);
+	}
+
+	return 0;
 }
 
 Eina_Bool event_idler_cb(void *data)
@@ -356,34 +515,29 @@ void service_app_control(app_control_h app_control, void *data)
 	return;
 }
 
-static void
-service_app_lang_changed(app_event_info_h event_info, void *user_data)
+static void service_app_lang_changed(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_LANGUAGE_CHANGED*/
 	return;
 }
 
-static void
-service_app_orient_changed(app_event_info_h event_info, void *user_data)
+static void service_app_orient_changed(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_DEVICE_ORIENTATION_CHANGED*/
 	return;
 }
 
-static void
-service_app_region_changed(app_event_info_h event_info, void *user_data)
+static void service_app_region_changed(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_REGION_FORMAT_CHANGED*/
 }
 
-static void
-service_app_low_battery(app_event_info_h event_info, void *user_data)
+static void service_app_low_battery(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_LOW_BATTERY*/
 }
 
-static void
-service_app_low_memory(app_event_info_h event_info, void *user_data)
+static void service_app_low_memory(app_event_info_h event_info, void *user_data)
 {
 	/*APP_EVENT_LOW_MEMORY*/
 }
