@@ -808,27 +808,35 @@ int tg_db_insert_chat_info(const char *table_name, struct tgl_chat *chat, char *
 	ret = sqlite3_bind_int(stmt, 8, chat->users_num);
 	ret = sqlite3_bind_int(stmt, 9, chat->user_list_size);
 	ret = sqlite3_bind_int(stmt, 10, chat->user_list_version);
-	ret = sqlite3_bind_int(stmt, 11, chat->user_list[0].inviter_id);
-
-	str_size = 64;
-	str_len = 0;
-	str = malloc(str_size);
-	for (i = 0; i < chat->user_list_size; i++) {
-		str_len += snprintf(str + str_len, str_size - str_len - 1, "%d, ", chat->user_list[i].user_id);
-		if (str_size - str_len < 32) {
-			char *ptr;
-			str_size <<= 1; /* doulbing current size */
-			ptr = realloc(str, str_size);
-			if (!ptr) {
-				break;
-			}
-			str = ptr;
-		}
+	if (chat->user_list) {
+		ret = sqlite3_bind_int(stmt, 11, chat->user_list[0].inviter_id);
+	} else {
+		ret = sqlite3_bind_int(stmt, 11, 0);
 	}
-	/* Cut off the last colon */
-	str[str_len - 2] = '\0';
-	ret = sqlite3_bind_text(stmt, 12, str, str_len - 2, SQLITE_TRANSIENT);
-	free(str);
+
+	if (chat->user_list_size > 0) {
+		str_size = 64;
+		str_len = 0;
+		str = malloc(str_size);
+		for (i = 0; i < chat->user_list_size; i++) {
+			str_len += snprintf(str + str_len, str_size - str_len - 1, "%d, ", chat->user_list[i].user_id);
+			if (str_size - str_len < 32) {
+				char *ptr;
+				str_size <<= 1; /* doulbing current size */
+				ptr = realloc(str, str_size);
+				if (!ptr) {
+					break;
+				}
+				str = ptr;
+			}
+		}
+		/* Cut off the last colon */
+		str[str_len - 2] = '\0';
+		ret = sqlite3_bind_text(stmt, 12, str, str_len - 2, SQLITE_TRANSIENT);
+		free(str);
+	} else {
+		ret = sqlite3_bind_text(stmt, 12, "", -1, SQLITE_TRANSIENT);
+	}
 	ret = sqlite3_bind_int(stmt, 13, chat->date);
 	ret = sqlite3_bind_int(stmt, 14, chat->version);
 	ret = sqlite3_bind_int(stmt, 15, chat->admin_id);

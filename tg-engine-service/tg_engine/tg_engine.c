@@ -934,11 +934,13 @@ void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success
 {
 	struct tgl_chat *chat_info = callback_extra;
 
-	if (filename) {
-		update_chat_info_to_db(chat_info, filename);
-		update_buddy_pic_db(filename, PEER_INFO_TABLE_NAME, chat_info->id.id);
-		send_buddy_profile_pic_updated_response(TLS->callback_data, chat_info->id.id, filename);
+	if (!filename) {
+		return;
 	}
+
+	update_chat_info_to_db(chat_info, filename);
+	update_buddy_pic_db(filename, PEER_INFO_TABLE_NAME, chat_info->id.id);
+	send_buddy_profile_pic_updated_response(TLS->callback_data, chat_info->id.id, filename);
 }
 
 void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
