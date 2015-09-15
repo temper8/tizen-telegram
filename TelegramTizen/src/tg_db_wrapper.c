@@ -694,6 +694,107 @@ char* get_profile_pic_path(int buddy_id)
 	return profile_pic_path;
 }
 
+
+char* get_buddy_name_from_id(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+	char* profile_name = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_PRINT_NAME);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	char* where_clause = (char*)malloc(strlen(BUDDY_INFO_TABLE_BUDDY_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+	strcpy(where_clause, BUDDY_INFO_TABLE_BUDDY_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, buddy_id_str);
+
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+			char* name = (char*)eina_list_nth(buddy_details, 0);
+
+			if (name && strlen(name) > 0) {
+				profile_name = strdup(name);
+			}
+
+			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
+				void* val = eina_list_nth(buddy_details, i);
+				free(val);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return profile_name;
+}
+
+int  get_buddy_online_status(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, BUDDY_INFO_TABLE_ONLINE_STATUS);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	char* where_clause = (char*)malloc(strlen(BUDDY_INFO_TABLE_BUDDY_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+	strcpy(where_clause, BUDDY_INFO_TABLE_BUDDY_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, buddy_id_str);
+
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+	int is_online = -1;
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+
+			int *temp_online_status = (int*)eina_list_nth(buddy_details, 0);
+			if(temp_online_status) {
+				is_online = *temp_online_status;
+				free(temp_online_status);
+			}
+
+			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
+				void* val = eina_list_nth(buddy_details, i);
+				free(val);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return is_online;
+}
+
 Eina_List* get_buddy_info(int buddy_id)
 {
 	Eina_List* user_details = NULL;
@@ -764,7 +865,10 @@ int get_unread_message_count(char* table_name)
 	char out_str[50];
 	sprintf(out_str, "%d", 0);
 
-	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(unread_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_OUT_MSG) + strlen(" = ") + strlen(out_str) + 1);
+	char service_str[50];
+	sprintf(service_str, "%d", 1);
+
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(unread_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_OUT_MSG) + strlen(" = ") + strlen(out_str) + strlen(" OR ") + strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" = ") + strlen(service_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_UNREAD);
 	strcat(where_clause, " = ");
 	strcat(where_clause, unread_str);
@@ -772,6 +876,10 @@ int get_unread_message_count(char* table_name)
 	strcat(where_clause, MESSAGE_INFO_TABLE_OUT_MSG);
 	strcat(where_clause, " = ");
 	strcat(where_clause, out_str);
+	strcat(where_clause, " OR ");
+	strcat(where_clause, MESSAGE_INFO_TABLE_SERVICE);
+	strcat(where_clause, " = ");
+	strcat(where_clause, service_str);
 	num_of_rows = get_number_of_rows(table_name, where_clause);
 	free(where_clause);
 

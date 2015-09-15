@@ -562,7 +562,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 }
 
-void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, long long media_id, const char* filename)
+void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename)
 {
 	bundle *msg;
 	int result;
@@ -587,6 +587,13 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 
 	str = tg_common_to_string("%d", buddy_id);
 	if (bundle_add_str(msg, "buddy_id", str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	str = tg_common_to_string("%d", to_id);
+	if (bundle_add_str(msg, "to_peer_id", to_id_str) != BUNDLE_ERROR_NONE) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -692,7 +699,56 @@ void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id)
 	}
 }
 
-void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_id, char *buddy_name, int type_status)
+void send_buddy_status_notification_response(tg_engine_data_s *tg_data, int buddy_id, char* budy_name, int online)
+{
+	bundle *msg;
+	const char *tmp;
+	int result = SVC_RES_FAIL;
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "user_status_updated") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	tmp = tg_common_to_string("%d", buddy_id);
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "buddy_name", budy_name) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "user_status", online ? "online" : "offline") != BUNDLE_ERROR_NONE) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = tg_server_send_message(tg_data->tg_server, msg);
+	bundle_free(msg);
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+}
+
+void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_id, char* budy_name, int type_status)
 {
 	bundle *msg;
 	int result;
@@ -740,5 +796,3 @@ void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_
 		// error: cient not ready
 	}
 }
-
-

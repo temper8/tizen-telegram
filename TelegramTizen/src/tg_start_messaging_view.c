@@ -77,9 +77,9 @@ char* get_budy_state(appdata_s* ad, int buddy_id)
 				time_t t = last_seen;
 
 				if (is_today) {
-					format = "last seen at Today, %I:%M %P";
+					format = "last seen Today at %I:%M %P";
 				} else {
-					format = "last seen at %d/%b/%Y, %I:%M %P";
+					format = "last seen %d/%b/%Y at %I:%M %P";
 				}
 
 				struct tm lt;
@@ -117,19 +117,20 @@ static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info
 	user_data_with_pic_s* sel_item = eina_list_nth(ad->buddy_list, item_id);
 	ad->buddy_in_cahtting_data = sel_item;
 
-
+	int peer_id = -1;
 	for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
 		peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
 		tg_peer_info_s* item = pic_item->use_data;
 
 		if (item->peer_id == sel_item->use_data->user_id.id) {
 			ad->peer_in_cahtting_data = pic_item;
+			peer_id = i;
 			break;
 		}
 	}
 
 	elm_naviframe_item_pop(ad->nf);
-	launch_messaging_view_cb(ad, item_id);
+	launch_messaging_view_cb(ad, peer_id);
 }
 
 char* on_buddy_list_name_requested(void *data, Evas_Object *obj, const char *part)

@@ -190,4 +190,8 @@ int get_unread_message_count(char* table_name);
 
 extern void update_msg_into_db(tg_message_s *M, char* table_name);
 
+char* get_buddy_name_from_id(int buddy_id);
+
+int  get_buddy_online_status(int buddy_id);
+
 #endif /* TG_DB_WRAPPER_H_ */

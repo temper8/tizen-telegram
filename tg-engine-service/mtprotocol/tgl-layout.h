@@ -138,7 +138,7 @@ enum tgl_message_action_type {
 };
 
 enum tgl_typing_status {
-	tgl_typing_none = 1,
+	tgl_typing_none = 10001,
 	tgl_typing_typing,
 	tgl_typing_cancel,
 	tgl_typing_record_video,
@@ -181,6 +181,7 @@ struct tgl_photo {
 	struct tgl_geo geo;
 	int sizes_num;
 	struct tgl_photo_size *sizes;
+	int to_peer_id;
 };
 
 struct tgl_encr_photo {

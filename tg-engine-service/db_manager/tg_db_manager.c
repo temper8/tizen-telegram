@@ -25,6 +25,30 @@ static struct _info {
 	.database_name = DEFAULT_TG_DATABASE_PATH,
 };
 
+sqlite3* create_database(char* database_name)
+{
+	if(!database_name)
+		return NULL;
+
+	int ret;
+	sqlite3 *db;
+	ret = sqlite3_open(database_name, &db);
+	//ret = sqlite3_open_v2(database_name, &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE, NULL);
+	if(ret) {
+		return NULL;
+	}
+	return db;
+}
+
+Eina_Bool close_database(sqlite3* db)
+{
+	if(db) {
+		sqlite3_close(db);
+		return EINA_TRUE;
+	}
+	return EINA_FALSE;
+}
+
 int tg_db_init(void)
 {
 	int ret;
@@ -368,7 +392,6 @@ void *tg_db_get_media_info(const char *table_name, long long id, int *media_type
 	dml = "SELECT * FROM ? WHERE media_id = ?";
 
 	ret = sqlite3_prepare_v2(s_info.db, dml, -1, &stmt, NULL);
-
 	ret = sqlite3_bind_text(stmt, 1, table_name, -1, SQLITE_TRANSIENT);
 	tmp = tg_common_to_string("%lld", id);
 	ret = sqlite3_bind_text(stmt, 2, tmp, -1, SQLITE_TRANSIENT);

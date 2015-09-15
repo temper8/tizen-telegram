@@ -20,12 +20,37 @@ static struct _info {
 		.database_name = DEFAULT_TG_DATABASE_PATH,
 };
 
+
+sqlite3* create_database(char* database_name)
+{
+	if(!database_name)
+		return NULL;
+
+	int ret;
+	sqlite3 *db;
+	ret = sqlite3_open(database_name, &db);
+	//ret = sqlite3_open_v2(database_name, &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE, NULL);
+	if(ret) {
+		return NULL;
+	}
+	return db;
+}
+
+Eina_Bool close_database(sqlite3* db)
+{
+	if(db) {
+		sqlite3_close(db);
+		return EINA_TRUE;
+	}
+	return EINA_FALSE;
+}
+
 Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_List* column_types)
 {
-	if(!s_info.db || !table_name || ! column_names || !column_types) {
+	if(!table_name || ! column_names || !column_types) {
 		return EINA_FALSE;
 	}
-
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
@@ -54,7 +79,8 @@ Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		}
 	}
 
-	ret = sqlite3_exec(s_info.db,var_query, NULL,(void*)s_info.db, &err_msg);
+	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	close_database(db);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
@@ -64,10 +90,10 @@ Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_Lis
 
 Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_List* column_types, Eina_List* column_values)
 {
-	if(!s_info.db || !table_name || ! column_names || !column_types || !column_values) {
+	if( !table_name || ! column_names || !column_types || !column_values) {
 		return EINA_FALSE;
 	}
-
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
@@ -141,7 +167,8 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		free(col_value);
 	}
 
-	ret = sqlite3_exec(s_info.db,var_query, NULL,(void*)s_info.db, &err_msg);
+	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	close_database(db);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
@@ -153,10 +180,10 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 
 Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_List* column_types, Eina_List* column_values, const char* where_clause)
 {
-	if(!s_info.db || !table_name || ! column_names || !column_types || !column_values) {
+	if(!table_name || ! column_names || !column_types || !column_values) {
 		return EINA_FALSE;
 	}
-
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
@@ -220,7 +247,10 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	strcat(var_query, where_clause);
 	strcat(var_query, ";");
 
-	ret = sqlite3_exec(s_info.db,var_query, NULL,(void*)s_info.db, &err_msg);
+	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
+
+	close_database(db);
+
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
@@ -231,10 +261,10 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 
 Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names, int (*callback)(void*,int,char**,char**), const char* where_clause, void* data_to_callback)
 {
-	if (!s_info.db || !table_name) {
+	if (!table_name) {
 		return EINA_FALSE;
 	}
-
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	/*****No rows identification*****/
 
 	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
@@ -246,7 +276,7 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	//ret = sqlite3_exec(s_info.db,var_query, callback,(void*)s_info.db, &err_msg);
 
 	sqlite3_stmt *stmt;
-	if (sqlite3_prepare_v2(s_info.db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
+	if (sqlite3_prepare_v2(db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
 		if (sqlite3_step(stmt) == SQLITE_ERROR) {
 			no_of_rows = 0;
 		} else {
@@ -254,14 +284,14 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 		}
 		sqlite3_finalize(stmt);
 	}
-
+	close_database(db);
 	free(row_cnt_qry);
 	if(no_of_rows <= 0) {
 		return EINA_FALSE;
 	}
 
 	/********************************/
-
+	db = create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);
@@ -310,7 +340,8 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	strcat(var_query, ";");
 
 
-	ret = sqlite3_exec(s_info.db,var_query, callback,(void*)data_to_callback, &err_msg);
+	ret = sqlite3_exec(db,var_query, callback,(void*)data_to_callback, &err_msg);
+	close_database(db);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
@@ -323,10 +354,10 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 int get_number_of_rows(char* table_name, char* where_clause)
 {
 	int no_of_rows = 0;
-	if (!s_info.db || !table_name) {
+	if (!table_name) {
 		return no_of_rows;
 	}
-
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + 1);
 	strcpy(row_cnt_qry, "SELECT COUNT(*) FROM ");
 	strcat(row_cnt_qry, table_name);
@@ -341,7 +372,7 @@ int get_number_of_rows(char* table_name, char* where_clause)
 	strcat(row_cnt_qry, ";");
 
 	sqlite3_stmt *stmt;
-	if (sqlite3_prepare_v2(s_info.db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
+	if (sqlite3_prepare_v2(db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
 		if (sqlite3_step(stmt) == SQLITE_ERROR) {
 			no_of_rows = 0;
 		} else {
@@ -349,7 +380,7 @@ int get_number_of_rows(char* table_name, char* where_clause)
 		}
 		sqlite3_finalize(stmt);
 	}
-
+	close_database(db);
 	free(row_cnt_qry);
 	return no_of_rows;
 }
@@ -358,10 +389,10 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 {
 	Eina_List* query_vals = NULL;
 
-	if (!s_info.db || !table_name) {
+	if (!table_name) {
 		return NULL;
 	}
-
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	/*****No rows identification*****/
 
 	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
@@ -373,7 +404,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 	//ret = sqlite3_exec(s_info.db,var_query, callback,(void*)s_info.db, &err_msg);
 
 	sqlite3_stmt *stmt;
-	if (sqlite3_prepare_v2(s_info.db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
+	if (sqlite3_prepare_v2(db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
 		if (sqlite3_step(stmt) == SQLITE_ERROR) {
 			no_of_rows = 0;
 		} else {
@@ -381,14 +412,14 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		}
 		sqlite3_finalize(stmt);
 	}
-
+	close_database(db);
 	free(row_cnt_qry);
 	if(no_of_rows <= 0) {
 		return NULL;
 	}
 
 	/********************************/
-
+	db = create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);
@@ -453,7 +484,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 	strcat(var_query, ";");
 
 
-	ret = sqlite3_prepare_v2(s_info.db, var_query, -1, &stmt, 0);
+	ret = sqlite3_prepare_v2(db, var_query, -1, &stmt, 0);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return NULL;
@@ -476,7 +507,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		}
 		query_vals = eina_list_append(query_vals, row_vals);
 	}
-
+    close_database(db);
 	free(var_query);
 	return query_vals;
 
@@ -496,7 +527,21 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	const char *type;
 	int col;
 
-	if (!s_info.db || !table_name || !column_names) {
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	char* where_clause = NULL;
+
+	if (!db) {
+		return NULL;
+	}
+
+	if (wc) {
+		where_clause = (char*)malloc(strlen("WHERE ") + strlen(wc) + 1);
+		strcpy(where_clause, "WHERE ");
+		strcat(where_clause, wc);
+	}
+
+	if (!table_name || !column_names) {
+		close_database(db);
 		return NULL;
 	}
 
@@ -512,6 +557,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 
 	query = malloc(query_len);
 	if (!query) {
+		close_database(db);
 		return NULL;
 	}
 
@@ -535,9 +581,10 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 
 	LOGD("Query: %s", query);
 
-	ret = sqlite3_prepare_v2(s_info.db, query, -1, &stmt, NULL);
+	ret = sqlite3_prepare_v2(db, query, -1, &stmt, NULL);
 	free(query);
 	if (ret != SQLITE_OK) {
+		close_database(db);
 		return NULL;
 	}
 
@@ -593,6 +640,12 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	}
 
 	sqlite3_finalize(stmt);
+
+	if (where_clause) {
+		free(where_clause);
+		where_clause = NULL;
+	}
+	close_database(db);
 	return result;
 }
 
@@ -633,8 +686,8 @@ Eina_List *tg_db_get_user_info(tgl_peer_id_t *user_id)
 	sqlite3_stmt *stmt;
 	int ret;
 	const char *val_text;
-
-	ret = sqlite3_prepare_v2(s_info.db, "SELECT " \
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_prepare_v2(db, "SELECT " \
 				"print_name, structure_version, " \
 				"photo_path, photo_id, " \
 				"first_name, last_name, " \
@@ -643,12 +696,14 @@ Eina_List *tg_db_get_user_info(tgl_peer_id_t *user_id)
 				"username, online, last_seen " \
 				"FROM user_info_table WHERE user_id = ?", -1, &stmt, NULL);
 	if (ret != SQLITE_OK) {
+		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_int(stmt, 1, user_id->id);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
+		close_database(db);
 		return NULL;
 	}
 
@@ -740,8 +795,8 @@ Eina_List *tg_db_get_user_info(tgl_peer_id_t *user_id)
 
 		result = eina_list_append(result, info);
 	}
-
 	sqlite3_finalize(stmt);
+	close_database(db);
 	return result;
 }
 
@@ -752,8 +807,8 @@ Eina_List *tg_db_get_chat_info(const char *table_name)
 	sqlite3_stmt *stmt;
 	const char *tmp;
 	int ret;
-
-	ret = sqlite3_prepare_v2(s_info.db, "SELECT chat_id, " \
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_prepare_v2(db, "SELECT chat_id, " \
 			"flags, print_title, struct_version, " \
 			"photo_id, photo_path, " \
 			"title, " \
@@ -768,6 +823,7 @@ Eina_List *tg_db_get_chat_info(const char *table_name)
 	ret = sqlite3_bind_text(stmt, 1, table_name, -1, SQLITE_TRANSIENT);
 	if (ret != SQLITE_OK) {
 		LOGE("Failed to bind a text");
+		close_database(db);
 		return NULL;
 	}
 
@@ -849,7 +905,7 @@ Eina_List *tg_db_get_chat_info(const char *table_name)
 	}
 
 	sqlite3_finalize(stmt);
-
+	close_database(db);
 	return result;
 }
 
@@ -859,32 +915,37 @@ tg_peer_info_s *tg_db_get_peer_info(const char *table, int peer_id)
 	sqlite3_stmt *stmt;
 	const char *tmp;
 	int ret;
-
-	ret = sqlite3_prepare_v2(s_info.db, "SELECT peer_type, flags, last_msg_id, last_msg_date, print_name, struct_version, no_of_unread_msgs, last_seen_time, photo_path, photo_id FROM ? WHERE peer_id = ?", -1, &stmt, NULL);
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_prepare_v2(db, "SELECT peer_type, flags, last_msg_id, last_msg_date, print_name, struct_version, no_of_unread_msgs, last_seen_time, photo_path, photo_id FROM ? WHERE peer_id = ?", -1, &stmt, NULL);
 	if (ret != SQLITE_OK) {
+		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_text(stmt, 1, table, -1, SQLITE_TRANSIENT);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
+		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_int(stmt, 2, peer_id);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
+		close_database(db);
 		return NULL;
 	}
 
 	if (sqlite3_step(stmt) != SQLITE_ROW) {
 		sqlite3_finalize(stmt);
+		close_database(db);
 		return NULL;
 	}
 
 	info = calloc(1, sizeof(*info));
 	if (!info) {
 		sqlite3_finalize(stmt);
+		close_database(db);
 		return NULL;
 	}
 
@@ -915,6 +976,7 @@ tg_peer_info_s *tg_db_get_peer_info(const char *table, int peer_id)
 	info->photo_id = sqlite3_column_int64(stmt, 9);
 
 	sqlite3_finalize(stmt);
+	close_database(db);
 	return info;
 }
 
@@ -925,15 +987,17 @@ Eina_List *tg_db_get_messages(const char *table_name)
 	sqlite3_stmt *stmt;
 	const char *tmp;
 	int ret;
-
-	ret = sqlite3_prepare_v2(s_info.db, "SELECT msg_id, flags, fwd_from_id, fwd_date, from_id, to_id, out, unread, date, service, message, msg_state, message_len, media_type, media_id, unique_id FROM ?", -1, &stmt, NULL);
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_prepare_v2(db, "SELECT msg_id, flags, fwd_from_id, fwd_date, from_id, to_id, out, unread, date, service, message, msg_state, message_len, media_type, media_id, unique_id FROM ?", -1, &stmt, NULL);
 	if (ret != SQLITE_OK) {
+		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_text(stmt, 1, table_name, -1, SQLITE_TRANSIENT);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
+		close_database(db);
 		return NULL;
 	}
 
@@ -977,6 +1041,7 @@ Eina_List *tg_db_get_messages(const char *table_name)
 
 	}
 	sqlite3_finalize(stmt);
+	close_database(db);
 	return result;
 }
 
