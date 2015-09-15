@@ -62,9 +62,11 @@ void tgl_init(struct tgl_state *TLS)
 {
 	assert(TLS->timer_methods);
 	assert(TLS->net_methods);
+
 	if (!TLS->callback.create_print_name) {
 		TLS->callback.create_print_name = tgls_default_create_print_name;
 	}
+
 	if (!TLS->temp_key_expire_time) {
 		TLS->temp_key_expire_time = 100000;
 	}

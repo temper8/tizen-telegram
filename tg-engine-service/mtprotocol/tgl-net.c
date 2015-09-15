@@ -94,6 +94,13 @@ static Eina_Bool write_call(void* data)
 
 	FD_SET(c->fd, &writeset);
 	select(c->fd + 1, NULL, &writeset, NULL, NULL);
+
+	/**
+	 * conn_try_write can create write_ev timer again.
+	 * So we have to clear the c->write_ev before call it.
+	 */
+	c->write_ev = NULL;
+
 	conn_try_write(c);
 	return ECORE_CALLBACK_CANCEL;
 }
@@ -120,6 +127,7 @@ Eina_Bool ping_alarm(void *arg)
 	} else {
 		start_ping_timer(c);
 	}
+	c->ping_ev = NULL;
 	return ECORE_CALLBACK_CANCEL;
 }
 
@@ -133,6 +141,10 @@ static void stop_ping_timer(struct connection *c)
 
 static void start_ping_timer(struct connection *c)
 {
+	if (c->ping_ev) {
+		return;
+	}
+
 	c->ping_ev = ecore_timer_add(PING_TIMEOUT, ping_alarm, c);
 }
 
@@ -141,8 +153,11 @@ static void restart_connection(struct connection *c);
 Eina_Bool fail_alarm(void *arg)
 {
 	struct connection *c = arg;
+
 	c->in_fail_timer = 0;
 	restart_connection(c);
+
+	c->fail_ev = NULL;
 	return ECORE_CALLBACK_CANCEL;
 }
 
@@ -191,7 +206,6 @@ int tgln_write_out(struct connection *c, const void *_data, int len)
 #else
 		if(c->write_ev) {
 			ecore_timer_del(c->write_ev);
-			c->write_ev = NULL;
 		}
 		c->write_ev = ecore_timer_add(0.000001, write_call, c);
 #endif
@@ -348,7 +362,6 @@ void conn_try_write(void *arg)
 #else
 		if(c->write_ev) {
 			ecore_timer_del(c->write_ev);
-			c->write_ev = NULL;
 		}
 		c->write_ev = ecore_timer_add(0.000001, write_call, c);
 #endif
@@ -417,7 +430,6 @@ static Eina_Bool read_timer_alarm(void* arg)
 	struct connection *c = arg;
 	if(c->read_ev) {
 		ecore_main_fd_handler_del(c->read_ev);
-		c->read_ev = NULL;
 	}
 	c->read_ev = ecore_main_fd_handler_add(c->fd, ECORE_FD_READ, conn_try_read, c, NULL,NULL);
 	return ECORE_CALLBACK_CANCEL;
