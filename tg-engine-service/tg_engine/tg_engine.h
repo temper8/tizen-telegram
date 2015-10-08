@@ -168,6 +168,7 @@ extern void free_contact_data(Eina_List *contact_data);
 extern void leave_group_chat(tg_engine_data_s *tg_data, int group_chat_id);
 extern void do_delete_buddy(int buddy_id);
 extern void do_add_buddy(int buddy_id);
+extern void do_update_chat_info(int chat_id);
 extern void do_unblock_buddy(int buddy_id);
 extern void do_block_buddy(int buddy_id);
 extern void set_group_chat_profile_picture(tg_engine_data_s *tg_data, int buddy_id, const char *file_path);

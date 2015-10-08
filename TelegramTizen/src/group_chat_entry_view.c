@@ -315,7 +315,8 @@ void launch_group_chat_name_entry_view(void *data)
 
 	Evas_Object* buddy_gen_list = elm_genlist_add(ad->nf);
 	elm_list_mode_set(buddy_gen_list, ELM_LIST_COMPRESS);
-	elm_genlist_decorate_mode_set(buddy_gen_list, ELM_LIST_COMPRESS);
+	// FIXME: Deprecated API
+	//elm_genlist_decorate_mode_set(buddy_gen_list, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(buddy_gen_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(buddy_gen_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 

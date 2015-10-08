@@ -3516,3 +3516,55 @@ int get_number_of_unread_messages()
 	eina_list_free(peer_details);
 	return no_of_unread;
 }
+
+void create_buddy_msg_table(const char* table_name)
+{
+	if(!table_name) {
+		return;
+	}
+	// create user info table
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ROW_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_DATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FROM_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_TO_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_OUT_MSG);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNREAD);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_DATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_SERVICE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_STATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_LENGTH);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	Eina_Bool ret = create_table(table_name, col_names, col_types);
+	if(!ret) {
+		//("error: database creation failed");
+	}
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+}

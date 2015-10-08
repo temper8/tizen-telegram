@@ -34,5 +34,6 @@ void send_set_username_request(service_client* service_client, int user_id, cons
 void send_remove_buddy_from_group_chat_request(service_client* service_client, int user_id, int chat_id);
 void send_request_for_delete_notifications(service_client* service_client);
 void send_request_for_server_connection_status(service_client* service_client);
+void send_update_chat_request(service_client* service_client, const int chat_id);
 
 #endif /* SERVER_REQUESTS_H_ */

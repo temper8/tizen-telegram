@@ -79,6 +79,14 @@ void process_add_user_request(tg_engine_data_s* tg_data, int buddy_id)
 	do_add_buddy(buddy_id);
 }
 
+void process_update_chat_request(tg_engine_data_s* tg_data, int chat_id)
+{
+	if (!tgl_engine_get_TLS()) {
+		return;
+	}
+	do_update_chat_info(chat_id);
+}
+
 
 void process_delete_user_request(tg_engine_data_s* tg_data, int buddy_id)
 {
@@ -228,6 +236,65 @@ void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id)
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+
+	bundle_free(msg);
+}
+
+void send_new_buddy_added_response(tg_engine_data_s *tg_data, int buddy_id)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "new_buddy_added") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str,"%d",buddy_id);
+	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+
+	bundle_free(msg);
+}
+
+void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "reponse_group_chat_updated") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char chat_id_str[50];
+	sprintf(chat_id_str,"%d",chat_id);
+	if (bundle_add_str(msg, "chat_id", chat_id_str) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 

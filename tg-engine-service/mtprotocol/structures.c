@@ -1839,6 +1839,9 @@ void tgls_free_message_media(struct tgl_state *TLS, struct tgl_message_media *M)
 
 void tgls_free_message_action(struct tgl_state *TLS, struct tgl_message_action *M)
 {
+	if (!M) {
+		return;
+	}
 	switch (M->type) {
 	case tgl_message_action_none:
 		return;
@@ -1877,8 +1880,11 @@ void tgls_free_message_action(struct tgl_state *TLS, struct tgl_message_action *
 			vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
 			assert(0);*/
 	}
+	// sandeep
+	/*
 	vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
 	assert(0);
+	*/
 }
 
 void tgls_clear_message(struct tgl_state *TLS, struct tgl_message *M)

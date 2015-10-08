@@ -51,7 +51,8 @@ static void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, i
 static void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U);
 static void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename);
 static void on_document_download_completed(struct tgl_state *TLS, void *callback_extra, int success, char *filename);
-
+static void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename);
+static void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U);
 void tgl_engine_var_init(void)
 {
 	s_info.default_username = NULL;
@@ -974,6 +975,23 @@ void on_new_chat_info_received(struct tgl_state *TLS, void *callback_extra, int 
 		return;
 	}
 
+	if (chat_info->user_list) {
+		for (int i = 0; i < chat_info->user_list_size; i++) {
+			int user_id = chat_info->user_list[i].user_id;
+			Eina_Bool is_present_in_db = is_user_present_peer_table(user_id);
+			char* tb_name = get_table_name_from_number(user_id);
+			create_buddy_msg_table(tb_name);
+			if (!is_present_in_db) {
+				// add to buddy table
+				tgl_peer_id_t from_id;
+				from_id.id = user_id;
+				from_id.type = TGL_PEER_USER;
+				tgl_do_get_user_info(TLS, from_id, 0, on_new_buddy_info_loaded, NULL);
+			}
+			free(tb_name);
+		}
+	}
+
 	tg_data = TLS->callback_data;
 
 	tgl_peer_t* UC = tgl_peer_get(TLS, M->from_id);
@@ -1102,7 +1120,124 @@ static Eina_Bool on_msg_received_cb(void *data)
 	return ECORE_CALLBACK_CANCEL;
 }
 
+void on_requested_chat_info_received(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *chat_info)
+{
+	tg_engine_data_s *tg_data;
 
+	struct tgl_message *M = callback_extra;
+
+	char *msg_table;
+
+
+	if (!chat_info) {
+		return;
+	}
+	if (!chat_info->user_list) {
+		tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_requested_chat_info_received, callback_extra);
+		return;
+	}
+
+	tg_data = TLS->callback_data;
+
+	msg_table = get_table_name_from_number(chat_info->id.id);
+
+	create_buddy_msg_table(msg_table);
+
+	insert_chat_info_to_db(chat_info, NULL);
+	struct tgl_photo *pic = &(chat_info->photo);
+	if(pic) {
+		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	}
+
+	// send message
+	int msg_id = insert_current_date_to_table(msg_table);
+	if (msg_id > 0) {
+		send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
+		struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
+		msg_data->M = M;
+		msg_data->TLS = TLS;
+		msg_data->send_timer = ecore_timer_add(3, on_msg_received_cb, msg_data);
+	} else {
+		if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
+			M->message = strdup("Audio");
+			M->message_len = strlen("Audio");
+		} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
+			M->message = strdup("Video");
+			M->message_len = strlen("Video");
+		}
+		insert_buddy_msg_to_db(M);
+		if(M->media.type != tgl_message_media_none) {
+			insert_media_info_to_db(M, "");
+			if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
+				tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
+				return;
+			}
+		}
+		// inform to application
+		send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, tgl_get_peer_type(M->to_id));
+	}
+
+	free(msg_table);
+}
+
+
+void on_requested_update_chat_received(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *chat_info)
+{
+	tg_engine_data_s *tg_data;
+	char *msg_table;
+	msg_table = get_table_name_from_number(chat_info->id.id);
+	create_buddy_msg_table(msg_table);
+	free(msg_table);
+	if (!chat_info) {
+		return;
+	}
+	if (!chat_info->user_list) {
+		tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
+		return;
+	}
+
+	tg_data = TLS->callback_data;
+
+	insert_chat_info_to_db(chat_info, NULL);
+	struct tgl_photo *pic = &(chat_info->photo);
+	if(pic) {
+		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	}
+	//char *type_of_change = strdup("add_user");
+	tgl_peer_t* chat_UC = tgl_peer_get(TLS, chat_info->id);
+	insert_chat_info_to_db(chat_info, NULL);
+	insert_peer_into_database(chat_UC, 0, 0);
+	send_response_to_group_chat_updated_response(tg_data, chat_info->id.id);
+	//free(type_of_change);
+}
+
+void do_update_chat_info(int chat_id)
+{
+	tgl_peer_id_t to_id;
+	to_id.id = chat_id;
+	to_id.type = TGL_PEER_CHAT;
+	tgl_do_get_chat_info(s_info.TLS, to_id, 0, &on_requested_update_chat_received, NULL);
+}
+
+void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U)
+{
+	if(!U) {
+		return;
+	}
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (U->id.id == tg_data->id.id) {
+		return;
+	}
+	tgl_peer_t* UC = tgl_peer_get(TLS, U->id);
+	insert_peer_into_database(UC, 0, 0);
+	insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, U);
+	struct tgl_photo* pic = &(U->photo);
+	if(pic) {
+		tgl_do_load_photo(TLS, pic ,&on_buddy_pic_loaded,U);
+	}
+
+	send_new_buddy_added_response(tg_data, U->id.id);
+}
 
 void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 {
@@ -1249,7 +1384,14 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				} else if (tgl_get_peer_type(M->to_id) == TGL_PEER_CHAT) {
 					user_id = M->to_id.id;
 				}
+
+				Eina_Bool is_present_in_db = is_user_present_peer_table(user_id);
 				char* tb_name = get_table_name_from_number(user_id);
+				create_buddy_msg_table(tb_name);
+				if (!is_present_in_db) {
+					// add to buddy table
+					tgl_do_get_user_info(TLS, M->from_id, 0, on_new_buddy_info_loaded, NULL);
+				}
 
 				int msg_id = insert_current_date_to_table(tb_name);
 				free(tb_name);
@@ -1301,6 +1443,23 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				} else if (tgl_get_peer_type(M->to_id) == TGL_PEER_CHAT) {
 					user_id = M->to_id.id;
 				}
+
+				// check whether user is present or not
+
+				Eina_Bool is_present_in_peer_db = is_user_present_peer_table(user_id);
+
+				if (!is_present_in_peer_db) {
+					tgl_do_get_chat_info(TLS, M->to_id, 0, &on_requested_chat_info_received, M);
+					return;
+				}
+
+				Eina_Bool is_present_in_chat_db = is_user_present_chat_table(user_id);
+				if (!is_present_in_chat_db) {
+					//sandeep
+					tgl_do_get_chat_info(TLS, M->to_id, 0, &on_requested_chat_info_received, M);
+					return;
+				}
+
 				char* tb_name = get_table_name_from_number(user_id);
 				int msg_id = insert_current_date_to_table(tb_name);
 				free(tb_name);
@@ -1510,6 +1669,9 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 	if (!chat_info) {
 		return;
 	}
+	msg_table = get_table_name_from_number(chat_info->id.id);
+	create_buddy_msg_table(msg_table);
+	free(msg_table);
 	if (!chat_info->user_list) {
 		tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
 		return;
@@ -1517,17 +1679,11 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 
 	tg_data = TLS->callback_data;
 
-	msg_table = get_table_name_from_number(chat_info->id.id);
-
-	create_buddy_msg_table(msg_table);
-
 	insert_chat_info_to_db(chat_info, NULL);
 	struct tgl_photo *pic = &(chat_info->photo);
 	if(pic) {
 		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
 	}
-	free(msg_table);
-
 }
 
 void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U)
