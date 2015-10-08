@@ -141,6 +141,7 @@
 #define MEDIA_INFO_TABLE_DOCUMENT_DC "doc_dc" //text
 #define MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE "video_thumb" //text
 
+#define MESSAGE_INFO_TABLE_MESSAGE_ROW_ID "msg_row_id"
 #define MESSAGE_INFO_TABLE_MESSAGE_ID "msg_id"
 #define MESSAGE_INFO_TABLE_FLAGS "flags"
 #define MESSAGE_INFO_TABLE_FWD_FROM_ID "fwd_from_id"
@@ -247,6 +248,8 @@ void free_media_details(tgl_media_s *media_msg);
 int get_media_size_from_db(long long media_id);
 
 int get_number_of_unread_messages();
+
+void create_buddy_msg_table(const char* table_name);
 
 Eina_Bool insert_unsent_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *msg_type, const char * msg_data, const char *type_of_chat);
 Eina_Bool insert_unsent_media_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *media_id, const char *msg_type, const char *file_path, const char *type_of_chat);

@@ -21,7 +21,15 @@
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 
+#define LOGI(fmt, arg...) dlog_print(DLOG_INFO, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
+
 #define DBG(fmt, arg...) dlog_print(DLOG_DEBUG, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
+
+#define LOGD(fmt, arg...) dlog_print(DLOG_DEBUG, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 
@@ -30,6 +38,10 @@
         __func__, __LINE__, ##arg)
 
 #define ERR(fmt, arg...) dlog_print(DLOG_ERROR, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
+
+#define LOGE(fmt, arg...) dlog_print(DLOG_ERROR, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 

@@ -183,6 +183,47 @@ void send_add_buddy_request(service_client* service_client, const int buddy_id)
 	bundle_free(msg);
 }
 
+void send_update_chat_request(service_client* service_client, const int chat_id)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "update_chat_info") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+	snprintf(tmp, sizeof(tmp) - 1, "%d", chat_id);
+
+	if (bundle_add_str(msg, "chat_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+
 void send_delete_buddy_request(service_client* service_client, const int buddy_id)
 {
 	if (!service_client) {

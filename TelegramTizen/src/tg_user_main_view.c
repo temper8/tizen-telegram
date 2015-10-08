@@ -13,6 +13,7 @@
 #include "tg_settings_view.h"
 #include "tg_db_manager.h"
 #include "server_requests.h"
+#include "tg_db_wrapper.h"
 
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
@@ -541,6 +542,19 @@ void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event_info)
 	ad->peer_in_cahtting_data = NULL;
 	int buddy_id = -1;
 	if (sel_item) {
+
+		if (sel_item->peer_type == TGL_PEER_CHAT) {
+
+			tg_chat_info_s* chat_info = get_chat_info(sel_item->peer_id);
+			if (!chat_info) {
+				// request chat info
+				//show_toast(ad, "Loading chat info. Please wait.");
+				show_loading_popup(ad);
+				send_update_chat_request(ad->service_client, sel_item->peer_id);
+				return;
+			}
+		}
+
 		if (sel_item->peer_type == TGL_PEER_USER) {
 			for (int i = 0; i < eina_list_count(ad->buddy_list); i++) {
 				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
@@ -614,6 +628,9 @@ Evas_Object* on_buddy_photo_requested(void *data, Evas_Object *obj, const char *
 	int id = (int) data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	tg_main_list_item_s* item = eina_list_nth(ad->main_list, id);
+	if (!item) {
+		return eo;
+	}
 
 	if (!strcmp(part, "elm.swallow.icon")) {
 		int size = eina_list_count(ad->main_list);

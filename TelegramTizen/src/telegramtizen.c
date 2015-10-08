@@ -941,6 +941,37 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			// error handling
 			show_toast(app, "Error: loading contacts");
 		}
+	} else if (strcmp(rec_key_val, "reponse_group_chat_updated") == 0) {
+
+		char *chat_id_str = NULL;
+		result = bundle_get_str(rec_msg, "chat_id", &chat_id_str);
+		int chat_id = atoi(chat_id_str);
+
+		int buddy_id = -1;
+		app->main_item_in_cahtting_data = NULL;
+		app->peer_in_cahtting_data = NULL;
+		for (int i = 0 ; i < eina_list_count(app->main_list) ; i++) {
+			tg_main_list_item_s *item = eina_list_nth(app->main_list, i);
+			if (item->peer_id == chat_id) {
+				app->main_item_in_cahtting_data = item;
+				break;
+			}
+		}
+
+		for (int i = 0; i < eina_list_count(app->peer_list); i++) {
+			peer_with_pic_s* pic_item = eina_list_nth(app->peer_list, i);
+			tg_peer_info_s* item = pic_item->use_data;
+
+			if (item->peer_id == chat_id) {
+				app->peer_in_cahtting_data = pic_item;
+				buddy_id = i;
+				break;
+			}
+		}
+
+		launch_messaging_view_cb(app, buddy_id);
+		hide_loading_popup(app);
+
 	} else if (strcmp(rec_key_val, "group_chat_updated") == 0) {
 
 		char *chat_id_str = NULL;
@@ -1174,19 +1205,17 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		//load message from the received info.
 		// get phone number using buddy id.
 
-
+		Eina_Bool is_user_present_in_main_list = EINA_FALSE;
+		int id_to_check;
+		if (type_of_chat == TGL_PEER_USER) {
+			id_to_check = from_id;
+		} else {
+			id_to_check = to_id;
+		}
 		if (app->main_list) {
 			int main_list_size = eina_list_count(app->main_list);
 			for (int i = 0; i < main_list_size; i++) {
 				tg_main_list_item_s* sel_item = eina_list_nth(app->main_list, i);
-
-				int id_to_check;
-				if (type_of_chat == TGL_PEER_USER) {
-					id_to_check = from_id;
-				} else {
-					id_to_check = to_id;
-				}
-
 
 				if (sel_item->peer_id == id_to_check ) {
 
@@ -1358,9 +1387,25 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 					}
 
 					free(tablename);
+					is_user_present_in_main_list = EINA_TRUE;
+
+					app->main_list = eina_list_remove(app->main_list, sel_item);
+					app->main_list = eina_list_prepend(app->main_list, sel_item);
+					refresh_main_list_view(app, EINA_FALSE);
 					break;
 				}
 			}
+		}
+
+		if (!is_user_present_in_main_list) {
+			 peer_with_pic_s *peer_item = get_peer_info(id_to_check);
+			 if (peer_item) {
+				 tg_main_list_item_s* latest_item = get_latest_item(app, peer_item);
+				 if (latest_item) {
+					 app->main_list = eina_list_prepend(app->main_list, latest_item);
+					 refresh_main_list_view(app, EINA_TRUE);
+				 }
+			 }
 		}
 
 		if (type_of_chat == TGL_PEER_USER) {
@@ -1824,46 +1869,44 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			}
 			eina_list_free(contacts_list);
 		}
+	} else if (strcmp(rec_key_val, "new_buddy_added") == 0) {
+		char* buddy_id_str = NULL;
+		result = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+
+		int buddy_id = atoi(buddy_id_str);
+		peer_with_pic_s *peer_item = get_peer_info(buddy_id);
+		tg_main_list_item_s* latest_item = get_latest_item(app, peer_item);
+		if (latest_item) {
+			app->main_list = eina_list_prepend(app->main_list, latest_item);
+			refresh_main_list_view(app, EINA_TRUE);
+		}
+
 	} else if (strcmp(rec_key_val, "new_group_added") == 0) {
 
 		char* chat_id_str = NULL;
 		result = bundle_get_str(rec_msg, "chat_id", &chat_id_str);
 
-
-#if 0
-
-		// get group chat details from database.(chat info)
-		// tg_chat_info_s* chat_info = get_chat_info(chat_id);
-
-		load_buddy_list_data(app);
-		load_group_chat_data(app);
-		load_peer_data(app);
-		load_main_list_data(app);
-		if (app->current_app_state == TG_BUDDY_LIST_STATE) {
-			//refresh_buddy_list(app);
-			show_toast(app, "new group created");
-		} else {
-			elm_naviframe_item_pop(app->nf);
-			//refresh_buddy_list(app);
-		}
-#else
 		 int chat_id = atoi(chat_id_str);
 		 peer_with_pic_s *peer_item = get_peer_info(chat_id);
 		if (app->current_app_state == TG_USER_MAIN_VIEW_STATE) {
 			tg_main_list_item_s* latest_item = get_latest_item(app, peer_item);
-			app->main_list = eina_list_prepend(app->main_list, latest_item);
-			refresh_main_list_view(app, EINA_TRUE);
+			if (latest_item) {
+				app->main_list = eina_list_prepend(app->main_list, latest_item);
+				refresh_main_list_view(app, EINA_TRUE);
+			}
 		} else {
 			tg_main_list_item_s* latest_item = get_latest_item(app, peer_item);
-			app->main_list = eina_list_prepend(app->main_list, latest_item);
-			refresh_main_list_view(app, EINA_TRUE);
+			if (latest_item) {
+				app->main_list = eina_list_prepend(app->main_list, latest_item);
+				refresh_main_list_view(app, EINA_TRUE);
+			}
 			elm_naviframe_item_pop(app->nf);
 			app->current_app_state = TG_USER_MAIN_VIEW_STATE;
 			evas_object_show(app->panel);
 			//elm_panel_hidden_set(app->panel, EINA_FALSE);
 		}
 		app->peer_list = eina_list_prepend(app->peer_list, peer_item);
-#endif
+
 	} else if (strcmp(rec_key_val, "contact_updated") == 0) {
 
 

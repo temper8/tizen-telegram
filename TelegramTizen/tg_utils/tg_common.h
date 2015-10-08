@@ -37,6 +37,9 @@
 #define TELEGRAM_POPUP_VIEW_EDJ	"edje/telegram_custom_popup.edj"
 #define TELEGRAM_GENLIST_THEME_EDJ	"edje/telegram_genlist_theme.edj"
 
+#define TELEGRAM_START_SCREEN_EDJ	"edje/telegram_start_screen.edj"
+
+
 
 #define GRP_MAIN "main"
 #define DEFAULT_TELEGRAM_PATH "/opt/usr/media/telegram/"
