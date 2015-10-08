@@ -704,8 +704,20 @@ static long long generate_next_msg_id(struct tgl_state *TLS, struct tgl_dc *DC, 
 static void init_enc_msg(struct tgl_state *TLS, struct tgl_session *S, int useful)
 {
 	struct tgl_dc *DC = S->dc;
+	// sandeep
+#if 0
 	assert(DC->state == st_authorized);
 	assert(DC->temp_auth_key_id);
+#else
+	if (DC->state != st_authorized) {
+		return;
+	}
+
+	if (DC->temp_auth_key_id == 0) {
+		return;
+	}
+#endif
+
 	vlogprintf(E_DEBUG, "temp_auth_key_id = 0x%016llx, auth_key_id = 0x%016llx\n", DC->temp_auth_key_id, DC->auth_key_id);
 	enc_msg.auth_key_id = DC->temp_auth_key_id;
 	enc_msg.server_salt = DC->server_salt;
@@ -1157,7 +1169,8 @@ static int process_rpc_message(struct tgl_state *TLS, struct connection *c, stru
 		fail_session(TLS, S);
 		return -1;
 	}
-	assert(in_ptr == in_end);
+	//sandeep
+	//assert(in_ptr == in_end);
 	return 0;
 }
 

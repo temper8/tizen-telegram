@@ -13,7 +13,9 @@
 #include <system_settings.h>
 #include <efl_extension.h>
 #include <dlog.h>
+#include <app_preference.h>
 #include "service_client.h"
+#include <notification.h>
 
 #ifdef  LOG_TAG
 #undef  LOG_TAG
@@ -23,7 +25,7 @@
 #if !defined(PACKAGE)
 #define PACKAGE "org.tizen.telegram_tizen"
 #endif
-
+#define TELEGRAM_APP_ID "org.tizen.telegramtizen"
 #define EDJ_REG_FILE "edje/telegram_tizen_reg.edj"
 #define EDJ_LOGIN_FILE "edje/telegram_tizen_login.edj"
 #define EDJ_CHAT_LIST_FILE "edje/telegram_chat_list.edj"
@@ -32,6 +34,7 @@
 #define TELEGRAM_CUSTOM_WINSET_EDJ	"edje/telegram_theme.edj"
 #define TELEGRAM_CHAT_VIEW_EDJ	"edje/telegram_chat_view.edj"
 #define TELEGRAM_INIT_VIEW_EDJ	"edje/telegram_init_screen.edj"
+#define TELEGRAM_POPUP_VIEW_EDJ	"edje/telegram_custom_popup.edj"
 #define TELEGRAM_GENLIST_THEME_EDJ	"edje/telegram_genlist_theme.edj"
 
 
@@ -49,28 +52,35 @@
 #define SEND_UNPRESSED_ICON FM_ICON_PATH"/ic_send_pressed.png"
 #define SEND_PRESSED_ICON FM_ICON_PATH"/ic_send_unpressed.png"
 #define CHAT_BG FM_ICON_PATH"/chat_bg.jpg"
-#define BLUR_BG FM_ICON_PATH"/blur_img.jpg"
+#define BLUR_BG FM_ICON_PATH"/blur_img.png"
 #define CAMERA_ICON FM_ICON_PATH"/camera-icon.png"
 #define MESSAGE_READ_ICON FM_ICON_PATH"/ic_message_read.png"
 #define MESSAGE_SENDING_ICON FM_ICON_PATH"/ic_message_sending.png"
 #define MESSAGE_SENT_ICON FM_ICON_PATH"/ic_message_sent.png"
 #define MESSAGE_FAILED_ICON FM_ICON_PATH"/ic_message_failed.png"
 #define MESSAGE_DELIVERED_ICON FM_ICON_PATH"/ic_message_delivered.png"
+#define FLOATING_MSG_ICON FM_ICON_PATH"/floating_message.png"
 
 #define MEDIA_DOWNLOAD_ICON FM_ICON_PATH"/ic_attach_download.png"
 #define MEDIA_MANUAL_DOWNLOAD_ICON FM_ICON_PATH"/ic_attach_manual_download.png"
+#define MEDIA_PLAY_ICON FM_ICON_PATH"/playvideo.png"
+#define DEFAULT_TELEGRAM_ICON FM_ICON_PATH"/tg_icon.png"
 
 
 #define FM_ICON_CAMERA       FM_ICON_PATH"floating_camera.png"
 #define FM_ICON_GALLERY       FM_ICON_PATH"ic_attach_gallery.png"
 #define FM_ICON_VIDEO       FM_ICON_PATH"ic_attach_video.png"
+#define FM_ICON_MIC       FM_ICON_PATH"ic_attach_mic.png"
 #define FM_ICON_FILE       FM_ICON_PATH"ic_attach_doc.png"
 #define FM_ICON_LOCATION       FM_ICON_PATH"ic_attach_location.png"
+
+
 
 
 #define TG_ICON_FLOATING_PENCIL       FM_ICON_PATH"floating_pencil.png"
 #define TG_ICON_FLOATING_BG       FM_ICON_PATH"floating_pressed.png"
 #define TG_SEARCH_ICON       FM_ICON_PATH"ic_ab_search.png"
+#define TG_SEARCH_PRESSED_ICON       FM_ICON_PATH"ic_ab_search_pressed.png"
 
 #define TG_MENU_GROUP       FM_ICON_PATH"menu_newgroup.png"
 #define TG_MENU_INVITE       FM_ICON_PATH"menu_invite.png"
@@ -79,6 +89,10 @@
 #define TG_MENU_SETTINGS       FM_ICON_PATH"menu_settings.png"
 
 #define TG_CHAT_DEFAULT_BG       FM_ICON_PATH"background_hd.jpg"
+
+#define TG_VIDEO_ICON       FM_ICON_PATH"Video-Icon.jpg"
+//#define TG_AUDIO_ICON       FM_ICON_PATH"Audio-Icon.png"
+#define TG_AUDIO_ICON       FM_ICON_PATH"Audio-wave.png"
 
 
 #define INIT_SCREEN_1       FM_ICON_PATH"screenshot_1.png"
@@ -93,8 +107,12 @@
 #define POPUP_TEXT_TAKE_PHOTO "Take photo"
 #define POPUP_TEXT_TAKE_GALLERY "Gallery"
 #define POPUP_TEXT_TAKE_VIDEO "Video"
+#define POPUP_TEXT_TAKE_AUDIO "Audio"
 #define POPUP_TEXT_TAKE_FILE "File"
 #define POPUP_TEXT_TAKE_LOCATION "Location"
+#define POPUP_TEXT_TAKE_CONTACT "Contact"
+
+#define TG_CHAT_BG_PREFERENCE "chat_view_bg"
 
 
 #define LIST_CONTACT_ROUND_MASK_ICON FM_ICON_PATH"/info_page_pic_mask.png"
@@ -120,7 +138,7 @@
 #define SAFE_STRLEN(src)	\
 		((src != NULL)? strlen(src): 0)
 #define ELM_OBJ_PART_TEXT_SET(obj, part, text) 		elm_object_domain_translatable_part_text_set(obj, part, "telegram", text)
-
+#define EVAS_OBJECT_DELIF(p)	if (p) { evas_object_del(p); p = NULL; }
 
 #define TGL_PEER_USER 1
 #define TGL_PEER_CHAT 2
@@ -178,12 +196,20 @@ static Elm_Entry_Filter_Accept_Set accept_set = {
 
 #define MAX_NUM_LENGTH 10
 #define MAX_CODE_LENGTH 5
+#define MAX_USERNAME_LENGTH 15
+#define MIN_USERNAME_LENGTH 5
 
 typedef struct {
 	int type;
 	int id;
 } tgl_peer_id_t;
 
+
+
+typedef enum {
+	APP_STATE_IN_BACKGROUND = 0,
+	APP_STATE_IN_FOREGROUND
+}app_visible_state;
 
 typedef enum {
 	TELEGRAM_APP_FILE_TYPE_NONE = 0,
@@ -231,7 +257,13 @@ typedef enum state_of_app {
 	TG_BUDDY_CHAT_CONV_STATE,
 	TG_USER_MAIN_VIEW_STATE,
 	TG_START_MESSAGING_VIEW_STATE,
-	TG_CHAT_MESSAGING_VIEW_STATE
+	TG_CHAT_MESSAGING_VIEW_STATE,
+	TG_PEER_SEARCH_VIEW_STATE,
+	TG_SETTINGS_SCREEN_STATE,
+	TG_SET_USERNAME_STATE,
+	TG_SET_USER_INFO_STATE,
+	TG_SET_CHAT_INFO_STATE,
+	TG_SELECT_BUDDY_VIEW
 } state_of_app_s;
 
 enum tgl_typing_status {
@@ -261,20 +293,22 @@ typedef enum MESSAGE_STATE {
 
 typedef struct user_data {
 	tgl_peer_id_t user_id;
-	char* print_name;
+	char *print_name;
 	int structure_version;
-	char* photo_path;
+	char *photo_path;
 	int photo_id;
-	char* first_name;
-	char* last_name;
-	char* phone;
+	char *first_name;
+	char *last_name;
+	char *phone;
 	int access_hash;
-	char* real_first_name;
-	char* real_last_name;
-	char* username;
+	char *real_first_name;
+	char *real_last_name;
+	char *username;
 	int online;
 	int last_seen;
 	Eina_Bool is_selected;
+	int is_blocked;
+	int is_deleted;
 } user_data_s;
 
 typedef struct user_data_with_pic {
@@ -284,7 +318,7 @@ typedef struct user_data_with_pic {
 } user_data_with_pic_s;
 
 enum tgl_message_media_type {
-	tgl_message_media_none,
+	tgl_message_media_none = 1001,
 	tgl_message_media_photo,
 	//tgl_message_media_video,
 	//tgl_message_media_audio,
@@ -363,6 +397,71 @@ typedef struct tg_message {
 	int unique_id;
 } tg_message_s;
 
+typedef struct tgl_media {
+	long long media_id;
+	int media_type;
+	long long access_hash;
+	int user_id;
+	int date;
+	char *caption;
+	char *longitude;
+	char *latitude;
+	int sizes;
+	char *phone_no;
+	char *first_name;
+	char *last_name;
+	char *file_path;
+
+	char *photo_type1;
+	int photo_loc_dc1;
+	long long photo_loc_vol1;
+	int photo_loc_id1;
+	long long photo_loc_sec1;
+	int photo_width1;
+	int photo_height1;
+	int photo_size1;
+	char *photo_data1;
+
+	char *photo_type2;
+	int photo_loc_dc2;
+	long long photo_loc_vol2;
+	int photo_loc_id2;
+	long long photo_loc_sec2;
+	int photo_width2;
+	int photo_height2;
+	int photo_size2;
+	char *photo_data2;
+
+	char *photo_type3;
+	int photo_loc_dc3;
+	long long photo_loc_vol3;
+	int photo_loc_id3;
+	long long photo_loc_sec3;
+	int photo_width3;
+	int photo_height3;
+	int photo_size3;
+	char *photo_data3;
+
+	char *photo_type4;
+	int photo_loc_dc4;
+	long long photo_loc_vol4;
+	int photo_loc_id4 ;
+	long long photo_loc_sec4;
+	int photo_width4;
+	int photo_height4;
+	int photo_size4;
+	char *photo_data4;
+
+
+	char* mime_type;
+	char* doc_type;
+	int doc_width;
+	int doc_height;
+	int doc_duration;
+	int doc_size;
+
+} tgl_media_s;
+
 typedef struct tg_main_list_item {
 	char* peer_print_name;
 	int peer_id;
@@ -389,29 +488,42 @@ typedef struct appdata {
 	Evas_Object* conform;
 	Evas_Object* nf;
 	Evas_Object* panel;
-	struct event_base *basic_event;
 	char* phone_number;
 	char* sms_code;
 	Eina_List* buddy_list;
-	Eina_List* group_chat_list;
+	//Eina_List* group_chat_list;
 	Eina_List* peer_list;
 
 	Eina_List* main_list;
 
+	Eina_List* search_peer_list;
 
 	int curtimezoneoffset;
 	int curtimeformat;
 	tgl_peer_id_t user_id;
 	state_of_app_s current_app_state;
-	user_data_s current_user_data;
+	user_data_s *current_user_data;
+	tg_main_list_item_s* main_item_in_cahtting_data;
 	peer_with_pic_s* peer_in_cahtting_data;
 	user_data_with_pic_s* buddy_in_cahtting_data;
-	Eina_Bool is_network_connected;
 	service_client* service_client;
 	Eina_Bool is_first_time_registration;
 	Eina_List* loaded_msg_list;
 	int timer_value;
 	Eina_Bool is_last_msg_changed;
+	Evas_Object* loading_popup;
+	Eina_Bool is_tg_initilized;
+
+	char *chat_background;
+	//Eina_Bool is_long_pressed;
+	Evas_Object *msg_popup;
+
+	//user_data_with_pic_s *selected_buddy_item;
+	user_data_s *selected_buddy_item;
+
+	app_visible_state s_app_visible_state;
+	notification_h s_notififcation;
+	Eina_Bool is_server_ready;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
@@ -420,9 +532,11 @@ extern void tg_login_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
 extern void detail_list_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
 extern void create_buddy_msg_table(const char* table_name);
 extern void load_buddy_list_data(appdata_s *ad);
-extern void load_group_chat_data(appdata_s *ad);
+//extern void load_group_chat_data(appdata_s *ad);
 extern void load_peer_data(appdata_s *ad);
+extern void load_registered_user_data(appdata_s *ad);
 extern void load_main_list_data(appdata_s *ad);
+extern void launch_app_control(appdata_s *ad, char *media_type, char *url);
 
 #if 0
 static char *trim(char *s) {
@@ -472,6 +586,7 @@ static inline void telegram_image_mask_delete_cb(Evas_Object *obj)
 	}
 }
 
+extern tg_main_list_item_s* get_latest_item(appdata_s *ad, peer_with_pic_s *item);
 //static char* get_table_name_from_number(const char* phone_no)
 extern char* get_table_name_from_number(const int id);
 extern Eina_Bool compare_date_with_current_date(int rtime);
@@ -917,9 +1032,23 @@ typedef struct Buddy {
 	int nameInfo ;
 	char* msisdns;
 	char* smsContacts;
+
 } Buddy;
 
 extern void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max);
 
-extern const char *tg_common_to_string(const char *fmt, ...);
+extern char* get_budy_state(appdata_s* ad, int buddy_id);
+
+extern Eina_Bool get_thumbnail_from_video_url(const char *file_path, char **thumbnail_path);
+
+extern void show_loading_popup(appdata_s* ad);
+
+extern void hide_loading_popup(appdata_s* ad);
+
+extern void free_user_data(user_data_s *user_data);
+
+extern void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
+
+extern void tg_notification_create(appdata_s *app_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
+
 #endif /* TG_COMMON_H_ */

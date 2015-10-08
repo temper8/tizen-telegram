@@ -10,6 +10,35 @@
 #include "tg_db_manager.h"
 #include "tg_common.h"
 
+#define TG_SETTINGS_TABLE_NAME "tg_settings_table"
+#define TG_SETTINGS_ROW_ID "row_id"
+#define TG_SETTINGS_CHAT_BG "chat_bg"
+
+#define MESSAGE_TRANSPORT_TABLE_NAME "message_transport_table"
+
+#define MESSAGE_TRANSPORT_TABLE_ROW_ID "row_id"
+#define MESSAGE_TRANSPORT_TABLE_APP_NAME "app_name"
+#define MESSAGE_TRANSPORT_TABLE_COMMAND "command"
+#define MESSAGE_TRANSPORT_TABLE_BUDDY_ID "buddy_id"
+#define MESSAGE_TRANSPORT_TABLE_MESSAGE_ID "message_id"
+#define MESSAGE_TRANSPORT_TABLE_MESSAGE_TYPE "message_type"
+#define MESSAGE_TRANSPORT_TABLE_MESSAGE_DATA "message_data"
+#define MESSAGE_TRANSPORT_TABLE_TYPE_OF_CHAT "type_of_chat"
+
+#define MEDIA_TRANSPORT_TABLE_NAME "media_transport_table"
+
+#define MEDIA_TRANSPORT_TABLE_ROW_ID "row_id"
+#define MEDIA_TRANSPORT_TABLE_APP_NAME "app_name"
+#define MEDIA_TRANSPORT_TABLE_COMMAND "command"
+#define MEDIA_TRANSPORT_TABLE_BUDDY_ID "buddy_id"
+#define MEDIA_TRANSPORT_TABLE_MESSAGE_ID "message_id"
+#define MEDIA_TRANSPORT_TABLE_MEDIA_ID "media_id"
+#define MEDIA_TRANSPORT_TABLE_MESSAGE_TYPE "message_type"
+#define MEDIA_TRANSPORT_TABLE_FILE_PATH "file_path"
+#define MEDIA_TRANSPORT_TABLE_TYPE_OF_CHAT "type_of_chat"
+
+
+
 #define USER_INFO_TABLE_NAME "user_info_table"
 
 #define USER_INFO_TABLE_USER_ID "user_id"
@@ -26,9 +55,11 @@
 #define USER_INFO_TABLE_USER_NAME "username"
 #define USER_INFO_TABLE_ONLINE_STATUS "online"
 #define USER_INFO_TABLE_LAST_SEEN_TIME "last_seen"
+#define USER_INFO_TABLE_IS_BLOCKED "is_blocked"
+#define USER_INFO_TABLE_IS_DELETED "is_deleted"
 
 #define BUDDY_INFO_TABLE_NAME "buddy_info_table"
-
+#if 0
 #define BUDDY_INFO_TABLE_BUDDY_ID "user_id"
 #define BUDDY_INFO_TABLE_PRINT_NAME "print_name"
 #define BUDDY_INFO_TABLE_STRUCTURE_VERSION "structure_version"
@@ -43,7 +74,7 @@
 #define BUDDY_INFO_TABLE_BUDDY_NAME "username"
 #define BUDDY_INFO_TABLE_ONLINE_STATUS "online"
 #define BUDDY_INFO_TABLE_LAST_SEEN_TIME "last_seen"
-
+#endif
 #define MEDIA_INFO_TABLE_NAME "media_info_table"
 
 #define MEDIA_INFO_TABLE_MEDIA_ID "media_id"
@@ -96,13 +127,19 @@
 #define MEDIA_INFO_TABLE_PHOTO_SIZE4 "photo_size4" //int
 #define MEDIA_INFO_TABLE_PHOTO_DATA4 "photo_data4" //text
 
-
 #define MEDIA_INFO_TABLE_PHONE_NO "phone"
 #define MEDIA_INFO_TABLE_FIRST_NAME "first_name"
 #define MEDIA_INFO_TABLE_LAST_NAME "last_name"
 #define MEDIA_INFO_TABLE_FILE_PATH "file_path"
 
-
+#define MEDIA_INFO_TABLE_MIME_TYPE "mime_type" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_TYPE "doc_type" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_WIDTH "doc_width" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_HEIGHT "doc_height" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_DURATION "doc_duration" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_SIZE "doc_size" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_DC "doc_dc" //text
+#define MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE "video_thumb" //text
 
 #define MESSAGE_INFO_TABLE_MESSAGE_ID "msg_id"
 #define MESSAGE_INFO_TABLE_FLAGS "flags"
@@ -154,44 +191,67 @@
 
 #define TG_DB_COLUMN_INTEGER "INTEGER"
 #define TG_DB_COLUMN_INTEGER_PRIMARY_KEY "INTEGER PRIMARY KEY NOT NULL"
+#define TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY "INTEGER PRIMARY KEY   AUTOINCREMENT"
 #define TG_DB_COLUMN_TEXT "TEXT"
 
 
-extern void create_data_base_tables();
+void create_data_base_tables();
 
-extern Eina_List *get_registered_user_info();
+Eina_List* get_registered_user_info();
 
-extern Eina_List *get_buddy_list_info();
+Eina_List* get_buddy_list_info();
 
-extern Eina_List *get_buddy_info(int buddy_id);
+Eina_List* get_buddy_info(int buddy_id);
 
-extern char *get_profile_pic_path(int buddy_id);
+char* get_profile_pic_path(int buddy_id);
 
-extern tg_message_s *get_message_from_message_table(long long msg_id, const char *table_name);
+tg_message_s* get_message_from_message_table(long long msg_id, char* table_name);
 
-extern char *get_image_path_from_db(long long media_id);
+char* get_video_thumb_path_from_db(long long media_id);
 
-extern tg_chat_info_s *get_chat_info(int chat_id);
+char* get_media_path_from_db(long long media_id);
 
-extern Eina_List *get_group_chat_details();
+tg_chat_info_s* get_chat_info(int chat_id);
 
-extern Eina_List *get_all_peer_details();
+Eina_List* get_group_chat_details();
 
-extern void insert_or_update_peer_into_database(tg_peer_info_s* UC);
+Eina_List* get_all_peer_details(char* start_name);
 
-extern void insert_msg_into_db(tg_message_s *M, const char *table_name, int unique_id);
-extern void insert_media_info_to_db(tg_message_s *M, char* file_path, int width, int height, int size);
+peer_with_pic_s* get_peer_info(int peer_id);
 
-extern Eina_List *get_image_details_from_db(long long media_id);
-extern Eina_List *get_image_sizes_from_db(long long media_id);
+void insert_or_update_peer_into_database(tg_peer_info_s* UC);
 
-extern tg_message_s *get_latest_message_from_message_table(const char *table_name);
-extern int get_unread_message_count(const char *table_name);
+void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id);
+void insert_media_info_to_db(tg_message_s *M, char *file_path, int width, int height, int size, char *latitude, char *longitude, char *first_name, char *last_name, char *phone_number);
 
-extern void update_msg_into_db(tg_message_s *M, const char *table_name);
+Eina_List* get_image_details_from_db(long long media_id);
+Eina_List* get_image_sizes_from_db(long long media_id);
 
-extern char* get_buddy_name_from_id(int buddy_id);
+tg_message_s* get_latest_message_from_message_table(char* table_name);
+int get_unread_message_count(char* table_name);
 
-extern int  get_buddy_online_status(int buddy_id);
+extern void update_msg_into_db(tg_message_s *M, char* table_name);
 
+char* get_buddy_name_from_id(int buddy_id);
+
+int  get_buddy_online_status(int buddy_id);
+
+int insert_current_date_to_table(char* tb_name);
+
+Eina_List* load_peer_data_by_name(char* name);
+
+tgl_media_s* get_media_details_from_db(long long media_id);
+
+void free_media_details(tgl_media_s *media_msg);
+
+int get_media_size_from_db(long long media_id);
+
+int get_number_of_unread_messages();
+
+Eina_Bool insert_unsent_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *msg_type, const char * msg_data, const char *type_of_chat);
+Eina_Bool insert_unsent_media_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *media_id, const char *msg_type, const char *file_path, const char *type_of_chat);
+#if 0
+void set_chat_bg(char *file_path);
+char* get_chat_bg();
+#endif
 #endif /* TG_DB_WRAPPER_H_ */

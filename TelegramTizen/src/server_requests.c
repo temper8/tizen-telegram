@@ -5,6 +5,7 @@
  */
 
 #include "server_requests.h"
+#include "tg_db_wrapper.h"
 #include "device_contacts_manager.h"
 
 void send_request_for_registration(service_client* service_client, const char* phone_number, Eina_Bool through_sms)
@@ -142,6 +143,210 @@ void send_request_for_validation(service_client* service_client, const char* sms
 	bundle_free(msg);
 }
 
+void send_add_buddy_request(service_client* service_client, const int buddy_id)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "add_buddy") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_delete_buddy_request(service_client* service_client, const int buddy_id)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "delete_buddy") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+
+void send_block_buddy_request(service_client* service_client, const int buddy_id)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "block_buddy") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_unblock_buddy_request(service_client* service_client, const int buddy_id)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "unblock_buddy") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+
+void send_delete_group_chat_request(service_client* service_client, const int chat_id)
+{
+	if (!service_client) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "delete_group_chat_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+	snprintf(tmp, sizeof(tmp) - 1, "%d", chat_id);
+
+	if (bundle_add_str(msg, "chat_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+
+}
+
 void send_request_for_marked_as_read(service_client* service_client, const int buddy_id, const int type_of_chat)
 {
 	bundle *msg;
@@ -192,12 +397,15 @@ void send_request_for_marked_as_read(service_client* service_client, const int b
 	bundle_free(msg);
 }
 
-void send_request_for_message_transport(service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat)
+void send_request_for_message_transport(appdata_s *ad, service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat)
 {
 	char tmp[50];
 	bundle *msg;
 	int result;
-
+	char *buddy_id_str = NULL;
+	char *msg_id_str = NULL;
+	char *msg_type_str = NULL;
+	char *type_of_chat_str = NULL;
 	if (!service_client || !data) {
 		// error
 		return;
@@ -221,7 +429,7 @@ void send_request_for_message_transport(service_client* service_client, const in
 	}
 
 	snprintf(tmp, sizeof(tmp), "%d", buddy_id);
-
+	buddy_id_str = strdup(tmp);
 	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -229,7 +437,7 @@ void send_request_for_message_transport(service_client* service_client, const in
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", message_id);
-
+	msg_id_str = strdup(tmp);
 	if (bundle_add_str(msg, "message_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -237,7 +445,7 @@ void send_request_for_message_transport(service_client* service_client, const in
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", msg_type);
-
+	msg_type_str = strdup(tmp);
 	if (bundle_add_str(msg, "message_type", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -252,7 +460,7 @@ void send_request_for_message_transport(service_client* service_client, const in
 
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", type_of_chat);
-
+	type_of_chat_str = strdup(tmp);
 	if (bundle_add_str(msg, "type_of_chat", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -260,19 +468,45 @@ void send_request_for_message_transport(service_client* service_client, const in
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK || !ad->is_server_ready) {
 		// error
+		insert_unsent_message_to_db("Tizen Telegram", "message_transport", buddy_id_str, msg_id_str, msg_type_str, data, type_of_chat_str);
 	}
 	bundle_free(msg);
+
+	if (buddy_id_str) {
+		free(buddy_id_str);
+		buddy_id_str = NULL;
+	}
+
+	if (msg_id_str) {
+		free(msg_id_str);
+		msg_id_str = NULL;
+	}
+
+	if (msg_type_str) {
+		free(msg_type_str);
+		msg_type_str = NULL;
+	}
+
+	if (type_of_chat_str) {
+		free(type_of_chat_str);
+		type_of_chat_str = NULL;
+	}
+
 }
 
-void send_request_for_media_transport(service_client* service_client, const int buddy_id, const int message_id, const int media_id,  const int msg_type, const char* file_path, const int type_of_chat)
+void send_request_for_media_transport(appdata_s *ad, service_client* service_client, const int buddy_id, const int message_id, const int media_id,  const int msg_type, const char* file_path, const int type_of_chat)
 {
 	bundle *msg;
 	char tmp[50];
 	int result;
-
-	if (!service_client || !file_path) {
+	char *buddy_id_str = NULL;
+	char *msg_id_str = NULL;
+	char *media_id_str = NULL;
+	char *msg_type_str = NULL;
+	char *type_of_chat_str = NULL;
+	if (!service_client) {
 		// error
 		return;
 	}
@@ -295,7 +529,7 @@ void send_request_for_media_transport(service_client* service_client, const int 
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
-
+	buddy_id_str = strdup(tmp);
 	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -303,7 +537,7 @@ void send_request_for_media_transport(service_client* service_client, const int 
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", message_id);
-
+	msg_id_str = strdup(tmp);
 	if (bundle_add_str(msg, "message_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -311,6 +545,7 @@ void send_request_for_media_transport(service_client* service_client, const int 
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", media_id);
+	media_id_str = strdup(tmp);
 	if (bundle_add_str(msg, "media_id", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -318,21 +553,29 @@ void send_request_for_media_transport(service_client* service_client, const int 
 	}
 
 	sprintf(tmp, "%d", msg_type);
-
+	msg_type_str = strdup(tmp);
 	if (bundle_add_str(msg, "message_type", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
 	}
 
-	if (bundle_add_str(msg, "file_path", file_path) != 0)	{
-		ERR("Failed to add data by key to bundle");
-		bundle_free(msg);
-		return;
+	if (file_path) {
+		if (bundle_add_str(msg, "file_path", file_path) != 0)	{
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+			return;
+		}
+	} else {
+		if (bundle_add_str(msg, "file_path", "") != 0)	{
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+			return;
+		}
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", type_of_chat);
-
+	type_of_chat_str = strdup(tmp);
 	if (bundle_add_str(msg, "type_of_chat", tmp) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -340,14 +583,35 @@ void send_request_for_media_transport(service_client* service_client, const int 
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
-		// error
+	if (result != SVC_RES_OK || !ad->is_server_ready) {
+		insert_unsent_media_message_to_db("Tizen Telegram", "message_transport", buddy_id_str, msg_id_str, media_id_str, msg_type_str, file_path, type_of_chat_str);
 	}
 	bundle_free(msg);
+
+	if(buddy_id_str) {
+		free(buddy_id_str);
+		buddy_id_str = NULL;
+	}
+	if(msg_id_str) {
+		free(msg_id_str);
+		msg_id_str = NULL;
+	}
+	if(media_id_str) {
+		free(media_id_str);
+		media_id_str = NULL;
+	}
+	if(msg_type_str) {
+		free(msg_type_str);
+		msg_type_str = NULL;
+	}
+	if(type_of_chat_str) {
+		free(type_of_chat_str);
+		type_of_chat_str = NULL;
+	}
 }
 
 
-void send_request_for_image_downloading(service_client* service_client, const int buddy_id, const long long  media_id)
+Eina_Bool send_request_for_media_downloading(service_client* service_client, const int buddy_id, const long long  media_id)
 {
 	bundle *msg;
 	char tmp[50];
@@ -355,24 +619,24 @@ void send_request_for_image_downloading(service_client* service_client, const in
 
 	if (!service_client) {
 		// error
-		return;
+		return EINA_FALSE;
 	}
 
 	msg = bundle_create();
 	if (!msg) {
-		return;
+		return EINA_FALSE;
 	}
 
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
-		return;
+		return EINA_FALSE;
 	}
 
 	if (bundle_add_str(msg, "command", "media_download_request") != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
-		return;
+		return EINA_FALSE;
 	}
 
 	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
@@ -391,9 +655,10 @@ void send_request_for_image_downloading(service_client* service_client, const in
 
 	result = service_client_send_message(service_client, msg);
 	if(result != SVC_RES_OK) {
-		// error
+		return EINA_FALSE;
 	}
 	bundle_free(msg);
+	return EINA_TRUE;
 }
 
 void send_contacts_list_to_server(service_client* service_client, Eina_List* contacts_list)
@@ -586,4 +851,369 @@ void send_group_creation_request_to_server(service_client* service_client, Eina_
 	}
 	bundle_free(msg);
 
+}
+
+void send_set_group_chat_new_title_request(service_client* service_client, int user_id, const char* new_title)
+{
+	bundle *msg;
+	char tmp[50];
+	int result;
+
+	if (!service_client || !new_title) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "set_group_chat_new_title_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "new_title", new_title) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_remove_buddy_from_group_chat_request(service_client* service_client, int user_id, int chat_id)
+{
+	bundle *msg;
+	char tmp[50];
+	char ctmp[50];
+	int result;
+
+	if (!service_client) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "remove_buddy_from_chat_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	snprintf(ctmp, sizeof(ctmp) - 1, "%d", chat_id);
+
+	if (bundle_add_str(msg, "chat_id", ctmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_add_buddy_to_group_chat_request(service_client* service_client, int user_id, int chat_id)
+{
+	bundle *msg;
+	char tmp[50];
+	char ctmp[50];
+	int result;
+
+	if (!service_client) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "add_new_buddy_to_chat_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	snprintf(ctmp, sizeof(ctmp) - 1, "%d", chat_id);
+
+	if (bundle_add_str(msg, "chat_id", ctmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_set_group_chat_profile_pic_request(service_client* service_client, int user_id, const char* file_path)
+{
+	bundle *msg;
+	char tmp[50];
+	int result;
+
+	if (!service_client || !file_path) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "set_group_chat_profile_pic_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "file_path", file_path) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_set_profile_pic_request(service_client* service_client, int user_id, const char* file_path)
+{
+	bundle *msg;
+	char tmp[50];
+	int result;
+
+	if (!service_client || !file_path) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "set_profile_pic_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "file_path", file_path) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+void send_set_username_request(service_client* service_client, int user_id, const char* username)
+{
+	bundle *msg;
+	char tmp[50];
+	int result;
+
+	if (!service_client || !username) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "set_username_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "username", username) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+
+void send_request_for_delete_notifications(service_client* service_client)
+{
+	bundle *msg;
+	int result;
+
+	if (!service_client) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		LOGE("Failed to create a bundle");
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "delete_all_notifications") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+		LOGE("Failed to send a service message");
+	}
+
+	bundle_free(msg);
+}
+
+void send_request_for_server_connection_status(service_client* service_client)
+{
+	bundle *msg;
+	int result;
+
+	if (!service_client) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		LOGE("Failed to create a bundle");
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "server_connection_status") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+		LOGE("Failed to send a service message");
+	}
+
+	bundle_free(msg);
 }

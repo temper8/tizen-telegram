@@ -42,7 +42,7 @@ int (*autocomplete_fun)(const char *, int, int, char **);
 		local_next_token ();
 
 //#define OUT_BUF_SIZE (1 << 25)
-#define OUT_BUF_SIZE (1)
+#define OUT_BUF_SIZE (512)
 char out_buf[OUT_BUF_SIZE];
 int out_buf_pos;
 

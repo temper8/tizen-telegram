@@ -21,7 +21,8 @@ tg_server *tg_server_create()
 
 void tg_server_destroy(tg_server *proxy_cl)
 {
-	if (proxy_cl) {
+	if (proxy_cl)
+	{
 		message_port_unregister_local_port(proxy_cl->local_port_id);
 		free(proxy_cl->remote_port_name);
 		free(proxy_cl->remote_app_name);
@@ -38,7 +39,8 @@ int tg_server_register_port(tg_server *proxy_cl, const char *const port_name)
 	RETVM_IF(!port_name, result, "Message port name is NULL");
 
 	int temp_id = message_port_register_local_port(port_name, _on_message_received_cb, proxy_cl);
-	if (temp_id < 0) {
+	if (temp_id < 0)
+	{
 		_tg_server_convert_msg_port_result(temp_id);
 		ERR("Failed to register local message port");
 		proxy_cl->local_port_id = 0;
@@ -91,25 +93,30 @@ int _tg_server_set_remote_data(tg_server *proxy_cl, const char *rem_app_name, co
 	char *temp_rem_app_name = NULL;
 	char *temp_rem_port_name = NULL;
 
-	if (!proxy_cl->remote_app_name && rem_app_name) {
+	if (!proxy_cl->remote_app_name && rem_app_name)
+	{
 		temp_rem_app_name = strdup(rem_app_name);
 		RETVM_IF(!temp_rem_app_name, SVC_RES_FAIL,
 				"Failed to set remote application name. Strdup failed");
 	}
 
-	if (!proxy_cl->remote_port_name && rem_port_name) {
+	if (!proxy_cl->remote_port_name && rem_port_name)
+	{
 		temp_rem_port_name = strdup(rem_port_name);
-		if (!temp_rem_port_name) {
+		if (!temp_rem_port_name)
+		{
 			ERR("Failed to set remote port name. Strdup failed");
 			free(temp_rem_app_name);
 			return SVC_RES_FAIL;
 		}
 	}
 
-	if (temp_rem_app_name) {
+	if (temp_rem_app_name)
+	{
 		proxy_cl->remote_app_name = temp_rem_app_name;
 	}
-	if (temp_rem_port_name)	{
+	if (temp_rem_port_name)
+	{
 		proxy_cl->remote_port_name = temp_rem_port_name;
 	}
 
@@ -161,10 +168,13 @@ static void _on_message_received_cb(int port_id, const char *rem_app_name, const
 	int res = _tg_server_set_remote_data(proxy_cl, rem_app_name, rem_port_name);
 	RETM_IF(res != SVC_RES_OK ,"Failed to set remote data to message port");
 
-	if (proxy_cl->cb_func) {
+	if (proxy_cl->cb_func)
+	{
 		res = proxy_cl->cb_func(proxy_cl->cb_data, rec_msg);
 		RETM_IF(res != SVC_RES_OK ,"Message port callback function failed");
-	} else {
+	}
+	else
+	{
 		DBG("Message port callback function not set");
 	}
 }

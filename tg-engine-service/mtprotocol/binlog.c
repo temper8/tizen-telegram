@@ -1516,7 +1516,7 @@ static void replay_log_event(struct tgl_state *TLS)
 	assert(ok >= 0);
 
 	assert(in_ptr == in_end);
-	binlog_pos += (in_ptr - rptr) * 4;
+	binlog_pos +=(in_ptr - rptr) * 4;
 	rptr = in_ptr;
 }
 

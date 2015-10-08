@@ -60,7 +60,6 @@
 #define CODE_input_video_empty 0x5508ec75
 #define CODE_input_video 0xee579652
 #define CODE_input_file_location 0x14637196
-#define CODE_input_video_file_location 0x3d0364ec
 #define CODE_input_photo_crop_auto 0xade6b004
 #define CODE_input_photo_crop 0xd9915325
 #define CODE_input_app_event 0x770656a8
@@ -272,6 +271,7 @@
 #define CODE_input_document 0x18798952
 #define CODE_input_audio_file_location 0x74dc404d
 #define CODE_input_document_file_location 0x4e45abe9
+#define CODE_input_video_file_location 0x3d0364ec
 #define CODE_audio_empty 0x586988d8
 #define CODE_audio 0xc7ac6496
 #define CODE_document_empty 0x36f8c871

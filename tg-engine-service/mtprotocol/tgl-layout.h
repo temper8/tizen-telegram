@@ -98,7 +98,7 @@ struct tgl_dc {
 };
 
 enum tgl_message_media_type {
-	tgl_message_media_none,
+	tgl_message_media_none = 1001,
 	tgl_message_media_photo,
 	//tgl_message_media_video,
 	//tgl_message_media_audio,
@@ -170,6 +170,73 @@ struct tgl_photo_size {
 struct tgl_geo {
 	double longitude;
 	double latitude;
+};
+
+struct tgl_media {
+	long long media_id;
+	int media_type;
+	long long access_hash;
+	int user_id;
+	int date;
+	char *caption;
+	char *longitude;
+	char *latitude;
+	int sizes;
+	char *phone_no;
+	char *first_name;
+	char *last_name;
+	char *file_path;
+
+	char *photo_type1;
+	int photo_loc_dc1;
+	long long photo_loc_vol1;
+	int photo_loc_id1;
+	long long photo_loc_sec1;
+	int photo_width1;
+	int photo_height1;
+	int photo_size1;
+	char *photo_data1;
+
+	char *photo_type2;
+	int photo_loc_dc2;
+	long long photo_loc_vol2;
+	int photo_loc_id2;
+	long long photo_loc_sec2;
+	int photo_width2;
+	int photo_height2;
+	int photo_size2;
+	char *photo_data2;
+
+	char *photo_type3;
+	int photo_loc_dc3;
+	long long photo_loc_vol3;
+	int photo_loc_id3;
+	long long photo_loc_sec3;
+	int photo_width3;
+	int photo_height3;
+	int photo_size3;
+	char *photo_data3;
+
+	char *photo_type4;
+	int photo_loc_dc4;
+	long long photo_loc_vol4;
+	int photo_loc_id4 ;
+	long long photo_loc_sec4;
+	int photo_width4;
+	int photo_height4;
+	int photo_size4;
+	char *photo_data4;
+
+
+	char* mime_type;
+	char* doc_type;
+	int doc_width;
+	int doc_height;
+	int doc_duration;
+	int doc_size;
+	int doc_dc;
+	char* doc_thumb_path;
+
 };
 
 struct tgl_photo {
@@ -349,7 +416,21 @@ struct tgl_secret_chat {
 	long long exchange_key_fingerprint;
 };
 
-
+typedef union tgl_peer {
+	struct {
+		tgl_peer_id_t id;
+		int flags;
+		struct tgl_message *last;
+		char *print_name;
+		int structure_version;
+		struct tgl_file_location photo_big;
+		struct tgl_file_location photo_small;
+		struct tgl_photo photo;
+	};
+	struct tgl_user user;
+	struct tgl_chat chat;
+	struct tgl_secret_chat encr_chat;
+} tgl_peer_t;
 /*
 struct tgl_video {
   long long id;
@@ -392,6 +473,8 @@ struct tgl_document {
 	int h;
 	int flags;
 	int duration;
+
+	int to_peer_id;
 };
 
 struct tgl_message_action {
@@ -474,22 +557,5 @@ struct tgl_message {
 		};
 	};
 };
-
-typedef union tgl_peer {
-	struct {
-		tgl_peer_id_t id;
-		int flags;
-		struct tgl_message *last;
-		char *print_name;
-		int structure_version;
-		struct tgl_file_location photo_big;
-		struct tgl_file_location photo_small;
-		struct tgl_photo photo;
-	};
-	struct tgl_user user;
-	struct tgl_chat chat;
-	struct tgl_secret_chat encr_chat;
-} tgl_peer_t;
-
 #pragma pack(pop)
 #endif

@@ -8,7 +8,8 @@ collections
 		image: "ApplicationIcon.png" COMP;
 		image: "msg_in_photo.9.png" COMP;
 		image: "msg_out_photo.9.png" COMP;
-		image: "call_btn_circle.png" COMP;		
+		image: "call_btn_circle.png" COMP;
+		image: "Telegram-main-icon.png" COMP;
 	}
 	
 	group
@@ -22,7 +23,7 @@ collections
 					state: "default" 0.0;
 					rel1 { relative: 0.0 0.0; to, "swallow.splash_screen"; }
 					rel2 { relative: 1.0 1.0; to, "swallow.splash_screen"; }
-					color: 0 0 0 0;
+					color: 255 255 255 255;
 				}
 			}  
 			part{
@@ -30,10 +31,10 @@ collections
     			type:IMAGE;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; to, "swallow.splash_screen,bg"; }
-    				rel2 { relative: 1.0 1.0; to, "swallow.splash_screen,bg"; }
+    				rel1 { relative: 0.3 0.2; to, "swallow.splash_screen,bg"; }
+    				rel2 { relative: 0.7 0.4; to, "swallow.splash_screen,bg"; }
     				image {
-						normal: "ApplicationIcon.png";
+						normal: "Telegram-main-icon.png";
 					}
     			}
     		}

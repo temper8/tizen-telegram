@@ -39,6 +39,7 @@
 #include <Elementary.h>
 #include <efl_extension.h>
 #include <net_connection.h>
+#include <notification.h>
 
 #define PROGNAME "telegram-tizen"
 #define VERSION "0.01"
@@ -59,6 +60,7 @@
 #define TELEGRAM_CLI_VERSION "1.0.0"
 #define CONFIG_DIRECTORY_MODE 0700
 #define DEFAULT_RSA_FILE_NAME "server.pub"
+#define DEFAULT_TELEGRAM_ICON "tg_icon.png"
 #define TELEGRAM_CLI_APP_HASH "8b5082937b2eb8814559291b93caa8a5"
 #define TELEGRAM_CLI_APP_ID 26793
 
@@ -78,6 +80,8 @@ extern void running_for_first_time(void);
 extern void init_tl_engine();
 extern void write_auth_file(void);
 
+extern void tgl_engine_var_init(void);
+extern void tgl_engine_var_free(void);
 extern char *tgl_engine_get_auth_key_filename(void);
 extern char *tgl_engine_get_state_filename(void);
 extern char *tgl_engine_get_secret_chat_filename(void);
@@ -95,6 +99,27 @@ typedef enum TG_ENGINE_STATE {
 	TG_ENGINE_STATE_PROFILE_LAST_NAME_REGISTRATION,
 	TG_ENGINE_STATE_CODE_REQUEST
 } tg_engine_state;
+
+typedef struct sent_message_data {
+	char *app_name;
+	char *command;
+	char *buddy_id;
+	char *message_id;
+	char *message_type;
+	char *message_data;
+	char *type_of_chat;
+} sent_message_data_s;
+
+typedef struct sent_media_data {
+	char *app_name;
+	char *command;
+	char *buddy_id;
+	char *message_id;
+	char *media_id;
+	char *message_type;
+	char *file_path;
+	char *type_of_chat;
+} sent_media_data_s;
 
 typedef struct tg_engine_data {
 	tgl_peer_id_t id;
@@ -115,6 +140,9 @@ typedef struct tg_engine_data {
 	Eina_Bool is_group_creation_requested;
 	char *new_group_icon;
 	Ecore_Idler *lazy_init_idler;
+	char* mhash;
+	//Eina_Bool is_loading_completed;
+	notification_h s_notififcation;
 } tg_engine_data_s;
 
 typedef struct contact_data {
@@ -133,5 +161,18 @@ extern void send_media_to_buddy(int buddy_id, int message_id, int media_id, int 
 extern void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long media_id);
 extern void add_contacts_to_user(tg_engine_data_s *tg_data, int size, Eina_List* contact_list);
 extern void create_new_group(tg_engine_data_s *tg_data, Eina_List* buddy_ids, const char* group_name, const char* group_icon);
+extern void set_profile_picture(tg_engine_data_s *tg_data, int buddy_id, const char *file_path);
+extern void set_user_name(tg_engine_data_s *tg_data, int buddy_id, const char *username);
+extern void request_for_code_via_call(struct tgl_state *TLS, char* phone_no, Eina_Bool trough_sms);
+extern void free_contact_data(Eina_List *contact_data);
+extern void leave_group_chat(tg_engine_data_s *tg_data, int group_chat_id);
+extern void do_delete_buddy(int buddy_id);
+extern void do_add_buddy(int buddy_id);
+extern void do_unblock_buddy(int buddy_id);
+extern void do_block_buddy(int buddy_id);
+extern void set_group_chat_profile_picture(tg_engine_data_s *tg_data, int buddy_id, const char *file_path);
+extern void set_group_chat_new_title(tg_engine_data_s *tg_data, int buddy_id, const char *new_title);
+extern void set_group_chat_add_new_buddy(tg_engine_data_s *tg_data, int s_buddy_id, int s_chat_id);
+extern void set_group_chat_remove_buddy(tg_engine_data_s *tg_data, int s_buddy_id, int s_chat_id);
 
 #endif /* TG_ENGINE_H_ */

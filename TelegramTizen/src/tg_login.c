@@ -42,6 +42,7 @@ static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event
 			return;
 		}
 		send_request_for_validation(ad->service_client, val);
+		show_loading_popup(ad);
 	}
 #else
 	if (ad->timer_value > 0) {
@@ -71,8 +72,19 @@ static Eina_Bool on_code_timer_cb(void* data)
 	(ad->timer_value)--;
 
 	int cur_time_in_secs = ad->timer_value;
-
 	Evas_Object* info_timer = evas_object_data_get(ad->nf, "info_timer");
+	if (cur_time_in_secs <= 0) {
+		char temp_txt[512] = {0,};
+		snprintf(temp_txt, sizeof(temp_txt), "<font=Tizen:style=Regular color=#666362 align=left><font_size=32>%s</font_size></font>", "Requested for code via call.");
+
+		elm_object_text_set(info_timer, temp_txt);
+		Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
+		ecore_timer_del(timer);
+
+		// send request to get phone call
+		send_request_for_registration(ad->service_client, ad->phone_number, EINA_FALSE);
+		return ECORE_CALLBACK_CANCEL;
+	}
 
 	int seconds = cur_time_in_secs % 60;
 	int minutes = (cur_time_in_secs / 60) % 60;
@@ -80,8 +92,16 @@ static Eina_Bool on_code_timer_cb(void* data)
 	char sec_str[10];
 	char min_str[10];
 
-	sprintf(min_str, "%d", minutes);
-	sprintf(sec_str, "%d", seconds);
+	if (minutes < 10) {
+		sprintf(min_str, "0%d", minutes);
+	} else {
+		sprintf(min_str, "%d", minutes);
+	}
+	if (seconds < 10) {
+		sprintf(sec_str, "0%d", seconds);
+	} else {
+		sprintf(sec_str, "%d", seconds);
+	}
 
 	char* timer_text = (char*)malloc(strlen(TIMER_TEXT) + strlen(min_str) + strlen(":") + strlen(sec_str) + 1);
 	strcpy(timer_text, TIMER_TEXT);

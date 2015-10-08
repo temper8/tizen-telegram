@@ -1,18 +1,116 @@
-#include <stdio.h>
-#include <stdarg.h>
+/*
+ * tg_common.c
+ *
+ *  Created on: Oct 6, 2015
+ *      Author: sandeep
+ */
+
 #include "tg_common.h"
 
-const char *tg_common_to_string(const char *fmt, ...)
+void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
 {
-	va_list vp;
-	static char string_buffer[256];
-	int ret;
+	int err = NOTIFICATION_ERROR_NONE;
+	if (tg_data && tg_data->s_notififcation) {
+		//err = notification_delete(tg_data->s_notififcation);
+		err = notification_delete_all(NOTIFICATION_TYPE_NOTI);
+		tg_data->s_notififcation = NULL;
+	}
 
-	va_start(vp, fmt);
-	ret = vsnprintf(string_buffer, sizeof(string_buffer) - 1, fmt, vp);
-	va_end(vp);
+	bundle *b = NULL;
+	notification_error_e ret = NOTIFICATION_ERROR_NONE;
+	tg_data->s_notififcation = notification_create(NOTIFICATION_TYPE_NOTI);
+	ret = notification_set_property(tg_data->s_notififcation, NOTIFICATION_PROP_DISABLE_TICKERNOTI);
+	ret = notification_set_layout(tg_data->s_notififcation, NOTIFICATION_LY_NOTI_EVENT_SINGLE);
 
-	return ret <= 0 ? NULL : string_buffer;
+	if (icon_path) {
+		ret = notification_set_image(tg_data->s_notififcation, NOTIFICATION_IMAGE_TYPE_ICON, icon_path);
+	}
+	if (title) {
+		ret = notification_set_text(tg_data->s_notififcation, NOTIFICATION_TEXT_TYPE_TITLE, title, NULL, NOTIFICATION_VARIABLE_TYPE_NONE);
+	}
+	if (content) {
+		ret = notification_set_text(tg_data->s_notififcation, NOTIFICATION_TEXT_TYPE_CONTENT, content, NULL, NOTIFICATION_VARIABLE_TYPE_NONE);
+	}
+
+	if (sound_path) {
+		ret = notification_set_sound(tg_data->s_notififcation, NOTIFICATION_SOUND_TYPE_USER_DATA, sound_path);
+	} else {
+		ret = notification_set_sound(tg_data->s_notififcation, NOTIFICATION_SOUND_TYPE_DEFAULT, NULL);
+	}
+	ret = notification_set_vibration(tg_data->s_notififcation, NOTIFICATION_VIBRATION_TYPE_DEFAULT, NULL);
+	if (ret != NOTIFICATION_ERROR_NONE) {
+		//failed
+	}
+	app_control_h service = NULL;
+	app_control_create(&service);
+	app_control_set_app_id(service, app_id);
+	app_control_set_operation(service, APP_CONTROL_OPERATION_DEFAULT);
+
+	ret  = notification_set_launch_option(tg_data->s_notififcation, NOTIFICATION_LAUNCH_OPTION_APP_CONTROL, service);
+	if (ret != NOTIFICATION_ERROR_NONE) {
+		//failed
+	}
+	notification_post(tg_data->s_notififcation);
+	app_control_destroy(service);
+	bundle_free(b);
+	ret = notification_free(tg_data->s_notififcation);
+	if(ret != NOTIFICATION_ERROR_NONE) {
+	}
+	return;
 }
 
-/* End of a file */
+char *replace(const char *s, char ch, const char *repl)
+{
+	int count = 0;
+	const char *t;
+
+	for(t = s; *t; t++) {
+		count += (*t == ch);
+	}
+
+	size_t rlen = strlen(repl);
+	char *res = malloc(strlen(s) + (rlen - 1) * count + 1);
+	char *ptr = res;
+
+	for(t = s; *t; t++) {
+		if(*t == ch) {
+			memcpy(ptr, repl, rlen);
+			ptr += rlen;
+		} else {
+			*ptr++ = *t;
+		}
+	}
+
+	*ptr = 0;
+	return res;
+}
+
+char *get_table_name_from_number(const int id)
+{
+	char *msg_table;
+
+	msg_table = (char *)malloc(32);
+	if (!msg_table) {
+		return NULL;
+	}
+
+	snprintf(msg_table, 32, "tg_%d_msg", id);
+
+	return msg_table;
+}
+
+char *ui_utils_get_resource(const char *res_name)
+{
+	static char res_path[PATH_MAX] = {'\0'};
+	char *path;
+
+	path = app_get_resource_path();
+	if (!path) {
+		return NULL;
+	}
+
+	snprintf(res_path, PATH_MAX, "%s%s", path, res_name);
+	free(path);
+
+	return res_path;
+}

@@ -57,7 +57,7 @@ struct tgl_timer *tgl_timer_alloc(struct tgl_state *TLS, void (*cb)(struct tgl_s
 
 void tgl_timer_insert(struct tgl_timer *t, double p)
 {
-	if (p < 0) {
+	if (p <= 0) {
 		p = 0.000001;
 	}
 	struct timer_context *tc = (struct timer_context *)t;
@@ -85,7 +85,6 @@ void tgl_timer_free(struct tgl_timer *t)
 		// Something goes wrong, tgl_timer_delete is not called before.
 		// Exceptional cases.
 		ecore_timer_del(tc->handler);
-		tc->handler = NULL;
 	}
 	free(tc->cbdata);
 	free(tc);

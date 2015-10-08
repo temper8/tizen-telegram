@@ -376,7 +376,8 @@ int tglq_query_result(struct tgl_state *TLS, long long id)
 				in_ptr = save;
 			}
 			q->methods->on_answer(TLS, q);
-			assert(in_ptr == in_end);
+			// sandeep
+			//assert(in_ptr == in_end);
 		}
 		tfree(q->data, 4 * q->data_len);
 		TLS->timer_methods->free(q->ev);
@@ -581,7 +582,7 @@ static struct query_methods phone_call_methods = {
 	.type = TYPE_TO_PARAM(bool)
 };
 
-void tgl_do_phone_call(struct tgl_state *TLS, const char *user, const char *hash,void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
+void tgl_do_phone_call(struct tgl_state *TLS, const char *user, const char *hash, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra)
 {
 	vlogprintf(E_DEBUG, "calling user\n");
 	clear_packet();
@@ -1502,6 +1503,7 @@ struct send_file {
 	int w;
 	int h;
 	int duration;
+	unsigned media_type;
 };
 
 static void out_peer_id(struct tgl_state *TLS, tgl_peer_id_t id)
@@ -1681,6 +1683,7 @@ static void send_avatar_end(struct tgl_state *TLS, struct send_file *f, void *ca
 
 static void send_file_unencrypted_end(struct tgl_state *TLS, struct send_file *f, void *callback, void *callback_extra)
 {
+#if 0
 	out_int(CODE_messages_send_media);
 	out_peer_id(TLS, f->to_id);
 	if (f->flags == -1) {
@@ -1757,6 +1760,52 @@ static void send_file_unencrypted_end(struct tgl_state *TLS, struct send_file *f
 	tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &send_file_methods, 0, callback, callback_extra);
 	tfree_str(f->file_name);
 	tfree(f, sizeof(*f));
+#else
+    out_int (CODE_messages_send_media);
+    out_peer_id(TLS, f->to_id);
+    out_int (f->media_type);
+    if (f->size < (16 << 20)) {
+      out_int (CODE_input_file);
+    } else {
+      out_int (CODE_input_file_big);
+    }
+    out_long (f->id);
+    out_int (f->part_num);
+    char *s = f->file_name + strlen (f->file_name);
+    while (s >= f->file_name && *s != '/') { s --;}
+    out_string (s + 1);
+    if (f->size < (16 << 20)) {
+      out_string ("");
+    }
+    if (f->media_type == CODE_input_media_uploaded_thumb_video || f->media_type == CODE_input_media_uploaded_thumb_document) {
+      out_int (CODE_input_file);
+      out_long (f->thumb_id);
+      out_int (1);
+      out_string ("thumb.jpg");
+      out_string ("");
+    }
+    if (f->media_type == CODE_input_media_uploaded_video || f->media_type == CODE_input_media_uploaded_thumb_video) {
+      out_int (100);
+      out_int (100);
+      out_int (100);
+      out_string ("video");
+    }
+    if (f->media_type == CODE_input_media_uploaded_document || f->media_type == CODE_input_media_uploaded_thumb_document) {
+      out_string (s + 1);
+      out_string ("text");
+    }
+    if (f->media_type == CODE_input_media_uploaded_audio) {
+      out_int (60);
+      out_string ("audio");
+    }
+
+    long long r;
+    tglt_secure_random (&r, 8);
+    out_long (r);
+    tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &send_file_methods, 0, callback, callback_extra);
+	tfree_str(f->file_name);
+	tfree(f, sizeof(*f));
+#endif
 }
 
 static void send_file_encrypted_end(struct tgl_state *TLS, struct send_file *f, void *callback, void *callback_extra)
@@ -1969,6 +2018,16 @@ static void _tgl_do_send_photo(struct tgl_state *TLS, int flags, tgl_peer_id_t t
 	}
 	f->flags = flags;
 
+	if (f->flags == FLAG_DOCUMENT_VIDEO) {
+		f->media_type = CODE_input_media_uploaded_video;
+	} else if (f->flags == FLAG_DOCUMENT_AUDIO) {
+		f->media_type = CODE_input_media_uploaded_audio;
+	} else if (f->flags == FLAG_DOCUMENT_IMAGE) {
+		f->media_type = CODE_input_media_uploaded_photo;
+	} else {
+		f->media_type = CODE_input_media_uploaded_document;
+	}
+
 	if (f->part_size >(512 << 10)) {
 		close(fd);
 		vlogprintf(E_WARNING, "Too big file. Maximal supported size is %d.\n",(512 << 10) * 1000);
@@ -1998,6 +2057,7 @@ static void _tgl_do_send_photo(struct tgl_state *TLS, int flags, tgl_peer_id_t t
 	}
 
 	if (!f->encr && f->flags != -1 && thumb_len > 0) {
+		f->media_type = CODE_input_media_uploaded_thumb_video;
 		send_file_thumb(TLS, f, thumb_data, thumb_len, callback, callback_extra);
 	} else {
 		send_part(TLS, f, callback, callback_extra);
@@ -2009,6 +2069,41 @@ void tgl_do_send_document_ex(struct tgl_state *TLS, int flags, tgl_peer_id_t to_
 	_tgl_do_send_photo(TLS, flags, to_id, file_name, 0, w, h, duration, thumb, thumb_len, callback, callback_extra);
 }
 
+void tgl_do_send_video(struct tgl_state *TLS, int flags, tgl_peer_id_t to_id, char *video_name, char *thumb_file, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
+{
+	if (flags == -2) {
+		char *mime_type = tg_mime_by_filename(video_name);
+		if (!memcmp(mime_type, "image/", 6)) {
+			flags = -1;
+		} else if (!memcmp(mime_type, "video/", 6)) {
+			flags = FLAG_DOCUMENT_VIDEO;
+		} else if (!memcmp(mime_type, "audio/", 6)) {
+			flags = FLAG_DOCUMENT_AUDIO;
+		} else {
+			flags = 0;
+		}
+	}
+	char *buffer = NULL;
+	long numbytes = 0;
+	if (thumb_file) {
+		FILE    *infile;
+		infile = fopen(thumb_file, "r");
+		fseek(infile, 0L, SEEK_END);
+		numbytes = ftell(infile);
+		fseek(infile, 0L, SEEK_SET);
+		buffer = (char*)calloc(numbytes, sizeof(char));
+		fread(buffer, sizeof(char), numbytes, infile);
+		fclose(infile);
+	}
+
+	_tgl_do_send_photo(TLS, flags, to_id, video_name, 0, 100, 100, 100, buffer, numbytes, callback, callback_extra);
+}
+
+void tgl_do_send_audio(struct tgl_state *TLS, tgl_peer_id_t to_id, char *file_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
+{
+	int flags = FLAG_DOCUMENT_AUDIO;
+	_tgl_do_send_photo(TLS, flags, to_id, file_name, 0, 100, 100, 100, 0, 0, callback, callback_extra);
+}
 void tgl_do_send_document(struct tgl_state *TLS, int flags, tgl_peer_id_t to_id, char *file_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra)
 {
 	if (flags == -2) {
@@ -2022,6 +2117,8 @@ void tgl_do_send_document(struct tgl_state *TLS, int flags, tgl_peer_id_t to_id,
 		} else {
 			flags = 0;
 		}
+	} else {
+		flags = FLAG_DOCUMENT_IMAGE;
 	}
 	_tgl_do_send_photo(TLS, flags, to_id, file_name, 0, 100, 100, 100, 0, 0, callback, callback_extra);
 }
@@ -2616,7 +2713,8 @@ static void load_next_part(struct tgl_state *TLS, struct download *D, void *call
 		out_long(D->access_hash);
 	}
 	out_int(D->offset);
-	out_int(1 << 14);
+	//out_int(1 << 14);
+	 out_int (D->size ? (1 << 14) : (1 << 19));
 	tglq_send_query(TLS, TLS->DC_list[D->dc], packet_ptr - packet_buffer, packet_buffer, &download_methods, D, callback, callback_extra);
 }
 
@@ -2681,7 +2779,15 @@ void tgl_do_load_document(struct tgl_state *TLS, struct tgl_document *V, void(*c
 	D->dc = V->dc_id;
 	D->name = 0;
 	D->fd = -1;
-	D->type = CODE_input_document_file_location;
+
+	if (V->flags & FLAG_DOCUMENT_AUDIO) {
+		D->type = CODE_input_audio_file_location;
+	} else if (V->flags & FLAG_DOCUMENT_VIDEO) {
+		D->type = CODE_input_video_file_location;
+	} else {
+		D->type = CODE_input_document_file_location;
+	}
+
 	if (V->mime_type) {
 		char *r = tg_extension_by_mime(V->mime_type);
 		if (r) {
@@ -4318,6 +4424,68 @@ void tgl_do_send_broadcast(struct tgl_state *TLS, int num, tgl_peer_id_t id[], c
 	out_int(CODE_input_media_empty);
 	tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &send_broadcast_methods, 0, callback, callback_extra);
 }
+
+/* {{{ block user */
+static int block_user_on_answer (struct tgl_state *TLS, struct query *q, void *D) {
+  if (q->callback) {
+    ((void (*)(struct tgl_state *, void *, int))q->callback)(TLS, q->callback_extra, 1);
+  }
+  return 0;
+}
+
+static struct query_methods block_user_methods = {
+  .on_answer = block_user_on_answer,
+  .on_error = q_void_on_error,
+  .type = TYPE_TO_PARAM (bool)
+};
+
+void tgl_do_block_user (struct tgl_state *TLS, tgl_peer_id_t id, void (*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra) {
+  if (tgl_get_peer_type (id) != TGL_PEER_USER) {
+    if (callback) {
+      callback (TLS, callback_extra, 0);
+    }
+    return;
+  }
+
+  clear_packet ();
+
+  out_int (CODE_contacts_block);
+  tgl_peer_t *U = tgl_peer_get (TLS, id);
+  if (U && U->user.access_hash) {
+    out_int (CODE_input_user_foreign);
+    out_int (tgl_get_peer_id (id));
+    out_long (U->user.access_hash);
+  } else {
+    out_int (CODE_input_user_contact);
+    out_int (tgl_get_peer_id (id));
+  }
+  tglq_send_query (TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &block_user_methods, 0, callback, callback_extra);
+}
+
+void tgl_do_unblock_user (struct tgl_state *TLS, tgl_peer_id_t id, void (*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra) {
+  if (tgl_get_peer_type (id) != TGL_PEER_USER) {
+    if (callback) {
+      callback (TLS, callback_extra, 0);
+    }
+    return;
+  }
+
+  clear_packet ();
+
+  out_int (CODE_contacts_unblock);
+  tgl_peer_t *U = tgl_peer_get (TLS, id);
+  if (U && U->user.access_hash) {
+    out_int (CODE_input_user_foreign);
+    out_int (tgl_get_peer_id (id));
+    out_long (U->user.access_hash);
+  } else {
+    out_int (CODE_input_user_contact);
+    out_int (tgl_get_peer_id (id));
+  }
+  tglq_send_query (TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &block_user_methods, 0, callback, callback_extra);
+}
+/* }}} */
+
 
 static void set_flag_4(struct tgl_state *TLS, void *_D, int success)
 {

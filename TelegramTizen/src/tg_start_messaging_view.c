@@ -52,59 +52,7 @@ static Evas_Object* on_new_msg_menu_item_image_get_cb(void *data, Evas_Object *o
 }
 
 
-char* get_budy_state(appdata_s* ad, int buddy_id)
-{
-	if (!ad)
-		return NULL;
 
-
-	char time_str[256]={0,};
-	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
-	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
-		if (buddy_details && eina_list_count(buddy_details) > 0) {
-			int* temp_online = (int*)eina_list_nth(buddy_details, 12);
-			int is_online = *temp_online;
-			int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
-			int last_seen = *temp_last_seen;
-
-			char *format = NULL;
-			Eina_Bool is_today = compare_date_with_current_date(last_seen);
-
-			if (is_online > 0) {
-				strcpy(time_str,"online");
-			} else {
-				time_t t = last_seen;
-
-				if (is_today) {
-					format = "last seen Today at %I:%M %P";
-				} else {
-					format = "last seen %d/%b/%Y at %I:%M %P";
-				}
-
-				struct tm lt;
-				char res[256];
-				(void) localtime_r(&t, &lt);
-
-				if (strftime(res, sizeof(res), format, &lt) == 0) {
-					(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-							"date/time into buffer of size %u "
-							"using: '%s'\n",
-							sizeof(res), format);
-				}
-				snprintf(time_str, sizeof(time_str), "<align=left><font_size=30><color=#808080>%s</color></font_size></align>", res);
-			}
-
-			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
-				void* val = eina_list_nth(buddy_details, i);
-				free(val);
-			}
-			eina_list_free(buddy_details);
-		}
-		eina_list_free(buddy_details_array);
-	}
-	return strdup(time_str);
-}
 
 static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info)
 {
@@ -125,6 +73,22 @@ static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info
 		if (item->peer_id == sel_item->use_data->user_id.id) {
 			ad->peer_in_cahtting_data = pic_item;
 			peer_id = i;
+			break;
+		}
+	}
+
+	if (peer_id == -1) {
+		ad->peer_in_cahtting_data = NULL;
+		ad->buddy_in_cahtting_data = NULL;
+		show_toast(ad, "Unable to retrieve buddy details");
+		return;
+	}
+
+	ad->main_item_in_cahtting_data = NULL;
+	for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
+		tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+		if (item->peer_id == sel_item->use_data->user_id.id) {
+			ad->main_item_in_cahtting_data = item;
 			break;
 		}
 	}
@@ -239,6 +203,16 @@ static void on_menu_list_clicked_cb(void *data, Evas_Object *obj, void *event_in
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 }
 
+static void on_search_icon_pressed(void *data, Evas_Object *obj, void *event_info)
+{
+	elm_image_file_set(data, ui_utils_get_resource(TG_SEARCH_PRESSED_ICON), NULL);
+}
+
+static void on_search_icon_unpressed(void *data, Evas_Object *obj, void *event_info)
+{
+	elm_image_file_set(data, ui_utils_get_resource(TG_SEARCH_ICON), NULL);
+}
+
 void launch_start_messaging_view(appdata_s* ad)
 {
 	if (!ad)
@@ -313,7 +287,10 @@ void launch_start_messaging_view(appdata_s* ad)
 	itc1.func.state_get = NULL;
 	itc1.func.del = NULL;
 
-	int size = eina_list_count(ad->buddy_list);
+	int size = 0;
+	if (ad->buddy_list) {
+		size = eina_list_count(ad->buddy_list);
+	}
 
 	if(size > 0) {
 		for (i = 0; i < size; i++) {
@@ -334,11 +311,22 @@ void launch_start_messaging_view(appdata_s* ad)
 	evas_object_size_hint_weight_set(search_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(search_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(search_layout);
-    Evas_Object *search_icon = elm_image_add(layout);
-    elm_image_file_set(search_icon, ui_utils_get_resource(TG_SEARCH_ICON), NULL);
-    evas_object_show(search_icon);
-    elm_object_part_content_set(search_layout, "search_box", search_icon);
-    evas_object_smart_callback_add(search_icon, "clicked", on_user_list_search_clicked, ad);
+
+	Evas_Object *search_btn = elm_button_add(layout);
+	elm_object_style_set(search_btn, "transparent");
+	evas_object_size_hint_align_set(search_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(search_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	Evas_Object *search_icon = elm_image_add(layout);
+	elm_image_file_set(search_icon, ui_utils_get_resource(TG_SEARCH_ICON), NULL);
+	evas_object_show(search_icon);
+
+	elm_object_content_set(search_btn, search_icon);
+
+	elm_object_part_content_set(search_layout, "search_box", search_btn);
+	evas_object_smart_callback_add(search_icon, "clicked", on_user_list_search_clicked, ad);
+	evas_object_smart_callback_add(search_btn, "pressed", on_search_icon_pressed, search_icon);
+	evas_object_smart_callback_add(search_btn, "unpressed", on_search_icon_unpressed, search_icon);
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Regular color=#ffffff align=left><font_size=40>New Message</font_size></font>", NULL, NULL, scroller, NULL);
 	elm_object_item_part_content_set(navi_item, "title_right_btn", search_layout);

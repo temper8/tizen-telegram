@@ -17,7 +17,7 @@ launch_splash_screen_cb(void *data)
 	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(layout, edj_path, "splash_screen");
 	Evas_Object* progressbar = elm_progressbar_add(layout);
-	elm_object_style_set(progressbar, "process_large");
+	elm_object_style_set(progressbar, "process_small");
 	evas_object_size_hint_align_set(progressbar, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(progressbar, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_progressbar_pulse(progressbar, EINA_TRUE);

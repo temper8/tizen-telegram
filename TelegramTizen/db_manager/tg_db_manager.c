@@ -80,6 +80,7 @@ Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	}
 
 	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	free(var_query);
 	close_database(db);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
@@ -351,7 +352,7 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	return EINA_TRUE;
 }
 
-int get_number_of_rows(const char *table_name, char* where_clause)
+int get_number_of_rows(char* table_name, char* where_clause)
 {
 	int no_of_rows = 0;
 	if (!table_name) {
@@ -501,7 +502,13 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 				*val_int = temp;
 				row_vals = eina_list_append(row_vals, val_int);
 			} else if(!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
-				char* val_text = strdup((const char *)sqlite3_column_text(stmt, col));
+				char *temp_val = (char*)sqlite3_column_text(stmt, col);
+				char *val_text = NULL;
+				if (temp_val) {
+					val_text = strdup(temp_val);
+				} else {
+					val_text = strdup("");
+				}
 				row_vals = eina_list_append(row_vals, val_text);
 			}
 		}
@@ -526,13 +533,8 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	int ret;
 	const char *type;
 	int col;
-
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	char* where_clause = NULL;
-
-	if (!db) {
-		return NULL;
-	}
 
 	if (wc) {
 		where_clause = (char*)malloc(strlen("WHERE ") + strlen(wc) + 1);
@@ -540,8 +542,8 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		strcat(where_clause, wc);
 	}
 
+
 	if (!table_name || !column_names) {
-		close_database(db);
 		return NULL;
 	}
 
@@ -552,12 +554,11 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 
 	query_len += strlen(" FROM ");
 	query_len += strlen(table_name) + 1;
-	query_len += (wc ? strlen(wc) + 7 : 0);
+	query_len += (where_clause ? strlen(where_clause) : 0);
 	query_len += 2;
 
 	query = malloc(query_len);
 	if (!query) {
-		close_database(db);
 		return NULL;
 	}
 
@@ -574,10 +575,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		ptr++;
 	}
 
-	ptr += sprintf(ptr, " FROM %s", table_name);
-	if (wc) {
-		ptr += sprintf(ptr, " WHERE %s", wc);
-	}
+	ptr += sprintf(ptr, " FROM %s %s;", table_name, where_clause ? where_clause : "");
 
 	LOGD("Query: %s", query);
 
@@ -587,6 +585,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		close_database(db);
 		return NULL;
 	}
+
 
 	while(sqlite3_step(stmt) == SQLITE_ROW) {
 		col = 0;
@@ -649,8 +648,10 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	return result;
 }
 
+
 int tg_db_init(void)
 {
+#if 0
 	int ret;
 
 	if (s_info.db) {
@@ -662,19 +663,21 @@ int tg_db_init(void)
 	if(ret != SQLITE_OK) {
 		return EINA_FALSE;
 	}
-
+#endif
 	return EINA_TRUE;
 
 }
 
 int tg_db_fini(void)
 {
+#if 0
 	if (!s_info.db) {
 		return EINA_FALSE;
 	}
 
 	sqlite3_close(s_info.db);
 	s_info.db = NULL;
+#endif
 	return EINA_TRUE;
 }
 
@@ -696,14 +699,12 @@ Eina_List *tg_db_get_user_info(tgl_peer_id_t *user_id)
 				"username, online, last_seen " \
 				"FROM user_info_table WHERE user_id = ?", -1, &stmt, NULL);
 	if (ret != SQLITE_OK) {
-		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_int(stmt, 1, user_id->id);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
-		close_database(db);
 		return NULL;
 	}
 
@@ -795,8 +796,8 @@ Eina_List *tg_db_get_user_info(tgl_peer_id_t *user_id)
 
 		result = eina_list_append(result, info);
 	}
-	sqlite3_finalize(stmt);
 	close_database(db);
+	sqlite3_finalize(stmt);
 	return result;
 }
 
@@ -823,7 +824,6 @@ Eina_List *tg_db_get_chat_info(const char *table_name)
 	ret = sqlite3_bind_text(stmt, 1, table_name, -1, SQLITE_TRANSIENT);
 	if (ret != SQLITE_OK) {
 		LOGE("Failed to bind a text");
-		close_database(db);
 		return NULL;
 	}
 
@@ -918,34 +918,29 @@ tg_peer_info_s *tg_db_get_peer_info(const char *table, int peer_id)
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	ret = sqlite3_prepare_v2(db, "SELECT peer_type, flags, last_msg_id, last_msg_date, print_name, struct_version, no_of_unread_msgs, last_seen_time, photo_path, photo_id FROM ? WHERE peer_id = ?", -1, &stmt, NULL);
 	if (ret != SQLITE_OK) {
-		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_text(stmt, 1, table, -1, SQLITE_TRANSIENT);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
-		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_int(stmt, 2, peer_id);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
-		close_database(db);
 		return NULL;
 	}
 
 	if (sqlite3_step(stmt) != SQLITE_ROW) {
 		sqlite3_finalize(stmt);
-		close_database(db);
 		return NULL;
 	}
 
 	info = calloc(1, sizeof(*info));
 	if (!info) {
 		sqlite3_finalize(stmt);
-		close_database(db);
 		return NULL;
 	}
 
@@ -990,14 +985,12 @@ Eina_List *tg_db_get_messages(const char *table_name)
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	ret = sqlite3_prepare_v2(db, "SELECT msg_id, flags, fwd_from_id, fwd_date, from_id, to_id, out, unread, date, service, message, msg_state, message_len, media_type, media_id, unique_id FROM ?", -1, &stmt, NULL);
 	if (ret != SQLITE_OK) {
-		close_database(db);
 		return NULL;
 	}
 
 	ret = sqlite3_bind_text(stmt, 1, table_name, -1, SQLITE_TRANSIENT);
 	if (ret != SQLITE_OK) {
 		sqlite3_finalize(stmt);
-		close_database(db);
 		return NULL;
 	}
 
@@ -1045,7 +1038,24 @@ Eina_List *tg_db_get_messages(const char *table_name)
 	return result;
 }
 
-char *tg_db_get_image_path_from_db(int media_id)
+Eina_Bool delete_all_records(char *tablename)
 {
-	return NULL;
+	if (!tablename) {
+		return EINA_FALSE;
+	}
+	char *var_query = (char*)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(";") + 1);
+	strcpy(var_query, "DELETE FROM ");
+	strcat(var_query, tablename);
+	strcat(var_query, ";");
+	int ret;
+	char* err_msg = 0;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	close_database(db);
+	if( ret != SQLITE_OK ){
+		sqlite3_free(err_msg);
+		return EINA_FALSE;
+	}
+	free(var_query);
+	return EINA_TRUE;
 }

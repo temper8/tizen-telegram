@@ -175,7 +175,7 @@ styles {
             type: RECT;
             repeat_events: 1;
             description { state: "default" 0.0;
-			color: 225 237 241 255;
+			color: 225 237 241 0;
             }
          }
          part { name: "elm.select_icon.pad";
@@ -304,7 +304,7 @@ styles {
             type: RECT;
             repeat_events: 1;
             description { state: "default" 0.0;
-            color: 225 237 241 255;
+            color: 225 237 241 0;
             }
          }
          part { name: "elm.select_icon.pad";

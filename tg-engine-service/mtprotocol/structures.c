@@ -1833,7 +1833,7 @@ void tgls_free_message_media(struct tgl_state *TLS, struct tgl_message_media *M)
 		return;
 	default:
 		vlogprintf(E_ERROR, "type = 0x%08x\n", M->type);
-		assert(0);
+		//assert(0);
 	}
 }
 

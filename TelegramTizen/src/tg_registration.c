@@ -54,6 +54,7 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 		strcat(phone_number, phone_num);
 		ad->phone_number = strdup(phone_number);
 		send_request_for_registration(ad->service_client, ad->phone_number, EINA_TRUE);
+		show_loading_popup(ad);
 	} else {
 
 	}
@@ -66,13 +67,8 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
-#if 0
 	elm_win_lower(ad->win);
 	elm_exit();
-#else
-	elm_naviframe_item_pop(ad->nf);
-	launch_login_cb(ad);
-#endif
 }
 
 static void country_name_popup_dismissed_cb(void *data, Evas_Object *obj, void *event_info)
@@ -150,7 +146,7 @@ static void on_country_name_list_clicked(void *data, Evas_Object *obj, void *eve
 	evas_object_data_set(ad->nf, "country_name_popup", country_name_popup);
 }
 
-void launch_registration_cb(appdata_s* ad)
+void launch_registration_cb(appdata_s *ad)
 {
 	if (!ad) {
 		return;
