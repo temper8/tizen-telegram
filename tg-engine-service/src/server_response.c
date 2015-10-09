@@ -1411,7 +1411,7 @@ void send_response_for_server_connection_status(tg_engine_data_s *tg_data, Eina_
 
 	msg = bundle_create();
 	if (!msg) {
-		LOGE("Failed to create a bundle");
+		ERR("Failed to create a bundle");
 		return;
 	}
 
