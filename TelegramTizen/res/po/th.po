@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "แอพรับส่งข้อความที่ %1$sเร็วที่สุด%2$s ในโลก\n ซึ่งทั้ง %3$sฟรี%4$s และ %5$sปลอดภัย%6$s"
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "เร็ว"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "ฟรี"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "เริ่มข้อความ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "ถัดไป"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "ก่อน​หน้า​"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "ถัดไป"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s ส่งข้อความ\nได้เร็วกว่าแอพอื่นๆ"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s นั้นฟรีตลอดกาล\n\nไม่มีโฆษณา ไม่มีค่าสมาชิก"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s รักษาความปลอดภัยข้อความของคุณ\nจากแฮคเกอร์"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s ไม่มีข้อจำกัดเรื่องขนาดของ\nการสนทนาและมีเดียที่คุณจะแชร์"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s ให้คุณสามารถเข้าถึง\nข้อความของคุณจากหลากหลายอุปกรณ์ได้"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "ข้อความของ %1$sTelegram%2$s ถูกเข้ารหัสอย่างหนาแน่น\nและสามารถถูกลบโดยอัตโนมัติ"
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "ปลอดภัย"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "ทรงพลัง"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "ใช้ระบบ Cloud"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "ส่วนตัว"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "ก่อน​หน้า"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ยกเลิก"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "เรียบร้อย"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "ใส่หมายเลข"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "ใส่รหัส"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "ใส่ชื่อ"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "ยืนยันรหัสประเทศและใส่เบอร์โทรศัพท์ของคุณ"
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "ส่งรหัสการตรวจสอบแล้ว ตรวจสอบข้อความแล้วใส่รหัสการตรวจสอบ"
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram จะทำการโทรใน %1$d:%2$d"
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "ใส่ชื่อและชื่อสกุลของคุณ"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "ชื่อ (ต้องใส่)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "ชื่อสกุล (ต้องใส่)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "รหัส"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "หมายเลขโทรศัพท์"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "รายชื่อ"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "ค้นหา"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "เชิญเพื่อน"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "การสนทนาลับ"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "เลือกรายชื่อ"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "การสนทนาแบบกลุ่ม"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "เลือกทั้งหมด"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "สร้าง​กลุ่ม​"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "ชื่อกลุ่มใหม่"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d ถูกเลือก"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "เห็นล่าสุดเมื่อ %d นาทีที่แล้ว"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "เห็นล่าสุดเมื่อ 1 ชม.ที่แล้ว"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "เห็นล่าสุดเมื่อ %d ชม.ที่แล้ว"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "เห็นล่าสุดภายในสัปดาห์นี้"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "เห็นล่าสุดภายในเดือนนี้"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "ออนไลน์"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "เห็นล่าสุดเร็วๆ นี้"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "เห็นล่าสุดเมื่อนานมาแล้ว"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "เห็นล่าสุดเมื่อ 1 นาทีที่แล้ว"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ส่ง"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "เขียนข้อความ"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "สร้างรายชื่อ"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "ชื่อ"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "ชื่อ"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "ชื่อสกุล"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "มือ​ถือ"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "หมายเลขโทรศัพท์"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "มือถือ"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "บ้าน"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "ที่ทำงาน"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "แฟกซ์ (บ้าน)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "แฟกซ์ (ที่ทำงาน)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "แฟกซ์ (อื่นๆ)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "เพจเจอร์"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "อื่น ๆ"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ค้นหา"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "รายชื่อ"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "การตั้งค่า"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "ไม่มีการสนทนา"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "ในการเริ่มการสนทนาใหม่ สัมผัสปุ่มสร้างกลุ่มใหม่ที่ด้านล่างขวา หรือกดปุ่มเมนูสำหรับตัวเลือกเพิ่มเติม"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ค้นหา"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "ไม่พบผลลัพธ์"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "เลือกการสนทนา"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "เลือกการสนทนา"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "เห็นล่าสุดเร็วๆ นี้"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "เห็นล่าสุดเมื่อนานมาแล้ว"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "เห็นครั้งสุดท้ายเมื่อ 1 นาทีที่แล้ว"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "เห็นครั้งสุดท้ายเมื่อ %d นาทีที่แล้ว"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "เห็นครั้งสุดท้ายเมื่อ 1 ชั่วโมงที่แล้ว"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "เห็นครั้งสุดท้ายเมื่อ %d ชั่วโมงที่แล้ว"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "เห็นครั้งสุดท้ายภายในสัปดาห์นี้"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "เห็นครั้งสุดท้ายภายในเดือนนี้"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "ดูโปรไฟล์"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ลบ"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "การตั้งค่าการแจ้งเตือน"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "ยังไม่มีข้อความที่นี่..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "ผู้เข้าร่วม %d คน"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "คุณได้สร้างกลุ่มสนทนานี้แล้ว"
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "ออกจากการสนทนากลุ่ม"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s ออกจากการสนทนากลุ่มแล้ว"
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s ได้สร้างการสนทนากลุ่ม"
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "ออกจากการสนทนากลุ่ม"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "คุณจะออกจากกลุ่มนี้"
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "ยกเลิก"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "ออก"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "เพิ่มไปยัง Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "ไม่​รู้จัก"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ลบ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s จะถูกลบออกจากรายชื่อผู้ติดต่อของคุณใน Telegram"
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "คัดลอกข้อความ"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "ส่งต่อ"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "ส่งต่อทาง Telegram"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "ตอบ"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "ข้อ​ความ​นี้​จะ​ถูก​ลบ"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "รายละเอียดโปรไฟล์"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "เลือกรายการ"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ลบ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ทำงาน"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "ปิดเสียงนาน 1 ชั่วโมง"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "ปิดเสียงนาน %d ชั่วโมง"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "ปิดเสียงนาน %d วัน"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ปิดใช้งาน"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "แชร์รายละเอียดรายชื่อ"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "รายละเอียดรายชื่อของ %1$s จะถูกแชร์กับ %2$s"
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "แชร์"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "เพิ่ม​ในรายชื่อ"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "โทร"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "เขียนข้อความ"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "สร้างรายชื่อ"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "อัพเดทรายชื่อ"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "บันทึก"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "เลื่อนเพื่อยกเลิก"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "การตั้งค่า"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "เสียงและการแจ้งเตือน"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "ข้อมูลส่วนตัวและความปลอดภัย"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "ตั้งรูปภาพพื้นหลัง"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "ตั้งรูปภาพโปรไฟล์"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "แก้ไขชื่อ"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "ออกจากระบบ"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "จากแกลเลอรี่"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "ถ่ายภาพ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "เลือกรูปภาพ"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "ใช้ Telegram กับอุปกรณ์หลายเครื่องในเวลาเดียวกันได้อย่างไม่ติดขัด อย่างไรก็ตาม การสนทนาลับจะไม่สามารถใช้ได้หลังจากคุณออกจากระบบ"
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "ออกจากระบบ"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "คุณได้เชิญ %s ให้เข้าร่วมการสนทนาลับ"
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "คอนเทนท์การสนทนาลับ:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ตั้งเวลาลบอัตโนมัติ"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "ดูรายละเอียดรายชื่อ"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ตั้งเวลาลบอัตโนมัติ"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "ล้างประวัติ"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "ออกจากการสนทนา"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "แก้ไข"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "เพิ่ม​ในรายชื่อ"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "เริ่มการสนทนาลับ"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "บล็อค"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "ปลดบล็อค"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "บล็อค"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s จะถูกบล็อค"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s จะถูกปลดบล็อค"
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "ปลดบล็อค"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "แชร์"
+

@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Ang %1$spinakamabilis%2$s na messaging app\n%3$sLibre%4$s at %5$sligtas%6$s ito."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegrama"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Mabilis"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Bakante"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "SIMULAN ANG MESSAGING"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Susunod"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Nauna"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Susunod"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "Mas mabilis na naghahatid ng mensahe ang %1$sTelegram%2$s \nkaysa sa anumang iba pang app."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "Libre ang %1$sTelegram%2$s kailanman.\n\nWalang ad. Walang subscription fee."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "Iniingatan ng %1$sTelegram%2$s ang mga mensahe mo\nmula sa mga hacker."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "Walang limitasyon ang %1$sTelegram%2$s sa laki ng\nmga chat at media na maibabahagi mo."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "Nagbibigay-daan sa iyo ang %1$sTelegram%2$s na ma-access\nang mga mensahe mo mula sa maraming device."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "Matibay ang pagkaka-encrypt ng mga mensaheng %1$sTelegram%2$s\nat maaaring awtomatikong tanggalin."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Ligtas"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Malakas"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Cloud-based"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Pribado"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Nakaraan"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "KANSELAHIN"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "TAPOS NA"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Ipasok ang numero"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Ipasok ang code"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Ipasok ang pangalan"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Kumpirmahin ang country code mo at ipasok ang numero ng telepono mo."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "May ipinadalang verification code. Tingnan ang mga mensahe mo at ipasok ang verification code."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Tatawag ang Telegram sa loob ng %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Ipasok ang pangalan at apelyido mo."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Pangalan (kailangan)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Apelyido (kailangan)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Code"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Numero ng telepono"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Mga Contact"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Paghahanap"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Mag-imbita ng mga kaibigan"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Lihim na chat"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Pumili ng mga contact"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Panggrupong chat"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Piliin lahat"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Lumikha ng grupo"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Pangalan ng bagong grupo"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d ang napili"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Huling nakita %d minuto na ang nakalipas"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Huling nakita 1 oras na ang nakalipas"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Huling nakita %d oras na ang nakalipas"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Huling nakita sa linggong ito"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Huling nakita sa buwan na ito"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "Online"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Huling nakita kamakailan lang"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Matagal na noong huling makita"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Huling nakita 1 minuto na ang nakalipas"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "IPADALA"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Sumulat ng mensahe"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Lumikha ng contact"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Pangalan"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Pangalan"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Apelyido"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobile"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Numero ng telepono"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Mobile"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Telepono sa bahay"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Trabaho"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Fax (bahay)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Fax (trabaho)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Fax (iba pa)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Pager"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Iba pa"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Maghanap"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Mga Contact"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Mga setting"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Walang chat"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Para magsimula ng bagong conversation, i-tap ang Create new group button sa ibabang-kanan o pindutin ang Menu key para sa mas maraming opsiyon."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Maghanap"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Walang mga resultang nakita"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Piliin ang chat"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Piliin ang mga chat"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Huling nakita kamakailan lang"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Matagal na noong huling makita"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Huling nakita 1 minuto na ang nakalipas"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Huling nakita %d minuto na ang nakalipas"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Huling nakita 1 oras na ang nakalipas"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Huling nakita %d oras na ang nakalipas"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Huling nakita sa loob ng isang linggo"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Huling nakita sa loob ng isang buwan"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Tingnan ang profile"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "I-delete"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Mga setting ng notification"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Wala pang mensahe rito..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d kalahok"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Nilikha mo ang Panggrupong chat na ito."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Umalis sa panggrupong chat"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "Umalis si %s ng panggrupong chat."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "Nilikha ni %s ang panggrupong chat na ito."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Umalis ng panggrupong chat"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Aalis ka sa grupong ito."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Kanselahin"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Umalis"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Idagdag sa Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Hindi alam"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "I-delete"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "Aalisin si %s mula sa lista ng mga contact mo sa Telegram."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Kopyahin ang teksto"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "I-forward"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "I-forward gamit ang Telegram"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Tumugon"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Ide-delete ang mensaheng ito."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Mga detalye ng profile"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Pumili ng mga item"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "TANGGALIN"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Paganahin"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "Naka-mute nang 1 oras"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "Naka-mute nang %d oras"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "Naka-mute nang %d araw"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Huwag paganahin"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Ibahagi ang mga detalye ng contact"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "Ibabahagi kay %2$s ang mga detalye sa pagkontak kay %1$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Ibahagi"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Idagdag sa Mga Contact"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Tumawag"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Sumulat ng mensahe"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Lumikha ng contact"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "I-update ang contact"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "I-save"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "I-slide para ikansela"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Mga Setting"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Mga tunog at notification"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Privacy at seguridad"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "I-set ang larawan ng background"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "I-set ang larawan ng profile"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "I-edit ang pangalan"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Mag-log out"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Mula sa Gallery"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Kumuha ng litrato"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Pumili ng larawan"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Walang-sabit na gamitin ang Telegram sa gaano man karaming device nang sabay-sabay. Pero, hindi magagamit ang mga lihim na chat pagkatapos mong mag-log out."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Mag-log out"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Inimbita mo si %s sa isang lihim na chat."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Content ng lihim na chat:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "I-set ang oras ng awto-tanggal"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Tingnan mga detalye ng contact"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "I-set ang oras ng awto-tanggal"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "I-clear ang history"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Umalis sa chat"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "I-edit"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Idagdag sa Mga contact"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Simulan ang lihim na chat"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "I-block"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "I-unblock"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "I-block"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Maba-block ang %s."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s ang ia-unblock."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "I-unblock"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Ibahagi"
+

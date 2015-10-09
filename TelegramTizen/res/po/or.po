@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "ବିଶ୍ୱର %1$sଦ୍ରୁତତର%2$s ମେସେଜିଂ ଆପ୍\nଏହା %3$sମୁକ୍ତ%4$s ଏବଂ %5$sସୁରକ୍ଷିତ%6$s।"
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "ଟେଲିଗ୍ରାମ୍"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "ଦ୍ରୁତ"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "ମୁକ୍ତ"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ମେସେଜିଂ ଆରମ୍ଭ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "ପରବର୍ତ୍ତୀ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "ପୂର୍ବବର୍ତ୍ତୀ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "ପରବର୍ତ୍ତୀ"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sଟେଲିଗ୍ରାମ୍%2$s ବିତରଣ ସନ୍ଦେଶ\nଅନ୍ୟ କୌଣସି ଆପ୍ଲିକେସନରୁ ଦ୍ରୁତତର ହୋଇଥାଏ।"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sଟେଲିଗ୍ରାମ୍%2$s ସର୍ବଦା ମାଗଣା ହୋଇଛି।\n\nକୌଣସି ବିଜ୍ଞାପନ ନାହିଁ। କୌଣସି ସଦସ୍ୟତା ଦେୟ ନାହିଁ।"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "ହେକର୍ସ୍ ଠାରୁ %1$sଟେଲିଗ୍ରାମ୍%2$s ଆପଣଙ୍କ ସନ୍ଦେଶଗୁଡିକ\nସୁରକ୍ଷିତ ରଖେ।"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "ଆପଣ ଅଂଶୀଦାର କରିପାରୁଥିବା ଚାଟଗୁଡିକର \nଆକାର ଏବଂ ମିଡିଆ ଉପରେ %1$sଟେଲିଗ୍ରାମ୍%2$s ପାଖରେ କୌଣସି ସୀମା ନାହିଁ।"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sଟେଲିଗ୍ରାମ୍%2$s ଏକାଧିକ ଡିଭାଇସରୁ ଆପଣଙ୍କ ସନ୍ଦେଶଗୁଡିକ\nଆକସେସ୍ କରିବାକୁ ଆପଣଙ୍କୁ ଅନୁମତି କରେ।"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sଟେଲିଗ୍ରାମ୍%2$s ସନ୍ଦେଶଗୁଡିକ ବିଶେଷ ଭାବେ ଏନକ୍ରିପ୍ଟ ହୋଇଛି\nଏବଂ ସ୍ଵତଃସ୍ପୃତ ଭାବେ ବିଲୋପ ହେବ।"
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "ସୁରକ୍ଷିତ"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "ଶକ୍ତିଶାଳୀ"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "କ୍ଲାଉଡ୍-ଆଧାରିତ"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "ବ୍ୟକ୍ତିଗତ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "ପୂର୍ବବର୍ତ୍ତୀ"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ବାତିଲ୍"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ସମାପ୍ତ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "ନମ୍ଵ. ପ୍ରବେଶ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "କୋଡ୍ ପ୍ରବେଶ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "ନାମ ପ୍ରବେଶ"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "ଆପଣଙ୍କ ଦେଶ କୋଡ୍ ନିଶ୍ଚିତ କରି ଆପଣଙ୍କ ଫୋନ୍ ନମ୍ବର ପ୍ରବେଶ କରନ୍ତୁ।"
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "ଏକ ଯାଞ୍ଚ କୋଡ୍‍ ପ୍ରେରିତ ହୋଇଛି। ଆପଣଙ୍କ ସନ୍ଦେଶଗୁଡିକ ଯାଞ୍ଚ କରି ଯାଞ୍ଚ କୋଡ୍‍ ପ୍ରବେଶ କରନ୍ତୁ।"
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "%1$d:%2$dରେ ଟେଲିଗ୍ରାମ୍ କଲ୍ କରିବ।"
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "ଆପ. ପ୍ରଥମ ଏବଂ ଶେଷ ନାମ ପ୍ରବେଶ କର.।"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "ପ୍ରଥମ ନାମ (ଆବଶ୍ୟକୀୟ)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "ଶେଷ ନାମ (ଆବଶ୍ୟକୀୟ)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "କୋଡ୍"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "ଫୋନ୍ ନମ୍ଵର୍"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "ସମ୍ପର୍କଗୁଡିକ"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "ସନ୍ଧାନ"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "ବନ୍ଧୁଗଣଙ୍କୁ ଆମନ୍ତ୍ରଣ"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "ଗୁପ୍ତ ଚାଟ୍"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "ସମ୍ପର୍କଗୁଡିକ ଚୟନ"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "ଗୋଷ୍ଠୀ ଚାଟ୍"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "ସମସ୍ତ ଚୟନ"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "ଗୋଷ୍ଠୀ ସୃଷ୍ଟି"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "ନୂତନ ଗୋଷ୍ଠୀ ନାମ"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%dଟି ଚୟନିତ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "%d ମିନିଟ୍ ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "1 ଘଣ୍ଟା ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "%d ଘଣ୍ଟା ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "ସପ୍ତାହ ମଧ୍ୟରେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "ମାସ ମଧ୍ୟରେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "ଅନଲାଇନ୍"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "ସାମ୍ପ୍ରତିକ ଭାବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "ବହୁ ସମୟ ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "1 ମିନିଟ୍‌ ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ପ୍ରେରଣ"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "ସନ୍ଦେଶ ରଚନା"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "ସମ୍ପର୍କ ସୃଷ୍ଟି"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "ନାମ"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "ପ୍ରଥମ ନାମ"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "ଶେଷ ନାମ"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "ମୋବାଇଲ୍"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "ଫୋନ୍ ନମ୍ଵର୍"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "ମୋବାଇଲ୍"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "ହୋମ୍"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "କାର୍ଯ୍ୟ"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "ଫ୍ୟାକ୍ସ (ହୋମ୍)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "ଫ୍ୟାକ୍ସ (କାର୍ଯ୍ୟ)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "ଫ୍ୟାକ୍ସ (ଅନ୍ୟ)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "ପେଜର"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "ଅନ୍ୟ"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ସନ୍ଧାନ"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "ସମ୍ପର୍କଗୁଡିକ"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "ସେଟିଂସ୍"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "କୌଣସି ଚାର୍ଟ୍ ନାହିଁ"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "ଏକ ନୂତନ ବାର୍ତ୍ତାଳାପ ଆରମ୍ଭ କରିବାକୁ, ନିମ୍ନ ଡାହାଣରେ ନୂତନ ଗୋଷ୍ଠୀ ବଟନ୍‍ ସୃଷ୍ଟି ଟ୍ୟାପ୍ କରନ୍ତୁ କିମ୍ୱା ଅଧିକ ବିକଳ୍ପ ପାଇଁ ମେନ୍ୟୁ କୀ ଦବାନ୍ତୁ।"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ସନ୍ଧାନ"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "କୌଣସି ଫଳାଫଳ ମିଳିଲା ନାହିଁ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "ଚାଟ୍ ଚୟନ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "ଚାଟଗୁଡିକ ଚୟନ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "ସାମ୍ପ୍ରତିକ ଭାବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "ବହୁ ସମୟ ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "1 ମିନିଟ୍‌ ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "%d ମିନିଟ୍ ପୂର୍ବେ ଶେଷ ଥର ଦେଖିଥିଲେ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "1 ଘଣ୍ଟା ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "%d ଘଣ୍ଟା ପୂର୍ବେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "ଏକ ସପ୍ତାହ ମଧ୍ୟରେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "ଏକ ମାସ ମଧ୍ୟରେ ଶେଷ ଦେଖାଯାଇଥିବା"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "ପ୍ରୋଫାଇଲ୍ ଦର୍ଶନ"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ବିଲୋପ"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "ବିଜ୍ଞପ୍ତି ସେଟିଂସ୍"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "ଏପର୍ଯ୍ୟନ୍ତ ଏଠାରେ କୌଣସି ସନ୍ଦେଶ ନାହିଁ..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%dଟି ଅଂଶଗ୍ରହଣକାରୀ"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "ଆପଣ ଏହି ଗୋଷ୍ଠୀ ଚାଟ୍ ସୃଷ୍ଟି କରିଛନ୍ତି।"
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "ଗୋଷ୍ଠୀ ଚାଟ୍ ପରିତ୍ୟାଗ କରନ୍ତୁ"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s ଗୋଷ୍ଠୀ ଚାଟ୍ ପରିତ୍ୟାଗ କରିଛ.।"
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s ଏହି ଗୋଷ୍ଠୀ ଚାଟ୍ ସୃଷ୍ଟି କରିଛନ୍ତି।"
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "ଗୋଷ୍ଠୀ ଚାଟ୍ ପରିତ୍ୟାଗ"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "ଆପଣ ଏହି ଗୋଷ୍ଠୀ ତ୍ୟାଗ କରିବେ।"
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "ବାତିଲ୍"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "ପରିତ୍ୟାଗ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "ଟେଲିଗ୍ରାମକୁ ଯୋଡନ୍ତୁ"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "ଅଜଣା"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ବିଲୋପ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "ଟେଲିଗ୍ରାମରୁ %s ଆପଣଙ୍କ ସମ୍ପର୍କ ତାଲିକାରୁ ଅପସାରଣ ହେବ।"
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "ଟେକ୍ସଟ୍ କପି"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "ଅଗ୍ରଗାମୀ"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "ଟେଲିଗ୍ରାମ୍ ମାଧ୍ୟମରେ ଅଗ୍ରଗାମୀ"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "ପ୍ରତ୍ୟୁତ୍ତର"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "ଏହି ସନ୍ଦେଶ ବିଲୋପ ହେବ।"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "ପ୍ରୋଫାଇଲ୍ ବିବରଣୀ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "ଆଇଟମଗୁଡିକ ଚୟନ"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ବିଲୋପ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ସକ୍ଷମ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "1 ଘଣ୍ଟା ପାଇଁ ମ୍ୟୁଟ୍"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d ଘଣ୍ଟା ପାଇଁ ମ୍ୟୁଟ୍"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d ଦିନ ପାଇଁ ମ୍ୟୁଟ୍"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ଅକ୍ଷମ"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "ସମ୍ପର୍କ ବିବରଣୀ ଅଂଶୀଦାର"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$sର ସମ୍ପର୍କ ବିବରଣୀ %2$s ସହ ଅଂଶୀଦାର ହେବ।"
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "ଅଂଶୀଦାର"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "ସମ୍ପର୍କକୁ ଯୋଡନ୍ତୁ"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "କଲ୍"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "ସନ୍ଦେଶ ରଚନା କରନ୍ତୁ"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "ସମ୍ପର୍କ ସୃଷ୍ଟି"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "ସମ୍ପର୍କ ଅପଡେଟ୍"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "ସଞ୍ଚୟ"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "ବାତି. କରି. ସ୍ଲାଇ."
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "ସେଟିଂସ୍"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "ଧ୍ୱନି ଏବଂ ବିଜ୍ଞପ୍ତିଗୁଡିକ"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "ଗୋପନୀୟତା ଏବଂ ସୁରକ୍ଷା"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "ପୃଷ୍ଠପଟ ଫଟୋ ସେଟ୍"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "ପ୍ରୋଫାଇଲ୍ ଫଟୋ ସେଟ୍"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "ନାମ ସମ୍ପାଦନ"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "ଲଗ୍ ଆଉଟ୍"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "ଗ୍ୟାଲେରୀରୁ"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "ଫଟୋ ଉଠାନ୍ତୁ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "ଫଟୋ ଚୟନ"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "ଏକା ସମୟରେ ଡିଭାଇସର କୌଣସି ନମ୍ଵର୍ ମଧ୍ୟରେ ବିନା ବାଧାରେ ଟେଲିଗ୍ରାମ୍ ବ୍ୟବହାର କରନ୍ତୁ। ଯଦିଓ, ଆପଣ ଲଗ୍‌ ଆଉଟ୍ କରିସାରିଲା ପରେ ଗୁପ୍ତ ଚାଟଗୁଡିକ ଉପଲବ୍ଧ ହେବ ନାହିଁ।"
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "ଲଗ୍ ଆଉଟ୍"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "ଆପଣ ଏକ ଗୁପ୍ତ ଚାର୍ଟକୁ %sକୁ ଆମନ୍ତ୍ରଣ କରିଛନ୍ତି।"
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "ଗୁପ୍ତ ଚାଟ୍ ବିଷୟବସ୍ତୁ:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ସ୍ଵତଃ-ବିଲୋପ ସମୟ ସେଟ୍"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "ସମ୍ପର୍କ ବିବରଣୀ ଦେଖନ୍ତୁ"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ସ୍ଵତଃ-ବିଲୋପ ସମୟ ସେଟ୍"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "ଇତିହାସ ଖାଲି"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "ଚାଟ୍ ତ୍ୟାଗ କରନ୍ତୁ"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "ସମ୍ପାଦନ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "ସମ୍ପର୍କଗୁଡିକୁ ଯୋଡନ୍ତୁ"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "ଗୁପ୍ତ ଚାଟ୍ ଆରମ୍ଭ"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "ଅବରୋଧ"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "ଅନାବରୋଧ"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "ଅବରୋଧ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ଅବରୋଧ ହେବ।"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s ଅନାବରୋଧିତ ହେବ।"
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "ଅନାବରୋଧ"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "ଅଂଶୀଦାର"
+

@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "ကမၻာ့ %1$sအျမန္ဆံုး%2$sမက္ေဆ့ခ်္ေပးပုိ႔သည့္ အက္ပ္\n%3$sအခမဲ့%4$sျဖစ္ၿပီး %5$sလံုျခံဳမႈ%6$sရွိပါသည္။"
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "တယ္လီဂရမ္"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "အျမန္"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "အခမဲ့"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "မက္ေဆ့ခ်္ေပးပုိ႔ျခင္းကုိ စတင္ပါ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "ေနာက္သို႔"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "လြန္ခဲ့ေသာ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "ေနာက္သို႔"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sတယ္လီဂရမ္%2$s သည္ အျခားအက္ပ္ထက္\nမက္ေဆ့ခ်္မ်ားကုိ ျမန္ျမန္ေပးပုိ႔ႏုိင္သည္။"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sတယ္လီဂရမ္%2$sသည္ အျမဲတမ္း အခမဲ့ျဖစ္သည္။\n\nေၾကာ္ျငာမ်ား မပါပါ။ အမည္စာရင္းေပးသြင္းခ မရွိပါ။"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sတယ္လီဂရမ္%2$sသည္ သင့္မက္ေ့ဆခ်္မ်ားကုိ\nဟက္ကာမ်ား အႏၱရာယ္မွ ကာကြယ္ေပးသည္။"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sတယ္လီဂရမ္%2$sသည္ သင္မွ်ေဝႏုိင္သည့္ စကားေျပာဆုိမႈမ်ားႏွင့္ မီဒီယာ\nအရြယ္အစားအေပၚ ကန္႔သတ္ခ်က္ မရွိပါ။"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sတယ္လီဂရမ္%2$s သည္ ကိရိယာေပါင္းမ်ားစြာမွ မက္ေဆ့ခ်္မ်ားကုိ\nသင့္အား ရယူသံုးစြဲခြင့္ျပဳသည္။"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sတယ္လီဂရမ္%2$sမက္ေဆ့ခ်္မ်ားကုိ ခုိင္မာစြာျဖင့္ ကုဒ္ေျပာင္းထားၿပီး\nအလုိအေလ်ာက္ ဖ်က္ပစ္ႏုိင္ပါသည္။"
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "လံုျခံဳသည္"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "အားေကာင္းေသာ"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "ကေလာက္ အေျချပဳ"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "သီးသန္႔႔"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "လြန္ခဲ့ေသာ"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ပယ္ဖ်က္ပါ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ၿပီးၿပီ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "နံပါတ္ ထည့္သြင္းပါ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "ကုဒ္ ထည့္သြင္းပါ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "အမည္ ထည့္သြင္းပါ"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "သင့္ႏုိင္ငံကုတ္ကုိ အတည္ျပဳၿပီး သင့္ဖုန္းနံပါတ္ ထည့္ပါ။"
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "အတည္ျပဳ စစ္ေဆးျခင္းကုဒ္ ပို႔ၿပီးပါၿပီ။ မက္ေဆ့ခ်္မ်ားကုိ စစ္ေဆးၿပီး အတည္ျပဳ စစ္ေဆးျခင္းကုဒ္ကုိ ထည့္သြင္းပါ။"
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "တယ္လီဂရမ္သည္ %1$d:%2$d အတြင္း ေခၚဆုိပါမည္။"
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "သင့္ ပထမႏွင့္ မိသားစု အမည္ကုိ ထည့္သြင္းပါ။"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "ပထမ အမည္ (လုိအပ္သည္)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "မိသားစု အမည္ (လုိအပ္သည္)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "ကုဒ္"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "ဖုန္း နံပါတ္"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "အဆက္အသြယ္မ်ား"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "ရွာေဖြပါ"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "မိတ္ေဆြမ်ား ဖိတ္ေခၚပါ"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "လွ်ိဳ႕ဝွက္ ခ်တ္"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "အဆက္အသြယ္မ်ား ေရြးပါ"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "အုပ္စု ခ်တ္"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "အားလံုးကိုေရြးပါ"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "အဖြဲ႔ ဖန္တီးပါ"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "အုပ္စုအသစ္ အမည္"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d ေရြးထားသည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ %d မိနစ္က ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ ၁ နာရီက ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ %d နာရီက ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "ယခုတစ္ပတ္အတြင္း ေနာက္ဆံုးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "ယခုလအတြင္း ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "အြန္လိုင္း"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "လတ္တေလာကပင္ ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ အခ်ိန္အေတာ္ၾကာက ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ ၁ မိနစ္က ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ပို႔ပါ"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "မက္ေဆ့ခ်္ အသစ္ ေရးပါ"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "အဆက္အသြယ္ ဖန္တီးပါ"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "အမည္"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "ပထမ အမည္"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "ေနာက္ဆုံး အမည္"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "မိုဘိုင္း"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "ဖုန္း နံပါတ္"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "မုိဘုိင္း"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "ပင္မ"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "အလုပ္"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "ဖက္စ္ (အိမ္)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "ဖက္စ္ (အလုပ္)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "ဖက္စ္ (အျခား)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "ေပဂ်ာ"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "အျခား"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ရွာေဖြပါ"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "အဆက္အသြယ္မ်ား"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "သတ္မွတ္ခ်က္မ်ား"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "ခ်တ္မ်ား မရွိပါ"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "စကားစျမည္အသစ္တစ္ခု စတင္ရန္ ေအာက္ဖက္ ညာဖက္ရွိ အုပ္စုအသစ္ ဖန္တီးပါကုိ ႏွိပ္ပါ (သုိ႔) ေနာက္ထပ္ ေရြးစရာမ်ားအတြက္ မီႏူးခလုတ္ကုိ ႏွိပ္ပါ။"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ရွာေဖြပါ"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "ရလဒ္မ်ား မေတြ႔ပါ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "ခ်တ္ ေရြးခ်ယ္ပါ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "ခ်တ္မ်ား ေရြးခ်ယ္ပါ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "လတ္တေလာကပင္ ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ အခ်ိန္အေတာ္ၾကာက ေနာက္ဆံုး ၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ ၁ မိနစ္က ေနာက္ဆံုးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ %d မိနစ္က ေနာက္ဆံုးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ ၁ နာရီက ေနာက္ဆံုးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "လြန္ခဲ့ေသာ %d နာရီကေနာက္ဆုံးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "တစ္ပတ္အတြင္းေနာက္ဆုံးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "တစ္လအတြင္းေနာက္ဆုံးၾကည့္ခဲ့သည္"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "အေၾကာင္းအခ်က္ ၾကည့္ပါ"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ဖ်က္ပစ္ပါ"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "သတိေပးခ်က္ သတ္မွတ္ခ်က္မ်ား"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "ဤေနရာတြင္မက္ေဆ့ခ္်မ်ား မရွိေသးပါ..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "ပါဝင္သူ %d ဦး"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "ဤအုပ္စုခ်တ္ကုိ သင္ဖန္တီးထားသည္။"
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "အုပ္စုခ်က္ပ္မွ ထြက္ပါ"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s သည္ အုပ္စုခ်တ္မွ ထြက္ခြါသြားၿပီးျဖစ္သည္။"
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s က ဤအုပ္စုခ်တ္ကုိ ဖန္တီးခဲ့သည္။"
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "အုပ္စုခ်တ္မွ ထြက္ပါ"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "သင္ ဤအုပ္စုမွ ထြက္ခြါမည္။"
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "ပယ္ဖ်က္ပါ"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "ထြက္ခြာပါ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "တယ္လီဂရမ္သုိ႔ ထည့္ပါ"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "အမည္မသိေသာ"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ပယ္ဖ်က္ပါ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s ကုိ တယ္လီဂရမ္ရွိ သင့္ဆက္သြယ္ရန္စာရင္းထဲမွ ဖယ္ရွားလိမ့္မည္။"
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "စာသား ကူးပါ"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "ဆက္ပို႔ပါ"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "တယ္လီဂရမ္မွတဆင့္ ဆင့္ကမ္းပုိ႔ပါ"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "စာျပန္ပါ"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "ဤမက္ေဆ့ခ်္ကို ဖ်က္ပစ္ပါလိမ့္မည္။"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "ပရုိဖုိင္ အေသးစိတ္အခ်က္မ်ား"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "အရာဝတၳဳမ်ားကိုေ႐ြးပါ"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ဖ်က္ပစ္ပါ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ဖြင့္ပါ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "၁ နာရီၾကာ အသံပိတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d နာရီၾကာ အသံပိတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d ရက္ၾကာ အသံပိတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ပိတ္ရန္"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "အဆက္အသြယ္ အေသးစိတ္ အခ်က္မ်ားကုိ မွ်ေဝပါ"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s ၏ အဆက္အသြယ္ အေသးစိတ္အခ်က္မ်ားကုိ %2$s ႏွင့္အတူ မွ်ေဝလိမ့္မည္။"
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "မွ်ေဝပါ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "အဆက္အသြယ္မ်ားသို႔ ထည့္ပါ"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "ေခၚဆိုမႈ"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "မက္ေဆ့ခ်္ အသစ္ ေရးပါ"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "အဆက္အသြယ္ကို ဖန္တီးပါ"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "အဆက္အသြယ္ အပ္ဒိတ္လုပ္ပါ"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "သိမ္းဆည္းပါ"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "ပယ္ဖ်က္ရန္ ေဘးသုိ႔ဆြဲပါ"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "သတ္မွတ္ခ်က္မ်ား"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "အသံမ်ားႏွင့္ သတိေပးခ်က္မ်ား"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "ကုိယ္ေရးသီးသန္႔ ႏွင့္ လံုျခံဳေရး"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "ေနာက္ခံ ရုပ္ပံုကုိ သတ္မွတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "ပ႐ိုဖိုင္ ႐ုပ္ပုံ သတ္မွတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "အမည္ တည္းျဖတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "ေလာ့ ေအာက္"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "ျပခန္းမွ"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "ပံု ရိုက္ပါ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "ရုပ္ပံု ေရြးပါ"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "တယ္လီဂရမ္ကုိ ကိရိယာမ်ားစြာတြင္ တစ္ၿပိဳင္တည္း အထစ္အေငါ့မရွိ အသံုးျပဳပါ။ သုိ႔ေသာ္ သင္ေလာ့ေအာက္ထြက္ၿပီးေနာက္ လွ်ိဳ႕ဝွက္ ခ်တ္မ်ားကုိ ရရွိႏုိင္မည္ မဟုတ္ပါ။"
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "ေလာ့ ေအာက္"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "သင္သည္ %s ကုိ လွ်ိဳ႕ဝွက္ခ်တ္သုိ႔ ဖိတ္ေခၚထားသည္။"
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "လွ်ိဳ႕ဝွက္ ခ်တ္ ပါဝင္သည့္အရာ :"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "အလိုလို ဖ်က္ပစ္မႈအခ်ိန္ သတ္မွတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "အဆက္အသြယ္၏ အေသးစိတ္မ်ားကို ၾကည့္ပါ"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "အလိုလို ဖ်က္ပစ္မႈအခ်ိန္ သတ္မွတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "မွတ္တမ္းေဟာင္း ရွင္းလင္းပါ"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "ခ်က္ပ္မွ ထြက္ပါ"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "တည္းျဖတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "အဆက္အသြယ္မ်ားသို႔ ထည့္ပါ"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "လၽွိဳ႕ဝွက္ ခ်တ္ စတင္ပါ"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "ပိတ္ပင္ပါ"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "ပိတ္ဆုိ႔မႈဖြင့္ပါ"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "ပိတ္ဆီးပါ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ကို ပိတ္ဆီးမည္"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s ကို ေသာ့ဖြင့္သြားမည္။"
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "ပိတ္ဆီးမႈျဖဳတ္ပါ"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "မွ်ေဝပါ"
+

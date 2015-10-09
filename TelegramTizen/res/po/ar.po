@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "تطبيق المراسلة %1$sالأسرع%2$s حول العالم\nوهو %3$sمجاني%4$s و%5$sآمن%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "التلغراف"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "سريع"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "مجاناً"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "بدء المراسلة"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "التالي"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "السابق"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "التالي"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "ينقل تطبيق %1$sالتلغراف%2$s الرسائل\nبسرعة أكبر من أي تطبيق آخر."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "إنّ تطبيق %1$sالتلغراف%2$s مجاني دائماً.\n\nما من إعلانات. وما من رسوم اشتراك."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "يحمي تطبيق %1$sالتلغراف%2$s رسائلك\nمن قراصنة الويب."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "لا يفرض تطبيق %1$sالتلغراف%2$s أي حد لحجم\nالرسائل والوسائط التي يمكنك مشاركتها."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "يتيح لك تطبيق %1$sالتلغراف%2$s الوصول\nإلى رسائلك من أجهزة متعددة."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "تكون الرسائل المتبادلة في تطبيق %1$sالتلغراف%2$s على مستوى عالٍ من التشفير\nويمكن حذفها تلقائياً."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "آمن"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "فعّال"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "مستند إلى السحابة"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "خاص"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "السابق"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "إلغاء"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "تم"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "إدخال الرقم"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "إدخال الرمز"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "إدخال الاسم"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "يرجى تأكيد رمز البلد وإدخال رقم هاتفك."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "تم إرسال رمز التحقق. يرجى مراجعة رسائلك وإدخال رمز التحقق."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "سيتم الاتصال بالتلغراف في غضون %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "أدخل اسمك الأول واسم عائلتك."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "الاسم الأول (مطلوب)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "الاسم العائلة (مطلوب)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "الرمز"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "رقم الهاتف"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "جهات الاتصال"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "بحث"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "دعوة الأصدقاء"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "دردشة سرية"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "تحديد جهات اتصال"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "دردشة جماعية"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "تحديد الكل"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "إنشاء مجموعة"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "اسم مجموعة جديد"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "تم تحديد %d"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "آخر ظهور منذ %d من الدقائق"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "آخر ظهور منذ ساعة واحدة"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "آخر ظهور منذ %d من الساعات"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "آخر ظهور خلال أسبوع"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "آخر ظهور خلال شهر"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "متصل"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "آخر ظهور مؤخراً"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "آخر ظهور منذ فترة طويلة"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "آخر ظهور منذ دقيقة واحدة"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "إرسال"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "إنشاء رسالة"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "إنشاء جهة اتصال"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "الاسم"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "الاسم الأول"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "اسم العائلة"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "هاتف محمول"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "رقم الهاتف"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "هاتف محمول"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "المنزل"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "العمل"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "رقم الفاكس (المنزل)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "رقم الفاكس (العمل)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "رقم الفاكس (غير ذلك)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "جهاز المناداة"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "غير ذلك"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "البحث"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "جهات الاتصال"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "ضبط"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "ما من دردشات"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "لبدء محادثة جديدة، انقر فوق زر إنشاء مجموعة جديدة في الزاوية السفلية اليمنى أو اضغط على مفتاح القائمة للحصول على مزيد من الخيارات."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "بحث"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "لم يتم العثور على أي نتيجة"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "تحديد الدردشة"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "تحديد الدردشات"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "آخر ظهور مؤخراً"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "آخر ظهور منذ فترة طويلة"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "آخر ظهور منذ دقيقة واحدة"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "آخر ظهور منذ %d من الدقائق"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "آخر ظهور منذ ساعة واحدة"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "آخر ظهور منذ %d من الساعات"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "آخر ظهور في غضون أسبوع"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "آخر ظهور في غضون شهر"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "عرض ملف التعريف"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "ضبط الإشعارات"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "ما من رسائل هنا بعد..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d من المشاركين"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "لقد أنشأت مجموعة الدردشة هذه."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "مغادرة الدردشة الجماعية"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "تمت مغادرة الدردشة الجماعية من قبل %s."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "قام %s بإنشاء الدردشة الجماعية هذه."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "مغادرة الدردشة الجماعية"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "ستغادر هذه المجموعة."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "إلغاء"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "مغادرة"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "إضافة إلى التلغراف"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "غير معروف"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "ستتم إزالة %s من قائمة جهات الاتصال في التلغراف."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "نسخ النص"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "تحويل"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "تحويل بواسطة التلغراف"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "رد"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "سيتم حذف هذه الرسالة."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "تفاصيل ملف التعريف"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "تحديد عناصر"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "تفعيل"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "تم كتم الصوت لمدة ساعة واحدة"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "تم كتم الصوت لمدة %d من الساعات"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "تم كتم الصوت لمدة %d من الأيام"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "إلغاء تفعيل"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "مشاركة تفاصيل جهة الاتصال"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "ستتم مشاركة تفاصيل جهة الاتصال %1$s مع %2$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "مشاركة"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "إضافة إلى جهات الاتصال"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "اتصال"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "إنشاء رسالة"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "إنشاء جهة اتصال"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "تحديث جهة الاتصال"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "حفظ"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "السحب للإلغاء"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "ضبط"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "الأصوات والإشعارات"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "الخصوصية والحماية"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "ضبط صورة الخلفية"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "ضبط صورة ملف التعريف"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "تعديل الاسم"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "تسجيل الخروج"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "من الاستوديو"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "التقاط صورة"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "تحديد الصورة"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "استخدم التلغراف بسلاسة عبر أي عدد من الأجهزة في الوقت نفسه. ولكن، لن تكون الدردشات السرية متوفرة بعد تسجيل الخروج."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "تسجيل الخروج"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "لقد قمت بدعوة %s إلى دردشة سرية."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "محتوى الدردشة السرية:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ضبط وقت الحذف التلقائي"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "عرض تفاصيل جهة الاتصال"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ضبط وقت الحذف التلقائي"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "مسح السجل"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "مغادرة الدردشة"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "تعديل"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "إضافة إلى جهات الاتصال"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "بدء دردشة سرية"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "حظر"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "إلغاء الحظر"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "حظر"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "سيتم حظر %s."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "سيتم إلغاء حظر %s."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "إلغاء الحظر"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "مشاركة"
+

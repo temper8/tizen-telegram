@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Дүйнөнүн %1$sэң тез%2$s билдирүү алмашуу колдонмосу\nАл %3$sакысыз%4$s жана %5$sкоопсуз%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Тез"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Бош"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "БИЛДИРҮҮ АЛМАШУУНУ БАШТОО"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Кийинки"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Мурунку"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Кийинки"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s билдирүүлөрдү\nбашка колдонмолорго караганда тезирээк жеткирет."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$sтүбөлүккө акысыз.\n\nЖарнамалар жок. Жазылуулар акысыз."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s билдирүүлөрүңүздү\nхакерлерден коопсуз сактайт."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s чаттардын көлөмүнө\nжана сиз бөлүшө алган медиага чектөөсү жок."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$sбилдирүүлөрүңүзгө\nбир нече түзмөктөрдөн кошулууга мүмкүндүк берет."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sTelegram%2$s билдирүүлөрү күчтүү шифрленген\nжана аларды автоматтык түрдө өчүрүүгө болот."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Коопсуз"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Кубаттуу"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Булутка негизделген"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Жеке"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Мурунку"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ТОКТОТУУ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ДАЯР"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Номер кирг."
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Код киргизүү"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Ат киргизүү"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Өлкөңүздүн кодун ырастап, телефон номериңизди киргизиңиз."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Ырастоо коду жөнөтүлдү. Билдирүүлөрүңүздү текшерип, ырастоо кодун киргизиңиз."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram %1$d:%2$d чалат."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Ат. жана фамилия. киргизиңиз."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Аты (талап кылынган)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Фамилиясы (талап кылынган)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Код"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Телефон номери"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Катыштар"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Издөө"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Досторду чакыруу"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Жашыруун чат"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Катыштарды тандоо"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Топ чаты"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Баарын тандоо"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Топ түзүү"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Жаңы топ аты"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d тандалды"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Акыркы жолу %d мүнөт мурун көр."
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Акыркы жолу 1 саат мурун көр."
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Акыркы жолу %d саат мурун көр."
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Акыркы жолу бир жума. ичин. көр."
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Акыркы жолу бир ай. ичин. көр."
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "Онлайн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Акыркы жолу жакында эле көрүнгөн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Акыркы жолу көп убак мурун көр."
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Акыркы жолу 1 мүнөт мурун көр."
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ЖӨН."
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Билдирүү жазуу"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Катыш түзүү"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ат"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Аты"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Фамилиясы"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мобилдик"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Телефон номери"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Мобилдик"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Үй"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Иш"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Факс (үй)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Факс (жумуш)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Факс (башка)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Пейджер"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Башка"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Издөө"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Катыштар"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Орнотуулар"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Эч кандай чат жок"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Жаңы сүйлөшүү баштоо үчүн, төмөнкү оң жактагы Жаңы топ түзүү баскычын басыңыз же дагы тандоолор үчүн Меню баскычын басыңыз."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Издөө"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Эч жыйынтыктар табылбады"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Чат тандоо"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Чаттарды тандоо"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Акыркы жолу жакында эле көрүнгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Акыркы жолу көп убакыт мурун көрүнгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Акыркы жолу 1 мүнөт мурун көрүлгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Акыркы жолу %d мүнөт мурун көрүлгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Акыркы жолу 1 саат мурун көрүлгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Акыркы жолу %d саат мурун көрүнгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Акыркы жолу бир жуманын ичинде көрүнгөн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Акыркы жолу бир айдын ичинде көрүнгөн"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Профилди көрүү"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Жоюу"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Эскертүү орнотуулары"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Азырынча бул жерде билдирүүлөр жок..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d катышуучу"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Бул топ чатты сиз түзгөнсүз."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Топ чатынан чыгуу"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s топ чаттан чыкты."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "Бул топ чатты %s түздү."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Топ чаттан чыгыңыз"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Сиз бул топтон чыгасыз."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Токтотуу"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Чыгуу"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Telegram'га кошуу"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Белгисиз"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Жок кылуу"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s Telegram'дагы катыштар тизмеңизден өчүрүлөт."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Текстти көчүрүү"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Багытта"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Telegram аркылуу которуу"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Жооп бер"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Бул кабар өчүрүлөт"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Профиль кошумча маалыматтары"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Нерс. тандоо"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ӨЧҮРҮҮ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Күйүк"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "1 саатка үнсүз кылуу"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d саатка үнсүз кылуу"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d күнгө үнсүз кылуу"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Иштен чыгаруу"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Катыш кошумча маал. бөлүшүү"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s катыш кошумча маалыматтары %2$s менен бөлүшүлөт."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Бөлүшүү"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Катыштарга кошуу"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Чалуу"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Билдирүү жазуу"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Катышты түзүү"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Катышты жаңыртуу"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Сакта"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Токтот. жылдыр."
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Орнотуулар"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Үндөр жана эскертүүлөр"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Жекелик жана коопсуздук"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Фон сүрөтүн орнотуу"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Профиль сүрөтүн орнотуу"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Атын оңдоо"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Чыгуу"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Галереядан"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Сүрөткө тартуу"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Сүрөт тандоо"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Бир эле маалда каалаган сандагы түзмөктөрдөн Telegram кынтыксыз колдонуңуз. Бирок жашыруун чаттар сиз чыкканыңыздан кийин байкалбай калат."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Чыгуу"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Сиз %s жашыруун чатка чакырдыңыз."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Жашыруун чат мазмуну:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Авто-өчүрүү убак. орнотуу"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Катыш маалыматын көрүү"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Авто-өчүрүү убактысын орнотуу"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Тарыхты тазалоо"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Чаттан чык"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Оңдоо"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Катыштарга кошуу"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Жашыруун чатты баштоо"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Бөгөттөө"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Камоодон ал"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Камоо"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s камоодон чыгарылат."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Кулпудан чечүү"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Бөлүшүү"
+

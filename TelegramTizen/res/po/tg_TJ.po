@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Барномаи паёмнависии %1$sзудкортарин%2$s дар ҷаҳон\nОн %3$sройгон%4$s ва %5$sамн%6$s аст."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Зуд"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Ройгон"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ОҒОЗИ ПАЁМНАВИСӢ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Навбатӣ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Қаблӣ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Навбатӣ"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s паёмҳоро\nнисбат ба барномаҳои дигар зудтар мерасонад."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s абадан ройгон аст.\n\nБе таблиғот. Бе ягон ҳаққи обуна."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s паёмҳои шуморо\nаз хакерҳо эмин нигоҳ медорад."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s оиди андозаи чатҳо ва медиае,\nки шумо мубодила мекунед, ягон маҳдудият надорад."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s ба шумо имкон медиҳад, ки\nпаёмҳои худро аз якчанд дастгоҳ дастрас кунед."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "Паёмҳои %1$sTelegram%2$s шадидан рамзгузорӣ шудаанд\nва онҳоро худкор нест кардан мумкин нест."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Амн"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Қавӣ"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Воқеъ дар абр"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Махфӣ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Қаблӣ"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "БЕКОР КАРДАН"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ИҶРО ШУД"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Ворид к рақ."
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Ворид к рамз"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Ворид к. ном"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Рамзи кишвари худро тасдиқ ва рақами телефони худро ворид кунед."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Як рамзи санҷишӣ фиристода шуд. Паёмҳои худро тафтиш кунед ва рамзи санҷиширо ворид кунед."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram баъди %1$d:%2$d занг мезанад."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Ному насаби худро ворид кунед."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Ном (ҳатмӣ)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Насаб (ҳатмӣ)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Рамз"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Рақами телефон"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Алоқаҳо"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Ҷустуҷӯ"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Даъват кардани дӯстон"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Чати пинҳонӣ"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Интихоби алоқаҳо"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Чати гуруҳӣ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Интихоби ҳама"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Эҷод к-ни гурӯҳ"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Номи гуруҳи нав"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d инт-б шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Охирин %d дақиқа пеш дида шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Охирин 1 соат пеш дида шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Охирин %d соат пеш дида шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Охирин давоми як ҳафта дида шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Охирин давоми як моҳ дида шуд"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "Онлайн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Охирин ба наздикӣ дида шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Охирин чандин вақт пеш дида шуд"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Охирин 1 дақиқа пеш дида шуд"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ИРСЛ"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Тартиб додани паём"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Эҷод кардани алоқа"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ном"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Ном"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Насаб"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мобилӣ"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Рақами телефон"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Мобилӣ"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Хона"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Кор"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Факс (хонагӣ)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Факс (корӣ)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Факс (дигар)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Пейҷер"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Дигар"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Ҷустуҷӯ"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Алоқаҳо"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Танзимот"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Ягон чат нест"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Барои оғоз кардани гуфтугӯи нав, Эҷод кардани гурӯҳи навро дар қисми поёнӣ зарба занед ё барои имконоти бештар тугмаи Менюро пахш кунед."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Ҷустуҷӯ кардан"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Ягон натиҷа ёфт нашуд"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Интихоби чат"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Интихоби чатҳо"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Охирин ба наздикӣ дида шуд"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Охирин чандин вақт пеш дида шуд"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Дидани охирин 1 дақиқа пеш"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Бори охир %d дақиқа пеш"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Дидани охирин 1 соат пеш"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Охирин бор %d соат пеш дида шуд"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Охирин бор давоми як ҳафта дида шуд"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Охирин бор давоми як моҳ дида шуд"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Дидани профил"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Нест кардан"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Танзимоти огоҳиҳо"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Инҷо ҳоло ягон паём нест..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d иштирокчӣ"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Ин чати гуруҳиро шумо эҷод кардаед."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Тарки чати гурӯҳӣ"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s аз чати гурӯҳи баромад."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s ин чати гуруҳиро эҷод кардааст."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Тарки чати гуруҳӣ"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Шумо аз ин гурӯҳ хориҷ мешавед."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Бекор кардан"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Тарк кардан"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Илова ба Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Номаълум"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Нест кардан"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s аз рӯйхати алоқаҳои Telegram нест карда мешавад."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Нусхаи матн"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Бозфиристодан"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Тавассути Telegram бозфиристодан"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Ҷавоб"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Ин паём нест карда мешавад."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Тафсилоти профил"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Интихоби ҷузъҳо"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "НЕСТ К."
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Фаъол кардан"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "Бесадо кардан 1 соат"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "Бесадо кардан барои %d соат"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "Бесадо кардан дар давоми %d рӯз"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Ғайрифаъол"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Мубодилаи тафсилоти алоқа"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "Тафсилоти алоқаи %1$s бо %2$s мубодила карда мешавад."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Мубодила"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Илова ба Алоқаҳо"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Занг задан"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Паёмро таҳия кунед"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Эҷод кардани алоқа"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Навсозии алоқа"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Захира кардан"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Бекор к. > бмлд"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Танзимот"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Садоҳо ва огоҳиҳо"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Махфият ва амният"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Танзими тасвири пасзамина"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Танзими сурати профил"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Тағйир додани ном"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Баромадан"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Аз Нигористон"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Гирифтани сурат"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Интихоби тасвир"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Telegram-ро дар якчанд дастгоҳ бе ягон мушкилӣ якбора истифода баред. Чатҳои махфӣ баъд аз хориҷ шуданатон, дастнорас мешаванд."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Баромадан"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Шумо %s-ро барои ба чати махфӣ ҳамроҳ шудан даъват кардед."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Муҳтавои чати махфӣ:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Таъини вақти тозакунии хдкор"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Дидани тафсилоти алоқа"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Таъйини вақти тозакунии худкор"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Нест кардани таърих"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Тарк кардани чат"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Таҳрир"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Илова ба Алоқаҳо"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Оғози чати махфӣ"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Мамнӯъ кардан"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Лағв кардани мамнӯият"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Мамнуъ кардан"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s ғайримамнуъ карда мешавад."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Ғайримамнуъ кардан"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Мубодила кардан"
+

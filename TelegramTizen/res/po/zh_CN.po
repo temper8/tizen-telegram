@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "全球%1$s最快的%2$s信息应用程序\n%3$s免费%4$s又%5$s安全%6$s。"
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "快"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "免费"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "开始使用信息程序"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "下一步"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "上一步"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "下一步"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s信息的提供速度比其他任何应用程序都快"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s永久免费。\n\n无广告、无订购费。"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s能防止黑客窃取您的信息。"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s不会限制聊天和媒体分享内容的大小"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s让您能从多个设备上访问信息。"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sTelegram%2$s信息采用强加密技术，可自动删除。"
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "安全"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "功能强大"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "基于云的"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "私人"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "上一个"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "取消"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "完成"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "输入号码"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "输入代码"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "输入名称"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "确认您的国家代码并输入电话号码。"
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "验证码已发送。查收短信并输入验证码。"
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram 将在 %1$d:%2$d 带电话过来。"
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "输入您的姓名。"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "名字 (必填)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "姓氏 (必填)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "信道号码"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "手机号码"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "联系人"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "搜索"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "邀请好友"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "私密聊天"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "选择联系人"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "群组聊天"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "全选"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "创建群组"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "新群组名称"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d 个已选中"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "上次上线时间：%d 分钟前"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "上次上线时间：1 小时前"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "上次上线时间：%d 小时前"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "上次上线时间：一周内"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "上次上线时间：一个月内"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "在线"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "上次上线时间：最近"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "上次上线时间：很久以前"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "上次上线时间：1 分钟前"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "发送"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "编写信息"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "新建联系人"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "名称"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "名"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "姓"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "手机"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "手机号码"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "手机"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "首页"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "工作"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "传真 (家庭)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "传真 (工作)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "传真 (其他)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "寻呼机"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "其他"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "搜索"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "联系人"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "设定"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "无聊天"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "若要开始新对话，请点击右下角的创建新群组按钮或按菜单键查看更多选项。"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "搜索"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "未找到结果"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "选择聊天内容"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "选择聊天内容"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "上次上线时间：最近"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "上次上线时间：很久以前"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "上次上线时间：1 分钟前"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "上次上线时间：%d 分钟前"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "上次上线时间：1 小时前"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "最后在线为 %d 小时前"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "最后在线为一周内"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "最后在线为一个月内"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "查看资料"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "删除"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "通知设定"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "这里还没有信息..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d 个参与者"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "您已创建此群组聊天。"
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "离开群聊"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s 已离开群聊。"
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s 已创建此群聊"
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "离开群聊"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "您将离开该群组。"
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "取消"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "离开"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "添加至 Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "未知"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "删除"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s 将从 Telegram 的联系人列表中移除。"
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "复制文本"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "转发"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "通过 Telegram 转发"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "回复"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "此信息将被删除。"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "个人资料详情"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "选择项目"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "删除"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "启用"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "静音 1 个小时"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "静音 %d 小时"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "静音 %d 天"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "关闭"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "分享联系人详情"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s 的联系人详情将与 %2$s 分享。"
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "分享"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "添加至联系人"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "通话"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "编写信息"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "新建联系人"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "更新联系人"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "保存"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "滑动以取消"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "设定"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "声音和通知"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "隐私和安全"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "设置背景图片"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "设置头像"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "编辑姓名"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "登出"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "从相册"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "拍照"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "选择图片"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "同时在任何数量的设备上无缝使用 Telegram。但是在您登出之后，私密聊天将不可用。"
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "登出"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "您已邀请 %s 加入私密聊天。"
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "私密聊天内容："
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "设置自动删除时间"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "查看联系人详情"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "设置自动删除时间"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "清除历史记录"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "离开聊天"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "编辑"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "添加至联系人"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "开始私密聊天"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "阻止"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "解除阻止"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "阻止"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "将阻止 %s。"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s 将被解除阻止。"
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "解除阻止"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "分享"
+

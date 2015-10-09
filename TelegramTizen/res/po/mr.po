@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "जगातील%1$sसर्वात जलद%2$s संदेश प्रेषण अनुप्रयोग\nहा %3$sविनामूल्य%4$s आणि %5$sसुरक्षित%6$s आहे."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "टेलीग्राम"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "जलद"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "विनामूल्‍य"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "संदेश प्रेषण सुरू करा"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "पुढील"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "मागील"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "पुढील"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sटेलीग्राम%2$sअन्य कोणत्याही अनुप्रयोगापेक्षा\nजलद संदेश वितरित करतो."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sमिडिया%2$s हे कायम विनामूल्य आहे.\n\nजाहिराती नाहीत. सदस्यत्व शुल्क नाही."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sटेलीग्राम%2$s हॅकर्सपासून\nआपले संदेश सुरक्षित ठेवतो."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sटेलीग्राम%2$s ला चॅट्स आणि आपण सामायिक करू शकणार्‍या मिडियाच्या आकारवर\nकोणतीही मर्यादा नाही."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sटेलीग्राम%2$s आपल्याला\nबहुविध उपकरणांमधून आपला संदेश ऍक्सेस करण्याची अनुमती देतो."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sटेलीग्राम%2$s संदेश सशक्‍तपणे एन्क्रिप्‍ट केलेले आहेत\nआणि स्वयंचलितपणे हटवले जाऊ शकतात."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "सुरक्षित"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "सशक्‍त"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "क्लाउड-आधारित"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "खाजगी"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "मागील"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "रद्द करा"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "झाले"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "क्रमांक प्रविष्ट करा"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "कोड प्रविष्‍ट करा"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "नाव प्रविष्‍ट करा"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "आपल्‍या देशाच्‍या कोडची पुष्‍टी करा आणि आपला फोन क्रमांक प्रविष्‍ट करा."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "पडताळणी कोड पाठवला गेला आहे. आपला संदेश तपासा आणि पडताळणी कोड प्रविष्ट करा."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "%1$d:%2$d टेलिग्राममध्ये कॉल येईल."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "आपले नाव आणि अंतिम नाव प्रविष्ट करा."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "नाव (आवश्यक)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "आडनाव (आवश्यक)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "कोड"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "फोन नंबर"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "संपर्क"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "शोधा"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "मित्रांना आमंत्रित करा"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "गुपित चॅट"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "संपर्क निवडा"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "समूह चॅट"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "सर्व निवडा"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "समूह तयार करा"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "नवीन समूह नाव"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d निवडले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "%d मिनिटांपूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "1 तासापूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "%d तासांपूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "आठवड्यामध्ये अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "महिन्यामध्ये अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "ऑनलाइन"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "अलीकडेच अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "फार वेळा पूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "1 मिनिटापूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "पाठवा"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d."
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "संदेशाची रचना करा"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "संपर्क तयार करा"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "नाव"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "नाव"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "आडनाव"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "मोबाईल"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "फोन नंबर"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "मोबाईल"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "निवास"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "कार्यस्थान"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "फॅक्स (घर)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "फॅक्स (कार्य)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "फॅक्स (अन्य)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "पेजर"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "इतर"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "शोधा"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "संपर्क"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "सेटिंग्स"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "कोणतेही चॅट्स नाहीत"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "नवीन संभाषण सुरू करण्यासाठी, तळाशी उजवीकडील नवीन समूह बटण तयार करा टॅप करा किंवा अधिक पर्यायांसाठी मेनू की दाबा."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "शोध"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "कोणतेही परिणाम आढळले नाही"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "चॅट निवडा"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "चॅट्स निवडा"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "अलीकडेच अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "फार वेळा पूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "1 मिनिटापूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "%d मिनिटांपूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "1 तासापूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "%d तासांपूर्वी अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "आठवड्याच्या आत अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "महिन्याच्या आत अंतिम पाहिलेले"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "प्रोफाइल पहा"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "हटवा"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "अधिसूचना सेटिंग्स"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "अद्याप कोणतेही संदेश येथे नाहीत..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d सहभागी"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "आपण हा समूह च्रॅट तयार केला आहे."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "समूह चॅट सोडा"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s समूह चॅट सोडून गेला आहे."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s ने हा समूह चॅट तयार केला."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "समूह चॅट सोडा"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "आपण हा समूह सोडाल."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "रद्द करा"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "सोडा"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "टेलिग्रामवर जोडा"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "अज्ञात"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "हटवा"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "टेलिग्राममधील आपल्या संपर्क यादीमधून %s काढून टाकले जाईल."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "मजकूर कॉपी करा"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "अग्रेषित करा"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "टेलिग्रामद्वारे अग्रेषित करा"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "उत्तर द्या"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "हा संदेश हटवला जाईल."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "प्रोफाइल तपशील"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "आयटम्‍स निवडा"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "हटवा"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "सक्षम करा"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "1 तासासाठी मूक करा"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d तासांसाठी मूक करा"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d दिवसांसाठी मूक करा"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "अक्षम करा"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "संपर्क तपशील सामायिक करा"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s चे संपर्क तपशील %2$s सह सामायिक केले जातील."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "सहभागी करा"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "संपर्कांमध्‍ये जोडा"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "कॉल"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "संदेशाची रचना करा"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "संपर्क तयार करा"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "संपर्क अद्ययावत करा"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "जतन करा"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "रद्द करण्यासाठी स्लाईड करा"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "सेटिंग्‍स"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "ध्‍वनी आणि अधिसूचना"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "गोपनीयता आणि सुरक्षितता"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "पार्श्वभूमी प्रतिमा सेट करा"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "प्रोफाइल चित्र सेट करा"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "नाव संपादित करा"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "लॉग आउट करा"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "गॅलरीमधून"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "फोटो काढा"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "प्रतिमा निवडा"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "एकाच वेळी कितीही उपकरणांवर अखंडपणे टेलिग्राम वापरा. तथापि, आपण लॉग आउट केल्यानंतर गुपित चॅट उपलब्ध असणार नाहीत."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "लॉग आउट करा"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "आपण गुपित चॅट करण्यासाठी %s यांना आमंत्रित केले आहे."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "गुपित चॅट सामग्री:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "स्वंय-हटवा वेळ सेट करा"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "संपर्क तपशील पहा"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "स्वंय-हटवा वेळ सेट करा"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "इतिहास साफ करा"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "चॅट सोडा"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "संपादित करा"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "संपर्कांमध्ये जोडा"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "गुपित चॅट सुरू करा"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "ब्लॉक करा"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "अनब्‍लॉक करा"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "अवरोधित करा"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ब्‍लॉक केले जातील."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s अनाव‍रोधित करण्‍यात येईल."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "अनावरोधित करा"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "सहभागी करा"
+

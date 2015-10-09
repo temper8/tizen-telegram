@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "세상에서 %1$s가장 빠른%2$s메시지 앱\n%3$s무료%4$s이며 %5$s안전%6$s합니다."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "빠르게"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "무료로"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "메시지 기능 시작하기"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "다음"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "이전"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "다음"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s으로 다른 앱보다 빠르게\n메시지를 전달할 수 있습니다."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s은 무료입니다.\n\n광고 및 이용요금이 없습니다."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s은 해커로부터\n안전하게 메시지를 보호할 수 있습니다."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s으로 대화 및 미디어를\n크기 제한없이 공유할 수 있습니다."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s으로 여러 디바이스에서\n내 메시지를 확인할 수 있습니다."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sTelegram%2$s 메시지는 강력하게 암호화되며\n자동으로 삭제할 수 있습니다."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "안전하게"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "강력하게"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "클라우드 기반으로"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "프라이빗하게"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "이전"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "취소"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "완료"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "번호 입력"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "코드 입력"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "이름 입력"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "국가번호를 확인하고 전화번호를 입력하세요."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "인증번호를 보냈습니다. 메시지를 확인하고 인증번호를 입력하세요."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "%1$d:%2$d 후 Telegram으로부터 전화가 옵니다."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "이름을 입력하세요."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "이름(필수사항)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "성(필수사항)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "코드"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "전화번호"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "연락처"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "검색"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "친구 초대"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "비밀 대화"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "연락처 선택"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "그룹 대화"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "모두 선택"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "새 그룹 추가"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "새 그룹 이름"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d개 선택됨"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "마지막 접속: %d분 전"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "마지막 접속: 1시간 전"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "마지막 접속: %d시간 전"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "마지막 접속: 한 주 이내"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "마지막 접속: 한 달 이내"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "온라인"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "마지막 접속: 최근"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "최근 접속정보 없음"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "마지막 접속: 1분 전"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "보내기"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "메시지 작성"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "새 연락처 추가"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "이름"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "이름"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "성"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "휴대전화"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "전화번호"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "휴대전화"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "집"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "직장"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "팩스(집)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "팩스(직장)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "팩스(기타)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "호출기"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "기타"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "검색"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "연락처"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "설정"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "대화가 없습니다"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "새 대화를 시작하려면 상단 오른쪽에 있는 새 그룹 추가 버튼을 누르거나, 메뉴 버튼을 누르세요."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "검색"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "검색 결과가 없습니다"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "대화 선택"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "대화 선택"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "마지막 접속: 최근"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "최근 접속정보 없음"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "마지막 접속: 1분 전"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "마지막 접속: %d분 전"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "마지막 접속: 1시간 전"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "마지막 접속: %d시간 전"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "마지막 접속: 한 주 이내"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "마지막 접속: 한 달 이내"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "프로필 보기"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "삭제"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "알림 설정"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "아직 메시지가 없습니다..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "참여자 %d명"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "이 그룹 대화를 만들었습니다."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "그룹 대화 나가기"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s 님이 그룹 대화에서 나갔습니다."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s 님이 이 그룹 대화를 만들었습니다."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "그룹 대화 나가기"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "그룹에서 나갑니다."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "취소"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "나가기"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Telegram에 추가"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "알 수 없음"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "삭제"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "Telegram의 내 연락처 목록에서 %s 님을 삭제합니다."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "글자 복사"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "전달"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Telegram으로 전달"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "답장"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "메시지를 삭제합니다."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "프로필 상세정보"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "항목 선택"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "삭제"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "사용"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "1시간 동안 무음"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d시간 동안 무음"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d일 동안 무음"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "해제"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "연락처 정보 공유"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s 님의 연락처 정보를 %2$s 님과 공유합니다."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "공유"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "연락처에 추가"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "통화"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "메시지 작성"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "새 연락처 추가"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "연락처 업데이트"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "저장"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "밀어서 취소"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "설정"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "소리 및 알림"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "개인정보 보호"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "배경 이미지 설정"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "프로필 사진 설정"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "이름 편집"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "로그아웃"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "갤러리"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "사진 촬영"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "이미지 선택"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "여러 디바이스에서 Telegram을 동시에 사용할 수 있지만, 로그아웃하면 비밀 대화는 사용할 수 없습니다."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "로그아웃"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "%s 님을 비밀 대화에 초대하였습니다."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "비밀 대화:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "자동 삭제 시간 설정"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "연락처 상세 보기"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "자동 삭제 시간 설정"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "기록 삭제"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "대화방 나가기"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "편집"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "연락처에 추가"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "비밀 대화 시작"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "차단"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "차단 해제"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "차단"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s 님을 차단합니다."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s 님의 차단을 해제합니다."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "차단 해제"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "공유"
+

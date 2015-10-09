@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Дэлхийн %1$sхамгийн хурдан%2$s зурвас хэрэглүүр\n%3$sҮнэгүй%4$s бас %5$sнайдвартай%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Хурдан"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Үнэгүй"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ЗУРВАС БИЧИЖ ЭХЭЛ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Дараах"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Өмнөх"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Цааш"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s бусад ямар ч хэрэглүүрээс\nхурдан зурвас дамжуулна."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s үүрд үнэгүй.\n\nЗар сурталчилгаа байхгүй. Захиалгын төлбөргүй."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s таны зурвасыг\nхакеруудаас хамгаална."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s таны хуваалцаж болох чаат\nмедианы хэмжээнд хязгаарлалт тавьдаггүй."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s нь танд зурвасууддаа\nолон төхөөрөмжөөс хандах боломжийг олгоно."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sTelegram%2$s зурвасуудыг маш сайн шифрлэдэг\nбөгөөд автоматаар устгаж чадна."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Найдвартай"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Хүчтэй"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Үүлэнд суурилсан"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Хувийн"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Өмнөх"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ЦУЦЛАХ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "БОЛСОН"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Дугаар оруул"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Код оруул"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Нэр оруул"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Улсын кодоо бататгаж, утасны дугаараа оруул."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Баталгаажуулах кодыг илгээсэн. Зурвасаа шалгаад баталгаажуулах кодыг оруул."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram %1$d:%2$d дараа ирнэ."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Нэр, овгоо оруул."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Нэр (шаардлагатай)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Овог (шаардлагатай)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Код"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Утасны дугаар"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Харилцагчид"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Хайх"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Найзуудаа урих"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Нууц чаат"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Харилцагчидаа сонго"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Бүлгийн чаат"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Бүгдийг сонгох"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Бүлэг үүсгэ"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Шинэ бүлгийн нэр"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d сонгосон"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "%d минутын өмнө үзсэн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "1 цагийн өмнө үзсэн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "%d цагийн өмнө үзсэн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Долоо хоногийн дотор үзсэн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Сарын дотор үзсэн"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "Онлайн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Саяхан үзсэн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Удаан хугацааны өмнө үзсэн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "1 минутын өмнө үзсэн"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ИЛГЭЭ"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Зурвас бичих"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Харилцагч үүсгэ"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Нэр"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Нэр"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Овог"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Гар утас"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Утасны дугаар"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Гар утас"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Гэр"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Ажил"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Факс (гэр)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Факс (ажил)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Факс (бусад)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Пейжэр"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Бусад"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Хайх"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Харилцагчид"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Тохиргоо"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Чаат байхгүй"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Шинэ яриа эхлүүлэхийн тулд баруун доод буланд Шинэ бүлэг үүсгэх дээр эсвэл Цэсний товчийг дараад нэмэлт сонголтуудыг харна уу."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Хайх"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Үр дүн олдсонгүй"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Чаат сонго"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Чаатууд сонго"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Саяхан үзсэн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Удаан хугацааны өмнө үзсэн"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "1 минутын өмнө харсан"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "%d минутын өмнө харсан"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "1 цагийн өмнө харсан"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "%d цагийн өмнө харсан"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Долоо хоног орчмын өмнө харсан"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Сар орчмын өмнө харсан"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Профиль харах"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Устгах"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Мэдэгдлийн тохиргоо"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Энд хараахан шинэ зурвас байхгүй..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d оролцогч"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Та энэ бүлгийн чаатыг үүсгэсэн."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Бүлгийн чаатыг орхи"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s бүлгийн чаатаас гарсан."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "Энэ бүлгийн чаатыг %s үүсгэсэн."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Бүлгийн чаатыг орхих"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Та энэ бүлгээс гарна."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Цуцлах"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Гарах"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Telegram-д нэмэх"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Үл таних"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Устгах"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "Telegram-н харилцагчийн жагсаалтнаас %s-г арилгана."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Бичвэрийг хуулах"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Уламжлах"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Telegram-р цааш илгээх"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Хариулах"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Энэ зурвасыг устгана"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Профилийн дэлгэрэнгүй"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Зүйлсийг сонго"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "УСТГАХ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Идэвхжүүл"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "1 цаг дуу хаах"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d цаг дуу хаах"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d өдөр дуу хаах"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Идэвхгүй болгох"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Холбоо барих мэд. хуваалцах"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s-н холбоо барих мэдээллийг %2$s-тай хуваалцана."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Хуваалц"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Харилцагчдад нэмэх"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Дуудлага"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Зурвас бичих"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Харилцагч үүсгэх"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Харилцагч шинэчлэх"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Хадгалах"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Илбээд цуцал"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Тохиргоо"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Дуу, мэдэгдэл"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Нууцлал ба хамгаалалт"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Дэвсгэр зураг тохируул"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Профилийн зураг тохируул"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Нэр засварлах"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Гарах"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Галерейгаас"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Зураг авах"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Зураг сонго"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Төхөөрөмжийн дурын дугаарт нэгэн зэрэг Telegram-г төвөггүйхэн ашиглаарай. Таныг гарсны дараа нууц чаатыг хэрэглэх боломжгүй."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Гарах"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Та %s-г нууц чаатанд урилаа."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Нууц чаатын агуулга:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Авто. устгах цагийг тохируул"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Харилцагчийн мэдээллийг харах"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Авто. устгах цагийг тохируул"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Түүхийг арилга"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Чаатаас гарах"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Засварлах"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Харилцагчдад нэм"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Нууц чаат эхэл"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Хаах"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Нээх"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Хориглох"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s-г хаана"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s-г нээнэ."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Нээх"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Хуваалцах"
+

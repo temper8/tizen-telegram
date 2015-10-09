@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Самая %1$sхуткая%2$s праграма абмену паведамленняў у свеце\nЯна %3$sбясплатная%4$s і %5$sбяспечная%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Хуткі"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Бясплатны"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ПАЧАЦЬ АБМЕН ПАВЕДАМЛЕННЯМІ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Далей"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Назад"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Далей"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s дастаўляе паведамленні\nхутчэй за любую іншую праграму."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s заўсёды бясплатны.\n\nБез рэкламы. Ніякай платы за падпіску."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s абараняе вашы паведамленні\nад хакераў."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "У %1$sTelegram%2$s няма абмежаванняў па памеры\nчатаў і медыяфайлаў, якімі вы можаце падзяліцца."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s дазваляе атрымліваць доступ\nда вашых паведамленняў з некалькіх прылад."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "Паведамленні %1$sTelegram%2$s надзейна зашыфраваны\nі могуць быць аўтаматына выдалены."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Бяспечны"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Магутны"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "На аснове воблака"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Прыватны"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Назад"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "АДМЯНІЦЬ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ГАТОВА"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Увядз. нумар"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Увядзіце код"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Увядзіце імя"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Пацвердзіце код краіны і ўвядзіце ваш нумар тэлефона."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Быў адпраўлены код спраўджання. Праверце свае паведамленні і ўвядзіце код спраўджання."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram пазвоніць праз %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Увядзіце імя і прозвішча."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Імя (абавязкова)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Прозвішча (абавязкова)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Код"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Тэлефонны нумар"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Кантакты"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Запрасіць сяброў"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Сакрэтны чат"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Выбраць кантакты"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Групавы чат"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Вылучыць усё"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Стварыць групу"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Назва новай групы"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "Выбрана: %d"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Апошні раз прагледж %d хвіл таму"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Апошні раз прагл. 1 гадзіну таму"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Апошні раз прагледж %d гадз таму"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Ап раз прагледж на гэтым тыдні"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Апошні раз прагледж у гэтым мес"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "Онлайн"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Апошні раз прагледж нядаўна"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Апошні раз прагледжвалася даўно"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Апошні раз прагл. 1 хвіліну таму"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "АДПР"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d г. %2$d хв."
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Стварыць паведамленне"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Стварыць кантакт"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Назва"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Імя"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Прозвішча"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мабільны"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Тэлефонны нумар"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Мабільны"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Хатні"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Працоўны"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Факс (хатні)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Факс (працоўны)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Факс (іншы)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Пэйджар"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Іншы"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Кантакты"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Налады"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Няма чатаў"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Каб пачаць новую размову, націсніце кнопку «Стварыць новую групу» у правым ніжнім куце, або націсніце клавішу «Меню», каб праглядзець іншыя параметры."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Вынікі не знойдзены"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Выбраць чат"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Выбраць чаты"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Апошні раз прагледж нядаўна"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Апошні раз прагледжвалася даўно"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Апошні прагляд 1 хвіліну таму"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Апошні прагляд %d хвілін(ы) таму"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Апошні прагляд 1 гадзіну таму"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Апошні раз быў тут %d гадзін(-ы) таму"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Апошні раз быў тут цягам тыдня"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Апошні раз быў тут цягам месяца"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Прагляд профілю"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Выдаліць"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Налады апавяшчэнняў"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Тут пакуль няма паведамленняў..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "Удзельнікаў: %d"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Вы стварылі чат гэтай групы."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Выйсці з групавога чату"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s выйшаў з групавога чата."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s стварыў гэты групавы чат."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Выйсці з групавога чату"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Вы выйдзеце з гэтай групы."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Адмяніць"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Выйсці"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Дадаць у Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Невядома"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Выдаліць"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s будзе выдалены з вашага спіса кантактаў у Telegram."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Скапіраваць тэкст"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Пераслаць"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Перанакіраваць праз Telegram"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Reply"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Паведамленне будзе выдалена."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Звесткі профілю"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Выбр. элементы"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ВЫДАЛ."
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Уключыць"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "Адключыць гук на 1 гадзіну"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "Адключыць гук на %d гадзін(ы)"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "Адключыць гук на %d дні (дзён)"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Адключыць"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Сум дос да звест пра кант"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "Для звестак пра кантакт %1$s будзе зроблены сумесны доступ з %2$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Падзяліцца"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Дадаць у кантакты"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Выклік"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Стварыць паведамленне"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Стварыць кантакт"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Абнавіць кантакт"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Захаваць"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Зрушыць для адм"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Налады"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Гукі і апавяшчэнні"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Прыватнасць і бяспека"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Задаць фонавы відарыс"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Задаць аватар профілю"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Рэдагаваць імя"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Выйсці з сістэмы"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "З галерэі"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Зрабіць здымак"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Выбраць відарыс"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Выкарыстоўвайце Telegram без праблем на некалькіх прыладах адначасова. Аднак, калі вы выйдзеце з сістэмы, вы не зможаце карыстацца сакрэтнымі чатамі."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Выйсц з сіст"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Вы запрасілі %s у сакрэтны чат."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Сакрэтнае змесціва чату:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Задаць час аўтавыдалення"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Прагледзець дэталі кантакта"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Задаць час аўтавыдалення"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Ачысціць гісторыю"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Пакінуць чат"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Рэдагаваць"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Дадаць у кантакты"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Пачаць прыватны чат"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Block"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Unblock"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Заблак."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s будзе разблакіравана."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Разблак."
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Абагуліць"
+

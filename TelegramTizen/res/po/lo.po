@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "ແອັບການສົ່ງຂໍ້ຄວາມ %1$sໄວທີ່ສຸດ%2$s ຂອງໂລກ\nມັນ %3$sຟຣີ%4$s ແລະ %5$sປອດໄພ%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "ໂທລະເລກ"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "ໄວ"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "ຟຣີ"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ເລີ່ມຕົ້ນຂໍ້ຄວາມ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "ຖັດໄປ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "ກ່ອນໜ້າ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "ຖັດໄປ"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sໂທລະເລກ%2$s ສົ່ງຂໍ້ຄວາມ\nໄວກວ່າແອັບອື່ນໆ."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sໂທລະເລກ%2$s ຟຣີຕະຫຼອດເວລາ.\n\nບໍ່ມີການໂຄສະນາ. ບໍ່ມີການສະໜັກຟຣີ."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sໂທລະເລກ%2$s ຮັກສາຂໍ້ຄວາມ\nຄວາມປອດໄພຂອງທ່ານຈາກແຮັກເກີ."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sໂທລະເລກ%2$s ບໍ່ມີຂໍ້ຈຳກັດເທິງຂະໜາດຂອງ\nການແຊັດແລະມີເດຍທີ່ທ່ານສາມາດແຊຣ໌."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sໂທລະເລກ%2$s ອະນຸຍາດທ່ານເຂົ້າໃຊ້\nຂໍ້ຄວາມຂອງທ່ານຈາອຸປະກອນຫຼາຍຢ່າງ."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sຂໍ້ຄວາມ%2$s ໂທລະເລກຈະຖືກໃສ່ລະຫັດຢ່າງແນ່ນອນ\nແລະສາມາດຖືກລຶບໂດຍອັດຕະໂນມັດ."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "ປອດໄພ"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "ມີອຳນາດຫຼາຍ"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "ຄລາວ-ພື້ນຖານ"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "ສ່ວນຕົວ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "ກ່ອນ"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ຍົກເລີກ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ສໍາເລັດ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "​ປ້ອນໝາຍເລກເຂົ້າ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "ປ້ອນລະຫັດເຂົ້າ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "ປ້ອນຊື່ເຂົ້າ"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "ຢືນຢັນລະຫັດປະເທດຂອງທ່ານ ແລະປ້ອນເບີໂທລະສັບຂອງທ່ານເຂົ້າ."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "ລະຫັດການກວດສອບຖືກສົ່ງແລ້ວ. ກວດເບິ່ງຮູບຂອງທ່ານແລະປ້ອນລະຫັດການກວດສອບເຂົ້າ."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "ໂທລະເລກຈະໂທໃນ %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "ປ້ອນຊື່ຕົ້ນແລະນາມສະກຸນຂອງທ່ານເຂົ້າ."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "ຊື່ຕົ້ນ (ທີ່ຕ້ອງການ)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "ນາມສະກຸນ (ທີ່ຕ້ອງການ)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "ລະຫັດ"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "ເບີໂທລະສັບ"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "ຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "ຄົ້ນຫາ"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "ເຊີນໝູ່"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "ແຊັດຄວາມລັບ"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "ເລືອກຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "ແຊັດກຸ່ມ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "ເລືອກທັງໝົດ"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "ສ້າງກຸ່ມ"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "ຊື່ກຸ່ມໃໝ່"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "ເລືອກ %d ແລ້ວ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "ເຫັນລ້າສຸດ %d ນາທີຜ່ານມາ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ 1 ຊົ່ວໂມງຜ່ານມາ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ %d ຊົ່ວໂມງຜ່ານມາ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "ເຫັນຫຼ້າສຸດພາຍໃນໜຶ່ງອາທິດ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "ເຫັນຫຼ້າສຸດພາຍໃນໜຶ່ງເດືອນ"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "ອອນໄລນ໌"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "ເຫັນຫຼ້າສຸດເມື່ອບໍ່ດົນມານີ້"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດດົນນານມາແລ້ວ"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ 1 ນາທີຜ່ານມາ"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ສົ່ງ"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "ຂຽນຂໍ້ຄວາມ"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "ສ້າງຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "ຊື່"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "ຊື່ຕົ້ນ"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "ນາມສະກຸນ"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "ເມືອງໂມບາຍ"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "ເບີໂທລະສັບ"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "ມືຖື"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "ບ້ານ"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "ວຽກ"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "ແຟັກ (ບ້ານ)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "ແຟັກ (ວຽກ)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "ແຟັກ (ອື່ນໆ)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "ວິທະຍຸຕິດຕາມໂຕ"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "ອື່ນ"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ຄົ້ນຫາ"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "ຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "ການຕັ້ງຄ່າ"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "ບໍ່ມີການແຊັດ"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "ເພື່ອເລີ່ມຕົ້ນການສົນທະນາໃໝ່, ແຕະສ້າງປຸ່ມກຸ່ມໃໝ່ທາງລຸ່ມສຸດເບື້ອງຂວາຫຼືກົດປຸ່ມເມນູສຳລັບຕົວເລືອກເພີ່ມເຕີມ."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ຄົ້ນຫາ"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "ບໍ່ພົບຜົນໄດ້ຮັບ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "ເລືອກແຊັດ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "ເລືອກແຊັດ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "ເຫັນຫຼ້າສຸດເມື່ອບໍ່ດົນມານີ້"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດດົນນານມາແລ້ວ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ 1 ນາທີຜ່ານມາ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ %d ນາທີຜ່ານມາ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ 1 ຊົ່ວໂມງຜ່ານມາ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "ເຫັນຫຼ້າສຸດ %d ຊົ່ວໂມງຜ່ານມາ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "ເຫັນຫຼ້າສຸດພາຍໃນໜຶ່ງອາທິດ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "ເຫັນຫຼ້າສຸດພາຍໃນໜຶ່ງເດືອນ"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "ເບິ່ງໂປຣໄຟລ໌"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ລຶບ"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "ການຕັ້ງຄ່າການແຈ້ງເຕືອນ"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "ບໍ່ມີຂໍ້ຄວາມຢູ່ທີ່ນີ້ເທື່ອ..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d ຜູ້ເຂົ້າຮ່ວມ"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "ທ່ານໄດ້ສ້າງແຊັດກຸ່ມນີ້."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "ອອກຈາກການແຊັດກຸ່ມ"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s ອອກ​ຈາກ​ການ​ແຊັດ​​ກຸ່ມ​ແລ້ວ."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s ສ້າງແຊັດກຸ່ມນີ້ແລ້ວ."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "ອອກຈາກການແຊັດກຸ່ມ"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "ທ່ານຈະອອກຈາກກຸ່ມນີ້."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "ຍົກ​ເລີກ"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "ອອກຈາກ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "ເພີ່ມໃສ່ໂທລະເລກ"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "ບໍ່ຮູ້ຈັກ"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ລຶບອອກ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s ຈະຖືກເອົາອອກໄປຈາກລາຍການຜູ້ຕິດຕໍ່ໃນໂທລະເລກ."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "ກັອບປີ້ຂໍ້ຄວາມ"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "ສົ່ງຕໍ່"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "ສົ່ງຕໍ່ຜ່ານໂທລະເລກ"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "ຕອບກັບ"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "ຂໍ້ຄວາມນີ້ຈະຖືກລຶບ."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "ລາຍລະອຽດໂປຣໄຟລ໌"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "ເລືອກ​ລາຍ​ການ"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ລຶບ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ເປີດໃຊ້ງານ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "ປິດສຽງເປັນເວລາ 1 ຊົ່ວໂມງ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "ປິດສຽງເປັນເວລາ %d ຊົ່ວໂມງ"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "ປິດສຽງເປັນເວລາ %d ວັນ"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ປິດໃຊ້ງານ"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "ແຊຣ໌ລາຍລະອຽດຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "ລາຍລະອຽດຜູ້ຕິດຕໍ່ຂອງ %1$s ຈະຖືກແຊຣ໌ກັບ %2$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "ແຊຣ໌"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "ເພີ່ມໃສ່ຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "ໂທ"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "ຂຽນຂໍ້ຄວາມ"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "ສ້າງຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "ອັບເດດຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "ບັນທຶກ"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "ສະໄລດ໌ເພື່ອຍົກເລີກ"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "ການຕັ້ງຄ່າ"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "ສຽງແລະການແຈ້ງເຕືອນ"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "ຄວາມເປັນສ່ວນຕົວແລະຄວາມປອດໄພ"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "ຕັ້ງຮູບພື້ນຫຼັງ"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "ຕັ້ງຮູບໂປຣໄຟລ໌"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "ແກ້ໄຂຊື່"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "ອອກຈາກລະບົບ"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "ຈາກແກເລີຣີ"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "ຖ່າຍຮູບ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "ເລືອກຮູບ"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "ໃຊ້ໂທລະເລກໄດ້ຢ່າງຕໍ່ເນື່ອງຕາມທຸກໝາຍເລກຂອງອຸປະກອນໃນເວລາດຽວກັນ. ແນວໃດກໍ່ຕາມ, ການແຊັດທີ່ເປັນຄວາມລັບຈະບໍ່ມີຢູ່ຫຼັງຈາກທ່ານອອກຈາກລະບົບ."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "ອອກຈາກລະບົບ"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "ທ່ານໄດ້ເຊີນ %s ເຂົ້າໃນແຊັດຄວາມລັບ."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "ເນື້ອໃນແຊັດຄວາມລັບ:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ຕັ້ງອັດຕະໂນມັດ-ລຶບເວລາ"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "ເບິ່ງລາຍລະອຽດລາຍຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ຕັ້ງອັດຕະໂນມັດ-ລຶບເວລາ"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "ລຶບປະຫວັດ"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "ອອກການແຊັດ"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "ແກ້ໄຂ"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "ເພີ່ມໃສ່ຜູ້ຕິດຕໍ່"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "ເລີ່ມຕົ້ນແຊັດຄວາມລັບ"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "ບລັອກ"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "ປົດບລັອກ"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "ບລັອກ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ຈະຖືກບລັອກ."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s ຈະຖືກປົດບລັອກ."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "ປົດການບລັອກ"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "ແຊຣ໌"
+

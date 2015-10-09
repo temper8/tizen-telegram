@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "La aplicación de mensajes %1$smás rápida%2$s del mundo\nEs %3$sgratis%4$s y %5$ssegura%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Rápida"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Gratis"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "INICIAR MENSAJES"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Siguiente"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Anterior"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Siguiente"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s envía mensajes\nmás rápido que cualquier otra aplicación."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s es gratis para siempre.\n\nSin anuncios. Sin tarifas de suscripción."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s protege sus mensajes\ncontra hackers."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s no tiene límites de tamaño\npara los chats y el contenido multimedia compartido."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s le permite acceder\na sus mensajes desde distintos dispositivos."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sTelegram%2$s ofrece mensajes fuertemente encriptados\nque se pueden eliminar automáticamente."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Segura"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Potente"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "En la nube"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Privado"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Anterior"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "CANCELAR"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "REALIZADO"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Su número"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Su código"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Su nombre"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Confirme el código de su país e introduzca su número de teléfono."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Se ha enviado un código de verificación. Revise sus mensajes e introduzca el código de verificación."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram llamará dentro de %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Escriba su nombre y apellido."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Nombre (obligatorio)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Apellido (obligatorio)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Código"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Número de teléfono"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Contactos"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Buscar"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Invitar amigos"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Chat secreto"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Seleccionar contactos"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Chat grupal"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Todo"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Crear grupo"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Nuevo nombre del grupo"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d elegidos"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Visto por última vez hace %d min"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Visto por última vez hace 1 hora"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Visto por última vez hace %d h"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Visto por última vez esta semana"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Visto por última vez este mes"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "En línea"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Visto por última vez hace poco"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Visto por última vez hace mucho"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Visto por última vez hace 1 min"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ENV."
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Redactar mensaje"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Crear contacto"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nombre"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Nombre"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Apellido"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Móvil"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Número de teléfono"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Móvil"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Casa"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Trabajo"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Fax (casa)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Fax (trabajo)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Fax (otros)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Buscapersonas"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Otros"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Buscar"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Contactos"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Ajustes"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "No hay chats"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Para iniciar una nueva conversación, pulse el botón Crear nuevo grupo en la esquina inferior derecha o presione la tecla Menú para ver más opciones."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Buscar"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Sin resultados encontrados"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Seleccionar chat"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Seleccionar chats"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Visto por última vez recientemente"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Visto por última vez hace mucho tiempo"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Visto por última vez hace 1 minuto"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Visto por última vez hace %d minutos"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Visto por última vez hace 1 hora"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Visto por última vez hace %d horas"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Visto por última vez esta semana"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Visto por última vez este mes"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Ver perfil"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Eliminar"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Ajustes de notificación"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Aún no hay mensajes aquí..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d participantes"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%2$s %1$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Ha creado este chat grupal."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Abandonar chat grupal"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s ha abandonado el chat grupal."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s creó este chat grupal."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Abandonar chat grupal"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Abandonará este grupo."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Cancelar"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Salir"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Añadir a Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Desconocido"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Eliminar"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s se eliminará de su lista de contactos en Telegram."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Copiar texto"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Reenviar"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Reenviar vía Telegram"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Responder"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Se eliminará este mensaje."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Detalles del perfil"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Elementos"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ELIMINAR"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Activar"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "Silenciar durante 1 hora"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "Silenciar durante %d horas"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "Silenciar durante %d días"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Desactivar"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Compartir detalles contacto"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "La información de contacto de %1$s se compartirá con %2$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Compartir"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Añadir a Contactos"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Llamar"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Redactar mensaje"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Crear contacto"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Actualizar contacto"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Guardar"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Desliza cancelar"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Ajustes"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Sonidos y notificaciones"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Privacidad y seguridad"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Definir imagen de fondo"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Definir imagen de perfil"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Editar nombre"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Cerrar sesión"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Desde Galería"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Capturar imagen"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Elegir imagen"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Use Telegram en una serie de dispositivos al mismo tiempo sin problemas. Tenga en cuenta que los chats secretos no estarán disponibles una vez que cierre sesión."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Salir"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Ha invitado a %s a un chat secreto."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Contenido del chat secreto:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Tiempo borrado automático"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Ver detalles de contacto"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Definir tiempo borrado automático"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Eliminar historial"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Abandonar chat"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Editar"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Añadir a Contactos"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Iniciar chat secreto"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Bloquear"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Desbloquear"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Bloquear"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Se bloqueará %s."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s se desbloqueará."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Desbloquear"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Compartir"
+

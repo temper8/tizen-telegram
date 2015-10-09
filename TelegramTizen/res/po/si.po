@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "ලොව %1$sවේගවත්ම%2$s පණිවිඩකරණ යෙදුම\nඑය %3$sනොමිලේ%4$s සහ %5$sආරක්ෂිතය%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "ටෙලිග්‍රෑම්"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "වේගයෙන්"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "නොමිලේ"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "පණිවිඩකරණය අරඹන්න"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "ඊළඟ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "පෙර"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "ඊළඟ"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sටෙලිග්‍රෑම්%2$s වෙනත් ඕනෑම යෙදුමකට වඩා වැඩි වේගයෙන්\nපණිවිඩ බෙදාහරිනු ලබයි."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sටෙලිග්‍රෑම්%2$s සදහටම නොමිලේය.\n\nදැන්වීම් නැත. ග්‍රාහකත්ව ගාස්තු නැත."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sටෙලිග්‍රෑම්%2$s ඔබේ පණිවිඩ හැකර්වරුන්ගෙන්\nආරක්ෂිතව තබා ගනී."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sටෙලිග්‍රෑම්%2$s හට ඔබට බෙදා ගත හැකි\nසංවාද සහ මාධ්‍යයන් ප්‍රමාණවල සීමාවන් නැත."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sටෙලිග්‍රෑම්%2$s විසින් බහුවිධ උපාංග වෙතින් ඔබේ පණිවිඩ\nවෙත ප්‍රවේශයට ඔබට ඉඩ දෙයි."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sටෙලිග්‍රෑම්%2$s පණිවිඩ ප්‍රබලව ගුප්ත කේතිත වන අතර\nස්වයංක්‍රීයව මැකිය හැක."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "ආරක්ෂිත"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "බලගතු"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "ක්ලවුඩ්-මූලස්ථ"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "පෞද්ගලික"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "පෙර"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "අවලංගු කර."
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "නිමයි"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "අංකය ඇ. කි."
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "කේතය ඇ. කි."
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "නම ඇතුළු කි."
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "ඔබේ රටේ කේතය තහවුරු කර ඔබේ දුරකථන අංකය ඇතුළු කරන්න."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "තහවුරුකරණ කේතයක් යැවිණි. ඔබේ පණිවිඩ පිරික්සා තහවුරුකරණ කේතය ඇතුළු කරන්න."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "ටෙලිග්‍රෑම් විසින් %1$d:%2$d කින් අමතනු ඇත."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "ඔබේ පළමු සහ අවසන් නම ඇතුළු කරන්න."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "මුල් නම (උවමනායි)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "අවසන් නම (උවමනායි)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "කේතය"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "දුරකථන අංකය"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "සබඳතා"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "සෙවුම"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "මිතුරන්ට ඇරයුම් කරන්න"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "රහස් සංවාදය"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "සබඳතා තෝරන්න"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "සමූහ සංවාදය"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "සියල්ල තෝරන්න"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "සමූහය තැනීම"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "නව සමූහයේ නම"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d ක් තේරිණි"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "අවසන් දැක්ම විනාඩි %d කට පෙර"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "අවසන් දැක්ම පැය 1 කට පෙර"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "අවසන් දැක්ම පැය %d කට පෙර"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "අවසන් දැක්ම සතියක් ඇතුළත"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "අවසන් දැක්ම මාසයක් ඇතුළත"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "මාර්ගගත"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "අවසන් දැක්ම මෑත දී"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "අවසන් දැක්ම දිගු වේලාවකට පෙර"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "අවසන් දැක්ම විනාඩි 1 කට පෙර"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "යවන්න"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "පණිවිඩය නිර්මාණය"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "සබඳතාව තැනීම"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "නම"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "මුල් නම"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "අවසන් නම"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "ජංගමය"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "දුරකථන අංකය"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "ජංගම"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "නිවස"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "කාර්යාලය"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "ෆැක්ස් (නිවස)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "ෆැක්ස් (කාර්යාලීය)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "ෆැක්ස් (වෙනත්)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "පේජර්"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "වෙනත්"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "සොයන්න"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "සබඳතා"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "සැකසුම්"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "සංවාද නැත"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "නව කතාබහක් ඇරඹීමට, පහළ දකුණු පස නව සමූහයක් තනන්න බොත්තම තට්ටු කරන්න හෝ වැඩිදුර විකල්ප සඳහා මෙනු යතුර ඔබන්න."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "සොයන්න"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "ප්‍රතිඵල හමු නොවිණි"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "සංවාදය තේරීම"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "සංවාද තේරීම"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "අවසන් දැක්ම මෑත දී"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "අවසන් දැක්ම දිගු වේලාවකට පෙර"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "අවසන් දැක්ම විනාඩි 1 කට පෙර"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "අවසන් දැක්ම විනාඩි %d කට පෙර"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "අවසන් දැක්ම පැය 1 කට පෙර"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "අවසන් දැක්ම පැය %d කට පෙර"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "අවසන් දැක්ම සතියක් තුළ"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "අවසන් දැක්ම මාසයක් තුළ"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "පැතිකඩ බලන්න"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "මකන්න"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "දැනුම්දීම් සැකසුම්"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "තවමත් මෙතැන පණිවිඩ නැත..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "සහභාගීවන්නෝ %d"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "ඔබ මෙම සමූහ සංවාදය තැනුවේය."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "සමූහ සංවාදයෙන් පිටවන්න"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s සමූහ සංවාදය හැර ගියේය."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s මෙම සමූහ සංවාදය තැනුවේය."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "සමූහ සංවාදයෙන් පිටවීම"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "ඔබ මෙම සමූහයෙන් බැහැර වනු ඇත."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "අවලංගු කරන්න"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "පිට වන්න"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "ටෙලිග්‍රෑම් වෙත එක් කරන්න"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "නොදන්නා"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "මකන්න"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s ටෙලිග්‍රෑම් තුළ ඇති ඔබේ සබඳතා ලැයිස්තුව වෙතින් ඉවත් කෙරෙනු ඇත."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "පෙළ පිටපත් කරන්න"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "යොමු කරන්න"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "ටෙලිග්‍රෑම් ‍ඔස්සේ යොමු කරන්න"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "පිළිතුරු දෙන්න"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "මෙම පණිවිඩය මැකෙනු ඇත."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "පැතිකඩ විස්තර"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "අයිතම තේරීම"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "මකන්න"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "සක්‍රියයි"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "පැය 1 ක් සඳහා නිහඬ කරන්න"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "පැය %d ක් සඳහා නිහඬ කරන්න"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "දවස් %d ක් සඳහා නිහඬ කරන්න"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "අක්‍රිය කරන්න"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "සබඳතාවයේ විස්තර බෙදා ගැනීම"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$sගේ සබඳතාවයේ විස්තර %2$s සමග බෙදාගැනෙනු ඇත."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "බෙදා ගන්න"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "සබඳතා වෙත එක් කරන්න"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "අමතන්න"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "පණිවිඩය නිර්මාණය"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "සබඳතාව තනන්න"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "සබඳතාව යාවත්කාලීන කරන්න"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "සුරකින්න"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "අවලංගු කි. පැත්තට"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "සැකසුම්"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "හඬ සහ දැනුම්දීම්"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "රහස්‍යතාව සහ ආරක්ෂාව"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "පසුබිම් අනුරුව පිහිටුවන්න"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "පැතිකඩ පින්තූරය පිහිටුවන්න"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "නම සංස්කරණය කරන්න"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "පිට වන්න"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "ගැලරිය වෙතින්"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "ඡායාරූපයක් ලබාගන්න"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "අනුරුව තේරීම"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "එකවර ඕනෑම උපාංග ගණනක් පුරා ටෙලිග්‍රෑම් භාවිතා කරන්න. කෙසේ වෙතත්, ඔබ පිට වූ පසුව රහස් සංවාද ලබා ගත නොහැකි වනු ඇත."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "පිට වන්න"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "ඔබ %s හට රහස් සංවාදයක් වෙත ආරාධනා කර ඇත."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "රහස සංවාදයේ අන්තර්ගතය:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ස්වයං-මැකීමේ වේලාව පිහිටුවීම"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "සබඳතා විස්තර බලන්න"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "ස්වයං-මැකීමේ වේලාව පිහිටුවන්න"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "ඉතිහාසය හිස් කරන්න"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "සංවාද වෙතින් පිට වන්න"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "සංස්කරණය කරන්න"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "සබඳතා වෙත එක් කරන්න"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "රහස් සංවාදය අරඹන්න"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "අවුරන්න"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "අවහිර කිරීම ඉවත් කරන්න"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "අවහිරය"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s අවහිර කරනු ඇත."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s අනවහිර කෙරෙනු ඇත."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "අනවහිර කිරීම"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "බෙදාහදා ගන්න"
+

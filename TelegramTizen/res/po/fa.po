@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "%1$sسریع‌ترین%2$s برنامه پیام‌رسانی جهانی\nاین برنامه %3$sرایگان%4$s و %5$sایمن%6$s است."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "تلگرام"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "سریع"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "رایگان"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "شروع پیام‌رسانی"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "بعدی"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "قبلی"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "بعدی"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sتلگرام%2$s پیام‌ها را سریع‌تر از\nبرنامه‌های دیگر انتقال می‌دهد."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sتلگرام%2$s برای همیشه رایگان است.\n\nتبلیغی وجود ندارد. هزینه‌ای برای اشتراک وجود ندارد."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sتلگرام%2$s از پیام‌های شما در برابر هکرها\nمحافظت می‌کند."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sتلگرام%2$s محدودیتی برای اندازه\nچت‌ها و رسانه‌ای که اشتراک‌گذاری می‌کنید ندارد."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sتلگرام%2$s به شما امکان می‌دهد از چند دستگاه\nبه پیام‌های خود دسترسی داشته باشید."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "پیام‌های %1$sتلگرام%2$s کاملاً رمزگذاری می‌شوند\nو می‌توان آنها را به طور خودکار حذف نمود."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "ایمن"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "قدرتمند"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "مبتنی بر Cloud"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "خصوصی"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "قبلی"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "لغو"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "انجام شد"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "شماره وارد شود"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "کد وارد شود"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "نام وارد شود"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "کد کشور خود را تأیید کرده و شماره تلفنتان را وارد کنید."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "کد تأیید ارسال شده است. پیام‌های خود را بررسی کرده و کد تأیید را وارد کنید."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "تلگرام در %1$d:%2$d با شما تماس می‌گیرد."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "نام و نام خانوادگی را وارد کنید."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "نام (الزامی)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "نام خانوادگی (الزامی)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "کد"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "شماره تلفن"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "مخاطبین"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "جستجو"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "دعوت از دوستان"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "چت سرّی"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "انتخاب مخاطبین"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "چت گروهی"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "انتخاب همه"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "ایجاد گروه"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "نام گروه جدید"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d انتخاب شد"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "آخرین بازدید %d دقیقه قبل"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "آخرین بازدید ۱ ساعت قبل"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "آخرین بازدید %d ساعت قبل"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "آخرین بازدید یک هفته قبل"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "آخرین بازدید یک ماه قبل"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "آنلاین"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "آخرین بازدید، اخیراً"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "آخرین بازدید خیلی قبل"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "آخرین بازدید ۱ دقیقه قبل"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ارسال"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "نوشتن پیام"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "ایجاد مخاطب"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "نام"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "نام"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "نام خانوادگی"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "موبایل"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "شماره تلفن"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "تلفن همراه"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "صفحه اصلی"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "محل کار"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "نمابر (منزل)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "نمابر (محل کار)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "نمابر (دیگر)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "پی‌جو"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "موارد دیگر"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "جستجو"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "مخاطبین"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "تنظيمات"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "چت وجود ندارد"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "برای شروع یک مکالمه جدید، روی دکمه ایجاد گروه جدید در گوشه سمت راست پایین صفحه ضربه بزنید یا برای گزینه‌های بیشتر، کلید منو را فشار دهید."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "جستجو"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "نتیجه‌ای یافت نشد"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "انتخاب چت"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "انتخاب چت‌ها"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "آخرین بازدید، اخیراً"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "آخرین بازدید خیلی قبل"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "آخرین حضور ۱ دقیقه قبل"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "آخرین حضور %d دقیقه قبل"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "آخرین حضور ۱ ساعت قبل"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "آخرین بازدید %d ساعت قبل"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "آخرین بازدید یک هفته قبل"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "آخرین بازدید یک ماه قبل"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "مشاهده نمایه"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "تنظیمات اعلان"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "اینجا هنوز پیامی وجود ندارد..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d شرکت کننده"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "شما این چت گروهی را ایجاد کرده‌اید."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "ترک چت گروهی"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s چت گروهی را ترک کرد."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s این چت گروهی را ایجاد کرد."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "ترک چت گروهی"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "این گروه را ترک خواهید کرد."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "لغو"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "ترک کردن"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "افزودن به تلگرام"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "ناشناخته"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s از لیست مخاطبین شما در تلگرام حذف خواهد شد."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "کپی کردن متن"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "هدایت"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "هدایت با تلگرام"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "پاسخ"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "این پیام حذف خواهد شد."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "جزئیات نمایه"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "انتخاب موارد"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "فعال کردن"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "بی‌صدا برای ۱ ساعت"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "بی‌صدا برای %d ساعت"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "بی‌صدا برای %d روز"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "غیرفعال"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "اشتراک‌گذاری جزئیات مخاطب"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "جزئیات مخاطب %1$s با %2$s اشتراک‌گذاری شد."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "اشتراک‌گذاری"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "افزودن به مخاطبین"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "تماس"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "نوشتن پیام"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "ایجاد مخاطب"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "به‌روزرسانی مخاطب"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "ذخیره"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "برای لغو بکشید"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "تنظيمات"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "صداها و اعلان‌ها"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "حریم خصوصی و امنیت"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "تنظیم تصویر پس‌زمینه"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "تنظیم عکس نمایه"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "ویرایش نام"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "خروج از سیستم"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "از گالری"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "عکس گرفتن"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "انتخاب تصویر"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "از تلگرام به صورت همزمان در چند دستگاه استفاده کنید. البته چت‌های محرمانه پس از خروج از سیستم در دسترس نخواهند بود."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "خروج از سیستم"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "شما %s را به یک چت محرمانه دعوت کردید."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "محتوای چت محرمانه:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "تنظیم زمان حذف خودکار"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "مشاهده جزئیات مخاطب"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "تنظیم زمان حذف خودکار"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "پاک کردن تاریخچه"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "خروج از چت"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "ویرایش"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "افزودن به مخاطبین"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "شروع چت محرمانه"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "مسدود"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "رفع انسداد"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "انسداد"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s مسدود خواهد شد."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s رفع انسداد خواهد شد."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "رفع انسداد"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "اشتراک"
+

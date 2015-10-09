@@ -1,0 +1,465 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "বিশ্বের %1$sসবচেয়ে নিরাপদ%2$s মেসেজিং অ্যাপ\nএটি %3$sফ্রি%4$s ও %5$sনিরাপদ%6$s৷"
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "দ্রুত"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "বিনামূল্যে"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "মেসেজ আদান-প্রদান শুরু করুন"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "সামনে"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "পূর্ববর্তী"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "সামনে"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s অন্য যে কোনো অ্যাপের\nচেয়ে দ্রুত মেসেজ পৌঁছে দেয়৷"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s সব সময়ের জন্য ফ্রি৷\n\nকোনো বিজ্ঞাপন নেই৷ কোনো গ্রাহক ফি নেই৷"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s আপনার মেসেজগুলোকে\nহ্যাকারের হাত থেকে নিরাপদ রাখে৷"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s-এ আপনার শেয়ার করা চ্যাট ও\nমিডিয়ার আকার সংক্রান্ত কোনো সীমাবদ্ধতা নেই৷"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s আপনাকে একাধিক ডিভাইস থেকে\nআপনার মেসেজ ব্যবহার করতে দেয়৷"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "%1$sTelegram%2$s-এর মেসেজগুলো শক্তিশালীভাবে এনক্রিপ্টেড\nএবং স্বয়ংক্রিয়ভাবে মোছা যায়৷"
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "সুরক্ষিত"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "শক্তিশালী"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Cloud-ভিত্তিক"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "ব্যক্তিগত"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "পূর্ববর্তী"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "বাতিল"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "সম্পন্ন"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "নম্বর লিখুন"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "কোড লিখুন"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "নাম লিখুন"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "আপনার কান্ট্রি কোড নিশ্চিত করুন এবং আপনার ফোন নম্বর লিখুন৷"
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "একটি যাচাইকরণ কোড পাঠানো হয়েছে৷ আপনার মেসেজ পরীক্ষা করে যাচাইকরণ কোডটি লিখুন৷"
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "%1$d:%2$d এর মধ্যে Telegram কল করবে৷"
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "আপনার নামের প্রথম ও শেষাংশ লিখুন।"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "নামের প্রথমাংশ (আবশ্যক)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "নামের শেষাংশ (আবশ্যক)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "কোড"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "ফোন নম্বর"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "কন্টাক্টসমূহ"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "অনুসন্ধান করুন"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "বন্ধুদের আমন্ত্রণ করুন"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "গোপনীয় চ্যাট"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "কন্টাক্ট বেছে নিন"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "গ্রুপ চ্যাট"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "সব নির্বাচন করুন"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "গ্রুপ তৈরি করুন"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "নতুন গ্রুপের নাম"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%dটি নির্বাচিত"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "সর্বশেষ %d মিনিট আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "সর্বশেষ 1 ঘণ্টা আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "সর্বশেষ %d ঘণ্টা আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "সর্বশেষ এক সপ্তাহের মধ্যে দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "সর্বশেষ এক মাসের মধ্যে দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "অনলাইন"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "সর্বশেষ সম্প্রতি দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "সর্বশেষ দীর্ঘ সময় আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "সর্বশেষ 1 মিনিট আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "পাঠান"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "মেসেজ লিখুন"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "কন্টাক্ট তৈরি করুন"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "নাম"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "নামের প্রথমাংশ"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "নামের শেষাংশ"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "মোবাইল"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "ফোন নম্বর"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "মোবাইল"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "হোম"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "কর্মক্ষেত্র"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "ফ্যাক্স (বাসা)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "ফ্যাক্স (অফিস)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "ফ্যাক্স (অন্যান্য)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "পেজার"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "অন্যান্য"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "অনুসন্ধান করুন"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "কন্টাক্টসমূহ"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "সেটিংস"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "কোনো চ্যাট নেই"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "নতুন কথোপকথন শুরু করতে, নিচে ডানদিকে ‘নতুন গ্রুপ তৈরি করুন’ বাটন ট্যাপ করুন অথবা আরো অপশনের জন্য ‘মেনু’ কী চাপুন৷"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "অনুসন্ধান"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "কোনো ফলাফল পাওয়া যায়নি"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "চ্যাট নির্বাচন করুন"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "চ্যাট নির্বাচন করুন"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "সর্বশেষ সম্প্রতি দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "সর্বশেষ দীর্ঘ সময় আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "সর্বশেষ 1 মিনিট আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "সর্বশেষ %d মিনিট আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "সর্বশেষ 1 ঘণ্টা আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "সর্বশেষ %d ঘণ্টা আগে দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "সর্বশেষ এক সপ্তাহের মধ্যে দেখা গেছে"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "সর্বশেষ এক মাসের মধ্যে দেখা গেছে"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "প্রোফাইল দেখুন"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "মুছে ফেলুন"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "বিজ্ঞপ্তির সেটিংস"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "এখানে এখনো কোনো মেসেজ নেই..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d অংশগ্রহণকারী"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "আপনি এই গ্রুপ চ্যাট তৈরি করেছেন৷"
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "গ্রুপ চ্যাট ছেড়ে যান"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s গ্রুপ চ্যাট ছেড়ে চলে গেছে৷"
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s এই গ্রুপ চ্যাট তৈরি করেছে৷"
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "গ্রুপ চ্যাট ছেড়ে যান"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "আপনি গোষ্ঠীটি ছেড়ে যাবেন।"
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "বাতিল"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "ত্যাগ করুন"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Telegram-এ যোগ করুন"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Unknown"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "মুছে ফেলুন"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "Telegram-এ আপনার কন্টাক্ট তালিকা থেকে %s অপসারণ করা হবে৷"
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "টেক্সট কপি করুন"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "অগ্রবর্তী করুন"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Telegram দিয়ে ফরোয়ার্ড করুন"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "প্রত্যুত্তর"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "এই বার্তাটি মুছে ফেলা হবে।"
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "প্রোফাইলের বিবরণ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "আইটেম বেছে নিন"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "মুছুন"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "সক্রিয়"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "1 ঘণ্টার জন্য মৌন করুন"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "%d ঘণ্টার জন্য মৌন করুন"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "%d দিনের জন্য মৌন করুন"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "নিষ্ক্রিয়"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "কন্টাক্টের বিবরণ শেয়ার করুন"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "%1$s-এর কন্টাক্টের বিবরণ %2$s-এর সাথে শেয়ার করা হবে৷"
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "শেয়ার করুন"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "পরিচিতিগুলোতে সংযুক্ত করুন"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "কল করুন"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "বার্তা রচনা করুন"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "পরিচিতি তৈরি করুন"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Update contact"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "সংরক্ষণ"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "বাতিল করতে স্লাইড করুন"
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "সেটিংস"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "শব্দ ও বিজ্ঞপ্তিসমূহ"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "গোপনীয়তা ও নিরাপত্তা"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "ব্যাকগ্রাউন্ড ছবি নির্বাচন করুন"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "প্রোফাইল ছবি নির্বাচন করুন"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "নাম সম্পাদনা করুন"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "লগ-আউট"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "From Gallery"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "ছবি তুলুন"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "ছবি বেছে নিন"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "একই সময়ে যেকোনো সংখ্যক ডিভাইসে নিরবচ্ছিন্নভাবে Telegram ব্যবহার করুন৷ তবে, আপনি লগ-আউট করার পর গোপন চ্যাট ব্যবহার করা যাবে না৷"
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "লগ-আউট"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "আপনি %s-কে একটি গোপন চ্যাটে যোগদানের আমন্ত্রণ জানিয়েছেন।"
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "গোপনীয় চ্যাটের বিষয়বস্তু:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "অটো-মোছার সময় সেট করুন"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "পরিচিতির বিশদ দেখুন"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "অটো-মোছার সময় সেট করুন"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "ইতিহাস মুছে ফেলুন"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "চ্যাট ছেড়ে যান"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "সম্পাদনা করুন"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "কন্টাক্টসমূহে যোগ করুন"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "গোপন চ্যাট শুরু করুন"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Block"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Unblock"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "ব্লক করুন"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s আনব্লক হবে।"
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "আনব্লক"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "শেয়ার করুন"
+
