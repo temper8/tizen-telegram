@@ -88,6 +88,13 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
     	int buddy_id = atoi(buddy_id_str);
 
     	process_add_user_request(tg_data, buddy_id);
+    } else if (strcmp(cmd_key_val, "update_chat_info") == 0) {
+
+    	char* chat_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "chat_id", &chat_id_str);
+    	int chat_id = atoi(chat_id_str);
+
+    	process_update_chat_request(tg_data, chat_id);
 
     } else if (strcmp(cmd_key_val, "delete_buddy") == 0) {
 

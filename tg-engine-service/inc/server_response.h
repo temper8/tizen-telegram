@@ -16,6 +16,7 @@ extern void process_send_message_command(int buddy_id, int message_id, int msg_t
 extern void process_marked_as_read_command(int buddy_id, int type_of_chat);
 extern void process_delete_group_chat_request(tg_engine_data_s* tg_data, int chat_id);
 extern void process_add_user_request(tg_engine_data_s* tg_data, int buddy_id);
+extern void process_update_chat_request(tg_engine_data_s* tg_data, int chat_id);
 extern void process_delete_user_request(tg_engine_data_s* tg_data, int buddy_id);
 extern void process_block_user_request(tg_engine_data_s* tg_data, int buddy_id);
 extern void process_unblock_user_request(tg_engine_data_s* tg_data, int buddy_id);
@@ -45,6 +46,7 @@ extern void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int b
 extern void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);
 extern void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);
 extern void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id);
+extern void send_new_buddy_added_response(tg_engine_data_s *tg_data, int buddy_id);
 extern void send_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id, const char *type_of_change);
 extern void send_chat_profile_pic_updated_response(tg_engine_data_s *tg_data, int chat_id, char* filename);
 extern void send_contact_updated_response(tg_engine_data_s *tg_data, int buddy_id, char* update_message);
@@ -61,4 +63,6 @@ extern void send_buddy_unblocked_response(tg_engine_data_s *tg_data, int buddy_i
 extern void send_group_chat_new_buddy_response(tg_engine_data_s *tg_data, int peer_id, Eina_Bool is_success);
 extern void send_group_chat_delete_buddy_response(tg_engine_data_s *tg_data, int peer_id, Eina_Bool is_success);
 extern void send_response_for_server_connection_status(tg_engine_data_s *tg_data, Eina_Bool connection_status);
+
+extern void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id);
 #endif /* SERVER_RESPONSE_H_ */

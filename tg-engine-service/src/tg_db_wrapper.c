@@ -4627,3 +4627,76 @@ int get_number_of_unread_messages()
 	return no_of_unread;
 }
 
+Eina_Bool is_user_present_peer_table(int peer_id)
+{
+	Eina_Bool ret = EINA_FALSE;
+
+	Eina_List* peer_details = NULL;
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PRINT_NAME);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	char chat_id_str[50];
+	sprintf(chat_id_str, "%d", peer_id);
+
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(chat_id_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, chat_id_str);
+
+	peer_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+	if (peer_details) {
+		for (int i = 0; i < eina_list_count(peer_details) ; i++) {
+			Eina_List* ts_msg = eina_list_nth(peer_details, i);
+			ret = EINA_TRUE;
+			eina_list_free(ts_msg);
+			break;
+		}
+		eina_list_free(peer_details);
+	}
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	return ret;
+}
+
+Eina_Bool is_user_present_chat_table(int peer_id)
+{
+	Eina_Bool ret = EINA_FALSE;
+
+	Eina_List* peer_details = NULL;
+	char* table_name = CHAT_INFO_TABLE_NAME;
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_PRINT_TITLE);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	char chat_id_str[50];
+	sprintf(chat_id_str, "%d", peer_id);
+
+	char* where_clause = (char*)malloc(strlen(CHAT_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(chat_id_str) + 1);
+	strcpy(where_clause, CHAT_INFO_TABLE_CHAT_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, chat_id_str);
+
+	peer_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+	if (peer_details) {
+		for (int i = 0; i < eina_list_count(peer_details) ; i++) {
+			Eina_List* ts_msg = eina_list_nth(peer_details, i);
+			ret = EINA_TRUE;
+			eina_list_free(ts_msg);
+			break;
+		}
+		eina_list_free(peer_details);
+	}
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	return ret;
+}

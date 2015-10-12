@@ -261,5 +261,7 @@ Eina_List* get_all_unsent_media_messages();
 Eina_List* get_all_unsent_text_messages();
 void delete_message_from_unsent_db(int message_id);
 void delete_media_from_unsent_db(int message_id);
+Eina_Bool is_user_present_peer_table(int id);
+Eina_Bool is_user_present_chat_table(int id);
 
 #endif /* TG_DB_WRAPPER_H_ */
