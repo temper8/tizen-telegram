@@ -23,19 +23,19 @@
  * @brief Connect to database
  * @return true if success, otherwise false
  */
-bool sc_db_utils_connect();
+extern bool sc_db_utils_connect();
 
 /**
  * @brief Disconnect from database
  * @return true if success, otherwise false
  */
-bool sc_db_utils_disconnect();
+extern bool sc_db_utils_disconnect();
 
 /**
  * @brief Check is connected to database
  * @return true if connected, otherwise false
  */
-bool sc_db_utils_is_connected();
+extern bool sc_db_utils_is_connected();
 
 /**
  * @brief Check database error code

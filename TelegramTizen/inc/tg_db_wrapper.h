@@ -57,6 +57,7 @@
 #define USER_INFO_TABLE_LAST_SEEN_TIME "last_seen"
 #define USER_INFO_TABLE_IS_BLOCKED "is_blocked"
 #define USER_INFO_TABLE_IS_DELETED "is_deleted"
+#define USER_INFO_TABLE_IS_UNKNOWN_PEER "is_unknown"
 
 #define BUDDY_INFO_TABLE_NAME "buddy_info_table"
 #if 0
@@ -141,7 +142,7 @@
 #define MEDIA_INFO_TABLE_DOCUMENT_DC "doc_dc" //text
 #define MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE "video_thumb" //text
 
-#define MESSAGE_INFO_TABLE_MESSAGE_ROW_ID "msg_row_id"
+//#define MESSAGE_INFO_TABLE_MESSAGE_ROW_ID "msg_row_id"
 #define MESSAGE_INFO_TABLE_MESSAGE_ID "msg_id"
 #define MESSAGE_INFO_TABLE_FLAGS "flags"
 #define MESSAGE_INFO_TABLE_FWD_FROM_ID "fwd_from_id"
@@ -233,9 +234,21 @@ int get_unread_message_count(char* table_name);
 
 extern void update_msg_into_db(tg_message_s *M, char* table_name);
 
+void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **last_name, char **phone_number);
+
 char* get_buddy_name_from_id(int buddy_id);
 
+char* get_buddy_phone_num_from_id(int buddy_id);
+
+int  get_buddy_unknown_status(int buddy_id);
+
+Eina_List* get_unknown_buddy_list_info();
+
 int  get_buddy_online_status(int buddy_id);
+
+int  get_buddy_delete_status(int buddy_id);
+
+int  get_buddy_block_status(int buddy_id);
 
 int insert_current_date_to_table(char* tb_name);
 
@@ -248,6 +261,7 @@ void free_media_details(tgl_media_s *media_msg);
 int get_media_size_from_db(long long media_id);
 
 int get_number_of_unread_messages();
+
 
 void create_buddy_msg_table(const char* table_name);
 

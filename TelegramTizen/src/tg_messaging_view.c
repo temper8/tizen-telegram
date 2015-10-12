@@ -17,8 +17,6 @@
 void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
-
-
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	int id = (int)elm_object_item_data_get(it);
@@ -29,8 +27,100 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 	if (!sel_item || !user_data) {
 		show_toast(ad, "There are no messages to delete.");
+		if (ad->msg_popup) {
+			evas_object_del(ad->msg_popup);
+			ad->msg_popup = NULL;
+		}
 		return;
 	}
+
+
+	if (get_buddy_unknown_status(user_data->peer_id) && user_data->peer_type == TGL_PEER_USER) {
+
+		if (id == 0) {
+			show_toast(ad, "Add contact to ur buddies");
+		} else if (id == 1) {
+			char* tablename = get_table_name_from_number(user_data->peer_id);
+			delete_all_records(tablename);
+			free(tablename);
+
+			// clear all messages
+			Evas_Object *genlist = evas_object_data_get(ad->nf, "chat_list");
+			elm_genlist_clear(genlist);
+
+			// remove main item from main list
+			if (ad->main_item_in_cahtting_data) {
+				tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+				if (old_item->peer_print_name) {
+					free(old_item->peer_print_name);
+					old_item->peer_print_name = NULL;
+				}
+				if (old_item->last_message) {
+					free(old_item->last_message);
+					old_item->last_message = NULL;
+				}
+				if (old_item->profile_pic_path) {
+					free(old_item->profile_pic_path);
+					old_item->profile_pic_path = NULL;
+				}
+				old_item->date_lbl = NULL;
+				old_item->msg_status_lbl = NULL;
+				old_item->profile_pic = NULL;
+				old_item->profile_pic_path = NULL;
+				old_item->status_lbl = NULL;
+				old_item->user_name_lbl = NULL;
+				ad->main_list = eina_list_remove(ad->main_list,  ad->main_item_in_cahtting_data);
+
+				ad->main_item_in_cahtting_data = NULL;
+			}
+			ad->is_last_msg_changed = EINA_FALSE;
+		} else {
+			char* tablename = get_table_name_from_number(user_data->peer_id);
+			delete_all_records(tablename);
+			free(tablename);
+
+			// clear all messages
+			Evas_Object *genlist = evas_object_data_get(ad->nf, "chat_list");
+			elm_genlist_clear(genlist);
+
+			// remove main item from main list
+			if (ad->main_item_in_cahtting_data) {
+				tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+				if (old_item->peer_print_name) {
+					free(old_item->peer_print_name);
+					old_item->peer_print_name = NULL;
+				}
+				if (old_item->last_message) {
+					free(old_item->last_message);
+					old_item->last_message = NULL;
+				}
+				if (old_item->profile_pic_path) {
+					free(old_item->profile_pic_path);
+					old_item->profile_pic_path = NULL;
+				}
+				old_item->date_lbl = NULL;
+				old_item->msg_status_lbl = NULL;
+				old_item->profile_pic = NULL;
+				old_item->profile_pic_path = NULL;
+				old_item->status_lbl = NULL;
+				old_item->user_name_lbl = NULL;
+				ad->main_list = eina_list_remove(ad->main_list,  ad->main_item_in_cahtting_data);
+
+				ad->main_item_in_cahtting_data = NULL;
+			}
+
+			ad->is_last_msg_changed = EINA_FALSE;
+
+
+			app_nf_back_cb(ad, NULL, NULL);
+		}
+		if (ad->msg_popup) {
+			evas_object_del(ad->msg_popup);
+			ad->msg_popup = NULL;
+		}
+		return;
+	}
+
 
 	if (id == 0) {
 		if (user_data->peer_type == TGL_PEER_USER || user_data->peer_type == TGL_PEER_CHAT) {
@@ -148,10 +238,23 @@ char* on_messaging_menu_group_text_get_cb(void *data, Evas_Object *obj, const ch
 char* on_messaging_menu_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int) data;
-	if (id == 0) {
-		return strdup("Clear history");
+	appdata_s *ad = evas_object_data_get(obj, "app_data");
+	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+	tg_peer_info_s *user_data = sel_item->use_data;
+	if ((user_data->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user_data->peer_id)) {
+	    if (id == 0) {
+	    	return strdup("Add to contacts");
+	    } else if (id == 1) {
+			return strdup("Clear history");
+		} else {
+			return strdup("Delete");
+		}
 	} else {
-		return strdup("Delete");
+		if (id == 0) {
+			return strdup("Clear history");
+		} else {
+			return strdup("Delete");
+		}
 	}
 }
 
@@ -191,6 +294,8 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	evas_object_size_hint_weight_set(genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(genlist, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
+	evas_object_data_set(genlist, "app_data", ad);
+
 	itc.item_style = "default";
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	if (sel_item->use_data->peer_type == TGL_PEER_USER) {
@@ -205,12 +310,21 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	for (i = 0; i < 2; i++) {
-		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
+	tg_peer_info_s *user_data = sel_item->use_data;
+	if ((user_data->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user_data->peer_id)) {
+		for (i = 0; i < 3; i++) {
+			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
+		}
+		evas_object_size_hint_min_set(box, -1, 345);
+	} else {
+		for (i = 0; i < 2; i++) {
+			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
+		}
+		evas_object_size_hint_min_set(box, -1, 230);
 	}
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
-	evas_object_size_hint_min_set(box, -1, 230);
+
 	elm_object_content_set(ad->msg_popup, box);
 	evas_object_show(ad->msg_popup);
 }
@@ -744,7 +858,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			//elm_entry_magnifier_disabled_set(entry, EINA_TRUE);
 			// FIXME: Deprecated API
-			//elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
+			elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
 
 			char *sender_name = NULL;
 			if(msg->out) {
@@ -1104,6 +1218,7 @@ void add_date_item_to_chat(void *data)
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
 	char* msg_table = get_table_name_from_number(sel_item->use_data->peer_id);
+	create_buddy_msg_table(msg_table);
 	int msg_id = insert_current_date_to_table(msg_table);
 	free(msg_table);
 
@@ -1158,8 +1273,8 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
-
 	char* msg_table = get_table_name_from_number(msg.to_id);
+	create_buddy_msg_table(msg_table);
 	insert_msg_into_db(&msg, msg_table, unique_id);
 	free(msg_table);
 
@@ -1387,6 +1502,7 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
+	create_buddy_msg_table(msg_table);
 	insert_msg_into_db(&msg, msg_table, unique_id);
 	int img_width = 0;
 	int img_height = 0;
@@ -1442,6 +1558,7 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
+	create_buddy_msg_table(msg_table);
 	insert_msg_into_db(&msg, msg_table, unique_id);
 	int img_width = 0;
 	int img_height = 0;
@@ -1497,6 +1614,7 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
+	create_buddy_msg_table(msg_table);
 	insert_msg_into_db(&msg, msg_table, unique_id);
 	int img_width = 0;
 	int img_height = 0;
@@ -1554,7 +1672,8 @@ void load_chat_history(Evas_Object* chat_list)
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
 
-	Eina_List* vals = get_values_from_table_sync(tablename, col_names, col_types, NULL);
+	//Eina_List* vals = get_values_from_table_sync(tablename, col_names, col_types, NULL);
+	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, NULL);
 	Elm_Object_Item* last_item = NULL;
 	if(!vals) {
 
@@ -1942,7 +2061,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
 	ad->is_last_msg_changed = EINA_FALSE;
-
+	send_request_for_server_connection_status(ad->service_client);
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
@@ -2000,7 +2119,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(chat_conv_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(chat_conv_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	// FIXME: Deprecated API
-	//elm_genlist_realization_mode_set(chat_conv_list, EINA_TRUE);
+	elm_genlist_realization_mode_set(chat_conv_list, EINA_TRUE);
 	//evas_object_color_set(chat_conv_list, 255 , 255, 255, 255);
 #endif
 
@@ -2043,13 +2162,21 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	elm_object_part_content_set(title_layout, "swallow.profile_pic", eo);
 
-	char* user_name = replace(sel_item->use_data->print_name, '_', " ");
-	char temp_name[512] = {'\0'};
-    snprintf(temp_name, 512, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", user_name);
-    free(user_name);
 
 	Evas_Object* profile_name = elm_label_add(title_layout);
-	elm_object_text_set(profile_name,temp_name);
+	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
+		char temp_name[512] = {'\0'};
+		snprintf(temp_name, 512, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+		elm_object_text_set(profile_name,temp_name);
+	} else {
+		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
+		char temp_name[512] = {'\0'};
+		snprintf(temp_name, 512, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", user_name);
+		free(user_name);
+		elm_object_text_set(profile_name,temp_name);
+	}
+
+
 	evas_object_size_hint_align_set(profile_name, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(profile_name, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	elm_object_style_set(profile_name, "transparent");

@@ -87,7 +87,16 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
     	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
     	int buddy_id = atoi(buddy_id_str);
 
-    	process_add_user_request(tg_data, buddy_id);
+    	char* first_name = NULL;
+    	res = bundle_get_str(rec_msg, "first_name", &first_name);
+
+    	char* last_name = NULL;
+    	res = bundle_get_str(rec_msg, "last_name", &last_name);
+
+    	char* phone_number = NULL;
+    	res = bundle_get_str(rec_msg, "phone_number", &phone_number);
+
+    	process_add_user_request(tg_data, buddy_id, first_name, last_name, phone_number);
     } else if (strcmp(cmd_key_val, "update_chat_info") == 0) {
 
     	char* chat_id_str = NULL;

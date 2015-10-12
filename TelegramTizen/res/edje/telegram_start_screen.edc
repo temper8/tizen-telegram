@@ -1,0 +1,242 @@
+#define INDICATOR_H 40
+
+images {
+	image: "telegram_icon_telegram.png" COMP;
+	image: "telegram_icon_secure.png" COMP;
+	image: "telegram_icon_private.png" COMP;
+	image: "telegram_icon_powerful.png" COMP;
+	image: "telegram_icon_free.png" COMP;
+	image: "telegram_icon_fast.png" COMP;
+	image: "telegram_icon_cloud.png" COMP;
+}
+
+styles {
+	style {
+		name: "help,comment";
+		base: "font=Tizen text_class=ATO001 font_size=28 align=left color=#FFFFFF color_class=ATO001 ellipsis=1.0";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
+}
+
+collections {
+	/**
+	 * GUI Setup base layout
+	 */
+	group {
+		name: "setup,layout";
+		parts {
+			/**
+			 * Swallow the scroller to here.
+			 * And the scroller will manages "setup,01", "setup,02", ...
+			 */
+			part {
+				name: "content";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+				}
+			}
+
+			part {
+				name: "indicator";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 (INDICATOR_H+1004)/1280; }
+					rel2 { relative: 1.0 (INDICATOR_H+1044)/1280; }	
+				}
+			}
+
+			part {
+				name: "button";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 1108/1280; }
+					rel2 { relative: 1.0 1.0; }
+				}
+			}
+		}
+	} // setup,layout
+
+	/**
+	 * GUI PPT, Slide 10
+	 */
+	group {
+		name: "setup,frame";
+		parts {
+			part {
+				name: "bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+				}
+			}
+
+			part {
+				name: "setup,main";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 (286 + INDICATOR_H)/1280; }
+					rel2 { relative: 1.0 (657 + INDICATOR_H)/1280; }
+				}
+			}
+
+			part {
+				name: "start,button";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 (679 + INDICATOR_H)/1280; }
+					rel2 { relative: 1.0 (799 + INDICATOR_H)/1280; }
+				}
+			}
+		}
+	} // setup,frame
+
+	/**
+	 * GUI PPT, Slide 11
+	 * Size: 720x371
+	 */
+	group {
+		name: "setup,main";
+		parts {
+			part {
+				name: "icon";
+				type: IMAGE;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_telegram.png"; }
+				}
+				description {
+					state: "secure" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_secure.png"; }
+				}
+				description {
+					state: "private" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_private.png"; }
+				}
+				description {
+					state: "powerful" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_powerful.png"; }
+				}
+				description {
+					state: "free" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_free.png"; }
+				}
+				description {
+					state: "fast" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_fast.png"; }
+				}
+				description {
+					state: "cloud" 0.0;
+					rel1 { relative: 280/720 0.0; }
+					rel2 { relative: 440/720 160/371; }
+					image { normal: "telegram_icon_cloud.png"; }
+				}
+			}
+
+			part {
+				name: "title";
+				type: TEXT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.5 160/371; }
+					rel2 { relative: 0.5 227/371; }
+					min: 10 0;
+					fixed: 1 0;
+					text {
+						align: 0.5 0.5;
+						size: 26;
+						text: "Telegram";
+					}
+				}
+			}
+
+			part {
+				name: "comment";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					min: 1 0;
+					fixed: 1 0;
+					rel1 { relative: 0.5 242/371; }
+					rel2 { relative: 0.5 371/371; }
+					text { style: "help,comment"; }
+				}
+			}
+		}
+
+		programs {
+			program {
+				name: "default";
+				signal: "telegram";
+				source: "icon";
+				action: STATE_SET "default" 0.0;
+				target: "icon";
+			}
+			program {
+				name: "secure";
+				signal: "secure";
+				source: "icon";
+				action: STATE_SET "secure" 0.0;
+				target: "icon";
+			}
+			program {
+				name: "cloud";
+				signal: "cloud";
+				source: "icon";
+				action: STATE_SET "cloud" 0.0;
+				target: "icon";
+			}
+			program {
+				name: "private";
+				signal: "private";
+				source: "icon";
+				action: STATE_SET "private" 0.0;
+				target: "icon";
+			}
+			program {
+				name: "powerful";
+				signal: "powerful";
+				source: "icon";
+				action: STATE_SET "powerful" 0.0;
+				target: "icon";
+			}
+			program {
+				name: "free";
+				signal: "free";
+				source: "icon";
+				action: STATE_SET "free" 0.0;
+				target: "icon";
+			}
+			program {
+				name: "fast";
+				signal: "fast";
+				source: "icon";
+				action: STATE_SET "fast" 0.0;
+				target: "icon";
+			}
+		}
+	} // setup,main
+}

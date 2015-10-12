@@ -8,6 +8,8 @@
 #include "tg_user_info_view.h"
 #include "server_requests.h"
 #include "tg_user_main_view.h"
+#include "tg_add_contact.h"
+#include "tg_db_wrapper.h"
 
 static Evas_Object* get_image_from_path(const char* path, Evas_Object* parent)
 {
@@ -22,24 +24,52 @@ static Evas_Object* get_image_from_path(const char* path, Evas_Object* parent)
 	evas_object_show(media_image);
 	return media_image;
 }
-#if 0
-static Eina_Bool on_view_deleteion_requested(void *data)
-{
-	appdata_s *ad = data;
-	if (ad) {
-		elm_naviframe_item_pop(ad->nf);
-		ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
-		hide_loading_popup(ad);
-	}
-    return ECORE_CALLBACK_CANCEL;
-}
-#endif
+
 void on_user_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
 {
 	if (is_success) {
 		if (ad->peer_in_cahtting_data->use_data->peer_id == buddy_id) {
 			if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
 				ad->buddy_in_cahtting_data->use_data->is_deleted = 0;
+				load_buddy_list_data(ad);
+				load_unknown_buddy_list_data(ad);
+				load_peer_data(ad);
+				load_main_list_data(ad);
+				refresh_main_list_view(ad, EINA_FALSE);
+
+				for (int i = 0; i < eina_list_count(ad->buddy_list); i++) {
+					user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+					user_data_s* user_data = item->use_data;
+
+					if (user_data->user_id.id == buddy_id) {
+						ad->buddy_in_cahtting_data = item;
+						break;
+					}
+				}
+
+				if (ad->buddy_in_cahtting_data == NULL) {
+					for (int i = 0; i < eina_list_count(ad->unknown_buddy_list); i++) {
+						user_data_with_pic_s *item = eina_list_nth(ad->unknown_buddy_list, i);
+						user_data_s* user_data = item->use_data;
+
+						if (user_data->user_id.id == buddy_id) {
+							ad->buddy_in_cahtting_data = item;
+							break;
+						}
+					}
+				}
+
+				for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
+					peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
+					tg_peer_info_s* item = pic_item->use_data;
+
+					if (item->peer_id == buddy_id) {
+						ad->peer_in_cahtting_data = pic_item;
+						buddy_id = i;
+						break;
+					}
+				}
+
 				show_toast(ad, "User added successfully");
 			}
 		}
@@ -50,77 +80,55 @@ void on_user_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_s
 
 void on_user_deleted_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
 {
-#if 0
-	if (is_success) {
-		if (ad->peer_in_cahtting_data->use_data->peer_id == buddy_id) {
-			if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
-
-				show_toast(ad, "User deleted successfully");
-
-				if(ad->peer_list) {
-					int size = eina_list_count(ad->peer_list);
-					for (int i = 0 ; i < size ; i++) {
-						peer_with_pic_s *item = eina_list_nth(ad->peer_list, i);
-						if (item->use_data->peer_id == buddy_id) {
-							ad->peer_list = eina_list_remove(ad->peer_list, item);
-							break;
-						}
-					}
-				}
-
-				if(ad->main_list) {
-					int size = eina_list_count(ad->main_list);
-					for (int i = 0 ; i < size ; i++) {
-						tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
-						if (item->peer_id == buddy_id) {
-							ad->main_list = eina_list_remove(ad->main_list, item);
-							break;
-						}
-					}
-				}
-
-				if(ad->buddy_list) {
-					int size = eina_list_count(ad->buddy_list);
-					for (int i = 0 ; i < size ; i++) {
-						user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-						user_data_s* user = item->use_data;
-
-						if (user->user_id.id == buddy_id) {
-							ad->buddy_list = eina_list_remove(ad->buddy_list, item);
-							break;
-						}
-					}
-				}
-
-				refresh_main_list_view(ad, EINA_FALSE);
-				ad->peer_in_cahtting_data = NULL;
-				ad->main_item_in_cahtting_data = NULL;
-
-				elm_naviframe_item_pop(ad->nf);
-				ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
-				/*
-				elm_naviframe_item_pop(ad->nf);
-				ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
-				 */
-				show_loading_popup(ad);
-				ecore_timer_add(2, on_view_deleteion_requested, ad);
-			}
-		}
-	} else {
-		show_toast(ad, "Failed to delete user.");
-	}
-#else
 	if (is_success) {
 		if (ad->peer_in_cahtting_data->use_data->peer_id == buddy_id) {
 			if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->user_id.id == buddy_id) {
 				ad->buddy_in_cahtting_data->use_data->is_deleted = 1;
+				load_buddy_list_data(ad);
+				load_unknown_buddy_list_data(ad);
+				load_peer_data(ad);
+				load_main_list_data(ad);
+				refresh_main_list_view(ad, EINA_FALSE);
+
+				for (int i = 0; i < eina_list_count(ad->buddy_list); i++) {
+					user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+					user_data_s* user_data = item->use_data;
+
+					if (user_data->user_id.id == buddy_id) {
+						ad->buddy_in_cahtting_data = item;
+						break;
+					}
+				}
+
+				if (ad->buddy_in_cahtting_data == NULL) {
+					for (int i = 0; i < eina_list_count(ad->unknown_buddy_list); i++) {
+						user_data_with_pic_s *item = eina_list_nth(ad->unknown_buddy_list, i);
+						user_data_s* user_data = item->use_data;
+
+						if (user_data->user_id.id == buddy_id) {
+							ad->buddy_in_cahtting_data = item;
+							break;
+						}
+					}
+				}
+
+				for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
+					peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
+					tg_peer_info_s* item = pic_item->use_data;
+
+					if (item->peer_id == buddy_id) {
+						ad->peer_in_cahtting_data = pic_item;
+						buddy_id = i;
+						break;
+					}
+				}
+
 				show_toast(ad, "User deleted successfully");
 			}
 		}
 	} else {
 		show_toast(ad, "Failed to delete user.");
 	}
-#endif
 }
 
 void on_user_block_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
@@ -154,7 +162,7 @@ void on_user_unblock_response_received(appdata_s *ad, int buddy_id, Eina_Bool is
 
 static void on_userinfo_menu_canceled(void *data, Evas_Object *obj, void *event_info)
 {
-	appdata_s *ad = evas_object_data_get(obj, "app_data");
+	//appdata_s *ad = evas_object_data_get(obj, "app_data");
 	Evas_Object *popup = evas_object_data_get(obj, "popup");
 	evas_object_del(popup);
 }
@@ -166,7 +174,8 @@ static void on_user_block_ok_selected(void *data, Evas_Object *obj, void *event_
 
 	if (ad->peer_in_cahtting_data && ad->peer_in_cahtting_data->use_data) {
 		show_loading_popup(ad);
-		if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->is_blocked == 1) {
+		peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+		if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
 			send_unblock_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		} else {
 			send_block_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
@@ -186,8 +195,8 @@ static void on_block_selected_cb(appdata_s *ad)
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-
-	if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->is_blocked == 1) {
+	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+	if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
 		elm_object_text_set(popup,"Are you sure want to unblock this contact?");
 	} else {
 		elm_object_text_set(popup,"Are you sure want to block this contact?");
@@ -222,19 +231,18 @@ static void on_user_delete_ok_selected(void *data, Evas_Object *obj, void *event
 	Evas_Object *popup = evas_object_data_get(obj, "popup");
 
 	if (ad->peer_in_cahtting_data && ad->peer_in_cahtting_data->use_data) {
-		show_loading_popup(ad);
-
-		if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->is_deleted == 1) {
-			send_add_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
+		peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+		if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 || get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
+			launch_add_contact_screen(ad);
+			//send_add_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		} else {
+			show_loading_popup(ad);
 			send_delete_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		}
 
 	}
 	evas_object_del(popup);
 }
-
-
 
 static void on_delete_selected_cb(appdata_s *ad)
 {
@@ -245,15 +253,12 @@ static void on_delete_selected_cb(appdata_s *ad)
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-
-
-
-	if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->is_deleted == 1) {
+	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+	if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 || get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
 		elm_object_text_set(popup,"Are you sure want to add this contact?");
 	} else {
 		elm_object_text_set(popup,"Are you sure want to delete this contact?");
 	}
-
 
 	/* ok button */
 	btn = elm_button_add(popup);
@@ -275,8 +280,6 @@ static void on_delete_selected_cb(appdata_s *ad)
 
 	evas_object_show(popup);
 }
-
-
 
 /************************ delete user *****************************/
 
@@ -310,7 +313,7 @@ void on_user_info_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 		}
 
-	} else if (user_data->peer_type == TGL_PEER_CHAT) {
+	} else {
 
 
 	}
@@ -322,38 +325,31 @@ void on_user_info_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 }
 
 
-char* on_user_info_menu_group_text_get_cb(void *data, Evas_Object *obj, const char *part)
-{
-	int id = (int) data;
-	if (id == 0) {
-		return strdup("Add member");
-	} else if (id == 1) {
-		return strdup("Edit Name");
-	} else {
-		return strdup("Delete and leave group");
-	}
-}
-
 char* on_user_info_menu_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int) data;
 
 	appdata_s *ad = evas_object_data_get(obj, "app_data");
-
+	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	if (id == 0) {
-		if (ad && ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->is_blocked == 1) {
-			return strdup("UnBlock");
-		} else {
-			return strdup("Block");
+		if (ad && sel_item) {
+			if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
+				return strdup("UnBlock");
+			} else {
+				return strdup("Block");
+			}
 		}
 
 	} else {
-		if (ad && ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->is_deleted == 1) {
-			return strdup("Add");
-		} else {
-			return strdup("Delete");
+		if (ad && sel_item) {
+			if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 || get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
+				return strdup("Add");
+			} else {
+				return strdup("Delete");
+			}
 		}
 	}
+	return NULL;
 }
 
 void on_user_info_msg_popup_back_cb(void *data, Evas_Object *obj, void *event_info)
@@ -402,17 +398,6 @@ void on_user_info_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 		itc.func.del = NULL;
 
 		for (i = 0; i < 2; i++) {
-			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_user_info_menu_option_selected_cb, ad);
-		}
-
-	} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
-		itc.func.text_get = on_user_info_menu_group_text_get_cb;
-
-		itc.func.content_get = NULL;
-		itc.func.state_get = NULL;
-		itc.func.del = NULL;
-
-		for (i = 0; i < 3; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_user_info_menu_option_selected_cb, ad);
 		}
 
@@ -525,13 +510,18 @@ Evas_Object* on_buddy_phone_info_requested(void *data, Evas_Object *obj, const c
 		char* first_text = NULL;
 		char buf[512] = {'\0'};
 		if (id == 0) {
-			if (ad->buddy_in_cahtting_data->use_data->phone) {
+			if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->phone) {
 				first_text = ad->buddy_in_cahtting_data->use_data->phone;
 			} else {
-				first_text = "";
+				char *phone_no = get_buddy_phone_num_from_id(ad->peer_in_cahtting_data->use_data->peer_id);
+				if (phone_no) {
+					first_text = phone_no;
+				} else {
+					first_text = "";
+				}
 			}
 		} else {
-			if (ad->buddy_in_cahtting_data->use_data->username && strlen(ad->buddy_in_cahtting_data->use_data->username) > 0 && strstr(ad->buddy_in_cahtting_data->use_data->username, "_null_") == NULL) {
+			if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data->username && strlen(ad->buddy_in_cahtting_data->use_data->username) > 0 && strstr(ad->buddy_in_cahtting_data->use_data->username, "_null_") == NULL) {
 				first_text = ad->buddy_in_cahtting_data->use_data->username;
 			} else {
 				first_text = "None";
@@ -670,7 +660,6 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 	if (settings_info_lbl_bg) {
 		evas_object_hide(settings_info_lbl_bg);
 	}
-
 
 	Evas_Object* msg_btn = elm_button_add(ad->layout);
 	evas_object_size_hint_weight_set(msg_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);

@@ -10,14 +10,10 @@
 
 #include "tg_common.h"
 #include <contacts.h>
-
-typedef struct contact_data {
-	int contact_id;
-	char* display_name;
-	char* first_name;
-	char* last_name;
-	char* phone_number;
-} contact_data_s;
+#include "contacts_common.h"
+#include "contacts-record-utils.h"
+#include "contacts-list-utils.h"
+#include "contacts-db-utils.h"
 
 extern Eina_List* get_contact_list_from_device_db();
 

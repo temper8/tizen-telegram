@@ -8,8 +8,6 @@
 #include "tg_db_manager.h"
 #include "server_requests.h"
 #include "tg_login.h"
-#include "device_contacts_manager.h"
-#include "contacts-db-utils.h"
 
 static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {

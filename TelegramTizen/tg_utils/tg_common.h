@@ -266,7 +266,8 @@ typedef enum state_of_app {
 	TG_SET_USERNAME_STATE,
 	TG_SET_USER_INFO_STATE,
 	TG_SET_CHAT_INFO_STATE,
-	TG_SELECT_BUDDY_VIEW
+	TG_SELECT_BUDDY_VIEW,
+	TG_ADD_CONTACT_STATE
 } state_of_app_s;
 
 enum tgl_typing_status {
@@ -312,6 +313,7 @@ typedef struct user_data {
 	Eina_Bool is_selected;
 	int is_blocked;
 	int is_deleted;
+	int is_unknown;
 } user_data_s;
 
 typedef struct user_data_with_pic {
@@ -365,6 +367,7 @@ typedef struct tg_peer_info {
 	int last_seen_time;
 	char* photo_path;
 	long long photo_id;
+	int is_unknown;
 } tg_peer_info_s;
 
 typedef struct peer_with_pic {
@@ -494,6 +497,7 @@ typedef struct appdata {
 	char* phone_number;
 	char* sms_code;
 	Eina_List* buddy_list;
+	Eina_List* unknown_buddy_list;
 	//Eina_List* group_chat_list;
 	Eina_List* peer_list;
 
@@ -535,6 +539,7 @@ extern void tg_login_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
 extern void detail_list_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
 extern void create_buddy_msg_table(const char* table_name);
 extern void load_buddy_list_data(appdata_s *ad);
+extern void load_unknown_buddy_list_data(appdata_s *ad);
 //extern void load_group_chat_data(appdata_s *ad);
 extern void load_peer_data(appdata_s *ad);
 extern void load_registered_user_data(appdata_s *ad);

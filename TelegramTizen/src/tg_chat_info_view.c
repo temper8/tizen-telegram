@@ -324,6 +324,20 @@ user_data_with_pic_s* is_present_in_buddy_list(appdata_s* ad, int buddy_id)
 	return NULL;
 }
 
+user_data_with_pic_s* is_present_in_unknown_buddy_list(appdata_s* ad, int buddy_id)
+{
+	if (ad->unknown_buddy_list) {
+		for (int i = 0 ; i < eina_list_count(ad->unknown_buddy_list) ; i++) {
+			user_data_with_pic_s *item = eina_list_nth(ad->unknown_buddy_list, i);
+			user_data_s* user = item->use_data;
+			if (user->user_id.id == buddy_id) {
+				return item;
+			}
+		}
+	}
+	return NULL;
+}
+
 
 /************************* menu *************************/
 
@@ -396,6 +410,12 @@ void on_group_chat_info_updated(appdata_s *ad, char *type_of_change)
 					if (item) {
 						selected_buddies = eina_list_append(selected_buddies, item->use_data);
 						mem_cnt++;
+					} else {
+						user_data_with_pic_s *item = is_present_in_unknown_buddy_list(ad, chat_info->chat_users[i]);
+						if (item) {
+							selected_buddies = eina_list_append(selected_buddies, item->use_data);
+							mem_cnt++;
+						}
 					}
 				}
 
@@ -751,6 +771,8 @@ void launch_chat_info_screen(appdata_s* ad, int chat_id)
 	ad->selected_buddy_item = NULL;
 	ad->current_app_state = TG_SET_CHAT_INFO_STATE;
 
+	load_unknown_buddy_list_data(ad);
+
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
@@ -831,6 +853,12 @@ void launch_chat_info_screen(appdata_s* ad, int chat_id)
 			if (item) {
 				selected_buddies = eina_list_append(selected_buddies, item->use_data);
 				mem_cnt++;
+			} else {
+				user_data_with_pic_s *item = is_present_in_unknown_buddy_list(ad, chat_info->chat_users[i]);
+				if (item) {
+					selected_buddies = eina_list_append(selected_buddies, item->use_data);
+					mem_cnt++;
+				}
 			}
 		}
 

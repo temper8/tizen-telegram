@@ -71,12 +71,12 @@ void process_delete_group_chat_request(tg_engine_data_s* tg_data, int chat_id)
 	leave_group_chat(tg_data, chat_id);
 }
 
-void process_add_user_request(tg_engine_data_s* tg_data, int buddy_id)
+void process_add_user_request(tg_engine_data_s* tg_data, int buddy_id, char *first_name, char *last_name, char *phone_num)
 {
 	if (!tgl_engine_get_TLS()) {
 		return;
 	}
-	do_add_buddy(buddy_id);
+	do_add_buddy(buddy_id, first_name, last_name, phone_num);
 }
 
 void process_update_chat_request(tg_engine_data_s* tg_data, int chat_id)
@@ -283,7 +283,7 @@ void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int
 		bundle_free(msg);
 	}
 
-	if (bundle_add_str(msg, "command", "reponse_group_chat_updated") != 0) {
+	if (bundle_add_str(msg, "command", "response_group_chat_updated") != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 	}

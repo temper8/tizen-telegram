@@ -342,6 +342,7 @@ struct tgl_user {
 	char *real_first_name;
 	char *real_last_name;
 	char *username;
+	int is_unknown;
 };
 
 struct tgl_chat_user {

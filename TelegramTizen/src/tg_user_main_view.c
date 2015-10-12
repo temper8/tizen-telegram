@@ -77,8 +77,9 @@ static void launch_contact_picker(appdata_s* ad)
 	int ret = app_control_create(&app_control);
 
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
-	app_control_set_app_id(app_control, "tizen.messages");
+	//app_control_set_app_id(app_control, "tizen.messages");
 	//app_control_add_extra_data(app_control, APP_CONTROL_DATA_TO, recipient);
+	app_control_set_mime(app_control,"text/html");
 	char *text = "Invite you to telegram! https://telegram.org/dl";
 	app_control_add_extra_data(app_control, APP_CONTROL_DATA_TEXT, text);
 	if (app_control_send_launch_request(app_control, NULL, NULL) == APP_CONTROL_ERROR_NONE) {
@@ -565,6 +566,18 @@ void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event_info)
 					break;
 				}
 			}
+
+			if (ad->buddy_in_cahtting_data == NULL) {
+				for (int i = 0; i < eina_list_count(ad->unknown_buddy_list); i++) {
+					user_data_with_pic_s *item = eina_list_nth(ad->unknown_buddy_list, i);
+					user_data_s* user_data = item->use_data;
+
+					if (user_data->user_id.id == sel_item->peer_id) {
+						ad->buddy_in_cahtting_data = item;
+						break;
+					}
+				}
+			}
 		}
 
 		for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
@@ -1027,7 +1040,7 @@ void launch_user_main_view_cb(appdata_s* ad)
 	ad->is_tg_initilized = EINA_TRUE;
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
+	send_request_for_server_connection_status(ad->service_client);
 	send_request_for_delete_notifications(ad->service_client);
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);

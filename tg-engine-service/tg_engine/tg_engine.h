@@ -167,7 +167,7 @@ extern void request_for_code_via_call(struct tgl_state *TLS, char* phone_no, Ein
 extern void free_contact_data(Eina_List *contact_data);
 extern void leave_group_chat(tg_engine_data_s *tg_data, int group_chat_id);
 extern void do_delete_buddy(int buddy_id);
-extern void do_add_buddy(int buddy_id);
+extern void do_add_buddy(int buddy_id, char *first_name, char *last_name, char *phone_num);
 extern void do_update_chat_info(int chat_id);
 extern void do_unblock_buddy(int buddy_id);
 extern void do_block_buddy(int buddy_id);

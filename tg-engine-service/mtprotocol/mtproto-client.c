@@ -1275,8 +1275,12 @@ static int tc_becomes_ready(struct tgl_state *TLS, struct connection *c)
 		}
 		break;
 	default:
+		//sandeep
+		return 0;
+		/*
 		vlogprintf(E_DEBUG, "c_state = %d\n", DC->state);
 		assert(0);
+		*/
 	}
 	return 0;
 }

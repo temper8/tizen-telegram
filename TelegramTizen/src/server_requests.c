@@ -6,7 +6,6 @@
 
 #include "server_requests.h"
 #include "tg_db_wrapper.h"
-#include "device_contacts_manager.h"
 
 void send_request_for_registration(service_client* service_client, const char* phone_number, Eina_Bool through_sms)
 {
@@ -143,7 +142,7 @@ void send_request_for_validation(service_client* service_client, const char* sms
 	bundle_free(msg);
 }
 
-void send_add_buddy_request(service_client* service_client, const int buddy_id)
+void send_add_buddy_request(service_client* service_client, const int buddy_id, const char *first_name, const char *last_name, const char *phone_number)
 {
 	if (!service_client) {
 		// error
@@ -171,6 +170,24 @@ void send_add_buddy_request(service_client* service_client, const int buddy_id)
 	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "first_name", first_name) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "last_name", last_name) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "phone_number", phone_number) != 0) {
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
 		return;
@@ -700,107 +717,6 @@ Eina_Bool send_request_for_media_downloading(service_client* service_client, con
 	}
 	bundle_free(msg);
 	return EINA_TRUE;
-}
-
-void send_contacts_list_to_server(service_client* service_client, Eina_List* contacts_list)
-{
-	bundle *msg;
-	int count;
-	char tmp[50];
-	char *first_name;
-	char *last_name;
-	char *phone_number;
-	Eina_List *l;
-	contact_data_s* contact_data;
-	int i;
-
-	if (!service_client || !contacts_list) {
-		// error
-		return;
-	}
-
-	msg = bundle_create();
-	if (!msg) {
-		return;
-	}
-
-	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
-		ERR("Failed to add data by key to bundle");
-		bundle_free(msg);
-		return;
-	}
-
-	if (bundle_add_str(msg, "command", "device_contact_list") != 0) {
-		ERR("Failed to add data by key to bundle");
-		bundle_free(msg);
-		return;
-	}
-
-	count = eina_list_count(contacts_list);
-	snprintf(tmp, sizeof(tmp) - 1, "%d", count);
-
-	if (bundle_add_str(msg, "count", tmp) != 0) {
-		ERR("Failed to add data by key to bundle");
-		bundle_free(msg);
-		return;
-	}
-
-	i = 0;
-
-	EINA_LIST_FOREACH(contacts_list, l, contact_data) {
-		phone_number = contact_data->phone_number;
-		if (!phone_number) {
-			// error.
-			LOGE("Phone number is not valid");
-			continue;
-		}
-
-		first_name = contact_data->first_name;
-		if (!first_name) {
-			first_name = contact_data->display_name;
-			if (!first_name) {
-				first_name = "";
-			}
-		}
-
-		last_name = contact_data->last_name;
-		if (!last_name) {
-			last_name = "";
-		}
-
-		snprintf(tmp, sizeof(tmp) - 1, "first_name_%d", i);
-		if (bundle_add_str(msg, tmp, first_name) != 0) {
-			ERR("Failed to add data by key to bundle");
-			bundle_free(msg);
-			return;
-		}
-
-		snprintf(tmp, sizeof(tmp) - 1, "last_name_%d", i);
-		if (bundle_add_str(msg, tmp, last_name) != 0) {
-			ERR("Failed to add data by key to bundle");
-			bundle_free(msg);
-			return;
-		}
-
-		snprintf(tmp, sizeof(tmp) - 1, "phone_number_%d", i);
-		if (bundle_add_str(msg, tmp, phone_number) != 0) {
-			ERR("Failed to add data by key to bundle");
-			bundle_free(msg);
-			return;
-		}
-
-		i++;
-	}
-
-	int result = SVC_RES_FAIL;
-	result = service_client_send_message(service_client, msg);
-
-	if(result != SVC_RES_OK) {
-		// error
-	}
-
-	bundle_free(msg);
-
 }
 
 void send_group_creation_request_to_server(service_client* service_client, Eina_List* buddy_list, const char* group_name, const char* group_image)

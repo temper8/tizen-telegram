@@ -52,6 +52,7 @@
 #define USER_INFO_TABLE_LAST_SEEN_TIME "last_seen"
 #define USER_INFO_TABLE_IS_BLOCKED "is_blocked"
 #define USER_INFO_TABLE_IS_DELETED "is_deleted"
+#define USER_INFO_TABLE_IS_UNKNOWN_PEER "is_unknown"
 
 #define BUDDY_INFO_TABLE_NAME "buddy_info_table"
 
@@ -137,7 +138,7 @@
 #define MEDIA_INFO_TABLE_LAST_NAME "last_name"
 #define MEDIA_INFO_TABLE_FILE_PATH "file_path"
 
-#define MESSAGE_INFO_TABLE_MESSAGE_ROW_ID "msg_row_id"
+//#define MESSAGE_INFO_TABLE_MESSAGE_ROW_ID "msg_row_id"
 #define MESSAGE_INFO_TABLE_MESSAGE_ID "msg_id"
 #define MESSAGE_INFO_TABLE_FLAGS "flags"
 #define MESSAGE_INFO_TABLE_FWD_FROM_ID "fwd_from_id"
@@ -198,15 +199,19 @@ void create_data_base_tables();
 
 Eina_List* get_registered_user_info();
 
-void insert_buddy_into_db(char* table_name, struct tgl_user* U);
+void update_buddy_into_db(char* table_name, struct tgl_user* U);
 
-void update_peer_info_database(tgl_peer_t* UC);
+void init_insert_buddy_into_db(char* table_name, struct tgl_user* U);
+
+void update_peer_info_database(tgl_peer_t* UC, int is_unknown);
 
 void delete_chat_from_db(int peer_id);
 
 void delete_buddy_from_db(int peer_id);
 
-void insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_count);
+void insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_count, int is_unknown);
+
+void init_insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_count, int is_unknown);
 
 void update_buddy_pic_db(char* file_path, char* table_name, int id);
 
@@ -214,11 +219,11 @@ void update_buddy_block_db(char* table_name, int id, int block);
 
 void create_buddy_msg_table(const char* table_name);
 
-void insert_buddy_msg_to_db(struct tgl_message *M);
+Eina_Bool insert_buddy_msg_to_db(struct tgl_message *M);
 
 struct tgl_message* get_message_from_message_table(long long msg_id, char* table_name);
 
-void insert_msg_into_db(struct tgl_message *M, char* table_name, int unique_id);
+Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique_id);
 
 void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id);
 

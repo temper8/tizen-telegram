@@ -27,6 +27,7 @@ void create_data_base_tables()
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -41,6 +42,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -72,6 +74,7 @@ void create_data_base_tables()
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -86,6 +89,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -298,6 +302,7 @@ void create_data_base_tables()
 	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -310,6 +315,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	ret = create_table(table_name, col_names, col_types);
@@ -525,6 +531,7 @@ Eina_List* get_all_peer_details(char* start_name)
 	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -537,6 +544,7 @@ Eina_List* get_all_peer_details(char* start_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	//peer_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL);
@@ -578,6 +586,7 @@ peer_with_pic_s* get_peer_info(int peer_id)
 	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -590,6 +599,7 @@ peer_with_pic_s* get_peer_info(int peer_id)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 
@@ -683,7 +693,11 @@ peer_with_pic_s* get_peer_info(int peer_id)
 			peer_info->photo_id = *temp_pic_id;
 			free(temp_pic_id);
 		}
-
+		int *temp_unknown = (int*)eina_list_nth(ts_msg, 11);
+		if (temp_unknown) {
+			peer_info->is_unknown = *temp_unknown;
+			free(temp_unknown);
+		}
 
 		eina_list_free(ts_msg);
 
@@ -982,6 +996,8 @@ Eina_List* get_buddy_list_info()
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -1000,23 +1016,96 @@ Eina_List* get_buddy_list_info()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
+	int unknown = 0;
+	char unknown_str[50];
+	sprintf(unknown_str, "%d", unknown);
 
-#if 0
-	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen("'Telegram'") + 1);
-	strcpy(where_clause, USER_INFO_TABLE_REAL_FIRST_NAME);
-	strcat(where_clause, " <> ");
-	strcat(where_clause, "'Telegram'");
-#endif
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_IS_UNKNOWN_PEER) + strlen(" = ") + strlen(unknown_str) + strlen(" AND ") + strlen(USER_INFO_TABLE_IS_DELETED) + strlen(" = ") + strlen(unknown_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+	strcat(where_clause, " OR ");
+	strcat(where_clause, USER_INFO_TABLE_IS_DELETED);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
 
-	//user_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL);
-	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_PRINT_NAME, EINA_TRUE, NULL);
+	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_PRINT_NAME, EINA_TRUE, where_clause);
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
+	free(where_clause);
 
 	return user_details;
 }
+
+Eina_List* get_unknown_buddy_list_info()
+{
+	Eina_List* user_details = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PRINT_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_STRUCTURE_VERSION);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_FIRST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHONE_NO);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_ACCESS_HASH);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_REAL_FIRST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_REAL_LAST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_ONLINE_STATUS);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	int unknown = 1;
+	char unknown_str[50];
+	sprintf(unknown_str, "%d", unknown);
+
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_IS_UNKNOWN_PEER) + strlen(" = ") + strlen(unknown_str) + strlen(" AND ") + strlen(USER_INFO_TABLE_IS_DELETED) + strlen(" = ") + strlen(unknown_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+	strcat(where_clause, " OR ");
+	strcat(where_clause, USER_INFO_TABLE_IS_DELETED);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+
+	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_PRINT_NAME, EINA_TRUE, where_clause);
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	free(where_clause);
+
+	return user_details;
+}
+
 #if 0
 void set_chat_bg(char *file_path)
 {
@@ -1191,6 +1280,188 @@ char* get_buddy_name_from_id(int buddy_id)
 	return profile_name;
 }
 
+char* get_buddy_phone_num_from_id(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+	char* phone_num = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHONE_NO);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, buddy_id_str);
+
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+			char* name = (char*)eina_list_nth(buddy_details, 0);
+
+			if (name && strlen(name) > 0) {
+				phone_num = strdup(name);
+			}
+			free(name);
+			eina_list_free(buddy_details);
+		}
+
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return phone_num;
+}
+
+int  get_buddy_block_status(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, buddy_id_str);
+
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+	int is_unknown = 0;
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+
+			int *temp_unknown_status = (int*)eina_list_nth(buddy_details, 0);
+			if(temp_unknown_status) {
+				is_unknown = *temp_unknown_status;
+				free(temp_unknown_status);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return is_unknown;
+}
+
+int  get_buddy_delete_status(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, buddy_id_str);
+
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+	int is_unknown = 0;
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+
+			int *temp_unknown_status = (int*)eina_list_nth(buddy_details, 0);
+			if(temp_unknown_status) {
+				is_unknown = *temp_unknown_status;
+				free(temp_unknown_status);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return is_unknown;
+}
+
+int  get_buddy_unknown_status(int buddy_id)
+{
+	Eina_List* buddy_details_array = NULL;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+
+	char buddy_id_str[50];
+	sprintf(buddy_id_str, "%d", buddy_id);
+
+	char* where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(buddy_id_str) + 1);
+	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, buddy_id_str);
+
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+	int is_unknown = 0;
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+
+			int *temp_unknown_status = (int*)eina_list_nth(buddy_details, 0);
+			if(temp_unknown_status) {
+				is_unknown = *temp_unknown_status;
+				free(temp_unknown_status);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return is_unknown;
+}
+
 int  get_buddy_online_status(int buddy_id)
 {
 	Eina_List* buddy_details_array = NULL;
@@ -1258,6 +1529,7 @@ Eina_List* get_buddy_info(int buddy_id)
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -1272,6 +1544,7 @@ Eina_List* get_buddy_info(int buddy_id)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -1365,7 +1638,7 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
 
 	Eina_List* col_types = NULL;
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -1533,7 +1806,7 @@ void update_msg_into_db(tg_message_s *M, char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 
 	Eina_List* col_types = NULL;
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -1711,7 +1984,7 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
 
 	Eina_List* col_types = NULL;
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -1875,6 +2148,8 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -1887,6 +2162,7 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 
@@ -1915,6 +2191,7 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 	col_values = eina_list_append(col_values, UC->photo_path);
 
 	col_values = eina_list_append(col_values, &(UC->photo_id));
+	col_values = eina_list_append(col_values, &(UC->is_unknown));
 
 	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
 	if(!ret) {
@@ -1963,7 +2240,7 @@ void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 
 
 	Eina_List* col_types = NULL;
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -2901,6 +3178,11 @@ Eina_List* load_peer_data_by_name(char* name)
 			free(temp_pic_id);
 		}
 
+		int *temp_unknown = (int*)eina_list_nth(ts_msg, 11);
+		if (temp_unknown) {
+			peer_info->is_unknown = *temp_unknown;
+			free(temp_unknown);
+		}
 
 		eina_list_free(ts_msg);
 
@@ -3524,7 +3806,7 @@ void create_buddy_msg_table(const char* table_name)
 	}
 	// create user info table
 	Eina_List* col_names = NULL;
-	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ROW_ID);
+	//col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ROW_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
@@ -3543,8 +3825,8 @@ void create_buddy_msg_table(const char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
 
 	Eina_List* col_types = NULL;
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	//col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -3567,4 +3849,54 @@ void create_buddy_msg_table(const char* table_name)
 	}
 	eina_list_free(col_names);
 	eina_list_free(col_types);
+}
+
+void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **last_name, char **phone_number)
+{
+	char* file_path = NULL;
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+
+	char usr_str[50];
+	sprintf(usr_str, "%d", buddy_id);
+	char* where_clause = (char *)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = '") + strlen(usr_str) + strlen("'") + 1);
+	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+	strcat(where_clause, " = '");
+	strcat(where_clause, usr_str);
+	strcat(where_clause, "'");
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_FIRST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHONE_NO);
+
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	file_path = NULL;
+
+	if (!vals) {
+		//("DB error");
+		eina_list_free(col_names);
+		return;
+	} else {
+		int row_count = eina_list_count(vals);
+
+		for (int i = 0 ; i < row_count ; i++) {
+			Eina_List* row_vals = eina_list_nth(vals, i);
+			char *temp_fname = (char*)eina_list_nth(row_vals, 0);
+			*first_name = temp_fname;
+			char *temp_lname = (char*)eina_list_nth(row_vals, 1);
+			*last_name = temp_lname;
+			char *temp_pnumber = (char*)eina_list_nth(row_vals, 2);
+			*phone_number = temp_pnumber;
+			eina_list_free(row_vals);
+			break;
+		}
+		eina_list_free(vals);
+	}
+	eina_list_free(col_names);
+	return;
 }

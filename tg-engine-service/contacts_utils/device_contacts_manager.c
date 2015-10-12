@@ -5,10 +5,7 @@
  */
 
 #include "device_contacts_manager.h"
-#include "contacts_common.h"
-#include "contacts-record-utils.h"
-#include "contacts-list-utils.h"
-#include "contacts-db-utils.h"
+#include "logger.h"
 
 bool sc_cdetails_get_contact_val(sc_common_contact_fields field_type, int contact_id, char **value)
 {

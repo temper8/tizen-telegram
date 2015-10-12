@@ -1773,5 +1773,99 @@ group
       }
    }
 
-	
+   group {
+   	  name: "add_contact_screen";
+      parts {
+          part {
+         	name: "pic_name_layout";
+            type: SWALLOW;            
+            description {
+            	state: "default" 0.0;
+               	rel1 { relative: 0.0 0.0; }
+               	rel2 { relative: 1.0 0.20; }
+               	color: 61 185 204 255;
+            }
+         }
+         part {
+		   	name: "user_info,bg";
+        	type: RECT;
+        	description {
+        		state: "default" 0.0;
+           		rel1 { relative: 0.0 0.20; }
+           		rel2 { relative: 1.0 0.25; }
+           		color: 96 96 96 255;
+        	}
+      	}
+      	part {
+		   	name: "user_info";
+        	type: SWALLOW;
+        	description {
+        		state: "default" 0.0;
+           		rel1 { relative: 0.0 0.20; }
+           		rel2 { relative: 1.0 0.25; }
+           		color: 255 255 255 255;
+        	}
+      	}
+      	
+      	part {
+		   	name: "entry_layout";
+        	type: RECT;
+        	description {
+        		state: "default" 0.0;
+           		rel1 { relative: 0.0 0.25; }
+           		rel2 { relative: 1.0 1.0; }
+           		color: 255 255 255 255;
+        	}
+      	}
+      	
+      	    part {
+		      	name: "setup_guide_text";
+        		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.25; }
+            		rel2 { relative: 0.9 0.3; }
+         		}
+      		}
+      		part {
+     			name: "first_name_entry,bg";
+         		type: RECT;            
+         		description {
+         		state: "default" 0.0;
+            		rel1 { relative: 0.1 0.31; }
+            		rel2 { relative: 0.9 0.41; }
+            		color: 222 222 222 222;                	               	
+         		}
+      		}
+      		part {
+     			name: "first_name_entry";
+         		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.31; }
+            		rel2 { relative: 0.9 0.41; }
+         		}
+      		}
+      		part {
+      			name: "second_name_entry,bg";
+         		type: RECT;            
+         		description {
+      		   		state: "default" 0.0;
+            		rel1 { relative: 0.1 0.44; }
+            		rel2 { relative: 0.9 0.54; }
+            		color: 222 222 222 222;                	               	
+         		}
+      		}
+      	    part {
+      		name: "second_name_entry";
+         		type: SWALLOW;            
+         		description {
+         			state: "default" 0.0;
+            		rel1 { relative: 0.1 0.44; }
+            		rel2 { relative: 0.9 0.54; }
+		         }
+      		}
+      }
+   }
+
 }
