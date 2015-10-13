@@ -463,3 +463,18 @@ msgstr "إلغاء الحظر"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "مشاركة"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "تسجيل الخروج"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "مشفّر من النهاية إلى النهاية"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "غير محفوظ في أي مكان"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "يتم الحذف تلقائياً بعد وقت مضبوط مسبقاً"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "لا يمكن إعادة التوجيه"
+

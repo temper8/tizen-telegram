@@ -1,480 +1,480 @@
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
-msgstr "Die %1$sschnellste%2$s Nachrichten-App der Welt\nSie ist %3$sgratis%4$s und %5$ssicher%6$s."
+msgstr "Munduko mezularitza aplikaziorik %1$sazkarrena%2$s\n%3$sDoakoa%4$s eta %5$ssegurua%6$s da."
 
 msgid "IDS_TGRAM_HEADER_TELEGRAM"
 msgstr "Telegram"
 
 msgid "IDS_TGRAM_HEADER_FAST"
-msgstr "Schnell"
+msgstr "Azkar"
 
 msgid "IDS_TGRAM_HEADER_FREE"
-msgstr "Kostenlos"
+msgstr "Doakoa"
 
 msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
-msgstr "LOS GEHT’S"
+msgstr "HASI MEZULARITZA"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
-msgstr "Weiter"
+msgstr "Hurrengoa"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
-msgstr "Zurück"
+msgstr "Aurrekoa"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
-msgstr "Weiter"
+msgstr "Hurrengoa"
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
-msgstr "%1$sTelegram%2$s stellt Nachrichten\nschneller zu als jede andere App."
+msgstr "%1$sTelegram%2$s eginbidearekin, beste edozein aplikaziorekin\nbaino azkarrago entregatuko dituzu mezuak."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
-msgstr "%1$sTelegram%2$s ist immer gratis.\n\nKeine Werbung. Keine Abonnementgebühren."
+msgstr "%1$sTelegram%2$s beti izango da doakoa.\n\nIragarkirik eta harpidetza kosturik gabe."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
-msgstr "Mit %1$sTelegram%2$s sind Ihre Nachrichten\nvor Hackern sicher."
+msgstr "%1$sTelegram%2$s eginbidearekin, mezuak\nbabestuta izango dituzu hacker-en erasoen aurrean."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
-msgstr "Bei %1$sTelegram%2$s gibt es keine Größenbegrenzungen\nfür Chats und Medienfreigaben."
+msgstr "%1$sTelegram%2$s eginbideak ez du mugarik parteka daitezkeen\ntxaten eta multimedia elementuen neurriari dagokionez."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
-msgstr "%1$sTelegram%2$s ermöglicht den Zugriff auf\nIhre Nachrichten von mehreren Geräten."
+msgstr "%1$sTelegram%2$s eginbidearekin, hainbat gailutan dituzun\nmezuak atzi ditzakezu."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
-msgstr "%1$sTelegram%2$s-Nachrichten sind stark verschlüsselt\nund können automatisch gelöscht werden."
+msgstr "%1$sTelegram%2$s eginbidearen mezuak enkriptatuta daude\neta automatikoki ezaba daitezke."
 
 msgid "IDS_TGRAM_HEADER_SECURE"
-msgstr "Sicher"
+msgstr "Segurua"
 
 msgid "IDS_TGRAM_HEADER_POWERFUL"
-msgstr "Leistungsstark"
+msgstr "Ahaltsua"
 
 msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
-msgstr "Cloud-basiert"
+msgstr "Hodeian oinarrituta"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
-msgstr "Privat"
+msgstr "Pribatua"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Vorherige"
+msgstr "Aurrekoa"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
-msgstr "ABBRECHEN"
+msgstr "UTZI"
 
 msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
-msgstr "FERTIG"
+msgstr "EGINA"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
-msgstr "Nummerneingabe"
+msgstr "Idatzi zenb."
 
 msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
-msgstr "Codeeingabe"
+msgstr "Idatzi kodea"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
-msgstr "Namenseingabe"
+msgstr "Idatzi izena"
 
 msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
-msgstr "Bestätigen Sie Ihre Ländervorwahl und geben Sie Ihre Telefonnummer ein."
+msgstr "Berretsi herrialdearen aurrizkia eta idatzi telefono zenbakia."
 
 msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
-msgstr "Ein Überprüfungscode wurde gesendet. Überprüfen Sie Ihre Nachrichten und geben Sie den Überprüfungscode ein."
+msgstr "Egiaztapen kode bat bidali da. Egiaztatu mezuak eta idatzi egiaztapen kodea."
 
 msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
-msgstr "Telegram ruft in %1$d:%2$d an."
+msgstr "Telegram-ek %1$d:%2$d barru deituko du."
 
 msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
-msgstr "Vor- und Nachnamen eingeben."
+msgstr "Idatzi izen-abizenak."
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
-msgstr "Vorname (erforderlich)"
+msgstr "Izena (derrigorrezkoa)"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
-msgstr "Nachname (erforderlich)"
+msgstr "Abizena (derrigorrezkoa)"
 
 msgid "IDS_TGRAM_BODY_CODE"
-msgstr "Code"
+msgstr "Kodea"
 
 msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Telefono zenbakia"
 
 msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
-msgstr "Kontakte"
+msgstr "Kontaktuak"
 
 msgid "IDS_TGRAM_NPBODY_SEARCH"
-msgstr "Suche"
+msgstr "Bilatu"
 
 msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
-msgstr "Freunde einladen"
+msgstr "Gonbidatu lagunak"
 
 msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
-msgstr "Geheimer Chat"
+msgstr "Txat sekretua"
 
 msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
-msgstr "Kontaktauswahl"
+msgstr "Hautatu kontaktuak"
 
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
-msgstr "Gruppen-Chat"
+msgstr "Talde txata"
 
 msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Alle auswählen"
+msgstr "Hautatu denak"
 
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
-msgstr "Gruppenerstellung"
+msgstr "Sortu taldea"
 
 msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
-msgstr "Neuer Gruppenname"
+msgstr "Talde berriaren izena"
 
 msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
-msgstr "%d ausgewählt"
+msgstr "%d hautatuta"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Azken ikustaldia: duela %d min"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Azken ikustaldia: duela 1 ordu"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Azken ikustaldia: duela %d ordu"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Azken astean ikusitakoak"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Azken hilabetean ikusitakoak"
 
 msgid "IDS_TGRAM_SBODY_ONLINE"
-msgstr "Online"
+msgstr "Konektatuta"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Azkenaldian ikusitakoak"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Azken ikustaldia: aspaldi"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Azken ikustaldia: duela 1 minutu"
 
 msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
-msgstr "SENDEN"
+msgstr "BID."
 
 msgid "IDS_TGRAM_BODY_P1SD_P2SD"
 msgstr "%1$d/%2$d"
 
 msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
-msgstr "Verfassen einer Nachricht"
+msgstr "Sortu mezua"
 
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
-msgstr "Erstellen von Kontakten"
+msgstr "Sortu kontaktua"
 
 msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Name"
+msgstr "Izena"
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
-msgstr "Vorname"
+msgstr "Izena"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
-msgstr "Nachname"
+msgstr "Abizena"
 
 msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
+msgstr "Mugikorra"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Telefono zenbakia"
 
 msgid "IDS_TGRAM_OPT_MOBILE"
-msgstr "Mobil"
+msgstr "Mugikorra"
 
 msgid "IDS_TGRAM_OPT_HOME"
-msgstr "Zuhause"
+msgstr "Hasiera"
 
 msgid "IDS_TGRAM_OPT_WORK"
-msgstr "Arbeit"
+msgstr "Lana"
 
 msgid "IDS_TGRAM_OPT_FAX_HHOME"
-msgstr "Fax (Privat)"
+msgstr "Faxa (etxekoa)"
 
 msgid "IDS_TGRAM_OPT_FAX_HWORK"
-msgstr "Fax (Arbeit)"
+msgstr "Faxa (lanekoa)"
 
 msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
-msgstr "Fax (Andere)"
+msgstr "Faxa (beste bat)"
 
 msgid "IDS_TGRAM_OPT_PAGER"
-msgstr "Pager"
+msgstr "Bilagailua"
 
 msgid "IDS_TGRAM_OPT_OTHER"
-msgstr "Sonstiges"
+msgstr "Beste bat"
 
 msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Suche"
+msgstr "Bilatu"
 
 msgid "IDS_TGRAM_OPT_CONTACTS"
-msgstr "Kontakte"
+msgstr "Kontaktuak"
 
 msgid "IDS_TGRAM_OPT_SETTINGS"
-msgstr "Einstellungen"
+msgstr "Ezarpenak"
 
 msgid "IDS_TGRAM_NPBODY_NO_CHATS"
-msgstr "Keine Chats"
+msgstr "Ez dago txatik"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "Tippen Sie unten rechts auf die Schaltfläche „Neue Gruppe erstellen“ oder drücken Sie die Menü-Taste, um weitere Optionen anzuzeigen."
+msgstr "Elkarrizketa bat hasteko, ukitu behean eskuinaldean dagoen Sortu talde berria botoia, edo sakatu Menua tekla aukera gehiago ikusteko."
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Suche"
+msgstr "Bilatu"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
-msgstr "Keine Ergebnisse"
+msgstr "Ez da emaitzarik aurkitu"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
-msgstr "Auswahl eines Chats"
+msgstr "Hautatu txata"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
-msgstr "Auswahl von Chats"
+msgstr "Hautatu txatak"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Azkenaldian ikusitakoak"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Azken ikustaldia: aspaldi"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Ikusitako azken aldia: duela 1 minutu"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Ikusitako azken aldia: duela %d minutu"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Ikusitako azken aldia: duela 1 ordu"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Azken ikustaldia: duela %d ordu"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Azken astean ikusitakoak"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Azken hilabetean ikusitakoak"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
-msgstr "Profil anzeigen"
+msgstr "Ikusi profila"
 
 msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Löschen"
+msgstr "Ezabatu"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
-msgstr "Benachrichtigungseinstellungen"
+msgstr "Jakinarazpen ezarpenak"
 
 msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
-msgstr "Es gibt noch keine Nachrichten..."
+msgstr "Ez dago mezurik oraindik..."
 
 msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
-msgstr "%d Teilnehmer"
+msgstr "%d parte hartzaile"
 
 msgid "IDS_TGRAM_BODY_P1SS_P2SS"
-msgstr "%1$s %2$s"
+msgstr "%2$s %1$s"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
-msgstr "Sie haben diesen Gruppen-Chat erstellt."
+msgstr "Talde txat hau zuk sortu duzu."
 
 msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
-msgstr "Gruppen-Chat verlassen"
+msgstr "Irten talde txatetik"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s hat den Gruppen-Chat verlassen."
+msgstr "%s talde txatetik irten da."
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s erstellte diesen Gruppen-Chat."
+msgstr "%s(e)k sortu du talde txat hau."
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
-msgstr "Verlassen des Gruppen-Chats"
+msgstr "Irten talde txatetik"
 
 msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
-msgstr "Sie werden diese Gruppe verlassen."
+msgstr "Talde hau utziko duzu."
 
 msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
-msgstr "Abbrechen"
+msgstr "Utzi"
 
 msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
-msgstr "Verlassen"
+msgstr "Irten"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
-msgstr "Zu Telegram hinzufügen"
+msgstr "Gehitu Telegram programan"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
-msgstr "Unbekannt"
+msgstr "Ezezaguna"
 
 msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Löschen"
+msgstr "Ezabatu"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "%s wird aus Ihrer Kontaktliste in Telegram entfernt."
+msgstr "Telegram eginbideko kontaktu zerrendatik kenduko da %s."
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
-msgstr "Text kopieren"
+msgstr "Kopiatu testua"
 
 msgid "IDS_TGRAM_OPT_FORWARD"
-msgstr "Weiterleiten"
+msgstr "Birbidali"
 
 msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
-msgstr "Über Telegram weiterleiten"
+msgstr "Birbidali Telegram bidez"
 
 msgid "IDS_TGRAM_OPT_REPLY"
-msgstr "Antworten"
+msgstr "Erantzun"
 
 msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
-msgstr "Diese Nachricht wird gelöscht."
+msgstr "Mezu hau ezabatuko da"
 
 msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
-msgstr "Profildetails"
+msgstr "Profilaren xehetasunak"
 
 msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
-msgstr "Elementauswahl"
+msgstr "Hautatu"
 
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
-msgstr "LÖSCHEN"
+msgstr "EZABATU"
 
 msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivieren"
+msgstr "Gaitu"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
-msgstr "Für 1 h stummschalten"
+msgstr "Isilarazi 1 orduz"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
-msgstr "Für %d Stunden stummschalten"
+msgstr "Isilarazi %d orduz"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
-msgstr "Für %d Tage stummschalten"
+msgstr "Isilarazi %d egunez"
 
 msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivieren"
+msgstr "Ezgaitu"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
-msgstr "Teilen von Kontaktdetails"
+msgstr "Partekatu kontaktu xehetas."
 
 msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
-msgstr "Die Kontaktdetails von %1$s werden mit %2$s geteilt."
+msgstr "%1$s erabiltzailearen kontaktu xehetasunak %2$s erabiltzailearekin partekatuko dira."
 
 msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
-msgstr "Senden"
+msgstr "Partekatu"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Gehitu kontaktuetara"
 
 msgid "IDS_TGRAM_OPT_CALL"
-msgstr "Anruf"
+msgstr "Deitu"
 
 msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
-msgstr "Nachricht verfassen"
+msgstr "Idatzi mezua"
 
 msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
-msgstr "Neuer Kontakt"
+msgstr "Sortu kontaktua"
 
 msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
-msgstr "Kontakt aktualisieren"
+msgstr "Eguneratu kontaktua"
 
 msgid "IDS_TGRAM_OPT_SAVE"
-msgstr "Speichern"
+msgstr "Gorde"
 
 msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
-msgstr "Abbruch: Schieben"
+msgstr "Irrist. uzteko"
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
-msgstr "Einstellungen"
+msgstr "Ezarpenak"
 
 msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
-msgstr "Töne und Benachrichtigungen"
+msgstr "Soinuak eta jakinarazpenak"
 
 msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
-msgstr "Datenschutz und Sicherheit"
+msgstr "Pribatutasuna eta segurtasuna"
 
 msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
-msgstr "Hintergrundbild festlegen"
+msgstr "Ezarri atzealdeko irudia"
 
 msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
-msgstr "Profilbild festlegen"
+msgstr "Ezarri profileko argazkia"
 
 msgid "IDS_TGRAM_OPT_EDIT_NAME"
-msgstr "Name bearbeiten"
+msgstr "Editatu izena"
 
 msgid "IDS_TGRAM_OPT_LOG_OUT"
-msgstr "Abmelden"
+msgstr "Irten"
 
 msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
-msgstr "Aus Galerie"
+msgstr "Galeriatik"
 
 msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
-msgstr "Foto aufnehmen"
+msgstr "Atera argazkia"
 
 msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
-msgstr "Bildauswahl"
+msgstr "Hautatu irudia"
 
 msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
-msgstr "Sie können Telegram problemlos auf einer Vielzahl von Geräten gleichzeitig verwenden. Geheime Chats sind jedoch nicht mehr verfügbar, nachdem Sie sich abgemeldet haben."
+msgstr "Erabili Telegram gailu ugaritan aldi berean. Halere, irten ondoren txat sekretuak ez dira erabilgarri egongo."
 
 msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
-msgstr "Abmelden"
+msgstr "Irten"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "Sie haben %s zu einem geheimen Chat eingeladen."
+msgstr "%s erabiltzailea txat sekretu batera gonbidatu duzu."
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
-msgstr "Inhalt des geheimen Chatraums:"
+msgstr "Txat sekretuaren edukia:"
 
 msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Einstellen der Auto-Löschzeit"
+msgstr "Ezarri auto. ezabatzeko ordua"
 
 msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
-msgstr "Kontaktdet. anz."
+msgstr "Ikusi kontaktu xehetasunak"
 
 msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Automatische Löschzeit einstellen"
+msgstr "Ezarri auto. ezabatzeko ordua"
 
 msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
-msgstr "Verlauf löschen"
+msgstr "Garbitu historia"
 
 msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
-msgstr "Chat verlassen"
+msgstr "Irten txatetik"
 
 msgid "IDS_TGRAM_OPT_EDIT"
-msgstr "Bearbeiten"
+msgstr "Editatu"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Gehitu Kontaktuetan"
 
 msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
-msgstr "Geheimen Chat starten"
+msgstr "Hasi txat sekretua"
 
 msgid "IDS_TGRAM_OPT_BLOCK"
-msgstr "Sperren"
+msgstr "Blokeatu"
 
 msgid "IDS_TGRAM_OPT_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Desblokeatu"
 
 msgid "IDS_TGRAM_HEADER_BLOCK"
-msgstr "Sperren"
+msgstr "Blokeatu"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s wird blockiert."
+msgstr "%s blokeatuko da"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "%s wird entsperrt."
+msgstr "%s desblokeatuko da."
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Desblokeatu"
 
 msgid "IDS_TGRAM_OPT_SHARE"
-msgstr "Senden"
+msgstr "Partekatu"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
-msgstr "Abmeldung"
+msgstr "Irten"
 
 msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
-msgstr "Verschlüsselt von Ende zu Ende"
+msgstr "Muturretik muturrera enkriptatua"
 
 msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
-msgstr "Nirgendwo gespeichert"
+msgstr "Ez da inon gorde"
 
 msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
-msgstr "Automatisch nach einer voreingestellten Zeit gelöscht"
+msgstr "Automatikoki ezabatu da ezarritako denbora igarotakoan"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
-msgstr "Weiterleitung nicht möglich"
+msgstr "Ezin da birbidali"
 

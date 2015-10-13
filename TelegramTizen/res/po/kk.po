@@ -463,3 +463,18 @@ msgstr "Бұғаттан шығару"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Бөлісу"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Шығу"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Басынан аяғына дейін шифрланған"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Еш жерде сақталмаған"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Алдын ала орнатылған уақыттан кейін автоматты түрде жойылған"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Бағытын өзгерту мүмкін емес"
+

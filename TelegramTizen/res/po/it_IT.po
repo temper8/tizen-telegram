@@ -463,3 +463,18 @@ msgstr "Sblocca"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Condividi"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Disconnetti"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Completamente crittografata"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Non salvata in nessuna posizione"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Eliminata automaticamente dopo un determinato lasso di tempo"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Non può essere inoltrata"
+

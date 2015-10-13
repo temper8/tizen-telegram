@@ -1,480 +1,480 @@
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
-msgstr "Die %1$sschnellste%2$s Nachrichten-App der Welt\nSie ist %3$sgratis%4$s und %5$ssicher%6$s."
+msgstr "Maailman %1$snopein%2$s viestintäsovellus\nSe on %3$smaksuton%4$s ja %5$sturvallinen%6$s."
 
 msgid "IDS_TGRAM_HEADER_TELEGRAM"
 msgstr "Telegram"
 
 msgid "IDS_TGRAM_HEADER_FAST"
-msgstr "Schnell"
+msgstr "Nopea"
 
 msgid "IDS_TGRAM_HEADER_FREE"
-msgstr "Kostenlos"
+msgstr "Maksuton"
 
 msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
-msgstr "LOS GEHT’S"
+msgstr "ALOITA VIESTINTÄ"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
-msgstr "Weiter"
+msgstr "Seuraava"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
-msgstr "Zurück"
+msgstr "Edellinen"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
-msgstr "Weiter"
+msgstr "Seuraava"
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
-msgstr "%1$sTelegram%2$s stellt Nachrichten\nschneller zu als jede andere App."
+msgstr "%1$sTelegram%2$s-sovellus toimittaa\nviestit muita sovelluksia nopeammin."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
-msgstr "%1$sTelegram%2$s ist immer gratis.\n\nKeine Werbung. Keine Abonnementgebühren."
+msgstr "%1$sTelegram%2$s-sovellus on aina maksuton.\n\nEi mainoksia. Ei tilausmaksuja."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
-msgstr "Mit %1$sTelegram%2$s sind Ihre Nachrichten\nvor Hackern sicher."
+msgstr "%1$sTelegram%2$s-sovellus pitää viestisi\nturvassa hakkereilta."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
-msgstr "Bei %1$sTelegram%2$s gibt es keine Größenbegrenzungen\nfür Chats und Medienfreigaben."
+msgstr "%1$sTelegram%2$s-sovelluksessa ei ole rajoitettu\nkeskustelujen ja jaettavien mediasisältöjen kokoa."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
-msgstr "%1$sTelegram%2$s ermöglicht den Zugriff auf\nIhre Nachrichten von mehreren Geräten."
+msgstr "%1$sTelegram%2$s-sovelluksella pääset\nviesteihisi eri laitteista."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
-msgstr "%1$sTelegram%2$s-Nachrichten sind stark verschlüsselt\nund können automatisch gelöscht werden."
+msgstr "%1$sTelegram%2$s-sovelluksen viestit ovat vahvasti\nsalattuja, ja ne voidaan poistaa automaattisesti."
 
 msgid "IDS_TGRAM_HEADER_SECURE"
-msgstr "Sicher"
+msgstr "Turvallinen"
 
 msgid "IDS_TGRAM_HEADER_POWERFUL"
-msgstr "Leistungsstark"
+msgstr "Tehokas"
 
 msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
-msgstr "Cloud-basiert"
+msgstr "Pilvipohjainen"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
-msgstr "Privat"
+msgstr "Yksityinen"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Vorherige"
+msgstr "Edellinen"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
-msgstr "ABBRECHEN"
+msgstr "PERUUTA"
 
 msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
-msgstr "FERTIG"
+msgstr "VALMIS"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
-msgstr "Nummerneingabe"
+msgstr "Anna numero"
 
 msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
-msgstr "Codeeingabe"
+msgstr "Anna koodi"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
-msgstr "Namenseingabe"
+msgstr "Anna nimi"
 
 msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
-msgstr "Bestätigen Sie Ihre Ländervorwahl und geben Sie Ihre Telefonnummer ein."
+msgstr "Vahvista maatunnuksesi ja anna puhelinnumerosi."
 
 msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
-msgstr "Ein Überprüfungscode wurde gesendet. Überprüfen Sie Ihre Nachrichten und geben Sie den Überprüfungscode ein."
+msgstr "Vahvistuskoodi lähetetty. Tarkista viestit ja anna vahvistuskoodi."
 
 msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
-msgstr "Telegram ruft in %1$d:%2$d an."
+msgstr "Telegramin soittoon %1$d.%2$d."
 
 msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
-msgstr "Vor- und Nachnamen eingeben."
+msgstr "Anna etu- ja sukunimesi."
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
-msgstr "Vorname (erforderlich)"
+msgstr "Etunimi (pakollinen)"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
-msgstr "Nachname (erforderlich)"
+msgstr "Sukunimi (pakollinen)"
 
 msgid "IDS_TGRAM_BODY_CODE"
-msgstr "Code"
+msgstr "Koodi"
 
 msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Puhelinnumero"
 
 msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
-msgstr "Kontakte"
+msgstr "Yhteystiedot"
 
 msgid "IDS_TGRAM_NPBODY_SEARCH"
-msgstr "Suche"
+msgstr "Hae"
 
 msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
-msgstr "Freunde einladen"
+msgstr "Kutsu ystäviä"
 
 msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
-msgstr "Geheimer Chat"
+msgstr "Salainen keskustelu"
 
 msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
-msgstr "Kontaktauswahl"
+msgstr "Valitse yhteystiedot"
 
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
-msgstr "Gruppen-Chat"
+msgstr "Ryhmäkeskustelu"
 
 msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Alle auswählen"
+msgstr "Valitse kaikki"
 
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
-msgstr "Gruppenerstellung"
+msgstr "Luo ryhmä"
 
 msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
-msgstr "Neuer Gruppenname"
+msgstr "Uusi ryhmän nimi"
 
 msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
-msgstr "%d ausgewählt"
+msgstr "%d valittu"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Viim. nähty %d minuuttia sitten"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Viimeksi nähty 1 tunti sitten"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Viimeksi nähty %d tuntia sitten"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Viim. nähty alle viikko sitten"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Viim. nähty alle kuukausi sitten"
 
 msgid "IDS_TGRAM_SBODY_ONLINE"
 msgstr "Online"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Viimeksi nähty hiljattain"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Viimeksi nähty kauan sitten"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Viimeksi nähty 1 minuutti sitten"
 
 msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
-msgstr "SENDEN"
+msgstr "LÄHETÄ"
 
 msgid "IDS_TGRAM_BODY_P1SD_P2SD"
 msgstr "%1$d/%2$d"
 
 msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
-msgstr "Verfassen einer Nachricht"
+msgstr "Luo viesti"
 
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
-msgstr "Erstellen von Kontakten"
+msgstr "Luo yhteystieto"
 
 msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Name"
+msgstr "Nimi"
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
-msgstr "Vorname"
+msgstr "Etunimi"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
-msgstr "Nachname"
+msgstr "Sukunimi"
 
 msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
+msgstr "Matkapuhelin"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Puhelinnumero"
 
 msgid "IDS_TGRAM_OPT_MOBILE"
-msgstr "Mobil"
+msgstr "Matkapuhelin"
 
 msgid "IDS_TGRAM_OPT_HOME"
-msgstr "Zuhause"
+msgstr "Koti"
 
 msgid "IDS_TGRAM_OPT_WORK"
-msgstr "Arbeit"
+msgstr "Työ"
 
 msgid "IDS_TGRAM_OPT_FAX_HHOME"
-msgstr "Fax (Privat)"
+msgstr "Faksi (koti)"
 
 msgid "IDS_TGRAM_OPT_FAX_HWORK"
-msgstr "Fax (Arbeit)"
+msgstr "Faksi (työ)"
 
 msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
-msgstr "Fax (Andere)"
+msgstr "Faksi (muu)"
 
 msgid "IDS_TGRAM_OPT_PAGER"
-msgstr "Pager"
+msgstr "Hakulaite"
 
 msgid "IDS_TGRAM_OPT_OTHER"
-msgstr "Sonstiges"
+msgstr "Muu"
 
 msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Suche"
+msgstr "Hae"
 
 msgid "IDS_TGRAM_OPT_CONTACTS"
-msgstr "Kontakte"
+msgstr "Yhteystiedot"
 
 msgid "IDS_TGRAM_OPT_SETTINGS"
-msgstr "Einstellungen"
+msgstr "Asetukset"
 
 msgid "IDS_TGRAM_NPBODY_NO_CHATS"
-msgstr "Keine Chats"
+msgstr "Ei keskusteluita"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "Tippen Sie unten rechts auf die Schaltfläche „Neue Gruppe erstellen“ oder drücken Sie die Menü-Taste, um weitere Optionen anzuzeigen."
+msgstr "Jos haluat aloittaa uuden keskustelun, napauta oikeassa alakulmassa olevaa Luo uusi ryhmä -painiketta tai näytä lisää vaihtoehtoja painamalla valikkonäppäintä."
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Suche"
+msgstr "Hae"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
-msgstr "Keine Ergebnisse"
+msgstr "Tuloksia ei löytynyt"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
-msgstr "Auswahl eines Chats"
+msgstr "Valitse keskustelu"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
-msgstr "Auswahl von Chats"
+msgstr "Valitse kesk."
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Viimeksi nähty hiljattain"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Viimeksi nähty kauan sitten"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Viimeksi nähty 1 minuutti sitten"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Viimeksi nähty %d minuuttia sitten"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Viimeksi nähty 1 tunti sitten"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Viimeksi nähty %d tuntia sitten"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Viimeksi nähty alle viikko sitten"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Viimeksi nähty alle kuukausi sitten"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
-msgstr "Profil anzeigen"
+msgstr "Näytä profiili"
 
 msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Löschen"
+msgstr "Poista"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
-msgstr "Benachrichtigungseinstellungen"
+msgstr "Ilmoitusasetukset"
 
 msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
-msgstr "Es gibt noch keine Nachrichten..."
+msgstr "Viestejä ei vielä ole..."
 
 msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
-msgstr "%d Teilnehmer"
+msgstr "%d osanottajaa"
 
 msgid "IDS_TGRAM_BODY_P1SS_P2SS"
-msgstr "%1$s %2$s"
+msgstr "%1$s. %2$s"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
-msgstr "Sie haben diesen Gruppen-Chat erstellt."
+msgstr "Olet luonut tämän ryhmäkeskustelun."
 
 msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
-msgstr "Gruppen-Chat verlassen"
+msgstr "Poistu ryhmäkeskustelusta"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s hat den Gruppen-Chat verlassen."
+msgstr "%s poistunut ryhmäkeskustelusta."
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s erstellte diesen Gruppen-Chat."
+msgstr "%s loi tämän ryhmäkeskustelun."
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
-msgstr "Verlassen des Gruppen-Chats"
+msgstr "Poistu ryhmäkeskustelusta"
 
 msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
-msgstr "Sie werden diese Gruppe verlassen."
+msgstr "Lähdet tästä ryhmästä."
 
 msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
-msgstr "Abbrechen"
+msgstr "Peruuta"
 
 msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
-msgstr "Verlassen"
+msgstr "Poistu"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
-msgstr "Zu Telegram hinzufügen"
+msgstr "Lisää Telegram-sovellukseen"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
-msgstr "Unbekannt"
+msgstr "Tuntematon"
 
 msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Löschen"
+msgstr "Poista"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "%s wird aus Ihrer Kontaktliste in Telegram entfernt."
+msgstr "%s poistetaan Telegram-sovelluksen yhteystietoluettelosta."
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
-msgstr "Text kopieren"
+msgstr "Kopioi teksti"
 
 msgid "IDS_TGRAM_OPT_FORWARD"
-msgstr "Weiterleiten"
+msgstr "Lähetä edelleen"
 
 msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
-msgstr "Über Telegram weiterleiten"
+msgstr "Välitä Telegramilla"
 
 msgid "IDS_TGRAM_OPT_REPLY"
-msgstr "Antworten"
+msgstr "Vastaa"
 
 msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
-msgstr "Diese Nachricht wird gelöscht."
+msgstr "Viesti poistetaan."
 
 msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
-msgstr "Profildetails"
+msgstr "Profiilitiedot"
 
 msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
-msgstr "Elementauswahl"
+msgstr "Valitse kohteet"
 
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
-msgstr "LÖSCHEN"
+msgstr "POISTA"
 
 msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivieren"
+msgstr "Ota käyttöön"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
-msgstr "Für 1 h stummschalten"
+msgstr "Mykistä 1 tunniksi"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
-msgstr "Für %d Stunden stummschalten"
+msgstr "Mykistä %d tunniksi"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
-msgstr "Für %d Tage stummschalten"
+msgstr "Mykistä %d päiväksi"
 
 msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivieren"
+msgstr "Poista käytöstä"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
-msgstr "Teilen von Kontaktdetails"
+msgstr "Jaa yhteystiedot"
 
 msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
-msgstr "Die Kontaktdetails von %1$s werden mit %2$s geteilt."
+msgstr "Henkilön %1$s yhteystiedot jaetaan henkilön %2$s kanssa."
 
 msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
-msgstr "Senden"
+msgstr "Jaa"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Lisää yhteystietoihin"
 
 msgid "IDS_TGRAM_OPT_CALL"
-msgstr "Anruf"
+msgstr "Puhelu"
 
 msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
-msgstr "Nachricht verfassen"
+msgstr "Luo viesti"
 
 msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
-msgstr "Neuer Kontakt"
+msgstr "Luo yhteystieto"
 
 msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
-msgstr "Kontakt aktualisieren"
+msgstr "Päivitä yhteystieto"
 
 msgid "IDS_TGRAM_OPT_SAVE"
-msgstr "Speichern"
+msgstr "Tallenna"
 
 msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
-msgstr "Abbruch: Schieben"
+msgstr "Peruutettava dia"
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
-msgstr "Einstellungen"
+msgstr "Asetukset"
 
 msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
-msgstr "Töne und Benachrichtigungen"
+msgstr "Äänet ja ilmoitukset"
 
 msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
-msgstr "Datenschutz und Sicherheit"
+msgstr "Yksityisyys ja tietoturva"
 
 msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
-msgstr "Hintergrundbild festlegen"
+msgstr "Aseta taustakuva"
 
 msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
-msgstr "Profilbild festlegen"
+msgstr "Aseta profiilikuva"
 
 msgid "IDS_TGRAM_OPT_EDIT_NAME"
-msgstr "Name bearbeiten"
+msgstr "Muokkaa nimeä"
 
 msgid "IDS_TGRAM_OPT_LOG_OUT"
-msgstr "Abmelden"
+msgstr "Kirjaudu ulos"
 
 msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
-msgstr "Aus Galerie"
+msgstr "Galleriasta"
 
 msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
-msgstr "Foto aufnehmen"
+msgstr "Ota kuva"
 
 msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
-msgstr "Bildauswahl"
+msgstr "Valitse kuva"
 
 msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
-msgstr "Sie können Telegram problemlos auf einer Vielzahl von Geräten gleichzeitig verwenden. Geheime Chats sind jedoch nicht mehr verfügbar, nachdem Sie sich abgemeldet haben."
+msgstr "Voit käyttää Telegram-sovellusta useissa laitteissa samaan aikaan. Salaiset keskustelut eivät kuitenkaan ole käytettävissä uloskirjautumisen jälkeen."
 
 msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
-msgstr "Abmelden"
+msgstr "Kirj. ulos"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "Sie haben %s zu einem geheimen Chat eingeladen."
+msgstr "Olet kutsunut henkilön %s salaiseen keskusteluun."
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
-msgstr "Inhalt des geheimen Chatraums:"
+msgstr "Salaisen keskustelun sisältö:"
 
 msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Einstellen der Auto-Löschzeit"
+msgstr "Aseta autom. poistoaika"
 
 msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
-msgstr "Kontaktdet. anz."
+msgstr "Näytä yhteystiedot"
 
 msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Automatische Löschzeit einstellen"
+msgstr "Aseta automaattinen poistoaika"
 
 msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
-msgstr "Verlauf löschen"
+msgstr "Tyhjennä historia"
 
 msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
-msgstr "Chat verlassen"
+msgstr "Poistu keskustelusta"
 
 msgid "IDS_TGRAM_OPT_EDIT"
-msgstr "Bearbeiten"
+msgstr "Muokkaa"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Lisää yhteystietoihin"
 
 msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
-msgstr "Geheimen Chat starten"
+msgstr "Aloita salainen keskustelu"
 
 msgid "IDS_TGRAM_OPT_BLOCK"
-msgstr "Sperren"
+msgstr "Estä"
 
 msgid "IDS_TGRAM_OPT_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Poista esto"
 
 msgid "IDS_TGRAM_HEADER_BLOCK"
-msgstr "Sperren"
+msgstr "Estä"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s wird blockiert."
+msgstr "%s torjutaan."
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "%s wird entsperrt."
+msgstr "Yhteyshenkilön %s esto poistetaan."
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Poista esto"
 
 msgid "IDS_TGRAM_OPT_SHARE"
-msgstr "Senden"
+msgstr "Jaa"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
-msgstr "Abmeldung"
+msgstr "Kirjaudu ulos"
 
 msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
-msgstr "Verschlüsselt von Ende zu Ende"
+msgstr "Salattu alusta loppuun"
 
 msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
-msgstr "Nirgendwo gespeichert"
+msgstr "Ei ole tallennettu minnekään"
 
 msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
-msgstr "Automatisch nach einer voreingestellten Zeit gelöscht"
+msgstr "Poistetaan automaattisesti esiasetetun ajan kuluttua"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
-msgstr "Weiterleitung nicht möglich"
+msgstr "Ei voi siirtää"
 

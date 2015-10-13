@@ -1,480 +1,480 @@
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
-msgstr "Die %1$sschnellste%2$s Nachrichten-App der Welt\nSie ist %3$sgratis%4$s und %5$ssicher%6$s."
+msgstr "L'aplicació de missatgeria %1$smés ràpida%2$s del món\nÉs %3$sgratuïta%4$s i %5$ssegura%6$s."
 
 msgid "IDS_TGRAM_HEADER_TELEGRAM"
 msgstr "Telegram"
 
 msgid "IDS_TGRAM_HEADER_FAST"
-msgstr "Schnell"
+msgstr "Ràpid"
 
 msgid "IDS_TGRAM_HEADER_FREE"
-msgstr "Kostenlos"
+msgstr "Gratuït"
 
 msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
-msgstr "LOS GEHT’S"
+msgstr "INICIAR MISSATGERIA"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
-msgstr "Weiter"
+msgstr "Següent"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
-msgstr "Zurück"
+msgstr "Anterior"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
-msgstr "Weiter"
+msgstr "Següent"
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
-msgstr "%1$sTelegram%2$s stellt Nachrichten\nschneller zu als jede andere App."
+msgstr "%1$sTelegram%2$s envia missatges\nmés ràpid que cap altra aplicació."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
-msgstr "%1$sTelegram%2$s ist immer gratis.\n\nKeine Werbung. Keine Abonnementgebühren."
+msgstr "%1$sTelegram%2$s sempre serà gratuïta\n\nSense publicitat, sense tarifes de subscripció."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
-msgstr "Mit %1$sTelegram%2$s sind Ihre Nachrichten\nvor Hackern sicher."
+msgstr "%1$sTelegram%2$s manté els missatges\nlluny dels pirates informàtics."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
-msgstr "Bei %1$sTelegram%2$s gibt es keine Größenbegrenzungen\nfür Chats und Medienfreigaben."
+msgstr "%1$sTelegram%2$s no té limitacions quant a la mida de\nxats i multimèdia que pot compartir."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
-msgstr "%1$sTelegram%2$s ermöglicht den Zugriff auf\nIhre Nachrichten von mehreren Geräten."
+msgstr "%1$sTelegram%2$s li permet accedir\nals missatges des de diversos dispositius."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
-msgstr "%1$sTelegram%2$s-Nachrichten sind stark verschlüsselt\nund können automatisch gelöscht werden."
+msgstr "Els missatges de %1$sTelegram%2$s estan molt ben xifrats\ni es poden esborrar automàticament."
 
 msgid "IDS_TGRAM_HEADER_SECURE"
-msgstr "Sicher"
+msgstr "Segur"
 
 msgid "IDS_TGRAM_HEADER_POWERFUL"
-msgstr "Leistungsstark"
+msgstr "Poderós"
 
 msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
-msgstr "Cloud-basiert"
+msgstr "Basat en el núvol"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privat"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Vorherige"
+msgstr "Anterior"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
-msgstr "ABBRECHEN"
+msgstr "CANCEL·LAR"
 
 msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
-msgstr "FERTIG"
+msgstr "REALITZAT"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
-msgstr "Nummerneingabe"
+msgstr "Introd núm"
 
 msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
-msgstr "Codeeingabe"
+msgstr "Introd codi"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
-msgstr "Namenseingabe"
+msgstr "Introd nom"
 
 msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
-msgstr "Bestätigen Sie Ihre Ländervorwahl und geben Sie Ihre Telefonnummer ein."
+msgstr "Confirmi el codi de país i introdueixi el número de telèfon."
 
 msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
-msgstr "Ein Überprüfungscode wurde gesendet. Überprüfen Sie Ihre Nachrichten und geben Sie den Überprüfungscode ein."
+msgstr "S'ha enviat un codi de verificació. Comprovi els missatges i introdueixi el codi de verificació."
 
 msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
-msgstr "Telegram ruft in %1$d:%2$d an."
+msgstr "Telegrama trucarà en %1$d:%2$d."
 
 msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
-msgstr "Vor- und Nachnamen eingeben."
+msgstr "Introdueixi el nom i el cognom."
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
-msgstr "Vorname (erforderlich)"
+msgstr "Nom (obligatori)"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
-msgstr "Nachname (erforderlich)"
+msgstr "Cognom (obligatori)"
 
 msgid "IDS_TGRAM_BODY_CODE"
-msgstr "Code"
+msgstr "Codi"
 
 msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Número de telèfon"
 
 msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
-msgstr "Kontakte"
+msgstr "Contactes"
 
 msgid "IDS_TGRAM_NPBODY_SEARCH"
-msgstr "Suche"
+msgstr "Cercar"
 
 msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
-msgstr "Freunde einladen"
+msgstr "Convidar amics"
 
 msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
-msgstr "Geheimer Chat"
+msgstr "Xat secret"
 
 msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
-msgstr "Kontaktauswahl"
+msgstr "Seleccionar contactes"
 
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
-msgstr "Gruppen-Chat"
+msgstr "Xat de grup"
 
 msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Alle auswählen"
+msgstr "Seleccionar tot"
 
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
-msgstr "Gruppenerstellung"
+msgstr "Crear grup nou"
 
 msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
-msgstr "Neuer Gruppenname"
+msgstr "Nom del grup nou"
 
 msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
-msgstr "%d ausgewählt"
+msgstr "%d seleccion"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Últim vist fa %d minuts"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Últim vist fa 1 hora"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Últim vist fa %d hores"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Últim vist en una setmana"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Últim vist en un mes"
 
 msgid "IDS_TGRAM_SBODY_ONLINE"
-msgstr "Online"
+msgstr "En línia"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Últim vist fa poc"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Últim vist fa temps"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Últim vist fa 1 minut"
 
 msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
-msgstr "SENDEN"
+msgstr "ENV"
 
 msgid "IDS_TGRAM_BODY_P1SD_P2SD"
 msgstr "%1$d/%2$d"
 
 msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
-msgstr "Verfassen einer Nachricht"
+msgstr "Redactar missatge"
 
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
-msgstr "Erstellen von Kontakten"
+msgstr "Crear contacte"
 
 msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Name"
+msgstr "Nom"
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
-msgstr "Vorname"
+msgstr "Nom"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
-msgstr "Nachname"
+msgstr "Cognom"
 
 msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
+msgstr "Mobile"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Número de telèfon"
 
 msgid "IDS_TGRAM_OPT_MOBILE"
-msgstr "Mobil"
+msgstr "Mòbil"
 
 msgid "IDS_TGRAM_OPT_HOME"
-msgstr "Zuhause"
+msgstr "Casa"
 
 msgid "IDS_TGRAM_OPT_WORK"
-msgstr "Arbeit"
+msgstr "Personal"
 
 msgid "IDS_TGRAM_OPT_FAX_HHOME"
-msgstr "Fax (Privat)"
+msgstr "Fax (casa)"
 
 msgid "IDS_TGRAM_OPT_FAX_HWORK"
-msgstr "Fax (Arbeit)"
+msgstr "Fax (feina)"
 
 msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
-msgstr "Fax (Andere)"
+msgstr "Fax (altres)"
 
 msgid "IDS_TGRAM_OPT_PAGER"
-msgstr "Pager"
+msgstr "Cercapersones"
 
 msgid "IDS_TGRAM_OPT_OTHER"
-msgstr "Sonstiges"
+msgstr "Altres"
 
 msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Suche"
+msgstr "Cercar"
 
 msgid "IDS_TGRAM_OPT_CONTACTS"
-msgstr "Kontakte"
+msgstr "Contactes"
 
 msgid "IDS_TGRAM_OPT_SETTINGS"
-msgstr "Einstellungen"
+msgstr "Ajustaments"
 
 msgid "IDS_TGRAM_NPBODY_NO_CHATS"
-msgstr "Keine Chats"
+msgstr "Sense xats"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "Tippen Sie unten rechts auf die Schaltfläche „Neue Gruppe erstellen“ oder drücken Sie die Menü-Taste, um weitere Optionen anzuzeigen."
+msgstr "Per iniciar una conversa nova, toqui el botó Crear un grup nou situat a la part inferior dreta o premi la tecla de menú per veure més opcions."
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Suche"
+msgstr "Cercar"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
-msgstr "Keine Ergebnisse"
+msgstr "No s'han trobat resultats"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
-msgstr "Auswahl eines Chats"
+msgstr "Seleccionar xat"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
-msgstr "Auswahl von Chats"
+msgstr "Seleccion xats"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Últim vist fa poc"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Últim vist fa temps"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Últim vist fa 1 minut"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Últim vist fa %d minuts"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Últim vist fa 1 hora"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Últim vist fa %d hores"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Últim vist en una setmana"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Últim vist en un mes"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
-msgstr "Profil anzeigen"
+msgstr "Veure perfil"
 
 msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Löschen"
+msgstr "Esborrar"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
-msgstr "Benachrichtigungseinstellungen"
+msgstr "Ajustaments de notificacions"
 
 msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
-msgstr "Es gibt noch keine Nachrichten..."
+msgstr "Encara no hi ha cap missatge..."
 
 msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
-msgstr "%d Teilnehmer"
+msgstr "%d participants"
 
 msgid "IDS_TGRAM_BODY_P1SS_P2SS"
-msgstr "%1$s %2$s"
+msgstr "%1$s de %2$s"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
-msgstr "Sie haben diesen Gruppen-Chat erstellt."
+msgstr "Ha creat aquest xat de grup."
 
 msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
-msgstr "Gruppen-Chat verlassen"
+msgstr "Abandonar xat de grup"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s hat den Gruppen-Chat verlassen."
+msgstr "%s ha marxat del xat de grup."
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s erstellte diesen Gruppen-Chat."
+msgstr "%s ha creat aquest xat de grup."
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
-msgstr "Verlassen des Gruppen-Chats"
+msgstr "Abandonar xat de grup"
 
 msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
-msgstr "Sie werden diese Gruppe verlassen."
+msgstr "Deixarà aquest grup."
 
 msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
-msgstr "Abbrechen"
+msgstr "Cancel·lar"
 
 msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
-msgstr "Verlassen"
+msgstr "Abandonar"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
-msgstr "Zu Telegram hinzufügen"
+msgstr "Afegir a Telegram"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
-msgstr "Unbekannt"
+msgstr "Desconegut"
 
 msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Löschen"
+msgstr "Esborrar"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "%s wird aus Ihrer Kontaktliste in Telegram entfernt."
+msgstr "%s s'eliminarà de la seva llista de contactes a Telegram."
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
-msgstr "Text kopieren"
+msgstr "Copiar text"
 
 msgid "IDS_TGRAM_OPT_FORWARD"
-msgstr "Weiterleiten"
+msgstr "Endavant"
 
 msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
-msgstr "Über Telegram weiterleiten"
+msgstr "Desviar mitjançant Telegram"
 
 msgid "IDS_TGRAM_OPT_REPLY"
-msgstr "Antworten"
+msgstr "Respondre"
 
 msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
-msgstr "Diese Nachricht wird gelöscht."
+msgstr "S'esborrarà aquest missatge"
 
 msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
-msgstr "Profildetails"
+msgstr "Detalls del perfil"
 
 msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
-msgstr "Elementauswahl"
+msgstr "Selec elements"
 
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
-msgstr "LÖSCHEN"
+msgstr "ESBORR"
 
 msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivieren"
+msgstr "Habilitar"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
-msgstr "Für 1 h stummschalten"
+msgstr "Silenciar durant 1 hora"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
-msgstr "Für %d Stunden stummschalten"
+msgstr "Silenciar durant %d hores"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
-msgstr "Für %d Tage stummschalten"
+msgstr "Silenciar durant %d dies"
 
 msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivieren"
+msgstr "Deshabilitar"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
-msgstr "Teilen von Kontaktdetails"
+msgstr "Compartir dades contacte"
 
 msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
-msgstr "Die Kontaktdetails von %1$s werden mit %2$s geteilt."
+msgstr "Les dades del contacte %1$s es compartiran amb %2$s."
 
 msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
-msgstr "Senden"
+msgstr "Compartir"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Afegir a Contactes"
 
 msgid "IDS_TGRAM_OPT_CALL"
-msgstr "Anruf"
+msgstr "Trucar"
 
 msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
-msgstr "Nachricht verfassen"
+msgstr "Redactar missatge"
 
 msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
-msgstr "Neuer Kontakt"
+msgstr "Crear contacte"
 
 msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
-msgstr "Kontakt aktualisieren"
+msgstr "Actualitzar contacte"
 
 msgid "IDS_TGRAM_OPT_SAVE"
-msgstr "Speichern"
+msgstr "Desar"
 
 msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
-msgstr "Abbruch: Schieben"
+msgstr "Llisq per canc"
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
-msgstr "Einstellungen"
+msgstr "Ajustaments"
 
 msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
-msgstr "Töne und Benachrichtigungen"
+msgstr "Sons i notificacions"
 
 msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
-msgstr "Datenschutz und Sicherheit"
+msgstr "Privadesa i seguretat"
 
 msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
-msgstr "Hintergrundbild festlegen"
+msgstr "Selecc imatge de fons"
 
 msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
-msgstr "Profilbild festlegen"
+msgstr "Selecc foto del perfil"
 
 msgid "IDS_TGRAM_OPT_EDIT_NAME"
-msgstr "Name bearbeiten"
+msgstr "Editar nom"
 
 msgid "IDS_TGRAM_OPT_LOG_OUT"
-msgstr "Abmelden"
+msgstr "Finalitzar sessió"
 
 msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
-msgstr "Aus Galerie"
+msgstr "De la Galeria"
 
 msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
-msgstr "Foto aufnehmen"
+msgstr "Fer foto"
 
 msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
-msgstr "Bildauswahl"
+msgstr "Selec imatge"
 
 msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
-msgstr "Sie können Telegram problemlos auf einer Vielzahl von Geräten gleichzeitig verwenden. Geheime Chats sind jedoch nicht mehr verfügbar, nachdem Sie sich abgemeldet haben."
+msgstr "Utilitzi Telegram sense problemes als dispositius que vulgui simultàniament. No obstant això, els xats secrets no estaran disponibles després que finalitzi la sessió."
 
 msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
-msgstr "Abmelden"
+msgstr "Final sessió"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "Sie haben %s zu einem geheimen Chat eingeladen."
+msgstr "Ha convidat a %s a un xat secret."
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
-msgstr "Inhalt des geheimen Chatraums:"
+msgstr "Contingut del xat secret:"
 
 msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Einstellen der Auto-Löschzeit"
+msgstr "Selecc hora esborrat autom"
 
 msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
-msgstr "Kontaktdet. anz."
+msgstr "Veure detalls contacte"
 
 msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Automatische Löschzeit einstellen"
+msgstr "Selecc hora esborrat automàtic"
 
 msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
-msgstr "Verlauf löschen"
+msgstr "Esborrar historial"
 
 msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
-msgstr "Chat verlassen"
+msgstr "Abandonar xat"
 
 msgid "IDS_TGRAM_OPT_EDIT"
-msgstr "Bearbeiten"
+msgstr "Editar"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Afegir a Contactes"
 
 msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
-msgstr "Geheimen Chat starten"
+msgstr "Iniciar xat secret"
 
 msgid "IDS_TGRAM_OPT_BLOCK"
-msgstr "Sperren"
+msgstr "Bloc"
 
 msgid "IDS_TGRAM_OPT_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Desbloquejar"
 
 msgid "IDS_TGRAM_HEADER_BLOCK"
-msgstr "Sperren"
+msgstr "Bloquejar"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s wird blockiert."
+msgstr "Es bloquejarà %s"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "%s wird entsperrt."
+msgstr "%s es desbloquejarà."
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Desbloquejar"
 
 msgid "IDS_TGRAM_OPT_SHARE"
-msgstr "Senden"
+msgstr "Compartir"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
-msgstr "Abmeldung"
+msgstr "Finalitzar sessió"
 
 msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
-msgstr "Verschlüsselt von Ende zu Ende"
+msgstr "Xifrat de principi a fi"
 
 msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
-msgstr "Nirgendwo gespeichert"
+msgstr "No està desat enlloc"
 
 msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
-msgstr "Automatisch nach einer voreingestellten Zeit gelöscht"
+msgstr "Esborrat automàticament després d'un temps preseleccionat"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
-msgstr "Weiterleitung nicht möglich"
+msgstr "No es pot reenviar"
 

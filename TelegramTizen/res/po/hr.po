@@ -1,480 +1,480 @@
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
-msgstr "Die %1$sschnellste%2$s Nachrichten-App der Welt\nSie ist %3$sgratis%4$s und %5$ssicher%6$s."
+msgstr "%1$sNajbrža%2$s aplikacija za poruke na svijetu\n%3$sBesplatna%4$s je i %5$ssigurna%6$s."
 
 msgid "IDS_TGRAM_HEADER_TELEGRAM"
 msgstr "Telegram"
 
 msgid "IDS_TGRAM_HEADER_FAST"
-msgstr "Schnell"
+msgstr "Brzo"
 
 msgid "IDS_TGRAM_HEADER_FREE"
-msgstr "Kostenlos"
+msgstr "Besplatno"
 
 msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
-msgstr "LOS GEHT’S"
+msgstr "ZAPOČNI SLANJE PORUKA"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
-msgstr "Weiter"
+msgstr "Dalje"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
-msgstr "Zurück"
+msgstr "Prethodno"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
-msgstr "Weiter"
+msgstr "Dalje"
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
-msgstr "%1$sTelegram%2$s stellt Nachrichten\nschneller zu als jede andere App."
+msgstr "%1$sTelegram%2$s dostavlja poruke\nbrže nego bilo koja druga aplikacija."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
-msgstr "%1$sTelegram%2$s ist immer gratis.\n\nKeine Werbung. Keine Abonnementgebühren."
+msgstr "%1$sTelegram%2$s je zauvijek besplatan.\n\nBez reklama. Bez pretplata."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
-msgstr "Mit %1$sTelegram%2$s sind Ihre Nachrichten\nvor Hackern sicher."
+msgstr "%1$sTelegram%2$s štiti vaše poruke\nod hakera."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
-msgstr "Bei %1$sTelegram%2$s gibt es keine Größenbegrenzungen\nfür Chats und Medienfreigaben."
+msgstr "Kod aplikacije %1$sTelegram%2$s nema ograničenja veličine\nčavrljanja i medija koje dijelite."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
-msgstr "%1$sTelegram%2$s ermöglicht den Zugriff auf\nIhre Nachrichten von mehreren Geräten."
+msgstr "%1$sTelegram%2$s vam omogućuje pristup\nporukama s više uređaja."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
-msgstr "%1$sTelegram%2$s-Nachrichten sind stark verschlüsselt\nund können automatisch gelöscht werden."
+msgstr "Poruke aplikacije %1$sTelegram%2$s jako su šifrirane\ni mogu se automatski izbrisati."
 
 msgid "IDS_TGRAM_HEADER_SECURE"
-msgstr "Sicher"
+msgstr "Sigurno"
 
 msgid "IDS_TGRAM_HEADER_POWERFUL"
-msgstr "Leistungsstark"
+msgstr "Snažno"
 
 msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
-msgstr "Cloud-basiert"
+msgstr "Na oblaku"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
-msgstr "Privat"
+msgstr "Privatno"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Vorherige"
+msgstr "Nazad"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
-msgstr "ABBRECHEN"
+msgstr "ODUSTANI"
 
 msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
-msgstr "FERTIG"
+msgstr "GOTOVO"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
-msgstr "Nummerneingabe"
+msgstr "Unos broja"
 
 msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
-msgstr "Codeeingabe"
+msgstr "Unos koda"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
-msgstr "Namenseingabe"
+msgstr "Unos imena"
 
 msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
-msgstr "Bestätigen Sie Ihre Ländervorwahl und geben Sie Ihre Telefonnummer ein."
+msgstr "Potvrdite kod svoje države i unesite svoj telefonski broj."
 
 msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
-msgstr "Ein Überprüfungscode wurde gesendet. Überprüfen Sie Ihre Nachrichten und geben Sie den Überprüfungscode ein."
+msgstr "Kod za potvrdu poslan. Provjerite svoje poruke i unesite kod za potvrdu."
 
 msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
-msgstr "Telegram ruft in %1$d:%2$d an."
+msgstr "Aplikacija Telegram nazvat će za %1$d:%2$d."
 
 msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
-msgstr "Vor- und Nachnamen eingeben."
+msgstr "Unesite svoje ime i prezime."
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
-msgstr "Vorname (erforderlich)"
+msgstr "Ime (obavezno)"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
-msgstr "Nachname (erforderlich)"
+msgstr "Prezime (obavezno)"
 
 msgid "IDS_TGRAM_BODY_CODE"
-msgstr "Code"
+msgstr "Kod"
 
 msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Telefonski broj"
 
 msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
-msgstr "Kontakte"
+msgstr "Imenik"
 
 msgid "IDS_TGRAM_NPBODY_SEARCH"
-msgstr "Suche"
+msgstr "Traži"
 
 msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
-msgstr "Freunde einladen"
+msgstr "Pozovi prijatelje"
 
 msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
-msgstr "Geheimer Chat"
+msgstr "Tajno čavrljanje"
 
 msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
-msgstr "Kontaktauswahl"
+msgstr "Odabir kontakata"
 
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
-msgstr "Gruppen-Chat"
+msgstr "Grupno čavrljanje"
 
 msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Alle auswählen"
+msgstr "Odaberi sve"
 
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
-msgstr "Gruppenerstellung"
+msgstr "Stvaranje grupe"
 
 msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
-msgstr "Neuer Gruppenname"
+msgstr "Novi naziv grupe"
 
 msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
-msgstr "%d ausgewählt"
+msgstr "Odabrano: %d"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Zadnji put viđeno prije %d min"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Zadnji put viđeno prije 1 sat"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Zadnji put viđeno prije %d h"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Zadnje viđeno unutar tjedan dana"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Zadnje viđeno unutar mjesec dana"
 
 msgid "IDS_TGRAM_SBODY_ONLINE"
-msgstr "Online"
+msgstr "Na mreži"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Zadnji put viđeno nedavno"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Zadnje viđeno prije puno vremena"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Zadnji put viđeno prije 1 minutu"
 
 msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
-msgstr "SENDEN"
+msgstr "ŠALJI"
 
 msgid "IDS_TGRAM_BODY_P1SD_P2SD"
 msgstr "%1$d/%2$d"
 
 msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
-msgstr "Verfassen einer Nachricht"
+msgstr "Nova poruka"
 
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
-msgstr "Erstellen von Kontakten"
+msgstr "Stvaranje kontakta"
 
 msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Name"
+msgstr "Naziv"
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
-msgstr "Vorname"
+msgstr "Ime"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
-msgstr "Nachname"
+msgstr "Prezime"
 
 msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
+msgstr "Mobitel"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
-msgstr "Telefonnummer"
+msgstr "Telefonski broj"
 
 msgid "IDS_TGRAM_OPT_MOBILE"
-msgstr "Mobil"
+msgstr "Mobilni"
 
 msgid "IDS_TGRAM_OPT_HOME"
-msgstr "Zuhause"
+msgstr "Kućni"
 
 msgid "IDS_TGRAM_OPT_WORK"
-msgstr "Arbeit"
+msgstr "Poslovni"
 
 msgid "IDS_TGRAM_OPT_FAX_HHOME"
-msgstr "Fax (Privat)"
+msgstr "Faks (kućni)"
 
 msgid "IDS_TGRAM_OPT_FAX_HWORK"
-msgstr "Fax (Arbeit)"
+msgstr "Faks (posao)"
 
 msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
-msgstr "Fax (Andere)"
+msgstr "Faks (drugo)"
 
 msgid "IDS_TGRAM_OPT_PAGER"
-msgstr "Pager"
+msgstr "Dojavljivač"
 
 msgid "IDS_TGRAM_OPT_OTHER"
-msgstr "Sonstiges"
+msgstr "Ostalo"
 
 msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Suche"
+msgstr "Traži"
 
 msgid "IDS_TGRAM_OPT_CONTACTS"
-msgstr "Kontakte"
+msgstr "Imenik"
 
 msgid "IDS_TGRAM_OPT_SETTINGS"
-msgstr "Einstellungen"
+msgstr "Postavke"
 
 msgid "IDS_TGRAM_NPBODY_NO_CHATS"
-msgstr "Keine Chats"
+msgstr "Nema čavrljanja"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "Tippen Sie unten rechts auf die Schaltfläche „Neue Gruppe erstellen“ oder drücken Sie die Menü-Taste, um weitere Optionen anzuzeigen."
+msgstr "Da biste započeli novi razgovor, dodirnite gumb Nova grupa u donjem desnom kutu ili pritisnite tipku izbornika za više opcija."
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Suche"
+msgstr "Traži"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
-msgstr "Keine Ergebnisse"
+msgstr "Nema rezultata"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
-msgstr "Auswahl eines Chats"
+msgstr "Odabir čavrljanja"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
-msgstr "Auswahl von Chats"
+msgstr "Odabir čavrlj."
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
-msgstr "Zuletzt vor Kurzem gesehen"
+msgstr "Zadnji put viđeno nedavno"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Zuletzt gesehen vor langer Zeit"
+msgstr "Zadnje viđeno prije puno vremena"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Minute"
+msgstr "Zadnji put viđeno prije 1 minutu"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Minuten"
+msgstr "Zadnji put viđeno prije %d min"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "Zuletzt gesehen vor 1 Stunde"
+msgstr "Zadnji put viđeno prije 1 sat"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "Zuletzt gesehen vor %d Stunden"
+msgstr "Zadnji put viđeno prije %d h"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
-msgstr "Zuletzt diese Woche gesehen"
+msgstr "Zadnji put viđeno unutar tjedan dana"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
-msgstr "Zuletzt diesen Monat gesehen"
+msgstr "Zadnji put viđeno unutar mjesec dana"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
-msgstr "Profil anzeigen"
+msgstr "Prikaži profil"
 
 msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Löschen"
+msgstr "Obriši"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
-msgstr "Benachrichtigungseinstellungen"
+msgstr "Postavke obavijesti"
 
 msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
-msgstr "Es gibt noch keine Nachrichten..."
+msgstr "Još nema poruka..."
 
 msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
-msgstr "%d Teilnehmer"
+msgstr "Sudionici: %d"
 
 msgid "IDS_TGRAM_BODY_P1SS_P2SS"
 msgstr "%1$s %2$s"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
-msgstr "Sie haben diesen Gruppen-Chat erstellt."
+msgstr "Stvorili ste ovo grupno čavrljanje."
 
 msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
-msgstr "Gruppen-Chat verlassen"
+msgstr "Napusti grupno čavrljanje"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s hat den Gruppen-Chat verlassen."
+msgstr "%s je napustio/la grupno čavrlj."
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s erstellte diesen Gruppen-Chat."
+msgstr "%s je stvorio/la ovo grupno čavrljanje."
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
-msgstr "Verlassen des Gruppen-Chats"
+msgstr "Napušt. grupnog čavrljanja"
 
 msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
-msgstr "Sie werden diese Gruppe verlassen."
+msgstr "Napustit ćete ovu grupu."
 
 msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
-msgstr "Abbrechen"
+msgstr "Prekini"
 
 msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
-msgstr "Verlassen"
+msgstr "Napusti"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
-msgstr "Zu Telegram hinzufügen"
+msgstr "Dodaj u Telegram"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
-msgstr "Unbekannt"
+msgstr "Nepoznato"
 
 msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Löschen"
+msgstr "Obriši"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "%s wird aus Ihrer Kontaktliste in Telegram entfernt."
+msgstr "%s će se ukloniti s popisa kontakta u Telegramu."
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
-msgstr "Text kopieren"
+msgstr "Kopiraj tekst"
 
 msgid "IDS_TGRAM_OPT_FORWARD"
-msgstr "Weiterleiten"
+msgstr "Proslijedi"
 
 msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
-msgstr "Über Telegram weiterleiten"
+msgstr "Proslijedi putem Telegrama"
 
 msgid "IDS_TGRAM_OPT_REPLY"
-msgstr "Antworten"
+msgstr "Odgovori"
 
 msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
-msgstr "Diese Nachricht wird gelöscht."
+msgstr "Poruka će biti obrisana."
 
 msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
-msgstr "Profildetails"
+msgstr "Detalji profila"
 
 msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
-msgstr "Elementauswahl"
+msgstr "Odabir stavki"
 
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
-msgstr "LÖSCHEN"
+msgstr "IZBRIŠI"
 
 msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivieren"
+msgstr "Uključi"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
-msgstr "Für 1 h stummschalten"
+msgstr "Utišaj na 1 sat"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
-msgstr "Für %d Stunden stummschalten"
+msgstr "Utišaj na %d h"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
-msgstr "Für %d Tage stummschalten"
+msgstr "Utišaj na %d dan/a"
 
 msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivieren"
+msgstr "Isključi"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
-msgstr "Teilen von Kontaktdetails"
+msgstr "Dijelj. detalja o kontaktu"
 
 msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
-msgstr "Die Kontaktdetails von %1$s werden mit %2$s geteilt."
+msgstr "Detalji o kontaktu %1$s podijelit će se s primateljem %2$s."
 
 msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
-msgstr "Senden"
+msgstr "Dijeli"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Dodaj u Imenik"
 
 msgid "IDS_TGRAM_OPT_CALL"
-msgstr "Anruf"
+msgstr "Poziv"
 
 msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
-msgstr "Nachricht verfassen"
+msgstr "Nova poruka"
 
 msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
-msgstr "Neuer Kontakt"
+msgstr "Kreiraj kontakt"
 
 msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
-msgstr "Kontakt aktualisieren"
+msgstr "Aktualiziraj kontakt"
 
 msgid "IDS_TGRAM_OPT_SAVE"
-msgstr "Speichern"
+msgstr "Spremi"
 
 msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
-msgstr "Abbruch: Schieben"
+msgstr "Prij. za odust."
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
-msgstr "Einstellungen"
+msgstr "Postavke"
 
 msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
-msgstr "Töne und Benachrichtigungen"
+msgstr "Zvukovi i obavijesti"
 
 msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
-msgstr "Datenschutz und Sicherheit"
+msgstr "Privatnost i sigurnost"
 
 msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
-msgstr "Hintergrundbild festlegen"
+msgstr "Postavi pozadinsku sliku"
 
 msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
-msgstr "Profilbild festlegen"
+msgstr "Postavi sliku profila"
 
 msgid "IDS_TGRAM_OPT_EDIT_NAME"
-msgstr "Name bearbeiten"
+msgstr "Uredi naziv"
 
 msgid "IDS_TGRAM_OPT_LOG_OUT"
-msgstr "Abmelden"
+msgstr "Odjavi se"
 
 msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
-msgstr "Aus Galerie"
+msgstr "Iz Galerije"
 
 msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
-msgstr "Foto aufnehmen"
+msgstr "Fotografiraj"
 
 msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
-msgstr "Bildauswahl"
+msgstr "Odabir slike"
 
 msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
-msgstr "Sie können Telegram problemlos auf einer Vielzahl von Geräten gleichzeitig verwenden. Geheime Chats sind jedoch nicht mehr verfügbar, nachdem Sie sich abgemeldet haben."
+msgstr "Jednostavno se koristite Telegramom na neograničenom broju uređaju istovremeno. Međutim, tajna čavrljanja neće biti dostupna nakon što se odjavite."
 
 msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
-msgstr "Abmelden"
+msgstr "Odjavi se"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "Sie haben %s zu einem geheimen Chat eingeladen."
+msgstr "Pozvali ste osobu %s na tajno čavrljanje."
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
-msgstr "Inhalt des geheimen Chatraums:"
+msgstr "Sadržaj tajnog čavrljanja:"
 
 msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Einstellen der Auto-Löschzeit"
+msgstr "Postav. vrem. auto. brisanja"
 
 msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
-msgstr "Kontaktdet. anz."
+msgstr "Prikaz detalja kontakta"
 
 msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Automatische Löschzeit einstellen"
+msgstr "Postavi vrijeme auto. brisanja"
 
 msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
-msgstr "Verlauf löschen"
+msgstr "Izbriši povijest"
 
 msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
-msgstr "Chat verlassen"
+msgstr "Napusti čavrljanje"
 
 msgid "IDS_TGRAM_OPT_EDIT"
-msgstr "Bearbeiten"
+msgstr "Uredi"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
-msgstr "Zu Kontakten hinzufügen"
+msgstr "Dodaj u Imenik"
 
 msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
-msgstr "Geheimen Chat starten"
+msgstr "Pokreni tajno čavrljanje"
 
 msgid "IDS_TGRAM_OPT_BLOCK"
-msgstr "Sperren"
+msgstr "Blokiraj"
 
 msgid "IDS_TGRAM_OPT_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Deblokiraj"
 
 msgid "IDS_TGRAM_HEADER_BLOCK"
-msgstr "Sperren"
+msgstr "Blokiranje"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s wird blockiert."
+msgstr "%s će biti blokirano."
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "%s wird entsperrt."
+msgstr "Kontakt %s bit će odblokiran."
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
-msgstr "Aufheben"
+msgstr "Odblokiranje"
 
 msgid "IDS_TGRAM_OPT_SHARE"
-msgstr "Senden"
+msgstr "Dijeli"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
-msgstr "Abmeldung"
+msgstr "Odjavi se"
 
 msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
-msgstr "Verschlüsselt von Ende zu Ende"
+msgstr "Šifrirano od jednog do drugog kraja"
 
 msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
-msgstr "Nirgendwo gespeichert"
+msgstr "Nigdje nije spremljeno"
 
 msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
-msgstr "Automatisch nach einer voreingestellten Zeit gelöscht"
+msgstr "Automatski se briše nakon zadanog vremena"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
-msgstr "Weiterleitung nicht möglich"
+msgstr "Ne može se proslijediti"
 

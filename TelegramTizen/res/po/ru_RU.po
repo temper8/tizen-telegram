@@ -463,3 +463,18 @@ msgstr "Разблокировка"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Отправить"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Выход"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Шифрование на обоих концах"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Не сохраняется"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Автоматическое удаление по прошествии установленного промежутка времени"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Пересылка сообщений невозможна"
+

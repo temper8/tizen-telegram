@@ -463,3 +463,18 @@ msgstr "차단 해제"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "공유"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "로그아웃"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "모든 대화가 암호화됨"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "대화 기록 저장 안 됨"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "일정 시간이 지나면 자동 삭제됨"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "전달할 수 없음"
+

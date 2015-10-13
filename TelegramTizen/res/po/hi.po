@@ -463,3 +463,18 @@ msgstr "अनावरुद्ध करें"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "साझा करें"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "लॉग ऑउट करें"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "शुरू से अंत तक एन्क्रिप्‍ट किया गया"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "कहीं भी सुरक्षित नहीं किया गया"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "एक प्रीसेट समय के बाद स्वचालित रूप से हटाया गया"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "अग्रेषित नहीं किया जा सकता"
+

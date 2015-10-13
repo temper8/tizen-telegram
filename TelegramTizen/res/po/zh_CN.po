@@ -463,3 +463,18 @@ msgstr "解除阻止"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "分享"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "登出"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "已端对端加密"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "不会在任何位置保存。"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "在预定时间后自动删除。"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "无法转发。"
+

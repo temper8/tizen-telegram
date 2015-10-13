@@ -463,3 +463,18 @@ msgstr "Unblock"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Share"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Log out"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Encrypted from end to end"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Not saved anywhere"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Automatically deleted after a preset time"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Cannot be forwarded"
+

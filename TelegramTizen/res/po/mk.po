@@ -1,0 +1,480 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Светски %1$sнајбрзата%2$s апликација за размена на пораки\nТаа е %3$sбесплатна%4$s и %5$sбезбедна%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Брзо"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Бесплатно"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ПОЧНИ РАЗМЕНА НА ПОРАКИ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Следно"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Претходно"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Следно"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "%1$sTelegram%2$s ги испорачува пораките\nпобрзо од која било друга апликација."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "%1$sTelegram%2$s е засекогаш бесплатен.\n\nБез реклами. Без претплати."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "%1$sTelegram%2$s ги чува Вашите пораки\nбезбедни од хакери."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "%1$sTelegram%2$s нема ограничувања на големината на\nразговорите и медиумите што може да ги споделувате."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "%1$sTelegram%2$s Ви овозможува пристап\nдо Вашите пораки од повеќе уреди."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "Пораките од %1$sTelegram%2$s се шифрирани силно\nи може да се бришат автоматски."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Безбедно"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Моќен"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Во облак"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Приватно"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Претходно"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ОТКАЖИ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ГОТОВО"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Внеси број"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Внеси шифра"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Внеси име"
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Потврдете го кодот на земјата и внесете го својот телефонски број."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Пратена е шифра за потврда. Проверете ги своите пораки и внесете ја шифрата за потврда."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Telegram ќе се јави за %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Внесете го името и презимето."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Име (потребно)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Презиме (потребно)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Код"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Телефонски број"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Контакти"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Пребарување"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Поканете пријател(к)и"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Таен разговор"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Избери контакти"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Групен разговор"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Избери ги сите"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Создај група"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Име на нова група"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "%d избрани"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Последен пат видено пред %d мин."
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Последен пат видено пред 1 час"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Последен пат видено пред %d часа"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Последно видено пред една недела"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Последно видено пред еден месец"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "На интернет"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Последен пат видено неодамна"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Последен пат вид. пред мн. време"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Последен пат видено пред 1 мин."
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ПРАТИ"
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Состави порака"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Создај контакт"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Име"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Име"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Презиме"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мобилен"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Телефонски број"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Мобилен"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Дома"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Работа"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Факс (домашен)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Факс (работа)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Факс (друг)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Пејџер"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Друго"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Пребарување"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Контакти"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Подесувања"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Нема разговори"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "За да почнете нов разговор, допрете на копчето Нова група во долниот десен агол или притиснете на копчето Мени за повеќе опции."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Пребарување"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Нема резултати"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Избирање разговор"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Изб. разговори"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Последен пат видено неодамна"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Последен пат видено пред многу време"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Последен пат видено пред 1 минута"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Последен пат видено пред %d минути"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Последен пат видено пред 1 час"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Последен пат видено пред %d часа"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Последен пат видено пред една седмица"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Последен пат видено пред еден месец"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Прикажи профил"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Избриши"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Подесувања за известување"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Тука сé уште нема пораки..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d учесници"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Вие го создадовте овој групен разговор."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Напушти групен разговор"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "%s го напушти групниот разговор."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "%s го создаде овој групен разговор."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Напушти групен разговор"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Ќе ја напуштите групава."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Откажи"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Напушти"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Додај на Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Непознато"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Избриши"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "%s ќе биде отстранет од Вашиот список на контакти во Telegram."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Копирај текст"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Препрати"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Препрати преку Telegram"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Одговори"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Пораката ќе се избрише."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Детали за профил"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Изберете ставки"
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ИЗБРИШИ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Овозможи"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "Исклучи звук на 1 час"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "Исклучи звук на %d часа"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "Исклучи звук на %d дена"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Исклучи"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Сподели детали за контакт"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "Деталите за контакт на %1$s ќе бидат споделени со %2$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Сподели"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Додај во Контакти"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Повик"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Состави порака"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Направи контакт"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Ажурирај контакт"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Сочувај"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Повл. за откаж."
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Подесувања"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Звуци и известувања"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Приватност и безбедност"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Одреди слика во заднина"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Одреди слика за профил"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Измени име"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Одјави се"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Од Галерија"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Сликај"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Изберете слика"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Користете го Telegram незабележливо низ колку било уреди истовремено. Сепак, тајните разговори нема да бидат достапни откако ќе се одјавите."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Одјави се"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Поканивте %s на таен разговор."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Содржина од таен разговор:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Одреди време за авт. бришење"
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Види детали за контакт"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Одреди време за авт. бришење"
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Избриши историја"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Напушти разговор"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Измени"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Додај во Контакти"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Почни таен разговор"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Блокирај"
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Одблокирај"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Блокирај"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ќе се блокира."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "%s ќе се одблокира."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Одблокирај"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Сподели"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Одјави се"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Шифрирано од еден до друг крај"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Никаде не е зачувано"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Автоматски избришано по претходно поставено време"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Не може да се препрати"
+

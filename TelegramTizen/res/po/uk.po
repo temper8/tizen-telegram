@@ -463,3 +463,18 @@ msgstr "Розблокування"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Поділитися"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Вихід"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Шифрування на обох кінцях"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Не зберігається"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Автоматичне видалення після встановленого часового інтервалу"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Неможливо переслати"
+

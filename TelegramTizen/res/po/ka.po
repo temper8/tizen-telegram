@@ -463,3 +463,18 @@ msgstr "განბლოკვა"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "გაზიარება"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "გამოსვლა"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "დაშიფრულია ერთი ბოლოდან მეორე ბოლომდე"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "არსად შეინახა"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "\ავტომატურად წაიშალა წინასწარ დაყენებული დროის შემდეგ"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ვერ გადამისამართდება"
+

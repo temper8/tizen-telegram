@@ -463,3 +463,18 @@ msgstr "Desbloquear"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Compartilhar"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Sair"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Codificado de ponta a ponta"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Não salvo em nenhum lugar"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Excluído automaticamente após um tempo predefinido"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Não pode ser encaminhado"
+

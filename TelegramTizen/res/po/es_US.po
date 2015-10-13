@@ -463,3 +463,18 @@ msgstr "Desbloquear"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Compartir"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Cerrar sesión"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Encriptado integral"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "No se guarda en ningún lugar"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Eliminación automática al transcurrir un tiempo determinado"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "No reenviable"
+

@@ -1,0 +1,480 @@
+msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
+msgstr "Η πιο %1$sγρήγορη%2$s εφαρμογή ανταλλαγής μηνυμάτων στον κόσμο\nΕίναι %3$sδωρεάν%4$s και %5$sασφαλής%6$s."
+
+msgid "IDS_TGRAM_HEADER_TELEGRAM"
+msgstr "Telegram"
+
+msgid "IDS_TGRAM_HEADER_FAST"
+msgstr "Γρήγορη"
+
+msgid "IDS_TGRAM_HEADER_FREE"
+msgstr "Δωρεάν"
+
+msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
+msgstr "ΕΝΑΡΞΗ ΑΝΤΑΛΛΑΓΗΣ ΜΗΝΥΜΑΤΩΝ"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
+msgstr "Επόμενο"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
+msgstr "Προηγούμενο"
+
+msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
+msgstr "Επόμενο"
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
+msgstr "Η εφαρμογή %1$sTelegram%2$s παραδίδει τα μηνύματα\nταχύτερα από κάθε άλλη εφαρμογή."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
+msgstr "Η εφαρμογή %1$sTelegram%2$s είναι δωρεάν για πάντα.\n\nΧωρίς διαφημίσεις. Χωρίς χρεώσεις συνδρομής."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
+msgstr "Η εφαρμογή %1$sTelegram%2$s προστατεύει τα μηνύματά σας\nαπό κακόβουλους χρήστες."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
+msgstr "Η εφαρμογή %1$sTelegram%2$s δεν έχει περιορισμούς ως προς το μέγεθος των\nσυνομιλιών και των πολυμέσων που μπορείτε να μοιραστείτε."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
+msgstr "Η εφαρμογή %1$sTelegram%2$s επιτρέπει την πρόσβαση\nστα μηνύματά σας από πολλές συσκευές."
+
+msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
+msgstr "Τα μηνύματα της εφαρμογής %1$sTelegram%2$s διαθέτουν ισχυρή κρυπτογράφηση\nκαι μπορούν να διαγραφούν αυτόματα."
+
+msgid "IDS_TGRAM_HEADER_SECURE"
+msgstr "Ασφαλής"
+
+msgid "IDS_TGRAM_HEADER_POWERFUL"
+msgstr "Ισχυρή"
+
+msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
+msgstr "Βασισμένο στο cloud"
+
+msgid "IDS_TGRAM_HEADER_PRIVATE"
+msgstr "Απόρρητη"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Προηγούμενο"
+
+msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
+msgstr "ΑΚΥΡΟ"
+
+msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
+msgstr "ΤΕΛΟΣ"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
+msgstr "Εισ. αριθμού"
+
+msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
+msgstr "Εισ. κωδικού"
+
+msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
+msgstr "Εισ. ονόματ."
+
+msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
+msgstr "Επιβεβαιώστε τον κωδικό χώρας και εισαγάγετε τον αριθμό τηλεφώνου σας."
+
+msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
+msgstr "Στάλθηκε κωδικός επαλήθευσης. Ελέγξτε τα μηνύματά σας και καταχωρίστε τον κωδικό επαλήθευσης."
+
+msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
+msgstr "Το Telegram θα καλέσει σε %1$d:%2$d."
+
+msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
+msgstr "Εισαγάγετε όνομα και επίθετο."
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
+msgstr "Όνομα (απαιτείται)"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
+msgstr "Επώνυμο (απαιτείται)"
+
+msgid "IDS_TGRAM_BODY_CODE"
+msgstr "Κωδικός"
+
+msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
+msgstr "Αριθμός τηλεφώνου"
+
+msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
+msgstr "Επαφές"
+
+msgid "IDS_TGRAM_NPBODY_SEARCH"
+msgstr "Αναζήτηση"
+
+msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
+msgstr "Πρόσκληση φίλων"
+
+msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
+msgstr "Μυστική συνομιλία"
+
+msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
+msgstr "Επιλογή επαφών"
+
+msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
+msgstr "Ομαδική συνομιλία"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Επιλογή όλων"
+
+msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
+msgstr "Δημιουρ. ομάδας"
+
+msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
+msgstr "Νέο όνομα ομάδας"
+
+msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
+msgstr "Επιλέχθ. %d"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Τελευτ. εμφάν. πριν από %d λεπτά"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Τελευτ. εμφάνιση πριν από 1 ώρα"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Τελευτ. εμφάν. πριν από %d ώρες"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
+msgstr "Τελευτ. εμφ. εντός της εβδομάδας"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
+msgstr "Τελευτ. εμφάνιση εντός του μήνα"
+
+msgid "IDS_TGRAM_SBODY_ONLINE"
+msgstr "Σε σύνδεση"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
+msgstr "Τελευταία εμφάνιση πρόσφατα"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Τελευτ. εμφ. πριν από πολύ καιρό"
+
+msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Τελευτ. εμφάν. πριν από 1 λεπτό"
+
+msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
+msgstr "ΑΠΟ."
+
+msgid "IDS_TGRAM_BODY_P1SD_P2SD"
+msgstr "%1$d/%2$d"
+
+msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
+msgstr "Νέο μήνυμα"
+
+msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
+msgstr "Δημιουργία επαφής"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Όνομα"
+
+msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
+msgstr "Όνομα"
+
+msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
+msgstr "Επώνυμο"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Κινητό"
+
+msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
+msgstr "Αριθμός τηλεφώνου"
+
+msgid "IDS_TGRAM_OPT_MOBILE"
+msgstr "Κινητό"
+
+msgid "IDS_TGRAM_OPT_HOME"
+msgstr "Οικία"
+
+msgid "IDS_TGRAM_OPT_WORK"
+msgstr "Εργασία"
+
+msgid "IDS_TGRAM_OPT_FAX_HHOME"
+msgstr "Φαξ (οικία)"
+
+msgid "IDS_TGRAM_OPT_FAX_HWORK"
+msgstr "Φαξ (εργασία)"
+
+msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
+msgstr "Φαξ (άλλο)"
+
+msgid "IDS_TGRAM_OPT_PAGER"
+msgstr "Συσκευή τηλεειδοποίησης"
+
+msgid "IDS_TGRAM_OPT_OTHER"
+msgstr "Άλλο"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Αναζήτηση"
+
+msgid "IDS_TGRAM_OPT_CONTACTS"
+msgstr "Επαφές"
+
+msgid "IDS_TGRAM_OPT_SETTINGS"
+msgstr "Ρυθμίσεις"
+
+msgid "IDS_TGRAM_NPBODY_NO_CHATS"
+msgstr "Καμία συνομιλία"
+
+msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
+msgstr "Για να ξεκινήσετε μια νέα συζήτηση, πατήστε το κουμπί «Δημιουργία νέας ομάδας» στην κάτω δεξιά γωνία ή πιέστε το πλήκτρο μενού για περισσότερες επιλογές."
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Αναζήτηση"
+
+msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
+msgstr "Δεν βρέθηκαν αποτελέσματα"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
+msgstr "Επιλογή συνομιλίας"
+
+msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
+msgstr "Επιλ. συνομιλ."
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
+msgstr "Τελευταία εμφάνιση πρόσφατα"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
+msgstr "Τελευταία εμφάνιση πριν από πολύ καιρό"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
+msgstr "Τελευταία εμφάνιση πριν από 1 λεπτό"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
+msgstr "Τελευταία εμφάνιση πριν από %d λεπτά"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
+msgstr "Τελευταία εμφάνιση πριν από 1 ώρα"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
+msgstr "Τελευταία εμφάνιση πριν από %d ώρες"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
+msgstr "Τελευταία εμφάνιση εντός της εβδομάδας"
+
+msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
+msgstr "Τελευταία εμφάνιση εντός του μήνα"
+
+msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
+msgstr "Προβολή προφίλ"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Διαγραφή"
+
+msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
+msgstr "Ρυθμίσεις ειδοποιήσεων"
+
+msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
+msgstr "Δεν υπάρχουν μηνύματα εδώ ακόμα..."
+
+msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
+msgstr "%d συμμετέχοντες"
+
+msgid "IDS_TGRAM_BODY_P1SS_P2SS"
+msgstr "%1$s %2$s"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
+msgstr "Δημιουργήσατε αυτήν την ομάδα συνομιλίας."
+
+msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
+msgstr "Αποχώρηση από ομαδ. συνομιλία"
+
+msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
+msgstr "Ο/η %s αποχ. από ομαδ. συνομ."
+
+msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
+msgstr "Ο χρήστ. %s δημ. αυτήν την ομαδ. συνομ."
+
+msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
+msgstr "Αποχ. από ομαδ. συνομιλία"
+
+msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
+msgstr "Θα αποχωρήσετε από αυτήν την ομάδα."
+
+msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
+msgstr "Ακύρωση"
+
+msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
+msgstr "Αποχώρηση"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
+msgstr "Προσθήκη στο Telegram"
+
+msgid "IDS_TGRAM_SBODY_UNKNOWN"
+msgstr "Άγνωστο"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Διαγραφή"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
+msgstr "Ο χρήστης %s θα καταργηθεί από τη λίστα επαφών στο Telegram."
+
+msgid "IDS_TGRAM_OPT_COPY_TEXT"
+msgstr "Αντιγραφή κειμένου"
+
+msgid "IDS_TGRAM_OPT_FORWARD"
+msgstr "Εμπρός"
+
+msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
+msgstr "Προώθηση μέσω Telegram"
+
+msgid "IDS_TGRAM_OPT_REPLY"
+msgstr "Απάντηση"
+
+msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
+msgstr "Αυτό το μήνυμα θα διαγραφεί."
+
+msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
+msgstr "Λεπτομέρειες προφίλ"
+
+msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
+msgstr "Επιλογή στοιχ."
+
+msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
+msgstr "ΔΙΑΓΡ."
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Ενεργοποίηση"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
+msgstr "Σίγαση για 1 ώρα"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
+msgstr "Σίγαση για %d ώρες"
+
+msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
+msgstr "Σίγαση για %d ημέρες"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Απενεργοποίηση"
+
+msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
+msgstr "Κοινή χρήση λεπτομερ. επαφής"
+
+msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
+msgstr "Οι λεπτομέρειες της επαφής %1$s θα κοινοποιηθούν στο χρήστη %2$s."
+
+msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
+msgstr "Κοινή χρ."
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
+msgstr "Προσθήκη στις Επαφές"
+
+msgid "IDS_TGRAM_OPT_CALL"
+msgstr "Κλήση"
+
+msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
+msgstr "Νέο Μήνυμα"
+
+msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
+msgstr "Δημιουργία επαφής"
+
+msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
+msgstr "Ενημέρωση επαφής"
+
+msgid "IDS_TGRAM_OPT_SAVE"
+msgstr "Αποθήκευση"
+
+msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
+msgstr "Σύρ. για ακύρ."
+
+msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
+msgstr "Ρυθμίσεις"
+
+msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
+msgstr "Ήχοι και ειδοποιήσεις"
+
+msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
+msgstr "Απόρρητο και ασφάλεια"
+
+msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
+msgstr "Ορισμός εικόνας φόντου"
+
+msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
+msgstr "Ορισμός εικόνας προφίλ"
+
+msgid "IDS_TGRAM_OPT_EDIT_NAME"
+msgstr "Επεξεργασία ονόματος"
+
+msgid "IDS_TGRAM_OPT_LOG_OUT"
+msgstr "Αποσύνδεση"
+
+msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
+msgstr "Από τη Συλλογή"
+
+msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
+msgstr "Λήψη φωτογραφίας"
+
+msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
+msgstr "Επιλογή εικόνας"
+
+msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
+msgstr "Χρησιμοποιήστε ταυτόχρονα και απρόσκοπτα την εφαρμογή Telegram σε διάφορες συσκευές. Ωστόσο, οι μυστικές συνομιλίες δεν θα είναι διαθέσιμες μετά την αποσύνδεσή σας."
+
+msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
+msgstr "Αποσύνδεση"
+
+msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
+msgstr "Προσκαλέσατε το χρήστη %s σε μυστική συνομιλία."
+
+msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
+msgstr "Περιεχόμενο μυστικής συνομιλίας:"
+
+msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Ορισμός χρόνου αυτόμ. διαγρ."
+
+msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
+msgstr "Προβολή επαφής"
+
+msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
+msgstr "Ορισμός χρόνου αυτόματης διαγρ."
+
+msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
+msgstr "Εκκαθάριση ιστορικού"
+
+msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
+msgstr "Αποχώρηση από τη συνομιλία"
+
+msgid "IDS_TGRAM_OPT_EDIT"
+msgstr "Επεξεργασία"
+
+msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
+msgstr "Προσθήκη στις Επαφές"
+
+msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
+msgstr "Έναρξη μυστικής συνομιλίας"
+
+msgid "IDS_TGRAM_OPT_BLOCK"
+msgstr "Αποκλ."
+
+msgid "IDS_TGRAM_OPT_UNBLOCK"
+msgstr "Κατάργηση αποκλεισμού"
+
+msgid "IDS_TGRAM_HEADER_BLOCK"
+msgstr "Αποκλεισμός"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Ο χρήστης %s θα αποκλειστεί."
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
+msgstr "Ο αποκλεισμός της επαφής %s θα αναιρεθεί."
+
+msgid "IDS_TGRAM_HEADER_UNBLOCK"
+msgstr "Αναίρεση αποκλεισμού"
+
+msgid "IDS_TGRAM_OPT_SHARE"
+msgstr "Κοινή χρήση"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Αποσύνδεση"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Πλήρως κρυπτογραφημένη"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Δεν έχει αποθηκευτεί κάπου"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Διαγράφεται αυτόματα μετά από ένα προκαθορισμένο διάστημα"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Δεν είναι δυνατή η προώθηση"
+

@@ -463,3 +463,18 @@ msgstr "Déblocage"
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Partager"
 
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Déconnexion"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Chiffré de bout en bout"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Non enregistré"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Suppression automatique après une durée prédéfinie"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Impossible de transférer"
+
