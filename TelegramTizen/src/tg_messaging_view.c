@@ -858,7 +858,7 @@ Evas_Object* on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			//elm_entry_magnifier_disabled_set(entry, EINA_TRUE);
 			// FIXME: Deprecated API
-			elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
+			//elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
 
 			char *sender_name = NULL;
 			if(msg->out) {
@@ -2119,7 +2119,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(chat_conv_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(chat_conv_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	// FIXME: Deprecated API
-	elm_genlist_realization_mode_set(chat_conv_list, EINA_TRUE);
+	//elm_genlist_realization_mode_set(chat_conv_list, EINA_TRUE);
 	//evas_object_color_set(chat_conv_list, 255 , 255, 255, 255);
 #endif
 

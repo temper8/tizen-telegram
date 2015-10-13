@@ -13,7 +13,7 @@ images {
 styles {
 	style {
 		name: "help,comment";
-		base: "font=Tizen text_class=ATO001 font_size=28 align=left color=#FFFFFF color_class=ATO001 ellipsis=1.0";
+		base: "font=Tizen text_class=ATO001 font_size=32 align=center color=#FAFAFA color_class=ATO001 ellipsis=1.0";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -28,58 +28,16 @@ collections {
 	group {
 		name: "setup,layout";
 		parts {
-			/**
-			 * Swallow the scroller to here.
-			 * And the scroller will manages "setup,01", "setup,02", ...
-			 */
 			part {
-				name: "content";
+				name: "bg_color";
 				type: SWALLOW;
 				description {
 					state: "default" 0.0;
 					rel1 { relative: 0.0 0.0; }
 					rel2 { relative: 1.0 1.0; }
+					visible: 1;
 				}
 			}
-
-			part {
-				name: "indicator";
-				type: SWALLOW;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.0 (INDICATOR_H+1004)/1280; }
-					rel2 { relative: 1.0 (INDICATOR_H+1044)/1280; }	
-				}
-			}
-
-			part {
-				name: "button";
-				type: SWALLOW;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.0 1108/1280; }
-					rel2 { relative: 1.0 1.0; }
-				}
-			}
-		}
-	} // setup,layout
-
-	/**
-	 * GUI PPT, Slide 10
-	 */
-	group {
-		name: "setup,frame";
-		parts {
-			part {
-				name: "bg";
-				type: RECT;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; }
-					rel2 { relative: 1.0 1.0; }
-				}
-			}
-
 			part {
 				name: "setup,main";
 				type: SWALLOW;
@@ -97,10 +55,118 @@ collections {
 					state: "default" 0.0;
 					rel1 { relative: 0.0 (679 + INDICATOR_H)/1280; }
 					rel2 { relative: 1.0 (799 + INDICATOR_H)/1280; }
+					align: 0.5 0.5;
+					color: 0 0 0 255*0.17;
+				}
+			}
+
+			part {
+				name: "index";
+				type: SWALLOW;
+				mouse_events: 0;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 (INDICATOR_H+1004)/1280; }
+					rel2 { relative: 1.0 (INDICATOR_H+1044)/1280; }	
+				}
+			}
+
+			part {
+				name: "index,blocker";
+				type: RECT;
+				mouse_events: 0;
+				repeat_events: 0;
+				description {
+					state: "default" 0.0;
+					rel1.to: "index";
+					rel2.to: "index";
+					color: 255 255 255 0;
+					visible: 1;
+				}
+			}
+
+			part {
+				name: "button";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 1108/1280; }
+					rel2 { relative: 1.0 1.0; }
 				}
 			}
 		}
-	} // setup,frame
+	} // setup,layout
+
+	group {
+		name: "button";
+		parts {
+			part  {
+				name: "left,button";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 0.5 1.0; }
+					visible: 0;
+				}
+				description {
+					state: "2,button" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+			}
+			part  {
+				name: "right,button";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.5 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					visible: 0;
+				}
+				description {
+					state: "2,button" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+			}
+			part  {
+				name: "center,button";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					visible: 1;
+				}
+				description {
+					state: "2,button" 0.0;
+					inherit: "default" 0.0;
+					visible: 0;
+				}
+			}
+		} //parts
+		programs {
+			program {
+				name: "1,button";
+				signal: "1,button";
+				source: "button";
+				action: STATE_SET "default" 0.0;
+				target: "left,button";
+				target: "right,button";
+				target: "center,button";
+			}
+			program {
+				name: "2,button";
+				signal: "2,button";
+				source: "button";
+				action: STATE_SET "2,button" 0.0;
+				target: "left,button";
+				target: "right,button";
+				target: "center,button";
+			}
+		}
+	}
 
 	/**
 	 * GUI PPT, Slide 11
@@ -161,13 +227,15 @@ collections {
 				type: TEXT;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 0.5 160/371; }
-					rel2 { relative: 0.5 227/371; }
-					min: 10 0;
+					rel1 { relative: 0.0 160/371; }
+					rel2 { relative: 1.0 227/371; }
+					align: 0.5 0.5;
 					fixed: 1 0;
+					color: 250 250 250 255;
 					text {
 						align: 0.5 0.5;
-						size: 26;
+						size: 50;
+						font: "Tizen=Regular";
 						text: "Telegram";
 					}
 				}
@@ -178,11 +246,15 @@ collections {
 				type: TEXTBLOCK;
 				description {
 					state: "default" 0.0;
-					min: 1 0;
 					fixed: 1 0;
-					rel1 { relative: 0.5 242/371; }
-					rel2 { relative: 0.5 371/371; }
-					text { style: "help,comment"; }
+					rel1 { relative: 0.0 242/371; }
+					rel2 { relative: 1.0 371/371; }
+					align: 0.5 0.5;
+					text {
+						style: "help,comment";
+						min: 0 1;
+						text: "The world's fastest messaging app.";
+					}
 				}
 			}
 		}
