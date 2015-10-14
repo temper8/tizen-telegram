@@ -48,6 +48,8 @@
 
 #define FM_ICON_PATH "images/"
 #define DEFAULT_PROFILE_PIC       FM_ICON_PATH"default_profile_pic.png"
+#define DEFAULT_LIST_THUMB_SINGLE_PIC      FM_ICON_PATH"telegram_list_thumb_image_single.png"
+#define DEFAULT_LIST_THUMB_MULTI_PIC       FM_ICON_PATH"telegram_list_thumb_image_multi.png"
 #define FM_ICON_ROBO_BUDDY       FM_ICON_PATH"robo_buddy.png"
 #define SEARCH_ICON FM_ICON_PATH"/search_icon.png"
 #define ATTACH_ICON FM_ICON_PATH"/ic_ab_attach.png"
@@ -58,11 +60,11 @@
 #define CHAT_BG FM_ICON_PATH"/chat_bg.jpg"
 #define BLUR_BG FM_ICON_PATH"/blur_img.png"
 #define CAMERA_ICON FM_ICON_PATH"/camera-icon.png"
-#define MESSAGE_READ_ICON FM_ICON_PATH"/ic_message_read.png"
+#define MESSAGE_READ_ICON FM_ICON_PATH"/telegram_bubble_read.png"
 #define MESSAGE_SENDING_ICON FM_ICON_PATH"/ic_message_sending.png"
-#define MESSAGE_SENT_ICON FM_ICON_PATH"/ic_message_sent.png"
+#define MESSAGE_SENT_ICON FM_ICON_PATH"/telegram_icon_check.png"
 #define MESSAGE_FAILED_ICON FM_ICON_PATH"/ic_message_failed.png"
-#define MESSAGE_DELIVERED_ICON FM_ICON_PATH"/ic_message_delivered.png"
+#define MESSAGE_DELIVERED_ICON FM_ICON_PATH"/telegram_icon_double_check.png"
 #define FLOATING_MSG_ICON FM_ICON_PATH"/floating_message.png"
 
 #define MEDIA_DOWNLOAD_ICON FM_ICON_PATH"/ic_attach_download.png"
@@ -81,7 +83,7 @@
 
 
 
-#define TG_ICON_FLOATING_PENCIL       FM_ICON_PATH"floating_pencil.png"
+#define TG_ICON_FLOATING_PENCIL       FM_ICON_PATH"telegram_floating_btn_ic.png"
 #define TG_ICON_FLOATING_BG       FM_ICON_PATH"floating_pressed.png"
 #define TG_SEARCH_ICON       FM_ICON_PATH"ic_ab_search.png"
 #define TG_SEARCH_PRESSED_ICON       FM_ICON_PATH"ic_ab_search_pressed.png"
@@ -207,6 +209,16 @@ typedef struct {
 	int type;
 	int id;
 } tgl_peer_id_t;
+
+
+typedef enum _TelegramAppDirection {
+	TELEGRAM_TARGET_DIRECTION_INVAILD = -1,
+	TELEGRAM_TARGET_DIRECTION_PORTRAIT = 0,
+	TELEGRAM_TARGET_DIRECTION_LANDSCAPE_INVERSE = 90,
+	TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE = 180,
+	TELEGRAM_TARGET_DIRECTION_LANDSCAPE = 270,
+	TELEGRAM_TARGET_DIRECTION_MAX,
+} TelegramAppDirection;
 
 
 
@@ -487,6 +499,7 @@ typedef struct tg_main_list_item {
 	Evas_Object* status_lbl;
 	Evas_Object* date_lbl;
 	Evas_Object* msg_status_lbl;
+	Evas_Object* main_item_layout;
 } tg_main_list_item_s;
 
 typedef struct appdata {
@@ -532,6 +545,8 @@ typedef struct appdata {
 	app_visible_state s_app_visible_state;
 	notification_h s_notififcation;
 	Eina_Bool is_server_ready;
+	TelegramAppDirection target_direction;
+	Evas_Object *floating_btn;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
@@ -1058,6 +1073,16 @@ extern void free_user_data(user_data_s *user_data);
 
 extern void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info);
 
+extern TelegramAppDirection tg_get_device_orientation();
+
+extern void update_ccurrent_view(appdata_s *ad);
+
 extern void tg_notification_create(appdata_s *app_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
+
+extern void create_floating_button(appdata_s* ad);
+
+extern void delete_floating_button(appdata_s* ad);
+
+extern void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info);
 
 #endif /* TG_COMMON_H_ */

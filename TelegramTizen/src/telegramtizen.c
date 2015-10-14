@@ -339,6 +339,7 @@ void load_main_list_data(appdata_s *ad)
 			main_item->profile_pic_path = NULL;
 			main_item->status_lbl = NULL;
 			main_item->user_name_lbl = NULL;
+			main_item->main_item_layout = NULL;
 		}
 		eina_list_free(ad->main_list);
 	}
@@ -428,6 +429,7 @@ void load_main_list_data(appdata_s *ad)
 						main_list_item->status_lbl = NULL;
 						main_list_item->date_lbl = NULL;
 						main_list_item->msg_status_lbl = NULL;
+						main_list_item->main_item_layout = NULL;
 						ad->main_list = eina_list_append(ad->main_list, main_list_item);
 
 						// delete message object
@@ -474,6 +476,7 @@ void load_main_list_data(appdata_s *ad)
 							main_list_item->status_lbl = NULL;
 							main_list_item->date_lbl = NULL;
 							main_list_item->msg_status_lbl = NULL;
+							main_list_item->main_item_layout = NULL;
 							ad->main_list = eina_list_append(ad->main_list, main_list_item);
 						}
 					}
@@ -1325,11 +1328,11 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 		app->is_server_ready = is_success;
 
-		if (app->is_server_ready) {
+/*		if (app->is_server_ready) {
 			show_toast(app, "server is ready");
 		} else {
 			show_toast(app, "server is not ready");
-		}
+		}*/
 
 	} else if (strcmp(rec_key_val, "buddy_profile_pic_updated") == 0) {
 		char* user_id_str = NULL;
@@ -1536,23 +1539,23 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 					        } else {
 					        	org_msg = "";
 					        }
-
+					        elm_object_text_set(sel_item->status_lbl, "");
 					        int len_org_str = strlen(org_msg);
 
-					        char res[25] = {'\0'};
+					        char res[40] = {'\0'};
 					        char status_buf[126] = {'\0'};
-					        if(len_org_str > 25) {
-					        	strncpy(res, org_msg, 24);
-					        	if(msg->service) {
-					        		sprintf(status_buf,"<font=Tizen:style=Italic color=#158CB0 align=left><font_size=30>%s</font_size></font>", res);
+					        if(len_org_str > 40) {
+					        	strncpy(res, org_msg, 39);
+					        	if(msg->service == 1 || msg->service == 2) {
+					        		sprintf(status_buf,"<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", res);
 					        	} else {
-					        		sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+					        		sprintf(status_buf,"<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
 					        	}
 					        } else {
-					        	if(msg->service) {
-					        		sprintf(status_buf, "<font=Tizen:style=Italic color=#158CB0 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        	if(msg->service == 1 || msg->service == 2) {
+					        		sprintf(status_buf, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", org_msg);
 					        	} else {
-					        		sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        		sprintf(status_buf, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
 					        	}
 					        }
 							elm_object_text_set(sel_item->status_lbl, status_buf);
@@ -2285,13 +2288,13 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 					        int len_org_str = strlen(org_msg);
 
-					        char res[25] = {'\0'};
+					        char res[40] = {'\0'};
 					        char status_buf[126] = {'\0'};
-					        if(len_org_str > 25) {
-					        	strncpy(res, org_msg, 24);
-					        	sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", res);
+					        if(len_org_str > 40) {
+					        	strncpy(res, org_msg, 39);
+					        	sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
 					        } else {
-					        	snprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=30>%s</font_size></font>", org_msg);
+					        	snprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
 					        }
 							elm_object_text_set(sel_item->status_lbl, status_buf);
 						}
@@ -2435,7 +2438,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 					main_list_item->status_lbl = NULL;
 					main_list_item->date_lbl = NULL;
 					main_list_item->msg_status_lbl = NULL;
-
+					main_list_item->main_item_layout = NULL;
 
 					// delete message object
 					if(msg->message) {
@@ -2481,6 +2484,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 						main_list_item->status_lbl = NULL;
 						main_list_item->date_lbl = NULL;
 						main_list_item->msg_status_lbl = NULL;
+						main_list_item->main_item_layout = NULL;
 
 					}
 				}
@@ -2528,6 +2532,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 						}
 						old_item->date_lbl = NULL;
 						old_item->msg_status_lbl = NULL;
+						old_item->main_item_layout = NULL;
 						old_item->profile_pic = NULL;
 						old_item->profile_pic_path = NULL;
 						old_item->status_lbl = NULL;
@@ -2554,6 +2559,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			ad->buddy_in_cahtting_data = NULL;
 			ad->peer_in_cahtting_data = NULL;
 			elm_naviframe_item_pop(ad->nf);
+			create_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
 			break;
 		case TG_SELECT_BUDDY_VIEW:
@@ -2562,6 +2568,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			break;
 		case TG_PEER_SEARCH_VIEW_STATE:
 			elm_naviframe_item_pop(ad->nf);
+			create_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
 			break;
 		case TG_SET_USERNAME_STATE:
@@ -2580,6 +2587,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 		case TG_START_MESSAGING_VIEW_STATE:
 		case TG_SETTINGS_SCREEN_STATE:
 			elm_naviframe_item_pop(ad->nf);
+			create_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
 			//evas_object_show(ad->panel);
 			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
@@ -2715,7 +2723,7 @@ static void create_base_gui(appdata_s *ad)
 		int rots[4] = { 0, 90, 180, 270 };
 		elm_win_wm_rotation_available_rotations_set(ad->win, (const int *)(&rots), 4);
 	}
-
+	ad->target_direction = tg_get_device_orientation();
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_CUSTOM_WINSET_EDJ, edj_path, (int)PATH_MAX);
 
@@ -2730,7 +2738,8 @@ static void create_base_gui(appdata_s *ad)
 	ad->layout = elm_layout_add(ad->conform);
 	evas_object_size_hint_weight_set(ad->layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	elm_layout_theme_set(ad->layout, "layout", "drawer", "panel");
+	//elm_layout_theme_set(ad->layout, "layout", "drawer", "panel");
+	elm_layout_theme_set(ad->layout, "layout", "application", "default");
 	evas_object_show(ad->layout);
 
 	elm_object_content_set(ad->conform, ad->layout);
@@ -2932,6 +2941,7 @@ app_terminate(void *data)
 			}
 			main_item->date_lbl = NULL;
 			main_item->msg_status_lbl = NULL;
+			main_item->main_item_layout = NULL;
 			main_item->profile_pic = NULL;
 			main_item->profile_pic_path = NULL;
 			main_item->status_lbl = NULL;
@@ -3095,13 +3105,99 @@ ui_app_lang_changed(app_event_info_h event_info, void *user_data)
 	return;
 }
 
-static void
-ui_app_orient_changed(app_event_info_h event_info, void *user_data)
+
+TelegramAppDirection tg_get_device_orientation()
 {
-	/*APP_EVENT_DEVICE_ORIENTATION_CHANGED*/
+	TelegramAppDirection target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT;
+	app_device_orientation_e orientation = APP_DEVICE_ORIENTATION_0;
 
-	//elm_object_signal_emit(layout, "change,view", "swallow.media_item");
+	orientation = app_get_device_orientation();
+	switch (orientation) {
+		case APP_DEVICE_ORIENTATION_0:
+		{
+			target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT;
+			break;
+		}
+		case APP_DEVICE_ORIENTATION_90:
+		{
+			target_direction = TELEGRAM_TARGET_DIRECTION_LANDSCAPE_INVERSE;
+			break;
+		}
+		case APP_DEVICE_ORIENTATION_180:
+		{
+			target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE;
+			break;
+		}
+		case APP_DEVICE_ORIENTATION_270:
+		{
+			target_direction = TELEGRAM_TARGET_DIRECTION_LANDSCAPE;
+			break;
+		}
+		default:
+		{
+			target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT;
+			break;
+		}
+	}
+	return target_direction;
+}
 
+void update_ccurrent_view(appdata_s *ad)
+{
+	if (!ad) {
+		return;
+	}
+	switch (ad->current_app_state) {
+	case TG_USER_MAIN_VIEW_STATE:
+		refresh_main_list_view(ad, EINA_FALSE);
+		break;
+	default:
+		break;
+	}
+
+}
+
+
+static void ui_app_orient_changed(app_event_info_h event_info, void *user_data)
+{
+	appdata_s *ad = user_data;
+	if (!ad) {
+		return;
+	}
+	TelegramAppDirection target_direction;
+	app_device_orientation_e orientation = APP_DEVICE_ORIENTATION_0;
+	app_event_get_device_orientation(event_info, &orientation);
+	switch (orientation) {
+	case APP_DEVICE_ORIENTATION_0:
+	{
+		target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT;
+		break;
+	}
+	case APP_DEVICE_ORIENTATION_90:
+	{
+		target_direction = TELEGRAM_TARGET_DIRECTION_LANDSCAPE_INVERSE;
+		break;
+	}
+	case APP_DEVICE_ORIENTATION_180:
+	{
+		target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE;
+		break;
+	}
+	case APP_DEVICE_ORIENTATION_270:
+	{
+		target_direction = TELEGRAM_TARGET_DIRECTION_LANDSCAPE;
+		break;
+	}
+	default:
+	{
+		target_direction = TELEGRAM_TARGET_DIRECTION_PORTRAIT;
+		break;
+	}
+	}
+	if (target_direction != ad->target_direction) {
+		ad->target_direction = target_direction;
+		update_ccurrent_view(ad);
+	}
 	return;
 }
 

@@ -4,7 +4,7 @@
 #include "tg_common.h"
 #include "tg_db_wrapper.h"
 #include <media_content.h>
-
+#include "tg_start_messaging_view.h"
 
 void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
 {
@@ -402,4 +402,47 @@ void tg_notification_create(appdata_s *app_data, char * icon_path, const char *t
 	if(ret != NOTIFICATION_ERROR_NONE) {
 	}
 	return;
+}
+
+void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+
+	if (!ad->buddy_list || eina_list_count(ad->buddy_list) <= 0) {
+		load_buddy_list_data(ad);
+	}
+	delete_floating_button(ad);
+	launch_start_messaging_view(ad);
+}
+
+
+void create_floating_button(appdata_s* ad)
+{
+	if (!ad)
+		return;
+	if (ad->floating_btn)
+		return;
+
+    Evas_Object *pencil_icon = elm_image_add(ad->nf);
+    elm_image_file_set(pencil_icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+    evas_object_show(pencil_icon);
+	ad->floating_btn = eext_floatingbutton_add(ad->layout);
+	evas_object_color_set(ad->floating_btn, 255, 255, 255, 255);
+	elm_object_part_content_set(ad->layout, "elm.swallow.floatingbutton", ad->floating_btn);
+	/* Floating Button 1 */
+	Evas_Object *new_msg_btn = elm_button_add(ad->floating_btn);
+	evas_object_smart_callback_add(new_msg_btn, "clicked", on_new_message_clicked, ad);
+	elm_object_part_content_set(ad->floating_btn, "button1", new_msg_btn);
+	elm_object_part_content_set(new_msg_btn, "icon", pencil_icon);
+}
+
+void delete_floating_button(appdata_s* ad)
+{
+	if (!ad)
+		return;
+
+	if (ad->floating_btn){
+		evas_object_del(ad->floating_btn);
+		ad->floating_btn = NULL;
+	}
 }

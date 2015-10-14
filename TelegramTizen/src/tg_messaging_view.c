@@ -65,6 +65,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 				}
 				old_item->date_lbl = NULL;
 				old_item->msg_status_lbl = NULL;
+				old_item->main_item_layout = NULL;
 				old_item->profile_pic = NULL;
 				old_item->profile_pic_path = NULL;
 				old_item->status_lbl = NULL;
@@ -100,6 +101,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 				}
 				old_item->date_lbl = NULL;
 				old_item->msg_status_lbl = NULL;
+				old_item->main_item_layout = NULL;
 				old_item->profile_pic = NULL;
 				old_item->profile_pic_path = NULL;
 				old_item->status_lbl = NULL;
@@ -149,6 +151,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 				}
 				old_item->date_lbl = NULL;
 				old_item->msg_status_lbl = NULL;
+				old_item->main_item_layout = NULL;
 				old_item->profile_pic = NULL;
 				old_item->profile_pic_path = NULL;
 				old_item->status_lbl = NULL;
@@ -191,6 +194,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 				}
 				old_item->date_lbl = NULL;
 				old_item->msg_status_lbl = NULL;
+				old_item->main_item_layout = NULL;
 				old_item->profile_pic = NULL;
 				old_item->profile_pic_path = NULL;
 				old_item->status_lbl = NULL;
