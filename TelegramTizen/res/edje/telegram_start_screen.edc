@@ -8,6 +8,7 @@ images {
 	image: "telegram_icon_free.png" COMP;
 	image: "telegram_icon_fast.png" COMP;
 	image: "telegram_icon_cloud.png" COMP;
+	image: "telegram_button_on_bg.#.png" COMP;
 }
 
 styles {
@@ -47,16 +48,17 @@ collections {
 					rel2 { relative: 1.0 (657 + INDICATOR_H)/1280; }
 				}
 			}
-
 			part {
 				name: "start,button";
 				type: SWALLOW;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 0.0 (679 + INDICATOR_H)/1280; }
-					rel2 { relative: 1.0 (799 + INDICATOR_H)/1280; }
+					rel1 { relative: 0.5 (679 + INDICATOR_H)/1280; }
+					rel2 { relative: 0.5 (799 + INDICATOR_H)/1280; }
+					fixed: 1 0;
+					min: 496 78;
+					max: 496 78;
 					align: 0.5 0.5;
-					color: 0 0 0 255*0.17;
 				}
 			}
 
@@ -98,6 +100,93 @@ collections {
 	} // setup,layout
 
 	group {
+		name: "button,style";
+		parts {
+			part {
+				name: "bg";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					color: 255 255 255 0;
+					visible: 1;
+				}
+			}
+			part {
+				name: "button,bg";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "bg"; }
+					rel2 { relative: 1.0 1.0; to: "bg"; }
+					color: 0 0 0 43;
+					image {
+						normal: "telegram_button_on_bg.#.png";
+						border: 30 30 0 0;
+					}
+				}
+				description {
+					state: "pressed" 0.0;
+					inherit: "default" 0.0;
+					color: 0 0 0 80;
+				}
+			}
+			part {
+				name: "text";
+				type: TEXT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					align: 0.5 0.5;
+					color: 250 250 250 255;
+					text {
+						align: 0.5 0.5;
+						size: 30;
+						font: "Tizen=Regular";
+						text: "Telegram";
+					}
+				}
+			}
+			part {
+				name: "event";
+				type: RECT;
+				description {
+					rel1.to: "button,bg";
+					rel2.to: "button,bg";
+					color: 255 255 255 0;
+					visible: 1;
+				}
+			}
+		}
+		programs {
+			program {
+				name: "btn,pressed";
+				signal: "mouse,down,1";
+				source: "event";
+				action: STATE_SET "pressed" 0.0;
+				target: "button,bg";
+			}
+			program {
+				name: "btn,release";
+				signal: "mouse,up,1";
+				source: "event";
+				action: STATE_SET "default" 0.0;
+				target: "button,bg";
+			}
+			program {
+				name: "btn,click";
+				signal: "mouse,clicked,1";
+				source: "event";
+				action: SIGNAL_EMIT "clicked" "button";
+			}
+		}
+	} // button style
+
+	group {
 		name: "button";
 		parts {
 			part  {
@@ -107,6 +196,7 @@ collections {
 					state: "default" 0.0;
 					rel1 { relative: 0.0 0.0; }
 					rel2 { relative: 0.5 1.0; }
+					max: 320 104;
 					visible: 0;
 				}
 				description {
@@ -122,6 +212,7 @@ collections {
 					state: "default" 0.0;
 					rel1 { relative: 0.5 0.0; }
 					rel2 { relative: 1.0 1.0; }
+					max: 320 104;
 					visible: 0;
 				}
 				description {
@@ -137,6 +228,7 @@ collections {
 					state: "default" 0.0;
 					rel1 { relative: 0.0 0.0; }
 					rel2 { relative: 1.0 1.0; }
+					max: 496 104;
 					visible: 1;
 				}
 				description {

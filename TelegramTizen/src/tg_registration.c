@@ -153,7 +153,7 @@ void launch_registration_cb(appdata_s *ad)
 	ad->current_app_state = TG_REGISTRATION_STATE;
 
 	char edj_path[PATH_MAX] = {0, };
-	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+	app_get_resource(TELEGRAM_REGISTRATION_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);

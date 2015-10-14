@@ -13,7 +13,7 @@
 
 static void _set_init_screen(Evas_Object *layout);
 
-static void on_start_btn_clicked(void* data, Evas_Object* obj, void* event)
+static void on_start_btn_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
 {
 	appdata_s* ad = data;
 	elm_naviframe_item_pop(ad->nf);
@@ -80,7 +80,7 @@ static void _set_init_screen(Evas_Object *layout)
 		evas_object_color_set(bg, 237, 116, 36, 255);
 		elm_object_signal_emit(content_layout, "private", "icon");
 		elm_object_signal_emit(button, "1,button", "button");
-		elm_object_translatable_text_set(center_btn, "IDS_TGRAM_BUTTON_PREVIOUS");
+		elm_object_part_text_set(center_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_PREVIOUS"));
 		elm_object_translatable_part_text_set(content_layout, "title", i18n_get_text("IDS_TGRAM_HEADER_PRIVATE"));
 		snprintf(value, sizeof(value), elm_entry_utf8_to_markup(i18n_get_text("IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY")), "<b>", "</b>");
 		elm_object_translatable_part_text_set(content_layout, "comment", value);
@@ -89,7 +89,7 @@ static void _set_init_screen(Evas_Object *layout)
 		evas_object_color_set(bg, 45, 165, 224, 255);
 		elm_object_signal_emit(content_layout, "telegram", "icon");
 		elm_object_signal_emit(button, "1,button", "button");
-		elm_object_translatable_text_set(center_btn, "IDS_TGRAM_BUTTON_NEXT_ABB5");
+		elm_object_part_text_set(center_btn,"text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
 		elm_object_translatable_part_text_set(content_layout, "title", i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
 		snprintf(value, sizeof(value), elm_entry_utf8_to_markup(i18n_get_text("IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS")), "<b>", "</b>", "<b>", "</b>", "<b>", "</b>");
 		elm_object_translatable_part_text_set(content_layout, "comment", value);
@@ -98,7 +98,7 @@ static void _set_init_screen(Evas_Object *layout)
 	index_bring_in(index, page_idx);
 }
 
-static void _bottom_btn_clicked(void* data, Evas_Object* obj, void* event)
+static void _bottom_btn_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
 {
 	Evas_Object *layout = data;
 	int kind = 3;
@@ -165,40 +165,40 @@ static Evas_Object *_create_bottom_button(Evas_Object *layout, char *edj_path)
 	elm_object_part_content_set(layout, "button", bottom_layout);
 	evas_object_show(bottom_layout);
 
-	right_btn = elm_button_add(bottom_layout);
-	//elm_object_style_set(right_btn, "transparent");
+	right_btn = elm_layout_add(bottom_layout);
+	elm_layout_file_set(right_btn, edj_path, "button,style");
 	evas_object_size_hint_weight_set(right_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(right_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_min_set(right_btn, 320, 104);
 	evas_object_size_hint_max_set(right_btn, 320, 104);
 	evas_object_show(right_btn);
-	elm_object_translatable_text_set(right_btn, "IDS_TGRAM_BUTTON_NEXT_ABB5");
+	elm_object_part_text_set(right_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
 	elm_object_part_content_set(bottom_layout, "right,button", right_btn);
-	evas_object_smart_callback_add(right_btn, "clicked", _bottom_btn_clicked, layout);
+	elm_object_signal_callback_add(right_btn, "clicked", "button", _bottom_btn_clicked, layout);
 	evas_object_data_set(right_btn, "kind", (void *) 1);
 
-	left_btn = elm_button_add(bottom_layout);
-	//elm_object_style_set(right_btn, "transparent");
+	left_btn = elm_layout_add(bottom_layout);
+	elm_layout_file_set(left_btn, edj_path, "button,style");
 	evas_object_size_hint_weight_set(left_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(left_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_min_set(left_btn, 320, 104);
 	evas_object_size_hint_max_set(left_btn, 320, 104);
 	evas_object_show(left_btn);
-	elm_object_translatable_text_set(left_btn, "IDS_TGRAM_BUTTON_PREVIOUS");
+	elm_object_part_text_set(left_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_PREVIOUS"));
 	elm_object_part_content_set(bottom_layout, "left,button", left_btn);
-	evas_object_smart_callback_add(left_btn, "clicked", _bottom_btn_clicked, layout);
+	elm_object_signal_callback_add(left_btn, "clicked", "button", _bottom_btn_clicked, layout);
 	evas_object_data_set(left_btn, "kind", (void *) 2);
 
-	center_btn = elm_button_add(bottom_layout);
-	//elm_object_style_set(right_btn, "transparent");
+	center_btn = elm_layout_add(bottom_layout);
+	elm_layout_file_set(center_btn, edj_path, "button,style");
 	evas_object_size_hint_weight_set(center_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(center_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_min_set(center_btn, 496, 104);
 	evas_object_size_hint_max_set(center_btn, 656, 104);
 	evas_object_show(center_btn);
-	elm_object_translatable_text_set(center_btn, "IDS_TGRAM_BUTTON_NEXT_ABB5");
+	elm_object_part_text_set(center_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
 	elm_object_part_content_set(bottom_layout, "center,button", center_btn);
-	evas_object_smart_callback_add(center_btn, "clicked", _bottom_btn_clicked, layout);
+	elm_object_signal_callback_add(center_btn, "clicked", "button", _bottom_btn_clicked, layout);
 	evas_object_data_set(center_btn, "kind", (void *) 3);
 
 	return bottom_layout;
@@ -259,16 +259,14 @@ void launch_init_screen(appdata_s* ad)
 
 	_set_init_screen(layout);
 
-	pbt = elm_button_add(ad->win);
-	//elm_object_style_set(pbt, "transparent");
+	pbt = elm_layout_add(layout);
+	elm_layout_file_set(pbt, edj_path, "button,style");
 	evas_object_size_hint_weight_set(pbt, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(pbt, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_min_set(pbt, 496, 78);
-	evas_object_size_hint_max_set(pbt, 496, 78);
 	evas_object_show(pbt);
-	elm_object_translatable_text_set(pbt, "IDS_TGRAM_ACBUTTON_START_MESSAGING");
+	elm_object_part_text_set(pbt, "text", i18n_get_text("IDS_TGRAM_ACBUTTON_START_MESSAGING"));
 	elm_object_part_content_set(layout, "start,button", pbt);
-	evas_object_smart_callback_add(pbt, "clicked", on_start_btn_clicked, ad);
+	elm_object_signal_callback_add(pbt, "clicked", "button", on_start_btn_clicked, ad);
 
 	index = index_create(layout, MAX_INDEX);
 	index_bring_in(index, 0);
