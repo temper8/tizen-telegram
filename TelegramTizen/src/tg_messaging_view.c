@@ -8,6 +8,7 @@
 #include "tg_messaging_view.h"
 #include "tg_db_wrapper.h"
 #include "server_requests.h"
+#include <attach_panel.h>
 #include <mime_type.h>
 #include "tg_user_info_view.h"
 #include "tg_chat_info_view.h"
@@ -1820,11 +1821,27 @@ static void on_voice_record_reply_cb(app_control_h request, app_control_h reply,
 {
 	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
 		Evas_Object* chat_list = user_data;
+#if 1
 		char *file_name = NULL;
+		int array_length = 0;
+
 		app_control_get_extra_data(reply, APP_CONTROL_DATA_SELECTED, &file_name);
 		if (file_name) {
 			send_media_message_to_buddy(chat_list, file_name, tgl_message_media_document);
 		}
+#else
+		char* file_path = NULL;
+		char** path_arryay = NULL;
+		int array_length = 0;
+		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+
+		for(int i = 0 ; i < array_length ; i++) {
+			file_path = strdup(path_arryay[i]);
+			send_media_message_to_buddy(chat_list, file_path, tgl_message_media_document);
+			free(file_path);
+			break;
+		}
+#endif
 	}
 }
 
@@ -1839,6 +1856,33 @@ void on_contact_app_control_reply_cb(app_control_h request, app_control_h reply,
 		app_control_get_extra_data(reply, "http://tizen.org/appcontrol/data/phone", &phone_number);
 
 	}
+}
+
+static void _result_cb(attach_panel_h attach_panel, attach_panel_content_category_e content_category, app_control_h result, app_control_result_e result_code, void *user_data)
+{
+	switch(content_category) {
+	case ATTACH_PANEL_CONTENT_CATEGORY_IMAGE:
+	case ATTACH_PANEL_CONTENT_CATEGORY_CAMERA:
+		on_gallery_app_control_reply_cb(NULL, result, result_code, user_data);
+		break;
+	case ATTACH_PANEL_CONTENT_CATEGORY_VIDEO:
+	case ATTACH_PANEL_CONTENT_CATEGORY_VIDEO_RECORDER:
+		on_video_app_control_reply_cb(NULL, result, result_code, user_data);
+		break;
+	case ATTACH_PANEL_CONTENT_CATEGORY_VOICE:
+		on_voice_record_reply_cb(NULL, result, result_code, user_data);
+		break;
+	case ATTACH_PANEL_CONTENT_CATEGORY_MYFILES:
+	case ATTACH_PANEL_CONTENT_CATEGORY_AUDIO:
+		on_file_app_control_reply_cb(NULL, result, result_code, user_data);
+		break;
+	case ATTACH_PANEL_CONTENT_CATEGORY_CONTACT:
+		on_contact_app_control_reply_cb(NULL, result, result_code, user_data);
+		break;
+	default:
+		break;
+	}
+
 }
 
 void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
@@ -1991,24 +2035,37 @@ void on_media_attach_dismissed_cb(void *data, Evas_Object *obj, void *event_info
 static void on_media_attach_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object* chat_list = data;
+	appdata_s *ad = evas_object_data_get(chat_list, "app_data");
+	attach_panel_h attach_panel = NULL;
+	int ret;
+	bool visible = false;
 
-	Evas_Object *ctxpopup = elm_ctxpopup_add(chat_list);
-	elm_object_style_set(ctxpopup, "dropdown/label");
-	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_BACK, eext_ctxpopup_back_cb, chat_list);
-	evas_object_smart_callback_add(ctxpopup,"dismissed", on_media_attach_dismissed_cb, chat_list);
+	attach_panel = evas_object_data_get(ad->conform, "attach_panel");
+	if (attach_panel) {
+			if (attach_panel_get_visibility(attach_panel, &visible) != ATTACH_PANEL_ERROR_NONE) {
+				return;
+			}
+			if (!visible) {
+				attach_panel_show(attach_panel);
+			}
+			return;
+		}
 
-	elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_PHOTO, create_image_object_from_file(ui_utils_get_resource(FM_ICON_CAMERA), chat_list), on_media_type_selected_cb, chat_list);
-	elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_GALLERY, create_image_object_from_file(ui_utils_get_resource(FM_ICON_GALLERY), chat_list), on_media_type_selected_cb, chat_list);
-	elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_VIDEO, create_image_object_from_file(ui_utils_get_resource(FM_ICON_VIDEO), chat_list), on_media_type_selected_cb, chat_list);
-	elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_AUDIO, create_image_object_from_file(ui_utils_get_resource(FM_ICON_MIC), chat_list), on_media_type_selected_cb, chat_list);
-	elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_FILE, create_image_object_from_file(ui_utils_get_resource(FM_ICON_FILE), chat_list), on_media_type_selected_cb, chat_list);
-	elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_LOCATION, create_image_object_from_file(ui_utils_get_resource(FM_ICON_LOCATION), chat_list), on_media_type_selected_cb, chat_list);
-	//elm_ctxpopup_item_append(ctxpopup, POPUP_TEXT_TAKE_CONTACT, create_image_object_from_file(ui_utils_get_resource(TG_MENU_CONTACTS), chat_list), on_media_type_selected_cb, chat_list);
+	ret = attach_panel_create(ad->conform, &attach_panel);
 
-	elm_ctxpopup_direction_priority_set(ctxpopup, ELM_CTXPOPUP_DIRECTION_DOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_IMAGE, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_CAMERA, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VOICE, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VIDEO, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_AUDIO, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_CONTACT, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_MYFILES, NULL);
+	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VIDEO_RECORDER, NULL);
+	attach_panel_set_result_cb(attach_panel, _result_cb, chat_list);
 
-	popup_move_dropdown(ctxpopup, obj);
-	evas_object_show(ctxpopup);
+	attach_panel_show(attach_panel);
+	evas_object_data_set(ad->conform, "attach_panel", attach_panel);
+
 }
 
 static void on_text_message_send_pressed(void *data, Evas_Object *obj, void *event_info)
