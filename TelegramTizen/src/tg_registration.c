@@ -14,11 +14,19 @@ static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *
 	appdata_s* ad = data;
 	Evas_Object* country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
 	Evas_Object* done_btn = evas_object_data_get(ad->nf, "reg_done_btn");
+	Evas_Object *layout = NULL;
 	char buf[256] = {'\0',};
 	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
 
 	char code_buf[256] = {'\0',};
 	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
+
+	layout = evas_object_data_get(ad->nf, "regi,layout");
+	if (strcasecmp(buf, "") != 0) {
+		elm_object_signal_emit(layout, "show", "delete");
+	} else {
+		elm_object_signal_emit(layout, "hide", "delete");
+	}
 
 	if (strlen(buf) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0) {
 		elm_object_disabled_set(done_btn, EINA_FALSE);
@@ -116,6 +124,12 @@ static void move_dropdown(Evas_Object *ctxpopup, Evas_Object *btn)
 	evas_object_move(ctxpopup, x + (w / 2), y + h);
 }
 
+static void delete_btn_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *pn_number_entry = data;
+	elm_object_text_set(pn_number_entry, "");
+}
+
 static void on_country_name_list_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
@@ -153,7 +167,7 @@ void launch_registration_cb(appdata_s *ad)
 	ad->current_app_state = TG_REGISTRATION_STATE;
 
 	char edj_path[PATH_MAX] = {0, };
-	app_get_resource(TELEGRAM_REGISTRATION_VIEW_EDJ, edj_path, (int)PATH_MAX);
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
@@ -165,6 +179,7 @@ void launch_registration_cb(appdata_s *ad)
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
+	evas_object_data_set(ad->nf, "regi,layout", layout);
 
 	Evas_Object* country_name_btn = elm_button_add(layout);
 	elm_object_text_set(country_name_btn, "Select your country");
@@ -175,7 +190,6 @@ void launch_registration_cb(appdata_s *ad)
 	elm_object_part_content_set(layout, "country_name", country_name_btn);
 
 	evas_object_data_set(ad->nf, "country_name_btn", (void*)country_name_btn);
-
 
 	Evas_Object* country_code_btn = elm_entry_add(layout);
 	elm_object_text_set(country_code_btn, "<align=center>--<align>");
@@ -188,9 +202,8 @@ void launch_registration_cb(appdata_s *ad)
 
 	evas_object_data_set(ad->nf, "country_code_btn", (void*)country_code_btn);
 
-
 	Evas_Object* pn_number_entry = elm_entry_add(layout);
-	elm_object_part_text_set(pn_number_entry, "elm.guide", "Enter phone number");
+	elm_object_part_text_set(pn_number_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_PHONE_NUMBER_ABB"));
 	elm_entry_cursor_end_set(pn_number_entry);
 	evas_object_size_hint_weight_set(pn_number_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(pn_number_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -204,7 +217,6 @@ void launch_registration_cb(appdata_s *ad)
 
 	evas_object_data_set(ad->nf, "pn_number_entry", (void*)pn_number_entry);
 
-
 	limit_filter_data.max_char_count = MAX_NUM_LENGTH;
 
 	elm_entry_markup_filter_append(pn_number_entry, elm_entry_filter_limit_size, &limit_filter_data);
@@ -217,28 +229,29 @@ void launch_registration_cb(appdata_s *ad)
 	//Enable OK button if no of chars has reached to 10 then
 	evas_object_smart_callback_add(pn_number_entry, "changed", on_text_change_enable_ok_button, ad);
 
+	Evas_Object* delete_btn = elm_button_add(layout);
+	elm_object_style_set(delete_btn, "icon_expand_delete");
+	evas_object_size_hint_weight_set(delete_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(delete_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_max_set(delete_btn, 80, 80);
+	evas_object_smart_callback_add(delete_btn, "clicked", delete_btn_clicked, pn_number_entry);
+	elm_object_part_content_set(layout, "phone_number_delete", delete_btn);
+	evas_object_show(delete_btn);
 
-	Evas_Object* note_btn = elm_entry_add(layout);
-	elm_object_text_set(note_btn, "<align=left>Please confirm your country code and enter your phone number.<align>");
-	evas_object_size_hint_weight_set(note_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(note_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_entry_single_line_set(note_btn,  EINA_FALSE);
-	elm_entry_editable_set(note_btn, EINA_FALSE);
-	elm_entry_line_wrap_set(note_btn, EINA_TRUE);
-	evas_object_show(note_btn);
-	elm_object_part_content_set(layout, "text_display", note_btn);
+	//confirm text
+	elm_object_part_text_set(layout, "text_display", i18n_get_text("IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"));
 
-
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Your phone", NULL, NULL, scroller, NULL);
+	//naviframe GUI
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"), NULL, NULL, scroller, NULL);
 
 	Evas_Object *cancel_btn = elm_button_add(ad->nf);
-	elm_object_style_set(cancel_btn, "naviframe/title_icon");
-	elm_object_text_set(cancel_btn, "Cancel");
+	elm_object_style_set(cancel_btn, "naviframe/title_left");
+	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_CANCEL_ABB"));
 	evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad);
 
 	Evas_Object *done_btn = elm_button_add(ad->nf);
-	elm_object_style_set(done_btn, "naviframe/title_icon");
-	elm_object_text_set(done_btn, "Done");
+	elm_object_style_set(done_btn, "naviframe/title_right");
+	elm_object_text_set(done_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_DONE_ABB"));
 	evas_object_smart_callback_add(done_btn, "clicked", on_naviframe_done_clicked, ad);
 
 

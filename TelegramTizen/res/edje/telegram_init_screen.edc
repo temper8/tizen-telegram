@@ -1,5 +1,22 @@
 
-
+styles {
+	style {
+		name: "text,display";
+		base: "font=Tizen=Regular text_class=ATO022 font_size=36 align=left color=#000000 color_class=ATO022 wrap=mixed";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
+	style {
+		name: "call,display";
+		base: "font=Tizen=Regular text_class=ATO023 font_size=32 align=left color=#999999 color_class=ATO023 wrap=mixed";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
+}
 
 collections {
 
@@ -24,7 +41,7 @@ collections {
 			align: 0.0 0.0; \
 		} \
 	}
-	
+
 	#define PADDING_TOP(param_padding_name, param_padding_size) \
 	part \
 	{ \
@@ -108,7 +125,7 @@ collections {
       parts {
          part {
          	name: "main_image";
-            type: SWALLOW;            
+            type: SWALLOW;
             description {
             	state: "default" 0.0;
                	rel1 { relative: -0.1 -0.1; }
@@ -117,267 +134,448 @@ collections {
          }
        	part {
         	name: "start_btn";
-            type: SWALLOW;            
+            type: SWALLOW;
             description {
             	state: "default" 0.0;
                	rel1 { relative: 0.2 0.4; }
-               	rel2 { relative: 0.8 0.55; }               	               	
+               	rel2 { relative: 0.8 0.55; }
             }
          }
          part {
          	name: "button_box_bg";
-            type: RECT;            
+            type: RECT;
             description {
             	state: "default" 0.0;
                	rel1 { relative: 0.0 0.9; }
                	rel2 { relative: 1.0 1.0; }
-               	color: 255 255 255 255;               	               	
+               	color: 255 255 255 255;
             }
          }
          part {
          	name: "button_box";
-            type: SWALLOW;            
+            type: SWALLOW;
             description {
             	state: "default" 0.0;
                	rel1 { relative: 0.0 0.9; }
-               	rel2 { relative: 1.0 1.0; }               	               	
+               	rel2 { relative: 1.0 1.0; }
             }
          }
       }
    }
-   
+
    group {
    	  name: "bg_screen";
    	 	 parts {
    	        part {
          	name: "country_name";
-            type: SWALLOW;            
+            type: SWALLOW;
             	description {
             		state: "default" 0.0;
                		rel1 { relative: 0.1 0.1; }
-               		rel2 { relative: 0.9 0.3; }       
-            	}   	  
+               		rel2 { relative: 0.9 0.3; }
+            	}
    	  	 	}
    		}
    }
-   
+
    group {
    	  name: "registration_screen";
       parts {
           part {
          	name: "screen_bg";
-            type: RECT;            
+            type: RECT;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.0 0.0; }
-               	rel2 { relative: 1.0 1.0; }
-               	color: 255 255 255 255;
+              rel1 { relative: 0.0 0.0; }
+              rel2 { relative: 1.0 1.0; }
+              color: 255 255 255 0;
+            }
+         }
+        part {
+        	name: "country_name,bg";
+            type: RECT;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 0.0; to_y: "country_name"; }
+              rel2 { relative: 1.0 1.0; to_y: "country_name"; }
+              color: 255 255 255 255;
+              align: 0.5 0.5;
             }
          }
          part {
          	name: "country_name";
             type: SWALLOW;
-            scale: 1;            
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.1; }
-               	rel2 { relative: 0.9 0.2; }
+              rel1 { relative: 32/720 0.0; }
+              rel2 { relative: 703/720 0.0; offset: 0 130; }
+              align: 0.5 0.5;
             }
          }
-         part {
+        part {
         	name: "country_code,bg";
             type: RECT;
-            scale: 1;            
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.25; }
-               	rel2 { relative: 0.3 0.35; }
-               	color: 220 220 220 255;     	               	
+              rel1 { relative: 0.0 1.0; to_y: "country_name"; }
+              rel2 { relative: 1.0 1.0; to_y: "country_name"; offset: 0 160; }
+              color: 242 247 249 255;
+              align: 0.5 0.5;
+            }
+         }
+        part {
+        	name: "text,bg";
+            type: RECT;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "country_code,bg"; }
+              rel2 { relative: 1.0 1.0; }
+              color: 234 243 248 255;
+              align: 0.5 0.5;
             }
          }
        	part {
         	name: "country_code";
             type: SWALLOW;
-            scale: 1;            
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.25; }
-               	rel2 { relative: 0.3 0.35; }
+              rel1 { relative: 32/720 1.0; to_y: "country_name"; }
+              rel2 { relative: 184/720 1.0; to_y: "country_name"; offset: 0 160; }
+              fixed: 0 1;
+              align: 0.5 0.5;
             }
          }
          part {
-         	name: "phone_number_entry,bg";
+        	name: "code_underline";
             type: RECT;
-            scale: 1;            
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.32 0.25; }
-               	rel2 { relative: 0.9 0.35; }
-               	color: 220 220 220 255;
+              rel1 { relative: 0.0 1.0; to: "country_code"; }
+              rel2 { relative: 1.0 1.0; to: "country_code"; }
+              fixed: 0 1;
+              min: 0 1;
+              color: 128 128 128 76;
+              align: 0.5 0.5;
             }
          }
-
          part {
          	name: "phone_number_entry";
             type: SWALLOW;
-            scale: 1;            
+            scale: 1;
             description {
             	state: "default" 0.0;
             	fixed: 1 1;
-            	align: 0.0 0.5;
-               	rel1 { relative: 0.32 0.25; }
-               	rel2 { relative: 0.9 0.35; }
+            	align: 0.5 0.5;
+              rel1 { relative: 216/720 1.0; to_y: "country_name"; }
+              rel2 { relative: 594/720 1.0; to_y: "country_name"; offset: 0 160; }
             }
          }
 
          part {
-         	name: "text_display";
+         	name: "phone_number_delete";
             type: SWALLOW;
-            scale: 1;            
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.13 0.45; }
-               	rel2 { relative: 0.87 0.65; }
+            	align: 0.5 0.5;
+              rel1 { relative: 570/720 1.0; to_y: "country_name"; }
+              rel2 { relative: 1.0 1.0; to_y: "country_name"; offset: 0 160; }
+              visible: 0;
+            }
+            description {
+            	state: "show" 0.0;
+            	inherit: "default" 0.0;
+            	visible: 1;
             }
          }
-         
+        part {
+        	name: "number_underline";
+            type: RECT;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to: "phone_number_entry"; }
+              rel2 { relative: 1.0 1.0; to: "phone_number_entry"; }
+              fixed: 0 1;
+              min: 0 1;
+              color: 61 185 204 255;
+              align: 0.5 0.5;
+            }
+         }
+		part {
+			name: "text_display";
+			type: TEXTBLOCK;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 32/720 1.0; to_y: "country_code,bg"; offset: 0 30; }
+				rel2 { relative: 32/720 1.0; to_y: "country_code,bg"; offset: 0 30; }
+				align: 0.0 0.0;
+				fixed: 1 1;
+				min: 656 96;
+				max: 656 96;
+				text {
+					style: "text,display";
+					min: 0 1;
+					text: "Confirm.";
+				}
+			}
+		}
       }
-   }
-   
-   
+      programs {
+			program {
+				name: "delete,hide";
+				signal: "hide";
+				source: "delete";
+				action: STATE_SET "default" 0.0;
+				target: "phone_number_delete";
+			}
+			program {
+				name: "delete,show";
+				signal: "show";
+				source: "delete";
+				action: STATE_SET "show" 0.0;
+				target: "phone_number_delete";
+			}
+		}
+   } //registration_screen
+
    group {
    	  name: "code_check_screen";
       parts {
           part {
          	name: "screen_bg";
-            type: RECT;            
+            type: RECT;
             description {
             	state: "default" 0.0;
                	rel1 { relative: 0.0 0.0; }
                	rel2 { relative: 1.0 1.0; }
-               	color: 255 255 255 255;
+               	color: 255 255 255 0;
             }
          }
          part {
-         	name: "phone_status";
-            type: SWALLOW;            
+        	name: "phone_status,bg";
+            type: RECT;
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.02; }
-               	rel2 { relative: 0.91 0.08; }
-               	color: 222 222 222 222;
+              rel1 { relative: 0.0 0.0; to_y: "phone_status"; }
+              rel2 { relative: 1.0 1.0; to_y: "phone_status"; }
+              color: 255 255 255 255;
+              align: 0.5 0.5;
             }
          }
+         part {
+				name: "phone_status";
+				type: TEXT;
+				description {
+					state: "default" 0.0;
+					fixed: 1 0;
+					rel1 { relative: 32/720 0.0; }
+               	rel2 { relative: 688/720 0.0; offset: 0 130; }
+					align: 0.5 0.5;
+					color: 0 0 0 255;
+					text {
+						min: 0 1;
+						size: 48;
+						text: "";
+						align: 0.0 0.5;
+					}
+				}
+			}
         part {
         	name: "code_entry,bg";
-            type: RECT;            
+            type: RECT;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.1; }
-               	rel2 { relative: 0.9 0.2; }
-               	color: 222 222 222 222;               	               	
+              rel1 { relative: 0.0 1.0; to_y: "phone_status"; }
+              rel2 { relative: 1.0 1.0; to_y: "phone_status"; offset: 0 160; }
+              color: 242 247 249 255;
             }
         }
        	part {
         	name: "code_entry";
-            type: SWALLOW;            
+            type: SWALLOW;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.1; }
-               	rel2 { relative: 0.9 0.2; }
+              rel1 { relative: 32/720 0.0; to_y: "code_entry,bg"; }
+              rel2 { relative: 688/720 1.0; to_y: "code_entry,bg"; offset: 0 -10; }
             }
          }
-         
          part {
-         	name: "timer_text";
-            type: SWALLOW;            
+        	name: "code_underline";
+            type: RECT;
+            scale: 1;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.25; }
-               	rel2 { relative: 0.8 3; }
-               	color: 222 222 222 222;               	               	
+              rel1 { relative: 0.0 1.0; to: "code_entry"; }
+              rel2 { relative: 1.0 1.0; to: "code_entry"; }
+              fixed: 0 1;
+              min: 0 1;
+              color: 61 185 204 255;
+              align: 0.5 0.5;
             }
          }
-         
          part {
-         	name: "wrong_num_btn";
-            type: SWALLOW;            
+        	name: "inform,bg";
+            type: RECT;
             description {
             	state: "default" 0.0;
-               	rel1 { relative: 0.1 0.35; }
-               	rel2 { relative: 0.9 0.4; }
-               	color: 222 222 222 222;           	               	
+              rel1 { relative: 0.0 1.0; to_y: "code_entry"; }
+              rel2 { relative: 1.0 1.0; }
+              color: 234 243 248 255;
             }
-         }
-         
-      }
-   }
-   
+        }
+         part {
+				name: "inform";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					fixed: 1 0;
+					rel1 { relative: 32/720 0.0; to_y: "inform,bg"; offset: 0 30; }
+               	rel2 { relative: 688/720 0.0; to_y: "inform,bg"; offset: 0 160; }
+					align: 0.5 0.5;
+					text {
+						style: "text,display";
+						min: 0 1;
+						text: "we have sent you an SMS";
+					}
+				}
+			}
+         part {
+				name: "timer_text";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					fixed: 1 0;
+               	rel1 { relative: 32/720 1.0; to_y: "inform"; }
+               	rel2 { relative: 688/720 1.0; to_y: "inform"; offset: 0 130; }
+					align: 0.5 0.5;
+					text {
+						style: "call,display";
+						min: 0 1;
+						text: "telegram will call you in";
+					}
+				}
+			}
+      } //parts
+   } //code check group
+
    	group {
 	  name: "name_reg_screen";
    		parts {
    		    part {
 		      	name: "name_reg_screen_bg";
-        		type: RECT;            
+        		type: RECT;
          		description {
          			state: "default" 0.0;
             		rel1 { relative: 0.0 0.0; }
             		rel2 { relative: 1.0 1.0; }
+            		color: 255 255 255 0;
          		}
       		}
       		part {
-		      	name: "setup_guide_text";
-        		type: SWALLOW;            
-         		description {
-         			state: "default" 0.0;
-            		rel1 { relative: 0.1 0.2; }
-            		rel2 { relative: 0.9 0.25; }
-         		}
+      			name: "inform,bg";
+      			type: RECT;
+      			scale: 1;
+      			description {
+      				state: "default" 0.0;
+      				rel1 { relative: 0.0 0.0; to_y: "inform"; }
+      				rel2 { relative: 1.0 1.0; to_y: "inform"; }
+      				color: 255 255 255 255;
+      				align: 0.5 0.5;
+      			}
       		}
       		part {
-     			name: "first_name_entry,bg";
-         		type: RECT;            
-         		description {
-         		state: "default" 0.0;
-            		rel1 { relative: 0.1 0.26; }
-            		rel2 { relative: 0.9 0.36; }
-            		color: 222 222 222 222;                	               	
-         		}
-      		}
-      
-     		part {
-     			name: "first_name_entry";
-         		type: SWALLOW;            
-         		description {
-         			state: "default" 0.0;
-            		rel1 { relative: 0.1 0.26; }
-            		rel2 { relative: 0.9 0.36; }
-         		}
-      		}
-      		part {
-      			name: "second_name_entry,bg";
-         		type: RECT;            
-         		description {
-      		   		state: "default" 0.0;
-            		rel1 { relative: 0.1 0.39; }
-            		rel2 { relative: 0.9 0.49; }
-            		color: 222 222 222 222;                	               	
-         		}
-      		}
-      		part {
-      		name: "second_name_entry";
-         		type: SWALLOW;            
-         		description {
-         			state: "default" 0.0;
-            		rel1 { relative: 0.1 0.39; }
-            		rel2 { relative: 0.9 0.49; }
-		         }
-      		}
-      
-   		}
-	}
-	
-	
+				name: "inform";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					fixed: 1 0;
+					rel1 { relative: 32/720 0.0; }
+               	rel2 { relative: 688/720 0.0; offset: 0 160; }
+					align: 0.5 0.5;
+					text {
+						style: "text,display";
+						min: 0 1;
+						text: "we have sent you an SMS";
+					}
+				}
+			}
+			part {
+        	  name: "first_name_entry,bg";
+            type: RECT;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "inform"; }
+              rel2 { relative: 1.0 1.0; to_y: "inform"; offset: 0 160; }
+              color: 242 247 249 255;
+            }
+        }
+       	part {
+        	name: "first_name_entry";
+            type: SWALLOW;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 32/720 0.0; to_y: "first_name_entry,bg"; }
+              rel2 { relative: 688/720 1.0; to_y: "first_name_entry,bg"; offset: 0 -10; }
+            }
+         }
+         part {
+        	name: "first_underline";
+            type: RECT;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to: "first_name_entry"; }
+              rel2 { relative: 1.0 1.0; to: "first_name_entry"; }
+              fixed: 0 1;
+              min: 0 1;
+              color: 61 185 204 255;
+              align: 0.5 0.5;
+            }
+         }
+         part {
+        	name: "second_name_entry,bg";
+            type: RECT;
+            description {
+            state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "first_name_entry,bg"; }
+              rel2 { relative: 1.0 1.0; }
+              color: 234 243 248 255;
+            }
+        }
+       part {
+        	name: "second_name_entry";
+            type: SWALLOW;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 32/720 0.0; to_y: "second_name_entry,bg"; }
+              rel2 { relative: 688/720 0.0; to_y: "second_name_entry,bg"; offset: 0 150; }
+            }
+         }
+         part {
+        	name: "second_underline";
+            type: RECT;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to: "second_name_entry"; }
+              rel2 { relative: 1.0 1.0; to: "second_name_entry"; }
+              fixed: 0 1;
+              min: 0 1;
+              color: 61 185 204 255;
+              align: 0.5 0.5;
+            }
+         }
+   		} //parts
+	} //first name group
+
 	group {
 	  name: "user_main_screen";
    		parts {

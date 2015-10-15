@@ -8,8 +8,6 @@
 #include "server_requests.h"
 #include "tg_user_main_view.h"
 
-#define NAME_INFO_TEXT "Set up your first and last name"
-
 static void on_first_name_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
@@ -24,6 +22,13 @@ static void on_first_name_change_enable_ok_button(void *data, Evas_Object *obj, 
 		elm_object_disabled_set(done_btn, EINA_TRUE);
 	}
 	free(org_buf);
+}
+
+static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+	elm_win_lower(ad->win);
+	elm_exit();
 }
 
 static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -76,30 +81,14 @@ void launch_first_registration_cb(appdata_s *ad)
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
 
-	char* info_txt = NULL;
-	info_txt = (char*)malloc(strlen(NAME_INFO_TEXT) + 1);
-	strcpy(info_txt, NAME_INFO_TEXT);
 
-	char temp_txt[512] = {0,};
-	snprintf(temp_txt, sizeof(temp_txt), "<font=Tizen:style=Regular color=#666362 align=left><font_size=32>%s</font_size></font>", info_txt);
-	free(info_txt);
-
-	Evas_Object* info_btn = elm_entry_add(layout);
-	elm_object_text_set(info_btn, temp_txt);
-	evas_object_size_hint_weight_set(info_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(info_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_entry_single_line_set(info_btn,  EINA_FALSE);
-	elm_entry_editable_set(info_btn, EINA_FALSE);
-	elm_entry_line_wrap_set(info_btn, EINA_TRUE);
-	evas_object_show(info_btn);
-	elm_object_part_content_set(layout, "setup_guide_text", info_btn);
-
+	elm_object_part_text_set(layout, "inform", i18n_get_text("IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"));
 
 	Evas_Object* first_name_entry = elm_entry_add(layout);
 	evas_object_size_hint_weight_set(first_name_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(first_name_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-	elm_object_part_text_set(first_name_entry, "elm.guide", "<font=Tizen:style=Regular color=#666362 align=left><font_size=36>First name (required)</font_size></font>");
+	elm_object_part_text_set(first_name_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"));
 
 	elm_entry_single_line_set(first_name_entry, EINA_TRUE);
 	elm_entry_scrollable_set (first_name_entry, EINA_FALSE);
@@ -113,12 +102,11 @@ void launch_first_registration_cb(appdata_s *ad)
 
 	evas_object_smart_callback_add(first_name_entry, "changed", on_first_name_change_enable_ok_button, ad);
 
-
 	Evas_Object* second_name_entry = elm_entry_add(layout);
 	evas_object_size_hint_weight_set(second_name_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(second_name_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-	elm_object_part_text_set(second_name_entry, "elm.guide", "<font=Tizen:style=Regular color=#666362 align=left><font_size=36>Last name (optional)</font_size></font>");
+	elm_object_part_text_set(second_name_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"));
 
 	elm_entry_single_line_set(second_name_entry, EINA_TRUE);
 	elm_entry_scrollable_set (second_name_entry, EINA_FALSE);
@@ -131,16 +119,18 @@ void launch_first_registration_cb(appdata_s *ad)
 	evas_object_data_set(ad->nf, "second_name_entry", (void*)second_name_entry);
 
 
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Your name", NULL, NULL, scroller, NULL);
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_ENTER_NAME_ABB2"), NULL, NULL, scroller, NULL);
 
 	Evas_Object *done_btn = elm_button_add(ad->nf);
-	elm_object_style_set(done_btn, "naviframe/title_icon");
-	elm_object_text_set(done_btn, "Done");
+	elm_object_style_set(done_btn, "naviframe/title_right");
+	elm_object_text_set(done_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_DONE_ABB"));
 	evas_object_smart_callback_add(done_btn, "clicked", on_name_entry_done_clicked, ad);
 
-	Evas_Object *cancel_btn = elm_label_add(ad->nf);
-	elm_object_style_set(cancel_btn, "naviframe/title_icon");
-
+	Evas_Object *cancel_btn = elm_button_add(ad->nf);
+	elm_object_style_set(cancel_btn, "naviframe/title_left");
+	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_CANCEL_ABB"));
+	evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad)
+	;
 	elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
 	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
 

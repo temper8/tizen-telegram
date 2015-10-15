@@ -239,7 +239,7 @@ void launch_init_screen(appdata_s* ad)
 	char edj_path[PATH_MAX] = {0, };
 
 	layout = elm_layout_add(ad->win);
-	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+	app_get_resource(TELEGRAM_START_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(layout, edj_path, "setup,layout");
 	ad->current_app_state = TG_INIT_SCREEN_STATE;
 	evas_object_data_set(layout, "page_idx", (void *) 0);

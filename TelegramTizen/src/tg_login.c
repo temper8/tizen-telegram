@@ -8,9 +8,6 @@
 #include "server_requests.h"
 #include "tg_first_registration.h"
 
-#define TIMER_TEXT "We will call in "
-#define CODE_INFO_TEXT "We've sent an SMS with an activation code to your phone "
-
 static void on_code_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
@@ -24,6 +21,13 @@ static void on_code_change_enable_ok_button(void *data, Evas_Object *obj, void *
 		elm_object_disabled_set(done_btn, EINA_TRUE);
 	}
 
+}
+
+static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+	elm_win_lower(ad->win);
+	elm_exit();
 }
 
 static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -72,14 +76,12 @@ static Eina_Bool on_code_timer_cb(void* data)
 	(ad->timer_value)--;
 
 	int cur_time_in_secs = ad->timer_value;
-	Evas_Object* info_timer = evas_object_data_get(ad->nf, "info_timer");
 	if (cur_time_in_secs <= 0) {
-		char temp_txt[512] = {0,};
-		snprintf(temp_txt, sizeof(temp_txt), "<font=Tizen:style=Regular color=#666362 align=left><font_size=32>%s</font_size></font>", "Requested for code via call.");
-
-		elm_object_text_set(info_timer, temp_txt);
 		Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
 		ecore_timer_del(timer);
+
+		char temp_txt[512] = {0,};
+			snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 0, 0);
 
 		// send request to get phone call
 		send_request_for_registration(ad->service_client, ad->phone_number, EINA_FALSE);
@@ -89,32 +91,11 @@ static Eina_Bool on_code_timer_cb(void* data)
 	int seconds = cur_time_in_secs % 60;
 	int minutes = (cur_time_in_secs / 60) % 60;
 
-	char sec_str[10];
-	char min_str[10];
-
-	if (minutes < 10) {
-		sprintf(min_str, "0%d", minutes);
-	} else {
-		sprintf(min_str, "%d", minutes);
-	}
-	if (seconds < 10) {
-		sprintf(sec_str, "0%d", seconds);
-	} else {
-		sprintf(sec_str, "%d", seconds);
-	}
-
-	char* timer_text = (char*)malloc(strlen(TIMER_TEXT) + strlen(min_str) + strlen(":") + strlen(sec_str) + 1);
-	strcpy(timer_text, TIMER_TEXT);
-	strcat(timer_text, min_str);
-	strcat(timer_text, ":");
-	strcat(timer_text, sec_str);
-
 	char temp_txt[512] = {0,};
-	snprintf(temp_txt, sizeof(temp_txt), "<font=Tizen:style=Regular color=#666362 align=left><font_size=32>%s</font_size></font>", timer_text);
+	snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), minutes, seconds);
 
-	elm_object_text_set(info_timer, temp_txt);
-
-	free(timer_text);
+	Evas_Object *layout = evas_object_data_get(ad->nf, "layout");
+	elm_object_part_text_set(layout, "timer_text", temp_txt);
 
 	if (ad->timer_value == 0 || (seconds == 0 && minutes == 0) ) {
 
@@ -159,31 +140,17 @@ void launch_login_cb(appdata_s* ad)
 	char* info_txt = NULL;
 
 	if (ad->phone_number) {
-		info_txt = (char*)malloc(strlen(CODE_INFO_TEXT) + strlen(ad->phone_number) + 1);
-		strcpy(info_txt, CODE_INFO_TEXT);
+		info_txt = (char*)malloc(strlen(ad->phone_number) + 1);
 		strcat(info_txt, ad->phone_number);
-	} else {
-		info_txt = (char*)malloc(strlen(CODE_INFO_TEXT) + 1);
-		strcpy(info_txt, CODE_INFO_TEXT);
 	}
 
-	char temp_txt[512] = {0,};
-	snprintf(temp_txt, sizeof(temp_txt), "<font=Tizen:style=Regular color=#666362 align=left><font_size=32>%s</font_size></font>", info_txt);
-	free(info_txt);
-
-	Evas_Object* info_btn = elm_entry_add(layout);
-	elm_object_text_set(info_btn, temp_txt);
-	evas_object_size_hint_weight_set(info_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(info_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_entry_single_line_set(info_btn,  EINA_FALSE);
-	elm_entry_editable_set(info_btn, EINA_FALSE);
-	elm_entry_line_wrap_set(info_btn, EINA_TRUE);
-	evas_object_show(info_btn);
-	elm_object_part_content_set(layout, "phone_status", info_btn);
-
+	// phone number
+	elm_object_part_text_set(layout, "phone_status", info_txt);
+	// inform textblock
+	elm_object_part_text_set(layout, "inform", i18n_get_text("IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"));
 
 	Evas_Object* code_number_entry = elm_entry_add(layout);
-	elm_object_part_text_set(code_number_entry, "elm.guide", "<font=Tizen:style=Regular color=#666362 align=left><font_size=36>Code</font_size></font>");
+	elm_object_part_text_set(code_number_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_CODE"));
 	elm_entry_cursor_end_set(code_number_entry);
 	evas_object_size_hint_weight_set(code_number_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(code_number_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -212,43 +179,23 @@ void launch_login_cb(appdata_s* ad)
 
 
 	char temp_timer_txt[512] = {0,};
-	snprintf(temp_timer_txt, sizeof(temp_timer_txt), "<font=Tizen:style=Regular color=#666362 align=left><font_size=32>%s2::00</font_size></font>", TIMER_TEXT);
+	snprintf(temp_timer_txt, sizeof(temp_timer_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 2, 00);
+	elm_object_part_text_set(layout, "timer_text", temp_timer_txt);
 
+	evas_object_data_set(ad->nf, "layout", layout);
 
-	Evas_Object* info_timer = elm_entry_add(layout);
-	elm_object_text_set(info_timer, temp_timer_txt);
-	evas_object_size_hint_weight_set(info_timer, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(info_timer, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_entry_single_line_set(info_timer,  EINA_FALSE);
-	elm_entry_editable_set(info_timer, EINA_FALSE);
-	elm_entry_line_wrap_set(info_timer, EINA_TRUE);
-	evas_object_show(info_timer);
-	elm_object_part_content_set(layout, "timer_text", info_timer);
-
-	evas_object_data_set(ad->nf, "info_timer", (void*)info_timer);
-
-
-	Evas_Object* wrong_num_btn = elm_entry_add(layout);
-	elm_entry_editable_set(wrong_num_btn, EINA_FALSE);
-	elm_object_text_set(wrong_num_btn, "<font=Tizen:style=Regular color=#0000ff align=left><font_size=32>Wrong number?</font_size></font>");
-	evas_object_size_hint_weight_set(wrong_num_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(wrong_num_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_smart_callback_add(wrong_num_btn, "clicked", on_wrong_num_clicked, ad);
-	elm_object_part_content_set(layout, "wrong_num_btn", wrong_num_btn);
-
-
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Your code", NULL, NULL, scroller, NULL);
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_ENTER_CODE_ABB"), NULL, NULL, scroller, NULL);
 
 	Evas_Object *done_btn = elm_button_add(ad->nf);
-	elm_object_style_set(done_btn, "naviframe/title_icon");
-	elm_object_text_set(done_btn, "Done");
+	elm_object_style_set(done_btn, "naviframe/title_right");
+	elm_object_text_set(done_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_DONE_ABB"));
 	evas_object_smart_callback_add(done_btn, "clicked", on_code_entry_done_clicked, ad);
 
 
-	Evas_Object *cancel_btn = elm_label_add(ad->nf);
-	elm_object_style_set(cancel_btn, "naviframe/title_icon");
-
-
+	Evas_Object *cancel_btn = elm_button_add(ad->nf);
+	elm_object_style_set(cancel_btn, "naviframe/title_left");
+	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_CANCEL_ABB"));
+	evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad);
 
 	elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
 	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
