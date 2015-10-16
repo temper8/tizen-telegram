@@ -5,7 +5,9 @@
 #include "tg_db_wrapper.h"
 #include <media_content.h>
 #include "tg_start_messaging_view.h"
-
+#include "tg_search_peer_view.h"
+#include "tg_settings_view.h"
+#include "tg_add_contact.h"
 void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
 {
 	char *res_path = app_get_resource_path();
@@ -411,8 +413,47 @@ void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info)
 	if (!ad->buddy_list || eina_list_count(ad->buddy_list) <= 0) {
 		load_buddy_list_data(ad);
 	}
-	delete_floating_button(ad);
+	//delete_floating_button(ad);
 	launch_start_messaging_view(ad);
+
+	//update_floating_button(ad, 1);
+	//launch_start_peer_search_view(ad);
+
+	//delete_floating_button(ad);
+	//launch_settings_screen(ad);
+}
+
+
+
+void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+
+	Evas_Object* image = (Evas_Object*)evas_object_data_get(ad->floating_btn, "image");
+
+	switch(ad->current_app_state) {
+	case TG_PEER_SEARCH_VIEW_STATE:
+		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+		launch_settings_screen(ad);
+		break;
+	case TG_USER_MAIN_VIEW_STATE:
+		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
+		launch_start_peer_search_view(ad);
+		break;
+	default :
+		delete_floating_button(ad);
+		break;
+	}
+}
+
+void on_add_contact_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+
+	if (!ad->buddy_list || eina_list_count(ad->buddy_list) <= 0) {
+		load_buddy_list_data(ad);
+	}
+	show_toast(ad, "on_add_contact_clicked");
 }
 
 
@@ -423,17 +464,20 @@ void create_floating_button(appdata_s* ad)
 	if (ad->floating_btn)
 		return;
 
-    Evas_Object *pencil_icon = elm_image_add(ad->nf);
-    elm_image_file_set(pencil_icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
-    evas_object_show(pencil_icon);
+    Evas_Object *icon = elm_image_add(ad->nf);
+    elm_image_file_set(icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+    evas_object_show(icon);
 	ad->floating_btn = eext_floatingbutton_add(ad->layout);
 	evas_object_color_set(ad->floating_btn, 255, 255, 255, 255);
 	elm_object_part_content_set(ad->layout, "elm.swallow.floatingbutton", ad->floating_btn);
 	/* Floating Button 1 */
-	Evas_Object *new_msg_btn = elm_button_add(ad->floating_btn);
-	evas_object_smart_callback_add(new_msg_btn, "clicked", on_new_message_clicked, ad);
-	elm_object_part_content_set(ad->floating_btn, "button1", new_msg_btn);
-	elm_object_part_content_set(new_msg_btn, "icon", pencil_icon);
+	Evas_Object *btn = elm_button_add(ad->floating_btn);
+	evas_object_smart_callback_add(btn, "clicked", on_floating_icon_clicked, ad);
+
+	elm_object_part_content_set(ad->floating_btn, "button1", btn);
+	elm_object_part_content_set(btn, "icon", icon);
+
+	evas_object_data_set(ad->floating_btn, "image", icon);
 }
 
 void delete_floating_button(appdata_s* ad)
@@ -442,7 +486,20 @@ void delete_floating_button(appdata_s* ad)
 		return;
 
 	if (ad->floating_btn){
-		evas_object_del(ad->floating_btn);
-		ad->floating_btn = NULL;
+		evas_object_hide(ad->floating_btn);
 	}
+}
+
+void update_floating_button(appdata_s* ad, int mode)
+{
+    Evas_Object *plus_icon = elm_image_add(ad->nf);
+    elm_image_file_set(plus_icon, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
+    evas_object_show(plus_icon);
+
+	Evas_Object *new_msg_btn = elm_button_add(ad->floating_btn);
+	evas_object_smart_callback_add(new_msg_btn, "clicked", on_add_contact_clicked, ad);
+	elm_object_part_content_set(new_msg_btn, "icon", plus_icon);
+
+	elm_object_part_content_set(ad->floating_btn, "button1", new_msg_btn);
+
 }

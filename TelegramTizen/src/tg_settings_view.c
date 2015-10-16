@@ -363,6 +363,8 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 /**************************************************************************/
 
 
+
+
 void on_chat_bg_select_result_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
 {
 	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
@@ -425,9 +427,6 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		return;
 	}
 	if (id == 0) {
-
-
-
 		if (ad->chat_background) {
 			free(ad->chat_background);
 			ad->chat_background = NULL;
@@ -443,6 +442,8 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		app_control_set_mime(app_control, "image/jpg");
 		app_control_send_launch_request(app_control, &on_chat_bg_select_result_cb, ad);
 	} else {
+		app_control_set_launch_mode(app_control, APP_CONTROL_LAUNCH_MODE_GROUP);
+		app_control_set_app_id(app_control, "ug-gallery-efl");
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
 		app_control_set_mime(app_control,"image/*");
 		app_control_send_launch_request(app_control, &on_chat_bg_select_result_cb, ad);
@@ -451,9 +452,6 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 	app_control_destroy(app_control);
 	evas_object_del(popup);
 }
-
-
-
 
 char* on_chat_bg_load_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
@@ -517,7 +515,7 @@ void on_settings_info_item_clicked(void *data, Evas_Object *obj, void *event_inf
 }
 
 /*************************************************************************/
-
+#if 0
 void launch_settings_screen(appdata_s* ad)
 {
 	if (!ad) {
@@ -543,6 +541,7 @@ void launch_settings_screen(appdata_s* ad)
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
+
 
 	/**************** user info *********************/
 	Evas_Object *pic_name_list = NULL;
@@ -668,5 +667,110 @@ void launch_settings_screen(appdata_s* ad)
 	evas_object_data_set(cam_btn, "app_data", ad);
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Settings", NULL, NULL, scroller, NULL);
+}
+
+#endif
+
+
+char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
+{
+	int id = (int) data;
+
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+
+	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+		switch(id) {
+			case 0:
+				return strdup(ad->current_user_data->print_name);
+			case 1:
+				return strdup("Set Background image");
+			default:
+				break;
+		}
+
+
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+		switch(id) {
+			case 0:
+			if (ad->current_user_data->online) {
+				return strdup("online");
+			} else {
+				return strdup("offine");
+			}
+			break;
+		}
+	}
+
+	return NULL;
+}
+
+Evas_Object* _content_requested_cb(void *data, Evas_Object *obj, const char *part)
+{
+	Evas_Object *eo = NULL;
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+		appdata_s* ad = evas_object_data_get(obj, "app_data");
+
+		int id = (int) data;
+		if (id == 0) {
+
+			Evas_Object *profile_pic = NULL;
+
+			if (ad->current_user_data->photo_path && strlen(ad->current_user_data->photo_path) > 0 && strstr(ad->current_user_data->photo_path, "_null_") == NULL) {
+				profile_pic = get_image_from_path(ad->current_user_data->photo_path, ad->nf);
+			} else  {
+				profile_pic = get_image_from_path(ui_utils_get_resource(DEFAULT_PROFILE_PIC), ad->nf);
+			}
+
+			char edj_path[PATH_MAX] = {0, };
+			app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+			Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+			elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+			evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+			evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+			evas_object_show(user_pic_layout);
+			elm_object_part_content_set(user_pic_layout, "content", profile_pic);
+
+			eo = elm_layout_add(obj);
+			elm_layout_theme_set(eo, "layout", "list/B/type.1", "default");
+			elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+		}
+
+	}
+	return eo;
+}
+
+void launch_settings_screen(appdata_s* ad)
+{
+	if (!ad) {
+		return;
+	}
+
+	ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
+
+	if (!ad->current_user_data) {
+		load_registered_user_data(ad);
+	}
+
+	static Elm_Genlist_Item_Class itc;
+	Evas_Object *list = elm_genlist_add(ad->nf);
+	elm_list_mode_set(list, ELM_LIST_COMPRESS);
+	elm_genlist_mode_set(list, ELM_LIST_COMPRESS);
+	evas_object_size_hint_weight_set(list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(list);
+
+	evas_object_data_set(list, "app_data", ad);
+
+	itc.item_style = "type1";
+	itc.func.text_get = _text_requested_cb;
+	itc.func.content_get = _content_requested_cb;
+	itc.func.state_get = NULL;
+	itc.func.del = NULL;
+
+	elm_genlist_item_append(list, &itc, (void*) 0, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) 0);
+	elm_genlist_item_append(list, &itc, (void*) 1, NULL, ELM_GENLIST_ITEM_NONE, on_settings_info_item_clicked, (void*)1);
+
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Settings", NULL, NULL, list, NULL);
+
 }
 

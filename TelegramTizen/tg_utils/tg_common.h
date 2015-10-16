@@ -84,8 +84,10 @@
 
 #define TG_ICON_FLOATING_PENCIL       FM_ICON_PATH"telegram_floating_btn_ic.png"
 #define TG_ICON_FLOATING_BG       FM_ICON_PATH"floating_pressed.png"
+#define TG_ICON_FLOATING_ADD	FM_ICON_PATH"telegram_button_add.png"
 #define TG_SEARCH_ICON       FM_ICON_PATH"ic_ab_search.png"
 #define TG_SEARCH_PRESSED_ICON       FM_ICON_PATH"ic_ab_search_pressed.png"
+
 
 #define TG_MENU_GROUP       FM_ICON_PATH"menu_newgroup.png"
 #define TG_MENU_INVITE       FM_ICON_PATH"menu_invite.png"
@@ -547,6 +549,7 @@ typedef struct appdata {
 	TelegramAppDirection target_direction;
 	Evas_Object *floating_btn;
 	Elm_Theme *theme;
+	int screen_mode_for_fb; // for floating button icon
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
@@ -1082,6 +1085,8 @@ extern void tg_notification_create(appdata_s *app_data, char * icon_path, const 
 extern void create_floating_button(appdata_s* ad);
 
 extern void delete_floating_button(appdata_s* ad);
+
+extern void update_floating_button(appdata_s* ad, int mode);
 
 extern void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info);
 
