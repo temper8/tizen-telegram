@@ -2727,7 +2727,9 @@ static void create_base_gui(appdata_s *ad)
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_CUSTOM_WINSET_EDJ, edj_path, (int)PATH_MAX);
 
-	elm_theme_extension_add(NULL, edj_path);
+	Elm_Theme *theme = elm_theme_new();
+	elm_theme_extension_add(theme, edj_path);
+	ad->theme = theme;
 	evas_object_smart_callback_add(ad->win, "delete,request", win_delete_request_cb, NULL);
 
 	ad->conform = elm_conformant_add(ad->win);

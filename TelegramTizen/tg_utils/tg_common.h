@@ -546,6 +546,7 @@ typedef struct appdata {
 	Eina_Bool is_server_ready;
 	TelegramAppDirection target_direction;
 	Evas_Object *floating_btn;
+	Elm_Theme *theme;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);

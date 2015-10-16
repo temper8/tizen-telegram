@@ -880,7 +880,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			//elm_entry_magnifier_disabled_set(entry, EINA_TRUE);
 			// FIXME: Deprecated API
-			elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
+			//elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
+
+			elm_object_theme_set(layout, ad->theme);
 
 			char *sender_name = NULL;
 			if(msg->out) {
@@ -2141,11 +2143,18 @@ void on_file_app_control_reply_cb(app_control_h request, app_control_h reply, ap
 static void on_voice_record_reply_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
 {
 	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
-		Evas_Object *chat_list = user_data;
-		char *file_name = NULL;
-		app_control_get_extra_data(reply, APP_CONTROL_DATA_SELECTED, &file_name);
-		if (file_name) {
-			send_media_message_to_buddy(chat_list, file_name, tgl_message_media_document);
+		Evas_Object* chat_list = user_data;
+
+		char* file_path = NULL;
+		char** path_arryay = NULL;
+		int array_length = 0;
+		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+
+		for(int i = 0 ; i < array_length ; i++) {
+			file_path = strdup(path_arryay[i]);
+			send_media_message_to_buddy(chat_list, file_path, tgl_message_media_document);
+			free(file_path);
+			break;
 		}
 	}
 }
