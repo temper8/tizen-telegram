@@ -90,7 +90,8 @@
 #define ENTRY_BUBBLE_GROUPCHAT_SIZE_INC 30
 #define ENTRY_BUBBLE_GROUPCHAT_COLOR_INC 110 111 118 255
 
-#define ENTRY_BUBBLE_TIME_COLOR 141 141 141 255
+//#define ENTRY_BUBBLE_TIME_COLOR 141 141 141 255
+#define ENTRY_BUBBLE_TIME_COLOR 255 255 255 255
 
 #define ENTRY_BUBBLE_EX_PAD 58
 #define ENTRY_BUBBLE_IX_PAD 20
@@ -120,8 +121,10 @@
 collections
 {
 	images {
-	image: "00_messagebubble_bg_receive_bg.#.png" COMP;
-	image: "00_messagebubble_bg_sent_bg.#.png" COMP;
+	image: "telegram_bubble_bg_receive_ef.#.png" COMP;
+	image: "telegram_bubble_bg_receive.#.png" COMP;
+	image: "telegram_bubble_bg_send_ef.#.png" COMP;
+	image: "telegram_bubble_bg_send.#.png" COMP;
 	image: "ic_message_read.png" COMP;
 	}
 
@@ -714,7 +717,7 @@ group { name: "elm/entry/base-noedit/readmessage1";
             }
          }
          part {
-            name: "elm.image.bg";
+            name: "elm.image.bg.ef";
             type: IMAGE;
             scale: 1;
             description {
@@ -722,9 +725,9 @@ group { name: "elm/entry/base-noedit/readmessage1";
                rel1.to: "elm.bubble.lefttop.pad";
                rel2.to: "elm.bubble.rightbottom.pad";
                image {
-                  normal: "00_messagebubble_bg_receive_bg.#.png";
+                  normal: "telegram_bubble_bg_receive_ef.#.png";
                }
-               color_class: "W055";
+               color: 106 126 204 255;
             }
             description { state: "pressed" 0.0;
                inherit: "default" 0.0;
@@ -734,7 +737,29 @@ group { name: "elm/entry/base-noedit/readmessage1";
                inherit: "default" 0.0;
                color_class: "W0551";
             }
+         }
+         part {
+            name: "elm.image.bg";
+            type: IMAGE;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               rel1.to: "elm.bubble.lefttop.pad";
+               rel2.to: "elm.bubble.rightbottom.pad";
+               image {
+                  normal: "telegram_bubble_bg_receive.#.png";
+               }
+               color: 106 126 204 255;
             }
+            description { state: "pressed" 0.0;
+               inherit: "default" 0.0;
+               color_class: "W042";
+            }
+            description { state: "disabled" 0.0;
+               inherit: "default" 0.0;
+               color_class: "W0551";
+            }
+         }
 
 part {
 name: "elm.text.gc";
@@ -1515,7 +1540,34 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
                fixed: 1 1;
             }
          }
-
+		part {
+            name: "elm.image.bg.ef";
+            type: IMAGE;
+            scale: 1;
+            description {
+               state: "default" 0.0;
+               rel1 {
+                  to_x: "elm.bubble.leftbottom.pad";
+                  to_y: "elm.bubble.lefttop.pad";
+               }
+               rel2 {
+                  to_x: "elm.bubble.righttop.pad";
+                  to_y: "elm.bubble.leftbottom.pad";
+               }
+               image {
+                  normal: "telegram_bubble_bg_send_ef.#.png";
+               }
+               color: 45 165 224 225;
+            }
+            description { state: "pressed" 0.0;
+               inherit: "default" 0.0;
+               color_class: "W042";
+            }
+            description { state: "disabled" 0.0;
+               inherit: "default" 0.0;
+               color_class: "W0541";
+            }
+         }
          part {
             name: "elm.image.bg";
             type: IMAGE;
@@ -1531,9 +1583,9 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
                   to_y: "elm.bubble.leftbottom.pad";
                }
                image {
-                  normal: "00_messagebubble_bg_sent_bg.#.png";
+                  normal: "telegram_bubble_bg_send.#.png";
                }
-               color_class: "W054";
+               color: 45 165 224 225;
             }
             description { state: "pressed" 0.0;
                inherit: "default" 0.0;
@@ -1738,8 +1790,8 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
          	  	scale: 1;
  				description {
              	state: "default" 0.0;
-             	min: 10 10;
-            	max: 10 10;
+             	min: 20 20;
+            	max: 20 20;
             	align: 1.0 0.5;
             	rel1 {
                 	to: "pad_vertical";

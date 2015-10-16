@@ -471,11 +471,11 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		var_query = realloc(var_query, strlen(var_query)+strlen(order_column) + 1);
 		strcat(var_query, order_column);
 		if (is_asc) {
-			var_query = realloc(var_query, strlen(var_query)+strlen(" ASC ") + 1);
-			strcat(var_query, " ASC ");
+			var_query = realloc(var_query, strlen(var_query)+strlen(" COLLATE NOCASE ASC ") + 1);
+			strcat(var_query, " COLLATE NOCASE ASC ");
 		} else {
-			var_query = realloc(var_query, strlen(var_query)+strlen(" DESC ") + 1);
-			strcat(var_query, " DESC ");
+			var_query = realloc(var_query, strlen(var_query)+strlen(" COLLATE NOCASE DESC ") + 1);
+			strcat(var_query, " COLLATE NOCASE DESC ");
 		}
 	}
 

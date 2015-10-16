@@ -762,10 +762,10 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 
 		int len_org_str = strlen(org_msg);
 
-		char res[40] = {'\0'};
+		char res[30] = {'\0'};
 		char status_buf[126] = {'\0'};
-		if(len_org_str > 40) {
-			strncpy(res, org_msg, 39);
+		if(len_org_str > 30) {
+			strncpy(res, org_msg, 29);
 			if(item->last_msg_service) {
 				sprintf(status_buf,"<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", res);
 			} else {
@@ -1093,7 +1093,7 @@ void launch_user_main_view_cb(appdata_s* ad)
 		evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_data_set(buddy_list, "app_data", ad);
-
+		elm_genlist_block_count_set(buddy_list, 14);
 		elm_genlist_homogeneous_set(buddy_list, EINA_TRUE);
 
 

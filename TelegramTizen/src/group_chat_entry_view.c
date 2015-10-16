@@ -254,7 +254,7 @@ void launch_group_chat_name_entry_view(void *data)
 	char edj_path[PATH_MAX] = {0, };
 
 	Evas_Object* main_layout = elm_layout_add(ad->win);
-	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(main_layout, edj_path, "group_chat_entry");
 	evas_object_size_hint_weight_set(main_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(main_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -263,7 +263,7 @@ void launch_group_chat_name_entry_view(void *data)
 	elm_object_content_set(scroller, main_layout);
 
 	Evas_Object* entry_layout = elm_layout_add(ad->win);
-	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(entry_layout, edj_path, "group_chat_photo_name_entry");
 	evas_object_show(entry_layout);
 	elm_object_part_content_set(main_layout, "swallow.group_chat_entry_box", entry_layout);

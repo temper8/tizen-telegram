@@ -2224,9 +2224,9 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 							char status_buf[512] = {'\0'};
 							if(len_org_str > 25) {
 								strncpy(res, org_msg, 25);
-								snprintf(status_buf, 512, "<font=Tizen:style=Italic color=#008000 align=left><font_size=30>%s</font_size></font>", res);
+								snprintf(status_buf, 512, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", res);
 							} else {
-								snprintf(status_buf, 512, "<font=Tizen:style=Italic color=#008000 align=left><font_size=30>%s</font_size></font>", org_msg);
+								snprintf(status_buf, 512, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", org_msg);
 							}
 							elm_object_text_set(sel_item->status_lbl, status_buf);
 						}
@@ -2288,13 +2288,13 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 					        int len_org_str = strlen(org_msg);
 
-					        char res[40] = {'\0'};
+					        char res[30] = {'\0'};
 					        char status_buf[126] = {'\0'};
-					        if(len_org_str > 40) {
-					        	strncpy(res, org_msg, 39);
+					        if(len_org_str > 30) {
+					        	strncpy(res, org_msg, 29);
 					        	sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
 					        } else {
-					        	snprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
+					        	sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
 					        }
 							elm_object_text_set(sel_item->status_lbl, status_buf);
 						}
@@ -3142,7 +3142,7 @@ TelegramAppDirection tg_get_device_orientation()
 	return target_direction;
 }
 
-void update_ccurrent_view(appdata_s *ad)
+void update_current_view(appdata_s *ad)
 {
 	if (!ad) {
 		return;
@@ -3150,6 +3150,9 @@ void update_ccurrent_view(appdata_s *ad)
 	switch (ad->current_app_state) {
 	case TG_USER_MAIN_VIEW_STATE:
 		refresh_main_list_view(ad, EINA_FALSE);
+		break;
+	case TG_CHAT_MESSAGING_VIEW_STATE:
+		refresh_messaging_view(ad);
 		break;
 	default:
 		break;
@@ -3196,7 +3199,7 @@ static void ui_app_orient_changed(app_event_info_h event_info, void *user_data)
 	}
 	if (target_direction != ad->target_direction) {
 		ad->target_direction = target_direction;
-		update_ccurrent_view(ad);
+		update_current_view(ad);
 	}
 	return;
 }

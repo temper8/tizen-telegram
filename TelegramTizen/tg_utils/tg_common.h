@@ -32,9 +32,8 @@
 #define EDJ_CHAT_CONV_FILE "edje/telegram_chat_conv.edj"
 
 #define TELEGRAM_CUSTOM_WINSET_EDJ	"edje/telegram_theme.edj"
-#define TELEGRAM_CHAT_VIEW_EDJ	"edje/telegram_chat_view.edj"
-#define TELEGRAM_START_VIEW_EDJ	"edje/telegram_start_screen.edj"
-#define TELEGRAM_INIT_VIEW_EDJ	"edje/telegram_init_screen.edj"
+#define TELEGRAM_START_VIEW_EDJ  "edje/telegram_start_screen.edj"
+#define TELEGRAM_INIT_VIEW_EDJ  "edje/telegram_init_screen.edj"
 #define TELEGRAM_POPUP_VIEW_EDJ	"edje/telegram_custom_popup.edj"
 #define TELEGRAM_GENLIST_THEME_EDJ	"edje/telegram_genlist_theme.edj"
 

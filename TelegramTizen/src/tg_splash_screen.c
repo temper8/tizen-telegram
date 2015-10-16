@@ -14,7 +14,7 @@ launch_splash_screen_cb(void *data)
 
 	ad->current_app_state = TG_REGISTRATION_STATE;
 	Evas_Object* layout = elm_layout_add(ad->win);
-	app_get_resource(EDJ_CHAT_CONV_FILE, edj_path, (int)PATH_MAX);
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(layout, edj_path, "splash_screen");
 	Evas_Object* progressbar = elm_progressbar_add(layout);
 	elm_object_style_set(progressbar, "process_small");
