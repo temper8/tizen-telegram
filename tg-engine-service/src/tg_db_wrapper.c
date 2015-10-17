@@ -45,9 +45,9 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
 	if(!ret) {
@@ -91,9 +91,9 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
 
 	ret = create_table(table_name, col_names, col_types);
 	if(!ret) {
@@ -716,7 +716,7 @@ int insert_current_date_to_table(char* tb_name)
 			time_t t = cur_time;
 
 			char *format = NULL;
-			format = "%d %B %Y";
+			format = "%a, %d%b. %Y";
 
 			struct tm lt;
 			char res[256];
@@ -749,7 +749,7 @@ int insert_current_date_to_table(char* tb_name)
 		time_t t = cur_time;
 
 		char *format = NULL;
-		format = "%d %B %Y";
+		format = "%a, %d%b. %Y";
 
 		struct tm lt;
 		char res[256];

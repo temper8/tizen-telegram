@@ -60,9 +60,9 @@
 #define BLUR_BG FM_ICON_PATH"/blur_img.png"
 #define CAMERA_ICON FM_ICON_PATH"/camera-icon.png"
 #define MESSAGE_READ_ICON FM_ICON_PATH"/telegram_bubble_read.png"
-#define MESSAGE_SENDING_ICON FM_ICON_PATH"/ic_message_sending.png"
-#define MESSAGE_SENT_ICON FM_ICON_PATH"/telegram_icon_check.png"
-#define MESSAGE_FAILED_ICON FM_ICON_PATH"/ic_message_failed.png"
+#define MESSAGE_SENDING_ICON FM_ICON_PATH"/telegram_icon_check.png"
+#define MESSAGE_SENT_ICON FM_ICON_PATH"/telegram_icon_double_check.png"
+#define MESSAGE_FAILED_ICON FM_ICON_PATH"/telegram_icon_check.png"
 #define MESSAGE_DELIVERED_ICON FM_ICON_PATH"/telegram_icon_double_check.png"
 #define FLOATING_MSG_ICON FM_ICON_PATH"/floating_message.png"
 
@@ -71,6 +71,8 @@
 #define MEDIA_PLAY_ICON FM_ICON_PATH"/playvideo.png"
 #define DEFAULT_TELEGRAM_ICON FM_ICON_PATH"/tg_icon.png"
 
+#define TELEGRAM_BUTTON_ADD_ICON FM_ICON_PATH"/telegram_button_add.png"
+#define TELEGRAM_THUMB_ADD_ICON FM_ICON_PATH"/telegram_thumb_add.png"
 
 #define FM_ICON_CAMERA       FM_ICON_PATH"floating_camera.png"
 #define FM_ICON_GALLERY       FM_ICON_PATH"ic_attach_gallery.png"
@@ -79,15 +81,11 @@
 #define FM_ICON_FILE       FM_ICON_PATH"ic_attach_doc.png"
 #define FM_ICON_LOCATION       FM_ICON_PATH"ic_attach_location.png"
 
-
-
-
 #define TG_ICON_FLOATING_PENCIL       FM_ICON_PATH"telegram_floating_btn_ic.png"
 #define TG_ICON_FLOATING_BG       FM_ICON_PATH"floating_pressed.png"
 #define TG_ICON_FLOATING_ADD	FM_ICON_PATH"telegram_button_add.png"
 #define TG_SEARCH_ICON       FM_ICON_PATH"ic_ab_search.png"
 #define TG_SEARCH_PRESSED_ICON       FM_ICON_PATH"ic_ab_search_pressed.png"
-
 
 #define TG_MENU_GROUP       FM_ICON_PATH"menu_newgroup.png"
 #define TG_MENU_INVITE       FM_ICON_PATH"menu_invite.png"

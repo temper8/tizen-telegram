@@ -9,6 +9,7 @@
 
 void create_data_base_tables()
 {
+#if 0
 	char* table_name = USER_INFO_TABLE_NAME;
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_ID);
@@ -406,7 +407,7 @@ void create_data_base_tables()
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
-
+#endif
 }
 
 
@@ -1031,7 +1032,7 @@ Eina_List* get_buddy_list_info()
 	strcat(where_clause, " = ");
 	strcat(where_clause, unknown_str);
 
-	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_PRINT_NAME, EINA_TRUE, where_clause);
+	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_FIRST_NAME, EINA_TRUE, where_clause);
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
@@ -1894,7 +1895,7 @@ int insert_current_date_to_table(char* tb_name)
 			time_t t = cur_time;
 
 			char *format = NULL;
-			format = "%d %B %Y";
+			format = "%a, %d%b. %Y";
 
 			struct tm lt;
 			char res[256];
@@ -1928,7 +1929,7 @@ int insert_current_date_to_table(char* tb_name)
 		time_t t = cur_time;
 
 		char *format = NULL;
-		format = "%d %B %Y";
+		format = "%a, %d%b. %Y";
 
 		struct tm lt;
 		char res[256];
@@ -3094,6 +3095,246 @@ Eina_List* get_image_details_from_db(long long media_id)
 	eina_list_free(col_names);
 
 	return vals;
+}
+
+Eina_List* get_all_buddy_details(char* start_name)
+{
+
+	Eina_List* user_details = NULL;
+	if (!start_name)
+	{
+		start_name = "";
+	}
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PRINT_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_STRUCTURE_VERSION);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_FIRST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHONE_NO);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_ACCESS_HASH);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_REAL_FIRST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_REAL_LAST_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_NAME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_ONLINE_STATUS);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	int unknown = 0;
+	char unknown_str[50];
+	sprintf(unknown_str, "%d", unknown);
+
+	char* where_clause = (char*)malloc(strlen(" ( ") + strlen(USER_INFO_TABLE_IS_UNKNOWN_PEER) + strlen(" = ") + strlen(unknown_str) + strlen(" AND ") + strlen(USER_INFO_TABLE_IS_DELETED) + strlen(" = ") + strlen(unknown_str) + strlen(" ) ") + strlen(" AND (") + strlen(USER_INFO_TABLE_PRINT_NAME) + strlen(" LIKE '") + strlen(start_name) + strlen("%' )") + 1);
+	strcpy(where_clause, " ( ");
+	strcat(where_clause, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+	strcat(where_clause, " AND ");
+	strcat(where_clause, USER_INFO_TABLE_IS_DELETED);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+	strcat(where_clause, " ) ");
+
+	strcat(where_clause, " AND (");
+	strcat(where_clause, USER_INFO_TABLE_PRINT_NAME);
+	strcat(where_clause, " LIKE '");
+	strcat(where_clause, start_name);
+	strcat(where_clause, "%' )");
+
+	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_FIRST_NAME, EINA_TRUE, where_clause);
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	free(where_clause);
+
+	return user_details;
+
+}
+
+Eina_List* load_buddy_data_by_name(int current_user, char* name)
+{
+	Eina_List* buddy_list = NULL;
+	Eina_List* user_info = get_all_buddy_details(name);
+
+	if (!user_info) {
+		return buddy_list;
+	}
+
+	int row_count = eina_list_count(user_info);
+
+	for (int i = 0 ; i < row_count ; i++) {
+		Eina_List* row_vals = eina_list_nth(user_info, i);
+
+		int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+
+		if (current_user == (*temp_user_id)) {
+			for (int i = 0 ; i < eina_list_count(row_vals); i++) {
+				void* val = eina_list_nth(row_vals, i);
+				free(val);
+			}
+			continue;
+		}
+
+		user_data_s* user_data = (user_data_s*)malloc(sizeof(user_data_s));
+		user_data->is_selected = EINA_FALSE;
+
+
+		if (temp_user_id) {
+			user_data->user_id.id = *temp_user_id;
+			user_data->user_id.type = TGL_PEER_USER;
+			free(temp_user_id);
+		}
+
+		char *print_name = (char*)eina_list_nth(row_vals, 1);
+		if(print_name) {
+			user_data->print_name = strdup(print_name);
+			free(print_name);
+		} else {
+			user_data->print_name = NULL;
+		}
+
+		int *temp_struct_ver = (int*)eina_list_nth(row_vals, 2);
+		if(temp_struct_ver) {
+			user_data->structure_version = *temp_struct_ver;
+			free(temp_struct_ver);
+		}
+
+		char *photo_path = (char*)eina_list_nth(row_vals, 3);
+		if(photo_path) {
+			user_data->photo_path = strdup(photo_path);
+			free(photo_path);
+		} else {
+			user_data->photo_path = NULL;
+		}
+
+
+		int *temp_photo_id = (int*)eina_list_nth(row_vals, 4);
+		if(temp_photo_id) {
+			user_data->photo_id = *temp_photo_id;
+			free(temp_photo_id);
+		}
+
+		char *first_name = (char*)eina_list_nth(row_vals, 5);
+		if(first_name) {
+			user_data->first_name = strdup(first_name);
+			free(first_name);
+		} else {
+			user_data->first_name = NULL;
+		}
+
+		char *last_name = (char*)eina_list_nth(row_vals, 6);
+		if(last_name) {
+			user_data->last_name = strdup(last_name);
+			free(last_name);
+		} else {
+			user_data->last_name = NULL;
+		}
+
+		char *phone_no = (char*)eina_list_nth(row_vals, 7);
+		if(phone_no) {
+			user_data->phone = strdup(phone_no);
+			free(phone_no);
+		} else {
+			user_data->phone = NULL;
+		}
+
+		int *temp_access_hash = (int*)eina_list_nth(row_vals, 8);
+		if(temp_access_hash) {
+			user_data->access_hash = *temp_access_hash;
+			free(temp_access_hash);
+		}
+
+		char *real_first_name = (char*)eina_list_nth(row_vals, 9);
+		if(real_first_name) {
+			user_data->real_first_name = strdup(real_first_name);
+			free(real_first_name);
+		} else {
+			user_data->real_first_name = NULL;
+		}
+
+		char *real_last_name = (char*)eina_list_nth(row_vals, 10);
+		if(real_last_name) {
+			user_data->real_last_name = strdup(real_last_name);
+			free(real_last_name);
+		} else {
+			user_data->real_last_name = NULL;
+		}
+
+		char *user_name = (char*)eina_list_nth(row_vals, 11);
+		if(user_name) {
+			user_data->username = strdup(user_name);
+			free(user_name);
+		} else {
+			user_data->username = NULL;
+		}
+
+		int *temp_online_status = (int*)eina_list_nth(row_vals, 12);
+		if(temp_online_status) {
+			user_data->online = *temp_online_status;
+			free(temp_online_status);
+		}
+
+		int *temp_last_seen = (int*)eina_list_nth(row_vals, 13);
+		if(temp_last_seen) {
+			user_data->last_seen = *temp_last_seen;
+			free(temp_last_seen);
+		}
+
+		int *temp_is_blocked = (int*)eina_list_nth(row_vals, 14);
+		if(temp_is_blocked) {
+			user_data->is_blocked = *temp_is_blocked;
+			free(temp_is_blocked);
+		}
+
+		int *temp_is_deleted = (int*)eina_list_nth(row_vals, 15);
+		if(temp_is_deleted) {
+			user_data->is_deleted = *temp_is_deleted;
+			free(temp_is_deleted);
+		}
+
+		int *temp_is_unknown = (int*)eina_list_nth(row_vals, 16);
+		if(temp_is_unknown) {
+			user_data->is_unknown = *temp_is_unknown;
+			free(temp_is_unknown);
+		}
+
+		user_data_with_pic_s *item = (user_data_with_pic_s*) malloc(sizeof (user_data_with_pic_s));
+		item->use_data = user_data;
+		//item->pic_file_location = NULL;
+		item->contact_icon = NULL;
+		buddy_list = eina_list_append(buddy_list, item);
+
+		eina_list_free(row_vals);
+
+	}
+	eina_list_free(user_info);
+	return buddy_list;
 }
 
 

@@ -651,7 +651,6 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 		evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_show(layout);
 		Evas_Object* item_layout = elm_layout_add(ad->nf);
-
 		if (ad->target_direction == TELEGRAM_TARGET_DIRECTION_LANDSCAPE_INVERSE || ad->target_direction == TELEGRAM_TARGET_DIRECTION_LANDSCAPE) {
 			if ((item->last_message == NULL) || (strlen(item->last_message) <= 0) || (strcmp(item->last_message, " ") == 0) || (item->number_of_unread_msgs == 0 &&(!item->is_out_msg || !item->last_msg_service))) {
 				elm_layout_file_set(item_layout, edj_path, "main_list_custom_no_msg_item_land");
@@ -1067,7 +1066,7 @@ void launch_user_main_view_cb(appdata_s* ad)
 
 	//elm_layout_theme_set(ad->layout, "layout", "drawer", "panel");
 	// sandeep
-	create_side_main_view(ad);
+	//create_side_main_view(ad);
 
 
 	/************** no chat item++ *********************/
@@ -1151,9 +1150,10 @@ void launch_user_main_view_cb(appdata_s* ad)
     evas_object_smart_callback_add(search_btn, "unpressed", on_search_icon_unpressed, search_icon);
 #endif
 
-    Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);
+    elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);
 
 #if 0
+    Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);
 	elm_object_item_part_content_set(navi_item, "title_right_btn", search_layout);
 	/* left panel toggle button */
 	Evas_Object *panel_btn = create_button(ad->nf, "naviframe/drawers", NULL);

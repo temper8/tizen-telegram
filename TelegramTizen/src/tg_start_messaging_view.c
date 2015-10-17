@@ -268,10 +268,7 @@ void launch_start_messaging_view(appdata_s* ad)
 	elm_object_text_set(contact_lbl, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=45>&nbsp;&nbsp;Contacts</font_size></font>");
 	elm_object_part_content_set(layout, "contacts_header", contact_lbl);
 	/***************** contacts header *************************/
-
-
 	/***************** contacts list *************************/
-
 	int i;
 	static Elm_Genlist_Item_Class itc1;
 	Evas_Object *buddy_list = elm_genlist_add(ad->nf);
@@ -304,7 +301,6 @@ void launch_start_messaging_view(appdata_s* ad)
 	evas_object_show(buddy_list);
 	elm_object_part_content_set(layout, "contacts_layout", buddy_list);
 	/***************** contacts list *************************/
-
 
 	Evas_Object* search_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(search_layout, edj_path, "title_search_layout");

@@ -262,6 +262,8 @@ int get_media_size_from_db(long long media_id);
 
 int get_number_of_unread_messages();
 
+Eina_List* load_buddy_data_by_name(int current_user, char* name);
+Eina_List* get_all_buddy_details(char* name);
 
 void create_buddy_msg_table(const char* table_name);
 

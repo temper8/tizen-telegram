@@ -415,12 +415,6 @@ void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info)
 	}
 	//delete_floating_button(ad);
 	launch_start_messaging_view(ad);
-
-	//update_floating_button(ad, 1);
-	//launch_start_peer_search_view(ad);
-
-	//delete_floating_button(ad);
-	//launch_settings_screen(ad);
 }
 
 
@@ -455,7 +449,6 @@ void on_add_contact_clicked(void *data, Evas_Object *obj, void *event_info)
 	}
 	show_toast(ad, "on_add_contact_clicked");
 }
-
 
 void create_floating_button(appdata_s* ad)
 {

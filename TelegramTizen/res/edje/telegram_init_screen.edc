@@ -613,7 +613,7 @@ collections {
          			state: "default" 0.0;
             		rel1 { relative: 0.0 0.0; }
             		rel2 { relative: 1.0 1.0; }
-            		color: 255 255 255 255;
+            		color: 0 0 0 0;
          		}
       		}
       		part {
@@ -623,7 +623,7 @@ collections {
          			state: "default" 0.0;
             		rel1 { relative: 0.0 0.0; }
             		rel2 { relative: 1.0 1.0; }
-            		color: 222 222 100 222;
+            		color: 0 0 0 0;
          		}
       		}
       		part {
@@ -815,7 +815,7 @@ collections {
                 state: default 0.0;
                rel1.relative: 0.0 0.05;
                rel2.relative: 1.0 0.95;
-               color: 250 250 250 255;
+               color: 250 250 250 0;
             }
          }
          part { 
@@ -837,7 +837,7 @@ collections {
                 state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               color: 250 250 250 255;
+               color: 250 250 250 0;
             }
          }
          part { 
@@ -865,6 +865,56 @@ collections {
                rel1.relative: 0.3 0.2;
                rel2.relative: 0.7 0.8;
                image.normal: camera_btn_gallery_mask.png;
+            }
+         }
+         part { 
+            name: content;
+            type: SWALLOW;
+            clip_to: masking;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+            }
+         }
+      }
+    }
+	
+	
+	group { 
+	  name: "menu_circle_layout";
+      parts {
+          part { 
+            name: masking_bg;
+            type: RECT;
+            precise_is_inside: 1;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.05;
+               rel2.relative: 1.0 0.95;
+               color: 250 250 250 0;
+            }
+         }
+         part { 
+            name: masking;
+            type: IMAGE;
+            precise_is_inside: 1;
+            description { 
+               state: default 0.0;
+               rel1.relative: 0.0 0.05;
+               rel2.relative: 1.0 0.95;
+               image.normal: camera_btn_gallery_mask.png;
+            }
+         }
+         part { 
+            name: content_bg;
+            type: RECT;
+            clip_to: masking;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 45 165 224 255;
             }
          }
          part { 
@@ -1838,7 +1888,7 @@ group
                min: 0 130;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               color: 0 0 0 0;               
+               color: 0 0 0 0;
             }
          }
       }

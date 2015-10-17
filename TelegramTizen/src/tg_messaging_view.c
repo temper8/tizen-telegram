@@ -880,9 +880,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			//elm_entry_magnifier_disabled_set(entry, EINA_TRUE);
 			// FIXME: Deprecated API
-			//elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
+			elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
 
-			elm_object_theme_set(layout, ad->theme);
+			//elm_object_theme_set(layout, ad->theme);
 
 			char *sender_name = NULL;
 			if(msg->out) {
@@ -2036,21 +2036,38 @@ Eina_Bool load_chat_history(Evas_Object *chat_list)
 void on_gallery_app_control_reply_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
 {
 	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
-
 		Evas_Object* chat_list = user_data;
 		char* file_path = NULL;
 		char** path_arryay = NULL;
 		int array_length = 0;
-		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
-
+		int status;
 		char* mime_type = NULL;
-		app_control_get_mime(reply, &mime_type);
+		appdata_s* ad = evas_object_data_get(chat_list, "app_data");
+
+		status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_PATH, &path_arryay,  &array_length);
+			if (status != APP_CONTROL_ERROR_NONE) {
+				if (ad) {
+					show_toast(ad, "Unable to get the result from attach panel");
+				}
+				return;
+			}
+		}
+
+		status = app_control_get_mime(reply, &mime_type);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			if (ad) {
+				show_toast(ad, "Unable to get the mime type from attach panel");
+			}
+			return;
+		}
 
 		for(int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			send_media_message_to_buddy(chat_list, file_path, tgl_message_media_photo);
 			free(file_path);
-			break;
+			//break;
 		}
 	}
 }
@@ -2084,13 +2101,33 @@ void on_video_app_control_reply_cb(app_control_h request, app_control_h reply, a
 		char* file_path = NULL;
 		char** path_arryay = NULL;
 		int array_length = 0;
-		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+		int status;
+		char* mime_type = NULL;
+		appdata_s* ad = evas_object_data_get(chat_list, "app_data");
 
+		status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_PATH, &path_arryay,  &array_length);
+			if (status != APP_CONTROL_ERROR_NONE) {
+				if (ad) {
+					show_toast(ad, "Unable to get the result from attach panel");
+				}
+				return;
+			}
+		}
+
+		status = app_control_get_mime(reply, &mime_type);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			if (ad) {
+				show_toast(ad, "Unable to get the mime type from attach panel");
+			}
+			return;
+		}
 		for(int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			send_media_message_to_buddy(chat_list, file_path, tgl_message_media_document);
 			free(file_path);
-			break;
+			//break;
 		}
 	}
 }
@@ -2148,13 +2185,34 @@ static void on_voice_record_reply_cb(app_control_h request, app_control_h reply,
 		char* file_path = NULL;
 		char** path_arryay = NULL;
 		int array_length = 0;
-		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+		int status;
+		char* mime_type = NULL;
+		appdata_s* ad = evas_object_data_get(chat_list, "app_data");
+
+		status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_PATH, &path_arryay,  &array_length);
+			if (status != APP_CONTROL_ERROR_NONE) {
+				if (ad) {
+					show_toast(ad, "Unable to get the result from attach panel");
+				}
+				return;
+			}
+		}
+
+		status = app_control_get_mime(reply, &mime_type);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			if (ad) {
+				show_toast(ad, "Unable to get the mime type from attach panel");
+			}
+			return;
+		}
 
 		for(int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			send_media_message_to_buddy(chat_list, file_path, tgl_message_media_document);
 			free(file_path);
-			break;
+			//break;
 		}
 	}
 }
@@ -2504,7 +2562,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(chat_conv_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(chat_conv_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	// FIXME: Deprecated API
-	//elm_genlist_realization_mode_set(chat_conv_list, EINA_TRUE);
+	elm_genlist_realization_mode_set(chat_conv_list, EINA_TRUE);
 	//evas_object_color_set(chat_conv_list, 255 , 255, 255, 255);
 
 	evas_object_show(chat_conv_list);

@@ -2566,11 +2566,6 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_SET_CHAT_INFO_STATE;
 			break;
-		case TG_PEER_SEARCH_VIEW_STATE:
-			elm_naviframe_item_pop(ad->nf);
-			create_floating_button(ad);
-			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
-			break;
 		case TG_SET_USERNAME_STATE:
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
@@ -2584,6 +2579,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
 			break;
+		case TG_PEER_SEARCH_VIEW_STATE:
 		case TG_START_MESSAGING_VIEW_STATE:
 		case TG_SETTINGS_SCREEN_STATE:
 			elm_naviframe_item_pop(ad->nf);
@@ -2638,10 +2634,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 				}
 			}
 			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_BUDDY_LIST_STATE;
-			//evas_object_show(ad->panel);
-			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
-			//refresh_buddy_list(ad);
+			ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
 			break;
 		case TG_GROUP_CHAT_NAME_ENTRY_STATE:
 			if (ad->buddy_list) {
@@ -2728,7 +2721,7 @@ static void create_base_gui(appdata_s *ad)
 	app_get_resource(TELEGRAM_CUSTOM_WINSET_EDJ, edj_path, (int)PATH_MAX);
 
 	Elm_Theme *theme = elm_theme_new();
-	elm_theme_extension_add(theme, edj_path);
+	elm_theme_extension_add(NULL, edj_path);
 	ad->theme = theme;
 	evas_object_smart_callback_add(ad->win, "delete,request", win_delete_request_cb, NULL);
 
