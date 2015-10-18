@@ -429,6 +429,7 @@ void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info)
 	case TG_PEER_SEARCH_VIEW_STATE:
 		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
 		launch_settings_screen(ad);
+		delete_floating_button(ad);
 		break;
 	case TG_USER_MAIN_VIEW_STATE:
 		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
@@ -454,6 +455,7 @@ void create_floating_button(appdata_s* ad)
 {
 	if (!ad)
 		return;
+
 	if (ad->floating_btn)
 		return;
 
@@ -479,20 +481,40 @@ void delete_floating_button(appdata_s* ad)
 		return;
 
 	if (ad->floating_btn){
-		evas_object_hide(ad->floating_btn);
+		elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,hidden", "elm");
+	}
+}
+
+void show_floating_button(appdata_s* ad)
+{
+	if (!ad)
+		return;
+
+	if (ad->floating_btn){
+		elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,visible", "elm");
 	}
 }
 
 void update_floating_button(appdata_s* ad, int mode)
 {
-    Evas_Object *plus_icon = elm_image_add(ad->nf);
-    elm_image_file_set(plus_icon, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
-    evas_object_show(plus_icon);
+	// To do thi function
+	if (!ad->floating_btn)
+		return;
 
-	Evas_Object *new_msg_btn = elm_button_add(ad->floating_btn);
-	evas_object_smart_callback_add(new_msg_btn, "clicked", on_add_contact_clicked, ad);
-	elm_object_part_content_set(new_msg_btn, "icon", plus_icon);
+	Evas_Object* image = (Evas_Object*)evas_object_data_get(ad->floating_btn, "image");
 
-	elm_object_part_content_set(ad->floating_btn, "button1", new_msg_btn);
+	switch(mode) {
+	case TG_PEER_SEARCH_VIEW_STATE:
+		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
+		break;
+	case TG_USER_MAIN_VIEW_STATE:
+		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
+		break;
+	default :
+		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+		break;
+	}
+
+	elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,visible", "elm");
 
 }

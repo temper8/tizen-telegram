@@ -145,6 +145,7 @@
 		} \
 } while (0)
 
+#define _(str) gettext(str)
 #define SAFE_STRCMP(str1, str2)   ((str1 && str2) ? strcmp(str1, str2) : -1)
 #define SAFE_STRDUP(text)		(text == NULL ? NULL : strdup(text))	//what to use for strcpy?
 #define SAFE_STRLEN(src)	\
@@ -1090,6 +1091,8 @@ extern void tg_notification_create(appdata_s *app_data, char * icon_path, const 
 extern void create_floating_button(appdata_s* ad);
 
 extern void delete_floating_button(appdata_s* ad);
+
+extern void show_floating_button(appdata_s* ad);
 
 extern void update_floating_button(appdata_s* ad, int mode);
 

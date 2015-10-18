@@ -290,7 +290,7 @@ void on_image_request_option_selected_cb(void *data, Evas_Object *obj, void *eve
 		return;
 	}
 
-	if (id  == 0) {
+	if (id  == 1) {
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_CREATE_CONTENT);
 		app_control_set_mime(app_control, "image/jpg");
 		app_control_send_launch_request(app_control, &on_image_select_result_cb, ad);
@@ -308,22 +308,27 @@ char* on_camera_load_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int) data;
 	if (id == 0) {
-		return strdup("Camera");
+		return strdup(_("IDS_TGRAM_OPT_FROM_GALLERY_ABB2"));
 	} else {
-		return strdup("Gallery");
+		return strdup(_("IDS_TGRAM_OPT_TAKE_PICTURE_ABB"));
 	}
 }
 
 void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object* cam_icon =  data;
-	appdata_s* ad = evas_object_data_get(data, "app_data");
+
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
 	Evas_Object *box;
 	Evas_Object *genlist;
 	int i;
+
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	Evas_Object *win = ad->win;
+
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
 
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
@@ -331,7 +336,7 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 	elm_object_part_text_set(popup, "title,text", "Load image from");
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	evas_object_data_set(popup, "cam_icon", cam_icon);
+	//evas_object_data_set(popup, "cam_icon", cam_icon);
 	evas_object_data_set(popup, "app_data", ad);
 	/* box */
 	box = elm_box_add(popup);
@@ -426,7 +431,7 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		show_toast(ad, "Error: Can not load image picker");
 		return;
 	}
-	if (id == 0) {
+	/*if (id == 0) {
 		if (ad->chat_background) {
 			free(ad->chat_background);
 			ad->chat_background = NULL;
@@ -437,7 +442,7 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		if (chat_bg) {
 			elm_image_file_set(chat_bg, ad->chat_background, NULL);
 		}
-	}else if (id  == 1) {
+	}else */if (id  == 1) {
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_CREATE_CONTENT);
 		app_control_set_mime(app_control, "image/jpg");
 		app_control_send_launch_request(app_control, &on_chat_bg_select_result_cb, ad);
@@ -457,14 +462,11 @@ char* on_chat_bg_load_text_get_cb(void *data, Evas_Object *obj, const char *part
 {
 	int id = (int) data;
 	if (id == 0) {
-		return strdup("Set default");
-	} else if (id == 1) {
-		return strdup("Camera");
+		return strdup(_("IDS_TGRAM_OPT_FROM_GALLERY_ABB2"));
 	} else {
-		return strdup("Gallery");
+		return strdup(_("IDS_TGRAM_OPT_TAKE_PICTURE_ABB"));
 	}
 }
-
 
 void on_settings_info_item_clicked(void *data, Evas_Object *obj, void *event_info)
 {
@@ -486,16 +488,19 @@ void on_settings_info_item_clicked(void *data, Evas_Object *obj, void *event_inf
 	elm_object_part_text_set(popup, "title,text", "Load image from");
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-
 	evas_object_data_set(popup, "app_data", ad);
 	/* box */
 	box = elm_box_add(popup);
+	elm_box_horizontal_set(box, EINA_FALSE);
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
 	/* genlist */
 	genlist = elm_genlist_add(box);
+	elm_genlist_mode_set(genlist, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(genlist, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_scroller_content_min_limit(genlist, EINA_TRUE, EINA_TRUE);
 
 	itc.item_style = "default";
 	itc.func.text_get = on_chat_bg_load_text_get_cb;
@@ -503,14 +508,12 @@ void on_settings_info_item_clicked(void *data, Evas_Object *obj, void *event_inf
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	for (i = 0; i < 3; i++) {
+	for (i = 0; i < 2; i++) {
 		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_chat_bg_change_option_selected_cb, popup);
 	}
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
-	evas_object_size_hint_min_set(box, -1, 350);
 	elm_object_content_set(popup, box);
-
 	evas_object_show(popup);
 }
 
@@ -729,6 +732,7 @@ Evas_Object* _content_requested_cb(void *data, Evas_Object *obj, const char *par
 			evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 			evas_object_show(user_pic_layout);
 			elm_object_part_content_set(user_pic_layout, "content", profile_pic);
+			evas_object_data_set(ad->nf, "user_profile_pic", profile_pic);
 
 			eo = elm_layout_add(obj);
 			elm_layout_theme_set(eo, "layout", "list/B/type.1", "default");
@@ -767,7 +771,7 @@ void launch_settings_screen(appdata_s* ad)
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	elm_genlist_item_append(list, &itc, (void*) 0, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) 0);
+	elm_genlist_item_append(list, &itc, (void*) 0, NULL, ELM_GENLIST_ITEM_NONE, on_camera_button_clicked, (void*) 0);
 	elm_genlist_item_append(list, &itc, (void*) 1, NULL, ELM_GENLIST_ITEM_NONE, on_settings_info_item_clicked, (void*)1);
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Settings", NULL, NULL, list, NULL);
