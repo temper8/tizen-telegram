@@ -51,11 +51,18 @@
 #define DEFAULT_LIST_THUMB_MULTI_PIC       FM_ICON_PATH"telegram_list_thumb_image_multi.png"
 #define FM_ICON_ROBO_BUDDY       FM_ICON_PATH"robo_buddy.png"
 #define SEARCH_ICON FM_ICON_PATH"/search_icon.png"
-#define ATTACH_ICON FM_ICON_PATH"/ic_ab_attach.png"
-#define SMILEY_ICON_UNPRESSED FM_ICON_PATH"/ic_msg_panel_smiles_pressed.png"
-#define SMILEY_ICON_PRESSED FM_ICON_PATH"/ic_msg_panel_smiles_unpressed.png"
-#define SEND_UNPRESSED_ICON FM_ICON_PATH"/ic_send_pressed.png"
-#define SEND_PRESSED_ICON FM_ICON_PATH"/ic_send_unpressed.png"
+#define TG_ATTACH_ICON FM_ICON_PATH"/telegram_add_object.png"
+
+//#define SMILEY_ICON_UNPRESSED FM_ICON_PATH"/ic_msg_panel_smiles_pressed.png"
+//#define SMILEY_ICON_PRESSED FM_ICON_PATH"/ic_msg_panel_smiles_unpressed.png"
+
+#define TG_SMILEY_ICON FM_ICON_PATH"/telegram_emotion.png"
+
+//#define SEND_UNPRESSED_ICON FM_ICON_PATH"/ic_send_pressed.png"
+//#define SEND_PRESSED_ICON FM_ICON_PATH"/ic_send_unpressed.png"
+
+#define TG_SEND_ICON FM_ICON_PATH"/telegram_send.png"
+
 #define CHAT_BG FM_ICON_PATH"/chat_bg.jpg"
 #define BLUR_BG FM_ICON_PATH"/blur_img.png"
 #define CAMERA_ICON FM_ICON_PATH"/camera-icon.png"

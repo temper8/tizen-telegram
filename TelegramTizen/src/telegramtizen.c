@@ -58,7 +58,7 @@ void load_registered_user_data(appdata_s *ad)
 
 	if(!user_info) {
 		//error
-		show_toast(ad, "User info not loaded");
+		//show_toast(ad, "User info not loaded");
 	}
 
 	if (ad->current_user_data) {
@@ -704,7 +704,7 @@ void load_unknown_buddy_list_data(appdata_s *ad)
 
 	if(!user_info) {
 		//error
-		show_toast(ad, "User info not loaded");
+		//show_toast(ad, "User info not loaded");
 		return;
 	}
 
@@ -921,7 +921,7 @@ void load_buddy_list_data(appdata_s *ad)
 
 	if(!user_info) {
 		//error
-		show_toast(ad, "User info not loaded");
+		//show_toast(ad, "User info not loaded");
 		return;
 	}
 
@@ -1343,7 +1343,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		result = bundle_get_str(rec_msg, "file_path", &pic_file_path);
 
 		if (!pic_file_path || strlen(pic_file_path) <= 0 || access(pic_file_path, F_OK ) == -1) {
-			pic_file_path = (char*)ui_utils_get_resource(DEFAULT_PROFILE_PIC);
+			//pic_file_path = (char*)ui_utils_get_resource(DEFAULT_PROFILE_PIC);
+			return SVC_RES_OK;
 		}
 
 
@@ -1365,6 +1366,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 						item->use_data->photo_path = strdup(pic_file_path);
 						if (item->contact_icon) {
 							elm_image_file_set(item->contact_icon, pic_file_path, NULL);
+							evas_object_color_set(item->contact_icon, 0, 0, 0, 0);
 						}
 						break;
 					}
@@ -1382,6 +1384,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 						item->use_data->photo_path = strdup(pic_file_path);
 						if (item->contact_icon) {
 							elm_image_file_set(item->contact_icon, pic_file_path, NULL);
+							evas_object_color_set(item->contact_icon, 0, 0, 0, 0);
 						}
 						break;
 					}
@@ -1400,6 +1403,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
     					item->profile_pic_path = strdup(pic_file_path);
     					if (item->profile_pic) {
     						elm_image_file_set(item->profile_pic, pic_file_path, NULL);
+    						evas_object_color_set(item->profile_pic, 0, 0, 0, 0);
     					}
     					break;
     				}
@@ -1417,8 +1421,6 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
     			show_toast(app, "Chat profile picture updated successfully.");
     		}
-
-
 		}
 	} else if (strcmp(rec_key_val, "message_received") == 0) {
 
@@ -2583,8 +2585,8 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 		case TG_START_MESSAGING_VIEW_STATE:
 		case TG_SETTINGS_SCREEN_STATE:
 			elm_naviframe_item_pop(ad->nf);
-			create_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+			create_floating_button(ad);
 			//evas_object_show(ad->panel);
 			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
 			break;

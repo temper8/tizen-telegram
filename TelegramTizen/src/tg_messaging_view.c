@@ -2440,6 +2440,7 @@ static void on_media_attach_clicked(void *data, Evas_Object *obj, void *event_in
 
 }
 
+#if 0
 static void on_text_message_send_pressed(void *data, Evas_Object *obj, void *event_info)
 {
 	elm_image_file_set(data, ui_utils_get_resource(SEND_UNPRESSED_ICON), NULL);
@@ -2449,15 +2450,18 @@ static void on_text_message_send_unpressed(void *data, Evas_Object *obj, void *e
 {
 	elm_image_file_set(data, ui_utils_get_resource(SEND_PRESSED_ICON), NULL);
 }
+#endif
 
 static void on_message_smiley_pressed(void *data, Evas_Object *obj, void *event_info)
 {
-	elm_image_file_set(data, ui_utils_get_resource(SMILEY_ICON_PRESSED), NULL);
+	if (data)
+		evas_object_color_set(data, 45, 165, 224, 255);
 }
 
 static void on_message_smiley_unpressed(void *data, Evas_Object *obj, void *event_info)
 {
-	elm_image_file_set(data, ui_utils_get_resource(SMILEY_ICON_UNPRESSED), NULL);
+	if (data)
+		evas_object_color_set(data, 45, 165, 224, 178);
 }
 
 void on_user_info_button_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -2665,17 +2669,34 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(entry_box_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_show(entry_box_layout);
 
+
+	Evas_Object* attach_btn = elm_button_add(entry_box_layout);
+	elm_object_style_set(attach_btn, "transparent");
+	evas_object_size_hint_align_set(attach_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(attach_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
 	Evas_Object* attach_icon = elm_image_add(entry_box_layout);
 	evas_object_size_hint_align_set(attach_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(attach_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(attach_icon, ui_utils_get_resource(ATTACH_ICON), NULL);
-    elm_image_resizable_set(attach_icon, EINA_TRUE, EINA_TRUE);
+    elm_image_file_set(attach_icon, ui_utils_get_resource(TG_ATTACH_ICON), NULL);
     evas_object_show(attach_icon);
-    evas_object_smart_callback_add(attach_icon, "clicked", on_media_attach_clicked, chat_conv_list);
-	elm_object_part_content_set(entry_box_layout, "swallow.attach_icon", attach_icon);
+    evas_object_color_set(attach_icon, 45, 165, 224, 178);
+
+	Evas_Object* attach_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(attach_pic_layout, edj_path, "circle_layout");
+	evas_object_size_hint_weight_set(attach_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(attach_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(attach_pic_layout);
+	elm_object_part_content_set(attach_pic_layout, "content", attach_icon);
+    elm_object_content_set(attach_btn, attach_pic_layout);
+
+    //evas_object_smart_callback_add(attach_btn, "clicked", on_media_attach_clicked, chat_conv_list);
+    evas_object_smart_callback_add(attach_btn, "pressed", on_message_smiley_pressed, attach_icon);
+    evas_object_smart_callback_add(attach_btn, "unpressed", on_message_smiley_unpressed, attach_icon);
+	elm_object_part_content_set(entry_box_layout, "swallow.attach_icon", attach_btn);
 
 	Evas_Object* text_entry = elm_entry_add(entry_box_layout);
-	elm_object_part_text_set(text_entry, "elm.guide", "<font=Tizen:style=Italic color=#A8A8A8 valign=middle><font_size=35>Enter Message</font_size></font>");
+	elm_object_part_text_set(text_entry, "elm.guide", "<font=Tizen:style=Italic color=#A8A8A8 valign=middle><font_size=35>Text message</font_size></font>");
 	elm_entry_line_wrap_set(text_entry, EINA_TRUE);
 	evas_object_size_hint_align_set(text_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(text_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -2697,15 +2718,30 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	Evas_Object* smiley_icon = elm_image_add(entry_box_layout);
 	evas_object_size_hint_align_set(smiley_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(smiley_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(smiley_icon, ui_utils_get_resource(SMILEY_ICON_UNPRESSED), NULL);
+
+	elm_image_file_set(smiley_icon, ui_utils_get_resource(TG_SMILEY_ICON), NULL);
+
     elm_image_resizable_set(smiley_icon, EINA_TRUE, EINA_TRUE);
     evas_object_show(smiley_icon);
-    elm_object_content_set(smiley_btn, smiley_icon);
+    evas_object_color_set(smiley_icon, 45, 165, 224, 178);
+
+	Evas_Object* smiley_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(smiley_pic_layout, edj_path, "circle_layout");
+	evas_object_size_hint_weight_set(smiley_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(smiley_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(smiley_pic_layout);
+	elm_object_part_content_set(smiley_pic_layout, "content", smiley_icon);
+
+    elm_object_content_set(smiley_btn, smiley_pic_layout);
+
     evas_object_smart_callback_add(smiley_btn, "clicked", on_message_smiley_clicked, text_entry);
+
+
     evas_object_smart_callback_add(smiley_btn, "pressed", on_message_smiley_pressed, smiley_icon);
     evas_object_smart_callback_add(smiley_btn, "unpressed", on_message_smiley_unpressed, smiley_icon);
-	elm_object_part_content_set(entry_box_layout, "swallow.smiely_icon", smiley_btn);
 
+
+    elm_object_part_content_set(entry_box_layout, "swallow.smiely_icon", smiley_btn);
 
 	Evas_Object* send_btn = elm_button_add(entry_box_layout);
 	elm_object_style_set(send_btn, "transparent");
@@ -2715,15 +2751,21 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	Evas_Object* send_icon = elm_image_add(entry_box_layout);
 	evas_object_size_hint_align_set(send_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(send_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(send_icon, ui_utils_get_resource(SEND_PRESSED_ICON), NULL);
-    elm_image_resizable_set(send_icon, EINA_TRUE, EINA_TRUE);
+    elm_image_file_set(send_icon, ui_utils_get_resource(TG_SEND_ICON), NULL);
     evas_object_show(send_icon);
+    evas_object_color_set(send_icon, 45, 165, 224, 178);
+	Evas_Object* send_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(send_pic_layout, edj_path, "circle_layout");
+	evas_object_size_hint_weight_set(send_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(send_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(send_pic_layout);
+	elm_object_part_content_set(send_pic_layout, "content", send_icon);
 
-    elm_object_content_set(send_btn, send_icon);
+    elm_object_content_set(send_btn, send_pic_layout);
 
     evas_object_smart_callback_add(send_btn, "clicked", on_text_message_send_clicked, chat_conv_list);
-    evas_object_smart_callback_add(send_btn, "pressed", on_text_message_send_pressed, send_icon);
-    evas_object_smart_callback_add(send_btn, "unpressed", on_text_message_send_unpressed, send_icon);
+    evas_object_smart_callback_add(send_btn, "pressed", on_message_smiley_pressed, send_icon);
+    evas_object_smart_callback_add(send_btn, "unpressed", on_message_smiley_unpressed, send_icon);
 	elm_object_part_content_set(entry_box_layout, "swallow.send_icon", send_btn);
 
 	//elm_object_part_content_set(layout, "swallow.entry_box", entry_box_layout);

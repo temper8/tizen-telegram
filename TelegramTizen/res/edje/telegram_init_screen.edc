@@ -118,6 +118,7 @@ collections {
 
 	images {
 		image: "camera_btn_gallery_mask.png" COMP;
+		image: "telegram_date_divider.#.png" COMP;
 	}
 
    group {
@@ -1106,16 +1107,20 @@ collections {
     			}
     		}
    		
-   		    part {
-				name: "swallow.text_entry,bg";
-				type: RECT;
-				description {
-					state: "default" 0.0;
+			part{
+    			name: "swallow.text_entry,bg";
+    			type: IMAGE;
+    			description{
+    				state: "default" 0.0;
 					rel1 { relative: 0.0 0.97; to, "swallow.text_entry"; }
 					rel2 { relative: 1.0 1.0; to, "swallow.text_entry"; }
-					color: 0 0 255 255;
-				}
-			}  
+    				max: 800 2;
+    				image {
+						normal: "telegram_date_divider.#.png";
+					}
+					color: 0 0 0 51;
+    			}
+    		}    
    		
     		part{
     			name: "swallow.text_entry";
@@ -1131,8 +1136,8 @@ collections {
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.79 0.2; }
-    				rel2 { relative: 0.89 0.92; }
+    				rel1 { relative: 0.81 0.2; }
+    				rel2 { relative: 0.91 0.92; }
     			}
     		}
     		part{
@@ -1140,7 +1145,7 @@ collections {
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.9 0.1; }
+    				rel1 { relative: 0.91 0.1; }
     				rel2 { relative: 1.0 0.97; }
     			}
     		}
@@ -1328,10 +1333,6 @@ group
 	}
 }
 
-
-	images {
-		image: "telegram_date_divider.#.png" COMP;
-	}
 
 	group
     {
@@ -2952,5 +2953,47 @@ group
     	}
 	}
 	
+	images {
+		image: "Telegram-main-icon.png" COMP;
+	}
+	
+	group
+	{
+       	name: "splash_screen";
+    	parts{
+    	    part {
+				name: "swallow.splash_screen,bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to, "swallow.splash_screen"; }
+					rel2 { relative: 1.0 1.0; to, "swallow.splash_screen"; }
+					color: 255 255 255 255;
+				}
+			}  
+			part{
+    			name: "splash_screen_bg_image";
+    			type:IMAGE;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.3 0.2; to, "swallow.splash_screen,bg"; }
+    				rel2 { relative: 0.7 0.4; to, "swallow.splash_screen,bg"; }
+    				image {
+						normal: "Telegram-main-icon.png";
+					}
+    			}
+    		}
+    		part{
+    			name: "swallow.splash_screen";
+    			type:SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }    	
+    				color: 0 0 0 0;			
+    			}
+    		}
+    	}    	
+	}
 
 }
