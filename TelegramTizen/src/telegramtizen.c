@@ -1347,7 +1347,6 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			return SVC_RES_OK;
 		}
 
-
 		// update profile pic if buddy list view is present.
 		if(user_id == app->user_id.id) {
 			// registerd user.
@@ -2563,7 +2562,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			ad->buddy_in_cahtting_data = NULL;
 			ad->peer_in_cahtting_data = NULL;
 			elm_naviframe_item_pop(ad->nf);
-			create_floating_button(ad);
+			show_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
 			break;
 		case TG_SELECT_BUDDY_VIEW:
@@ -2583,12 +2582,13 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
 			break;
+		case TG_USER_MAIN_VIEW_SELECTION_STATE:
 		case TG_PEER_SEARCH_VIEW_STATE:
 		case TG_START_MESSAGING_VIEW_STATE:
 		case TG_SETTINGS_SCREEN_STATE:
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
-			create_floating_button(ad);
+			show_floating_button(ad);
 			//evas_object_show(ad->panel);
 			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
 			break;

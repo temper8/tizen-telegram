@@ -279,6 +279,7 @@ typedef enum state_of_app {
 	TG_BUDDY_CHAT_STATE,
 	TG_BUDDY_CHAT_CONV_STATE,
 	TG_USER_MAIN_VIEW_STATE,
+	TG_USER_MAIN_VIEW_SELECTION_STATE,
 	TG_START_MESSAGING_VIEW_STATE,
 	TG_CHAT_MESSAGING_VIEW_STATE,
 	TG_PEER_SEARCH_VIEW_STATE,
@@ -1098,5 +1099,7 @@ extern void show_floating_button(appdata_s* ad);
 extern void update_floating_button(appdata_s* ad, int mode);
 
 extern void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info);
+
+extern void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info);
 
 #endif /* TG_COMMON_H_ */

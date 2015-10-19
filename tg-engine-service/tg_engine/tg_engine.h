@@ -143,6 +143,11 @@ typedef struct tg_engine_data {
 	char* mhash;
 	//Eina_Bool is_loading_completed;
 	notification_h s_notififcation;
+	Eina_List *chat_list;
+	int current_chat_index;
+
+	Eina_List *buddy_list;
+	int current_buddy_index;
 } tg_engine_data_s;
 
 typedef struct contact_data {

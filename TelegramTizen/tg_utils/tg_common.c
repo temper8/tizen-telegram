@@ -423,13 +423,18 @@ void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
 
+	if (ad->menu_popup) {
+		evas_object_del(ad->menu_popup);
+		ad->menu_popup = NULL;
+	}
+
 	Evas_Object* image = (Evas_Object*)evas_object_data_get(ad->floating_btn, "image");
 
 	switch(ad->current_app_state) {
 	case TG_PEER_SEARCH_VIEW_STATE:
-		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
-		launch_settings_screen(ad);
-		delete_floating_button(ad);
+		//elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+		on_create_new_contact(ad);
+		//delete_floating_button(ad);
 		break;
 	case TG_USER_MAIN_VIEW_STATE:
 		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
@@ -491,6 +496,7 @@ void show_floating_button(appdata_s* ad)
 		return;
 
 	if (ad->floating_btn){
+		update_floating_button(ad, ad->current_app_state);
 		elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,visible", "elm");
 	}
 }
@@ -508,7 +514,7 @@ void update_floating_button(appdata_s* ad, int mode)
 		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
 		break;
 	case TG_USER_MAIN_VIEW_STATE:
-		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_ADD), NULL);
+		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
 		break;
 	default :
 		elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);

@@ -90,12 +90,6 @@ char* on_peer_list_name_requested(void *data, Evas_Object *obj, const char *part
 	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
 		char *full_name = replace(user->print_name, '_', " ");
 		return full_name;
-#if 0
-		char temp_full_name[256];
-		sprintf(temp_full_name, "<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", full_name);
-		free(full_name);
-		return strdup(temp_full_name);
-#endif
 	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
 		char* last_seen = get_budy_state(ad, user->user_id.id);
 		if (last_seen) {
@@ -127,25 +121,6 @@ Evas_Object* _on_command_name_image_requested(void *data, Evas_Object *obj, cons
 
 	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
 
-
-#if 0
-		Evas_Object *profile_pic = create_image_object_from_file(ui_utils_get_resource(contact_screen_command_item_list[row].image_path), obj);
-		evas_object_color_set(profile_pic, 155, 216, 226, 255);
-
-		char edj_path[PATH_MAX] = {0, };
-		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
-		Evas_Object* user_pic_layout = elm_layout_add(obj);
-		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
-		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_show(user_pic_layout);
-		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
-
-		eo = elm_layout_add(obj);
-		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
-		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
-#else
 		Evas_Object *profile_pic = NULL;
 		profile_pic = create_image_object_from_file(ui_utils_get_resource(contact_screen_command_item_list[row].image_path), obj);
 		//evas_object_color_set(profile_pic, 45, 165, 224, 255);
@@ -159,12 +134,10 @@ Evas_Object* _on_command_name_image_requested(void *data, Evas_Object *obj, cons
 		evas_object_show(user_pic_layout);
 		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
 
-
-
 		eo = elm_layout_add(obj);
 		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
 		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
-#endif
+
 	}
 	return eo;
 }
@@ -180,39 +153,6 @@ Evas_Object* on_peer_list_image_requested(void *data, Evas_Object *obj, const ch
 {
 	Evas_Object *eo = NULL;
 	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
-#if 0
-		int id = (int) data;
-		appdata_s* ad = evas_object_data_get(obj, "app_data");
-		int size = eina_list_count(ad->search_peer_list);
-		if (size <= 0) {
-			return eo;
-		}
-		user_data_with_pic_s* item = eina_list_nth(ad->search_peer_list, id);
-		tg_peer_info_s* user = item->use_data;
-		Evas_Object *profile_pic = NULL;
-		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
-			profile_pic = create_image_object_from_file(user->photo_path, obj);
-		} else {
-			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
-		}
-
-
-		item->contact_icon = profile_pic;
-		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, on_peer_icon_deleted, item);
-
-		char edj_path[PATH_MAX] = {0, };
-		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
-		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
-		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_show(user_pic_layout);
-		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
-
-		eo = elm_layout_add(obj);
-		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
-		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
-#else
 		int id = (int) data;
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
 		int size = eina_list_count(ad->search_peer_list);
@@ -236,7 +176,7 @@ Evas_Object* on_peer_list_image_requested(void *data, Evas_Object *obj, const ch
 		char edj_path[PATH_MAX] = {0, };
 		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
-		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+		elm_layout_file_set(user_pic_layout, edj_path, "search_circle_layout");
 		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_show(user_pic_layout);
@@ -245,7 +185,7 @@ Evas_Object* on_peer_list_image_requested(void *data, Evas_Object *obj, const ch
 		eo = elm_layout_add(obj);
 		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
 		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
-#endif
+
 	}
 	return eo;
 }
@@ -306,6 +246,55 @@ static void clear_search_list(appdata_s *ad)
 
 }
 
+
+
+void on_new_contact_creation_reply_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
+{
+	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
+		appdata_s* ad = user_data;
+		char* file_path = NULL;
+		char** path_arryay = NULL;
+		int array_length = 0;
+		int status;
+		char* mime_type = NULL;
+		status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			status = app_control_get_extra_data_array(reply, APP_CONTROL_DATA_PATH, &path_arryay,  &array_length);
+			if (status != APP_CONTROL_ERROR_NONE) {
+				if (ad) {
+					show_toast(ad, "Unable to get the result from attach panel");
+				}
+				return;
+			}
+		}
+
+		status = app_control_get_mime(reply, &mime_type);
+		if (status != APP_CONTROL_ERROR_NONE) {
+			if (ad) {
+				show_toast(ad, "Unable to get the mime type from attach panel");
+			}
+			return;
+		}
+
+		for(int i = 0 ; i < array_length ; i++) {
+			file_path = strdup(path_arryay[i]);
+			free(file_path);
+		}
+	}
+}
+
+int on_create_new_contact(appdata_s* ad)
+{
+	app_control_h request;
+	app_control_create(&request);
+	app_control_set_operation(request, "http://tizen.org/appcontrol/operation/add");
+	app_control_set_mime(request, "application/vnd.tizen.contact");
+	int result = app_control_send_launch_request(request, &on_new_contact_creation_reply_cb, ad);
+	app_control_destroy(request);
+	return result;
+}
+
+
 static void on_invite_friends_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Elm_Object_Item *it = event_info;
@@ -330,6 +319,7 @@ static void on_group_chat_clicked(void *data, Evas_Object *obj, void *event_info
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	delete_floating_button(ad);
 	launch_contact_selction_view(ad);
 }
 
@@ -343,58 +333,6 @@ static void on_secret_chat_clicked(void *data, Evas_Object *obj, void *event_inf
 
 static void on_peer_item_clicked(void *data, Evas_Object *obj, void *event_info)
 {
-#if 0
-	Elm_Object_Item *it = event_info;
-	elm_genlist_item_selected_set(it, EINA_FALSE);
-
-	int item_id = (int) data;
-	appdata_s* ad = evas_object_data_get(obj, "app_data");
-
-	user_data_with_pic_s* sel_pic_item = eina_list_nth(ad->search_peer_list, item_id);
-	user_data_s* sel_item = sel_pic_item->use_data;
-
-
-	ad->buddy_in_cahtting_data = NULL;
-	ad->peer_in_cahtting_data = NULL;
-	int buddy_id = -1;
-	if (sel_item) {
-		if (sel_item->peer_type == TGL_PEER_USER) {
-			for (int i = 0; i < eina_list_count(ad->search_peer_list); i++) {
-				user_data_with_pic_s *item = eina_list_nth(ad->search_peer_list, i);
-				user_data_s* user_data = item->use_data;
-
-				if (user_data->user_id.id == sel_item->peer_id) {
-					ad->buddy_in_cahtting_data = item;
-					break;
-				}
-			}
-		}
-
-		for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
-			user_data_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
-			tg_peer_info_s* item = pic_item->use_data;
-
-			if (item->peer_id == sel_item->peer_id) {
-				ad->peer_in_cahtting_data = pic_item;
-				buddy_id = i;
-				break;
-			}
-		}
-
-		for (int i = 0; i < eina_list_count(ad->main_list); i++) {
-			tg_main_list_item_s* item = eina_list_nth(ad->main_list, i);
-
-			if (item->peer_id == sel_item->peer_id) {
-				ad->main_item_in_cahtting_data = item;
-				break;
-			}
-		}
-
-		elm_naviframe_item_pop(ad->nf);
-		clear_search_list(ad);
-		launch_messaging_view_cb(ad, buddy_id);
-	}
-#else
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 
@@ -443,7 +381,6 @@ static void on_peer_item_clicked(void *data, Evas_Object *obj, void *event_info)
 
 	elm_naviframe_item_pop(ad->nf);
 	launch_messaging_view_cb(ad, peer_id);
-#endif
 }
 
 static void _update_index_item(void *data, void *item_data, int id)
@@ -635,19 +572,16 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 static void _on_search_entry_focused(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *layout = data;
-
 	if (elm_object_focus_get(layout)) {
 		elm_object_signal_emit(layout, "elm,state,focused", "");
 	} else{
 		elm_object_signal_emit(layout, "elm,state,unfocused", "");
 	}
-
 }
 
 
 Evas_Object *_create_searchbar(Evas_Object* parent, void* data)
 {
-
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
@@ -745,7 +679,6 @@ static Evas_Object* create_fastscroll(appdata_s *ad)
 	/* 1. Special character & Numbers */
 	elm_index_item_append(index, "#", NULL, NULL);
 
-#if 1
 	/* 2. Local language */
 	str = dgettext("efl-extension", "IDS_EA_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 	len = strlen(str);
@@ -758,7 +691,6 @@ static Evas_Object* create_fastscroll(appdata_s *ad)
 
 		elm_index_item_append(index, buf, NULL, NULL);
 	}
-#endif
 	elm_index_level_go(index, 0);
 
 	evas_object_smart_callback_add(index, "selected", _index_selected_cb, ad);
@@ -830,55 +762,4 @@ void launch_start_peer_search_view(appdata_s* ad)
 
 	elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Contacts</font_size></font>", NULL, NULL, layout, NULL);
 
-#if 0
-
-	clear_search_list(ad);
-	ad->search_peer_list = load_buddy_data_by_name(NULL);
-
-	/* main layout */
-	Evas_Object* layout = elm_layout_add(ad->nf);
-	elm_layout_theme_set(layout, "layout", "application", "searchbar_base");
-	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(layout);
-	//evas_object_data_set(ad->nf, "main_layout", layout);
-
-	/* search field */
-	Evas_Object* searchbar_layout = _create_searchbar(layout, ad);
-	elm_object_part_content_set(layout, "searchbar", searchbar_layout);
-	_util_get_first_char
-	/* fastscroll layout */
-	Evas_Object* fs_layout = elm_layout_add(layout);
-	elm_layout_theme_set(fs_layout, "layout", "application", "fastscroll");
-	elm_object_part_content_set(layout, "elm.swallow.content", fs_layout);
-	evas_object_data_set(ad->nf, "fs_layout", fs_layout);
-
-	/* fastscroll */
-	Evas_Object* index = create_fastscroll(ad);
-	elm_object_part_content_set(fs_layout, "elm.swallow.fastscroll", index);
-	evas_object_data_set(ad->nf, "fs_index", index);
-
-	/* peer list - Genlist */
-	Evas_Object* peer_list = create_genlist(ad, fs_layout);
-
-	_append_command_item(peer_list, ad);
-	_append_peer_item(peer_list, ad, ad->search_peer_list);
-	//evas_object_data_set(ad->nf, "search_list", peer_list);
-
-	/* no contents */
-	Evas_Object *nocontents = elm_layout_add(ad->nf);
-	elm_layout_theme_set(nocontents, "layout", "nocontents", "default");
-	evas_object_size_hint_weight_set(nocontents, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(nocontents, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_object_part_text_set(nocontents, "elm.text", "No Items");
-	evas_object_data_set(ad->nf, "no_contents_layout", nocontents);
-
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Telegram", NULL, NULL, layout, NULL);
-	//elm_naviframe_prev_btn_auto_pushed_set(ad->nf, EINA_FALSE);
-	//eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_BACK, eext_naviframe_back_cb, NULL);
-
-
-	//elm_naviframe_item_simple_push(ad->nf, scroller);
-	//elm_naviframe_item_simple_push(ad->nf, layout);
-#endif
 }

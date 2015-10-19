@@ -113,9 +113,6 @@ collections {
 		} \
 	}
 
-
-
-
 	images {
 		image: "camera_btn_gallery_mask.png" COMP;
 		image: "telegram_date_divider.#.png" COMP;
@@ -814,8 +811,8 @@ collections {
             precise_is_inside: 1;
             description {
                 state: default 0.0;
-               rel1.relative: 0.0 0.05;
-               rel2.relative: 1.0 0.95;
+               rel1.relative: 0.0 0.08;
+               rel2.relative: 1.0 0.92;
                color: 250 250 250 0;
             }
          }
@@ -825,8 +822,8 @@ collections {
             precise_is_inside: 1;
             description { 
                state: default 0.0;
-               rel1.relative: 0.0 0.05;
-               rel2.relative: 1.0 0.95;
+               rel1.relative: 0.0 0.08;
+               rel2.relative: 1.0 0.92;
                image.normal: camera_btn_gallery_mask.png;
             }
          }
@@ -1886,7 +1883,7 @@ group
             type: SWALLOW;            
             description { 
                state: default 0.0;
-               min: 0 130;
+               min: 0 135;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
                color: 0 0 0 0;
@@ -2995,5 +2992,54 @@ group
     		}
     	}    	
 	}
+
+	group { 
+	  name: "search_circle_layout";
+      parts {
+          part { 
+            name: masking_bg;
+            type: RECT;
+            precise_is_inside: 1;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 250 250 250 0;
+            }
+         }
+         part { 
+            name: masking;
+            type: IMAGE;
+            precise_is_inside: 1;
+            description { 
+               state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               image.normal: camera_btn_gallery_mask.png;
+            }
+         }
+         part { 
+            name: content_bg;
+            type: RECT;
+            clip_to: masking;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+               color: 250 250 250 0;
+            }
+         }
+         part { 
+            name: content;
+            type: SWALLOW;
+            clip_to: masking;
+            description {
+                state: default 0.0;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
+            }
+         }
+      }
+    }
 
 }

@@ -491,6 +491,10 @@ bool service_app_create(void *data)
 	tg_data->mhash = NULL;
 	tg_data->lazy_init_idler = NULL;
 	tg_data->s_notififcation = NULL;
+	tg_data->chat_list = NULL;
+	tg_data->current_chat_index = 0;
+	tg_data->buddy_list = NULL;
+	tg_data->current_buddy_index = 0;
 	//tg_data->is_loading_completed = EINA_FALSE;
 	RETVM_IF(!tg_data->tg_server, SVC_RES_FAIL, "Failed to create proxy client");
 
@@ -505,9 +509,6 @@ bool service_app_create(void *data)
 
 	result = _tg_server_set_remote_data(tg_data->tg_server, TELEGRAM_CLIENT_APP_NAME, TELEGRAM_CLIENT_PORT_NAME);
 	result = tg_server_register_msg_receive_callback(tg_data->tg_server, _on_tg_server_msg_received_cb, tg_data);
-
-	// if wi-fi or data is on
-	create_data_base_tables();
 
 	int err = badge_new(TELEGRAM_APP_ID);
 	if (BADGE_ERROR_NONE != err) {
@@ -578,6 +579,17 @@ void free_connection(tg_engine_data_s* tg_data)
 		free_contact_data(tg_data->contact_list_to_add);
 		tg_data->contact_list_to_add = NULL;
 	}
+
+	if (tg_data->chat_list) {
+		eina_list_free(tg_data->chat_list);
+		tg_data->chat_list = NULL;
+	}
+
+	if (tg_data->buddy_list) {
+		eina_list_free(tg_data->buddy_list);
+		tg_data->buddy_list = NULL;
+	}
+
 	tgl_engine_var_free();
 
 	tg_db_fini();

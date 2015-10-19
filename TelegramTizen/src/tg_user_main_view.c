@@ -14,6 +14,7 @@
 #include "tg_db_manager.h"
 #include "server_requests.h"
 #include "tg_db_wrapper.h"
+#include "tg_main_item_deletion_view.h"
 
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
@@ -734,7 +735,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 
 		char* user_name = replace(item->peer_print_name, '_', "");
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=32>%s</font_size></font>", user_name);
+		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", user_name);
 		free(user_name);
 
 		Evas_Object*  name_lbl = elm_label_add(ad->nf);
@@ -766,15 +767,15 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 		if(len_org_str > 30) {
 			strncpy(res, org_msg, 29);
 			if(item->last_msg_service) {
-				sprintf(status_buf,"<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", res);
+				sprintf(status_buf,"<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", res);
 			} else {
-				sprintf(status_buf,"<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
+				sprintf(status_buf,"<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", res);
 			}
 		} else {
 			if(item->last_msg_service) {
-				sprintf(status_buf, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", org_msg);
+				sprintf(status_buf, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
 			} else {
-				sprintf(status_buf, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
+				sprintf(status_buf, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
 			}
 		}
 
@@ -1090,7 +1091,7 @@ static void ctxpopup_delete_select_cb(void *data, Evas_Object *obj, void *event_
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
 
-	/* please input here when delete menu is clicked */
+	launch_main_item_deletion_view_cb(ad);
 }
 
 static void ctxpopup_search_select_cb(void *data, Evas_Object *obj, void *event_info)
@@ -1115,7 +1116,7 @@ static void ctxpopup_contact_select_cb(void *data, Evas_Object *obj, void *event
 	}
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
-
+    on_floating_icon_clicked(data, obj, event_info);
 	/* please input here when contact menu is clicked */
 }
 
@@ -1237,7 +1238,6 @@ void launch_user_main_view_cb(appdata_s* ad)
 		evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_data_set(buddy_list, "app_data", ad);
-		elm_genlist_block_count_set(buddy_list, 14);
 		elm_genlist_homogeneous_set(buddy_list, EINA_TRUE);
 
 
