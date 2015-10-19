@@ -1054,26 +1054,57 @@ static void _more_popup_rotate(void *data, Evas_Object *obj, void *event_info)
     }
 }
 
-static void _ctxpopup_back_cb(void *data, Evas_Object *obj, void *event_info)
+static void _ctxpopup_dismiss_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	evas_object_del(ad->menu_popup);
+	ad->menu_popup = NULL;
+}
+
+static void _ctxpopup_del_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
 
-	if (!ad->menu_popup || !ad->win) {
+	if (!ad) {
+			LOGE("ad is NULL");
+			return;
+	}
+
+	if (!ad->win) {
+		LOGE("window is NULL");
 		return;
 	}
 	evas_object_smart_callback_del(ad->win, "rotation,changed", _more_popup_rotate);
-	evas_object_smart_callback_del(ad->menu_popup, "dismissed", _ctxpopup_back_cb);
-	evas_object_del(ad->menu_popup);
-	ad->menu_popup = NULL;
-
+	if (ad->menu_popup) {
+		evas_object_smart_callback_del(ad->menu_popup, "dismissed", _ctxpopup_dismiss_cb);
+		evas_object_del(ad->menu_popup);
+		ad->menu_popup = NULL;
+	}
 }
 
+static void ctxpopup_settings_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	launch_settings_screen(ad);
+}
 
 static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
 {
 	Elm_Object_Item *it;
 	Evas_Object *ctxpopup;
 	appdata_s *ad = data;
+
+	if (!ad) {
+			LOGE("ad is NULL");
+			return;
+	}
 
 	if (ad->current_app_state != TG_USER_MAIN_VIEW_STATE) {
 		return;
@@ -1084,14 +1115,15 @@ static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
 	elm_ctxpopup_auto_hide_disabled_set(ctxpopup, EINA_TRUE);
 	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_BACK, eext_ctxpopup_back_cb, NULL);
 	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_MORE, eext_ctxpopup_back_cb, NULL);
+	evas_object_event_callback_add(ctxpopup, EVAS_CALLBACK_DEL, _ctxpopup_del_cb, ad);
 
-	evas_object_smart_callback_add(ctxpopup, "dismissed", _ctxpopup_back_cb, ad);
+	evas_object_smart_callback_add(ctxpopup, "dismissed", _ctxpopup_dismiss_cb, ad);
 	evas_object_smart_callback_add(ad->win, "rotation,changed", _more_popup_rotate, ad);
 
 	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_DELETE"), NULL, NULL, ad);
 	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SEARCH"), NULL, NULL, ad);
 	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_CONTACTS"), NULL, NULL, ad);
-	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, NULL, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, ctxpopup_settings_select_cb, ad);
 	//elm_object_item_domain_text_translatable_set(it, SETTING_PACKAGE, EINA_TRUE);
 	elm_ctxpopup_direction_priority_set(ctxpopup, ELM_CTXPOPUP_DIRECTION_UP, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN);
 
@@ -1226,7 +1258,7 @@ void launch_user_main_view_cb(appdata_s* ad)
     evas_object_smart_callback_add(search_btn, "unpressed", on_search_icon_unpressed, search_icon);
 #endif
 
-    Elm_Object_Item *it = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, scroller, NULL);
+    elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, scroller, NULL);
 
 #if 0
     Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);
