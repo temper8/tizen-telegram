@@ -2509,8 +2509,10 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_exit();
 			break;
 		case TG_USER_MAIN_VIEW_STATE:
-			elm_win_lower(ad->win);
-			elm_exit();
+			if (!ad->menu_popup) {
+				elm_win_lower(ad->win);
+				elm_exit();
+			}
 			break;
 		case TG_CHAT_MESSAGING_VIEW_STATE:
             // to be handled 

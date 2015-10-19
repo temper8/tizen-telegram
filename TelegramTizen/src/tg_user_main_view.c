@@ -1031,6 +1031,82 @@ static void on_search_icon_unpressed(void *data, Evas_Object *obj, void *event_i
 	elm_image_file_set(data, ui_utils_get_resource(TG_SEARCH_ICON), NULL);
 }
 
+static void _more_popup_rotate(void *data, Evas_Object *obj, void *event_info)
+{
+	int pos;
+	Evas_Coord w, h;
+	appdata_s *ad = data;
+
+	elm_win_screen_size_get(ad->win, NULL, NULL, &w, &h);
+	pos = elm_win_rotation_get(ad->win);
+
+	switch (pos) {
+	case 90:
+		evas_object_move(ad->menu_popup, 0, w);
+		break;
+	case 270:
+		evas_object_move(ad->menu_popup, h, w);
+		break;
+	case 180:
+	default:
+		evas_object_move(ad->menu_popup, 0, h);
+		break;
+    }
+}
+
+static void _ctxpopup_back_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+
+	if (!ad->menu_popup || !ad->win) {
+		return;
+	}
+	evas_object_smart_callback_del(ad->win, "rotation,changed", _more_popup_rotate);
+	evas_object_smart_callback_del(ad->menu_popup, "dismissed", _ctxpopup_back_cb);
+	evas_object_del(ad->menu_popup);
+	ad->menu_popup = NULL;
+
+}
+
+
+static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
+{
+	Elm_Object_Item *it;
+	Evas_Object *ctxpopup;
+	appdata_s *ad = data;
+
+	if (ad->current_app_state != TG_USER_MAIN_VIEW_STATE) {
+		return;
+	}
+
+	ctxpopup = elm_ctxpopup_add(ad->nf);
+	elm_object_style_set(ctxpopup, "more/default");
+	elm_ctxpopup_auto_hide_disabled_set(ctxpopup, EINA_TRUE);
+	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_BACK, eext_ctxpopup_back_cb, NULL);
+	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_MORE, eext_ctxpopup_back_cb, NULL);
+
+	evas_object_smart_callback_add(ctxpopup, "dismissed", _ctxpopup_back_cb, ad);
+	evas_object_smart_callback_add(ad->win, "rotation,changed", _more_popup_rotate, ad);
+
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_DELETE"), NULL, NULL, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SEARCH"), NULL, NULL, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_CONTACTS"), NULL, NULL, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, NULL, ad);
+	//elm_object_item_domain_text_translatable_set(it, SETTING_PACKAGE, EINA_TRUE);
+	elm_ctxpopup_direction_priority_set(ctxpopup, ELM_CTXPOPUP_DIRECTION_UP, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN);
+
+	if (ad->menu_popup) {
+		evas_object_del(ad->menu_popup);
+	}
+
+	ad->menu_popup = ctxpopup;
+
+	_more_popup_rotate(ad, NULL, NULL);
+
+	evas_object_show(ctxpopup);
+
+}
+
 void launch_user_main_view_cb(appdata_s* ad)
 {
 	if (!ad)
@@ -1150,7 +1226,7 @@ void launch_user_main_view_cb(appdata_s* ad)
     evas_object_smart_callback_add(search_btn, "unpressed", on_search_icon_unpressed, search_icon);
 #endif
 
-    elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);
+    Elm_Object_Item *it = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, scroller, NULL);
 
 #if 0
     Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);
@@ -1161,7 +1237,9 @@ void launch_user_main_view_cb(appdata_s* ad)
 	elm_object_item_part_content_set(navi_item, "title_left_btn", panel_btn);
 #endif
 
-	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_side_panel_requested, ad);
+//	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_messaging_menu_button_clicked, ad);
+
+	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, _create_more_popup, ad);
 }
 
 

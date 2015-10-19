@@ -556,6 +556,7 @@ typedef struct appdata {
 	Evas_Object *floating_btn;
 	Elm_Theme *theme;
 	int screen_mode_for_fb; // for floating button icon
+	Evas_Object *menu_popup;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
