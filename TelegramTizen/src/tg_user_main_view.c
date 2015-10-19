@@ -1042,10 +1042,8 @@ static void _more_popup_rotate(void *data, Evas_Object *obj, void *event_info)
 
 	switch (pos) {
 	case 90:
-		evas_object_move(ad->menu_popup, 0, w);
-		break;
 	case 270:
-		evas_object_move(ad->menu_popup, h, w);
+		evas_object_move(ad->menu_popup, 0, w);
 		break;
 	case 180:
 	default:
@@ -1080,6 +1078,45 @@ static void _ctxpopup_del_cb(void *data, Evas *e, Evas_Object *obj, void *event_
 		evas_object_del(ad->menu_popup);
 		ad->menu_popup = NULL;
 	}
+}
+
+static void ctxpopup_delete_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	/* please input here when delete menu is clicked */
+}
+
+static void ctxpopup_search_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	/* please input here when search menu is clicked */
+}
+
+static void ctxpopup_contact_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	/* please input here when contact menu is clicked */
 }
 
 static void ctxpopup_settings_select_cb(void *data, Evas_Object *obj, void *event_info)
@@ -1120,9 +1157,9 @@ static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
 	evas_object_smart_callback_add(ctxpopup, "dismissed", _ctxpopup_dismiss_cb, ad);
 	evas_object_smart_callback_add(ad->win, "rotation,changed", _more_popup_rotate, ad);
 
-	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_DELETE"), NULL, NULL, ad);
-	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SEARCH"), NULL, NULL, ad);
-	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_CONTACTS"), NULL, NULL, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_DELETE"), NULL, ctxpopup_delete_select_cb, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SEARCH"), NULL, ctxpopup_search_select_cb, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_CONTACTS"), NULL, ctxpopup_contact_select_cb, ad);
 	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, ctxpopup_settings_select_cb, ad);
 	//elm_object_item_domain_text_translatable_set(it, SETTING_PACKAGE, EINA_TRUE);
 	elm_ctxpopup_direction_priority_set(ctxpopup, ELM_CTXPOPUP_DIRECTION_UP, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN);

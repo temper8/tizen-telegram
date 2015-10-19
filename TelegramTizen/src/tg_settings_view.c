@@ -333,7 +333,7 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
-	elm_object_part_text_set(popup, "title,text", "Load image from");
+	elm_object_part_text_set(popup, "title,text", i18n_get_text("IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"));
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	//evas_object_data_set(popup, "cam_icon", cam_icon);
@@ -485,7 +485,7 @@ void on_settings_info_item_clicked(void *data, Evas_Object *obj, void *event_inf
 	popup = elm_popup_add(win);
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
-	elm_object_part_text_set(popup, "title,text", "Load image from");
+	elm_object_part_text_set(popup, "title,text", i18n_get_text("IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"));
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	evas_object_data_set(popup, "app_data", ad);
@@ -686,7 +686,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 			case 0:
 				return strdup(ad->current_user_data->print_name);
 			case 1:
-				return strdup("Set Background image");
+				return strdup(i18n_get_text("IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"));
 			default:
 				break;
 		}
@@ -696,7 +696,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 		switch(id) {
 			case 0:
 			if (ad->current_user_data->online) {
-				return strdup("online");
+				return strdup(i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 			} else {
 				return strdup("offine");
 			}
@@ -743,6 +743,151 @@ Evas_Object* _content_requested_cb(void *data, Evas_Object *obj, const char *par
 	return eo;
 }
 
+static void _more_popup_rotate(void *data, Evas_Object *obj, void *event_info)
+{
+	int pos;
+	Evas_Coord w, h;
+	appdata_s *ad = data;
+
+	elm_win_screen_size_get(ad->win, NULL, NULL, &w, &h);
+	pos = elm_win_rotation_get(ad->win);
+
+	switch (pos) {
+	case 90:
+	case 270:
+		evas_object_move(ad->menu_popup, 0, w);
+		break;
+	case 180:
+	default:
+		evas_object_move(ad->menu_popup, 0, h);
+		break;
+    }
+}
+
+static void _ctxpopup_dismiss_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	evas_object_del(ad->menu_popup);
+	ad->menu_popup = NULL;
+}
+
+static void _ctxpopup_del_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+
+	if (!ad) {
+			LOGE("ad is NULL");
+			return;
+	}
+
+	if (!ad->win) {
+		LOGE("window is NULL");
+		return;
+	}
+	evas_object_smart_callback_del(ad->win, "rotation,changed", _more_popup_rotate);
+	if (ad->menu_popup) {
+		evas_object_smart_callback_del(ad->menu_popup, "dismissed", _ctxpopup_dismiss_cb);
+		evas_object_del(ad->menu_popup);
+		ad->menu_popup = NULL;
+	}
+}
+
+static void ctxpopup_profile_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	/* please input here when set profile picture menu is clicked */
+}
+
+static void ctxpopup_edit_name_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	/* please input here when edit name menu is clicked */
+}
+
+static void ctxpopup_logout_select_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad) {
+		LOGE("ad is NULL");
+		return;
+	}
+
+	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+
+	/* please input here when logout menu is clicked */
+}
+
+static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
+{
+	Elm_Object_Item *it;
+	Evas_Object *ctxpopup;
+	appdata_s *ad = data;
+
+	if (!ad) {
+			LOGE("ad is NULL");
+			return;
+	}
+
+	if (ad->current_app_state != TG_SETTINGS_SCREEN_STATE) {
+		return;
+	}
+
+	ctxpopup = elm_ctxpopup_add(ad->nf);
+	elm_object_style_set(ctxpopup, "more/default");
+	elm_ctxpopup_auto_hide_disabled_set(ctxpopup, EINA_TRUE);
+	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_BACK, eext_ctxpopup_back_cb, NULL);
+	eext_object_event_callback_add(ctxpopup, EEXT_CALLBACK_MORE, eext_ctxpopup_back_cb, NULL);
+	evas_object_event_callback_add(ctxpopup, EVAS_CALLBACK_DEL, _ctxpopup_del_cb, ad);
+
+	evas_object_smart_callback_add(ctxpopup, "dismissed", _ctxpopup_dismiss_cb, ad);
+	evas_object_smart_callback_add(ad->win, "rotation,changed", _more_popup_rotate, ad);
+
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"), NULL, ctxpopup_profile_select_cb, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_EDIT_NAME"), NULL, ctxpopup_edit_name_select_cb, ad);
+	it = elm_ctxpopup_item_append(ctxpopup, i18n_get_text("IDS_TGRAM_OPT_LOG_OUT"), NULL, ctxpopup_logout_select_cb, ad);
+	//elm_object_item_domain_text_translatable_set(it, SETTING_PACKAGE, EINA_TRUE);
+	elm_ctxpopup_direction_priority_set(ctxpopup, ELM_CTXPOPUP_DIRECTION_UP, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN);
+
+	if (ad->menu_popup) {
+		evas_object_del(ad->menu_popup);
+	}
+
+	ad->menu_popup = ctxpopup;
+
+	_more_popup_rotate(ad, NULL, NULL);
+
+	evas_object_show(ctxpopup);
+
+}
+
+static Eina_Bool _pop_cb(void *data, Elm_Object_Item *it)
+{
+	appdata_s* ad = data;
+
+	if (!ad) {
+		LOGE("ad is NULL");
+		return EINA_FALSE;
+	}
+
+	eext_object_event_callback_del(ad->nf, EEXT_CALLBACK_MORE, _create_more_popup);
+
+	return EINA_TRUE;
+}
+
 void launch_settings_screen(appdata_s* ad)
 {
 	if (!ad) {
@@ -774,7 +919,9 @@ void launch_settings_screen(appdata_s* ad)
 	elm_genlist_item_append(list, &itc, (void*) 0, NULL, ELM_GENLIST_ITEM_NONE, on_camera_button_clicked, (void*) 0);
 	elm_genlist_item_append(list, &itc, (void*) 1, NULL, ELM_GENLIST_ITEM_NONE, on_settings_info_item_clicked, (void*)1);
 
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Settings", NULL, NULL, list, NULL);
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, NULL, list, NULL);
 
+	elm_naviframe_item_pop_cb_set(navi_item, _pop_cb, ad);
+	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, _create_more_popup, ad);
 }
 
