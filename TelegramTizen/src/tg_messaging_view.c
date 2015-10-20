@@ -869,7 +869,26 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				elm_object_part_content_set(layout, "elm.text", ser_lbl);
 				return layout;
 			} else if (msg->service == 1) {
+				char edj_path[PATH_MAX] = {0, };
+				app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
+				layout = elm_layout_add(obj);
+				elm_layout_file_set(layout, edj_path, "chat_service_item_box");
+				evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+				evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+				evas_object_show(layout);
+
+				Evas_Object* ser_lbl = elm_label_add(obj);
+				char temp_msg[4*256] = {0,};
+				snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#666666 align=center><font_size=30>%s</font_size></font>", msg->message);
+				elm_object_text_set(ser_lbl, temp_msg);
+				elm_label_ellipsis_set(ser_lbl, EINA_TRUE);
+				evas_object_resize(ser_lbl, 200, 15);
+				evas_object_show(ser_lbl);
+
+				elm_object_part_content_set(layout, "swallow.chat_service_text", ser_lbl);
+
+				return layout;
 			}
 
 			Evas_Object *entry = elm_entry_add(obj);
