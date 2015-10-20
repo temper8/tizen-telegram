@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Ang %1$spinakamabilis%2$s na messaging app\n%3$sLibre%4$s at %5$sligtas%6$s ito."
 
@@ -462,4 +465,19 @@ msgstr "I-unblock"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Ibahagi"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Mag-log out"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Naka-encrypt mula isang dulo hanggang sa kabilang dulo"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Hindi naka-save saanman"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Awtomatikong tanggalin pagkalipas ng tinakdang oras"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Hindi mai-forward"
 

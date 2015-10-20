@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "La aplicación de mensajes %1$smás rápida%2$s del mundo\nEs %3$sgratis%4$s y %5$ssegura%6$s."
 
@@ -374,7 +377,7 @@ msgid "IDS_TGRAM_OPT_SAVE"
 msgstr "Guardar"
 
 msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
-msgstr "Desliza cancelar"
+msgstr "Deslizar cancela"
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
 msgstr "Ajustes"

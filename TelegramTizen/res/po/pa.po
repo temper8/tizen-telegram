@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ਉਅੲਸਹਕਖਗਘਙਚਛਜਝਞਟਠਡਢਣਤਥਦਧਨਪਫਬਭਮਯਰਲਵੜਸ਼ਖ਼ਗ਼ਜ਼ਫ਼ਲ਼ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ਵਿਸ਼ਵ ਦੀ %1$sਸਭ ਤੋਂ ਤੇਜ਼%2$s ਮੈਸੇਜਿੰਗ ਐਪ\nਇਹ %3$sਮੁਫ਼ਤ%4$s ਅਤੇ %5$sਸੁਰੱਖਿਅਤ%6$s ਹੈ।"
 
@@ -462,4 +465,19 @@ msgstr "ਅਨਬਲੌਕ ਕਰੋ"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "ਸਾਂਝਾ ਕਰੋ"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ਲੌਗ ਆਉਟ"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "ਅੰਤ ਤੋਂ ਅੰਤ ਤੱਕ ਏਨਕ੍ਰਿਪਟ ਕੀਤਾ ਗਿਆ"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "ਕਿਤੇ ਵੀ ਸੁਰੱਖਿਅਤ ਨਹੀਂ"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ਇੱਕ ਪ੍ਰੀਸੈੱਟ ਸਮੇਂ ਤੋਂ ਬਾਅਦ ਸਵੈਚਲਿਤ ਮਿਟਾਇਆ ਗਿਆ"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ਫਾਰਵਰਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ"
 

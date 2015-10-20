@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "বিশ্বের %1$sসবচেয়ে নিরাপদ%2$s মেসেজিং অ্যাপ\nএটি %3$sফ্রি%4$s ও %5$sনিরাপদ%6$s৷"
 
@@ -462,4 +465,19 @@ msgstr "আনব্লক"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "শেয়ার করুন"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "লগ-আউট"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "এক প্রান্ত থেকে আরেক প্রান্ত পর্যন্ত এনক্রিপ্টেড"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "কোথাও সংরক্ষিত হয়নি"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "পূর্বনির্ধারিত সময় পরে স্বয়ংক্রিয়ভাবে মুছে ফেলা হয়েছে"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ফরোয়ার্ড করা যাবে না"
 

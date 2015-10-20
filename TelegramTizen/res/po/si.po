@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "අආඇඈඉඊඋඌඍඎඑඒඓඔඕඖකඛගඝඞඟචඡජඣඤඦටඨඩඪණඬතථදධනඳපඵබභමඹයරලවශෂසහළෆABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ලොව %1$sවේගවත්ම%2$s පණිවිඩකරණ යෙදුම\nඑය %3$sනොමිලේ%4$s සහ %5$sආරක්ෂිතය%6$s."
 
@@ -462,4 +465,19 @@ msgstr "අනවහිර කිරීම"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "බෙදාහදා ගන්න"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "පිටවීම"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "නිමාවෙන් නිමාවට ගුප්ත කේතිතයි"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "කිසිදු තැනක සුරැක නැත"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "පෙරසකසූ වේලාවකට පසුව ස්වයංක්‍රීයව මැකිණි"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "යොමු කළ නොහැක"
 

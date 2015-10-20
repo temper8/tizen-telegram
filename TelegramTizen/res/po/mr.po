@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "जगातील%1$sसर्वात जलद%2$s संदेश प्रेषण अनुप्रयोग\nहा %3$sविनामूल्य%4$s आणि %5$sसुरक्षित%6$s आहे."
 
@@ -462,4 +465,19 @@ msgstr "अनावरोधित करा"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "सहभागी करा"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "लॉग आउट करा"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "या टोकापासून त्या टोकापर्यंत एन्क्रिप्ट केलेला"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "कुठेही जतन केलेले नाही"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "स्वयंचलितपणे प्रीसेट वेळानंतर हटवले"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "अग्रेषित केले जाऊ शकत नाही"
 

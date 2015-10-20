@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลวศษสหฬอฮ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "แอพรับส่งข้อความที่ %1$sเร็วที่สุด%2$s ในโลก\n ซึ่งทั้ง %3$sฟรี%4$s และ %5$sปลอดภัย%6$s"
 
@@ -462,4 +465,19 @@ msgstr "ปลดบล็อค"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "แชร์"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ออกจากระบบ"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "เข้ารหัสทั้งหมด"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "ไม่ได้บันทึกไว้ที่ใดเลย"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ลบอัตโนมัติเมื่อเลยเวลาที่กำหนดไว้"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ไม่สามารถส่งต่อได้"
 

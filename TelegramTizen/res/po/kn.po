@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ಅಆಇಈಉಊಋಎಏಐಒಓಔಅಕಖಗಘಙಚಛಜಝಞಟಠಡಢಣತಥದಧನಪಫಬಭಮಯರಲವಶಷಸಹಳABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ಜಗತ್ತಿನ %1$sಅತಿವೇಗದ%2$s ಮೆಸೇಜಿಂಗ್ ಅನ್ವಯಿಸುವಿಕೆ\nಇದು %3$sಉಚಿತವಾಗಿದೆ%4$s ಮತ್ತು %5$sಸುರಕ್ಷಿತವಾಗಿದೆ%6$s."
 
@@ -462,4 +465,19 @@ msgstr "ಅನಿರ್ಬಂಧಿಸು"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "ಹಂಚಿಕೊಳ್ಳಿ"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ಲಾಗ್ ಔಟ್"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "ಅಂತ್ಯದಿಂದ ಅಂತ್ಯಕ್ಕೆ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗಿದೆ"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "ಎಲ್ಲಿಯೂ ಉಳಿಸಲಾಗಿಲ್ಲ"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ಪ್ರೀಸೆಟ್ ಸಮಯದ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಅಳಿಸಲಾಗಿದೆ"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ಫಾರ್ವರ್ಡ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ"
 

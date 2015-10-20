@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ကမၻာ့ %1$sအျမန္ဆံုး%2$sမက္ေဆ့ခ်္ေပးပုိ႔သည့္ အက္ပ္\n%3$sအခမဲ့%4$sျဖစ္ၿပီး %5$sလံုျခံဳမႈ%6$sရွိပါသည္။"
 
@@ -462,4 +465,19 @@ msgstr "ပိတ္ဆီးမႈျဖဳတ္ပါ"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "မွ်ေဝပါ"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ေလာ့ ေအာက္"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "အဆံုးတစ္ဖက္မွ တစ္ဖက္သုိ႔ ကုဒ္ေျပာင္းထားသည္"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "မည္သည့္ေနရာတြင္မွ မသိမ္းထားပါ"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ႀကိဳတင္သတ္မွတ္ခ်ိန္ၿပီးေနာက္ အလုိအေလ်ာက္ ဖ်က္လုိက္ပါသည္"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "လုိင္းလႊဲေျပာင္း၍ မရပါ"
 

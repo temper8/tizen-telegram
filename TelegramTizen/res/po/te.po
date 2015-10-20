@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "కఖగఘఙచఛజఝఞటఠడఢణతథదధనపఫబభమయరలళవశషసహఱABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ప్రపంచపు %1$sవేగవంతమైన%2$s మెసేజింగ్ అప్లికేషన్\nఇది %3$sఉచితం%4$s మరియు %5$sసురక్షితం%6$s."
 
@@ -462,4 +465,19 @@ msgstr "అనుమతించు"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "భాగస్వామ్యం చేయి"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "లాగ్ అవుట్ చేయి"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "మొదటి నుండి చివరి వరకు ఎన్‌క్రిప్ట్ చేయబడింది"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "ఎక్కడా సేవ్ చేయబడలేదు"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ప్రీసెట్ సమయం తర్వాత స్వయంచాలకంగా తొలగించబడుతుంది"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ఫార్వార్డ్ చేయబడదు"
 

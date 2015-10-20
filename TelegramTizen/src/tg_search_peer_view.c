@@ -9,6 +9,7 @@
 #include "tg_db_wrapper.h"
 #include "tg_messaging_view.h"
 #include "contact_selection_view.h"
+#include "ucol.h"
 
 #define COMMAND_MENU_ITEM_COUNT 2
 
@@ -31,9 +32,7 @@ static _command_item_info contact_screen_command_item_list[COMMAND_MENU_ITEM_COU
 };
 
 
-char* _util_get_first_char(char *input_text)
-
-
+static char* _util_get_first_char(char *input_text)
 {	/*
 	int unicode_len = eina_unicode_utf8_get_len(input_text);
 	int str_len = strlen(input_text);
@@ -76,8 +75,13 @@ char* on_peer_list_name_requested(void *data, Evas_Object *obj, const char *part
 	int id = (int) data;
 
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	Eina_List *list = evas_object_data_get(obj, "result_list");
 
-	user_data_with_pic_s *item = eina_list_nth(ad->search_peer_list, id);
+	if (!list) {
+		list = ad->search_peer_list;
+	}
+
+	user_data_with_pic_s *item = eina_list_nth(list, id);
 	if (!item) {
 		return NULL;
 	}
@@ -155,12 +159,16 @@ Evas_Object* on_peer_list_image_requested(void *data, Evas_Object *obj, const ch
 	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
 		int id = (int) data;
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
-		int size = eina_list_count(ad->search_peer_list);
+		Eina_List *list = evas_object_data_get(obj, "result_list");
+		if (!list) {
+			list = ad->search_peer_list;
+		}
+		int size = eina_list_count(list);
 		if (size <= 0) {
 			return eo;
 		}
 
-		user_data_with_pic_s *item = eina_list_nth(ad->search_peer_list, id);
+		user_data_with_pic_s *item = eina_list_nth(list, id);
 		user_data_s *user = item->use_data;
 		Evas_Object *profile_pic = NULL;
 
@@ -383,10 +391,11 @@ static void on_peer_item_clicked(void *data, Evas_Object *obj, void *event_info)
 	launch_messaging_view_cb(ad, peer_id);
 }
 
-static void _update_index_item(void *data, void *item_data, int id)
+#if 0
+static void _update_index_item(void *data, void *item_data, int id, Eina_List *list)
 {
 	appdata_s* ad = data;
-	user_data_with_pic_s* item = eina_list_nth(ad->search_peer_list, id);
+	user_data_with_pic_s* item = eina_list_nth(list, id);
 	user_data_s* user = item->use_data;
 
 	Evas_Object *index = evas_object_data_get(ad->nf, "fs_index");
@@ -407,6 +416,7 @@ static void _update_index_item(void *data, void *item_data, int id)
 	elm_object_item_data_set(it, item_data);
 
 }
+#endif
 
 static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
 {
@@ -423,10 +433,11 @@ static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* it
 
 	int count = eina_list_count(item_list);
 
+	evas_object_data_set(genlist, "result_list", item_list);
+
 	if(count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_peer_item_clicked, (void*) i);
-			_update_index_item(ad, item, i);
 		}
 	} else {
 		i = 1;
@@ -472,7 +483,6 @@ static void _append_index_item(Evas_Object *genlist, appdata_s *ad)
 	if(count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_peer_item_clicked, (void*) i);
-			_update_index_item(ad, item, i);
 		}
 	} else {
 		i = 1;
@@ -528,33 +538,58 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 	Evas_Object *main_layout = evas_object_data_get(ad->nf, "main_layout");
 	Evas_Object *index = evas_object_data_get(ad->nf, "fs_index");
 
+	user_data_with_pic_s *item;
+	user_data_s* user; // = item->use_data;
+
 	if (!search_list) {
 		DBG("search_list is null");
 		return;
 	}
 
 	elm_genlist_clear(search_list);
-	clear_search_list(ad);
-	elm_index_item_clear(index);
 
 	entry_text = trim(elm_entry_markup_to_utf8(elm_object_text_get(obj)));
 
-	Eina_Bool is_name_null = EINA_FALSE;
-	if (strlen(entry_text) > 0) {
-		ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, entry_text);
+	Eina_List *result_list = NULL;
+	Eina_List *l = NULL;
+
+	if (ucol_is_jamo(entry_text)) {
+		LOGD("entry_text is jamo, %s", entry_text);
+		EINA_LIST_FOREACH(ad->search_peer_list, l, item) {
+			int result;
+			user = item->use_data;
+			result = ucol_compare_first_letters(user->print_name, entry_text);
+			if (result == 0) {
+				result_list = eina_list_append(result_list, item);
+			}
+		}
 	} else {
-		is_name_null = EINA_TRUE;
-		ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
+		LOGD("entry_text is not jamo, %s", entry_text);
+		EINA_LIST_FOREACH(ad->search_peer_list, l, item) {
+			user = item->use_data;
+
+			if (ucol_ncompare(user->print_name, entry_text, strlen(entry_text)) == 0) {
+				result_list = eina_list_append(result_list, item);
+			}
+		}
 	}
 
-	if (ad->search_peer_list) {
+	if ((entry_text == NULL || strlen(entry_text) == 0) && result_list == NULL) {
+		result_list = ad->search_peer_list;
+		_append_command_item(search_list, ad);
+	}
+
+	LOGD("count of result_list is %d", eina_list_count(result_list));
+
+	if (result_list) {
 		Evas_Object *fs_layout = evas_object_data_get(ad->nf, "fs_layout");
-		if (is_name_null) {
-			_append_command_item(search_list, ad);
+		_append_peer_item(search_list, data, result_list);
+		Evas_Object *content = elm_object_part_content_unset(main_layout, "elm.swallow.content");
+		if (evas_object_data_get(ad->nf, "no_contents_layout") == content) {
+			evas_object_hide(content);
 		}
-		_append_peer_item(search_list, data, ad->search_peer_list);
-		elm_object_part_content_unset(main_layout, "elm.swallow.content");
 		elm_object_part_content_set(main_layout, "elm.swallow.content", fs_layout);
+
 	} else {
 		Evas_Object *no_contents = evas_object_data_get(ad->nf, "no_contents_layout");
 
@@ -580,7 +615,7 @@ static void _on_search_entry_focused(void *data, Evas_Object *obj, void *event_i
 }
 
 
-Evas_Object *_create_searchbar(Evas_Object* parent, void* data)
+static Evas_Object *_create_searchbar(Evas_Object* parent, void* data)
 {
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
@@ -636,69 +671,64 @@ static void _index_selected_cb(void *data, Evas_Object *obj, void *event_info)
 
 	//tg_peer_info_s* user = item->use_data;
 	Eina_List* list = ad->search_peer_list;
-
 	int index = 0;
-	while (list) {
-		//const char *part_text = elm_object_item_part_text_get(gl_item, "elm.text");
-		//const char *part_text = elm_object_item_data_get(gl_item);
-		gl_item = eina_list_data_get(list);
-		char *part_text = gl_item->use_data->print_name;
+	Eina_List *l;
 
-		const char *index_letter = elm_index_item_letter_get(event_info);
-
-		int unicode_len = eina_unicode_utf8_get_len(part_text);
-		int str_len = strlen(part_text);
-		int lang_byte = str_len/unicode_len+(str_len%unicode_len > 0 ? 1: 0);
-		char *compare_text = strndup(part_text, lang_byte);
-
-		Elm_Object_Item *item = elm_genlist_nth_item_get(search_list, index);
-
-		if (!strcasecmp(index_letter, compare_text)) {
-			elm_genlist_item_show(item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
+	EINA_LIST_FOREACH(list, l, gl_item) {
+		if (ucol_compare_first_letters(gl_item->use_data->print_name, elm_index_item_letter_get(event_info)) == 0) {
 			break;
 		}
-		//gl_item = elm_genlist_item_next_get(gl_item);
-		list = eina_list_next(list);
 		index++;
 	}
+
+	if (eina_list_count(list) == index) {
+		return;
+	}
+
+	if (list == ad->search_peer_list) {
+		index += 2;
+	}
+
+	Elm_Object_Item *item = elm_genlist_nth_item_get(search_list, index);
+	elm_genlist_item_show(item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
 }
 
 static Evas_Object* create_fastscroll(appdata_s *ad)
-{
-	Evas_Object *parent = ad->nf;
-	Evas_Object *index;
-	int i = 0, j, len;
-	char *str;
-	char buf[PATH_MAX] = {0, };
+	{
+		Evas_Object *parent = ad->nf;
+		Evas_Object *index;
+		int i = 0, j, len;
+		char *str;
+		char buf[PATH_MAX] = {0, };
 
-	index = elm_index_add(parent);
-	elm_object_part_content_set(parent, "elm.swallow.fastscroll", index);
-	elm_index_autohide_disabled_set(index, EINA_TRUE);
-	elm_index_omit_enabled_set(index, EINA_TRUE);
+		index = elm_index_add(parent);
+		elm_object_part_content_set(parent, "elm.swallow.fastscroll", index);
+		elm_index_autohide_disabled_set(index, EINA_TRUE);
+		elm_index_omit_enabled_set(index, EINA_TRUE);
 
-	/* 1. Special character & Numbers */
-	elm_index_item_append(index, "#", NULL, NULL);
+		/* 1. Special character & Numbers */
+		elm_index_item_append(index, "#", NULL, NULL);
 
-	/* 2. Local language */
-	str = dgettext("efl-extension", "IDS_EA_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-	len = strlen(str);
+		/* 2. Local language */
+		str = i18n_get_text("IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+		len = strlen(str);
 
-	while (i < len) {
-		j = i;
-		eina_unicode_utf8_next_get(str, &i);
-		snprintf(buf, i - j + 1, "%s", str + j);
-		buf[i - j + 1] = 0;
+		while (i < len) {
+			j = i;
+			eina_unicode_utf8_next_get(str, &i);
+			snprintf(buf, i - j + 1, "%s", str + j);
+			buf[i - j + 1] = 0;
 
-		elm_index_item_append(index, buf, NULL, NULL);
+			elm_index_item_append(index, buf, NULL, NULL);
+		}
+		elm_index_level_go(index, 0);
+
+		evas_object_smart_callback_add(index, "selected", _index_selected_cb, ad);
+		//evas_object_smart_callback_add(index, "changed", _index_changed_cb, NULL);
+		//evas_object_smart_callback_add(index, "language,changed", _index_language_changed_cb, NULL);
+
+		return index;
 	}
-	elm_index_level_go(index, 0);
-
-	evas_object_smart_callback_add(index, "selected", _index_selected_cb, ad);
-	//evas_object_smart_callback_add(index, "changed", _index_changed_cb, NULL);
-	//evas_object_smart_callback_add(index, "language,changed", _index_language_changed_cb, NULL);
-
-	return index;
-}
 
 
 static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
@@ -760,6 +790,6 @@ void launch_start_peer_search_view(appdata_s* ad)
 	evas_object_data_set(ad->nf, "main_layout", layout);
 	evas_object_data_set(ad->nf, "search_list", peer_list);
 
-	elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Contacts</font_size></font>", NULL, NULL, layout, NULL);
+	elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_CONTACTS_ABB"), NULL, NULL, layout, NULL);
 
 }

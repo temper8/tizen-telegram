@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Aplikasi pesan %1$stercepat%2$s di dunia\nIni %3$sgratis%4$s dan %5$saman%6$s."
 
@@ -462,4 +465,19 @@ msgstr "Buka blokir"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Bagi"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Keluar"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Dienkripsi dari ujung ke ujung"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Tidak disimpan"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Otomatis dihapus setelah waktu yang prasetel"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Tidak dapat diteruskan"
 

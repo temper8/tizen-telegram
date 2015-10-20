@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "កខគឃងចឆជឈញដឋឌឍណតថទធនបផពភមយរលវសហឡអABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "កម្មវិធី​សារ%1$sលឿន​បំផុត%2$s របស់​ពិភពលោក\nវា​គឺ %3$sឥតគិតថ្លៃ%4$s និង %5$sមាន​សន្តិសុខ%6$s។"
 
@@ -462,4 +465,19 @@ msgstr "ឈប់ខ្ទប់"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "ចែករំលែក"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ចុះឈ្មោះចេញ"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "បាន​អ៊ិនគ្រីប​ពី​ចុង​ទៅ​ចុង"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "មិន​បាន​រក្សាទុក​នៅ​កន្លែង​ណា​មួយ"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "បាន​លុប​ដោយ​ស្វ័យប្រវត្តិ​បន្ទាប់​ពី​ម៉ោង​បុរេកំណត់"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "មិន​អាច​បញ្ជូនបន្ត"
 

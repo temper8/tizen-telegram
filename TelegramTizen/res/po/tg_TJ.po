@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Барномаи паёмнависии %1$sзудкортарин%2$s дар ҷаҳон\nОн %3$sройгон%4$s ва %5$sамн%6$s аст."
 
@@ -462,4 +465,19 @@ msgstr "Ғайримамнуъ кардан"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Мубодила кардан"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Баромадан"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Аз охир то охир рамзбандӣ шудааст"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Дар ягон ҷо захира нашудааст"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Баъди вақти таъйиншуда ба таври худкор нест карда мешавад"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Бозфиристӣ ғайриимкон аст"
 

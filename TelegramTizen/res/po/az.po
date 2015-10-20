@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCÇDEƏFGĞHXIİJKQLMNOÖPRSŞTUÜVYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Dünyanın %1$sən sürətli%2$s mesajlaşma proqramı\nO %3$spulsuz%4$s və %5$stəhlükəsizdir%6$s."
 

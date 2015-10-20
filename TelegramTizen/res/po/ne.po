@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "विश्वको %1$sसबैभन्दा द्रुत%2$s मेसेजिङ एप\nयो %3$sनिःशुल्क%4$s र %5$sसुरक्षित%6$s छ।"
 
@@ -462,4 +465,19 @@ msgstr "अनब्लक गर्नुहोस्"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "साझा गर्नुहोस्"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "लग आउट गर्नुहोस्"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "सुरुदेखि अन्तसम्म इन्क्रिप्ट गरिएको"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "कहीँपनि सेव गरिएको छैन"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "पूर्वनिश्चित समयपछि स्वचालित रूपमा मेटाइन्छ"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "फवार्ड गर्न सकिँदैन"
 

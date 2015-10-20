@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "АБВГДЕЁЖЗИЙКЛМНОӨПРСТУҮФХЦЧШЩЪЬЫЭЮЯ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Дэлхийн %1$sхамгийн хурдан%2$s зурвас хэрэглүүр\n%3$sҮнэгүй%4$s бас %5$sнайдвартай%6$s."
 
@@ -462,4 +465,19 @@ msgstr "Нээх"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Хуваалцах"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Гарах"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Төгсгөл хооронд шифрлэсэн"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Хаана ч хадгалагдаагүй"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Урьдчилан тохируулсан хугацааны дараа автоматаар устана"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Цааш илгээх боломжгүй"
 

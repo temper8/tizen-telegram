@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sسریع‌ترین%2$s برنامه پیام‌رسانی جهانی\nاین برنامه %3$sرایگان%4$s و %5$sایمن%6$s است."
 
@@ -462,4 +465,19 @@ msgstr "رفع انسداد"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "اشتراک"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "خروج از سیستم"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "رمزگذاری دو سویه"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "هیچ جا ذخیره نشده است"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "پس از گذشت زمان پیش‌تنظیم، به طور خودکار حذف شد"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "هدایت ممکن نیست"
 

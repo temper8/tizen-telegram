@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "АБВГДЕЁЖЗИЙКЛМНҢОӨПРСТУҮФХЦЧШЩЬЫЪЭЮЯ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Дүйнөнүн %1$sэң тез%2$s билдирүү алмашуу колдонмосу\nАл %3$sакысыз%4$s жана %5$sкоопсуз%6$s."
 
@@ -462,4 +465,19 @@ msgstr "Кулпудан чечүү"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Бөлүшүү"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Чыгуу"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Бир башынан экинчи башына чейин шифрленген"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Эч жерде сакталган жок"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Алдын ала коюлган убакыттан кийин автоматтык түрдө өчүрүлдү"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Которууга болбойт"
 

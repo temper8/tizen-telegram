@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ກຂຄງຈສຊຍດຕຖທນບປຜຝພຟມຢຣລວຫອຮ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ແອັບການສົ່ງຂໍ້ຄວາມ %1$sໄວທີ່ສຸດ%2$s ຂອງໂລກ\nມັນ %3$sຟຣີ%4$s ແລະ %5$sປອດໄພ%6$s."
 
@@ -462,4 +465,19 @@ msgstr "ປົດການບລັອກ"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "ແຊຣ໌"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ອອກຈາກລະບົບ"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "ໃສ່ລະຫັດແລ້ວຕັ້ງແຕ່ຕົ້ນຈົນຈົບ"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "ບໍ່ໄດ້ບັນທຶກຢູ່ບ່ອນໃດເລີຍ"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ໄດ້ລຶບຢ່າງອັດຕະໂນມັດຫຼັງຈາກເວລາທີ່ຕັ້ງຄ່າມາກ່ອນ"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ບໍ່ສາມາດຖືກສົ່ງຕໍ່ໄດ້"
 

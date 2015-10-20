@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ଅଆଇଈଉଊଋୠଏଐଓଔକଖଗଘଙଚଛଜଝଞଟଠଡଢଡ଼ଢ଼ଣତଥଦଧନପଫବଭମଯୟରଲଳୱଶଷସହABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ବିଶ୍ୱର %1$sଦ୍ରୁତତର%2$s ମେସେଜିଂ ଆପ୍\nଏହା %3$sମୁକ୍ତ%4$s ଏବଂ %5$sସୁରକ୍ଷିତ%6$s।"
 
@@ -462,4 +465,19 @@ msgstr "ଅନାବରୋଧ"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "ଅଂଶୀଦାର"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "ଲଗ୍ ଆଉଟ୍"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "ଶେଷରୁ ଶେଷ ପର୍ଯ୍ୟନ୍ତ ଏନକ୍ରିପ୍ଟ ହୋଇଛି"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "କୌଣସି ସ୍ଥାନରେ ସଞ୍ଚୟ ହୋଇନାହିଁ"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "ଏକ ପୂର୍ବସେଟ୍ ସମୟରେ ପରେ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ବିଲୋପ ହୋଇଛି"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ଅଗ୍ରଗାମୀ ହୋଇପାରିବ ନାହିଁ"
 

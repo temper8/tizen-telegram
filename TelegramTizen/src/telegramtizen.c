@@ -11,6 +11,7 @@
 #include "tg_start_messaging_view.h"
 #include "tg_user_info_view.h"
 #include "tg_chat_info_view.h"
+#include "ucol.h"
 #include <notification.h>
 #include <badge.h>
 static void
@@ -2784,6 +2785,8 @@ static void create_base_gui(appdata_s *ad)
 		ecore_timer_add(2, on_load_main_view_requested, ad);
 
 	}
+
+	ucol_init();
 	//eina_list_free(user_info);
 }
 

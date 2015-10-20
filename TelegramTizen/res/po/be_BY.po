@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Самая %1$sхуткая%2$s праграма абмену паведамленняў у свеце\nЯна %3$sбясплатная%4$s і %5$sбяспечная%6$s."
 
@@ -462,4 +465,19 @@ msgstr "Разблак."
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "Абагуліць"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "Выйсці з сістэмы"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "Зашыфравана цалкам"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "Нідзе не захавана"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "Аўтаматычна выдалена праз перадвызначаны час"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "Немагчыма пераадрасаваць"
 

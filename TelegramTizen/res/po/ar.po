@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ابتثجحخدذرزسشصضطظعغفقكلمنهوي"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "تطبيق المراسلة %1$sالأسرع%2$s حول العالم\nوهو %3$sمجاني%4$s و%5$sآمن%6$s."
 

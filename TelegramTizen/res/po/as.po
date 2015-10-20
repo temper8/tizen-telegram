@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযৰলৱশষসহABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "বিশ্বৰ %1$sদ্ৰুততম%2$s মেচেজ এপ\nএইটো %3$sবিনামূলীয়া%4$s আৰু %5$sসুৰক্ষিত%6$s৷"
 
@@ -462,4 +465,19 @@ msgstr "অনাৱৰোধ কৰক"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "ভাগ-বতৰা"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "লগ আউট কৰক"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "অন্তিমৰ পৰা অন্তিমলৈ এনক্ৰিপ্ট কৰক"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "কোনো ঠাইতে সংৰক্ষণ কৰা নাই"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "এটা প্ৰিছেট সময়ৰ পিছত স্বয়ংক্ৰিয়ভাৱে বিলোপ হ'ব"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "অগ্ৰসৰ কৰিব পৰা নাযাব"
 

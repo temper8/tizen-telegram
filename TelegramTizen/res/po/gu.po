@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "અઆઇઈઉઊૠએઍઐઓઑઔકખગઘચછજઝટઠડઢણતથદધનપફબભમયરલવશષસહABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "વિશ્વની %1$sસૌથી વધુ ઝડપી%2$s મેસેજિંગ એપ\nતે %3$sમફત%4$s છે અને %5$sસુરક્ષિત%6$s છે."
 
@@ -462,4 +465,19 @@ msgstr "અનાવરોધિત કરો"
 
 msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "શેર કરો"
+
+msgid "IDS_TGRAM_HEADER_LOG_OUT"
+msgstr "લોગ આઉટ કરો"
+
+msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
+msgstr "સમાપ્તિથી સુધી સમાપ્તિ સુધી એન્ક્રિપ્ટ કરેલ"
+
+msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
+msgstr "ક્યાંય પણ સાચવેલ નથી"
+
+msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
+msgstr "પ્રીસેટ સમય પછી સ્વચાલિત રીતે હટાવવામાં આવ્યું"
+
+msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
+msgstr "ફોર્વર્ડ કરી શકાતું નથી"
 
