@@ -116,6 +116,7 @@ collections {
 	images {
 		image: "camera_btn_gallery_mask.png" COMP;
 		image: "telegram_date_divider.#.png" COMP;
+		image: "telegram_list_thumb_image_bg.png" COMP;
 	}
 
    group {
@@ -888,8 +889,8 @@ collections {
             precise_is_inside: 1;
             description {
                 state: default 0.0;
-               rel1.relative: 0.0 0.05;
-               rel2.relative: 1.0 0.95;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
                color: 250 250 250 0;
             }
          }
@@ -899,20 +900,21 @@ collections {
             precise_is_inside: 1;
             description { 
                state: default 0.0;
-               rel1.relative: 0.0 0.05;
-               rel2.relative: 1.0 0.95;
+               rel1.relative: 0.0 0.0;
+               rel2.relative: 1.0 1.0;
                image.normal: camera_btn_gallery_mask.png;
             }
          }
          part { 
             name: content_bg;
-            type: RECT;
+            type: IMAGE;
             clip_to: masking;
             description {
                 state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               color: 45 165 224 255;
+               image.normal: "telegram_list_thumb_image_bg.png";
+               color: 250 250 250 255;
             }
          }
          part { 
@@ -3020,13 +3022,14 @@ group
          }
          part { 
             name: content_bg;
-            type: RECT;
+            type: IMAGE;
             clip_to: masking;
             description {
                 state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               color: 250 250 250 0;
+               image.normal: "telegram_list_thumb_image_bg.png";
+               color: 250 250 250 255;
             }
          }
          part { 

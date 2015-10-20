@@ -26,8 +26,8 @@ static void on_group_chat_clicked(void *data, Evas_Object *obj, void *event_info
 static void on_secret_chat_clicked(void *data, Evas_Object *obj, void *event_info);
 
 static _command_item_info contact_screen_command_item_list[COMMAND_MENU_ITEM_COUNT] = {
-	{"invites friends",	TELEGRAM_BUTTON_ADD_ICON,  	on_invite_friends_clicked, NULL},
-	{"group chat",		DEFAULT_LIST_THUMB_MULTI_PIC, on_group_chat_clicked, NULL},
+	{"IDS_TGRAM_MBODY_INVITE_FRIENDS",	TELEGRAM_CONTACT_ADD_ICON, on_invite_friends_clicked, NULL},
+	{"IDS_TGRAM_MBODY_GROUP_CHAT",		DEFAULT_LIST_THUMB_MULTI_PIC, on_group_chat_clicked, NULL},
 	/*{"secret chat",		"telegram_list_thumb_image_secrete.png", on_secret_chat_clicked, NULL},*/
 };
 
@@ -109,7 +109,7 @@ char* _on_command_name_requested(void *data, Evas_Object *obj, const char *part)
 
 	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<align=left><font_size=45><color=#1776D2>%s</color></font_size></align>", contact_screen_command_item_list[row].string);
+		snprintf(buf, 512, "<align=left><font_size=45><color=#1776D2>%s</color></font_size></align>", _(contact_screen_command_item_list[row].string));
 		return strdup(buf);
 	}
 
@@ -127,7 +127,7 @@ Evas_Object* _on_command_name_image_requested(void *data, Evas_Object *obj, cons
 
 		Evas_Object *profile_pic = NULL;
 		profile_pic = create_image_object_from_file(ui_utils_get_resource(contact_screen_command_item_list[row].image_path), obj);
-		//evas_object_color_set(profile_pic, 45, 165, 224, 255);
+		evas_object_color_set(profile_pic, 45, 165, 224, 255);
 
 		char edj_path[PATH_MAX] = {0, };
 		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
@@ -175,6 +175,7 @@ Evas_Object* on_peer_list_image_requested(void *data, Evas_Object *obj, const ch
 		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
 			profile_pic = create_image_object_from_file(user->photo_path, obj);
 		} else {
+
 			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_SINGLE_PIC), obj);
 			evas_object_color_set(profile_pic, 45, 165, 224, 255);
 		}

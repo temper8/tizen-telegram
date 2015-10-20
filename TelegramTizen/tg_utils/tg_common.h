@@ -79,6 +79,7 @@
 #define DEFAULT_TELEGRAM_ICON FM_ICON_PATH"/tg_icon.png"
 
 #define TELEGRAM_BUTTON_ADD_ICON FM_ICON_PATH"/telegram_button_add.png"
+#define TELEGRAM_CONTACT_ADD_ICON FM_ICON_PATH"/telegram_list_thumb_image_add.png"
 #define TELEGRAM_THUMB_ADD_ICON FM_ICON_PATH"/telegram_thumb_add.png"
 
 #define FM_ICON_CAMERA       FM_ICON_PATH"floating_camera.png"
