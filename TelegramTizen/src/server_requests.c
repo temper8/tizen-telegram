@@ -363,6 +363,69 @@ void send_unblock_buddy_request(service_client* service_client, const int buddy_
 }
 
 
+
+
+void send_delete_selected_group_chats_request(service_client* service_client, Eina_List *sel_grp_chats)
+{
+	if (!service_client || !sel_grp_chats) {
+		// error
+		return;
+	}
+	bundle *msg;
+	char tmp[50];
+	char chat_id_key[50];
+	int result;
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "delete_selected_group_chats_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	// add count
+	int list_size = eina_list_count(sel_grp_chats);
+
+	char cnt_str[50] = {0,};
+	sprintf(cnt_str, "%d", list_size);
+
+	if (bundle_add_str(msg, "list_size", cnt_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	// add chat ids
+	for (int i = 0; i < list_size ; i++) {
+		tg_main_list_item_s *item = eina_list_nth(sel_grp_chats, i);
+		snprintf(tmp, sizeof(tmp) - 1, "%d", item->peer_id);
+		snprintf(chat_id_key, sizeof(chat_id_key) - 1, "chat_id_%d", i);
+
+		if (bundle_add_str(msg, chat_id_key, tmp) != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+			return;
+		}
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+
+
 void send_delete_group_chat_request(service_client* service_client, const int chat_id)
 {
 	if (!service_client) {
@@ -395,8 +458,6 @@ void send_delete_group_chat_request(service_client* service_client, const int ch
 		bundle_free(msg);
 		return;
 	}
-
-
 	result = service_client_send_message(service_client, msg);
 	if(result != SVC_RES_OK) {
 		// error

@@ -860,7 +860,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 				Evas_Object *ser_lbl = elm_label_add(obj);
 				char temp_msg[4*256] = {0,};
-				snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#008000 align=center><font_size=30>%s</font_size></font>", msg->message);
+				snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#808080 align=center><font_size=27>%s</font_size></font>", msg->message);
 				elm_object_text_set(ser_lbl, temp_msg);
 				elm_label_ellipsis_set(ser_lbl, EINA_TRUE);
 				//evas_object_resize(ser_lbl, 200, 15);
@@ -1281,7 +1281,8 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 	if (!text_to_send || (strlen(text_to_send) == 0))
 		return ECORE_CALLBACK_CANCEL;
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -1346,11 +1347,11 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 		return;
 
 	if(add_date_item_to_chat(data)) {
-		ecore_timer_add(3, on_new_text_message_send_cb, chat_list);
+		ecore_timer_add(1, on_new_text_message_send_cb, chat_list);
 		return;
 	}
-
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -1527,20 +1528,35 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 	}
 }
 
+static Eina_Bool on_change_input_type_requested(void *data)
+{
+	Evas_Object* text_entry = data;
+
+	elm_entry_input_panel_layout_set(text_entry, ELM_INPUT_PANEL_LAYOUT_EMOTICON);
+	elm_object_focus_set(text_entry, EINA_TRUE);
+	elm_entry_input_panel_show(text_entry);
+
+	return ECORE_CALLBACK_CANCEL;
+}
+
 static void on_message_smiley_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object* text_entry = data;
-	//elm_entry_input_panel_hide(text_entry);
-	elm_entry_input_panel_layout_set(text_entry,ELM_INPUT_PANEL_LAYOUT_EMOTICON);
+	elm_object_focus_set(obj, EINA_FALSE);
+	elm_object_focus_set(text_entry, EINA_FALSE);
+	elm_entry_input_panel_hide(text_entry);
+	ecore_timer_add(0.3, on_change_input_type_requested, text_entry);
+	/*
+	elm_entry_input_panel_layout_set(text_entry, ELM_INPUT_PANEL_LAYOUT_EMOTICON);
 	elm_object_focus_set(text_entry, EINA_TRUE);
-	//elm_entry_input_panel_show(text_entry);
+	elm_entry_input_panel_show(text_entry);*/
 }
 
 static void on_message_text_entry_clicked(void *data, Evas_Object *obj, void *event_info)
 {
-	//elm_entry_input_panel_hide(obj);
+	elm_entry_input_panel_hide(obj);
 	elm_entry_input_panel_layout_set(obj,ELM_INPUT_PANEL_LAYOUT_NORMAL);
-	//elm_entry_input_panel_show(obj);
+	elm_entry_input_panel_show(obj);
 }
 
 
@@ -1572,7 +1588,8 @@ static Eina_Bool on_new_contact_message_send_cb(void *data)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1641,14 +1658,15 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 		evas_object_data_set(chat_list, "contact_last_name", strdup(last_name));
 		evas_object_data_set(chat_list, "contact_phone_number", strdup(phone_number));
 
-		ecore_timer_add(3, on_new_contact_message_send_cb, chat_list);
+		ecore_timer_add(1, on_new_contact_message_send_cb, chat_list);
 		return;
 	}
 
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1705,7 +1723,8 @@ static Eina_Bool on_new_location_message_send_cb(void *data)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1767,13 +1786,14 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	if(add_date_item_to_chat(data)) {
 		evas_object_data_set(chat_list, "contact_latitude", strdup(latitude));
 		evas_object_data_set(chat_list, "contact_longitude", strdup(longitude));
-		ecore_timer_add(3, on_new_location_message_send_cb, chat_list);
+		ecore_timer_add(1, on_new_location_message_send_cb, chat_list);
 		return;
 	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1829,7 +1849,8 @@ static Eina_Bool on_new_media_message_send_cb(void *data)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1905,12 +1926,13 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 		evas_object_data_set(chat_list, "file_type", strdup(file_type_char));
 		evas_object_data_set(chat_list, "file_path", strdup(file_path));
 
-		ecore_timer_add(3, on_new_media_message_send_cb, chat_list);
+		ecore_timer_add(1, on_new_media_message_send_cb, chat_list);
 		return;
 	}
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	ad->msg_count = ad->msg_count + 1001;
+	int unique_id = time(NULL) + ad->msg_count;
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -2465,6 +2487,15 @@ static void on_message_smiley_unpressed(void *data, Evas_Object *obj, void *even
 		evas_object_color_set(data, 45, 165, 224, 178);
 }
 
+void on_message_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	app_nf_back_cb(data, obj, event_info);
+}
+
 void on_user_info_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
@@ -2622,6 +2653,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_object_part_content_set(main_layout, "swallow.item", title_layout);
 
 	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
+	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
 	elm_object_part_content_set(title_layout, "swallow.back_arrow", back_btn);
 
 

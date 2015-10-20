@@ -509,6 +509,7 @@ typedef struct tg_main_list_item {
 	Evas_Object* date_lbl;
 	Evas_Object* msg_status_lbl;
 	Evas_Object* main_item_layout;
+	Eina_Bool is_selected;
 } tg_main_list_item_s;
 
 typedef struct appdata {
@@ -559,6 +560,7 @@ typedef struct appdata {
 	Elm_Theme *theme;
 	int screen_mode_for_fb; // for floating button icon
 	Evas_Object *menu_popup;
+	int msg_count;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);

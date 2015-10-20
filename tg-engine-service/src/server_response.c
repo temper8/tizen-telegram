@@ -63,6 +63,14 @@ void process_send_message_command(int buddy_id, int message_id, int msg_type, ch
 	send_message_to_buddy(buddy_id, message_id, msg_type, msg_data, type_of_chat);
 }
 
+void process_delete_selected_group_chats_request(tg_engine_data_s* tg_data, Eina_List *sel_grp_chats)
+{
+	if (!tgl_engine_get_TLS()) {
+		return;
+	}
+	delete_selected_group_chat(tg_data, sel_grp_chats);
+}
+
 void process_delete_group_chat_request(tg_engine_data_s* tg_data, int chat_id)
 {
 	if (!tgl_engine_get_TLS()) {
@@ -1024,6 +1032,27 @@ void send_buddy_unblocked_response(tg_engine_data_s *tg_data, int buddy_id, Eina
 	}
 	bundle_free(msg);
 
+}
+
+void send_selected_group_chats_deleted_response(tg_engine_data_s *tg_data)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "selected_group_chats_deleted_response") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+	bundle_free(msg);
 }
 
 void send_group_chat_deleted_response(tg_engine_data_s *tg_data, int chat_id, Eina_Bool is_success)

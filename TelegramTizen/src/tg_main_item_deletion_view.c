@@ -5,8 +5,10 @@
  *      Author: sandeep
  */
 
-
 #include "tg_main_item_deletion_view.h"
+#include "tg_user_main_view.h"
+#include "tg_db_manager.h"
+#include "server_requests.h"
 
 static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
@@ -18,16 +20,8 @@ static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Ob
 	return icon;
 }
 
-static Evas_Object* create_check(Evas_Object *parent)
-{
-	Evas_Object *check;
-	check = elm_check_add(parent);
-	return check;
-}
-
 char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part)
 {
-
 	int org_id = (int) data;
 	if (org_id == 0) {
 		if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
@@ -35,9 +29,7 @@ char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part
 		}
 		return NULL;
 	}
-
 	int id = org_id - 1;
-
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
@@ -63,32 +55,122 @@ char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part
 	}
 }
 
+
+void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina_Bool checked, int org_id)
+{
+	if (!ad || !gen_list) {
+		return;
+	}
+	if (ad->main_list && eina_list_count(ad->main_list) > 0) {
+		if (org_id ==0) {
+			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
+				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+				item->is_selected = checked;
+				Eina_Bool all_items_selected = checked;
+				evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
+				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, i + 1);
+				if (list_item) {
+					elm_genlist_item_selected_set(list_item, EINA_FALSE);
+					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
+					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
+					elm_check_state_set(lcheckbox, checked);
+				}
+			}
+		} else {
+			tg_main_list_item_s *item = eina_list_nth(ad->main_list, org_id - 1);
+			item->is_selected = checked;
+
+			if (!checked) {
+				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
+				if (list_item) {
+					elm_genlist_item_selected_set(list_item, EINA_FALSE);
+					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
+					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
+					elm_check_state_set(lcheckbox, EINA_FALSE);
+				}
+			} else {
+				Eina_Bool all_items_selected = EINA_TRUE;
+				for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
+					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+					if (!item->is_selected) {
+						all_items_selected = EINA_FALSE;
+						break;
+					}
+				}
+				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
+				if (list_item) {
+					elm_genlist_item_selected_set(list_item, EINA_FALSE);
+					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
+					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
+					elm_check_state_set(lcheckbox, all_items_selected);
+				}
+			}
+		}
+	}
+}
+
+void on_main_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	int org_id = (int) data;
+	appdata_s *ad = evas_object_data_get(obj, "app_data");
+	Evas_Object *gen_list = evas_object_data_get(obj, "selection_gen_list");
+	Eina_Bool checked = elm_check_state_get(obj);
+	change_main_item_selection_state(ad, gen_list, checked, org_id);
+}
+
+void on_main_item_selected(void *data, Evas_Object *obj, void *event_info)
+{
+	int org_id = (int) data;
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+	Evas_Object *layout = elm_object_item_part_content_get(event_info, "elm.swallow.end");
+	Evas_Object *checkbox = elm_object_part_content_get(layout, "elm.swallow.content");
+	Eina_Bool checked = elm_check_state_get(checkbox);
+	appdata_s *ad = evas_object_data_get(checkbox, "app_data");
+	checked = !checked;
+	elm_check_state_set(checkbox, checked);
+	change_main_item_selection_state(ad, obj, checked, org_id);
+}
+
 Evas_Object* on_mainlist_content_requested(void *data, Evas_Object *obj, const char *part)
 {
 	int org_id = (int) data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	Evas_Object *eo = NULL;
+	int id = org_id - 1;
+	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
+		return NULL;
+	}
 
 	if (!strcmp("elm.swallow.end", part)) {
-		return create_check(obj);
+		eo = elm_layout_add(obj);
+		elm_layout_theme_set(eo, "layout", "list/C/type.2", "default");
+		Evas_Object *check = elm_check_add(obj);
+		elm_object_focus_set(check, EINA_FALSE);
+		evas_object_propagate_events_set(check, EINA_FALSE);
+		evas_object_data_set(check, "app_data", ad);
+		evas_object_data_set(check, "selection_gen_list", obj);
+		evas_object_smart_callback_add(check, "changed", on_main_item_checkbox_sel_cb, data);
+		elm_layout_content_set(eo, "elm.swallow.content", check);
+		if (org_id == 0) {
+			Eina_Bool all_items_selected = (Eina_Bool)evas_object_data_get(obj, "all_selected");
+			elm_check_state_set(check, all_items_selected);
+		} else {
+			tg_main_list_item_s* item = eina_list_nth(ad->main_list, id);
+			elm_check_state_set(check, item->is_selected);
+		}
+		return eo;
 	}
 
 	if (org_id == 0) {
 		return NULL;
 	}
 
-	int id = org_id - 1;
-
-	appdata_s* ad = evas_object_data_get(obj, "app_data");
-
-	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
-		return NULL;
-	}
 	tg_main_list_item_s* item = eina_list_nth(ad->main_list, id);
 	if (!item) {
 		return NULL;
 	}
 
-
-	Evas_Object *eo = NULL;
 	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")) {
 		//if (item->profile_pic == NULL) {
 			Evas_Object *profile_pic = NULL;
@@ -142,6 +224,76 @@ Evas_Object* on_mainlist_content_requested(void *data, Evas_Object *obj, const c
 }
 
 
+void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	show_loading_popup(ad);
+	// delete  users.
+
+	Eina_List *sel_grp_chat = NULL;
+
+	for (int i = 0; i < eina_list_count(ad->main_list); i++) {
+		tg_main_list_item_s* sel_item = eina_list_nth(ad->main_list, i);
+		if (sel_item && sel_item->is_selected) {
+			if (sel_item->peer_type == TGL_PEER_USER) {
+				char* tablename = get_table_name_from_number(sel_item->peer_id);
+				delete_all_records(tablename);
+				free(tablename);
+
+				// delete from main list
+				if (sel_item->peer_print_name) {
+					free(sel_item->peer_print_name);
+					sel_item->peer_print_name = NULL;
+				}
+				if (sel_item->last_message) {
+					free(sel_item->last_message);
+					sel_item->last_message = NULL;
+				}
+				if (sel_item->profile_pic_path) {
+					free(sel_item->profile_pic_path);
+					sel_item->profile_pic_path = NULL;
+				}
+				sel_item->date_lbl = NULL;
+				sel_item->msg_status_lbl = NULL;
+				sel_item->main_item_layout = NULL;
+				sel_item->profile_pic = NULL;
+				sel_item->profile_pic_path = NULL;
+				sel_item->status_lbl = NULL;
+				sel_item->user_name_lbl = NULL;
+				//ad->main_list
+				ad->main_list = eina_list_remove(ad->main_list, sel_item);
+			} else if (sel_item->peer_type == TGL_PEER_CHAT) {
+				sel_grp_chat = eina_list_append(sel_grp_chat, sel_item);
+			}
+		}
+	}
+
+	if (sel_grp_chat && eina_list_count(sel_grp_chat) > 0) {
+		send_delete_selected_group_chats_request(ad->service_client, sel_grp_chat);
+	} else {
+		refresh_main_list_view(ad, EINA_FALSE);
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+		show_floating_button(ad);
+		hide_loading_popup(ad);
+	}
+}
+
+void on_selection_cancel_clicked(void *data, Evas_Object *object, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	elm_naviframe_item_pop(ad->nf);
+	ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+	show_floating_button(ad);
+}
+
+
 void launch_main_item_deletion_view_cb(appdata_s* ad)
 {
 	if (!ad)
@@ -171,6 +323,8 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 	evas_object_show(bg_box);
 	elm_object_part_content_set(layout, "main_box", bg_box);
 
+
+
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
 		return;
 	} else {
@@ -184,6 +338,10 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 		evas_object_data_set(buddy_list, "app_data", ad);
 		elm_genlist_homogeneous_set(buddy_list, EINA_TRUE);
 
+		evas_object_data_set(buddy_list, "app_data", ad);
+		Eina_Bool all_items_selected = EINA_FALSE;
+		evas_object_data_set(buddy_list, "all_selected", (void *)((int)all_items_selected));
+
 		itc.item_style = "type1";
 		itc.func.text_get = on_mainlist_title_requested;
 		itc.func.content_get = on_mainlist_content_requested;
@@ -193,7 +351,11 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 		int size = eina_list_count(ad->main_list);
 		if(size > 0) {
 			for (i = 0; i <= size; i++) {
-				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+				if (i < size) {
+					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+					item->is_selected = EINA_FALSE;
+				}
+				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_main_item_selected, (void*) i);
 			}
 		} else {
 			i = 1;
@@ -203,7 +365,21 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 		elm_box_pack_end(bg_box, buddy_list);
 	}
 	evas_object_data_set(ad->nf, "main_list_box", bg_box);
-	elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_SELECT_CHATS_ABB"), NULL, NULL, scroller, NULL);
+	Elm_Object_Item* buddy_sel_nav_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_SELECT_CHATS_ABB"), NULL, NULL, scroller, NULL);
 
+	Evas_Object* delete_btn = elm_button_add(ad->layout);
+	elm_object_style_set(delete_btn, "naviframe/title_left");
+	evas_object_smart_callback_add(delete_btn, "clicked", on_delete_selected_items_clicked, ad);
+	elm_object_text_set(delete_btn, i18n_get_text("IDS_TGRAM_OPT_DELETE"));
+	evas_object_show(delete_btn);
+
+	Evas_Object* cancel_btn = elm_button_add(ad->layout);
+	elm_object_style_set(cancel_btn, "naviframe/title_right");
+	evas_object_smart_callback_add(cancel_btn, "clicked", on_selection_cancel_clicked, ad);
+	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_BUTTON_CANCEL_ABB5"));
+	evas_object_show(cancel_btn);
+
+	elm_object_item_part_content_set(buddy_sel_nav_item, "title_right_btn", delete_btn);
+	elm_object_item_part_content_set(buddy_sel_nav_item, "title_left_btn", cancel_btn);
 }
 

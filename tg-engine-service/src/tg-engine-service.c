@@ -81,6 +81,34 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
     	int chat_id = atoi(chat_id_str);
 
     	process_delete_group_chat_request(tg_data, chat_id);
+
+	} else if (strcmp(cmd_key_val, "delete_selected_group_chats_request") == 0) {
+
+		char* count_str = NULL;
+		res = bundle_get_str(rec_msg, "list_size", &count_str);
+		int size = atoi(count_str);
+		Eina_List* chat_id_list = NULL;
+
+		for (int count = 0 ; count < size ; count++) {
+			char count_str[10];
+			sprintf(count_str, "%d", count);
+
+			char chat_id_key[20];
+			strcpy(chat_id_key, "chat_id_");
+			strcat(chat_id_key, count_str);
+
+			char* chat_id_str = NULL;
+			res = bundle_get_str(rec_msg, chat_id_key, &chat_id_str);
+
+
+			int chat_id = atoi(chat_id_str);
+			chat_id_list = eina_list_append(chat_id_list, chat_id);
+		}
+
+		if (chat_id_list && eina_list_count(chat_id_list) > 0) {
+			process_delete_selected_group_chats_request(tg_data, chat_id_list);
+		}
+
     } else if (strcmp(cmd_key_val, "add_buddy") == 0) {
 
     	char* buddy_id_str = NULL;

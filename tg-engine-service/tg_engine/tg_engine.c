@@ -1865,6 +1865,11 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 	}
 	for (int i = size - 1; i >= 0; i--) {
 		tgl_peer_t* UC = tgl_peer_get(TLS, peers[i]);
+        // user exited from chat
+		if(UC->flags == 144) {
+			continue;
+		}
+
 		// insert into peer table
 		insert_peer_into_database(UC, last_msg_id[i], unread_count[i], 0);
 		switch (tgl_get_peer_type(peers[i])) {
@@ -2815,6 +2820,57 @@ void do_unblock_buddy(int buddy_id)
 	tgl_do_unblock_user(s_info.TLS, peer_id, &on_user_unblock_response , (void*)(buddy_id));
 }
 
+void on_selected_group_chats_delete_reponse(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M)
+{
+	Eina_List *sel_grp_chats = callback_extra;
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	int chat_id = eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
+
+	if (success) {
+		// update database
+		// delete from peer table
+		delete_chat_from_db(chat_id);
+		char* msg_table = get_table_name_from_number(chat_id);
+		drop_table(msg_table);
+		free(msg_table);
+	} else {
+
+	}
+
+	tg_data->current_group_chat_index = tg_data->current_group_chat_index + 1;
+
+	if (tg_data->current_group_chat_index < eina_list_count(sel_grp_chats)) {
+		int group_chat_id = (int)eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
+
+		tgl_peer_id_t chat_id;
+		chat_id.id = group_chat_id;
+		chat_id.type = TGL_PEER_CHAT;
+
+		tgl_peer_id_t self_id = tg_data->id;
+
+		tgl_do_del_user_from_chat(s_info.TLS, chat_id, self_id, on_selected_group_chats_delete_reponse, (void*)(sel_grp_chats));
+	} else {
+		send_selected_group_chats_deleted_response(tg_data);
+	}
+}
+
+void delete_selected_group_chat(tg_engine_data_s *tg_data, Eina_List *sel_grp_chats)
+{
+	if (sel_grp_chats && eina_list_count(sel_grp_chats) > 0) {
+
+		tg_data->current_group_chat_index = 0;
+		int group_chat_id = (int)eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
+
+		tgl_peer_id_t chat_id;
+		chat_id.id = group_chat_id;
+		chat_id.type = TGL_PEER_CHAT;
+
+		tgl_peer_id_t self_id = tg_data->id;
+
+		tgl_do_del_user_from_chat(s_info.TLS, chat_id, self_id, on_selected_group_chats_delete_reponse, (void*)(sel_grp_chats));
+	}
+}
+
 void on_group_chat_delete_reponse(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M)
 {
 	int chat_id = (int)callback_extra;
@@ -2842,6 +2898,7 @@ void leave_group_chat(tg_engine_data_s *tg_data, int group_chat_id)
 
 	tgl_do_del_user_from_chat(s_info.TLS, chat_id, self_id, on_group_chat_delete_reponse, (void*)(group_chat_id));
 }
+
 #if 0
 void on_new_msg_requested_chat_info_received(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *chat_info)
 {

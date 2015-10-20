@@ -1770,6 +1770,18 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		if (app->current_app_state == TG_SET_USER_INFO_STATE) {
 			on_user_unblock_response_received(app, buddy_id, is_success);
 		}
+	} else if (strcmp(rec_key_val, "selected_group_chats_deleted_response") == 0) {
+
+		if (app->current_app_state == TG_USER_MAIN_VIEW_SELECTION_STATE) {
+			elm_naviframe_item_pop(app->nf);
+			app->current_app_state = TG_USER_MAIN_VIEW_STATE;
+			show_floating_button(app);
+			load_buddy_list_data(app);
+			load_unknown_buddy_list_data(app);
+			load_peer_data(app);
+			load_main_list_data(app);
+			refresh_main_list_view(app, EINA_FALSE);
+		}
 
 	} else if (strcmp(rec_key_val, "group_chat_deleted_response") == 0) {
 		char* chat_id_str = NULL;
@@ -2821,6 +2833,7 @@ app_create(void *data)
 	ad->s_notififcation = NULL;
 	ad->panel = NULL;
 	ad->is_server_ready = EINA_FALSE;
+	ad->msg_count = 0;
 	create_base_gui(ad);
 	int err = badge_new(TELEGRAM_APP_ID);
 	if (BADGE_ERROR_NONE != err) {

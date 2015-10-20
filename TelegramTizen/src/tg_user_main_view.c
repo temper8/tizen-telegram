@@ -333,8 +333,6 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 	tg_main_list_item_s  *sel_item = (tg_main_list_item_s*)evas_object_data_get(popup, "selected_chat_item");
 	int item_id = (int)evas_object_data_get(popup, "selected_chat_item_index");
 
-
-
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	int id = (int)elm_object_item_data_get(it);
@@ -924,7 +922,7 @@ void reload_main_list_view(appdata_s* ad)
 
 		int i = 0;
 		static Elm_Genlist_Item_Class itc;
-		itc.item_style = "type1";
+		itc.item_style = "full";
 		itc.func.text_get = NULL;
 		itc.func.content_get = on_chat_item_load_requested;
 		itc.func.state_get = NULL;
@@ -950,7 +948,7 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 	if (buddy_list) {
 		if (is_new_item) {
 			static Elm_Genlist_Item_Class itc;
-			itc.item_style = "type1";
+			itc.item_style = "full";
 			itc.func.text_get = NULL;
 			itc.func.content_get = on_chat_item_load_requested;
 			itc.func.state_get = NULL;
@@ -959,6 +957,28 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 			int size = eina_list_count(ad->main_list);
 			int i = size - 1;
 			elm_genlist_item_append(buddy_list, &itc, (void*) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+		} else {
+			elm_genlist_clear(buddy_list);
+
+			static Elm_Genlist_Item_Class itc;
+			itc.item_style = "full";
+			itc.func.text_get = NULL;
+			itc.func.content_get = on_chat_item_load_requested;
+			itc.func.state_get = NULL;
+			itc.func.del = NULL;
+
+			int i = 0;
+			if (ad->main_list) {
+				int size = eina_list_count(ad->main_list);
+				if(size > 0) {
+					for (i = 0; i < size; i++) {
+						elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+					}
+				} else {
+					i = 1;
+					elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+				}
+			}
 		}
 		elm_genlist_realized_items_update(buddy_list);
 	} else {
@@ -982,7 +1002,7 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 				evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 				evas_object_data_set(buddy_list, "app_data", ad);
 
-				itc.item_style = "type1";
+				itc.item_style = "full";
 				itc.func.text_get = NULL;
 				itc.func.content_get = on_chat_item_load_requested;
 				itc.func.state_get = NULL;

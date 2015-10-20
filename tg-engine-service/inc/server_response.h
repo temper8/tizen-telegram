@@ -15,6 +15,7 @@ extern void process_validation_command(tg_engine_data_s *tg_data, char *code);
 extern void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
 extern void process_marked_as_read_command(int buddy_id, int type_of_chat);
 extern void process_delete_group_chat_request(tg_engine_data_s* tg_data, int chat_id);
+extern void process_delete_selected_group_chats_request(tg_engine_data_s* tg_data, Eina_List *sel_grp_chats);
 extern void process_add_user_request(tg_engine_data_s* tg_data, int buddy_id, char *first_name, char *last_name, char *phone_num);
 extern void process_update_chat_request(tg_engine_data_s* tg_data, int chat_id);
 extern void process_delete_user_request(tg_engine_data_s* tg_data, int buddy_id);
@@ -42,6 +43,7 @@ extern void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, i
 extern void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int type_of_chat);
 extern void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat);
 extern void send_group_chat_deleted_response(tg_engine_data_s *tg_data, int chat_id, Eina_Bool is_success);
+extern void send_selected_group_chats_deleted_response(tg_engine_data_s *tg_data);
 extern void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat);
 extern void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);
 extern void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);

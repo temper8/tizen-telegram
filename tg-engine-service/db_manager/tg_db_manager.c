@@ -663,6 +663,7 @@ Eina_Bool delete_record(char *tablename, const char* where_clause)
 	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
 	close_database(db);
 	if( ret != SQLITE_OK ){
+		free(var_query);
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}

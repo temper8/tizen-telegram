@@ -148,6 +148,7 @@ typedef struct tg_engine_data {
 
 	Eina_List *buddy_list;
 	int current_buddy_index;
+	int current_group_chat_index;
 } tg_engine_data_s;
 
 typedef struct contact_data {
@@ -171,6 +172,7 @@ extern void set_user_name(tg_engine_data_s *tg_data, int buddy_id, const char *u
 extern void request_for_code_via_call(struct tgl_state *TLS, char* phone_no, Eina_Bool trough_sms);
 extern void free_contact_data(Eina_List *contact_data);
 extern void leave_group_chat(tg_engine_data_s *tg_data, int group_chat_id);
+extern void delete_selected_group_chat(tg_engine_data_s *tg_data, Eina_List *sel_grp_chats);
 extern void do_delete_buddy(int buddy_id);
 extern void do_add_buddy(int buddy_id, char *first_name, char *last_name, char *phone_num);
 extern void do_update_chat_info(int chat_id);
