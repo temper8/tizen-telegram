@@ -9,6 +9,7 @@
 #include "tg_settings_view.h"
 #include "server_requests.h"
 #include "tg_set_username_view.h"
+#include "tg_edit_name_view.h"
 #include "tg_db_wrapper.h"
 
 static Evas_Object* get_image_from_path(const char* path, Evas_Object* parent)
@@ -814,7 +815,7 @@ static void ctxpopup_edit_name_select_cb(void *data, Evas_Object *obj, void *eve
 	}
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
-
+	launch_editname_screen(ad);
 	/* please input here when edit name menu is clicked */
 }
 
