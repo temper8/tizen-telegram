@@ -15,6 +15,7 @@
 #include "server_requests.h"
 #include "tg_db_wrapper.h"
 #include "tg_main_item_deletion_view.h"
+#include "tg_search_message_view.h"
 
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
@@ -1125,6 +1126,7 @@ static void ctxpopup_search_select_cb(void *data, Evas_Object *obj, void *event_
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
 
 	/* please input here when search menu is clicked */
+	launch_search_message_view(ad);
 }
 
 static void ctxpopup_contact_select_cb(void *data, Evas_Object *obj, void *event_info)

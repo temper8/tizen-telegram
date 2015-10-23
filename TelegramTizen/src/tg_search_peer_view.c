@@ -347,8 +347,9 @@ static void on_peer_item_clicked(void *data, Evas_Object *obj, void *event_info)
 
 	int item_id = (int) data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	Eina_List *list = evas_object_data_get(obj, "result_list");
 
-	user_data_with_pic_s* sel_item = eina_list_nth(ad->search_peer_list, item_id);
+	user_data_with_pic_s* sel_item = eina_list_nth(list, item_id);
 	ad->buddy_in_cahtting_data = sel_item;
 
 	int peer_id = -1;
@@ -783,7 +784,7 @@ void launch_start_peer_search_view(appdata_s* ad)
 	elm_layout_theme_set(nocontents, "layout", "nocontents", "default");
 	evas_object_size_hint_weight_set(nocontents, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(nocontents, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_object_part_text_set(nocontents, "elm.text", "No Items");
+	elm_object_part_text_set(nocontents, "elm.text", _("IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"));
 	evas_object_data_set(ad->nf, "no_contents_layout", nocontents);
 
 	evas_object_data_set(ad->nf, "fs_layout", fs_layout);

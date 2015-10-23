@@ -651,7 +651,7 @@ void launch_contact_selction_view(void *data)
 	elm_layout_theme_set(nocontents, "layout", "nocontents", "default");
 	evas_object_size_hint_weight_set(nocontents, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(nocontents, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	elm_object_part_text_set(nocontents, "elm.text", "No Items");
+	elm_object_part_text_set(nocontents, "elm.text", _("IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"));
 	evas_object_data_set(ad->nf, "no_contents_layout", nocontents);
 
 	evas_object_data_set(ad->nf, "fs_layout", fs_layout);
