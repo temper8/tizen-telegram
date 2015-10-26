@@ -75,7 +75,7 @@
 
 #define MEDIA_DOWNLOAD_ICON FM_ICON_PATH"/ic_attach_download.png"
 #define MEDIA_MANUAL_DOWNLOAD_ICON FM_ICON_PATH"/ic_attach_manual_download.png"
-#define MEDIA_PLAY_ICON FM_ICON_PATH"/playvideo.png"
+//#define MEDIA_PLAY_ICON FM_ICON_PATH"/playvideo.png"
 #define DEFAULT_TELEGRAM_ICON FM_ICON_PATH"/tg_icon.png"
 
 #define TELEGRAM_BUTTON_ADD_ICON FM_ICON_PATH"/telegram_button_add.png"
@@ -510,6 +510,7 @@ typedef struct tg_main_list_item {
 	Evas_Object* msg_status_lbl;
 	Evas_Object* main_item_layout;
 	Eina_Bool is_selected;
+	char *buddy_display_name;
 } tg_main_list_item_s;
 
 typedef struct appdata {

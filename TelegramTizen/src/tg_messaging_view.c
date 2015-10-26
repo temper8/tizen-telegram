@@ -563,6 +563,43 @@ void on_media_chat_item_clicked(void* data, Evas_Object *entry, void* event_info
 	}
 }
 
+static void on_video_play_pressed(void *data, Evas_Object *obj, void *event_info)
+{
+	if (!data)
+		return;
+	elm_image_file_set(data, ui_utils_get_resource(TG_PLAY_PRESS_ICON), NULL);
+}
+
+static void on_video_play_unpressed(void *data, Evas_Object *obj, void *event_info)
+{
+	if (!data)
+		return;
+	elm_image_file_set(data, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+}
+
+static Evas_Object* get_video_paly_icon(Evas_Object *parent)
+{
+	Evas_Object* play_pause_btn = elm_button_add(parent);
+	elm_object_style_set(play_pause_btn, "transparent");
+	evas_object_size_hint_align_set(play_pause_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(play_pause_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	Evas_Object* play_pause_icon = elm_image_add(parent);
+	evas_object_size_hint_align_set(play_pause_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(play_pause_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	elm_image_file_set(play_pause_icon, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+
+	elm_image_resizable_set(play_pause_icon, EINA_TRUE, EINA_TRUE);
+	evas_object_show(play_pause_icon);
+
+	elm_object_content_set(play_pause_btn, play_pause_icon);
+
+	evas_object_smart_callback_add(play_pause_btn, "pressed", on_video_play_pressed, play_pause_icon);
+	evas_object_smart_callback_add(play_pause_btn, "unpressed", on_video_play_unpressed, play_pause_icon);
+	return play_pause_btn;
+}
+
 static Evas_Object *get_media_layout_with_play(char *img_path, Evas_Object *parent, Eina_Bool show_play_icon)
 {
 	char edj_path[PATH_MAX] = {0, };
@@ -577,8 +614,11 @@ static Evas_Object *get_media_layout_with_play(char *img_path, Evas_Object *pare
 	elm_object_part_content_set(rec_video_layout, "swallow.video_thumb_item", vid_thumb_icon);
 
 	if (show_play_icon) {
-		Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), parent);
-		elm_object_part_content_set(rec_video_layout, "swallow.play_btn", play_img);
+/*		Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), parent);
+		elm_object_part_content_set(rec_video_layout, "swallow.play_btn", play_img);*/
+
+		Evas_Object* play_pause_btn = get_video_paly_icon(parent);
+		elm_object_part_content_set(rec_video_layout, "swallow.play_btn", play_pause_btn);
 	}
 
 	return rec_video_layout;
@@ -1179,7 +1219,8 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 								}
 
 								if ((strstr(media_type_str, "video") != NULL) || (strstr(media_type_str, "audio") != NULL)) {
-									Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), img_item);
+									Evas_Object* play_img = get_video_paly_icon(img_item);
+									//Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), img_item);
 									elm_object_part_content_set(img_item, "swallow.play_btn", play_img);
 								} else if (strstr(media_type_str, "image") != NULL) {
 									elm_image_file_set(img_item, file_path, NULL);

@@ -334,6 +334,10 @@ void load_main_list_data(appdata_s *ad)
 				free(main_item->profile_pic_path);
 				main_item->profile_pic_path = NULL;
 			}
+			if (main_item->buddy_display_name) {
+				free(main_item->buddy_display_name);
+				main_item->buddy_display_name = NULL;
+			}
 			main_item->date_lbl = NULL;
 			main_item->msg_status_lbl = NULL;
 			main_item->profile_pic = NULL;
@@ -421,6 +425,34 @@ void load_main_list_data(appdata_s *ad)
 						main_list_item->last_msg_status = msg->msg_state;
 						main_list_item->last_msg_service = msg->service;
 						main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
+
+
+						if (peer_info->peer_type == TGL_PEER_USER) {
+							char *user_name = NULL;
+							char *first_name = NULL;
+							char *last_name = NULL;
+							char *phone_num = NULL;
+							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+							if (!first_name && !last_name && phone_num) {
+								first_name = phone_num;
+							}
+
+							if (!last_name) {
+								last_name = "";
+							}
+							user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+							strcpy(user_name, first_name);
+							strcat(user_name, " ");
+							strcat(user_name, last_name);
+							main_list_item->buddy_display_name = user_name;
+						} else if (peer_info->peer_type == TGL_PEER_CHAT) {
+							main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
+						} else {
+							main_list_item->buddy_display_name = strdup("");
+						}
+
+
 						if (peer_info->photo_path) {
 							main_list_item->profile_pic_path = strdup(peer_info->photo_path);
 						} else {
@@ -468,6 +500,31 @@ void load_main_list_data(appdata_s *ad)
 							main_list_item->last_msg_id = -1;
 							main_list_item->last_msg_status = -1;
 							main_list_item->number_of_unread_msgs = 0;
+							if (peer_info->peer_type == TGL_PEER_USER) {
+								char *user_name = NULL;
+								char *first_name = NULL;
+								char *last_name = NULL;
+								char *phone_num = NULL;
+								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+								if (!first_name && !last_name && phone_num) {
+									first_name = phone_num;
+								}
+
+								if (!last_name) {
+									last_name = "";
+								}
+								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+								strcpy(user_name, first_name);
+								strcat(user_name, " ");
+								strcat(user_name, last_name);
+								main_list_item->buddy_display_name = user_name;
+							} else if (peer_info->peer_type == TGL_PEER_CHAT) {
+								main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
+							} else {
+								main_list_item->buddy_display_name = strdup("");
+							}
+
 							if (peer_info->photo_path) {
 								main_list_item->profile_pic_path = strdup(peer_info->photo_path);
 							} else {
@@ -1500,11 +1557,19 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 							} else if(media_type == tgl_message_media_photo) {
 								sel_item->last_message = strdup("Image");
 							} else if(media_type == tgl_message_media_document) {
+
+#if 0
 								if (msg->message && strlen(msg->message) > 0) {
 									sel_item->last_message = strdup(msg->message);
 								} else {
 									sel_item->last_message = strdup("Document");
 								}
+#else
+								tgl_media_s *media_msg = NULL;
+								media_msg = get_media_details_from_db(atoll(msg->media_id));
+								sel_item->last_message = strdup(media_msg->doc_type);
+								free_media_details(media_msg);
+#endif
 							} else if(media_type == tgl_message_media_geo) {
 								sel_item->last_message = strdup("Geo location");
 							} else if(media_type == tgl_message_media_contact) {
@@ -1549,14 +1614,18 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 					        if(len_org_str > 40) {
 					        	strncpy(res, org_msg, 39);
 					        	if(msg->service == 1 || msg->service == 2) {
+					        		sel_item->last_msg_service = 1;
 					        		sprintf(status_buf,"<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", res);
 					        	} else {
+					        		sel_item->last_msg_service = 0;
 					        		sprintf(status_buf,"<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
 					        	}
 					        } else {
 					        	if(msg->service == 1 || msg->service == 2) {
+					        		sel_item->last_msg_service = 1;
 					        		sprintf(status_buf, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=26>%s</font_size></font>", org_msg);
 					        	} else {
+					        		sel_item->last_msg_service = 0;
 					        		sprintf(status_buf, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
 					        	}
 					        }
@@ -2238,9 +2307,9 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 							char status_buf[512] = {'\0'};
 							if(len_org_str > 25) {
 								strncpy(res, org_msg, 25);
-								snprintf(status_buf, 512, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", res);
+								snprintf(status_buf, 512, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=30>%s</font_size></font>", res);
 							} else {
-								snprintf(status_buf, 512, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", org_msg);
+								snprintf(status_buf, 512, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=30>%s</font_size></font>", org_msg);
 							}
 							elm_object_text_set(sel_item->status_lbl, status_buf);
 						}
@@ -2448,6 +2517,32 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 					} else {
 						main_list_item->profile_pic_path = NULL;
 					}
+
+					if (peer_info->peer_type == TGL_PEER_USER) {
+						char *user_name = NULL;
+						char *first_name = NULL;
+						char *last_name = NULL;
+						char *phone_num = NULL;
+						get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+						if (!first_name && !last_name && phone_num) {
+							first_name = phone_num;
+						}
+
+						if (!last_name) {
+							last_name = "";
+						}
+						user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+						strcpy(user_name, first_name);
+						strcat(user_name, " ");
+						strcat(user_name, last_name);
+						main_list_item->buddy_display_name = user_name;
+					} else if (peer_info->peer_type == TGL_PEER_CHAT) {
+						main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
+					} else {
+						main_list_item->buddy_display_name = strdup("");
+					}
+
 					main_list_item->user_name_lbl = NULL;
 					main_list_item->status_lbl = NULL;
 					main_list_item->date_lbl = NULL;
@@ -2494,6 +2589,32 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 						} else {
 							main_list_item->profile_pic_path = NULL;
 						}
+
+						if (peer_info->peer_type == TGL_PEER_USER) {
+							char *user_name = NULL;
+							char *first_name = NULL;
+							char *last_name = NULL;
+							char *phone_num = NULL;
+							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+							if (!first_name && !last_name && phone_num) {
+								first_name = phone_num;
+							}
+
+							if (!last_name) {
+								last_name = "";
+							}
+							user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+							strcpy(user_name, first_name);
+							strcat(user_name, " ");
+							strcat(user_name, last_name);
+							main_list_item->buddy_display_name = user_name;
+						} else if (peer_info->peer_type == TGL_PEER_CHAT) {
+							main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
+						} else {
+							main_list_item->buddy_display_name = strdup("");
+						}
+
 						main_list_item->user_name_lbl = NULL;
 						main_list_item->status_lbl = NULL;
 						main_list_item->date_lbl = NULL;
@@ -2546,6 +2667,11 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 							free(old_item->profile_pic_path);
 							old_item->profile_pic_path = NULL;
 						}
+						if (old_item->buddy_display_name) {
+							free(old_item->buddy_display_name);
+							old_item->buddy_display_name = NULL;
+						}
+
 						old_item->date_lbl = NULL;
 						old_item->msg_status_lbl = NULL;
 						old_item->main_item_layout = NULL;
@@ -2802,8 +2928,32 @@ static void create_base_gui(appdata_s *ad)
 	//eina_list_free(user_info);
 }
 
-static bool
-app_create(void *data)
+void on_tg_service_result_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
+{
+	appdata_s *ad = user_data;
+	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
+		if (ad) {
+			show_toast(ad, "Server launched successfully.");
+		} else {
+			show_toast(ad, "Server not launched.");
+		}
+	}
+}
+
+static void launch_tg_server(void *data)
+{
+	appdata_s *ad = data;
+	app_control_h app_control;
+	int ret = app_control_create(&app_control);
+/*	ret = app_control_set_operation(app_control, "http://tizen.org/appcontrol/operation/launch_on_event");
+	ret = app_control_set_mime(app_control, "application/telegram");
+	ret = app_control_set_uri(app_control, "http://tizen.org/appcontrol/operation/telegram_start");*/
+	ret = app_control_set_app_id(app_control, "org.tizen.tg-engine-service");
+	ret = app_control_send_launch_request(app_control, &on_tg_service_result_cb, ad);
+	ret = app_control_destroy(app_control);
+}
+
+static bool app_create(void *data)
 {
 	/*
 	   Hook to take necessary actions before main event loop starts
@@ -2840,6 +2990,7 @@ app_create(void *data)
 
 	}
 	init_service(ad);
+	launch_tg_server(data);
 	return true;
 }
 
@@ -2953,6 +3104,10 @@ app_terminate(void *data)
 			if (main_item->profile_pic_path) {
 				free(main_item->profile_pic_path);
 				main_item->profile_pic_path = NULL;
+			}
+			if (main_item->buddy_display_name) {
+				free(main_item->buddy_display_name);
+				main_item->buddy_display_name = NULL;
 			}
 			main_item->date_lbl = NULL;
 			main_item->msg_status_lbl = NULL;

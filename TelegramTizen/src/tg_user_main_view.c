@@ -17,6 +17,7 @@
 #include "tg_main_item_deletion_view.h"
 #include "tg_search_message_view.h"
 
+
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
 	Evas_Object *icon = elm_image_add(parent);
@@ -310,9 +311,9 @@ char* on_longpress_group_menu_text_get_cb(void *data, Evas_Object *obj, const ch
 {
 	int id = (int) data;
 	if (id == 0) {
-		return strdup("Clear history");
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
 	} else {
-		return strdup("Delete and exit");
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_LEAVE_CHAT"));
 	}
 }
 
@@ -320,9 +321,9 @@ char* on_longpress_single_menu_text_get_cb(void *data, Evas_Object *obj, const c
 {
 	int id = (int) data;
 	if (id == 0) {
-		return strdup("Clear history");
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
 	} else {
-		return strdup("Delete");
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 	}
 }
 
@@ -732,10 +733,12 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 
 		/*************************** user name ***************************************/
 
+#if 0
 		char* user_name = replace(item->peer_print_name, '_', "");
+#endif
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", user_name);
-		free(user_name);
+		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", item->buddy_display_name);
+		//free(user_name);
 
 		Evas_Object*  name_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(name_lbl, buf);
