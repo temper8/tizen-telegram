@@ -53,6 +53,9 @@
 #define SEARCH_ICON FM_ICON_PATH"/search_icon.png"
 #define TG_ATTACH_ICON FM_ICON_PATH"/telegram_add_object.png"
 
+#define TG_EXPAND_OPEN       FM_ICON_PATH"telegram_icon_expand_close.png"
+#define TG_EXPAND_CLOSE       FM_ICON_PATH"telegram_icon_expand_open.png"
+
 //#define SMILEY_ICON_UNPRESSED FM_ICON_PATH"/ic_msg_panel_smiles_pressed.png"
 //#define SMILEY_ICON_PRESSED FM_ICON_PATH"/ic_msg_panel_smiles_unpressed.png"
 
@@ -106,6 +109,14 @@
 #define TG_VIDEO_ICON       FM_ICON_PATH"Video-Icon.jpg"
 //#define TG_AUDIO_ICON       FM_ICON_PATH"Audio-Icon.png"
 #define TG_AUDIO_ICON       FM_ICON_PATH"Audio-wave.png"
+
+#define TG_PAUSE_DIM_ICON       FM_ICON_PATH"telegram_audio_player_pause_dim.png"
+#define TG_PAUSE_NORMAL_ICON       FM_ICON_PATH"telegram_audio_player_pause_normal.png"
+#define TG_PAUSE_PRESS_ICON       FM_ICON_PATH"telegram_audio_player_pause_press.png"
+
+#define TG_PLAY_DIM_ICON       FM_ICON_PATH"telegram_audio_player_play_dim.png"
+#define TG_PLAY_NORMAL_ICON       FM_ICON_PATH"telegram_audio_player_play_normal.png"
+#define TG_PLAY_PRESS_ICON       FM_ICON_PATH"telegram_audio_player_play_press.png"
 
 
 #define INIT_SCREEN_1       FM_ICON_PATH"screenshot_1.png"
@@ -561,7 +572,7 @@ typedef struct appdata {
 	Elm_Theme *theme;
 	int screen_mode_for_fb; // for floating button icon
 	Evas_Object *menu_popup;
-	int msg_count;
+	//int msg_count;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);

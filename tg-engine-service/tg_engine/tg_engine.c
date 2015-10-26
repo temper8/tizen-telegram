@@ -1438,7 +1438,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 					return;
 				}
 #endif
-				int msg_id = insert_current_date_to_table(tb_name);
+				int msg_id = update_current_date_to_table(tb_name, M->date);
 				free(tb_name);
 				if (msg_id > 0) {
 					send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
@@ -1446,7 +1446,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 					struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
 					msg_data->M = M;
 					msg_data->TLS = TLS;
-					msg_data->send_timer = ecore_timer_add(3, on_msg_received_cb, msg_data);
+					msg_data->send_timer = ecore_timer_add(6, on_msg_received_cb, msg_data);
 				} else {
 					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
 						M->message = strdup("Audio");
@@ -1506,14 +1506,14 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				}
 
 				char* tb_name = get_table_name_from_number(user_id);
-				int msg_id = insert_current_date_to_table(tb_name);
+				int msg_id = update_current_date_to_table(tb_name, M->date);
 				free(tb_name);
 				if (msg_id > 0) {
 					send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
 					struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
 					msg_data->M = M;
 					msg_data->TLS = TLS;
-					msg_data->send_timer = ecore_timer_add(3, on_msg_received_cb, msg_data);
+					msg_data->send_timer = ecore_timer_add(6, on_msg_received_cb, msg_data);
 				} else {
 					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
 						M->message = strdup("Audio");

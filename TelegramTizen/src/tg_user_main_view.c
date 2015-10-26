@@ -1154,7 +1154,7 @@ static void ctxpopup_settings_select_cb(void *data, Evas_Object *obj, void *even
 	}
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
-
+	delete_floating_button(ad);
 	launch_settings_screen(ad);
 }
 

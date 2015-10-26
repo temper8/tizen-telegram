@@ -270,4 +270,6 @@ void delete_media_from_unsent_db(int message_id);
 Eina_Bool is_user_present_peer_table(int id);
 Eina_Bool is_user_present_chat_table(int id);
 
+int update_current_date_to_table(char* tb_name, int recent_msg_date);
+
 #endif /* TG_DB_WRAPPER_H_ */

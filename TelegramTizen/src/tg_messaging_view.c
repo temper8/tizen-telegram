@@ -13,7 +13,8 @@
 #include <Elementary.h>
 #include "tg_user_info_view.h"
 #include "tg_chat_info_view.h"
-
+#include "tg_audio_player.h"
+#include <metadata_extractor.h>
 /************************ Menu Handler ********************/
 
 void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *event_info)
@@ -495,8 +496,6 @@ int get_image_size(long long media_id)
 	return media_size;
 }
 
-
-
 void on_media_chat_item_clicked(void* data, Evas_Object *entry, void* event_info)
 {
 	Evas_Object *button = evas_object_data_get(entry, "button_object");
@@ -516,7 +515,6 @@ void on_media_chat_item_clicked(void* data, Evas_Object *entry, void* event_info
 		launch_app_control(ad, media_type_str, url);
 		return;
 	}
-
 
 	long long media_id = atoll(temp_media_id);
 
@@ -623,6 +621,348 @@ static Evas_Object *get_media_layout_with_play(char *img_path, Evas_Object *pare
 
 	return rec_video_layout;
 }
+
+void audio_player_progress_updated(void* handler, int current, int total, void *user_data)
+{
+	Evas_Object *parent = user_data;
+	Evas_Object *progressbar = evas_object_data_get(parent, "progress_control");
+
+
+	int seconds = (int) (current / 1000) % 60 ;
+	int minutes = (int) ((current / (1000*60)) % 60);
+
+	char tot_dur[256] = {0,};
+	char *format = NULL;
+	if (seconds < 10 && minutes < 10) {
+		format = "0%d:0%d";
+	} else if (seconds > 10 && minutes < 10) {
+		format = "%d:0%d";
+	} else if (seconds < 10 && minutes > 10) {
+		format = "0%d:%d";
+	} else {
+		format = "0%d:0%d";
+	}
+
+	sprintf(tot_dur, format, minutes, seconds);
+	elm_object_part_text_set(progressbar, "elm.text.bottom.left", tot_dur);
+
+	double current_status = (double)((double)current/(double)total);
+
+	elm_progressbar_value_set(progressbar, current_status);
+
+}
+
+void audio_player_state_changed(void* handler, TG_AUDIO_PLAYER_STATE state, void *user_data)
+{
+	tg_player_handler *audio_payer = handler;
+	Evas_Object *parent = user_data;
+
+	if (!audio_payer || !parent) {
+		return;
+	}
+
+	Eina_Bool is_play_mode = (Eina_Bool)evas_object_data_get(parent, "is_play_mode");
+	switch(audio_payer->state) {
+	case TG_AUDIO_PLAYER_STATE_NONE:
+		break;
+	case TG_AUDIO_PLAYER_STATE_INITIALIZED:
+		evas_object_data_set(parent, "tg_audio_player", audio_payer);
+		play_audio_player(audio_payer);
+		break;
+	case TG_AUDIO_PLAYER_STATE_PLAYING:
+		elm_image_file_set(parent, ui_utils_get_resource(TG_PAUSE_NORMAL_ICON), NULL);
+		is_play_mode = !is_play_mode;
+		evas_object_data_set(parent, "is_play_mode", is_play_mode);
+		break;
+	case TG_AUDIO_PLAYER_STATE_INTERRUPTED:
+		elm_image_file_set(parent, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+		is_play_mode = !is_play_mode;
+		evas_object_data_set(parent, "is_play_mode", is_play_mode);
+		break;
+	case TG_AUDIO_PLAYER_STATE_PAUSE:
+		elm_image_file_set(parent, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+		is_play_mode = !is_play_mode;
+		evas_object_data_set(parent, "is_play_mode", is_play_mode);
+		break;
+	case TG_AUDIO_PLAYER_STATE_ERROR:
+		break;
+	case TG_AUDIO_PLAYER_STATE_END:
+		destroy_audio_player(audio_payer);
+		free(audio_payer);
+
+		is_play_mode = EINA_FALSE;
+		evas_object_data_set(parent, "is_play_mode", is_play_mode);
+		evas_object_data_set(parent, "tg_audio_player", NULL);
+		elm_image_file_set(parent, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+		audio_player_progress_updated(NULL, 0, 1, parent);
+		break;
+	default:
+		break;
+	}
+
+}
+
+static void on_message_play_pause_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	if (!data)
+		return;
+
+	appdata_s * ad = evas_object_data_get(data, "app_data");
+	char *audio_file = evas_object_data_get(data, "audio_file_path");
+	char *media_id = evas_object_data_get(data, "media_id");
+	if (!audio_file  || strlen(audio_file) <= 0 || strstr(audio_file, "_null_") != NULL) {
+		//there is no file. download it.
+		Evas_Object *progressbar = evas_object_data_get(data, "progress_control");
+		Eina_Bool is_download_in_progress = (Eina_Bool)evas_object_data_get(progressbar, "is_download_in_progress");
+
+		if (is_download_in_progress) {
+
+		} else {
+			elm_object_style_set(progressbar, "pending");
+			Eina_Bool ret = send_request_for_media_downloading(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, atoll(media_id));
+			if (!ret) {
+				show_toast(ad, "Please check your network connection.");
+				return;
+			}
+		}
+		return;
+	}
+
+	tg_player_handler *audio_payer = evas_object_data_get(data, "tg_audio_player");
+
+	if (!audio_payer) {
+		audio_payer = init_audio_player(audio_file, &audio_player_state_changed, &audio_player_progress_updated, data);
+
+		if (!audio_payer) {
+			show_toast(ad, "Unsupported file.");
+		}
+		return;
+	}
+
+	if (audio_payer->state == TG_AUDIO_PLAYER_STATE_PAUSE || audio_payer->state == TG_AUDIO_PLAYER_STATE_INTERRUPTED) {
+
+		play_audio_player(audio_payer);
+
+	} else if (audio_payer->state == TG_AUDIO_PLAYER_STATE_PLAYING) {
+
+		pause_audio_player(audio_payer);
+
+	}
+}
+
+static void on_message_play_pause_pressed(void *data, Evas_Object *obj, void *event_info)
+{
+	if (!data)
+		return;
+
+	Eina_Bool is_play_mode = (Eina_Bool)evas_object_data_get(data, "is_play_mode");
+	if (is_play_mode) {
+		elm_image_file_set(data, ui_utils_get_resource(TG_PAUSE_PRESS_ICON), NULL);
+	} else {
+		elm_image_file_set(data, ui_utils_get_resource(TG_PLAY_PRESS_ICON), NULL);
+	}
+}
+
+static void on_message_play_pause_unpressed(void *data, Evas_Object *obj, void *event_info)
+{
+	if (!data)
+		return;
+
+	Eina_Bool is_play_mode = (Eina_Bool)evas_object_data_get(data, "is_play_mode");
+	if (is_play_mode) {
+
+		elm_image_file_set(data, ui_utils_get_resource(TG_PAUSE_NORMAL_ICON), NULL);
+	} else {
+		elm_image_file_set(data, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+	}
+}
+
+/*
+static Eina_Bool progress_timer_cb(void *data)
+{
+	double value = 0.0;
+	Evas_Object *progressbar = data;
+
+	value = elm_progressbar_value_get(progressbar);
+	if (value == 1.0) value = 0.0;
+	value = value + 0.01;
+	elm_progressbar_value_set(progressbar, value);
+
+	return ECORE_CALLBACK_RENEW;
+}
+*/
+
+static void progressbar_del_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+
+
+}
+
+static Evas_Object *create_audio_progressbar(Evas_Object *parent, int duration)
+{
+	Evas_Object *progressbar;
+
+	progressbar = elm_progressbar_add(parent);
+	evas_object_size_hint_align_set(progressbar, EVAS_HINT_FILL, 0.5);
+	evas_object_size_hint_weight_set(progressbar, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_progressbar_value_set(progressbar, 0.0);
+	evas_object_event_callback_add(progressbar, EVAS_CALLBACK_DEL, progressbar_del_cb, NULL);
+	evas_object_show(progressbar);
+
+	elm_object_part_text_set(progressbar, "elm.text.top.left", "");
+	elm_object_part_text_set(progressbar, "elm.text.top.right", "");
+
+	elm_object_part_text_set(progressbar, "elm.text.bottom.left", "00:00");
+
+	int seconds = (int) (duration / 1000) % 60 ;
+	int minutes = (int) ((duration / (1000*60)) % 60);
+
+	char tot_dur[256] = {0,};
+	char *format = NULL;
+	if (seconds < 10 && minutes < 10) {
+		format = "0%d:0%d";
+	} else if (seconds > 10 && minutes < 10) {
+		format = "%d:0%d";
+	} else if (seconds < 10 && minutes > 10) {
+		format = "0%d:%d";
+	} else {
+		format = "0%d:0%d";
+	}
+
+	sprintf(tot_dur, format, minutes, seconds);
+
+	elm_object_part_text_set(progressbar, "elm.text.bottom.right", tot_dur);
+
+	return progressbar;
+}
+
+
+static Evas_Object *get_audio_layout_with_play(Evas_Object *parent)
+{
+	Evas_Object* chat_list = parent;
+	Evas_Object *rec_video_layout = NULL;
+	tgl_media_s *media_msg = NULL;
+	appdata_s* ad = evas_object_data_get(chat_list, "app_data");
+	int user_id = (int)evas_object_data_get(chat_list, "user_id");
+	int message_id = (int)evas_object_data_get(chat_list, "message_id");
+
+	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+	int buddy_id = sel_item->use_data->peer_id;
+
+	char* tablename = get_table_name_from_number(buddy_id);
+	tg_message_s* msg = get_message_from_message_table(message_id, tablename);
+	free(tablename);
+	if (!msg) {
+		return NULL;
+	}
+
+	Evas_Object *parent_obj = evas_object_data_get(chat_list, "parent_obj"); //entry
+
+	//if (msg->out) {
+
+		media_msg = get_media_details_from_db(atoll(msg->media_id));
+
+		char *audio_file = media_msg->file_path;
+
+		char edj_path[PATH_MAX] = {0, };
+		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+		rec_video_layout = elm_layout_add(parent);
+		elm_layout_file_set(rec_video_layout, edj_path, "bubble_audio_item_layout");
+		evas_object_size_hint_weight_set(rec_video_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(rec_video_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(rec_video_layout);
+
+
+		/**************** play icon **********************/
+		Evas_Object* play_pause_btn = elm_button_add(parent);
+		elm_object_style_set(play_pause_btn, "transparent");
+		evas_object_size_hint_align_set(play_pause_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(play_pause_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+		Evas_Object* play_pause_icon = elm_image_add(parent);
+		evas_object_size_hint_align_set(play_pause_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(play_pause_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+		elm_image_file_set(play_pause_icon, ui_utils_get_resource(TG_PLAY_NORMAL_ICON), NULL);
+
+		elm_image_resizable_set(play_pause_icon, EINA_TRUE, EINA_TRUE);
+		evas_object_show(play_pause_icon);
+
+		elm_object_content_set(play_pause_btn, play_pause_icon);
+
+		Eina_Bool is_play_mode = EINA_TRUE;
+		evas_object_data_set(play_pause_icon, "is_play_mode", is_play_mode);
+
+		evas_object_data_set(play_pause_icon, "audio_file_path", strdup(audio_file));
+		evas_object_data_set(play_pause_icon, "app_data", ad);
+		evas_object_data_set(play_pause_icon, "user_id", (void*)user_id);
+		evas_object_data_set(play_pause_icon, "message_id", (void*)message_id);
+		evas_object_data_set(play_pause_icon, "media_id", strdup(msg->media_id));
+
+		evas_object_smart_callback_add(parent_obj, "clicked", on_message_play_pause_clicked, play_pause_icon);
+		evas_object_smart_callback_add(parent_obj, "pressed", on_message_play_pause_pressed, play_pause_icon);
+		evas_object_smart_callback_add(parent_obj, "unpressed", on_message_play_pause_unpressed, play_pause_icon);
+
+		evas_object_smart_callback_add(play_pause_btn, "clicked", on_message_play_pause_clicked, play_pause_icon);
+		evas_object_smart_callback_add(play_pause_btn, "pressed", on_message_play_pause_pressed, play_pause_icon);
+		evas_object_smart_callback_add(play_pause_btn, "unpressed", on_message_play_pause_unpressed, play_pause_icon);
+
+		elm_object_part_content_set(rec_video_layout, "swallow.play_icon", play_pause_btn);
+		/**************** play icon **********************/
+
+		/*************** progress bar ********************/
+		int total_duration = 0;
+		if (audio_file) {
+			metadata_extractor_h metadata;
+			metadata_extractor_create(&metadata);
+			int ret = metadata_extractor_set_path(metadata, audio_file);
+			char *value = NULL;
+			ret = metadata_extractor_get_metadata(metadata, METADATA_DURATION, &value);
+			metadata_extractor_destroy(metadata);
+
+
+			if (value) {
+				total_duration = atoi(value);
+				free(value);
+			}
+		} else {
+			total_duration = media_msg->doc_duration;
+			//convert into milli secs
+			total_duration = 1000 * total_duration;
+		}
+		Evas_Object *progress = create_audio_progressbar(parent, total_duration);
+
+		evas_object_data_set(parent_obj, "play_pause_icon", play_pause_icon);
+		evas_object_data_set(parent_obj, "progress_bar", progress);
+
+		elm_object_part_content_set(rec_video_layout, "swallow.progress_icon", progress);
+
+		evas_object_data_set(play_pause_icon, "progress_control", (void*)progress);
+		Eina_Bool is_download_in_progress = EINA_FALSE;
+		evas_object_data_set(progress, "is_download_in_progress", (void*)is_download_in_progress);
+
+		/*************** progress bar ********************/
+
+	//}
+
+	if(msg->message) {
+		free(msg->message);
+		msg->message = NULL;
+	}
+
+	if(msg->media_id) {
+		free(msg->media_id);
+		msg->media_id = NULL;
+	}
+
+	free(msg);
+	free_media_details(media_msg);
+
+
+	return rec_video_layout;
+}
+
+
 static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *item)
 {
 
@@ -686,25 +1026,40 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 			}
 
-			if (msg->out) {
+			if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+
+				evas_object_data_set(chat_list, "parent_obj", (void*)entry);
+				item_to_display = get_audio_layout_with_play(chat_list);
+
+			} else if (msg->out) {
+
 				if (msg->media_type == tgl_message_media_photo) {
+
 					item_to_display = get_image_from_path(img_path, entry);
+
 				} else {
-					if ((media_msg && strstr(media_msg->doc_type, "video") != NULL )|| (media_msg && strstr(media_msg->doc_type, "audio") != NULL)) {
+					if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+
 						item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
+
 					} else {
 
 					}
 				}
+
 			} else {
 				if (!is_blur_image) {
 
 					if (msg->media_type == tgl_message_media_photo) {
+
 						item_to_display = get_image_from_path(img_path, entry);
 						evas_object_data_set(entry, "image_object", (void*)item_to_display);
+
 					} else {
-						if ((media_msg && strstr(media_msg->doc_type, "video") != NULL )|| (media_msg && strstr(media_msg->doc_type, "audio") != NULL)) {
+						if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+
 							item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
+
 						} else {
 
 						}
@@ -809,25 +1164,29 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 		evas_object_data_set(entry, "media_id", (void*)strdup(msg->media_id));
 
-		evas_object_smart_callback_add(entry, "clicked", on_media_chat_item_clicked, NULL);
 		if (item_to_display) {
 
-			char edj_path[PATH_MAX] = {0, };
-			app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-			layout = elm_layout_add(entry);
-			elm_layout_file_set(layout, edj_path, "chat_image_layout");
-			evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-			evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-			evas_object_show(layout);
+			if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+				layout = item_to_display;
+			} else {
+				char edj_path[PATH_MAX] = {0, };
+				app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+				layout = elm_layout_add(entry);
+				elm_layout_file_set(layout, edj_path, "chat_image_layout");
+				evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+				evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+				evas_object_show(layout);
 
-			Evas_Object *rounded_layout = elm_layout_add(entry);
-			elm_layout_file_set(rounded_layout, edj_path, "rounded_corner_layout");
-			evas_object_size_hint_weight_set(rounded_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-			evas_object_size_hint_align_set(rounded_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-			evas_object_show(rounded_layout);
-			elm_object_part_content_set(rounded_layout, "content", item_to_display);
+				Evas_Object *rounded_layout = elm_layout_add(entry);
+				elm_layout_file_set(rounded_layout, edj_path, "rounded_corner_layout");
+				evas_object_size_hint_weight_set(rounded_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+				evas_object_size_hint_align_set(rounded_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+				evas_object_show(rounded_layout);
+				elm_object_part_content_set(rounded_layout, "content", item_to_display);
 
-			elm_object_part_content_set(layout, "swallow.chat_image", rounded_layout);
+				elm_object_part_content_set(layout, "swallow.chat_image", rounded_layout);
+				evas_object_smart_callback_add(entry, "clicked", on_media_chat_item_clicked, NULL);
+			}
 		}
 
 		if(msg->message) {
@@ -975,12 +1334,16 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			evas_object_show(layout);
 
 			// To be handled for group chat
-#if 0
+
 			char temp_name[256] = {0,};
-			snprintf(temp_name, sizeof(temp_name), "<font=Tizen:style=Regular color=#f16745 align=left><font_size=12>%s</br></font_size></font>", sender_name);
-#endif
+			if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
+				snprintf(temp_name, sizeof(temp_name), "<font=Tizen:style=Regular color=#000000 align=left><font_size=12>%s</br></br></font_size></font>", sender_name);
+			} else {
+				snprintf(temp_name, sizeof(temp_name), "<font=Tizen:style=Regular color=#000000 align=left><font_size=12>%s</br></font_size></font>", sender_name);
+			}
+
 			Eina_Strbuf *buf = eina_strbuf_new();
-			eina_strbuf_append(buf, "");
+			eina_strbuf_append(buf, temp_name);
 
 			if (sender_name) {
 				free(sender_name);
@@ -999,9 +1362,37 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
 				if (msg->out) {
-					eina_strbuf_append(buf, "<item size=147x147 vsize=full href=itemprovider></item>");
+					if (media_msg) {
+						if (strstr(media_msg->doc_type, "audio") != NULL) {
+							if (ad->target_direction == TELEGRAM_TARGET_DIRECTION_PORTRAIT || ad->target_direction == TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE) {
+								eina_strbuf_append(buf, "<item size=247x30 vsize=full hsize=full href=itemprovider></item>");
+							} else {
+								eina_strbuf_append(buf, "<item size=190x30 vsize=full hsize=full href=itemprovider></item>");
+							}
+
+						} else if (strstr(media_msg->doc_type, "video") != NULL) {
+							eina_strbuf_append(buf, "<item size=147x147 vsize=full hsize=full href=itemprovider></item>");
+						} else {
+							eina_strbuf_append(buf, "<item size=147x147 vsize=full href=itemprovider></item>");
+						}
+					}
 				} else {
-					eina_strbuf_append(buf, "<item size=100x147 vsize=full href=itemprovider></item>");
+					if (media_msg) {
+						if (strstr(media_msg->doc_type, "audio") != NULL) {
+
+							if (ad->target_direction == TELEGRAM_TARGET_DIRECTION_PORTRAIT || ad->target_direction == TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE) {
+								elm_object_style_set(entry, "readmessage_audio");
+							} else {
+								elm_object_style_set(entry, "readmessage_audio_land");
+							}
+
+							eina_strbuf_append(buf, "<item size=247x30 vsize=full hsize=full href=itemprovider></item>");
+						} else if (strstr(media_msg->doc_type, "video") != NULL) {
+							eina_strbuf_append(buf, "<item size=100x147 vsize=full hsize=full href=itemprovider></item>");
+						} else {
+							eina_strbuf_append(buf, "<item size=100x147 vsize=full href=itemprovider></item>");
+						}
+					}
 				}
 				free_media_details(media_msg);
 				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
@@ -1194,12 +1585,23 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 					long long lmedia_id = atoll(media_id_str);
 
 					if (media_id == lmedia_id) {
-						if (img_item) {
+						if (img_item || (strstr(media_type_str, "audio") != NULL)) {
+
 
 							if (strstr(file_path, "failed_to_load") != NULL) {
+
+								if ((strstr(media_type_str, "audio") != NULL)) {
+									Evas_Object *play_pause_icon = evas_object_data_get(entry, "play_pause_icon");
+									Evas_Object *progressbar = evas_object_data_get(entry, "progress_bar");
+									evas_object_data_set(progressbar, "is_download_in_progress", EINA_FALSE);
+									evas_object_data_set(play_pause_icon, "audio_file_path", NULL);
+									//sandeep
+									elm_object_style_set(progressbar, "default");
+									return;
+								}
+
 								// download failed.
 								if (size_btn) {
-
 									Evas_Object* progress = elm_object_content_get(size_btn);
 									if (progress) {
 										evas_object_del(progress);
@@ -1214,11 +1616,60 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 
 
 							} else {
+
+								if ((strstr(media_type_str, "audio") != NULL)) {
+									Evas_Object *play_pause_icon = evas_object_data_get(entry, "play_pause_icon");
+									Evas_Object *progressbar = evas_object_data_get(entry, "progress_bar");
+									evas_object_data_set(progressbar, "is_download_in_progress", EINA_FALSE);
+									elm_object_style_set(progressbar, "default");
+									evas_object_data_set(play_pause_icon, "audio_file_path", file_path);
+									//sandeep
+									metadata_extractor_h metadata;
+									metadata_extractor_create(&metadata);
+									int ret = metadata_extractor_set_path(metadata, file_path);
+									char *value = NULL;
+									ret = metadata_extractor_get_metadata(metadata, METADATA_DURATION, &value);
+									metadata_extractor_destroy(metadata);
+
+									int duration = 0;
+									if (value) {
+										duration = atoi(value);
+										free(value);
+									}
+
+									elm_object_part_text_set(progressbar, "elm.text.top.left", "");
+									elm_object_part_text_set(progressbar, "elm.text.top.right", "");
+
+									elm_object_part_text_set(progressbar, "elm.text.bottom.left", "00:00");
+
+									int seconds = (int) (duration / 1000) % 60 ;
+									int minutes = (int) ((duration / (1000*60)) % 60);
+
+									char tot_dur[256] = {0,};
+									char *format = NULL;
+									if (seconds < 10 && minutes < 10) {
+										format = "0%d:0%d";
+									} else if (seconds > 10 && minutes < 10) {
+										format = "%d:0%d";
+									} else if (seconds < 10 && minutes > 10) {
+										format = "0%d:%d";
+									} else {
+										format = "0%d:0%d";
+									}
+
+									sprintf(tot_dur, format, minutes, seconds);
+
+									elm_object_part_text_set(progressbar, "elm.text.bottom.right", tot_dur);
+
+
+									return;
+								}
+
 								if (size_btn) {
 									evas_object_del(size_btn);
 								}
 
-								if ((strstr(media_type_str, "video") != NULL) || (strstr(media_type_str, "audio") != NULL)) {
+								if ((strstr(media_type_str, "video") != NULL)) {
 									Evas_Object* play_img = get_video_paly_icon(img_item);
 									//Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), img_item);
 									elm_object_part_content_set(img_item, "swallow.play_btn", play_img);
@@ -1341,8 +1792,7 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 	if (!text_to_send || (strlen(text_to_send) == 0))
 		return ECORE_CALLBACK_CANCEL;
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -1407,11 +1857,10 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 		return;
 
 	if(add_date_item_to_chat(data)) {
-		ecore_timer_add(1, on_new_text_message_send_cb, chat_list);
+		ecore_timer_add(2, on_new_text_message_send_cb, chat_list);
 		return;
 	}
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -1550,13 +1999,31 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		int user_list_size = chat_info->user_list_size;
 		int online_members = 0;
 
+		char *names_of_buddies = NULL;
+
+
 		for (int i = 0; i < user_list_size; i++) {
+
 			int is_online = get_buddy_online_status(chat_info->chat_users[i]);
 			if (is_online > 0) {
 				online_members++;
 			}
+
+			char *buddy_name = get_buddy_name_from_id(chat_info->chat_users[i]);
+
+			if (buddy_name) {
+				if (!names_of_buddies) {
+					names_of_buddies = (char*)malloc(strlen(buddy_name) + 1);
+					strcpy(names_of_buddies, buddy_name);
+				} else {
+					names_of_buddies = (char*)realloc(names_of_buddies, strlen(names_of_buddies) + strlen(" / ") + strlen(buddy_name) + 1);
+					strcat(names_of_buddies, " / ");
+					strcat(names_of_buddies, buddy_name);
+				}
+			}
 		}
 
+		evas_object_data_set(ad->nf, "names_of_buddies", (void*)names_of_buddies);
 
 
 		if (online_members == 0) {
@@ -1648,8 +2115,7 @@ static Eina_Bool on_new_contact_message_send_cb(void *data)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1713,20 +2179,17 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 	int user_id = (int)evas_object_data_get(chat_list, "user_id");
 
 	if(add_date_item_to_chat(data)) {
-
 		evas_object_data_set(chat_list, "contact_first_name", strdup(first_name));
 		evas_object_data_set(chat_list, "contact_last_name", strdup(last_name));
 		evas_object_data_set(chat_list, "contact_phone_number", strdup(phone_number));
 
-		ecore_timer_add(1, on_new_contact_message_send_cb, chat_list);
+		ecore_timer_add(2, on_new_contact_message_send_cb, chat_list);
 		return;
 	}
 
-
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1783,8 +2246,7 @@ static Eina_Bool on_new_location_message_send_cb(void *data)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1846,14 +2308,13 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	if(add_date_item_to_chat(data)) {
 		evas_object_data_set(chat_list, "contact_latitude", strdup(latitude));
 		evas_object_data_set(chat_list, "contact_longitude", strdup(longitude));
-		ecore_timer_add(1, on_new_location_message_send_cb, chat_list);
+		ecore_timer_add(2, on_new_location_message_send_cb, chat_list);
 		return;
 	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1909,8 +2370,7 @@ static Eina_Bool on_new_media_message_send_cb(void *data)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -1986,13 +2446,12 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 		evas_object_data_set(chat_list, "file_type", strdup(file_type_char));
 		evas_object_data_set(chat_list, "file_path", strdup(file_path));
 
-		ecore_timer_add(1, on_new_media_message_send_cb, chat_list);
+		ecore_timer_add(2, on_new_media_message_send_cb, chat_list);
 		return;
 	}
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	ad->msg_count = ad->msg_count + 1001;
-	int unique_id = time(NULL) + ad->msg_count;
+	int unique_id = time(NULL);
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -2583,12 +3042,114 @@ void refresh_messaging_view(appdata_s *ad)
 		return;
 
 	Evas_Object *chat_conv_list = evas_object_data_get(ad->nf, "chat_list");
-	if (!chat_conv_list) {
+	if (chat_conv_list) {
+		/*
 		Evas_Coord w, h;
 		elm_win_screen_size_get(ad->win, NULL, NULL, &w, &h);
 		evas_object_size_hint_min_set(chat_conv_list, w, h);
+		*/
+		elm_genlist_realized_items_update(chat_conv_list);
+		Elm_Object_Item *item = elm_genlist_last_item_get(chat_conv_list);
+		elm_genlist_item_show(item, ELM_GENLIST_ITEM_SCROLLTO_TOP);
 	}
+
+	Evas_Object *user_pic_layout = evas_object_data_get(ad->nf, "profile_pic_layout");
+
+	if (!user_pic_layout)
+		return;
+
+	switch (ad->target_direction) {
+	case TELEGRAM_TARGET_DIRECTION_PORTRAIT:
+	case TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE:
+	{
+		elm_layout_signal_emit(user_pic_layout, "pro_pic_default", "pro_pic_resize");
+		break;
+	}
+	case TELEGRAM_TARGET_DIRECTION_LANDSCAPE:
+	case TELEGRAM_TARGET_DIRECTION_LANDSCAPE_INVERSE:
+	{
+		elm_layout_signal_emit(user_pic_layout, "pro_pic_land", "pro_pic_resize");
+		break;
+	}
+
+	default:
+	{
+		break;
+	}
+	}
+
 }
+
+static void on_expand_buton_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *expand_pic = data;
+	if (!expand_pic)
+		return;
+
+	appdata_s *ad = evas_object_data_get(expand_pic, "app_data");
+	Evas_Object *parent_layout = evas_object_data_get(expand_pic, "parent_layout");
+
+	Eina_Bool is_expanded = (Eina_Bool)evas_object_data_get(expand_pic, "is_expanded");
+
+	if (!is_expanded) {
+
+		elm_image_file_set(expand_pic, ui_utils_get_resource(TG_EXPAND_CLOSE), NULL);
+
+		Evas_Object *grp_names_bg = elm_bg_add(ad->nf);
+		evas_object_size_hint_align_set(grp_names_bg, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(grp_names_bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_color_set(grp_names_bg, 45, 165, 224, 255);
+	    elm_image_resizable_set(grp_names_bg, EINA_TRUE, EINA_TRUE);
+	    elm_image_fill_outside_set(grp_names_bg, EINA_TRUE);
+	    evas_object_show(grp_names_bg);
+	    elm_object_part_content_set(parent_layout, "swallow.group_detail_box,bg", grp_names_bg);
+
+	    Evas_Object* grp_names_lbl = elm_entry_add(ad->nf);
+		elm_entry_cursor_end_set(grp_names_lbl);
+		evas_object_size_hint_weight_set(grp_names_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(grp_names_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		elm_entry_single_line_set(grp_names_lbl,  EINA_FALSE);
+		elm_entry_scrollable_set (grp_names_lbl, EINA_TRUE);
+		elm_entry_cnp_mode_set(grp_names_lbl, ELM_CNP_MODE_NO_IMAGE);
+		elm_entry_context_menu_disabled_set(grp_names_lbl, EINA_TRUE);
+		elm_object_focus_set(grp_names_lbl, EINA_FALSE);
+	    elm_entry_editable_set(grp_names_lbl, EINA_FALSE);
+
+		evas_object_show(grp_names_lbl);
+
+		char *names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
+		if (names_of_buddies) {
+			int len = strlen(names_of_buddies);
+			char *names_str = (char*)malloc(len + 256);
+			sprintf(names_str, "<font=Tizen:style=Bold color=#FAFAFA align=center><font_size=40>%s</font_size></font>",names_of_buddies);
+			elm_object_text_set(grp_names_lbl, names_str);
+			free(names_str);
+		}
+
+		elm_object_part_content_set(parent_layout, "swallow.group_detail_box", grp_names_lbl);
+
+	} else {
+
+		elm_image_file_set(expand_pic, ui_utils_get_resource(TG_EXPAND_OPEN), NULL);
+
+		Evas_Object *grp_names_lbl = elm_object_part_content_get(parent_layout, "swallow.group_detail_box");
+		if (grp_names_lbl) {
+			evas_object_del(grp_names_lbl);
+			grp_names_lbl = NULL;
+		}
+
+		Evas_Object *grp_names_bg = elm_object_part_content_get(parent_layout, "swallow.group_detail_box,bg");
+		if (grp_names_bg) {
+			evas_object_del(grp_names_bg);
+			grp_names_bg = NULL;
+		}
+	}
+	is_expanded = !is_expanded;
+	evas_object_data_set(expand_pic, "is_expanded", is_expanded);
+
+
+}
+
 
 void launch_messaging_view_cb(appdata_s* ad, int user_id)
 {
@@ -2624,11 +3185,8 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
 
-
-
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 	tg_peer_info_s* user = sel_item->use_data;
-
 
 	/*************************** message list ************************************/
 
@@ -2675,10 +3233,14 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	/********************** title layout ******************************/
 
 	Evas_Object *title_layout = elm_layout_add(ad->nf);
-	elm_layout_file_set(title_layout, edj_path, "message_title_box");
+	elm_layout_file_set(title_layout, edj_path, "chat_title_box");
 	evas_object_size_hint_weight_set(title_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(title_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(title_layout);
+
+	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
+	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
+	elm_object_part_content_set(title_layout, "swallow.back_arrow", back_btn);
 
 	Evas_Object *profile_pic = NULL;
 	profile_pic = elm_image_add(layout);
@@ -2709,14 +3271,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_object_part_content_set(user_pic_layout, "content", profile_pic);
 	evas_object_data_set(ad->nf, "profile_picture", (void*)profile_pic);
 	elm_object_part_content_set(title_layout, "swallow.profile_pic", user_pic_layout);
-
-	elm_object_part_content_set(main_layout, "swallow.item", title_layout);
-
-	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
-	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
-	elm_object_part_content_set(title_layout, "swallow.back_arrow", back_btn);
-
-
+	evas_object_data_set(ad->nf, "profile_pic_layout", (void*)user_pic_layout);
 
 	Evas_Object *profile_name = elm_label_add(title_layout);
 	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
@@ -2747,11 +3302,38 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_data_set(ad->nf, "profile_time", (void*)profile_time);
 	evas_object_smart_callback_add(profile_time, "clicked", on_user_info_button_clicked, ad);
 
-	//elm_object_content_set(title_scroller, title_layout);
 
 	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
 
-	elm_object_part_content_set(layout, "swallow.title_box", main_layout);
+
+
+	/******************** expand ************************/
+	if (user->peer_type == TGL_PEER_CHAT) {
+		Evas_Object *expand_pic = NULL;
+		expand_pic = elm_image_add(layout);
+		evas_object_size_hint_weight_set(expand_pic, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(expand_pic, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		elm_object_focus_set(expand_pic, EINA_FALSE);
+		elm_image_file_set(expand_pic, ui_utils_get_resource(TG_EXPAND_OPEN), NULL);
+		evas_object_show(expand_pic);
+		evas_object_data_set(expand_pic, "app_data", ad);
+		evas_object_data_set(expand_pic, "parent_layout", layout);
+
+		Eina_Bool is_expanded = EINA_FALSE;
+		evas_object_data_set(expand_pic, "is_expanded", is_expanded);
+		Evas_Object* expand_btn = elm_button_add(ad->layout);
+		elm_object_style_set(expand_btn, "transparent");
+		evas_object_smart_callback_add(expand_btn, "clicked", on_expand_buton_clicked, expand_pic);
+		elm_object_content_set(expand_btn, expand_pic);
+		evas_object_show(expand_btn);
+		elm_object_part_content_set(title_layout, "swallow.expand_btn", expand_btn);
+
+	}
+	/******************** expand ************************/
+
+
+	elm_object_part_content_set(layout, "swallow.title_box", title_layout);
+
 
 	/********************** title layout ******************************/
 
@@ -2861,7 +3443,6 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
     evas_object_smart_callback_add(send_btn, "unpressed", on_message_smiley_unpressed, send_icon);
 	elm_object_part_content_set(entry_box_layout, "swallow.send_icon", send_btn);
 
-	//elm_object_part_content_set(layout, "swallow.entry_box", entry_box_layout);
 	/********************** entry layout*******************************/
 
 	evas_object_data_set(ad->nf, "chat_list", (void*)chat_conv_list);
@@ -2870,9 +3451,10 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_data_set(chat_conv_list, "text_entry", (void*)text_entry);
 	evas_object_data_set(chat_conv_list, "profile_time", (void*)profile_time);
 
-	Elm_Object_Item *nf_it = elm_naviframe_item_simple_push(ad->nf, scroller);
 
+	Elm_Object_Item *nf_it = elm_naviframe_item_simple_push(ad->nf, scroller);
 	elm_object_item_part_content_set(nf_it, "toolbar", entry_box_layout);
+
 
 	Eina_Bool ret = load_chat_history(chat_conv_list);
 

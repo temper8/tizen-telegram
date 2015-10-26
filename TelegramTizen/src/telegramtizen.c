@@ -14,14 +14,13 @@
 #include "ucol.h"
 #include <notification.h>
 #include <badge.h>
-static void
-popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+
+static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	evas_object_del(obj);
 }
 
-static void
-popup_timeout_cb(void *data, Evas_Object *obj, void *event_info)
+static void popup_timeout_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	evas_object_del(obj);
 }
@@ -387,11 +386,18 @@ void load_main_list_data(appdata_s *ad)
 							} else if(media_type == tgl_message_media_photo) {
 								item->last_message = strdup("Image");
 							} else if(media_type == tgl_message_media_document) {
-								if (msg->message && strlen(msg->message) > 0) {
+								tgl_media_s *media_msg = NULL;
+								media_msg = get_media_details_from_db(atoll(msg->media_id));
+
+/*								if (msg->message && strlen(msg->message) > 0) {
 									item->last_message = strdup(msg->message);
 								} else {
 									item->last_message = strdup("Document");
-								}
+								}*/
+
+								item->last_message = strdup(media_msg->doc_type);
+
+								free_media_details(media_msg);
 							} else if(media_type == tgl_message_media_geo) {
 								item->last_message = strdup("Geo location");
 							} else if(media_type == tgl_message_media_contact) {
@@ -2002,7 +2008,10 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 			}
 
 			if (app->current_app_state == TG_SETTINGS_SCREEN_STATE) {
-
+				Evas_Object* set_pro_pic = evas_object_data_get(app->nf, "settings_user_profile_pic");
+				if (set_pro_pic) {
+					elm_image_file_set(profile_pic, file_path, NULL);
+				}
 			}
 		}
 	} else if (strcmp(rec_key_val, "self_username_updated") == 0) {
@@ -2983,7 +2992,7 @@ static bool app_create(void *data)
 	ad->s_notififcation = NULL;
 	ad->panel = NULL;
 	ad->is_server_ready = EINA_FALSE;
-	ad->msg_count = 0;
+	//ad->msg_count = 0;
 	create_base_gui(ad);
 	int err = badge_new(TELEGRAM_APP_ID);
 	if (BADGE_ERROR_NONE != err) {

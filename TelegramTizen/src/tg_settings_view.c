@@ -261,11 +261,8 @@ void on_image_select_result_cb(app_control_h request, app_control_h reply, app_c
 			if (file_path) {
 				appdata_s *ad = (appdata_s*)user_data;
 				if (ad) {
-					Evas_Object *profile_pic = evas_object_data_get(ad->nf, "user_profile_pic");
-					if (profile_pic) {
-						elm_image_file_set(profile_pic, file_path, NULL);
-						send_set_profile_pic_request(ad->service_client, ad->current_user_data->user_id.id, file_path);
-					}
+					show_loading_popup(ad);
+					send_set_profile_pic_request(ad->service_client, ad->current_user_data->user_id.id, file_path);
 				}
 				break;
 			}
@@ -317,7 +314,10 @@ char* on_camera_load_text_get_cb(void *data, Evas_Object *obj, const char *part)
 
 void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
-	Evas_Object* cam_icon =  data;
+	appdata_s* ad = data;
+
+	if (!ad)
+		return;
 
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
@@ -325,7 +325,7 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 	Evas_Object *genlist;
 	int i;
 
-	appdata_s* ad = evas_object_data_get(obj, "app_data");
+
 	Evas_Object *win = ad->win;
 
 	Elm_Object_Item *it = event_info;
@@ -685,7 +685,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
 		switch(id) {
 			case 0:
-				return strdup(ad->current_user_data->print_name);
+				return replace(ad->current_user_data->print_name, '_', " ");
 			case 1:
 				return strdup(i18n_get_text("IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"));
 			default:
@@ -722,18 +722,19 @@ Evas_Object* _content_requested_cb(void *data, Evas_Object *obj, const char *par
 			if (ad->current_user_data->photo_path && strlen(ad->current_user_data->photo_path) > 0 && strstr(ad->current_user_data->photo_path, "_null_") == NULL) {
 				profile_pic = get_image_from_path(ad->current_user_data->photo_path, ad->nf);
 			} else  {
-				profile_pic = get_image_from_path(ui_utils_get_resource(DEFAULT_PROFILE_PIC), ad->nf);
+				profile_pic = get_image_from_path(ui_utils_get_resource(DEFAULT_LIST_THUMB_SINGLE_PIC), ad->nf);
+				evas_object_color_set(profile_pic, 45, 165, 224, 255);
 			}
 
 			char edj_path[PATH_MAX] = {0, };
 			app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 			Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
-			elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+			elm_layout_file_set(user_pic_layout, edj_path, "search_circle_layout");
 			evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 			evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 			evas_object_show(user_pic_layout);
 			elm_object_part_content_set(user_pic_layout, "content", profile_pic);
-			evas_object_data_set(ad->nf, "user_profile_pic", profile_pic);
+			evas_object_data_set(ad->nf, "settings_user_profile_pic", profile_pic);
 
 			eo = elm_layout_add(obj);
 			elm_layout_theme_set(eo, "layout", "list/B/type.1", "default");
@@ -802,6 +803,7 @@ static void ctxpopup_profile_select_cb(void *data, Evas_Object *obj, void *event
 	}
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
+	on_camera_button_clicked(ad, obj, event_info);
 
 	/* please input here when set profile picture menu is clicked */
 }
@@ -917,7 +919,7 @@ void launch_settings_screen(appdata_s* ad)
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	elm_genlist_item_append(list, &itc, (void*) 0, NULL, ELM_GENLIST_ITEM_NONE, on_camera_button_clicked, (void*) 0);
+	elm_genlist_item_append(list, &itc, (void*) 0, NULL, ELM_GENLIST_ITEM_NONE, on_camera_button_clicked, (void*) ad);
 	elm_genlist_item_append(list, &itc, (void*) 1, NULL, ELM_GENLIST_ITEM_NONE, on_settings_info_item_clicked, (void*)1);
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, NULL, list, NULL);

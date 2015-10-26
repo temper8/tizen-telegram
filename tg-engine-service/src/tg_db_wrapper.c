@@ -690,7 +690,7 @@ void create_buddy_msg_table(const char* table_name)
 	eina_list_free(col_types);
 }
 
-int insert_current_date_to_table(char* tb_name)
+int update_current_date_to_table(char* tb_name, int recent_msg_date)
 {
 	struct tgl_message* last_msg = get_latest_message_from_message_table(tb_name);
 	if (last_msg) {
@@ -707,6 +707,94 @@ int insert_current_date_to_table(char* tb_name)
 		struct tm new_lt;
 		(void) localtime_r(&new_t, &new_lt);
 
+		if (old_lt.tm_mday == new_lt.tm_mday && old_lt.tm_mon == new_lt.tm_mon && old_lt.tm_year == new_lt.tm_year) {
+			// no need of new date
+			return -1;
+		} else {
+			int cur_time = time(NULL);
+			time_t t = cur_time;
+
+			char *format = NULL;
+			format = "%a, %d%b. %Y";
+
+			struct tm lt;
+			char res[256];
+			(void) localtime_r(&t, &lt);
+
+			if (strftime(res, sizeof(res), format, &lt) == 0) {
+				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+						"date/time into buffer of size %u "
+						"using: '%s'\n",
+						sizeof(res), format);
+			}
+
+			srand(time(NULL));
+			int r = rand();
+			struct tgl_message date_msg;
+			date_msg.id = r;
+			date_msg.media.type = tgl_message_media_none;
+			date_msg.date = recent_msg_date - 1;
+			date_msg.message = res;
+			date_msg.message_len = strlen(res);
+			date_msg.service = 2;
+			date_msg.unread = 0;
+			date_msg.out = 0;
+			insert_msg_into_db(&date_msg, tb_name, t);
+			return date_msg.id;
+		}
+
+	} else {
+		int cur_time = time(NULL);
+		time_t t = cur_time;
+
+		char *format = NULL;
+		format = "%a, %d%b. %Y";
+
+		struct tm lt;
+		char res[256];
+		(void) localtime_r(&t, &lt);
+
+		if (strftime(res, sizeof(res), format, &lt) == 0) {
+			(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+					"date/time into buffer of size %u "
+					"using: '%s'\n",
+					sizeof(res), format);
+		}
+		srand(time(NULL));
+		int r = rand();
+		struct tgl_message date_msg;
+		date_msg.id = r;
+		date_msg.media.type = tgl_message_media_none;
+		date_msg.date = recent_msg_date - 1;
+		date_msg.message = res;
+		date_msg.message_len = strlen(res);
+		date_msg.service = 2;
+		date_msg.unread = 0;
+		date_msg.out = 0;
+		insert_msg_into_db(&date_msg, tb_name, t);
+		return date_msg.id;
+	}
+	return -1;
+}
+
+
+
+int insert_current_date_to_table(char* tb_name)
+{
+	struct tgl_message* last_msg = get_latest_message_from_message_table(tb_name);
+	if (last_msg) {
+		int old_date = last_msg->date;
+		time_t old_t = old_date;
+
+		struct tm old_lt;
+		(void) localtime_r(&old_t, &old_lt);
+
+
+		int cur_time = time(NULL);
+		time_t new_t = cur_time;
+
+		struct tm new_lt;
+		(void) localtime_r(&new_t, &new_lt);
 
 		if (old_lt.tm_mday == new_lt.tm_mday && old_lt.tm_mon == new_lt.tm_mon && old_lt.tm_year == new_lt.tm_year) {
 			// no need of new date
