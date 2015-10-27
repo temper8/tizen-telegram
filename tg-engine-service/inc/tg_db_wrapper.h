@@ -262,6 +262,7 @@ void update_buddy_delete_db(char* table_name, int id, int delete_item);
 Eina_List* get_all_peer_ids();
 int get_number_of_unread_messages();
 int get_unread_message_count(char* table_name);
+int get_number_of_messages(char* table_name);
 
 Eina_List* get_all_unsent_media_messages();
 Eina_List* get_all_unsent_text_messages();
@@ -271,5 +272,7 @@ Eina_Bool is_user_present_peer_table(int id);
 Eina_Bool is_user_present_chat_table(int id);
 
 int update_current_date_to_table(char* tb_name, int recent_msg_date);
+
+int set_date_item_to_table(char* tb_name, int recent_msg_date);
 
 #endif /* TG_DB_WRAPPER_H_ */

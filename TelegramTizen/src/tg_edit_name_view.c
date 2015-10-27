@@ -7,7 +7,7 @@
 
 
 #include "tg_edit_name_view.h"
-
+#include "server_requests.h"
 
 
 static void on_first_name_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
@@ -29,8 +29,9 @@ static void on_first_name_change_enable_ok_button(void *data, Evas_Object *obj, 
 static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
-
 	elm_naviframe_item_pop(ad->nf);
+	ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
+	delete_floating_button(ad);
 }
 
 static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -52,8 +53,11 @@ static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event
 
 	/* FIXME : Write the request for edit name */
 
+	send_update_display_name_request(ad->service_client, ad->current_user_data->user_id.id, first_name, last_name);
+
 	free(first_name);
 	free(last_name);
+	show_loading_popup(ad);
 }
 
 void launch_editname_screen(appdata_s* ad)
@@ -63,7 +67,7 @@ void launch_editname_screen(appdata_s* ad)
 		return;
 	}
 
-	//ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
+	ad->current_app_state = TG_SETTINGS_EDIT_NAME_STATE;
 
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);

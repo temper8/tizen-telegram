@@ -681,11 +681,18 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 	int id = (int) data;
 
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
-
+	char *user_name = NULL;
 	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
 		switch(id) {
 			case 0:
-				return replace(ad->current_user_data->print_name, '_', " ");
+				//return replace(ad->current_user_data->print_name, '_', " ");
+
+				user_name = (char*)malloc(strlen(ad->current_user_data->first_name) + strlen(" ") + strlen(ad->current_user_data->last_name) + 1);
+				strcpy(user_name, ad->current_user_data->first_name);
+				strcat(user_name, " ");
+				strcat(user_name, ad->current_user_data->last_name);
+				return user_name;
+
 			case 1:
 				return strdup(i18n_get_text("IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"));
 			default:
@@ -940,6 +947,16 @@ static Eina_Bool _pop_cb(void *data, Elm_Object_Item *it)
 	return EINA_TRUE;
 }
 
+void refresh_settings_screen(appdata_s* ad)
+{
+	if (!ad)
+		return;
+	Evas_Object *list = evas_object_data_get(ad->nf, "settings_list");
+	if (list) {
+		elm_genlist_realized_items_update(list);
+	}
+}
+
 void launch_settings_screen(appdata_s* ad)
 {
 	if (!ad) {
@@ -961,6 +978,8 @@ void launch_settings_screen(appdata_s* ad)
 	evas_object_show(list);
 
 	evas_object_data_set(list, "app_data", ad);
+
+	evas_object_data_set(ad->nf, "settings_list", list);
 
 	itc.item_style = "type1";
 	itc.func.text_get = _text_requested_cb;

@@ -465,7 +465,8 @@ void create_floating_button(appdata_s* ad)
 		return;
 
     Evas_Object *icon = elm_image_add(ad->nf);
-    elm_image_file_set(icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+
+   // elm_image_file_set(icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
     evas_object_show(icon);
 	ad->floating_btn = eext_floatingbutton_add(ad->layout);
 	evas_object_color_set(ad->floating_btn, 255, 255, 255, 255);
@@ -478,6 +479,7 @@ void create_floating_button(appdata_s* ad)
 	elm_object_part_content_set(btn, "icon", icon);
 
 	evas_object_data_set(ad->floating_btn, "image", icon);
+	update_floating_button(ad, ad->current_app_state);
 }
 
 void delete_floating_button(appdata_s* ad)
@@ -486,7 +488,9 @@ void delete_floating_button(appdata_s* ad)
 		return;
 
 	if (ad->floating_btn){
-		elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,hidden", "elm");
+		//elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,hidden", "elm");
+		evas_object_del(ad->floating_btn);
+		ad->floating_btn = NULL;
 	}
 }
 
@@ -494,11 +498,16 @@ void show_floating_button(appdata_s* ad)
 {
 	if (!ad)
 		return;
-
+#if 0
 	if (ad->floating_btn){
 		update_floating_button(ad, ad->current_app_state);
 		elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,visible", "elm");
 	}
+#else
+	delete_floating_button(ad);
+	create_floating_button(ad);
+#endif
+
 }
 
 void update_floating_button(appdata_s* ad, int mode)

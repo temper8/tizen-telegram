@@ -1114,6 +1114,59 @@ void send_set_profile_pic_request(service_client* service_client, int user_id, c
 	bundle_free(msg);
 }
 
+void send_update_display_name_request(service_client* service_client, int user_id, const char* first_name, const char* last_name)
+{
+	bundle *msg;
+	char tmp[50];
+	int result;
+
+	if (!service_client || !first_name || !last_name) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "update_display_name_request") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", user_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "first_name", first_name) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "last_name", last_name) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+	}
+	bundle_free(msg);
+}
+
+
 void send_set_username_request(service_client* service_client, int user_id, const char* username)
 {
 	bundle *msg;

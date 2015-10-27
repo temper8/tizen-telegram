@@ -13,5 +13,6 @@
 
 extern void launch_settings_screen(appdata_s* ad);
 
+extern void refresh_settings_screen(appdata_s* ad);
 
 #endif /* TG_SETTINGS_VIEW_H_ */

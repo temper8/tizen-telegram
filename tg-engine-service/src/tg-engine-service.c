@@ -374,6 +374,25 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		char *file_path = NULL;
 		res = bundle_get_str(rec_msg, "file_path", &file_path);
 		process_set_profile_pic_command(tg_data, buddy_id, file_path);
+
+	} else if (strcmp(cmd_key_val, "update_display_name_request") == 0) {
+
+		char *buddy_id_str = NULL;
+		res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+
+		int buddy_id = 0;
+		if (buddy_id_str) {
+			buddy_id = atoi(buddy_id_str);
+		}
+
+		char *first_name = NULL;
+		res = bundle_get_str(rec_msg, "first_name", &first_name);
+
+		char *last_name = NULL;
+		res = bundle_get_str(rec_msg, "last_name", &last_name);
+
+		process_update_display_name_command(tg_data, buddy_id, first_name, last_name);
+
 	} else if (strcmp(cmd_key_val, "set_username_request") == 0) {
 
 		char *buddy_id_str = NULL;

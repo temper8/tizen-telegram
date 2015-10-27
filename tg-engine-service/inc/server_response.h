@@ -31,6 +31,7 @@ extern void process_add_new_buddy_to_chat_command(tg_engine_data_s *tg_data, int
 extern void process_remove_buddy_from_chat_command(tg_engine_data_s *tg_data, int s_buddy_id, int s_chat_id);
 extern void process_set_group_chat_profile_pic_command(tg_engine_data_s *tg_data, int buddy_id, const char *file_path);
 extern void process_set_username_command(tg_engine_data_s *tg_data, int buddy_id, const char *username);
+extern void process_update_display_name_command(tg_engine_data_s *tg_data, int buddy_id, const char *first_name, const char *last_name);
 
 extern void send_add_contacts_request(tg_engine_data_s *tg_data);
 extern void send_registration_response(tg_engine_data_s *tg_data, Eina_Bool is_success);
@@ -66,5 +67,6 @@ extern void send_group_chat_new_buddy_response(tg_engine_data_s *tg_data, int pe
 extern void send_group_chat_delete_buddy_response(tg_engine_data_s *tg_data, int peer_id, Eina_Bool is_success);
 extern void send_response_for_server_connection_status(tg_engine_data_s *tg_data, Eina_Bool connection_status);
 
+extern void send_self_profile_name_updated_response(tg_engine_data_s *tg_data, char *first_name, char *last_name, Eina_Bool is_success);
 extern void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id);
 #endif /* SERVER_RESPONSE_H_ */

@@ -169,6 +169,7 @@ extern void add_contacts_to_user(tg_engine_data_s *tg_data, int size, Eina_List*
 extern void create_new_group(tg_engine_data_s *tg_data, Eina_List* buddy_ids, const char* group_name, const char* group_icon);
 extern void set_profile_picture(tg_engine_data_s *tg_data, int buddy_id, const char *file_path);
 extern void set_user_name(tg_engine_data_s *tg_data, int buddy_id, const char *username);
+extern void update_user_display_name(tg_engine_data_s *tg_data, int buddy_id, const char *first_name, const char *last_name);
 extern void request_for_code_via_call(struct tgl_state *TLS, char* phone_no, Eina_Bool trough_sms);
 extern void free_contact_data(Eina_List *contact_data);
 extern void leave_group_chat(tg_engine_data_s *tg_data, int group_chat_id);

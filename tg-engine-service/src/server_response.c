@@ -177,6 +177,11 @@ void process_set_profile_pic_command(tg_engine_data_s *tg_data, int buddy_id, co
 	set_profile_picture(tg_data, buddy_id, file_path);
 }
 
+void process_update_display_name_command(tg_engine_data_s *tg_data, int buddy_id, const char *first_name, const char *last_name)
+{
+	update_user_display_name(tg_data, buddy_id, first_name, last_name);
+}
+
 void process_set_username_command(tg_engine_data_s *tg_data, int buddy_id, const char *username)
 {
 	set_user_name(tg_data, buddy_id, username);
@@ -456,6 +461,51 @@ void send_contacts_and_chats_load_done_response(tg_engine_data_s *tg_data, Eina_
 	}
 	bundle_free(msg);
 }
+
+void send_self_profile_name_updated_response(tg_engine_data_s *tg_data, char *first_name, char *last_name, Eina_Bool is_success)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "self_profile_name_updated") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "first_name", first_name) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "last_name", last_name) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (is_success) {
+		if (bundle_add_str(msg, "is_success", "true") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else {
+		if (bundle_add_str(msg, "is_success", "false") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	}
+
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+	bundle_free(msg);
+}
+
 
 void send_self_user_name_updated_response(tg_engine_data_s *tg_data, char *username, Eina_Bool is_success)
 {

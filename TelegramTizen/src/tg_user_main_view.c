@@ -346,7 +346,7 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 			free(tablename);
 
 			//change item in list
-			sel_item->last_message = strdup(" ");
+			sel_item->last_message = strdup("");
 			sel_item->last_msg_id = -1;
 			sel_item->last_msg_type = -1;
 			sel_item->is_out_msg = -1;
@@ -383,6 +383,7 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 					elm_object_text_set(sel_item->date_lbl,time_str);
 				}
 			}
+#if 0
 			if (sel_item->msg_status_lbl) {
 				Evas_Object* temp_lbl = elm_object_part_content_get(sel_item->msg_status_lbl, "swallow.status");
 				if (temp_lbl) {
@@ -395,6 +396,11 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 				evas_object_size_hint_align_set(num_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
 				evas_object_show(num_lbl);
 				elm_object_part_content_set(sel_item->msg_status_lbl, "swallow.status", num_lbl);
+			}
+#endif
+			Evas_Object *buddy_list = evas_object_data_get(ad->nf, "buddy_list");
+			if (buddy_list) {
+				elm_genlist_realized_items_update(buddy_list);
 			}
 
 		} else {
@@ -653,7 +659,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 		evas_object_show(layout);
 		Evas_Object* item_layout = elm_layout_add(ad->nf);
 		if (ad->target_direction == TELEGRAM_TARGET_DIRECTION_LANDSCAPE_INVERSE || ad->target_direction == TELEGRAM_TARGET_DIRECTION_LANDSCAPE) {
-			if ((item->last_message == NULL) || (strlen(item->last_message) <= 0) || (strcmp(item->last_message, " ") == 0) || (item->number_of_unread_msgs == 0 &&(!item->is_out_msg || !item->last_msg_service))) {
+			if ((item->last_message == NULL) || (strlen(item->last_message) <= 0) || (strcmp(item->last_message, " ") == 0)) {
 				elm_layout_file_set(item_layout, edj_path, "main_list_custom_no_msg_item_land");
 				is_empty_msg = EINA_TRUE;
 			} else {
@@ -664,7 +670,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 				}
 			}
 		} else {
-			if ((item->last_message == NULL) || (strlen(item->last_message) <= 0) || (strcmp(item->last_message, " ") == 0) || (item->number_of_unread_msgs == 0 &&(!item->is_out_msg || !item->last_msg_service))) {
+			if ((item->last_message == NULL) || (strlen(item->last_message) <= 0) || (strcmp(item->last_message, " ") == 0)) {
 				elm_layout_file_set(item_layout, edj_path, "main_list_custom_no_msg_item");
 				is_empty_msg = EINA_TRUE;
 			} else {
@@ -734,7 +740,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 		/*************************** user name ***************************************/
 
 #if 0
-		char* user_name = replace(item->peer_print_name, '_', "");
+		char* user_name = replace(item->peer_print_name, '_', " ");
 #endif
 		char buf[512] = {'\0'};
 		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", item->buddy_display_name);
@@ -1125,7 +1131,7 @@ static void ctxpopup_search_select_cb(void *data, Evas_Object *obj, void *event_
 		LOGE("ad is NULL");
 		return;
 	}
-
+	delete_floating_button(ad);
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
 
 	/* please input here when search menu is clicked */

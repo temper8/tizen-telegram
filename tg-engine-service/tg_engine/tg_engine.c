@@ -831,6 +831,10 @@ void tg_chat_update(struct tgl_state *TLS, struct tgl_chat* chat_info, unsigned 
 	tg_engine_data_s *tg_data;
 	tg_data = TLS->callback_data;
 
+	if (chat_info && chat_info->flags == 144) {
+		return;
+	}
+
 	if (flags == TGL_GROUP_CHAT_CREATED) {
 #if 0
 		insert_chat_info_to_db(chat_info, NULL);
@@ -1714,8 +1718,45 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 	if (!chat_info) {
 		return;
 	}
+	if (chat_info->flags == 144) {
+		return;
+	}
 	msg_table = get_table_name_from_number(chat_info->id.id);
 	create_buddy_msg_table(msg_table);
+
+	int msg_count = get_number_of_messages(msg_table);
+	if (msg_count <= 0) {
+		if (chat_info->admin_id > 0) {
+			set_date_item_to_table(msg_table, chat_info->date);
+			tgl_peer_id_t admin_id;
+			admin_id.id = chat_info->admin_id;
+			admin_id.type = TGL_PEER_USER;
+
+			tgl_peer_t* UC = tgl_peer_get(TLS, admin_id);
+			int msg_len = strlen(UC->user.first_name) + strlen(" created the group") + 1;
+			char* creator_name = (char*)malloc(msg_len);
+			strcpy(creator_name, UC->user.first_name);
+			strcat(creator_name, " created the group");
+			struct tgl_message msg;
+			int cur_time = chat_info->date;
+			msg.to_id = chat_info->id;
+			msg.from_id = admin_id;
+			msg.id = cur_time;
+			msg.message = creator_name;
+			msg.message_len = msg_len;
+			msg.unread = 0;
+			msg.date = cur_time;
+			msg.media.type = tgl_message_media_none;
+			msg.service = 1;
+			msg.out = 0;
+
+			insert_buddy_msg_to_db(&msg);
+			free(creator_name);
+			send_message_received_response(TLS->callback_data, msg.from_id.id, msg.to_id.id, msg.id, tgl_get_peer_type(msg.to_id));
+		}
+
+	}
+
 	free(msg_table);
 	if (!chat_info->user_list) {
 		tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
@@ -2430,6 +2471,26 @@ void set_user_name(tg_engine_data_s *tg_data, int buddy_id, const char *username
 	if (username) {
 		char *org_username = strdup(username);
 		tgl_do_set_username(tgl_engine_get_TLS(), username, on_set_username_response_received, org_username);
+	}
+}
+
+void on_profile_name_changed(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *buddy)
+{
+	tg_engine_data_s *tg_data = callback_extra;
+	if (success) {
+		// update db
+		update_buddy_into_db(USER_INFO_TABLE_NAME, buddy);
+		update_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
+		send_self_profile_name_updated_response(tg_data, buddy->first_name, buddy->last_name, EINA_TRUE);
+	} else {
+		send_self_profile_name_updated_response(tg_data, "", "", EINA_FALSE);
+	}
+}
+
+void update_user_display_name(tg_engine_data_s *tg_data, int buddy_id, const char *first_name, const char *last_name)
+{
+	if (first_name && last_name) {
+		tgl_do_set_profile_name(tgl_engine_get_TLS(), first_name, last_name, on_profile_name_changed, tg_data);
 	}
 }
 

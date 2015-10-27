@@ -14,6 +14,7 @@
 #include "ucol.h"
 #include <notification.h>
 #include <badge.h>
+#include "tg_settings_view.h"
 
 static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -389,15 +390,17 @@ void load_main_list_data(appdata_s *ad)
 								tgl_media_s *media_msg = NULL;
 								media_msg = get_media_details_from_db(atoll(msg->media_id));
 
-/*								if (msg->message && strlen(msg->message) > 0) {
-									item->last_message = strdup(msg->message);
+								if (media_msg && media_msg->doc_type) {
+									item->last_message = strdup(media_msg->doc_type);
+									free_media_details(media_msg);
 								} else {
-									item->last_message = strdup("Document");
-								}*/
+									if (msg->message && strlen(msg->message) > 0) {
+										item->last_message = strdup(msg->message);
+									} else {
+										item->last_message = strdup("Document");
+									}
+								}
 
-								item->last_message = strdup(media_msg->doc_type);
-
-								free_media_details(media_msg);
 							} else if(media_type == tgl_message_media_geo) {
 								item->last_message = strdup("Geo location");
 							} else if(media_type == tgl_message_media_contact) {
@@ -2014,6 +2017,63 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 				}
 			}
 		}
+	} else if (strcmp(rec_key_val, "self_profile_name_updated") == 0) {
+
+		Eina_Bool is_success = EINA_FALSE;
+		char *is_success_val = NULL;
+		result = bundle_get_str(rec_msg, "is_success", &is_success_val);
+		if (strncmp("true", is_success_val, strlen("true")) == 0) {
+			is_success = EINA_TRUE;
+			show_toast(app, "Username updated successfully.");
+		} else {
+			is_success = EINA_FALSE;
+			show_toast(app, "Username not updated. Username already exist or please check your network connection.");
+		}
+
+		if (is_success) {
+
+			char *first_name = NULL;
+			result = bundle_get_str(rec_msg, "first_name", &first_name);
+			if (!first_name) {
+				first_name = "";
+			}
+
+			char *last_name = NULL;
+			result = bundle_get_str(rec_msg, "last_name", &last_name);
+			if (!last_name) {
+				last_name = "";
+			}
+
+			if (app->current_user_data->first_name) {
+				free(app->current_user_data->first_name);
+				app->current_user_data->first_name = NULL;
+			}
+
+			if (app->current_user_data->last_name) {
+				free(app->current_user_data->last_name);
+				app->current_user_data->last_name = NULL;
+			}
+
+			if (first_name) {
+				app->current_user_data->first_name = strdup(first_name);
+			}
+
+			if (last_name) {
+				app->current_user_data->last_name = strdup(last_name);
+			}
+
+			if (app->current_app_state == TG_SETTINGS_EDIT_NAME_STATE) {
+				appdata_s* ad = data;
+				elm_naviframe_item_pop(ad->nf);
+				ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
+				refresh_settings_screen(ad);
+			}
+
+		} else {
+
+		}
+		hide_loading_popup(app);
+
 	} else if (strcmp(rec_key_val, "self_username_updated") == 0) {
 
 		Eina_Bool is_success = EINA_FALSE;
@@ -2739,6 +2799,11 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			show_floating_button(ad);
 			//evas_object_show(ad->panel);
 			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
+			break;
+		case TG_SETTINGS_EDIT_NAME_STATE:
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
+			delete_floating_button(ad);
 			break;
 		case TG_REGISTRATION_STATE:
 			elm_win_lower(ad->win);
