@@ -745,6 +745,56 @@ Evas_Object* _content_requested_cb(void *data, Evas_Object *obj, const char *par
 	return eo;
 }
 
+static void _cancel_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *popup = data;
+	evas_object_del(popup);
+}
+
+static void _logout_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	Evas_Object *popup = NULL;
+
+	popup = evas_object_data_del(obj, "popup");
+	if (popup) {
+		evas_object_del(popup);
+	}
+	/* FIXME : Please input the logout API here */
+}
+
+static void _create_logout_popup(appdata_s *ad)
+{
+	Evas_Object *popup;
+	Evas_Object *logout_btn;
+	Evas_Object *btn;
+
+	/* popup */
+	popup = elm_popup_add(ad->win);
+	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
+	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
+	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_translatable_text_set(popup,"IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG");
+	elm_object_part_text_set(popup, "title,text", i18n_get_text("IDS_TGRAM_OPT_LOG_OUT"));
+
+	/* logout button */
+	logout_btn = elm_button_add(popup);
+	elm_object_style_set(logout_btn, "popup");
+	elm_object_translatable_text_set(logout_btn, "IDS_TGRAM_BUTTON_LOG_OUT_ABB2");
+	elm_object_part_content_set(popup, "button2", logout_btn);
+	evas_object_smart_callback_add(logout_btn, "clicked", _logout_btn_clicked_cb, ad);
+	evas_object_data_set(logout_btn, "popup", popup);
+
+	/* cancel button */
+	btn = elm_button_add(popup);
+	elm_object_style_set(btn, "popup");
+	elm_object_translatable_text_set(btn, "IDS_TGRAM_BUTTON_CANCEL_ABB5");
+	elm_object_part_content_set(popup, "button1", btn);
+	evas_object_smart_callback_add(btn, "clicked", _cancel_btn_clicked_cb, popup);
+
+	evas_object_show(popup);
+}
+
 static void _more_popup_rotate(void *data, Evas_Object *obj, void *event_info)
 {
 	int pos;
@@ -830,8 +880,7 @@ static void ctxpopup_logout_select_cb(void *data, Evas_Object *obj, void *event_
 	}
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
-
-	/* please input here when logout menu is clicked */
+	_create_logout_popup(ad);
 }
 
 static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
