@@ -574,6 +574,7 @@ typedef struct appdata {
 	int screen_mode_for_fb; // for floating button icon
 	Evas_Object *menu_popup;
 	//int msg_count;
+	Eina_List *contact_list;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);

@@ -10,6 +10,7 @@
 #include "tg_messaging_view.h"
 #include "contact_selection_view.h"
 #include "ucol.h"
+#include "device_contacts_manager.h"
 
 #define COMMAND_MENU_ITEM_COUNT 2
 
@@ -390,6 +391,7 @@ static void on_peer_item_clicked(void *data, Evas_Object *obj, void *event_info)
 	}
 
 	elm_naviframe_item_pop(ad->nf);
+	delete_floating_button(ad);
 	launch_messaging_view_cb(ad, peer_id);
 }
 
@@ -440,6 +442,141 @@ static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* it
 	if(count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_peer_item_clicked, (void*) i);
+		}
+	} else {
+		i = 1;
+		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+	}
+}
+
+static void on_contact_item_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+
+	int item_id = (int) data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	Eina_List *list = evas_object_data_get(obj, "contact_list");
+
+	contact_data_s* contact = eina_list_nth(list, item_id);
+	if (!contact) {
+		return;
+	}
+
+	app_control_h app_control;
+	int ret = app_control_create(&app_control);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		return;
+	}
+	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
+	app_control_set_mime(app_control,"text/html");
+
+	char phone_num[512] = {0,};
+	strcpy(phone_num, "sms:");
+	strcat(phone_num, contact->phone_number);
+
+	app_control_set_uri(app_control, phone_num);
+	char *text = "Invite you to telegram! https://telegram.org/dl";
+	app_control_add_extra_data(app_control, APP_CONTROL_DATA_TEXT, text);
+	if (app_control_send_launch_request(app_control, NULL, NULL) == APP_CONTROL_ERROR_NONE) {
+		// sms view launched
+	}
+	app_control_destroy(app_control);
+
+	return;
+}
+
+char* on_contact_list_name_requested(void *data, Evas_Object *obj, const char *part)
+{
+	int id = (int) data;
+
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	Eina_List *list = evas_object_data_get(obj, "contact_list");
+
+	if (!list) {
+		list = ad->contact_list;
+	}
+
+	contact_data_s* contact = eina_list_nth(list, id);
+	if (!contact) {
+		return NULL;
+	}
+
+	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+		return strdup(contact->display_name);
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+		return NULL;
+	}
+	return NULL;
+}
+
+
+Evas_Object* on_contact_list_image_requested(void *data, Evas_Object *obj, const char *part)
+{
+	Evas_Object *eo = NULL;
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+		int id = (int) data;
+		appdata_s* ad = evas_object_data_get(obj, "app_data");
+		Eina_List *list = evas_object_data_get(obj, "contact_list");
+		if (!list) {
+			list = ad->contact_list;
+		}
+		int size = eina_list_count(list);
+		if (size <= 0) {
+			return eo;
+		}
+		contact_data_s* contact = eina_list_nth(list, id);
+		if (!contact || !contact->pic_url) {
+			return NULL;
+		}
+
+		Evas_Object *profile_pic = NULL;
+		profile_pic = create_image_object_from_file(contact->pic_url, obj);
+		evas_object_color_set(profile_pic, 45, 165, 224, 255);
+
+		char edj_path[PATH_MAX] = {0, };
+		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+		elm_layout_file_set(user_pic_layout, edj_path, "search_circle_layout");
+		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(user_pic_layout);
+		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
+
+		eo = elm_layout_add(obj);
+		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
+		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+
+	}
+	return eo;
+}
+
+
+static void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
+{
+
+	if (!genlist || !ad || !item_list) {
+		return;
+	}
+
+	int i;
+	static Elm_Genlist_Item_Class itc;
+	Elm_Object_Item* item = NULL;
+
+	//itc.item_style = "2line.top";
+	itc.item_style = "type1";
+	itc.func.text_get = on_contact_list_name_requested;
+	itc.func.content_get = on_contact_list_image_requested;
+	itc.func.state_get = NULL;
+	itc.func.del = NULL;
+
+	int count = eina_list_count(item_list);
+
+	evas_object_data_set(genlist, "contact_list", item_list);
+
+	if(count > 0) {
+		for (i = 0; i < count; i++) {
+			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_contact_item_clicked, (void*) i);
 		}
 	} else {
 		i = 1;
@@ -754,7 +891,11 @@ void launch_start_peer_search_view(appdata_s* ad)
 	ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
 
 	clear_search_list(ad);
+
+	free_contact_list(ad->contact_list);
+
 	ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
+	ad->contact_list = get_contact_list_from_device_db();
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_theme_set(layout, "layout", "application", "searchbar_base");
@@ -766,11 +907,14 @@ void launch_start_peer_search_view(appdata_s* ad)
 	elm_object_part_content_set(layout, "searchbar", searchbar_layout);
 
 	Evas_Object* fs_layout = elm_layout_add(layout);
-	elm_layout_theme_set(fs_layout, "layout", "application", "fastscroll");
+	//elm_layout_theme_set(fs_layout, "layout", "application", "fastscroll");
+	elm_layout_theme_set(fs_layout, "layout", "application", "default");
 	elm_object_part_content_set(layout, "elm.swallow.content", fs_layout);
 
+#if 0
 	Evas_Object* index = create_fastscroll(ad);
 	elm_object_part_content_set(fs_layout, "elm.swallow.fastscroll", index);
+#endif
 
 	Evas_Object* peer_list = create_genlist(ad, fs_layout);
 	evas_object_data_set(peer_list, "app_data", ad);
@@ -778,6 +922,9 @@ void launch_start_peer_search_view(appdata_s* ad)
 
 	_append_command_item(peer_list, ad);
 	_append_peer_item(peer_list, ad, ad->search_peer_list);
+	if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
+		_append_contact_item(peer_list, ad, ad->contact_list);
+	}
 
 	/* no contents */
 	Evas_Object *nocontents = elm_layout_add(ad->nf);

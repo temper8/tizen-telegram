@@ -15,6 +15,7 @@
 #include <notification.h>
 #include <badge.h>
 #include "tg_settings_view.h"
+#include "device_contacts_manager.h"
 
 static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -443,11 +444,15 @@ void load_main_list_data(appdata_s *ad)
 							char *phone_num = NULL;
 							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
+							if (!first_name || strstr(first_name ,"null") != 0) {
+								first_name = NULL;
+							}
+
 							if (!first_name && !last_name && phone_num) {
 								first_name = phone_num;
 							}
 
-							if (!last_name) {
+							if (!last_name || strstr(last_name ,"null") != 0) {
 								last_name = "";
 							}
 							user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -516,11 +521,15 @@ void load_main_list_data(appdata_s *ad)
 								char *phone_num = NULL;
 								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
+								if (!first_name || strstr(first_name ,"null") != 0) {
+									first_name = NULL;
+								}
+
 								if (!first_name && !last_name && phone_num) {
 									first_name = phone_num;
 								}
 
-								if (!last_name) {
+								if (!last_name || strstr(last_name ,"null") != 0) {
 									last_name = "";
 								}
 								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -3057,6 +3066,7 @@ static bool app_create(void *data)
 	ad->s_notififcation = NULL;
 	ad->panel = NULL;
 	ad->is_server_ready = EINA_FALSE;
+	ad->contact_list = NULL;
 	//ad->msg_count = 0;
 	create_base_gui(ad);
 	int err = badge_new(TELEGRAM_APP_ID);
@@ -3335,6 +3345,7 @@ app_terminate(void *data)
 		service_client_destroy(app_data->service_client);
 		app_data->service_client = NULL;
 	}
+	free_contact_list(app_data->contact_list);
 	tg_db_fini();
 }
 
