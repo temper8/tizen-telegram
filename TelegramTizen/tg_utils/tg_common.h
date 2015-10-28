@@ -118,6 +118,12 @@
 #define TG_PLAY_NORMAL_ICON       FM_ICON_PATH"telegram_audio_player_play_normal.png"
 #define TG_PLAY_PRESS_ICON       FM_ICON_PATH"telegram_audio_player_play_press.png"
 
+#define TG_CALLER_ID_BG      FM_ICON_PATH"Telegram_caller_id_default_bg_full.png"
+#define TG_CALLER_ID_IMAGE      FM_ICON_PATH"telegram_caller_id_default_full.png"
+
+#define TG_USER_INFO_CALL      FM_ICON_PATH"telegram_btn_ic_call.png"
+#define TG_USER_INFO_MESSAGE      FM_ICON_PATH"telegram_btn_ic_message.png"
+
 
 #define INIT_SCREEN_1       FM_ICON_PATH"screenshot_1.png"
 #define INIT_SCREEN_2       FM_ICON_PATH"screenshot_2.png"

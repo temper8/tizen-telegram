@@ -572,6 +572,60 @@ void on_message_button_clicked(void *data, Evas_Object *obj, void *event_info)
 	}
 }
 
+void on_userinfo_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	app_nf_back_cb(data, obj, event_info);
+}
+
+
+static void on_user_info_icon_pressed(void *data, Evas_Object *obj, void *event_info)
+{
+	if (data)
+		evas_object_color_set(data, 45, 165, 224, 178);
+}
+
+static void on_user_info_icon_unpressed(void *data, Evas_Object *obj, void *event_info)
+{
+	if (data)
+		evas_object_color_set(data, 45, 165, 224, 255);
+}
+
+static void on_user_info_msg_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (ad) {
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
+	}
+}
+
+static void on_user_info_call_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	app_control_h app_control;
+	int ret = app_control_create(&app_control);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		return;
+	}
+	app_control_set_operation(app_control, APP_CONTROL_OPERATION_CALL);
+	char phone_num[512] = {0,};
+	strcpy(phone_num, "tel:");
+	strcat(phone_num, ad->buddy_in_cahtting_data->use_data->phone);
+	app_control_set_uri(app_control, phone_num);
+	if (app_control_send_launch_request(app_control, NULL, NULL) == APP_CONTROL_ERROR_NONE) {
+		// sms view launched
+	}
+	app_control_destroy(app_control);
+}
+
+
 void launch_user_info_screen(appdata_s* ad, int peer_id)
 {
 	if (!ad) {
@@ -584,6 +638,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	ad->current_app_state = TG_SET_USER_INFO_STATE;
 
+#if 0
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
@@ -680,6 +735,186 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "User Info", NULL, NULL, scroller, NULL);
 	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_user_info_menu_button_clicked, ad);
+#else
 
+
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+
+	Evas_Object* scroller = elm_scroller_add(ad->nf);
+	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
+	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+
+
+	Evas_Object* layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(layout, edj_path, "buddy_info_screen");
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(layout);
+	elm_object_content_set(scroller, layout);
+
+
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, ad->main_item_in_cahtting_data->buddy_display_name, NULL, NULL, scroller, NULL);
+	elm_object_item_part_text_set(navi_item, "subtitle", "Subtitle");
+
+
+	/*********************** set last seen ******************************/
+
+	Eina_List* buddy_details_array = get_buddy_info(ad->main_item_in_cahtting_data->peer_id);
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+			int* temp_online = (int*)eina_list_nth(buddy_details, 12);
+			int is_online = *temp_online;
+			int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
+			int last_seen = *temp_last_seen;
+
+			char *format = NULL;
+			Eina_Bool is_today = compare_date_with_current_date(last_seen);
+
+			if (is_online > 0) {
+				elm_object_item_part_text_set(navi_item, "subtitle", "Online");
+			} else {
+				time_t t = last_seen;
+
+				if (is_today) {
+					format = "Last seen %I:%M %p";
+				} else {
+					format = "Last seen %b %d, %I:%M %P";
+				}
+
+				struct tm lt;
+				char res[256];
+				(void) localtime_r(&t, &lt);
+
+				if (strftime(res, sizeof(res), format, &lt) == 0) {
+					(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+							"date/time into buffer of size %u "
+							"using: '%s'\n",
+							sizeof(res), format);
+				}
+				elm_object_item_part_text_set(navi_item, "subtitle", res);
+			}
+
+			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
+				void* val = eina_list_nth(buddy_details, i);
+				free(val);
+			}
+			eina_list_free(buddy_details);
+		}
+		eina_list_free(buddy_details_array);
+	}
+
+    /************************* set last seen *******************************************/
+
+
+
+	/************************* profile pic *******************************************/
+
+
+	Evas_Object *profile_pic = NULL;
+
+	if (ad->peer_in_cahtting_data->use_data->photo_path && strlen(ad->peer_in_cahtting_data->use_data->photo_path) > 0 && strstr(ad->peer_in_cahtting_data->use_data->photo_path, "_null_") == NULL) {
+		profile_pic = get_image_from_path(ad->peer_in_cahtting_data->use_data->photo_path, ad->nf);
+	} else  {
+		profile_pic = get_image_from_path(ui_utils_get_resource(TG_CALLER_ID_IMAGE), ad->nf);
+		evas_object_color_set(profile_pic, 45, 165, 224, 255);
+	}
+
+	elm_object_part_content_set(layout, "swallow.profile_pic", profile_pic);
+
+	/************************* profile pic *******************************************/
+
+
+	Evas_Object *info_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(info_layout, edj_path, "buddy_num_layout");
+	evas_object_size_hint_weight_set(info_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(info_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(info_layout);
+	elm_object_part_content_set(layout, "swallow.profile_info", info_layout);
+
+	Evas_Object *phone_type = elm_label_add(ad->nf);
+	elm_object_style_set(phone_type, "transparent");
+	char phone_type_str[256];
+	sprintf(phone_type_str, "<font=Tizen:style=Normal color=#A9A9A9 align=left><font_size=35>&nbsp;&nbsp;%s</font_size></font>","Mobile");
+	elm_object_text_set(phone_type, phone_type_str);
+	evas_object_size_hint_weight_set(phone_type, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(phone_type, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(phone_type);
+
+	elm_object_part_content_set(info_layout, "swallow.phone_type", phone_type);
+
+
+	Evas_Object* msg_btn = elm_button_add(ad->nf);
+	elm_object_style_set(msg_btn, "transparent");
+	evas_object_size_hint_align_set(msg_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(msg_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	Evas_Object* msg_icon = elm_image_add(ad->nf);
+	evas_object_size_hint_align_set(msg_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(msg_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    elm_image_file_set(msg_icon, ui_utils_get_resource(TG_USER_INFO_MESSAGE), NULL);
+    evas_object_show(msg_icon);
+    evas_object_color_set(msg_icon, 45, 165, 224, 255);
+	Evas_Object* msg_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(msg_pic_layout, edj_path, "circle_layout");
+	evas_object_size_hint_weight_set(msg_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(msg_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(msg_pic_layout);
+	elm_object_part_content_set(msg_pic_layout, "content", msg_icon);
+
+    elm_object_content_set(msg_btn, msg_pic_layout);
+
+    evas_object_smart_callback_add(msg_btn, "clicked", on_user_info_msg_clicked, ad);
+    evas_object_smart_callback_add(msg_btn, "pressed", on_user_info_icon_pressed, msg_icon);
+    evas_object_smart_callback_add(msg_btn, "unpressed", on_user_info_icon_unpressed, msg_icon);
+    elm_object_part_content_set(info_layout, "swallow.phone_msg", msg_btn);
+
+
+	Evas_Object* call_btn = elm_button_add(ad->nf);
+	elm_object_style_set(call_btn, "transparent");
+	evas_object_size_hint_align_set(call_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(call_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+	Evas_Object* call_icon = elm_image_add(ad->nf);
+	evas_object_size_hint_align_set(call_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(call_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    elm_image_file_set(call_icon, ui_utils_get_resource(TG_USER_INFO_CALL), NULL);
+    evas_object_show(call_icon);
+    evas_object_color_set(call_icon, 45, 165, 224, 255);
+	Evas_Object* call_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(call_pic_layout, edj_path, "circle_layout");
+	evas_object_size_hint_weight_set(call_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(call_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(call_pic_layout);
+	elm_object_part_content_set(call_pic_layout, "content", call_icon);
+
+    elm_object_content_set(call_btn, call_pic_layout);
+
+    evas_object_smart_callback_add(call_btn, "clicked", on_user_info_call_clicked, ad);
+    evas_object_smart_callback_add(call_btn, "pressed", on_user_info_icon_pressed, call_icon);
+    evas_object_smart_callback_add(call_btn, "unpressed", on_user_info_icon_unpressed, call_icon);
+    elm_object_part_content_set(info_layout, "swallow.phone_call", call_btn);
+
+	Evas_Object *phone_num = elm_label_add(ad->nf);
+	elm_object_style_set(phone_num, "transparent");
+	char phone_num_str[256];
+	sprintf(phone_num_str, "<font=Tizen:style=Bold color=#000000 align=left><font_size=40>&nbsp;&nbsp;%s</font_size></font>", ad->buddy_in_cahtting_data->use_data->phone);
+	elm_object_text_set(phone_num, phone_num_str);
+	evas_object_size_hint_weight_set(phone_num, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(phone_num, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(phone_num);
+
+	elm_object_part_content_set(info_layout, "swallow.phone_number", phone_num);
+
+	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
+	evas_object_smart_callback_add(back_btn, "clicked", on_userinfo_back_button_clicked, ad);
+
+	elm_object_item_part_content_set(navi_item, "title_left_btn", back_btn);
+
+
+
+#endif
 }
 
