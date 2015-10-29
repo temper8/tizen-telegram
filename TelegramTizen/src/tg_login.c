@@ -26,8 +26,18 @@ static void on_code_change_enable_ok_button(void *data, Evas_Object *obj, void *
 static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
-	elm_win_lower(ad->win);
-	elm_exit();
+	if (!ad)
+		return;
+
+	send_request_for_restart_server(ad->service_client);
+	if (ad->timer_value > 0) {
+		Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
+		if (timer)
+			ecore_timer_del(timer);
+	}
+
+	elm_naviframe_item_pop(ad->nf);
+	ad->current_app_state = TG_REGISTRATION_STATE;
 }
 
 static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event_info)

@@ -103,7 +103,7 @@ char* get_budy_state(appdata_s* ad, int buddy_id)
 			Eina_Bool is_today = compare_date_with_current_date(last_seen);
 
 			if (is_online > 0) {
-				strcpy(time_str,"online");
+				strcpy(time_str, i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 			} else {
 				time_t t = last_seen;
 

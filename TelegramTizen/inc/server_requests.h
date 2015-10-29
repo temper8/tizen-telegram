@@ -10,6 +10,7 @@
 
 #include "tg_common.h"
 
+void send_request_for_restart_server(service_client* service_client);
 void send_request_for_registration(service_client* service_client, const char* phone_number, Eina_Bool through_sms);
 void send_request_for_profile_registration(service_client* service_client, const char* first_name, const char* last_name);
 void send_request_for_validation(service_client* service_client, const char* sms_code);

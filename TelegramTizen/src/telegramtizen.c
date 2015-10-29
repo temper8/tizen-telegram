@@ -2607,6 +2607,12 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 	} else if (strcmp(rec_key_val, "request_reg_code_again") == 0) {
 		show_toast(app,"Please enter a valid code.");
 		hide_loading_popup(app);
+	} else if (strcmp(rec_key_val, "request_phone_num_again") == 0) {
+		show_toast(app,"Please enter a valid phone number.");
+		hide_loading_popup(app);
+	} else if (strcmp(rec_key_val, "server_connection_failed") == 0) {
+		show_toast(app,"Server connection failed. please check network connection");
+		hide_loading_popup(app);
 	}
 
 	if (strcmp(rec_key_val, "contacts_and_chats_load_done") == 0) {
@@ -3072,7 +3078,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_exit();
 			break;
 		case TG_LOGIN_STATE:
-
+			send_request_for_restart_server(ad->service_client);
 			if (ad->timer_value > 0) {
 				Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
 				if (timer)

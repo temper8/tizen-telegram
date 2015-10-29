@@ -92,6 +92,7 @@ extern void tgl_engine_destroy_TLS(void);
 extern void on_user_info_loaded(struct tgl_state *TLSR, void *extra, int success, struct tgl_user *U);
 
 typedef enum TG_ENGINE_STATE {
+	TG_ENGINE_STATE_NONE,
 	TG_ENGINE_STATE_INITIALIZING,
 	TG_ENGINE_STATE_REGISTRATION,
 	TG_ENGINE_STATE_PROFILE_REGISTRATION,
@@ -149,6 +150,7 @@ typedef struct tg_engine_data {
 	Eina_List *buddy_list;
 	int current_buddy_index;
 	int current_group_chat_index;
+	Ecore_Timer *code_response_timer;
 } tg_engine_data_s;
 
 typedef struct contact_data {

@@ -12,6 +12,7 @@
 #include "tgl-fetch.h"
 #include <mime_type.h>
 #include "device_contacts_manager.h"
+#include "tg-engine-service.h"
 
 #define DC_SERIALIZED_MAGIC 0x868aa81d
 #define STATE_FILE_MAGIC 0x28949a93
@@ -511,12 +512,24 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 	tg_data->get_string = callback;
 	tg_data->callback_arg = arg;
 	if (strcmp (prompt, "phone number:") == 0) {
-		tg_data->is_first_time_registration = EINA_TRUE;
-		tg_data->tg_state = TG_ENGINE_STATE_REGISTRATION;
-		if (tg_data && tg_data->phone_number) {
-			tg_data->get_string(TLS, tg_data->phone_number, tg_data->callback_arg);
+
+		if (tg_data->tg_state == TG_ENGINE_STATE_REGISTRATION) {
+			send_request_phone_num_again(tg_data);
+		} else {
+			tg_data->is_first_time_registration = EINA_TRUE;
+			tg_data->tg_state = TG_ENGINE_STATE_REGISTRATION;
+			if (tg_data && tg_data->phone_number) {
+				tg_data->get_string(TLS, tg_data->phone_number, tg_data->callback_arg);
+				tg_data->code_response_timer = ecore_timer_add(60, on_code_request_timer_expired, tg_data);
+			}
 		}
 	} else if (strcmp (prompt, "code('call' for phone call):") == 0) {
+
+		if (tg_data->code_response_timer) {
+			ecore_timer_del(tg_data->code_response_timer);
+			tg_data->code_response_timer = NULL;
+		}
+
 		void **T = arg;
 		tg_data->mhash = T[1];
 

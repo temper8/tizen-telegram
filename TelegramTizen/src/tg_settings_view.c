@@ -212,7 +212,7 @@ Evas_Object* on_user_info_requested(void *data, Evas_Object *obj, const char *pa
 
 		elm_object_part_content_set(user_status_layout, "swallow.name", name_lbl);
 
-		char* user_status = "online";
+		char* user_status = i18n_get_text("IDS_TGRAM_SBODY_ONLINE");
 		char status_buf[126] = {'\0'};
 		sprintf(status_buf, "<font=Tizen:style=Italic color=#FFFFFF align=left><font_size=35>%s</font_size></font>", user_status);
 

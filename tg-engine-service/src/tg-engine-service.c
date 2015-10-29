@@ -10,6 +10,7 @@
 #include <badge.h>
 
 static void free_connection(tg_engine_data_s* tg_data);
+static Eina_Bool on_restart_service_requested(void *data);
 static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 {
 	tg_engine_data_s *tg_data = data;
@@ -25,6 +26,10 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		res = bundle_get_str(rec_msg, "phone_number", &ph_no_key_val);
 		res = bundle_get_str(rec_msg, "through_sms", &sms_key_val);
 
+		if (tg_data->tg_state != TG_ENGINE_STATE_NONE && tg_data->tg_state != TG_ENGINE_STATE_REGISTRATION) {
+			on_restart_service_requested(tg_data);
+		}
+
 		Eina_Bool th_sms = EINA_TRUE;
 
 		if (strcmp(sms_key_val, "true") == 0) {
@@ -35,6 +40,8 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		process_registration_command(tg_data, ph_no_key_val, th_sms);
 
+	} else if (strcmp(cmd_key_val, "restart_server") == 0) {
+		on_restart_service_requested(tg_data);
 	} else if (strcmp(cmd_key_val, "code_validation") == 0) {
 
 		char* sms_code_val = NULL;
@@ -421,6 +428,24 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 	return result;
 }
 
+Eina_Bool on_code_request_timer_expired(void *data)
+{
+	tg_engine_data_s *tg_data = data;
+
+	if (tg_data->code_response_timer == NULL) {
+		return ECORE_CALLBACK_CANCEL;
+	}
+
+	if (tg_data->code_response_timer) {
+		ecore_timer_del(tg_data->code_response_timer);
+		tg_data->code_response_timer = NULL;
+	}
+	send_server_connection_failed_response(tg_data);
+	on_restart_service_requested(tg_data);
+	return ECORE_CALLBACK_CANCEL;
+}
+
+
 Eina_Bool event_idler_cb(void *data)
 {
 	tg_engine_data_s *tg_data = data;
@@ -443,7 +468,7 @@ static Eina_Bool on_start_service_requested(void *data)
 	return ECORE_CALLBACK_CANCEL;
 }
 
-static Eina_Bool on_restart_service_requested(void *data)
+Eina_Bool on_restart_service_requested(void *data)
 {
 	tg_engine_data_s *tg_data = data;
 
@@ -451,7 +476,7 @@ static Eina_Bool on_restart_service_requested(void *data)
 	free_connection(tg_data);
 	tgl_engine_var_init();
 	tg_db_init();
-	tg_data->tg_state = TG_ENGINE_STATE_REGISTRATION;
+	tg_data->tg_state = TG_ENGINE_STATE_NONE;
 	tg_data->tg_server = tg_server_create();
 	tg_data->first_name = NULL;
 	tg_data->last_name = NULL;
@@ -461,12 +486,13 @@ static Eina_Bool on_restart_service_requested(void *data)
 	tg_data->new_group_icon = NULL;
 	tg_data->mhash = NULL;
 	tg_data->lazy_init_idler = NULL;
-
+	tg_data->code_response_timer = NULL;
 
 	init_tl_engine(data);
 	tgl_login(tgl_engine_get_TLS());
 
 	tg_data->lazy_init_idler = NULL;
+	tg_data->code_response_timer = NULL;
 	return ECORE_CALLBACK_CANCEL;
 }
 
@@ -527,7 +553,7 @@ bool service_app_create(void *data)
 	RETVM_IF(!tg_data, SVC_RES_FAIL, "Application data is NULL");
 	tgl_engine_var_init();
 	tg_db_init();
-	tg_data->tg_state = TG_ENGINE_STATE_REGISTRATION;
+	tg_data->tg_state = TG_ENGINE_STATE_NONE;
 	tg_data->tg_server = tg_server_create();
 	tg_data->first_name = NULL;
 	tg_data->last_name = NULL;
@@ -537,6 +563,7 @@ bool service_app_create(void *data)
 	tg_data->new_group_icon = NULL;
 	tg_data->mhash = NULL;
 	tg_data->lazy_init_idler = NULL;
+	tg_data->code_response_timer = NULL;
 	tg_data->s_notififcation = NULL;
 	tg_data->chat_list = NULL;
 	tg_data->current_chat_index = 0;

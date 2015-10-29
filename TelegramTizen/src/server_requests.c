@@ -7,6 +7,46 @@
 #include "server_requests.h"
 #include "tg_db_wrapper.h"
 
+
+
+void send_request_for_restart_server(service_client* service_client)
+{
+	bundle *msg;
+	int result;
+
+	if (!service_client) {
+		// error
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		LOGE("Failed to create a bundle");
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "restart_server") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		// error
+		LOGE("Failed to send a service message");
+	}
+
+	bundle_free(msg);
+
+}
+
 void send_request_for_registration(service_client* service_client, const char* phone_number, Eina_Bool through_sms)
 {
 	bundle *msg;

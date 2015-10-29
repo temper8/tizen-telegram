@@ -774,7 +774,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 			Eina_Bool is_today = compare_date_with_current_date(last_seen);
 
 			if (is_online > 0) {
-				elm_object_item_part_text_set(navi_item, "subtitle", "Online");
+				elm_object_item_part_text_set(navi_item, "subtitle", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 			} else {
 				time_t t = last_seen;
 

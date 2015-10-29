@@ -1945,7 +1945,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 
 				if (is_online > 0) {
 					char status_str[256]={0,};
-					snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", "online");
+					snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 					elm_object_text_set(profile_time,status_str);
 				} else {
 					time_t t = last_seen;
@@ -2025,17 +2025,21 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 
 		evas_object_data_set(ad->nf, "names_of_buddies", (void*)names_of_buddies);
 
-
+#if 0
 		if (online_members == 0) {
 			char status_str[256]={0,};
-			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d members</font_size></font>", user_list_size);
+			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d %s</font_size></font>", user_list_size, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"));
 			elm_object_text_set(profile_time,status_str);
 		} else {
 			char status_str[256]={0,};
-			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d members, %d online</font_size></font>", user_list_size, online_members);
+			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d %s, %d %s</font_size></font>", user_list_size, , online_members, i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 			elm_object_text_set(profile_time,status_str);
 		}
-
+#else
+		char status_str[256]={0,};
+		snprintf(status_str, sizeof(status_str) - 1, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), user_list_size);
+		elm_object_text_set(profile_time,status_str);
+#endif
 
 		if (chat_info) {
 			if(chat_info->print_title) {
@@ -3465,7 +3469,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 		evas_object_size_hint_weight_set(no_msg_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_show(no_msg_lbl);
 		char temp_msg[4*256] = {0,};
-		snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", "No messages here yet...");
+		snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"));
 		elm_object_text_set(no_msg_lbl, temp_msg);
 		elm_object_part_content_set(layout, "swallow.no_msg_text", no_msg_lbl);
 		evas_object_data_set(ad->nf, "chat_list_no_msg_text", (void*)no_msg_lbl);
