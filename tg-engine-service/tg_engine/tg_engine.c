@@ -517,11 +517,15 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 			tg_data->get_string(TLS, tg_data->phone_number, tg_data->callback_arg);
 		}
 	} else if (strcmp (prompt, "code('call' for phone call):") == 0) {
-
 		void **T = arg;
 		tg_data->mhash = T[1];
-		tg_data->tg_state = TG_ENGINE_STATE_CODE_REQUEST;
-		send_registration_response(tg_data, EINA_TRUE);
+
+		if (tg_data->tg_state == TG_ENGINE_STATE_CODE_REQUEST) {
+			send_request_code_again(tg_data);
+		} else {
+			tg_data->tg_state = TG_ENGINE_STATE_CODE_REQUEST;
+			send_registration_response(tg_data, EINA_TRUE);
+		}
 
 	} else if (strcmp (prompt, "register [Y/n]:") == 0) {
 

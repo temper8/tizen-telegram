@@ -187,6 +187,44 @@ void process_set_username_command(tg_engine_data_s *tg_data, int buddy_id, const
 	set_user_name(tg_data, buddy_id, username);
 }
 
+void send_request_code_again(tg_engine_data_s *tg_data)
+{
+	bundle *msg;
+	int result;
+
+	msg = bundle_create();
+	if (!msg) {
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != BUNDLE_ERROR_NONE)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "request_reg_code_again") != BUNDLE_ERROR_NONE) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	if (bundle_add_str(msg, "phone_number", tg_data->phone_number) != BUNDLE_ERROR_NONE)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		return;
+	}
+
+	result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+
+	bundle_free(msg);
+}
+
+
 void send_registration_response(tg_engine_data_s *tg_data, Eina_Bool is_success)
 {
 	bundle *msg;

@@ -35,6 +35,7 @@ extern void process_update_display_name_command(tg_engine_data_s *tg_data, int b
 
 extern void send_add_contacts_request(tg_engine_data_s *tg_data);
 extern void send_registration_response(tg_engine_data_s *tg_data, Eina_Bool is_success);
+extern void send_request_code_again(tg_engine_data_s *tg_data);
 extern void send_name_registration_response(tg_engine_data_s *tg_data);
 extern void send_contacts_load_done_response(tg_engine_data_s *tg_data, Eina_Bool is_success);
 extern void send_self_profile_picture_updated_response(tg_engine_data_s *tg_data, char *file_path, Eina_Bool is_success);
