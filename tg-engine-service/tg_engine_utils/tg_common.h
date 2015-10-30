@@ -33,4 +33,6 @@ extern char *replace(const char *s, char ch, const char *repl);
 
 extern void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
 
+extern int recursive_dir_delete(const char *dir);
+
 #endif /* TG_COMMON_H_ */

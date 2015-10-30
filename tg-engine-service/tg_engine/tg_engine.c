@@ -2874,6 +2874,11 @@ void do_add_buddy(int buddy_id, char *first_name, char *last_name, char *phone_n
 }
 
 
+void logout_telegram(tg_engine_data_s *tg_data)
+{
+
+}
+
 void do_delete_buddy(int buddy_id)
 {
 	tgl_peer_id_t peer_id;

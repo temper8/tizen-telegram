@@ -30,11 +30,10 @@ static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *even
 		return;
 
 	send_request_for_restart_server(ad->service_client);
-	if (ad->timer_value > 0) {
-		Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
-		if (timer)
-			ecore_timer_del(timer);
-	}
+
+	Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
+	if (timer)
+		ecore_timer_del(timer);
 
 	elm_naviframe_item_pop(ad->nf);
 	ad->current_app_state = TG_REGISTRATION_STATE;
@@ -55,6 +54,11 @@ static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event
 			free(val);
 			return;
 		}
+		Ecore_Timer *timer = evas_object_data_get(ad->nf, "code_timer");
+		if (timer) {
+			ecore_timer_del(timer);
+		}
+
 		send_request_for_validation(ad->service_client, val);
 		show_loading_popup(ad);
 	}
@@ -91,7 +95,7 @@ static Eina_Bool on_code_timer_cb(void* data)
 		ecore_timer_del(timer);
 
 		char temp_txt[512] = {0,};
-			snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 0, 0);
+		snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 0, 0);
 
 		// send request to get phone call
 		send_request_for_registration(ad->service_client, ad->phone_number, EINA_FALSE);

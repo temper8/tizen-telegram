@@ -40,6 +40,86 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		process_registration_command(tg_data, ph_no_key_val, th_sms);
 
+	} else if (strcmp(cmd_key_val, "logout_telegram") == 0) {
+
+		//process_logout_command(tg_data);
+
+		// delete all data.
+
+
+		tg_data->is_login_activated = EINA_FALSE;
+		tg_data->is_network_connected = EINA_FALSE;
+		if (tg_data->phone_number) {
+			free(tg_data->phone_number);
+			tg_data->phone_number = NULL;
+		}
+
+		if (tg_data->sms_code) {
+			free(tg_data->sms_code);
+			tg_data->sms_code = NULL;
+		}
+
+		if (tg_data->first_name) {
+			free(tg_data->first_name);
+			tg_data->first_name = NULL;
+		}
+
+		if (tg_data->last_name) {
+			free(tg_data->last_name);
+			tg_data->last_name = NULL;
+		}
+
+		if (tg_data->contact_list_to_add) {
+			free_contact_data(tg_data->contact_list_to_add);
+			tg_data->contact_list_to_add = NULL;
+		}
+
+		if (tg_data->chat_list) {
+			eina_list_free(tg_data->chat_list);
+			tg_data->chat_list = NULL;
+		}
+
+		if (tg_data->buddy_list) {
+			eina_list_free(tg_data->buddy_list);
+			tg_data->buddy_list = NULL;
+		}
+
+		tgl_engine_var_free();
+
+		tg_db_fini();
+
+#if 0
+		char *cmd = (char*)malloc(strlen("rm -r ") + strlen(DEFAULT_TELEGRAM_PATH) + 1);
+		strcpy(cmd, "rm -r ");
+		strcat(cmd, DEFAULT_TELEGRAM_PATH);
+		int ret = system(cmd);
+		free(cmd);
+#else
+		int ret = recursive_dir_delete(DEFAULT_TELEGRAM_PATH);
+#endif
+		send_response_for_logout(tg_data);
+		tgl_engine_var_init();
+		tg_db_init();
+		tg_data->tg_state = TG_ENGINE_STATE_NONE;
+		tg_data->first_name = NULL;
+		tg_data->last_name = NULL;
+		tg_data->phone_number = NULL;
+		tg_data->sms_code = NULL;
+		tg_data->contact_list_to_add = NULL;
+		tg_data->new_group_icon = NULL;
+		tg_data->mhash = NULL;
+		tg_data->lazy_init_idler = NULL;
+		tg_data->code_response_timer = NULL;
+
+		init_tl_engine(data);
+		tgl_login(tgl_engine_get_TLS());
+
+		tg_data->lazy_init_idler = NULL;
+		tg_data->code_response_timer = NULL;
+
+		//send event to application
+
+
 	} else if (strcmp(cmd_key_val, "restart_server") == 0) {
 		on_restart_service_requested(tg_data);
 	} else if (strcmp(cmd_key_val, "code_validation") == 0) {

@@ -12,6 +12,7 @@
 
 extern void process_registration_command(tg_engine_data_s *tg_data, char *phone_no, Eina_Bool trough_sms);
 extern void process_validation_command(tg_engine_data_s *tg_data, char *code);
+extern void process_logout_command(tg_engine_data_s *tg_data);
 extern void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
 extern void process_marked_as_read_command(int buddy_id, int type_of_chat);
 extern void process_delete_group_chat_request(tg_engine_data_s* tg_data, int chat_id);
@@ -68,6 +69,7 @@ extern void send_buddy_unblocked_response(tg_engine_data_s *tg_data, int buddy_i
 extern void send_group_chat_new_buddy_response(tg_engine_data_s *tg_data, int peer_id, Eina_Bool is_success);
 extern void send_group_chat_delete_buddy_response(tg_engine_data_s *tg_data, int peer_id, Eina_Bool is_success);
 extern void send_response_for_server_connection_status(tg_engine_data_s *tg_data, Eina_Bool connection_status);
+extern void send_response_for_logout(tg_engine_data_s *tg_data);
 
 extern void send_self_profile_name_updated_response(tg_engine_data_s *tg_data, char *first_name, char *last_name, Eina_Bool is_success);
 extern void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id);

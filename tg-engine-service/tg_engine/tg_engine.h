@@ -165,7 +165,7 @@ typedef struct contact_data {
 extern void send_do_mark_read_messages(int buddy_id, int type_of_chat);
 extern void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
 extern void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
-
+extern void logout_telegram(tg_engine_data_s *tg_data);
 extern void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long media_id);
 extern void add_contacts_to_user(tg_engine_data_s *tg_data, int size, Eina_List* contact_list);
 extern void create_new_group(tg_engine_data_s *tg_data, Eina_List* buddy_ids, const char* group_name, const char* group_icon);

@@ -767,7 +767,8 @@ static void _logout_btn_clicked_cb(void *data, Evas_Object *obj, void *event_inf
 	if (popup) {
 		evas_object_del(popup);
 	}
-	/* FIXME : Please input the logout API here */
+	send_request_for_logout(ad->service_client);
+	show_loading_popup(ad);
 }
 
 static void _create_logout_popup(appdata_s *ad)

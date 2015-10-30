@@ -17,6 +17,8 @@
 #include "tg_settings_view.h"
 #include "device_contacts_manager.h"
 
+static void free_app_data(appdata_s *app_data, Eina_Bool destroy_server);
+static int init_service(appdata_s *app);
 static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	evas_object_del(obj);
@@ -2613,6 +2615,46 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 	} else if (strcmp(rec_key_val, "server_connection_failed") == 0) {
 		show_toast(app,"Server connection failed. please check network connection");
 		hide_loading_popup(app);
+	} else if (strcmp(rec_key_val, "logout_completed") == 0) {
+		elm_naviframe_item_pop(app->nf);
+		elm_naviframe_item_pop(app->nf);
+		free_app_data(app, EINA_TRUE);
+
+		hide_loading_popup(app);
+
+		app->phone_number = NULL;
+		app->buddy_list = NULL;
+		app->unknown_buddy_list = NULL;
+		app->main_list = NULL;
+		app->peer_list = NULL;
+		app->search_peer_list = NULL;
+		app->is_first_time_registration = EINA_FALSE;
+		app->panel = NULL;
+		app->loaded_msg_list = NULL;
+		app->loading_popup = NULL;
+		app->current_user_data = NULL;
+		app->is_tg_initilized = EINA_FALSE;
+		app->chat_background = NULL;
+		app->msg_popup = NULL;
+		app->s_notififcation = NULL;
+		app->panel = NULL;
+		app->is_server_ready = EINA_FALSE;
+		app->contact_list = NULL;
+
+		char *chat_bg = NULL;
+		preference_get_string(TG_CHAT_BG_PREFERENCE, &chat_bg);
+		if (chat_bg) {
+			app->chat_background = strdup(chat_bg);
+		}
+
+		if (!app->chat_background) {
+			app->chat_background = strdup(ui_utils_get_resource(TG_CHAT_DEFAULT_BG));
+			preference_set_string(TG_CHAT_BG_PREFERENCE, app->chat_background);
+		}
+
+		init_service(app);
+		app->current_app_state = TG_REGISTRATION_STATE;
+		launch_init_screen(app);
 	}
 
 	if (strcmp(rec_key_val, "contacts_and_chats_load_done") == 0) {
@@ -3361,11 +3403,12 @@ app_resume(void *data)
 	}
 }
 
-static void
-app_terminate(void *data)
+
+void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 {
-	/* Release all resources. */
-	appdata_s *app_data = data;
+	if (!app_data) {
+		return;
+	}
 
 	int unread_msg_cnt = get_number_of_unread_messages();
 	int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
@@ -3390,11 +3433,6 @@ app_terminate(void *data)
 	if (app_data->sms_code) {
 		free(app_data->sms_code);
 		app_data->sms_code = NULL;
-	}
-
-	if(app_data->service_client) {
-		service_client_destroy(app_data->service_client);
-		app_data->service_client = NULL;
 	}
 
 	if (app_data->current_user_data) {
@@ -3600,12 +3638,18 @@ app_terminate(void *data)
 		app_data->loaded_msg_list = NULL;
 	}
 
-	if (app_data->service_client) {
+	if (app_data->service_client && destroy_server) {
 		service_client_destroy(app_data->service_client);
 		app_data->service_client = NULL;
 	}
 	free_contact_list(app_data->contact_list);
 	tg_db_fini();
+}
+
+static void
+app_terminate(void *data)
+{
+	free_app_data(data, EINA_TRUE);
 }
 
 static void
