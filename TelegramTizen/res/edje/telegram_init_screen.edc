@@ -16,6 +16,14 @@ styles {
 		tag:  "b" "+ font=Tizen:style=Bold";
 		tag:  "tab" "\t";
 	}
+	style {
+		name: "name,display";
+		base: "font=Tizen=Regular text_class=ATO022 font_size=40 align=left color=#666666 color_class=ATO009 wrap=mixed";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
 }
 
 collections {
@@ -119,6 +127,8 @@ base_scale: 2.6;
 		image: "camera_btn_gallery_mask.png" COMP;
 		image: "telegram_date_divider.#.png" COMP;
 		image: "telegram_list_thumb_image_bg.png" COMP;
+		image: "core_icon_container.png" COMP;
+		image: "telegram_circle_btn_ic_call.png" COMP;
 	}
 
    group {
@@ -3267,5 +3277,483 @@ group
     					color: 0 255 0 255;			
     			 }
     		}
+    	}
      }
+     
+     group {
+   	  name: "create_contact_screen";
+      parts {
+          part {
+         	name: "screen_bg";
+            type: RECT;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 0.0; }
+              rel2 { relative: 1.0 1.0; }
+              color: 255 255 255 255;
+            }
+         }
+        part {
+        	name: "image,bg";
+            type: RECT;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 0.0; to_y: "image"; }
+              rel2 { relative: 1.0 1.0; to_y: "image"; }
+              color: 255 255 255 255;
+              align: 0.5 0.5;
+            }
+         }
+         part {
+         	name: "image";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 0.0; }
+              rel2 { relative: 1.0 0.0; }
+              min: 0 440;
+              align: 0.5 0.0;
+            }
+         }
+        part {
+        	  name: "first_name_entry,bg";
+            type: RECT;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "image"; }
+              rel2 { relative: 1.0 1.0; to_y: "image"; offset: 0 120; }
+              color: 255 255 255 255;
+            }
+        }
+       part {
+        	name: "second_name_entry,bg";
+            type: RECT;
+            description {
+            state: "default" 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "first_name_entry,bg"; }
+              rel2 { relative: 1.0 1.0; to_y: "first_name_entry,bg"; offset: 0 120; }
+              color: 242 247 249 255;
+            }
+        }
+        part {
+			name: "name_text";
+			type: TEXTBLOCK;
+			description {
+				state: "default" 0.0;
+				rel1 { relative: 32/720 0.0; to_y: "first_name_entry,bg"; }
+				rel2 { relative: 212/720 1.0; to_y: "first_name_entry,bg"; }
+				align: 0.0 0.5;
+				fixed: 1 1;
+				min: 180 96;
+				max: 180 96;
+				text {
+					style: "name,display";
+					min: 0 1;
+					text: "Name";
+				}
+			}
+		}
+       part {
+        	name: "first_name_entry";
+            type: SWALLOW;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 244/720 0.0; to_y: "first_name_entry,bg"; }
+              rel2 { relative: 573/720 1.0; to_y: "first_name_entry,bg"; }
+              align: 0.5 0.5;
+            }
+         }
+       part {
+        	name: "second_name_entry";
+            type: SWALLOW;
+            description {
+            	state: "default" 0.0;
+              rel1 { relative: 244/720 0.0; to_y: "second_name_entry,bg"; }
+              rel2 { relative: 573/720 1.0; to_y: "second_name_entry,bg"; }
+              align: 0.5 0.5;
+            }
+         }
+         /*
+         part {
+         	name: "phone_number_list";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+            	fixed: 1 1;
+            	align: 0.5 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "second_name_entry,bg"; }
+              rel2 { relative: 1.0 1.0; to_y: "second_name_entry,bg"; }
+              min: 0 120;
+            }
+         }
+        part {
+         	name: "phone_btn";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+            	fixed: 1 1;
+            	align: 0.0 0.0;
+              rel1 { relative: 0.0 1.0; to_y: "phone_number_list"; }
+              rel2 { relative: 0.0 1.0; to_y: "phone_number_list"; }
+              min: 98 98;
+            }
+         }*/
+        part {
+         	name: "name_check";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+            	align: 0.5 0.5;
+              rel1 { relative: 590/720 0.0; to_y: "first_name_entry"; }
+              rel2 { relative: 710/720 1.0; to_y: "first_name_entry"; }
+              visible: 1;
+            }
+         }
+          part {
+         	name: "second_name_check";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+            	align: 0.5 0.5;
+              rel1 { relative: 590/720 0.0; to_y: "second_name_entry"; }
+              rel2 { relative: 710/720 1.0; to_y: "second_name_entry"; }
+              visible: 1;
+            }
+         }
+         /*
+		part {
+         	name: "mobile_button";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+            	align: 0.5 0.5;
+              rel1 { relative: 32/720 0.0; to_y: "phone_number_entry"; }
+              rel2 { relative: 212/720 1.0; to_y: "phone_number_entry"; }
+              visible: 1;
+            }
+         }
+         part {
+         	name: "phone_number_delete";
+            type: SWALLOW;
+            scale: 1;
+            description {
+            	state: "default" 0.0;
+            	align: 0.5 0.5;
+              rel1 { relative: 590/720 0.0; to_y: "phone_number_entry"; }
+              rel2 { relative: 710/720 1.0; to_y: "phone_number_entry"; }
+              visible: 1;
+            }
+         } */
+      } //parts
+   } //create contact_screen
+   
+   #define PART(TYPE, NAME, DESCRIPION) \
+   part { name: NAME; \
+      scale: 1; \
+      type: TYPE; \
+       DESCRIPION \
+    }
+   
+    #define DSC_FROM_L( STATE, PARAM ) \
+    description { state: STATE; \
+      fixed: 1 0; \
+      align: 0.0 0.5; \
+      rel2.relative: 0.0 1.0; \
+      PARAM \
+   }
+   
+   #define DSC_L( STATE, LEFT, PARAM ) \
+   description { state: STATE; \
+      align: 0 0.5; \
+      fixed: 1 0; \
+      rel1 { \
+         relative: 1 0; \
+         to_x: LEFT; \
+      } \
+      rel2 { \
+         relative: 1 1; \
+         to_x: LEFT; \
+      } \
+      PARAM \
+   }
+   
+   #define DSC_TO( STATE, PART, PARAM ) \
+   description { state: STATE; \
+      rel1 { \
+         relative: 0 0; \
+         to: PART; \
+      } \
+      rel2 { \
+         relative: 1 1; \
+         to: PART; \
+      } \
+      PARAM \
+   }
+   #define DSC_R( STATE, RIGHT, PARAM ) \
+   description { state: STATE; \
+      align: 1 0.5; \
+      fixed: 1 0; \
+      rel1 { \
+         relative: 0 0; \
+         to_x: RIGHT; \
+      } \
+      rel2 { \
+         relative: 0 1; \
+         to_x: RIGHT; \
+      } \
+      PARAM \
+   }
+   
+    #define DSC_FROM_R( STATE, PARAM ) \
+    description { state: STATE; \
+      fixed: 1 0; \
+      align: 1.0 0.5; \
+      rel1.relative: 1 0; \
+      PARAM \
+   }
+   #define DSC_LR( STATE, LEFT, RIGHT, PARAM ) \
+   description { state: STATE; \
+      rel1 { \
+         relative: 1 0; \
+         to_x: LEFT; \
+      } \
+      rel2 { \
+         relative: 0 1; \
+         to_x: RIGHT; \
+      } \
+      PARAM \
+   }
+   
+   group {
+        name: "elm/genlist/item/input.1image/default";
+
+        data.item: "contents" "contents";
+        data.item: "banded_bg_area" "elm.swallow.bg";
+
+        parts {
+        		PART(SWALLOW, "elm.swallow.bg",
+                description { state: "default" 0.0;
+             	   }
+                )
+              PART(SWALLOW, "contents",
+                description { state: "default" 0.0;
+                min: 720 440;
+               	 }
+            )
+        }
+    }
+   
+    group {
+        name: "elm/genlist/item/input.3icon/default";
+
+        data.item: "contents" "elm.icon.1 elm.icon.entry elm.icon.2";
+        data.item: "banded_bg_area" "elm.swallow.bg";
+
+        parts {
+            PART(SWALLOW, "elm.swallow.bg",
+                description { state: "default" 0.0;
+                }
+            )
+            PART(SPACER, "elm.padding.left",
+                DSC_FROM_L("default" 0.0,
+                    min: 32 0;
+                    max: 32 -1;
+                )
+            )
+            PART(RECT, "elm.icon.1.rect",
+                    DSC_L("default" 0.0, "elm.padding.left",
+                    min: 180 120;
+                    max: 180 120;
+                    color: 255 255 255 0;
+                )
+            )
+            PART(SPACER, "elm.icon.1.pad",
+                    DSC_L("default" 0.0, "elm.icon.1.rect",
+                    min: 32 120;
+                    max: 32 120;
+                )
+            )
+            PART(SWALLOW, "elm.icon.1",
+                    DSC_TO("default" 0.0, "elm.icon.1.rect",
+                        visible: 1;
+                    )
+            )
+            PART(SPACER, "elm.icon.2.padding.right",
+                DSC_FROM_R("default" 0.0,
+                    min: 10 0;
+                    max: 10 -1;
+                )
+            )
+            PART(SWALLOW, "elm.icon.2",
+                DSC_R("default" 0.0,
+                    "elm.icon.2.padding.right",
+                    align: 1.0 0.5;
+                    min: 80 80;
+                    max: 80 80;
+                    fixed: 1 1;
+                )
+            )
+            PART(SWALLOW, "elm.icon.entry",
+                DSC_LR("default" 0.0,
+                    "elm.icon.1.pad", "elm.icon.2",
+                    min: 0 120;
+                    fixed: 1 1;
+                )
+            )
+        }
+    } // theme
+    
+    group {
+        name: "elm/genlist/item/input.2icon/default";
+
+        data.item: "contents" "elm.icon.entry elm.icon.2";
+        data.item: "texts" "elm.text";
+        data.item: "banded_bg_area" "elm.swallow.bg";
+
+        parts {
+            PART(SWALLOW, "elm.swallow.bg",
+                description { state: "default" 0.0;
+                }
+            )
+            PART(SPACER, "elm.padding.left",
+                DSC_FROM_L("default" 0.0,
+                    min: 32 0;
+                    max: 32 -1;
+                )
+            )
+            PART(RECT, "elm.icon.1.rect",
+                    DSC_L("default" 0.0, "elm.padding.left",
+                    min: 180 120;
+                    max: 180 120;
+                    color: 255 255 255 0;
+                )
+            )
+            PART(SPACER, "elm.icon.1.pad",
+                    DSC_L("default" 0.0, "elm.icon.1.rect",
+                    min: 32 120;
+                    max: 32 120;
+                )
+            )
+            PART(TEXTBLOCK, "elm.text",
+                    DSC_TO("default" 0.0, "elm.icon.1.rect",
+                        min: 180 100;
+                        max: 180 100;
+                        visible: 1;
+                        fixed: 1 1;
+                        text {
+								style: "name,display";
+								min: 0 1;
+								text: "Name";
+							}
+                    )
+            )
+            PART(SPACER, "elm.icon.2.padding.right",
+                DSC_FROM_R("default" 0.0,
+                    min: 10 0;
+                    max: 10 -1;
+                )
+            )
+            PART(SWALLOW, "elm.icon.2",
+                DSC_R("default" 0.0,
+                    "elm.icon.2.padding.right",
+                    align: 1.0 0.5;
+                    min: 80 80;
+                    max: 80 80;
+                    fixed: 1 1;
+                )
+            )
+            PART(SWALLOW, "elm.icon.entry",
+                DSC_LR("default" 0.0,
+                    "elm.icon.1.pad", "elm.icon.2",
+                    min: 0 120;
+                    fixed: 1 1;
+                )
+            )
+        }
+    } // theme
+    
+    group {
+        name: "elm/genlist/item/input.1icon/default";
+
+        data.item: "contents" "elm.icon.1 elm.icon.entry elm.icon.2";
+        data.item: "banded_bg_area" "elm.swallow.bg";
+
+        parts {
+            PART(SWALLOW, "elm.swallow.bg",
+                description { state: "default" 0.0;
+                }
+            )
+            PART(SPACER, "elm.padding.left",
+                DSC_FROM_L("default" 0.0,
+                    min: 32 0;
+                    max: 32 -1;
+                )
+            )
+            PART(RECT, "elm.icon.1.rect",
+                    DSC_L("default" 0.0, "elm.padding.left",
+                    min: 98 98;
+                    max: 98 98;
+                    color: 255 255 255 0;
+                )
+            )
+          part {
+            	name: "icon,bg";
+            	type: IMAGE;
+            description { 
+               state: "default" 0.0;
+               rel1 { relative: 0.5 0.5; to: "elm.icon.1"; }
+               rel2 { relative: 0.5 0.5; to: "elm.icon.1"; }
+               align: 0.5 0.5;
+               min: 98 98;
+               image.normal: "core_icon_container.png";
+            	}
+            	description {
+            		state: "pressed" 0.0;
+            		inherit: "default" 0.0;
+            		color: 82 172 217 255;
+            	}
+            }
+           part {
+            	name: "icon,image";
+            	type: IMAGE;
+            description { 
+               state: default 0.0;
+               rel1 { relative: 0.5 0.5; to: "elm.icon.1"; }
+               rel2 { relative: 0.5 0.5; to: "elm.icon.1"; }
+               align: 0.5 0.5;
+               min: 60 60;
+               image.normal: "telegram_circle_btn_ic_call.png";
+            	}
+            }
+            PART(SWALLOW, "elm.icon.1",
+                    DSC_TO("default" 0.0, "elm.icon.1.rect",
+                        visible: 1;
+                    )
+            )
+        }
+        programs {
+        	program {
+        		name: "pressed";
+        		signal: "mouse,down,1";
+        		source: "icon,image";
+        		action: STATE_SET "pressed" 0.0;
+        		target: "icon,bg";
+        	}
+        	program {
+        		name: "release";
+        		signal: "mouse,up,1";
+        		source: "icon,image";
+        		action: STATE_SET "default" 0.0;
+        		target: "icon,bg";
+        	}
+        }
+    } // theme
+   
 }

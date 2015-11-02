@@ -293,15 +293,342 @@ void on_new_contact_creation_reply_cb(app_control_h request, app_control_h reply
 	}
 }
 
+static void delete_btn_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *entry = data;
+	elm_object_text_set(entry, "");
+}
+
+static void list_delete_btn_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *genlist = data;
+	Evas_Object *btn = NULL;
+	Elm_Object_Item *item = NULL;
+
+	int count = 0;
+	int idx = 3;
+	count = elm_genlist_items_count(genlist);
+
+	while(idx <= count) {
+		item = elm_genlist_nth_item_get(genlist, idx);
+		btn = elm_object_item_part_content_get(item, "elm.icon.2");
+		if (btn == obj) break;
+		idx ++;
+	}
+
+	elm_object_item_del(item);
+}
+/*
+static void change_line_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	char buf[256] = {'\0',};
+	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
+
+	layout = evas_object_data_get(ad->nf, "regi,layout");
+	if (strcasecmp(buf, "") != 0) {
+		elm_object_signal_emit(layout, "show", "line");
+	} else {
+		elm_object_signal_emit(layout, "hide", "line");
+	}
+}
+*/
+static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *part)
+{
+	if (0 == strcmp(part, "elm.icon.entry")) {
+		Evas_Object* phone_entry = elm_entry_add(obj);
+		evas_object_size_hint_weight_set(phone_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(phone_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		elm_entry_input_panel_layout_set(phone_entry, ELM_INPUT_PANEL_LAYOUT_PHONENUMBER);
+
+		elm_object_part_text_set(phone_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_PHONE_NUMBER_ABB"));
+
+		elm_entry_single_line_set(phone_entry, EINA_TRUE);
+		elm_entry_scrollable_set (phone_entry, EINA_FALSE);
+		elm_entry_cnp_mode_set(phone_entry, ELM_CNP_MODE_NO_IMAGE);
+		elm_entry_context_menu_disabled_set(phone_entry, EINA_TRUE);
+		elm_entry_text_style_user_push(phone_entry, "DEFAULT='color=#000000'");
+		//evas_object_smart_callback_add(phone_entry, "changed", change_line_cb, NULL)
+		evas_object_show(phone_entry);
+
+		return phone_entry;
+	} else if (0 == strcmp(part, "elm.icon.2")) {
+
+		Evas_Object* phone_delete_btn = elm_button_add(obj);
+		elm_object_style_set(phone_delete_btn, "icon_expand_delete");
+		evas_object_smart_callback_add(phone_delete_btn, "clicked", list_delete_btn_clicked, obj);
+		evas_object_show(phone_delete_btn);
+		return phone_delete_btn;
+	} else if (0 == strcmp(part, "elm.icon.1")) {
+		Evas_Object* mobile_btn = elm_button_add(obj);
+		elm_object_style_set(mobile_btn, "dropdown");
+		evas_object_size_hint_weight_set(mobile_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(mobile_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_min_set(mobile_btn, 180, 100);
+		//evas_object_smart_callback_add(mobile_btn, "clicked", delete_btn_clicked, phone_entry);
+		elm_object_translatable_text_set(mobile_btn, "IDS_TGRAM_OPT_MOBILE");
+		evas_object_show(mobile_btn);
+
+		return mobile_btn;
+
+	}
+	return NULL;
+}
+
+static Evas_Object *_get_first_name_content_cb(void *data, Evas_Object *obj, const char *part)
+{
+	if (0 == strcmp(part, "elm.icon.entry")) {
+		Evas_Object* phone_entry = elm_entry_add(obj);
+		evas_object_size_hint_weight_set(phone_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(phone_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
+		elm_object_part_text_set(phone_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_FIRST_NAME_ABB"));
+
+		elm_entry_single_line_set(phone_entry, EINA_TRUE);
+		elm_entry_scrollable_set (phone_entry, EINA_FALSE);
+		elm_entry_cnp_mode_set(phone_entry, ELM_CNP_MODE_NO_IMAGE);
+		elm_entry_context_menu_disabled_set(phone_entry, EINA_TRUE);
+		elm_entry_text_style_user_push(phone_entry, "DEFAULT='color=#000000'");
+		//evas_object_smart_callback_add(phone_entry, "changed", change_line_cb, NULL);
+		evas_object_show(phone_entry);
+
+		return phone_entry;
+
+	} else if (0 == strcmp(part, "elm.icon.2")) {
+		Evas_Object* phone_delete_btn = elm_button_add(obj);
+		elm_object_style_set(phone_delete_btn, "icon_expand_delete");
+		evas_object_smart_callback_add(phone_delete_btn, "clicked", list_delete_btn_clicked, obj);
+		evas_object_show(phone_delete_btn);
+		return phone_delete_btn;
+	}
+	return NULL;
+}
+
+static Evas_Object *_get_second_name_content_cb(void *data, Evas_Object *obj, const char *part)
+{
+	if (0 == strcmp(part, "elm.icon.entry")) {
+		Evas_Object* phone_entry = elm_entry_add(obj);
+		evas_object_size_hint_weight_set(phone_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(phone_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
+
+		elm_object_part_text_set(phone_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_LAST_NAME_ABB"));
+
+		elm_entry_single_line_set(phone_entry, EINA_TRUE);
+		elm_entry_scrollable_set (phone_entry, EINA_FALSE);
+		elm_entry_cnp_mode_set(phone_entry, ELM_CNP_MODE_NO_IMAGE);
+		elm_entry_context_menu_disabled_set(phone_entry, EINA_TRUE);
+		elm_entry_text_style_user_push(phone_entry, "DEFAULT='color=#000000'");
+		evas_object_show(phone_entry);
+
+		return phone_entry;
+
+	} else if (0 == strcmp(part, "elm.icon.2")) {
+		Evas_Object* phone_delete_btn = elm_button_add(obj);
+		elm_object_style_set(phone_delete_btn, "icon_expand_delete");
+		evas_object_smart_callback_add(phone_delete_btn, "clicked", list_delete_btn_clicked, obj);
+		evas_object_show(phone_delete_btn);
+		return phone_delete_btn;
+	}
+	return NULL;
+}
+
+static char *_get_name_text_cb(void *data, Evas_Object *obj, const char *part)
+{
+	char *buf = NULL;
+	if (0 == strcmp(part, "elm.text")) {
+		buf = elm_entry_utf8_to_markup(i18n_get_text("IDS_TGRAM_BODY_NAME_ABB"));
+		return buf;
+	}
+	return NULL;
+}
+
+static Evas_Object *_get_picture_cb(void *data, Evas_Object *obj, const char *part)
+{
+	if (0 == strcmp(part, "contents")) {
+		Evas_Object *rect = evas_object_rectangle_add(evas_object_evas_get(obj));
+		evas_object_color_set(rect, 0, 0, 255, 255);
+		evas_object_resize(rect, 720, 440);
+		evas_object_show(rect);
+		return rect;
+	}
+	return NULL;
+}
+
+static void _append_picture_item(Evas_Object *genlist, appdata_s *ad)
+{
+	Elm_Genlist_Item_Class *itc = NULL;
+	Elm_Object_Item *item = NULL;
+
+	itc = elm_genlist_item_class_new();
+	itc->item_style = "input.1image";
+	itc->func.text_get = NULL;
+	itc->func.content_get = _get_picture_cb;
+	itc->func.state_get = NULL;
+	itc->func.del = NULL;
+
+	item = elm_genlist_item_append(genlist, itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
+
+	if(itc) elm_genlist_item_class_free(itc);
+}
+
+static void _append_name_item(Evas_Object *genlist, appdata_s *ad)
+{
+	Elm_Genlist_Item_Class *itc = NULL;
+	Elm_Genlist_Item_Class *ttc = NULL;
+	Elm_Object_Item *item = NULL;
+
+	ttc = elm_genlist_item_class_new();
+	ttc->item_style = "input.2icon";
+	ttc->func.text_get = _get_name_text_cb;
+	ttc->func.content_get = _get_first_name_content_cb;
+	ttc->func.state_get = NULL;
+	ttc->func.del = NULL;
+
+	item = elm_genlist_item_append(genlist, ttc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
+
+	itc = elm_genlist_item_class_new();
+	itc->item_style = "input.3icon";
+	itc->func.text_get = NULL;
+	itc->func.content_get = _get_second_name_content_cb;
+	itc->func.state_get = NULL;
+	itc->func.del = NULL;
+
+	item = elm_genlist_item_append(genlist, itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
+
+	if(itc) elm_genlist_item_class_free(itc);
+	if(ttc) elm_genlist_item_class_free(ttc);
+}
+
+static void _append_phone_item(Evas_Object *genlist, appdata_s *ad)
+{
+	Elm_Genlist_Item_Class *itc = NULL;
+	Elm_Object_Item *item = NULL;
+
+	itc = elm_genlist_item_class_new();
+	itc->item_style = "input.3icon";
+	itc->func.text_get = NULL;
+	itc->func.content_get = _get_content_cb;
+	itc->func.state_get = NULL;
+	itc->func.del = NULL;
+
+	item = elm_genlist_item_append(genlist, itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
+
+	if(itc) elm_genlist_item_class_free(itc);
+}
+
+static void _insert_before_phone_item(Evas_Object *genlist, appdata_s *ad)
+{
+	Elm_Genlist_Item_Class *itc = NULL;
+	Elm_Object_Item *item = NULL;
+	Elm_Object_Item *before = NULL;
+
+	itc = elm_genlist_item_class_new();
+	itc->item_style = "input.3icon";
+	itc->func.text_get = NULL;
+	itc->func.content_get = _get_content_cb;
+	itc->func.state_get = NULL;
+	itc->func.del = NULL;
+
+	before = elm_genlist_last_item_get(genlist);
+
+	item = elm_genlist_item_insert_before(genlist, itc, NULL, NULL, before, ELM_GENLIST_ITEM_NONE, NULL, NULL);
+
+	if(itc) elm_genlist_item_class_free(itc);
+}
+
+static void phone_btn_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *genlist = data;
+	appdata_s *ad = evas_object_data_get(genlist, "app_data");
+
+	_insert_before_phone_item(genlist, ad);
+}
+
+static Evas_Object *_get_icon_cb(void *data, Evas_Object *obj, const char *part)
+{
+	if (0 == strcmp(part, "elm.icon.1")) {
+		Evas_Object* mobile_btn = elm_button_add(obj);
+		elm_object_style_set(mobile_btn, "transparent");
+		evas_object_size_hint_weight_set(mobile_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(mobile_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_min_set(mobile_btn, 98, 98);
+		evas_object_smart_callback_add(mobile_btn, "clicked", phone_btn_clicked, obj);
+		elm_object_translatable_text_set(mobile_btn, "IDS_TGRAM_OPT_MOBILE");
+		evas_object_show(mobile_btn);
+
+		return mobile_btn;
+	}
+	return NULL;
+}
+
+static void _append_phone_icon(Evas_Object *genlist, appdata_s *ad)
+{
+	Elm_Genlist_Item_Class *itc = NULL;
+	Elm_Object_Item *item = NULL;
+
+	itc = elm_genlist_item_class_new();
+	itc->item_style = "input.1icon";
+	itc->func.text_get = NULL;
+	itc->func.content_get = _get_icon_cb;
+	itc->func.state_get = NULL;
+	itc->func.del = NULL;
+
+	item = elm_genlist_item_append(genlist, itc, ad, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
+
+	if(itc) elm_genlist_item_class_free(itc);
+}
+
+static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
+{
+	Evas_Object *list = elm_genlist_add(layout);
+	elm_genlist_mode_set(list, ELM_LIST_COMPRESS);
+	evas_object_size_hint_weight_set(list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(list);
+	elm_object_focus_set(list, EINA_TRUE);
+	return list;
+}
+
 int on_create_new_contact(appdata_s* ad)
 {
-	app_control_h request;
-	app_control_create(&request);
-	app_control_set_operation(request, "http://tizen.org/appcontrol/operation/add");
-	app_control_set_mime(request, "application/vnd.tizen.contact");
-	int result = app_control_send_launch_request(request, &on_new_contact_creation_reply_cb, ad);
-	app_control_destroy(request);
-	return result;
+	if (!ad)
+		return 0;
+
+	ad->current_app_state = TG_ADD_CONTACT_STATE;
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+
+	Elm_Theme *theme = elm_theme_new();
+	elm_theme_ref_set(theme, NULL);
+	elm_theme_extension_add(theme, edj_path);
+
+	Evas_Object* phone_list = create_genlist(ad, ad->nf);
+	elm_genlist_select_mode_set(phone_list, ELM_OBJECT_SELECT_MODE_NONE);
+	elm_object_theme_set(phone_list, theme);
+	evas_object_data_set(phone_list, "app_data", ad);
+
+	_append_picture_item(phone_list, ad);
+	_append_name_item(phone_list, ad);
+	_append_phone_item(phone_list, ad);
+	_append_phone_icon(phone_list, ad);
+
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"), NULL, NULL, phone_list, NULL);
+
+	Evas_Object *done_btn = elm_button_add(ad->nf);
+	elm_object_style_set(done_btn, "naviframe/title_right");
+	elm_object_text_set(done_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_DONE_ABB"));
+	//evas_object_smart_callback_add(done_btn, "clicked", on_name_entry_done_clicked, ad);
+
+	Evas_Object *cancel_btn = elm_button_add(ad->nf);
+	elm_object_style_set(cancel_btn, "naviframe/title_left");
+	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_CANCEL_ABB"));
+	//evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad);
+
+	elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
+	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
+
+	evas_object_data_set(ad->nf, "name_done_btn", (void*)done_btn);
+	elm_object_disabled_set(done_btn, EINA_TRUE);
 }
 
 
@@ -868,20 +1195,6 @@ static Evas_Object* create_fastscroll(appdata_s *ad)
 
 		return index;
 	}
-
-
-static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
-{
-	Evas_Object *list = elm_genlist_add(ad->nf);
-	elm_list_mode_set(list, ELM_LIST_COMPRESS);
-	elm_genlist_mode_set(list, ELM_LIST_COMPRESS);
-	evas_object_size_hint_weight_set(list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(list, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(list);
-	elm_object_focus_set(list, EINA_TRUE);
-	return list;
-}
-
 
 void launch_start_peer_search_view(appdata_s* ad)
 {
