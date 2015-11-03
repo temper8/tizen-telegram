@@ -581,6 +581,7 @@ typedef struct appdata {
 	Evas_Object *menu_popup;
 	//int msg_count;
 	Eina_List *contact_list;
+	Elm_Naviframe_Item *main_item;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);

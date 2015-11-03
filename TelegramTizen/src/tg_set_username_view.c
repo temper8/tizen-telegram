@@ -41,7 +41,7 @@ static void on_naviframe_username_done_clicked(void *data, Evas_Object *obj, voi
 	if (strlen(user_name) < MIN_USERNAME_LENGTH) {
 		show_toast(ad, "Username should not be less than 5 characters");
 	} else {
-		send_set_username_request(ad->service_client, ad->current_user_data->user_id.id, user_name);
+		send_set_username_request(ad, ad->service_client, ad->current_user_data->user_id.id, user_name);
 		show_loading_popup(ad);
 	}
 	free(user_name);

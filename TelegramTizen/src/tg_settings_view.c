@@ -262,7 +262,7 @@ void on_image_select_result_cb(app_control_h request, app_control_h reply, app_c
 				appdata_s *ad = (appdata_s*)user_data;
 				if (ad) {
 					show_loading_popup(ad);
-					send_set_profile_pic_request(ad->service_client, ad->current_user_data->user_id.id, file_path);
+					send_set_profile_pic_request(ad, ad->service_client, ad->current_user_data->user_id.id, file_path);
 				}
 				break;
 			}
@@ -288,7 +288,7 @@ void on_image_request_option_selected_cb(void *data, Evas_Object *obj, void *eve
 		return;
 	}
 
-	if (id  == 1) {
+	if (id == 1) {
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_CREATE_CONTENT);
 		app_control_set_mime(app_control, "image/jpg");
 		app_control_send_launch_request(app_control, &on_image_select_result_cb, ad);
@@ -682,17 +682,40 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	char *user_name = NULL;
+	char *first_name = NULL;
+	char *last_name = NULL;
 	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
 		switch(id) {
 			case 0:
 				//return replace(ad->current_user_data->print_name, '_', " ");
-
+#if 0
 				user_name = (char*)malloc(strlen(ad->current_user_data->first_name) + strlen(" ") + strlen(ad->current_user_data->last_name) + 1);
 				strcpy(user_name, ad->current_user_data->first_name);
 				strcat(user_name, " ");
 				strcat(user_name, ad->current_user_data->last_name);
 				return user_name;
+#else
+				first_name = ad->current_user_data->first_name;
+				last_name = ad->current_user_data->last_name;
 
+
+				if (!first_name || strstr(first_name ,"null") != 0) {
+					first_name = NULL;
+				}
+
+				if (!first_name && !last_name) {
+					first_name = "";
+				}
+
+				if (!last_name || strstr(last_name ,"null") != 0) {
+					last_name = "";
+				}
+				user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+				strcpy(user_name, first_name);
+				strcat(user_name, " ");
+				strcat(user_name, last_name);
+				return user_name;
+#endif
 			case 1:
 				return strdup(i18n_get_text("IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"));
 			default:
@@ -767,7 +790,7 @@ static void _logout_btn_clicked_cb(void *data, Evas_Object *obj, void *event_inf
 	if (popup) {
 		evas_object_del(popup);
 	}
-	send_request_for_logout(ad->service_client);
+	send_request_for_logout(ad, ad->service_client);
 	show_loading_popup(ad);
 }
 

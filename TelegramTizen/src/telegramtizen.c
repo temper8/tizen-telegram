@@ -17,6 +17,7 @@
 #include "tg_settings_view.h"
 #include "device_contacts_manager.h"
 
+static Eina_Bool on_load_main_view_requested(void *data);
 static void free_app_data(appdata_s *app_data, Eina_Bool destroy_server);
 static int init_service(appdata_s *app);
 static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -2321,6 +2322,8 @@ static int on_new_group_added(appdata_s *app, bundle *const rec_msg)
 {
 	int result = SVC_RES_FAIL;
 
+
+#if 0
 	char* chat_id_str = NULL;
 	result = bundle_get_str(rec_msg, "chat_id", &chat_id_str);
 
@@ -2330,22 +2333,38 @@ static int on_new_group_added(appdata_s *app, bundle *const rec_msg)
 		tg_main_list_item_s* latest_item = get_latest_item(app, peer_item);
 		if (latest_item) {
 			app->main_list = eina_list_prepend(app->main_list, latest_item);
-			refresh_main_list_view(app, EINA_TRUE);
+			hide_loading_popup(app);
+			refresh_main_list_view(app, EINA_FALSE);
 		}
 	} else {
+
+		hide_loading_popup(app);
+		if (app->main_item) {
+			elm_naviframe_item_pop_to(app->main_item);
+			app->current_app_state = TG_USER_MAIN_VIEW_STATE;
+		}
+
 		tg_main_list_item_s* latest_item = get_latest_item(app, peer_item);
 		if (latest_item) {
 			app->main_list = eina_list_prepend(app->main_list, latest_item);
-			refresh_main_list_view(app, EINA_TRUE);
+			refresh_main_list_view(app, EINA_FALSE);
 		}
-		elm_naviframe_item_pop(app->nf);
-		app->current_app_state = TG_USER_MAIN_VIEW_STATE;
-		evas_object_show(app->panel);
-		//elm_panel_hidden_set(app->panel, EINA_FALSE);
+
 	}
 	app->peer_list = eina_list_prepend(app->peer_list, peer_item);
-	hide_loading_popup(app);
+#else
+	load_registered_user_data(app);
+	load_buddy_list_data(app);
+	load_unknown_buddy_list_data(app);
+	load_peer_data(app);
+	load_main_list_data(app);
 
+	if (app->main_item) {
+		elm_naviframe_item_pop_to(app->main_item);
+	}
+
+	ecore_timer_add(1, on_load_main_view_requested, app);
+#endif
 	return result;
 }
 
@@ -2583,7 +2602,11 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 	result = bundle_get_str(rec_msg, "command", &rec_key_val);
 
-	if (strcmp(rec_key_val, "registration_done") == 0) {
+	if (strcmp(rec_key_val, "server_not_initialized") == 0) {
+		hide_loading_popup(app);
+		show_toast(app, "Please check your network connection.");
+		return result;
+	} else if (strcmp(rec_key_val, "registration_done") == 0) {
 
 		char* is_success_val = NULL;
 		result = bundle_get_str(rec_msg, "is_success", &is_success_val);
@@ -3015,6 +3038,11 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
+	if (ad->loading_popup) {
+		show_toast(ad, "Please wait. request in progress");
+		return;
+	}
+
 	switch(ad->current_app_state) {
 		case TG_INIT_SCREEN_STATE:
 			elm_win_lower(ad->win);
@@ -3091,10 +3119,12 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
 			break;
+#if 0
 		case TG_ADD_CONTACT_STATE:
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_SET_USER_INFO_STATE;
 			break;
+#endif
 		case TG_SET_CHAT_INFO_STATE:
 		case TG_SET_USER_INFO_STATE:
 			elm_naviframe_item_pop(ad->nf);
@@ -3120,7 +3150,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			elm_exit();
 			break;
 		case TG_LOGIN_STATE:
-			send_request_for_restart_server(ad->service_client);
+			send_request_for_restart_server(ad, ad->service_client);
 			if (ad->timer_value > 0) {
 				Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
 				if (timer)
@@ -3152,6 +3182,11 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			//evas_object_show(ad->panel);
 			//refresh_buddy_list(ad);
 			break;
+		case TG_ADD_CONTACT_STATE:
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+			show_floating_button(ad);
+			break;
 		case TG_BUDDY_LIST_SELECTION_STATE:
 			if (ad->buddy_list) {
 				for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
@@ -3172,7 +3207,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 				}
 			}
 			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_BUDDY_LIST_STATE;
+			ad->current_app_state = TG_BUDDY_LIST_SELECTION_STATE;
 			//evas_object_show(ad->panel);
 			//elm_panel_hidden_set(ad->panel, EINA_FALSE);
 			//refresh_buddy_list(ad);
@@ -3208,11 +3243,12 @@ void _btn_clicked(void* data, Evas_Object* btn, void* ev)
 	bundle_free(msg);
 }
 
-static Eina_Bool on_load_main_view_requested(void *data)
+Eina_Bool on_load_main_view_requested(void *data)
 {
 	appdata_s *ad = data;
 	if (ad) {
 		elm_naviframe_item_pop(ad->nf);
+		hide_loading_popup(ad);
 		launch_user_main_view_cb(ad);
 		int unread_msg_cnt = get_number_of_unread_messages();
 		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
@@ -3368,6 +3404,7 @@ static bool app_create(void *data)
 	ad->panel = NULL;
 	ad->is_server_ready = EINA_FALSE;
 	ad->contact_list = NULL;
+	ad->main_item = NULL;
 	//ad->msg_count = 0;
 	create_base_gui(ad);
 	int err = badge_new(TELEGRAM_APP_ID);

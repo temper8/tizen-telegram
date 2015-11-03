@@ -443,12 +443,29 @@ static char *_get_name_text_cb(void *data, Evas_Object *obj, const char *part)
 
 static Evas_Object *_get_picture_cb(void *data, Evas_Object *obj, const char *part)
 {
-	if (0 == strcmp(part, "contents")) {
+	//if (0 == strcmp(part, "contents")) {
+	  if (!strcmp(part, "elm.swallow.content")) {
+#if 0
 		Evas_Object *rect = evas_object_rectangle_add(evas_object_evas_get(obj));
 		evas_object_color_set(rect, 0, 0, 255, 255);
 		evas_object_resize(rect, 720, 440);
 		evas_object_show(rect);
 		return rect;
+#else
+		char edj_path[PATH_MAX] = {0, };
+		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+		Evas_Object* layout = elm_layout_add(obj);
+		elm_layout_file_set(layout, edj_path, "add_contact_custom_item");
+		evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(layout);
+		Evas_Object *profile_pic = create_image_object_from_file(ui_utils_get_resource(TG_CALLER_ID_IMAGE), obj);
+		elm_image_fill_outside_set(profile_pic, EINA_TRUE);
+		elm_image_aspect_fixed_set(profile_pic, EINA_FALSE);
+		evas_object_color_set(profile_pic, 45, 165, 224, 255);
+		elm_object_part_content_set(layout, "swallow.item", profile_pic);
+		return layout;
+#endif
 	}
 	return NULL;
 }
@@ -459,7 +476,7 @@ static void _append_picture_item(Evas_Object *genlist, appdata_s *ad)
 	Elm_Object_Item *item = NULL;
 
 	itc = elm_genlist_item_class_new();
-	itc->item_style = "input.1image";
+	itc->item_style = "full";
 	itc->func.text_get = NULL;
 	itc->func.content_get = _get_picture_cb;
 	itc->func.state_get = NULL;
@@ -588,11 +605,25 @@ static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
 	return list;
 }
 
+static void on_new_contact_done_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+}
+
+static void on_new_contact_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = data;
+	elm_naviframe_item_pop(ad->nf);
+	ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+	show_floating_button(ad);
+}
+
 int on_create_new_contact(appdata_s* ad)
 {
 	if (!ad)
 		return 0;
 
+	delete_floating_button(ad);
 	ad->current_app_state = TG_ADD_CONTACT_STATE;
 
 	char edj_path[PATH_MAX] = {0, };
@@ -617,12 +648,12 @@ int on_create_new_contact(appdata_s* ad)
 	Evas_Object *done_btn = elm_button_add(ad->nf);
 	elm_object_style_set(done_btn, "naviframe/title_right");
 	elm_object_text_set(done_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_DONE_ABB"));
-	//evas_object_smart_callback_add(done_btn, "clicked", on_name_entry_done_clicked, ad);
+	evas_object_smart_callback_add(done_btn, "clicked", on_new_contact_done_clicked, ad);
 
 	Evas_Object *cancel_btn = elm_button_add(ad->nf);
 	elm_object_style_set(cancel_btn, "naviframe/title_left");
 	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_CANCEL_ABB"));
-	//evas_object_smart_callback_add(cancel_btn, "clicked", on_naviframe_cancel_clicked, ad);
+	evas_object_smart_callback_add(cancel_btn, "clicked", on_new_contact_cancel_clicked, ad);
 
 	elm_object_item_part_content_set(navi_item, "title_right_btn", done_btn);
 	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);

@@ -103,12 +103,13 @@ char* on_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 			user_data_with_pic_s* item = eina_list_nth(list, id - 1);
 			user_data_s* user = item->use_data;
 
-			char* user_name = replace(user->print_name, '_', " ");
-			char buf[512] = {'\0'};
-			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
-			free(user_name);
-			return strdup(buf);
-
+			if (user && user->print_name) {
+				char* user_name = replace(user->print_name, '_', " ");
+				char buf[512] = {'\0'};
+				snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
+				free(user_name);
+				return strdup(buf);
+			}
 		}
 	}
 
@@ -285,7 +286,7 @@ void on_done_buton_clicked(void *data, Evas_Object *object, void *event_info)
 
 	if (selected_item_count > 1) {
 		appdata_s* ad = data;
-		elm_naviframe_item_pop(ad->nf);
+		// elm_naviframe_item_pop(ad->nf);
 		// Load chat name entry view
 		launch_group_chat_name_entry_view(ad);
 	} else {

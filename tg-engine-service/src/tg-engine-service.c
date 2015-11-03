@@ -39,8 +39,45 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		}
 
 		process_registration_command(tg_data, ph_no_key_val, th_sms);
+		return result;
 
-	} else if (strcmp(cmd_key_val, "logout_telegram") == 0) {
+	}
+
+	if (strcmp(cmd_key_val, "code_validation") == 0) {
+
+		char* sms_code_val = NULL;
+		res = bundle_get_str(rec_msg, "sms_code", &sms_code_val);
+		process_validation_command(tg_data, sms_code_val);
+		return result;
+	}
+
+	if (strcmp(cmd_key_val, "profile_registration") == 0) {
+
+		char* first_name = NULL;
+		char* last_name = NULL;
+
+		res = bundle_get_str(rec_msg, "first_name", &first_name);
+		if (res == BUNDLE_ERROR_NONE && first_name) {
+			tg_data->first_name = strdup(first_name);
+		}
+
+		res = bundle_get_str(rec_msg, "last_name", &last_name);
+		if (res == BUNDLE_ERROR_NONE && last_name) {
+			tg_data->last_name = strdup(last_name);
+		}
+
+		if (tg_data->tg_state == TG_ENGINE_STATE_PROFILE_FIRST_NAME_REGISTRATION && tg_data->get_string) {
+			tg_data->get_string(tgl_engine_get_TLS(), tg_data->first_name, tg_data->callback_arg);
+		}
+		return result;
+	}
+
+	if (!tg_data->is_login_activated) {
+		send_server_not_initialized_response(tg_data);
+		return result;
+	}
+
+	if (strcmp(cmd_key_val, "logout_telegram") == 0) {
 
 		//process_logout_command(tg_data);
 
@@ -122,12 +159,6 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 	} else if (strcmp(cmd_key_val, "restart_server") == 0) {
 		on_restart_service_requested(tg_data);
-	} else if (strcmp(cmd_key_val, "code_validation") == 0) {
-
-		char* sms_code_val = NULL;
-		res = bundle_get_str(rec_msg, "sms_code", &sms_code_val);
-		process_validation_command(tg_data, sms_code_val);
-
 	} else if (strcmp(cmd_key_val, "message_transport") == 0) {
 
 		char* buddy_id_str = NULL;
@@ -220,6 +251,15 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
     	process_update_chat_request(tg_data, chat_id);
 
+    } else if (strcmp(cmd_key_val, "start_secret_chat") == 0) {
+
+    	char* buddy_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+    	int buddy_id = atoi(buddy_id_str);
+
+    	process_send_secret_chat_request(tg_data, buddy_id);
+
+
     } else if (strcmp(cmd_key_val, "delete_buddy") == 0) {
 
     	char* buddy_id_str = NULL;
@@ -282,24 +322,6 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		process_send_media_command(buddy_id, message_id, media_id, msg_type, file_path_str, type_of_chat);
 
-	} else if (strcmp(cmd_key_val, "profile_registration") == 0) {
-
-		char* first_name = NULL;
-		char* last_name = NULL;
-
-		res = bundle_get_str(rec_msg, "first_name", &first_name);
-		if (res == BUNDLE_ERROR_NONE && first_name) {
-			tg_data->first_name = strdup(first_name);
-		}
-
-		res = bundle_get_str(rec_msg, "last_name", &last_name);
-		if (res == BUNDLE_ERROR_NONE && last_name) {
-			tg_data->last_name = strdup(last_name);
-		}
-
-		if (tg_data->tg_state == TG_ENGINE_STATE_PROFILE_FIRST_NAME_REGISTRATION && tg_data->get_string) {
-			tg_data->get_string(tgl_engine_get_TLS(), tg_data->first_name, tg_data->callback_arg);
-		}
 	} else if (strcmp(cmd_key_val, "device_contact_list") == 0) {
 
 		char* count_str = NULL;

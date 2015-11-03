@@ -176,9 +176,9 @@ static void on_user_block_ok_selected(void *data, Evas_Object *obj, void *event_
 		show_loading_popup(ad);
 		peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 		if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
-			send_unblock_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
+			send_unblock_buddy_request(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		} else {
-			send_block_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
+			send_block_buddy_request(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		}
 	}
 
@@ -237,7 +237,7 @@ static void on_user_delete_ok_selected(void *data, Evas_Object *obj, void *event
 			//send_add_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		} else {
 			show_loading_popup(ad);
-			send_delete_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
+			send_delete_buddy_request(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id);
 		}
 
 	}

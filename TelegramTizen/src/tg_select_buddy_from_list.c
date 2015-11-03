@@ -90,14 +90,14 @@ Evas_Object* on_buddy_select_list_image_requested(void *data, Evas_Object *obj, 
 		char edj_path[PATH_MAX] = {0, };
 		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
-		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+		elm_layout_file_set(user_pic_layout, edj_path, "search_circle_layout");
 		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_show(user_pic_layout);
 		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
 
 		eo = elm_layout_add(obj);
-		elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
+		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
 		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
 	}
 	return eo;
@@ -118,7 +118,7 @@ static void on_buddy_add_to_chat_ok_selected(void *data, Evas_Object *obj, void 
 
 	if (ad->peer_in_cahtting_data && ad->peer_in_cahtting_data->use_data) {
 		show_loading_popup(ad);
-		send_add_buddy_to_group_chat_request(ad->service_client, ad->selected_buddy_item->user_id.id, ad->peer_in_cahtting_data->use_data->peer_id);
+		send_add_buddy_to_group_chat_request(ad, ad->service_client, ad->selected_buddy_item->user_id.id, ad->peer_in_cahtting_data->use_data->peer_id);
 		elm_naviframe_item_pop(ad->nf);
 		ad->current_app_state = TG_SET_CHAT_INFO_STATE;
 	}

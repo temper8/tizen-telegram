@@ -54,7 +54,7 @@ static void on_contact_name_entry_done_clicked(void *data, Evas_Object *obj, voi
 
 	char* phone_num = get_buddy_phone_num_from_id(ad->peer_in_cahtting_data->use_data->peer_id);
 
-	send_add_buddy_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, first_name, last_name, phone_num);
+	send_add_buddy_request(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, first_name, last_name, phone_num);
 
 
 	free(first_name);

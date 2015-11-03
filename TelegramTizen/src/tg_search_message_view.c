@@ -69,7 +69,7 @@ static void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event
 				// request chat info
 				//show_toast(ad, "Loading chat info. Please wait.");
 				show_loading_popup(ad);
-				send_update_chat_request(ad->service_client, sel_item->peer_id);
+				send_update_chat_request(ad, ad->service_client, sel_item->peer_id);
 				return;
 			}
 		}

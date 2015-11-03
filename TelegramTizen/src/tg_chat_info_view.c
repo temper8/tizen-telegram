@@ -212,7 +212,7 @@ void on_chat_image_select_result_cb(app_control_h request, app_control_h reply, 
 					Evas_Object *profile_pic = evas_object_data_get(ad->nf, "user_chat_profile_pic");
 					if (profile_pic) {
 						elm_image_file_set(profile_pic, file_path, NULL);
-						send_set_group_chat_profile_pic_request(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, file_path);
+						send_set_group_chat_profile_pic_request(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, file_path);
 					}
 				}
 				break;
@@ -461,7 +461,7 @@ static void on_entry_pop_up_ok_clicked_cb(void *data, Evas_Object *obj, void *ev
 		if (new_title) {
 			//send request to server.
 			int chat_id = ad->peer_in_cahtting_data->use_data->peer_id;
-			send_set_group_chat_new_title_request(ad->service_client, chat_id, new_title);
+			send_set_group_chat_new_title_request(ad, ad->service_client, chat_id, new_title);
 		}
 	}
 	evas_object_del(popup);
@@ -553,7 +553,7 @@ void on_chat_info_longpress_clicked_cb(void *data, Evas_Object *obj, void *event
 			if (ad->selected_buddy_item) {
 				user_data_s *sel_user = ad->selected_buddy_item;
 				show_loading_popup(ad);
-				send_remove_buddy_from_group_chat_request(ad->service_client, ad->selected_buddy_item->user_id.id, ad->peer_in_cahtting_data->use_data->peer_id);
+				send_remove_buddy_from_group_chat_request(ad, ad->service_client, ad->selected_buddy_item->user_id.id, ad->peer_in_cahtting_data->use_data->peer_id);
 			}
 		}
 	}
@@ -619,7 +619,7 @@ void on_chat_info_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 			peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 			tg_peer_info_s *user_data = sel_item->use_data;
 			show_loading_popup(ad);
-			send_delete_group_chat_request(ad->service_client, user_data->peer_id);
+			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
 		} else {
 
 		}

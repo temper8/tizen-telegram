@@ -53,7 +53,7 @@ static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event
 
 	/* FIXME : Write the request for edit name */
 
-	send_update_display_name_request(ad->service_client, ad->current_user_data->user_id.id, first_name, last_name);
+	send_update_display_name_request(ad, ad->service_client, ad->current_user_data->user_id.id, first_name, last_name);
 
 	free(first_name);
 	free(last_name);

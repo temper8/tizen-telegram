@@ -272,7 +272,7 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 	}
 
 	if (sel_grp_chat && eina_list_count(sel_grp_chat) > 0) {
-		send_delete_selected_group_chats_request(ad->service_client, sel_grp_chat);
+		send_delete_selected_group_chats_request(ad, ad->service_client, sel_grp_chat);
 	} else {
 		refresh_main_list_view(ad, EINA_FALSE);
 		elm_naviframe_item_pop(ad->nf);

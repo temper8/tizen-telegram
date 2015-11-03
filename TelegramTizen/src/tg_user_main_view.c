@@ -443,7 +443,7 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 
 			//send group chat delete request
 			show_loading_popup(ad);
-			send_delete_group_chat_request(ad->service_client, sel_item->peer_id);
+			send_delete_group_chat_request(ad, ad->service_client, sel_item->peer_id);
 
 		} else {
 
@@ -539,7 +539,7 @@ void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event_info)
 				// request chat info
 				//show_toast(ad, "Loading chat info. Please wait.");
 				show_loading_popup(ad);
-				send_update_chat_request(ad->service_client, sel_item->peer_id);
+				send_update_chat_request(ad, ad->service_client, sel_item->peer_id);
 				return;
 			}
 		}
@@ -1227,8 +1227,8 @@ void launch_user_main_view_cb(appdata_s* ad)
 	ad->is_tg_initilized = EINA_TRUE;
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-	send_request_for_server_connection_status(ad->service_client);
-	send_request_for_delete_notifications(ad->service_client);
+	send_request_for_server_connection_status(ad, ad->service_client);
+	send_request_for_delete_notifications(ad, ad->service_client);
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
@@ -1326,7 +1326,7 @@ void launch_user_main_view_cb(appdata_s* ad)
     evas_object_smart_callback_add(search_btn, "unpressed", on_search_icon_unpressed, search_icon);
 #endif
 
-    elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, scroller, NULL);
+    ad->main_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, scroller, NULL);
 
 #if 0
     Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);

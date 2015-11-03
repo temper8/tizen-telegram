@@ -1213,10 +1213,49 @@ void on_requested_update_chat_received(struct tgl_state *TLS, void *callback_ext
 	char *msg_table;
 	msg_table = get_table_name_from_number(chat_info->id.id);
 	create_buddy_msg_table(msg_table);
-	free(msg_table);
+
 	if (!chat_info) {
 		return;
 	}
+
+	if (chat_info->flags == 144) {
+		return;
+	}
+	int msg_count = get_number_of_messages(msg_table);
+	if (msg_count <= 0) {
+		if (chat_info->admin_id > 0) {
+			set_date_item_to_table(msg_table, chat_info->date);
+			tgl_peer_id_t admin_id;
+			admin_id.id = chat_info->admin_id;
+			admin_id.type = TGL_PEER_USER;
+
+			tgl_peer_t* UC = tgl_peer_get(TLS, admin_id);
+			int msg_len = strlen(UC->user.first_name) + strlen(" created the group") + 1;
+			char* creator_name = (char*)malloc(msg_len);
+			strcpy(creator_name, UC->user.first_name);
+			strcat(creator_name, " created the group");
+			struct tgl_message msg;
+			int cur_time = chat_info->date;
+			msg.to_id = chat_info->id;
+			msg.from_id = admin_id;
+			msg.id = cur_time;
+			msg.message = creator_name;
+			msg.message_len = msg_len;
+			msg.unread = 0;
+			msg.date = cur_time;
+			msg.media.type = tgl_message_media_none;
+			msg.service = 1;
+			msg.out = 0;
+
+			insert_buddy_msg_to_db(&msg);
+			free(creator_name);
+			//send_message_received_response(TLS->callback_data, msg.from_id.id, msg.to_id.id, msg.id, tgl_get_peer_type(msg.to_id));
+		}
+
+	}
+
+	free(msg_table);
+
 	if (!chat_info->user_list) {
 		tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
 		return;
@@ -1875,6 +1914,28 @@ static Eina_Bool on_load_buddy_history_requested(void *data)
 	return ECORE_CALLBACK_CANCEL;
 }
 
+static Eina_Bool send_login_activated_response(void *data)
+{
+	struct tgl_state *TLS = data;
+	if (TLS) {
+		tg_engine_data_s *tg_data = TLS->callback_data;
+		send_response_for_server_connection_status(tg_data, tg_data->is_login_activated);
+	}
+	return ECORE_CALLBACK_CANCEL;
+}
+
+
+static Eina_Bool send_chat_loading_is_done_response(void *data)
+{
+	struct tgl_state *TLS = data;
+	if (TLS) {
+		send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
+		ecore_timer_add(3, send_login_activated_response, TLS);
+	}
+	return ECORE_CALLBACK_CANCEL;
+}
+
+
 void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_user *contacts[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -1898,15 +1959,15 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 
 	// inform client that contact loading is done.
 	//send_contacts_load_done_response(EINA_TRUE);
-	send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
 
 	for (int i = size - 1; i >= 0; i--) {
 		struct tgl_user *buddy = contacts[i];
 		tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
 	}
-	send_response_for_server_connection_status(tg_data, tg_data->is_login_activated);
+
 	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
 	ecore_timer_add(6, on_load_buddy_history_requested, TLS);
+	ecore_timer_add(12, send_chat_loading_is_done_response, TLS);
 }
 
 
@@ -2511,7 +2572,6 @@ void update_user_display_name(tg_engine_data_s *tg_data, int buddy_id, const cha
 	}
 }
 
-
 void create_new_group(tg_engine_data_s *tg_data, Eina_List* buddy_ids, const char *group_name, const char *group_icon)
 {
 	if (!buddy_ids || ! group_name) {
@@ -2877,6 +2937,25 @@ void do_add_buddy(int buddy_id, char *first_name, char *last_name, char *phone_n
 void logout_telegram(tg_engine_data_s *tg_data)
 {
 
+}
+
+void on_secret_chat_request_sent(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_secret_chat *E)
+{
+	int buddy_id = (int)callback_extra;
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (success) {
+
+	} else {
+
+	}
+}
+
+void request_for_secret_chat(int buddy_id)
+{
+	tgl_peer_id_t peer_id;
+	peer_id.id = buddy_id;
+	peer_id.type = TGL_PEER_USER;
+	tgl_do_create_secret_chat(s_info.TLS, peer_id, on_secret_chat_request_sent, (void*)(buddy_id));
 }
 
 void do_delete_buddy(int buddy_id)

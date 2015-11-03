@@ -29,7 +29,7 @@ static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *even
 	if (!ad)
 		return;
 
-	send_request_for_restart_server(ad->service_client);
+	send_request_for_restart_server(ad, ad->service_client);
 
 	Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
 	if (timer)
@@ -59,7 +59,7 @@ static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event
 			ecore_timer_del(timer);
 		}
 
-		send_request_for_validation(ad->service_client, val);
+		send_request_for_validation(ad, ad->service_client, val);
 		show_loading_popup(ad);
 	}
 #else
@@ -98,7 +98,7 @@ static Eina_Bool on_code_timer_cb(void* data)
 		snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 0, 0);
 
 		// send request to get phone call
-		send_request_for_registration(ad->service_client, ad->phone_number, EINA_FALSE);
+		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_FALSE);
 		return ECORE_CALLBACK_CANCEL;
 	}
 

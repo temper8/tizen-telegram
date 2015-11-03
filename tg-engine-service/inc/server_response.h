@@ -20,6 +20,7 @@ extern void process_delete_selected_group_chats_request(tg_engine_data_s* tg_dat
 extern void process_add_user_request(tg_engine_data_s* tg_data, int buddy_id, char *first_name, char *last_name, char *phone_num);
 extern void process_update_chat_request(tg_engine_data_s* tg_data, int chat_id);
 extern void process_delete_user_request(tg_engine_data_s* tg_data, int buddy_id);
+extern void process_send_secret_chat_request(tg_engine_data_s* tg_data, int buddy_id);
 extern void process_block_user_request(tg_engine_data_s* tg_data, int buddy_id);
 extern void process_unblock_user_request(tg_engine_data_s* tg_data, int buddy_id);
 extern void process_send_media_command(int buddy_id, int message_id, int media_id, int msg_type, char* file_path, int type_of_chat);
@@ -35,6 +36,7 @@ extern void process_set_username_command(tg_engine_data_s *tg_data, int buddy_id
 extern void process_update_display_name_command(tg_engine_data_s *tg_data, int buddy_id, const char *first_name, const char *last_name);
 
 extern void send_add_contacts_request(tg_engine_data_s *tg_data);
+extern void send_server_not_initialized_response(tg_engine_data_s *tg_data);
 extern void send_registration_response(tg_engine_data_s *tg_data, Eina_Bool is_success);
 extern void send_request_code_again(tg_engine_data_s *tg_data);
 extern void send_request_phone_num_again(tg_engine_data_s *tg_data);

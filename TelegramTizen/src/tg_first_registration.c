@@ -48,7 +48,7 @@ static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event
 	}
 	char* first_name = trim((char*)tfirst_name);
 	char* last_name = trim((char*)tlast_name);
-	send_request_for_profile_registration(ad->service_client, first_name, last_name);
+	send_request_for_profile_registration(ad, ad->service_client, first_name, last_name);
 	show_loading_popup(ad);
 	free(first_name);
 	free(last_name);
