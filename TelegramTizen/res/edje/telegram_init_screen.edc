@@ -129,6 +129,8 @@ base_scale: 2.6;
 		image: "telegram_list_thumb_image_bg.png" COMP;
 		image: "core_icon_container.png" COMP;
 		image: "telegram_circle_btn_ic_call.png" COMP;
+		image: "Telegram_caller_id_default_bg_full.png" COMP;
+		image: "telegram_caller_id_default_masking_full.png" COMP;
 	}
 
    group {
@@ -3666,13 +3668,58 @@ group
                 description { state: "default" 0.0;
              	   }
                 )
-              PART(SWALLOW, "contents",
-                description { state: "default" 0.0;
-                min: 720 440;
-               	 }
-            )
+           part {
+              name: "contents";
+    			type: SWALLOW;
+    			description {
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    			}
+            }
+      
         }
     }
+    
+    group {
+    	name: "contact_image_masking";
+    	
+    	parts {
+    	part {
+              name: "clip";
+    			type: IMAGE;
+       		scale: 1;
+    			description {
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    				image.normal: "telegram_caller_id_default_masking_full.png";
+    				color: 255 255 255 255;
+    				min: 0 440;
+    				max: -1 440;
+    			}
+            }
+    		part {
+    			name: "bg";
+    			type: IMAGE;
+    			clip_to: "clip";
+    			scale: 1;
+    			description {
+    				rel1 { relative: 0.0 -140/440; }
+    				rel2 { relative: 1.0 580/440; }
+    				image.normal: "Telegram_caller_id_default_bg_full.png";
+    				color: 250 250 250 255;
+    			}
+    		}
+    		part {
+    			name: "image";
+    			clip_to: "clip";
+    			type: SWALLOW;
+    			description {
+    				rel1 { relative: 0.0 -140/440; }
+    				rel2 { relative: 1.0 580/440; }
+    			}
+    		}
+    	} //parts
+    } //contact_image_masking
    
     group {
         name: "elm/genlist/item/input.3icon/default";
