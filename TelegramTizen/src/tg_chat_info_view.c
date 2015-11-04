@@ -107,7 +107,7 @@ Evas_Object* on_chat_info_requested(void *data, Evas_Object *obj, const char *pa
 
 		//char* user_status = "online";
 		char status_buf[126] = {'\0'};
-		sprintf(status_buf, "<font=Tizen:style=Italic color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
+		sprintf(status_buf, "<font=Tizen:style=Normal color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);
@@ -355,7 +355,7 @@ void on_group_chat_info_updated(appdata_s *ad, char *type_of_change)
 		if (sel_item) {
 			char* user_name = replace(sel_item->use_data->print_name, '_', " ");
 			char temp_name[512] = {'\0'};
-			snprintf(temp_name, 512, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", user_name);
+			snprintf(temp_name, 512, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", user_name);
 			free(user_name);
 			Evas_Object *profile_name = evas_object_data_get(ad->nf, "chat_info_name");
 			if (profile_name) {
@@ -375,7 +375,7 @@ void on_group_chat_info_updated(appdata_s *ad, char *type_of_change)
 
 			//char* user_status = "online";
 			char status_buf[126] = {'\0'};
-			sprintf(status_buf, "<font=Tizen:style=Italic color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
+			sprintf(status_buf, "<font=Tizen:style=Normal color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
 			elm_object_text_set(status_lbl, status_buf);
 		}
 

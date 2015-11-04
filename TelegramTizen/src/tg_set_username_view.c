@@ -97,11 +97,11 @@ void launch_set_username_cb(appdata_s *ad)
 	char* temp_help_text_two = "You can use a-z, 0-9 and underscores. Minimum length is 5 characters.";
 
 	char help_text_one[256*4] = {'\0'};
-	sprintf(help_text_one, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", temp_help_text_one);
+	sprintf(help_text_one, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", temp_help_text_one);
 
 
 	char help_text_two[256*4] = {'\0'};
-	sprintf(help_text_two, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", temp_help_text_two);
+	sprintf(help_text_two, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", temp_help_text_two);
 
 	Evas_Object* help_text1 = elm_entry_add(layout);
 	elm_object_text_set(help_text1, help_text_one);

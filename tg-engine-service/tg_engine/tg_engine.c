@@ -1964,10 +1964,11 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 		struct tgl_user *buddy = contacts[i];
 		tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
 	}
-
+	send_response_for_server_connection_status(tg_data, tg_data->is_login_activated);
 	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
 	ecore_timer_add(6, on_load_buddy_history_requested, TLS);
-	ecore_timer_add(12, send_chat_loading_is_done_response, TLS);
+	//ecore_timer_add(12, send_chat_loading_is_done_response, TLS);
+	send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
 }
 
 

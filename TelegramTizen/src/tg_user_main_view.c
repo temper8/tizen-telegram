@@ -35,7 +35,7 @@ static char* on_menu_item_name_get_cb(void *data, Evas_Object *obj, const char *
 			int id = (int) data;
 
 			char temp_text[256];
-			sprintf(temp_text, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
+			sprintf(temp_text, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
 
 			return strdup(temp_text);
 		}
@@ -361,7 +361,7 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 				Eina_Bool is_today = compare_date_with_current_date(sel_item->last_seen_time);
 
 				if (is_today) {
-					elm_object_text_set(sel_item->date_lbl, "<font=Tizen:style=Italic color=#000000 align=center><font_size=25>Today</font_size></font>");
+					elm_object_text_set(sel_item->date_lbl, "<font=Tizen:style=Normal color=#000000 align=center><font_size=25>Today</font_size></font>");
 				} else {
 					char *format = NULL;
 					time_t t = sel_item->last_seen_time;
@@ -378,7 +378,7 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 					}
 
 					char time_str[256]={0,};
-					snprintf(time_str, sizeof(time_str), "<font=Tizen:style=Italic color=#000000 align=center><font_size=25>%s</font_size></font>", res);
+					snprintf(time_str, sizeof(time_str), "<font=Tizen:style=Normal color=#000000 align=center><font_size=25>%s</font_size></font>", res);
 
 					elm_object_text_set(sel_item->date_lbl,time_str);
 				}
@@ -742,9 +742,10 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 #if 0
 		char* user_name = replace(item->peer_print_name, '_', " ");
 #endif
+		char* user_name = str_replace(item->buddy_display_name, "_null_", "");
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", item->buddy_display_name);
-		//free(user_name);
+		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", user_name);
+		free(user_name);
 
 		Evas_Object*  name_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(name_lbl, buf);
@@ -804,7 +805,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 		Eina_Bool is_today = compare_date_with_current_date(item->last_seen_time);
 		Evas_Object* time_lbl = elm_label_add(ad->nf);
 		if (is_today) {
-			//elm_object_text_set(time_lbl, "<font=Tizen:style=Italic color=#000000 align=left><font_size=27>Today</font_size></font>");
+			//elm_object_text_set(time_lbl, "<font=Tizen:style=Normal color=#000000 align=left><font_size=27>Today</font_size></font>");
 			// get time to display
 
 			char *format = NULL;
@@ -822,7 +823,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 			}
 
 			char time_str[128]={0,};
-			sprintf(time_str, "<font=Tizen:style=Italic color=#000000 align=right><font_size=27>%s</font_size></font>", res);
+			sprintf(time_str, "<font=Tizen:style=Normal color=#000000 align=right><font_size=27>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl,time_str);
 
@@ -843,7 +844,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 			}
 
 			char time_str[128]={0,};
-			sprintf(time_str, "<font=Tizen:style=Italic color=#000000 align=right><font_size=27>%s</font_size></font>", res);
+			sprintf(time_str, "<font=Tizen:style=Normal color=#000000 align=right><font_size=27>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl,time_str);
 		}
@@ -1208,6 +1209,46 @@ static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
 
 }
 
+Evas_Object *create_no_object_layout(appdata_s* ad)
+{
+	if (!ad)
+		return NULL;
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+
+	Evas_Object* layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(layout, edj_path, "no_chat_layout");
+	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(layout);
+
+	Evas_Object *no_chat_lbl =  elm_label_add(ad->nf);
+	evas_object_size_hint_weight_set(no_chat_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(no_chat_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(no_chat_lbl);
+	elm_label_ellipsis_set(no_chat_lbl, EINA_TRUE);
+
+	char temp_text[256];
+	sprintf(temp_text, "<font=Tizen:style=Bold =#000000 align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_NPBODY_NO_CHATS"));
+
+	elm_object_text_set(no_chat_lbl, temp_text);
+	elm_object_part_content_set(layout, "no_chats_lbl", no_chat_lbl);
+
+	char temp_text1[256*4];
+	sprintf(temp_text1, "<font=Tizen:style=Normal align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"));
+
+	Evas_Object *no_chat_msg_lbl = elm_entry_add(ad->nf);
+	elm_entry_editable_set(no_chat_msg_lbl, EINA_FALSE);
+	elm_entry_context_menu_disabled_set(no_chat_msg_lbl, EINA_TRUE);
+	elm_entry_selection_handler_disabled_set(no_chat_msg_lbl, EINA_TRUE);
+	elm_object_text_set(no_chat_msg_lbl, temp_text1);
+
+	elm_object_part_content_set(layout, "no_chats_msg_lbl", no_chat_msg_lbl);
+
+	return layout;
+}
+
 void launch_user_main_view_cb(appdata_s* ad)
 {
 	if (!ad)
@@ -1255,7 +1296,7 @@ void launch_user_main_view_cb(appdata_s* ad)
 	elm_object_part_content_set(layout, "main_box", bg_box);
 
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
-		Evas_Object* no_chat_img = create_image_object_from_file(ui_utils_get_resource(TG_NO_CHAT_LIST), layout);
+		Evas_Object* no_chat_img = create_no_object_layout(ad);
 
 		evas_object_data_set(ad->nf, "no_chat_image", no_chat_img);
 

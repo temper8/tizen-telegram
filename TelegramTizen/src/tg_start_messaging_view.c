@@ -32,7 +32,7 @@ static char* on_new_msg_menu_item_name_get_cb(void *data, Evas_Object *obj, cons
 			int id = (int) data;
 
 			char temp_text[256];
-			sprintf(temp_text, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
+			sprintf(temp_text, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
 
 			return strdup(temp_text);
 		}

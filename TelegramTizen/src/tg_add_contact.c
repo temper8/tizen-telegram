@@ -122,7 +122,7 @@ Evas_Object* on_new_buddy_info_requested(void *data, Evas_Object *obj, const cha
 
 		//char* user_status = "online";
 		char status_buf[126] = {'\0'};
-		sprintf(status_buf, "<font=Tizen:style=Italic color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
+		sprintf(status_buf, "<font=Tizen:style=Normal color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);

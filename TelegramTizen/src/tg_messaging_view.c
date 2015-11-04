@@ -217,7 +217,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 			//send group chat delete request
 			show_loading_popup(ad);
-			send_delete_group_chat_request(ad->service_client, user_data->peer_id);
+			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
 
 		} else {
 
@@ -376,7 +376,7 @@ void on_group_chat_info_changed(appdata_s *ad, char *type_of_change)
 			tg_peer_info_s* user = sel_item->use_data;
 			char* user_name = replace(sel_item->use_data->print_name, '_', " ");
 			char temp_name[512] = {'\0'};
-			snprintf(temp_name, 512, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", user_name);
+			snprintf(temp_name, 512, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", user_name);
 			free(user_name);
 			Evas_Object *profile_name = evas_object_data_get(ad->nf, "profile_title");
 			elm_object_text_set(profile_name,temp_name);
@@ -529,7 +529,7 @@ void on_media_chat_item_clicked(void* data, Evas_Object *entry, void* event_info
 
 	if (!media_file || strlen(media_file) <= 0) {
 
-		Eina_Bool ret = send_request_for_media_downloading(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, media_id);
+		Eina_Bool ret = send_request_for_media_downloading(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, media_id);
 		if (!ret) {
 			show_toast(ad, "Please check your network connection.");
 			return;
@@ -719,7 +719,7 @@ static void on_message_play_pause_clicked(void *data, Evas_Object *obj, void *ev
 
 		} else {
 			elm_object_style_set(progressbar, "pending");
-			Eina_Bool ret = send_request_for_media_downloading(ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, atoll(media_id));
+			Eina_Bool ret = send_request_for_media_downloading(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, atoll(media_id));
 			if (!ret) {
 				show_toast(ad, "Please check your network connection.");
 				return;
@@ -1404,7 +1404,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				if (media_msg) {
 					snprintf(loc_url, sizeof(loc_url), "https://maps.google.com/?q=%s,%s", media_msg->latitude, media_msg->longitude);
 					char temp_msg[4*256] = {0,};
-					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Italic|underline color=#0000FF align=left><font_size=15>%s</font_size></font>", loc_url);
+					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Normal|underline color=#0000FF align=left><font_size=15>%s</font_size></font>", loc_url);
 					eina_strbuf_append(buf, temp_msg);
 					elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 					eina_strbuf_free(buf);
@@ -1421,7 +1421,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 				if (media_msg) {
 					char temp_msg[4*256] = {0,};
-					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Italic|underline color=#000000 align=left><font_size=15>%s %s, %s</font_size></font>", media_msg->first_name, media_msg->last_name, media_msg->phone_no);
+					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Normal|underline color=#000000 align=left><font_size=15>%s %s, %s</font_size></font>", media_msg->first_name, media_msg->last_name, media_msg->phone_no);
 					eina_strbuf_append(buf, temp_msg);
 					elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 					eina_strbuf_free(buf);
@@ -1558,7 +1558,7 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	int user_id = (int)evas_object_data_get(chat_list, "user_id");
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
+	send_request_for_marked_as_read(ad, ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
 	ad->is_last_msg_changed = EINA_TRUE;
 	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
 }
@@ -1917,7 +1917,7 @@ void on_user_status_changed(appdata_s* ad, char* status)
 
 	Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
 	char status_str[256]={0,};
-	snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Italic color=#000000 align=left><font_size=30>%s</font_size></font>", status);
+	snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", status);
 	elm_object_text_set(profile_time,status_str);
 }
 
@@ -2038,7 +2038,11 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 #else
 		char status_str[256]={0,};
 		snprintf(status_str, sizeof(status_str) - 1, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), user_list_size);
-		elm_object_text_set(profile_time,status_str);
+
+		char temp_status_str[512]={0,};
+		snprintf(temp_status_str, sizeof(temp_status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%s</font_size></font>", status_str);
+
+		elm_object_text_set(profile_time, temp_status_str);
 #endif
 
 		if (chat_info) {
@@ -3001,13 +3005,13 @@ static void on_text_message_send_unpressed(void *data, Evas_Object *obj, void *e
 static void on_message_smiley_pressed(void *data, Evas_Object *obj, void *event_info)
 {
 	if (data)
-		evas_object_color_set(data, 45, 165, 224, 255);
+		evas_object_color_set(data, 45, 165, 224, 178);
 }
 
 static void on_message_smiley_unpressed(void *data, Evas_Object *obj, void *event_info)
 {
 	if (data)
-		evas_object_color_set(data, 45, 165, 224, 178);
+		evas_object_color_set(data, 45, 165, 224, 255);
 }
 
 void on_message_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -3150,8 +3154,6 @@ static void on_expand_buton_clicked(void *data, Evas_Object *obj, void *event_in
 	}
 	is_expanded = !is_expanded;
 	evas_object_data_set(expand_pic, "is_expanded", is_expanded);
-
-
 }
 
 
@@ -3165,9 +3167,11 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 		ad->msg_popup = NULL;
 	}
 
+	delete_floating_button(ad);
+
 	ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
 	ad->is_last_msg_changed = EINA_FALSE;
-	send_request_for_server_connection_status(ad->service_client);
+	send_request_for_server_connection_status(ad, ad->service_client);
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
@@ -3175,11 +3179,13 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
 	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
+/*
 	Evas_Object* main_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(main_layout, edj_path, "main_list_custom_item");
 	evas_object_size_hint_weight_set(main_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(main_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(main_layout);
+*/
 
 
 	Evas_Object *layout = elm_layout_add(ad->nf);
@@ -3359,7 +3365,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(attach_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     elm_image_file_set(attach_icon, ui_utils_get_resource(TG_ATTACH_ICON), NULL);
     evas_object_show(attach_icon);
-    evas_object_color_set(attach_icon, 45, 165, 224, 178);
+    evas_object_color_set(attach_icon, 45, 165, 224, 255);
 
 	Evas_Object* attach_pic_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(attach_pic_layout, edj_path, "circle_layout");
@@ -3369,13 +3375,13 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_object_part_content_set(attach_pic_layout, "content", attach_icon);
     elm_object_content_set(attach_btn, attach_pic_layout);
 
-    //evas_object_smart_callback_add(attach_btn, "clicked", on_media_attach_clicked, chat_conv_list);
+    evas_object_smart_callback_add(attach_btn, "clicked", on_media_attach_clicked, chat_conv_list);
     evas_object_smart_callback_add(attach_btn, "pressed", on_message_smiley_pressed, attach_icon);
     evas_object_smart_callback_add(attach_btn, "unpressed", on_message_smiley_unpressed, attach_icon);
 	elm_object_part_content_set(entry_box_layout, "swallow.attach_icon", attach_btn);
 
 	Evas_Object* text_entry = elm_entry_add(entry_box_layout);
-	elm_object_part_text_set(text_entry, "elm.guide", "<font=Tizen:style=Italic color=#A8A8A8 valign=middle><font_size=35>Text message</font_size></font>");
+	elm_object_part_text_set(text_entry, "elm.guide", "<font=Tizen:style=Normal color=#A8A8A8 valign=middle><font_size=35>Text message</font_size></font>");
 	elm_entry_line_wrap_set(text_entry, EINA_TRUE);
 	evas_object_size_hint_align_set(text_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(text_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -3384,7 +3390,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_smart_callback_add(text_entry, "clicked", on_message_text_entry_clicked, ad);
 	elm_object_part_content_set(entry_box_layout, "swallow.text_entry", text_entry);
 
-	elm_entry_text_style_user_push(text_entry, "DEFAULT='font_size=32 color=#000000 align=left font=Tizen:style=Italic'");
+	elm_entry_text_style_user_push(text_entry, "DEFAULT='font_size=32 color=#000000 align=left font=Tizen:style=Normal'");
 
 	//evas_object_data_set(chat_conv_list, "text_entry", (void*)text_entry);
 
@@ -3402,7 +3408,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
     elm_image_resizable_set(smiley_icon, EINA_TRUE, EINA_TRUE);
     evas_object_show(smiley_icon);
-    evas_object_color_set(smiley_icon, 45, 165, 224, 178);
+    evas_object_color_set(smiley_icon, 45, 165, 224, 255);
 
 	Evas_Object* smiley_pic_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(smiley_pic_layout, edj_path, "circle_layout");
@@ -3432,7 +3438,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(send_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     elm_image_file_set(send_icon, ui_utils_get_resource(TG_SEND_ICON), NULL);
     evas_object_show(send_icon);
-    evas_object_color_set(send_icon, 45, 165, 224, 178);
+    evas_object_color_set(send_icon, 45, 165, 224, 255);
 	Evas_Object* send_pic_layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(send_pic_layout, edj_path, "circle_layout");
 	evas_object_size_hint_weight_set(send_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -3475,7 +3481,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 		evas_object_data_set(ad->nf, "chat_list_no_msg_text", (void*)no_msg_lbl);
 	}
 
-	send_request_for_marked_as_read(ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
+	send_request_for_marked_as_read(ad, ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
 	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_messaging_menu_button_clicked, ad);
 }
 

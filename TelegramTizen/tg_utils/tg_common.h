@@ -1126,4 +1126,8 @@ extern void on_new_message_clicked(void *data, Evas_Object *obj, void *event_inf
 
 extern void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info);
 
+extern char *str_replace(char *orig, char *rep, char *with);
+
+extern Eina_Bool on_load_main_view_requested(void *data);
+
 #endif /* TG_COMMON_H_ */

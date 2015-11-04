@@ -272,13 +272,26 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 	}
 
 	if (sel_grp_chat && eina_list_count(sel_grp_chat) > 0) {
+		show_loading_popup(ad);
 		send_delete_selected_group_chats_request(ad, ad->service_client, sel_grp_chat);
 	} else {
+#if 0
 		refresh_main_list_view(ad, EINA_FALSE);
 		elm_naviframe_item_pop(ad->nf);
 		ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
 		show_floating_button(ad);
 		hide_loading_popup(ad);
+#else
+		load_registered_user_data(ad);
+		load_buddy_list_data(ad);
+		load_unknown_buddy_list_data(ad);
+		load_peer_data(ad);
+		load_main_list_data(ad);
+		if (ad->main_item) {
+			elm_naviframe_item_pop_to(ad->main_item);
+		}
+		ecore_timer_add(1, on_load_main_view_requested, ad);
+#endif
 	}
 }
 

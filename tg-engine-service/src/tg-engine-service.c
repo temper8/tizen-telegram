@@ -14,7 +14,7 @@ static Eina_Bool on_restart_service_requested(void *data);
 static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 {
 	tg_engine_data_s *tg_data = data;
-	int result = SVC_RES_FAIL;
+	int result = SVC_RES_OK;
 	RETVM_IF(!tg_data, result, "Data is NULL");
 	char *cmd_key_val = NULL;
 

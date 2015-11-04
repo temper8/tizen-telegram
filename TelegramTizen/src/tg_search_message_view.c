@@ -281,7 +281,7 @@ static Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, co
 		Eina_Bool is_today = compare_date_with_current_date(item->last_seen_time);
 		Evas_Object* time_lbl = elm_label_add(ad->nf);
 		if (is_today) {
-			//elm_object_text_set(time_lbl, "<font=Tizen:style=Italic color=#000000 align=left><font_size=27>Today</font_size></font>");
+			//elm_object_text_set(time_lbl, "<font=Tizen:style=Normal color=#000000 align=left><font_size=27>Today</font_size></font>");
 			// get time to display
 
 			char *format = NULL;
@@ -299,7 +299,7 @@ static Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, co
 			}
 
 			char time_str[128]={0,};
-			sprintf(time_str, "<font=Tizen:style=Italic color=#000000 align=right><font_size=27>%s</font_size></font>", res);
+			sprintf(time_str, "<font=Tizen:style=Normal color=#000000 align=right><font_size=27>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl,time_str);
 
@@ -320,7 +320,7 @@ static Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, co
 			}
 
 			char time_str[128]={0,};
-			sprintf(time_str, "<font=Tizen:style=Italic color=#000000 align=right><font_size=27>%s</font_size></font>", res);
+			sprintf(time_str, "<font=Tizen:style=Normal color=#000000 align=right><font_size=27>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl,time_str);
 		}

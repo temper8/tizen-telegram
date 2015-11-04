@@ -149,7 +149,7 @@ Evas_Object* on_user_phone_info_requested(void *data, Evas_Object *obj, const ch
 			second_text = "Username";
 		}
 		char status_buf[126] = {'\0'};
-		sprintf(status_buf, "<font=Tizen:style=Italic color=#808080 align=left><font_size=35>%s</font_size></font>", second_text);
+		sprintf(status_buf, "<font=Tizen:style=Normal color=#808080 align=left><font_size=35>%s</font_size></font>", second_text);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);
@@ -214,7 +214,7 @@ Evas_Object* on_user_info_requested(void *data, Evas_Object *obj, const char *pa
 
 		char* user_status = i18n_get_text("IDS_TGRAM_SBODY_ONLINE");
 		char status_buf[126] = {'\0'};
-		sprintf(status_buf, "<font=Tizen:style=Italic color=#FFFFFF align=left><font_size=35>%s</font_size></font>", user_status);
+		sprintf(status_buf, "<font=Tizen:style=Normal color=#FFFFFF align=left><font_size=35>%s</font_size></font>", user_status);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);

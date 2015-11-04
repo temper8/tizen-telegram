@@ -13,7 +13,7 @@ static void failed_to_communicate_server(appdata_s *ad)
 		return;
 
 	hide_loading_popup(ad);
-	show_toast(ad, "Check your network settings.");
+	//show_toast(ad, "Check your network settings.");
 }
 
 void send_request_for_restart_server(appdata_s *ad, service_client* service_client)

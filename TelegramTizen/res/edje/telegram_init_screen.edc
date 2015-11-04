@@ -3159,6 +3159,44 @@ group
     	}
 	}
 	
+	group
+	{
+       	name: "no_chat_layout";
+    	parts{
+    	    part {
+				name: "swallow.splash_screen,bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					color: 255 255 255 255;
+				}
+			}  
+			part{
+    			name: "no_chats_lbl";
+    			type: SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.05 0.3; }
+    				rel2 { relative: 0.95 0.4; }
+    				color: 0 255 0 255;
+    			}
+    		}
+    		part{
+    			name: "no_chats_msg_lbl";
+    			type: SWALLOW;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.05 0.4; }
+    				rel2 { relative: 0.95 0.7; }    	
+    				color: 255 0 0 255;
+    			}
+    		}
+    	}    	
+	}
+	
+	
 	images {
 		image: "Telegram-main-icon.png" COMP;
 	}

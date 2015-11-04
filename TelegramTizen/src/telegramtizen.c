@@ -17,7 +17,7 @@
 #include "tg_settings_view.h"
 #include "device_contacts_manager.h"
 
-static Eina_Bool on_load_main_view_requested(void *data);
+
 static void free_app_data(appdata_s *app_data, Eina_Bool destroy_server);
 static int init_service(appdata_s *app);
 static void popup_block_clicked_cb(void *data, Evas_Object *obj, void *event_info)
@@ -1652,7 +1652,7 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg)
 						Eina_Bool is_today = compare_date_with_current_date(sel_item->last_seen_time);
 
 						if (is_today) {
-							elm_object_text_set(sel_item->date_lbl, "<font=Tizen:style=Italic color=#000000 align=center><font_size=25>Today</font_size></font>");
+							elm_object_text_set(sel_item->date_lbl, "<font=Tizen:style=Normal color=#000000 align=center><font_size=25>Today</font_size></font>");
 						} else {
 							char *format = NULL;
 							time_t t = sel_item->last_seen_time;
@@ -1669,7 +1669,7 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg)
 							}
 
 							char time_str[256]={0,};
-							snprintf(time_str, sizeof(time_str), "<font=Tizen:style=Italic color=#000000 align=center><font_size=25>%s</font_size></font>", res);
+							snprintf(time_str, sizeof(time_str), "<font=Tizen:style=Normal color=#000000 align=center><font_size=25>%s</font_size></font>", res);
 
 							elm_object_text_set(sel_item->date_lbl,time_str);
 						}
@@ -1885,9 +1885,10 @@ static int on_buddy_unblocked(appdata_s *app, bundle *const rec_msg)
 	return result;
 }
 
-static int on_delete_selected_group_chats(appdata_s *app, bundle *const rec_msg)
+static int on_delete_selected_group_chats(appdata_s *ad, bundle *const rec_msg)
 {
-	int result = SVC_RES_FAIL;
+	int result = SVC_RES_OK;
+#if 0
 	if (app->current_app_state == TG_USER_MAIN_VIEW_SELECTION_STATE) {
 		elm_naviframe_item_pop(app->nf);
 		app->current_app_state = TG_USER_MAIN_VIEW_STATE;
@@ -1899,6 +1900,17 @@ static int on_delete_selected_group_chats(appdata_s *app, bundle *const rec_msg)
 		refresh_main_list_view(app, EINA_FALSE);
 	}
 	hide_loading_popup(app);
+#else
+	load_registered_user_data(ad);
+	load_buddy_list_data(ad);
+	load_unknown_buddy_list_data(ad);
+	load_peer_data(ad);
+	load_main_list_data(ad);
+	if (ad->main_item) {
+		elm_naviframe_item_pop_to(ad->main_item);
+	}
+	ecore_timer_add(1, on_load_main_view_requested, ad);
+#endif
 	return result;
 }
 
@@ -2565,9 +2577,9 @@ static int on_user_status_updated(appdata_s *app, bundle *const rec_msg)
 				        char status_buf[126] = {'\0'};
 				        if(len_org_str > 30) {
 				        	strncpy(res, org_msg, 29);
-				        	sprintf(status_buf,"<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
+				        	sprintf(status_buf,"<font=Tizen:style=Normal color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", res);
 				        } else {
-				        	sprintf(status_buf, "<font=Tizen:style=Italic color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
+				        	sprintf(status_buf, "<font=Tizen:style=Normal color=#A4A4A4 align=left><font_size=26>%s</font_size></font>", org_msg);
 				        }
 						elm_object_text_set(sel_item->status_lbl, status_buf);
 					}
@@ -2604,7 +2616,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 	if (strcmp(rec_key_val, "server_not_initialized") == 0) {
 		hide_loading_popup(app);
-		show_toast(app, "Please check your network connection.");
+		//show_toast(app, "Please check your network connection.");
 		return result;
 	} else if (strcmp(rec_key_val, "registration_done") == 0) {
 
@@ -3056,6 +3068,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			break;
 		case TG_CHAT_MESSAGING_VIEW_STATE:
             // to be handled 
+#if 0
 			if (ad->is_last_msg_changed) {
 				// update main view.
 				// refresh main view
@@ -3103,13 +3116,28 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 
 			}
 			refresh_main_list_view(ad, EINA_FALSE);
+#endif
+
 			eext_object_event_callback_del(ad->nf, EEXT_CALLBACK_MORE, on_messaging_menu_button_clicked);
 			ad->main_item_in_cahtting_data = NULL;
 			ad->buddy_in_cahtting_data = NULL;
 			ad->peer_in_cahtting_data = NULL;
+#if 0
 			elm_naviframe_item_pop(ad->nf);
 			show_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+#else
+			show_loading_popup(ad);
+			load_registered_user_data(ad);
+			load_buddy_list_data(ad);
+			load_unknown_buddy_list_data(ad);
+			load_peer_data(ad);
+			load_main_list_data(ad);
+			if (ad->main_item) {
+				elm_naviframe_item_pop_to(ad->main_item);
+			}
+			ecore_timer_add(1, on_load_main_view_requested, ad);
+#endif
 			break;
 		case TG_SELECT_BUDDY_VIEW:
 			elm_naviframe_item_pop(ad->nf);

@@ -476,7 +476,7 @@ Evas_Object* on_buddy_info_requested(void *data, Evas_Object *obj, const char *p
 
 		//char* user_status = "online";
 		char status_buf[126] = {'\0'};
-		sprintf(status_buf, "<font=Tizen:style=Italic color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
+		sprintf(status_buf, "<font=Tizen:style=Normal color=#FFFFFF align=left><font_size=35>%s</font_size></font>", online_status);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);
@@ -549,7 +549,7 @@ Evas_Object* on_buddy_phone_info_requested(void *data, Evas_Object *obj, const c
 			second_text = "Username";
 		}
 		char status_buf[126] = {'\0'};
-		sprintf(status_buf, "<font=Tizen:style=Italic color=#808080 align=left><font_size=35>%s</font_size></font>", second_text);
+		sprintf(status_buf, "<font=Tizen:style=Normal color=#808080 align=left><font_size=35>%s</font_size></font>", second_text);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);

@@ -305,7 +305,7 @@ void on_cancel_buton_clicked(void *data, Evas_Object *object, void *event_info)
 		}
 	}
 	elm_naviframe_item_pop(ad->nf);
-	ad->current_app_state = TG_BUDDY_LIST_STATE;
+	ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
 	evas_object_show(ad->panel);
 }
 

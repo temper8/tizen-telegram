@@ -232,7 +232,7 @@ void show_loading_popup(appdata_s* ad)
 	app_get_resource(TELEGRAM_POPUP_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(layout, edj_path, "processing_view_layout");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_part_text_set(layout, "elm.text", "<font=Tizen:style=Italic color=#666362 align=left><font_size=36>Loading...</font_size></font>");
+	elm_object_part_text_set(layout, "elm.text", "<font=Tizen:style=Normal color=#666362 align=left><font_size=36>Loading...</font_size></font>");
 	progressbar = elm_progressbar_add(layout);
 	elm_object_style_set(progressbar, "process_medium");
 	evas_object_size_hint_align_set(progressbar, EVAS_HINT_FILL, 0.5);
@@ -531,5 +531,49 @@ void update_floating_button(appdata_s* ad, int mode)
 	}
 
 	elm_layout_signal_emit(ad->floating_btn, "elm,state,floatingbutton,visible", "elm");
+}
 
+char *str_replace(char *orig, char *rep, char *with)
+{
+	char *result; // the return string
+	char *ins;    // the next insert point
+	char *tmp;    // varies
+	int len_rep;  // length of rep
+	int len_with; // length of with
+	int len_front; // distance between rep and end of last rep
+	int count;    // number of replacements
+
+	if (!orig)
+		return NULL;
+	if (!rep)
+		rep = "";
+	len_rep = strlen(rep);
+	if (!with)
+		with = "";
+	len_with = strlen(with);
+
+	ins = orig;
+	for (count = 0; tmp = strstr(ins, rep); ++count) {
+		ins = tmp + len_rep;
+	}
+
+	// first time through the loop, all the variable are set correctly
+	// from here on,
+	//    tmp points to the end of the result string
+	//    ins points to the next occurrence of rep in orig
+	//    orig points to the remainder of orig after "end of rep"
+	tmp = result = malloc(strlen(orig) + (len_with - len_rep) * count + 1);
+
+	if (!result)
+		return NULL;
+
+	while (count--) {
+		ins = strstr(orig, rep);
+		len_front = ins - orig;
+		tmp = strncpy(tmp, orig, len_front) + len_front;
+		tmp = strcpy(tmp, with) + len_with;
+		orig += len_front + len_rep; // move to next "end of rep"
+	}
+	strcpy(tmp, orig);
+	return result;
 }
