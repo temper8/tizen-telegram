@@ -1251,7 +1251,7 @@ group
     			type: IMAGE;
     			description{
     				state: "default" 0.0;
-					rel1 { relative: 0.0 0.97; to, "swallow.text_entry"; }
+					rel1 { relative: 0.0 0.93; to, "swallow.text_entry"; }
 					rel2 { relative: 1.0 1.0; to, "swallow.text_entry"; }
     				max: 800 2;
     				image {

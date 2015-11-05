@@ -177,7 +177,7 @@
 #define TGL_PEER_ENCR_CHAT 4
 #define TGL_PEER_UNKNOWN 0
 
-#define SIZE_CODE 10
+#define SIZE_CODE 11
 static char *phone_codes[SIZE_CODE][2] = { {"Argentina (+54)", "+54"},
 										{"Brazil (+55)", "+55"},
 										{"China (+86)", "+86"},
@@ -187,7 +187,8 @@ static char *phone_codes[SIZE_CODE][2] = { {"Argentina (+54)", "+54"},
 										{"Russia (+7)", "+7"},
 										{"Singapore (+65)", "+65"},
 										{"South Korea (+82)", "+82"},
-										{"United States (+1)" , "+1"}
+										{"United States (+1)" , "+1"},
+										{"Vietnam (+84)" , "+84"}
 									     };
 
 

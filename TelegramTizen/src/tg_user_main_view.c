@@ -764,9 +764,9 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 
 		char* org_msg = NULL;
 		if (item->last_message) {
-			org_msg = item->last_message;
+			org_msg = str_replace(item->last_message, "<br/>", " ");
 		} else {
-			org_msg = "";
+			org_msg = strdup("");
 		}
 
 		int len_org_str = strlen(org_msg);
@@ -787,6 +787,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 				sprintf(status_buf, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
 			}
 		}
+		free(org_msg);
 
 		Evas_Object*  status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);
