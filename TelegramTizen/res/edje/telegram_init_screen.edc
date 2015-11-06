@@ -1059,7 +1059,7 @@ group
 				rel1 { relative: 0.0 0.0; }
 				rel2 { relative: 1.0 1.0; }
 				color: 45 165 224 255;
-			}    	   			
+			}
 		}
 		part{
 			name: "swallow.back_arrow";
@@ -1068,54 +1068,27 @@ group
 				state: "default" 0.0;
 				rel1 { relative: 0.0 0.3; }
 				rel2 { relative: 0.1 0.7; }
-			}    	   			
+			}
 		}
-		
-		part{
-			name: "swallow.profile_pic";
-			type: SWALLOW;
-			scale: 1;
-			description{
-				state: "default" 0.0;
-				rel1 { relative: (72+60)/720 (16.8+60)/153.6; }
-				rel2 { relative: (72+60)/720 (16.8+60)/153.6; }
-				min: 180 120;
-				max: 180 120;
-				fixed: 1 1;
-			}	   			
-		}
-		part{
-			name: "swallow.profile_name,space";
-			type: SPACER;
-			description{
-				state: "default" 0.0;
-				rel1 { relative: 1.0 0.1; to_x: "swallow.profile_pic"; }
-				rel2 { relative: 1.0 0.5; to_x: "swallow.profile_pic"; }
-				min: 15 0;
-				max: 15 -1;
-				fixed: 1 0;    				
-			}    	   			
-		}	
-		
 		part{
 			name: "swallow.profile_name";
 			type: SWALLOW;
 			description{
 				state: "default" 0.0;
-				rel1 { relative: 1.0 0.1; to_x: "swallow.profile_name,space"; }
-				rel2 { relative: 0.8 0.5; }    				
-			}    	   			
+				rel1 { relative: 0.0 0.1; }
+				rel2 { relative: 1.0 0.6; }
+			}
 		}
 		part{
 			name: "swallow.profile_time";
 			type: SWALLOW;
 			description{
 				state: "default" 0.0;
-				rel1 { relative: 1.0 0.5; to_x: "swallow.profile_name,space";  }
-				rel2 { relative: 0.8 1.0; }    				
-			}    	   			
-		} 
-		
+				rel1 { relative: 0.0 0.6;  }
+				rel2 { relative: 1.0 1.0; }
+			}
+		}
+
 		part{
 			name: "swallow.expand_btn";
 			type: SWALLOW;
@@ -1123,27 +1096,11 @@ group
 				state: "default" 0.0;
 				rel1 { relative: 0.8 0.3; }
 				rel2 { relative: 1.0 0.7; }
-			}    	   			
+			}
 		}
 	}
-	programs {
-			program {
-				name: "pic_default";
-				signal: "pro_pic_default";
-				source: "pro_pic_resize";
-				action: STATE_SET "default" 0.0;
-				target: "swallow.profile_pic";
-			}
-			program {
-				name: "pic_land";
-				signal: "pro_pic_land";
-				source: "pro_pic_resize";
-				action: STATE_SET "land" 0.0;
-				target: "swallow.profile_pic";
-			}
-	}
 }
-	
+
 	group
     {
        	name: "chat_messaging_layout";

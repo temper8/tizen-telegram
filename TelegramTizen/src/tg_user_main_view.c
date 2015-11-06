@@ -1242,7 +1242,7 @@ Evas_Object *create_no_object_layout(appdata_s* ad)
 	Evas_Object *no_chat_msg_lbl = elm_entry_add(ad->nf);
 	elm_entry_editable_set(no_chat_msg_lbl, EINA_FALSE);
 	elm_entry_context_menu_disabled_set(no_chat_msg_lbl, EINA_TRUE);
-	elm_entry_selection_handler_disabled_set(no_chat_msg_lbl, EINA_TRUE);
+	//elm_entry_selection_handler_disabled_set(no_chat_msg_lbl, EINA_TRUE);
 	elm_object_text_set(no_chat_msg_lbl, temp_text1);
 
 	elm_object_part_content_set(layout, "no_chats_msg_lbl", no_chat_msg_lbl);

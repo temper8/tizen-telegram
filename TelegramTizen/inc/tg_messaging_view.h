@@ -18,7 +18,6 @@ extern void on_media_download_completed(appdata_s* ad, int buddy_id, long long m
 extern void on_user_presence_state_changed(appdata_s* ad, int buddy_id);
 extern void on_user_status_changed(appdata_s* ad, char* status);
 extern void on_group_chat_info_changed(appdata_s *ad, char *type_of_change);
-extern void on_chat_profile_pic_changed(appdata_s *ad, char *file_path);
 extern void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_info);
 extern void refresh_messaging_view(appdata_s *ad);
 #endif /* TG_MESSAGING_VIEW_H_ */

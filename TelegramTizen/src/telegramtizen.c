@@ -1478,18 +1478,6 @@ static int on_buddy_profile_pic_updated(appdata_s *app, bundle *const rec_msg)
 				}
 			}
 		}
-
-		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
-				&& app->peer_in_cahtting_data->use_data->peer_id == user_id) {
-			on_chat_profile_pic_changed(app, pic_file_path);
-		}
-
-		if (app->current_app_state ==  TG_SET_CHAT_INFO_STATE && app->peer_in_cahtting_data
-				&& app->peer_in_cahtting_data->use_data->peer_id == user_id) {
-			on_chat_profile_pic_changed(app, pic_file_path);
-
-			show_toast(app, "Chat profile picture updated successfully.");
-		}
 	}
 	return result;
 }
