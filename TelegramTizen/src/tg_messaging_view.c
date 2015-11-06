@@ -1851,8 +1851,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, void *eve
 	Evas_Object* text_entry = evas_object_data_get(chat_list, "text_entry");
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
-
-	const char* text_to_send = elm_entry_entry_get(text_entry);
+	const char* text_to_send = elm_entry_markup_to_utf8(elm_object_text_get(text_entry));
 	if (!text_to_send || (strlen(text_to_send) == 0))
 		return;
 
@@ -3387,6 +3386,9 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_weight_set(text_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_show(text_entry);
 	elm_entry_scrollable_set(text_entry, EINA_TRUE);
+	elm_entry_end_visible_set(text_entry, EINA_TRUE);
+	elm_entry_icon_visible_set(text_entry, EINA_TRUE);
+	elm_entry_line_wrap_set(text_entry, ELM_WRAP_MIXED);
 	evas_object_smart_callback_add(text_entry, "clicked", on_message_text_entry_clicked, ad);
 	elm_object_part_content_set(entry_box_layout, "swallow.text_entry", text_entry);
 

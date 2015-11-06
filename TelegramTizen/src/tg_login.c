@@ -96,7 +96,8 @@ static Eina_Bool on_code_timer_cb(void* data)
 
 		char temp_txt[512] = {0,};
 		snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 0, 0);
-
+		Evas_Object *layout = evas_object_data_get(ad->nf, "layout");
+		elm_object_part_text_set(layout, "timer_text", temp_txt);
 		// send request to get phone call
 		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_FALSE);
 		return ECORE_CALLBACK_CANCEL;

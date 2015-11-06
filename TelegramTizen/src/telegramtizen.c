@@ -3287,6 +3287,55 @@ Eina_Bool on_load_main_view_requested(void *data)
     return ECORE_CALLBACK_CANCEL;
 }
 
+
+Eina_Bool on_init_view_requested(void *data)
+{
+	appdata_s *ad = data;
+	if (ad) {
+		Eina_List* user_info = get_registered_user_info();
+		if (!user_info) {
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_REGISTRATION_STATE;
+			launch_init_screen(ad);
+		} else {
+			//show_toast(ad, "user already registered");
+			load_registered_user_data(ad);
+			load_buddy_list_data(ad);
+			load_unknown_buddy_list_data(ad);
+			load_peer_data(ad);
+			load_main_list_data(ad);
+			eina_list_free(user_info);
+			ecore_timer_add(2, on_load_main_view_requested, ad);
+		}
+	}
+    return ECORE_CALLBACK_CANCEL;
+}
+
+void on_tg_service_result_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
+{
+	appdata_s *ad = user_data;
+	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
+		if (ad) {
+			show_toast(ad, "Server launched successfully.");
+		} else {
+			show_toast(ad, "Server not launched.");
+		}
+	}
+}
+
+static void launch_tg_server(void *data)
+{
+	appdata_s *ad = data;
+	app_control_h app_control;
+	int ret = app_control_create(&app_control);
+/*	ret = app_control_set_operation(app_control, "http://tizen.org/appcontrol/operation/launch_on_event");
+	ret = app_control_set_mime(app_control, "application/telegram");
+	ret = app_control_set_uri(app_control, "http://tizen.org/appcontrol/operation/telegram_start");*/
+	ret = app_control_set_app_id(app_control, "org.tizen.tg-engine-service");
+	ret = app_control_send_launch_request(app_control, &on_tg_service_result_cb, ad);
+	ret = app_control_destroy(app_control);
+}
+
 static void create_base_gui(appdata_s *ad)
 {
 
@@ -3352,53 +3401,9 @@ static void create_base_gui(appdata_s *ad)
 		ad->chat_background = strdup(ui_utils_get_resource(TG_CHAT_DEFAULT_BG));
 		preference_set_string(TG_CHAT_BG_PREFERENCE, ad->chat_background);
 	}
-
-	Eina_List* user_info = get_registered_user_info();
-
-	if (!user_info) {
-		elm_naviframe_item_pop(ad->nf);
-		ad->current_app_state = TG_REGISTRATION_STATE;
-		launch_init_screen(ad);
-		//launch_user_main_view_cb(ad);
-	} else {
-		//show_toast(ad, "user already registered");
-		load_registered_user_data(ad);
-		load_buddy_list_data(ad);
-		load_unknown_buddy_list_data(ad);
-		load_peer_data(ad);
-		load_main_list_data(ad);
-
-		ecore_timer_add(2, on_load_main_view_requested, ad);
-
-	}
-
+	launch_tg_server(ad);
+	ecore_timer_add(5, on_init_view_requested, ad);
 	ucol_init();
-	//eina_list_free(user_info);
-}
-
-void on_tg_service_result_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
-{
-	appdata_s *ad = user_data;
-	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
-		if (ad) {
-			show_toast(ad, "Server launched successfully.");
-		} else {
-			show_toast(ad, "Server not launched.");
-		}
-	}
-}
-
-static void launch_tg_server(void *data)
-{
-	appdata_s *ad = data;
-	app_control_h app_control;
-	int ret = app_control_create(&app_control);
-/*	ret = app_control_set_operation(app_control, "http://tizen.org/appcontrol/operation/launch_on_event");
-	ret = app_control_set_mime(app_control, "application/telegram");
-	ret = app_control_set_uri(app_control, "http://tizen.org/appcontrol/operation/telegram_start");*/
-	ret = app_control_set_app_id(app_control, "org.tizen.tg-engine-service");
-	ret = app_control_send_launch_request(app_control, &on_tg_service_result_cb, ad);
-	ret = app_control_destroy(app_control);
 }
 
 static bool app_create(void *data)
@@ -3440,7 +3445,7 @@ static bool app_create(void *data)
 
 	}
 	init_service(ad);
-	launch_tg_server(data);
+
 	return true;
 }
 

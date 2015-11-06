@@ -500,7 +500,9 @@ void request_for_code_via_call(struct tgl_state *TLS, char* phone_no, Eina_Bool 
 {
 	tg_engine_data_s *tg_data;
 	tg_data = TLS->callback_data;
-	tgl_do_phone_call(TLS, tg_data->phone_number, tg_data->mhash, on_code_via_phone_result, TLS);
+	if (tg_data && tg_data->phone_number && tg_data->mhash) {
+		tgl_do_phone_call(TLS, tg_data->phone_number, tg_data->mhash, on_code_via_phone_result, TLS);
+	}
 }
 
 void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*callback)(struct tgl_state *TLS, char *string, void *arg), void *arg)
@@ -531,7 +533,7 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 		}
 
 		void **T = arg;
-		tg_data->mhash = T[1];
+		tg_data->mhash = strdup(T[1]);
 
 		if (tg_data->tg_state == TG_ENGINE_STATE_CODE_REQUEST) {
 			send_request_code_again(tg_data);
@@ -1848,6 +1850,9 @@ void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int succe
 void on_chat_history_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (!tg_data)
+		return;
+
 	for (int i = 0; i < size; i++) {
 		struct tgl_message* message = list[i];
 		if (message->service || message->from_id.id == tg_data->id.id) {
@@ -1859,7 +1864,7 @@ void on_chat_history_received(struct tgl_state *TLS, void *callback_extra, int s
 		}
 	}
 	tg_data->current_chat_index = tg_data->current_chat_index + 1;
-	if (tg_data->current_chat_index < eina_list_count(tg_data->chat_list)) {
+	if (tg_data->chat_list && (tg_data->current_chat_index < eina_list_count(tg_data->chat_list))) {
 		tgl_peer_t* UC = eina_list_nth(tg_data->chat_list, tg_data->current_chat_index);
 		tgl_do_get_history(s_info.TLS, UC->id, 20, 0, on_chat_history_received, UC);
 	} else {
@@ -1870,11 +1875,13 @@ void on_chat_history_received(struct tgl_state *TLS, void *callback_extra, int s
 static Eina_Bool on_load_chat_history_requested(void *data)
 {
 	struct tgl_state *TLS = data;
-	if (TLS) {
-		tg_engine_data_s *tg_data = TLS->callback_data;
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (TLS && tg_data && tg_data->chat_list && eina_list_count(tg_data->chat_list) > 0) {
 		tg_data->current_chat_index = 0;
 		tgl_peer_t* UC = eina_list_nth(tg_data->chat_list, tg_data->current_chat_index);
-		tgl_do_get_history(s_info.TLS, UC->id, 20, 0, on_chat_history_received, UC);
+		if (UC) {
+			tgl_do_get_history(s_info.TLS, UC->id, 20, 0, on_chat_history_received, UC);
+		}
 	}
 	return ECORE_CALLBACK_CANCEL;
 }
@@ -1893,7 +1900,7 @@ void on_buddy_history_received(struct tgl_state *TLS, void *callback_extra, int 
 		}
 	}
 	tg_data->current_buddy_index = tg_data->current_buddy_index + 1;
-	if (tg_data->current_buddy_index < eina_list_count(tg_data->buddy_list)) {
+	if (tg_data->buddy_list && (tg_data->current_buddy_index < eina_list_count(tg_data->buddy_list))) {
 		tgl_peer_t* UC = eina_list_nth(tg_data->buddy_list, tg_data->current_buddy_index);
 		tgl_do_get_history(s_info.TLS, UC->id, 20, 0, on_buddy_history_received, UC);
 	} else {
@@ -1905,8 +1912,8 @@ void on_buddy_history_received(struct tgl_state *TLS, void *callback_extra, int 
 static Eina_Bool on_load_buddy_history_requested(void *data)
 {
 	struct tgl_state *TLS = data;
-	if (TLS) {
-		tg_engine_data_s *tg_data = TLS->callback_data;
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (TLS && tg_data && tg_data->buddy_list && eina_list_count(tg_data->buddy_list) > 0) {
 		tg_data->current_buddy_index = 0;
 		tgl_peer_t* UC = eina_list_nth(tg_data->buddy_list, tg_data->current_buddy_index);
 		tgl_do_get_history(s_info.TLS, UC->id, 20, 0, on_buddy_history_received, UC);
@@ -1964,7 +1971,7 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 		struct tgl_user *buddy = contacts[i];
 		tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
 	}
-	send_response_for_server_connection_status(tg_data, tg_data->is_login_activated);
+	//send_response_for_server_connection_status(tg_data, tg_data->is_login_activated);
 	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
 	ecore_timer_add(6, on_load_buddy_history_requested, TLS);
 	//ecore_timer_add(12, send_chat_loading_is_done_response, TLS);
