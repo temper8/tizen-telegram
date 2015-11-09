@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.tg-engine-service" version="1.0.0">
     <profile name="mobile"/>
-    <service-application appid="org.tizen.tg-engine-service" exec="tg-engine-service" multiple="false" nodisplay="true" type="capp" taskmanage="false">
+    <service-application appid="org.tizen.tg-engine-service" exec="tg-engine-service" multiple="false" nodisplay="true" taskmanage="false" type="capp">
         <label>tg-engine-service</label>
         <icon>ic_launcher.png</icon>
         <background-category value="background-network"/>
@@ -29,8 +29,8 @@
         <privilege>http://tizen.org/privilege/bluetooth</privilege>
         <privilege>http://tizen.org/privilege/mediastorage</privilege>
         <privilege>http://tizen.org/privilege/internet</privilege>
-        <privilege>http://tizen.org/privilege/notification</privilege>
         <privilege>http://tizen.org/privilege/network.set</privilege>
+        <privilege>http://tizen.org/privilege/notification</privilege>
         <privilege>http://tizen.org/privilege/externalstorage.appdata</privilege>
         <privilege>http://tizen.org/privilege/apphistory.read</privilege>
         <privilege>http://tizen.org/privilege/contact.read</privilege>

@@ -3275,7 +3275,6 @@ Eina_Bool on_load_main_view_requested(void *data)
     return ECORE_CALLBACK_CANCEL;
 }
 
-
 Eina_Bool on_init_view_requested(void *data)
 {
 	appdata_s *ad = data;
@@ -3314,14 +3313,20 @@ void on_tg_service_result_cb(app_control_h request, app_control_h reply, app_con
 static void launch_tg_server(void *data)
 {
 	appdata_s *ad = data;
-	app_control_h app_control;
-	int ret = app_control_create(&app_control);
-/*	ret = app_control_set_operation(app_control, "http://tizen.org/appcontrol/operation/launch_on_event");
-	ret = app_control_set_mime(app_control, "application/telegram");
-	ret = app_control_set_uri(app_control, "http://tizen.org/appcontrol/operation/telegram_start");*/
-	ret = app_control_set_app_id(app_control, "org.tizen.tg-engine-service");
+	app_control_h app_control = NULL;
+	int ret = APP_CONTROL_ERROR_NONE;
+
+	ret = app_control_create(&app_control);
+	ret_if(APP_CONTROL_ERROR_NONE != ret);
+
+	ret = app_control_set_app_id(app_control, TELEGRAM_SERVER_APP_NAME);
+	goto_if(APP_CONTROL_ERROR_NONE != ret, out);
+
 	ret = app_control_send_launch_request(app_control, &on_tg_service_result_cb, ad);
-	ret = app_control_destroy(app_control);
+	goto_if(APP_CONTROL_ERROR_NONE != ret, out);
+
+out:
+	app_control_destroy(app_control);
 }
 
 static void create_base_gui(appdata_s *ad)
@@ -3389,7 +3394,7 @@ static void create_base_gui(appdata_s *ad)
 		ad->chat_background = strdup(ui_utils_get_resource(TG_CHAT_DEFAULT_BG));
 		preference_set_string(TG_CHAT_BG_PREFERENCE, ad->chat_background);
 	}
-	launch_tg_server(ad);
+
 	ecore_timer_add(5, on_init_view_requested, ad);
 	ucol_init();
 }
@@ -3433,7 +3438,7 @@ static bool app_create(void *data)
 
 	}
 	init_service(ad);
-
+	launch_tg_server(ad);
 	return true;
 }
 

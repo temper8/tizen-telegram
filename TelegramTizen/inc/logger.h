@@ -61,4 +61,41 @@
     } \
 }
 
+#define retv_if(expr, val) do { \
+	if (expr) { \
+		ERR("(%s) -> %s() return", #expr, __FUNCTION__); \
+		return (val); \
+	} \
+} while (0)
+
+#define ret_if(expr) do { \
+	if (expr) { \
+		ERR("(%s) -> %s() return", #expr, __FUNCTION__); \
+		return; \
+	} \
+} while (0)
+
+#define goto_if(expr, val) do { \
+	if (expr) { \
+		ERR("(%s) -> goto", #expr); \
+		goto val; \
+	} \
+} while (0)
+
+#define break_if(expr) { \
+	if (expr) { \
+		ERR("(%s) -> break", #expr); \
+		break; \
+	} \
+}
+
+#define continue_if(expr) { \
+	if (expr) { \
+		ERR("(%s) -> continue", #expr); \
+		continue; \
+	} \
+}
+
+
+
 #endif /* __LOGGER_H__ */

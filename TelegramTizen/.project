@@ -3,6 +3,7 @@
 	<name>TelegramTizen</name>
 	<comment></comment>
 	<projects>
+		<project>tg-engine-service</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
