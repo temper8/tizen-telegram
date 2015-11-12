@@ -1901,10 +1901,10 @@ void on_user_status_changed(appdata_s* ad, char* status)
 	if (!ad || !status)
 		return;
 
-	Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
+	Elm_Object_Item *nf_it = evas_object_data_get(ad->nf, "navi_item");
 	char status_str[256]={0,};
 	snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Normal color=#000000 align=center><font_size=30>%s</font_size></font>", status);
-	elm_object_text_set(profile_time,status_str);
+	elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 }
 
 void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
@@ -1912,6 +1912,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 	if (!ad)
 		return;
 	int type_of_chat = ad->peer_in_cahtting_data->use_data->peer_type;
+	Elm_Object_Item *nf_it = evas_object_data_get(ad->nf, "navi_item");
 
 	if (type_of_chat == TGL_PEER_USER) {
 
@@ -1924,15 +1925,13 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
 				int last_seen = *temp_last_seen;
 
-				Evas_Object* profile_time = evas_object_data_get(ad->nf, "profile_time");
-
 				char *format = NULL;
 				Eina_Bool is_today = compare_date_with_current_date(last_seen);
 
 				if (is_online > 0) {
 					char status_str[256]={0,};
 					snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
-					elm_object_text_set(profile_time,status_str);
+					elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 				} else {
 					time_t t = last_seen;
 
@@ -1956,7 +1955,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 					char time_str[256]={0,};
 					snprintf(time_str, sizeof(time_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>%s</font_size></font>", res);
 
-					elm_object_text_set(profile_time,time_str);
+					elm_object_item_part_text_set(nf_it, "subtitle", time_str);
 				}
 
 				for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
@@ -1970,15 +1969,11 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 
 	} else if (type_of_chat == TGL_PEER_CHAT) {
 
-		Evas_Object *profile_time = evas_object_data_get(ad->nf, "profile_time");
-		if (!profile_time) {
-			return;
-		}
 		tg_chat_info_s* chat_info = get_chat_info(buddy_id);
 		if (!chat_info) {
 			char status_str[256]={0,};
 			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>Unidentified.</font_size></font>");
-			elm_object_text_set(profile_time,status_str);
+			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 			return;
 		}
 
@@ -2015,11 +2010,11 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		if (online_members == 0) {
 			char status_str[256]={0,};
 			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d %s</font_size></font>", user_list_size, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"));
-			elm_object_text_set(profile_time,status_str);
+			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 		} else {
 			char status_str[256]={0,};
 			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d %s, %d %s</font_size></font>", user_list_size, , online_members, i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
-			elm_object_text_set(profile_time,status_str);
+			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 		}
 #else
 		char status_str[256]={0,};
@@ -2028,7 +2023,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		char temp_status_str[512]={0,};
 		snprintf(temp_status_str, sizeof(temp_status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>%s</font_size></font>", status_str);
 
-		elm_object_text_set(profile_time, temp_status_str);
+		elm_object_item_part_text_set(nf_it, "subtitle", temp_status_str);
 #endif
 
 		if (chat_info) {
@@ -3135,25 +3130,11 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
-	Evas_Object* scroller = elm_scroller_add(ad->nf);
-	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
-
-/*
-	Evas_Object* main_layout = elm_layout_add(ad->nf);
-	elm_layout_file_set(main_layout, edj_path, "main_list_custom_item");
-	evas_object_size_hint_weight_set(main_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(main_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(main_layout);
-*/
-
-
 	Evas_Object *layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "chat_messaging_layout");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
-	elm_object_content_set(scroller, layout);
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 	tg_peer_info_s* user = sel_item->use_data;
@@ -3179,6 +3160,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
     evas_object_show(list_bg);
 
     elm_object_part_content_set(msg_box_layout, "swallow.gen_list.bg", list_bg);
+
 	Evas_Object *chat_conv_list = elm_genlist_add(ad->nf);
 	elm_list_mode_set(chat_conv_list, ELM_LIST_COMPRESS);
 	elm_genlist_mode_set(chat_conv_list, ELM_LIST_COMPRESS);
@@ -3198,80 +3180,6 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_object_part_content_set(layout, "swallow.chat_box", msg_box_layout);
 
 	/*************************** message list ************************************/
-
-
-	/********************** title layout ******************************/
-
-	Evas_Object *title_layout = elm_layout_add(ad->nf);
-	elm_layout_file_set(title_layout, edj_path, "chat_title_box");
-	evas_object_size_hint_weight_set(title_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(title_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(title_layout);
-
-	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
-	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
-	elm_object_part_content_set(title_layout, "swallow.back_arrow", back_btn);
-
-	Evas_Object *profile_name = elm_label_add(title_layout);
-	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
-		char temp_name[512] = {'\0'};
-		snprintf(temp_name, 512, "<font=Tizen:style=Large color=#ffffff align=center><font_size=46>%s</font_size></font>", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
-		elm_object_text_set(profile_name,temp_name);
-	} else {
-		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
-		char temp_name[512] = {'\0'};
-		snprintf(temp_name, 512, "<font=Tizen:style=Large color=#ffffff align=center><font_size=46>%s</font_size></font>", user_name);
-		free(user_name);
-		elm_object_text_set(profile_name,temp_name);
-	}
-
-	evas_object_size_hint_align_set(profile_name, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(profile_name, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_style_set(profile_name, "transparent");
-	evas_object_show(profile_name);
-	elm_object_part_content_set(title_layout, "swallow.profile_name", profile_name);
-	evas_object_data_set(ad->nf, "profile_title", (void*)profile_name);
-	evas_object_smart_callback_add(profile_name, "clicked", on_user_info_button_clicked, ad);
-
-	Evas_Object *profile_time = elm_label_add(title_layout);
-	evas_object_size_hint_align_set(profile_time, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(profile_time, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_show(profile_time);
-	elm_object_part_content_set(title_layout, "swallow.profile_time", profile_time);
-	evas_object_data_set(ad->nf, "profile_time", (void*)profile_time);
-	evas_object_smart_callback_add(profile_time, "clicked", on_user_info_button_clicked, ad);
-
-	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
-
-	/******************** expand ************************/
-	if (user->peer_type == TGL_PEER_CHAT) {
-		Evas_Object *expand_pic = NULL;
-		expand_pic = elm_image_add(layout);
-		evas_object_size_hint_weight_set(expand_pic, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(expand_pic, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		elm_object_focus_set(expand_pic, EINA_FALSE);
-		elm_image_file_set(expand_pic, ui_utils_get_resource(TG_EXPAND_OPEN), NULL);
-		evas_object_show(expand_pic);
-		evas_object_data_set(expand_pic, "app_data", ad);
-		evas_object_data_set(expand_pic, "parent_layout", layout);
-
-		Eina_Bool is_expanded = EINA_FALSE;
-		evas_object_data_set(expand_pic, "is_expanded", is_expanded);
-		Evas_Object* expand_btn = elm_button_add(ad->layout);
-		elm_object_style_set(expand_btn, "transparent");
-		evas_object_smart_callback_add(expand_btn, "clicked", on_expand_buton_clicked, expand_pic);
-		elm_object_content_set(expand_btn, expand_pic);
-		evas_object_show(expand_btn);
-		elm_object_part_content_set(title_layout, "swallow.expand_btn", expand_btn);
-
-	}
-	/******************** expand ************************/
-
-
-	elm_object_part_content_set(layout, "swallow.title_box", title_layout);
-
-
-	/********************** title layout ******************************/
 
 	/********************** entry layout*******************************/
 	Evas_Object* entry_box_layout = elm_layout_add(ad->win);
@@ -3388,11 +3296,53 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_data_set(chat_conv_list, "app_data", ad);
 	evas_object_data_set(chat_conv_list, "user_id", (void*)user_id);
 	evas_object_data_set(chat_conv_list, "text_entry", (void*)text_entry);
-	evas_object_data_set(chat_conv_list, "profile_time", (void*)profile_time);
 
+	// Title: name
 
-	Elm_Object_Item *nf_it = elm_naviframe_item_simple_push(ad->nf, scroller);
+	char temp_name[512] = {'\0'};
+
+	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
+			snprintf(temp_name, 512, "<font=Tizen:style=Large color=#ffffff align=center><font_size=46>%s</font_size></font>", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+	} else {
+		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
+		snprintf(temp_name, 512, "<font=Tizen:style=Large color=#ffffff align=center><font_size=46>%s</font_size></font>", user_name);
+		free(user_name);
+	}
+
+	Elm_Object_Item *nf_it = elm_naviframe_item_push(ad->nf, temp_name, NULL, NULL, layout, NULL);
 	elm_object_item_part_content_set(nf_it, "toolbar", entry_box_layout);
+	evas_object_data_set(ad->nf, "navi_item", nf_it);
+
+	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
+
+	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
+	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
+	elm_object_item_part_content_set(nf_it, "title_left_btn", back_btn);
+
+	/******************** expand ************************/
+	if (user->peer_type == TGL_PEER_CHAT) {
+		Evas_Object *expand_pic = NULL;
+		expand_pic = elm_image_add(layout);
+		evas_object_size_hint_weight_set(expand_pic, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(expand_pic, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		elm_object_focus_set(expand_pic, EINA_FALSE);
+		elm_image_file_set(expand_pic, ui_utils_get_resource(TG_EXPAND_OPEN), NULL);
+		evas_object_show(expand_pic);
+		evas_object_data_set(expand_pic, "app_data", ad);
+		evas_object_data_set(expand_pic, "parent_layout", layout);
+
+		Eina_Bool is_expanded = EINA_FALSE;
+		evas_object_data_set(expand_pic, "is_expanded", is_expanded);
+		Evas_Object* expand_btn = elm_button_add(ad->layout);
+		elm_object_style_set(expand_btn, "transparent");
+		evas_object_smart_callback_add(expand_btn, "clicked", on_expand_buton_clicked, expand_pic);
+		elm_object_content_set(expand_btn, expand_pic);
+		evas_object_show(expand_btn);
+		elm_object_item_part_content_set(nf_it, "title_right_btn", expand_btn);
+
+	}
+	/******************** expand ************************/
+
 
 
 	Eina_Bool ret = load_chat_history(chat_conv_list);
