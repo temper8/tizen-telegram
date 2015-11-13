@@ -18,7 +18,15 @@ styles {
 	}
 	style {
 		name: "name,display";
-		base: "font=Tizen=Regular text_class=ATO022 font_size=40 align=left color=#666666 color_class=ATO009 wrap=mixed";
+		base: "font=Tizen=Regular text_class=ATO009 font_size=40 align=left color=#666666 color_class=ATO009 wrap=mixed";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
+	style {
+		name: "nomessage,display";
+		base: "font=Tizen=Regular text_class=ATO019 font_size=40 align=center color=#000000 color_class=ATO019 wrap=mixed";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -1105,7 +1113,7 @@ group
     {
        	name: "chat_messaging_layout";
     	parts{
-    	   part{
+			part{
     			name: "swallow.chat_box";
     			type: SWALLOW;
     			description{
@@ -1115,22 +1123,33 @@ group
     				color: 0 0 0 0;
     			}
     		}
-    		part{
-    			name: "swallow.no_msg_text";
-    			type: SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.55; }
-    				rel2 { relative: 1.0 0.65; }
-    				color: 0 0 0 0;
-    			}
-    		}
+    		part {
+				name: "no_msg_text";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					align: 0.5 0.5;
+					text {
+						style: "nomessage,display";
+						min: 0 1;
+						text: "No message";
+					}
+					visible: 0;
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+			}
     		part{
     			name: "swallow.group_detail_box,bg";
     			type: SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.12; }
+    				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 0.25; }
     				color: 0 0 0 0;
     			}
@@ -1140,12 +1159,28 @@ group
     			type: SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.12; }
+    				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 0.25; }
     				color: 0 0 0 0;
     			}
     		}
-    	}    	
+    	} //parts
+    	programs {
+    		program {
+    			name: "show";
+    			source: "message";
+    			signal: "show";
+    			action: STATE_SET "show" 0.0;
+    			target: "no_msg_text";
+    		}
+    		program {
+    			name: "hide";
+    			source: "message";
+    			signal: "hide";
+    			action: STATE_SET "default" 0.0;
+    			target: "no_msg_text";
+    		}
+    	}
     }
     
     

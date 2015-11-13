@@ -363,10 +363,10 @@ void on_group_chat_info_changed(appdata_s *ad, char *type_of_change)
 			tg_peer_info_s* user = sel_item->use_data;
 			char* user_name = replace(sel_item->use_data->print_name, '_', " ");
 			char temp_name[512] = {'\0'};
-			snprintf(temp_name, 512, "<font=Tizen:style=Large color=#000000 align=Center><font_size=46>%s</font_size></font>", user_name);
+			snprintf(temp_name, 512, "%s", user_name);
 			free(user_name);
-			Evas_Object *profile_name = evas_object_data_get(ad->nf, "profile_title");
-			elm_object_text_set(profile_name,temp_name);
+			Elm_Object_Item *nf_it = evas_object_data_get(ad->nf, "navi_item");
+			elm_object_item_part_text_set(nf_it, "title", temp_name);
 		}
 	} else if (strstr(type_of_change, "delete_photo") != NULL) {
 
@@ -1204,10 +1204,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 		Evas_Object *chat_list = obj;
 		appdata_s* ad = evas_object_data_get(chat_list, "app_data");
 
-		Evas_Object *no_msg_lbl = evas_object_data_get(ad->nf, "chat_list_no_msg_text");
-		if (no_msg_lbl) {
-			evas_object_del(no_msg_lbl);
-			evas_object_data_set(ad->nf, "chat_list_no_msg_text", NULL);
+		Evas_Object *nomsg_layout = evas_object_data_del(ad->nf, "chat_list_no_msg_text");
+		if (nomsg_layout) {
+			elm_object_signal_emit(nomsg_layout, "hide", "message");
 		}
 
 		int user_id = (int)evas_object_data_get(chat_list, "user_id");
@@ -1903,8 +1902,61 @@ void on_user_status_changed(appdata_s* ad, char* status)
 
 	Elm_Object_Item *nf_it = evas_object_data_get(ad->nf, "navi_item");
 	char status_str[256]={0,};
-	snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Normal color=#000000 align=center><font_size=30>%s</font_size></font>", status);
+	snprintf(status_str, sizeof(status_str) - 1, "%s", status);
 	elm_object_item_part_text_set(nf_it, "subtitle", status_str);
+}
+
+static void compare_with_current_date(int rtime, Elm_Object_Item *nf_it)
+{
+	char time_str[256]={0,};
+	time_t local_t = time(NULL);
+	int diff_sec = 0;
+	int diff_min = 0;
+	int diff_hour = 0;
+	int diff_day = 0;
+
+	diff_sec = local_t - rtime;
+	diff_min = diff_sec / 60;
+	diff_hour = diff_min / 60;
+	diff_day = diff_hour / 24;
+	LOGD("different : day : %d, hour = %d, min = %d, sec = %d", diff_day, diff_hour, diff_min, diff_sec);
+
+
+	if (diff_day > 30) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"));
+		goto OUT;
+	}
+
+	if (diff_day > 7) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"));
+		goto OUT;
+	}
+	if (diff_day > 1) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"));
+		goto OUT;
+	}
+
+	if (diff_hour > 1) {
+		snprintf(time_str, sizeof(time_str) - 1, i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"), diff_hour);
+		goto OUT;
+	}
+
+	if (diff_hour == 1) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"));
+		goto OUT;
+	}
+	if (diff_min > 1) {
+		snprintf(time_str, sizeof(time_str) - 1, i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"), diff_min);
+		goto OUT;
+	}
+	if (diff_min == 1) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"));
+		goto OUT;
+	}
+	snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"));
+
+OUT:
+	elm_object_item_part_text_set(nf_it, "subtitle", time_str);
 }
 
 void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
@@ -1925,37 +1977,12 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
 				int last_seen = *temp_last_seen;
 
-				char *format = NULL;
-				Eina_Bool is_today = compare_date_with_current_date(last_seen);
-
 				if (is_online > 0) {
 					char status_str[256]={0,};
-					snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
+					snprintf(status_str, sizeof(status_str) - 1, "%s", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 					elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 				} else {
-					time_t t = last_seen;
-
-					if (is_today) {
-						format = "Last seen %I:%M %p";
-					} else {
-						format = "Last seen %b %d, %I:%M %P";
-					}
-
-					struct tm lt;
-					char res[256];
-					(void) localtime_r(&t, &lt);
-
-					if (strftime(res, sizeof(res), format, &lt) == 0) {
-						(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-								"date/time into buffer of size %u "
-								"using: '%s'\n",
-								sizeof(res), format);
-					}
-
-					char time_str[256]={0,};
-					snprintf(time_str, sizeof(time_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>%s</font_size></font>", res);
-
-					elm_object_item_part_text_set(nf_it, "subtitle", time_str);
+					compare_with_current_date(last_seen, nf_it);
 				}
 
 				for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
@@ -1972,7 +1999,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		tg_chat_info_s* chat_info = get_chat_info(buddy_id);
 		if (!chat_info) {
 			char status_str[256]={0,};
-			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>Unidentified.</font_size></font>");
+			snprintf(status_str, sizeof(status_str) - 1, "Unidentified.");
 			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 			return;
 		}
@@ -2021,7 +2048,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		snprintf(status_str, sizeof(status_str) - 1, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), user_list_size);
 
 		char temp_status_str[512]={0,};
-		snprintf(temp_status_str, sizeof(temp_status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=30>%s</font_size></font>", status_str);
+		snprintf(temp_status_str, sizeof(temp_status_str) - 1, "%s", status_str);
 
 		elm_object_item_part_text_set(nf_it, "subtitle", temp_status_str);
 #endif
@@ -3043,7 +3070,7 @@ void refresh_messaging_view(appdata_s *ad)
 	}
 }
 
-static void on_expand_buton_clicked(void *data, Evas_Object *obj, void *event_info)
+static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *expand_pic = data;
 	if (!expand_pic)
@@ -3108,7 +3135,7 @@ static void on_expand_buton_clicked(void *data, Evas_Object *obj, void *event_in
 		}
 	}
 	is_expanded = !is_expanded;
-	evas_object_data_set(expand_pic, "is_expanded", is_expanded);
+	evas_object_data_set(expand_pic, "is_expanded", (void *)is_expanded);
 }
 
 
@@ -3302,10 +3329,10 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	char temp_name[512] = {'\0'};
 
 	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
-			snprintf(temp_name, 512, "<font=Tizen:style=Large color=#ffffff align=center><font_size=46>%s</font_size></font>", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+			snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
 	} else {
 		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
-		snprintf(temp_name, 512, "<font=Tizen:style=Large color=#ffffff align=center><font_size=46>%s</font_size></font>", user_name);
+		snprintf(temp_name, 512, "%s", user_name);
 		free(user_name);
 	}
 
@@ -3335,7 +3362,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 		evas_object_data_set(expand_pic, "is_expanded", is_expanded);
 		Evas_Object* expand_btn = elm_button_add(ad->layout);
 		elm_object_style_set(expand_btn, "transparent");
-		evas_object_smart_callback_add(expand_btn, "clicked", on_expand_buton_clicked, expand_pic);
+		evas_object_smart_callback_add(expand_btn, "clicked", on_expand_button_clicked, expand_pic);
 		elm_object_content_set(expand_btn, expand_pic);
 		evas_object_show(expand_btn);
 		elm_object_item_part_content_set(nf_it, "title_right_btn", expand_btn);
@@ -3348,16 +3375,11 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	Eina_Bool ret = load_chat_history(chat_conv_list);
 
 	if (!ret) {
+		LOGD("There is no message in chat room");
 		// show no messages
-		Evas_Object *no_msg_lbl = elm_label_add(ad->nf);
-		evas_object_size_hint_align_set(no_msg_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_size_hint_weight_set(no_msg_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_show(no_msg_lbl);
-		char temp_msg[4*256] = {0,};
-		snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#000000 align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"));
-		elm_object_text_set(no_msg_lbl, temp_msg);
-		elm_object_part_content_set(layout, "swallow.no_msg_text", no_msg_lbl);
-		evas_object_data_set(ad->nf, "chat_list_no_msg_text", (void*)no_msg_lbl);
+		elm_object_part_text_set(layout, "no_msg_text", i18n_get_text("IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"));
+		elm_object_signal_emit(layout, "show", "message");
+		evas_object_data_set(ad->nf, "chat_list_no_msg_text", layout);
 	}
 
 	send_request_for_marked_as_read(ad, ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
