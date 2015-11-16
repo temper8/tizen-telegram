@@ -36,7 +36,7 @@ styles {
 
 collections {
 
-base_scale: 2.6; 
+   base_scale: 2.6;
 	
  #define WIN_WIDTH 720
  #define WIN_HEIGHT 1280

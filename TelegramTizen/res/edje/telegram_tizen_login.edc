@@ -1,4 +1,6 @@
 collections {
+	base_scale: 2.6;
+
 	styles {
 		style {
 			name: "label,style";

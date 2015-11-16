@@ -1,4 +1,5 @@
 collections {
+   /* This is EFL-oriented features */
    base_scale: 1.8;
 #define POPUP_CONTENT_DEFAULT_PADDING_TOP_MIN_INC 27
 #define POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 15

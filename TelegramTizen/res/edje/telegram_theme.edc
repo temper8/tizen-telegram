@@ -120,6 +120,9 @@
 
 collections
 {
+	/* This is EFL-oriented features */
+	base_scale: 1.8;
+
 	images {
 	image: "telegram_bubble_bg_receive_ef.#.png" COMP;
 	image: "telegram_bubble_bg_receive.#.png" COMP;
