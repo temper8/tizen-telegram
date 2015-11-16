@@ -759,7 +759,7 @@ collections {
                state: default 0.0;
                rel1.relative: 0.05 0.0;
                rel2.relative: 0.95 1.0;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -798,7 +798,7 @@ collections {
                state: default 0.0;
                rel1.relative: 0.1 0.0;
                rel2.relative: 0.9 1.0;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -847,7 +847,7 @@ collections {
                state: default 0.0;
                rel1.relative: 0.0 0.08;
                rel2.relative: 1.0 0.92;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -885,7 +885,7 @@ collections {
                state: default 0.0;
                rel1.relative: 0.3 0.2;
                rel2.relative: 0.7 0.8;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -924,7 +924,7 @@ collections {
                state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -2969,7 +2969,7 @@ group
                state: default 0.0;
                rel1.relative: 0.23 0.1;
                rel2.relative: 0.77 0.9;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -3021,7 +3021,7 @@ group
                state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
@@ -3246,7 +3246,7 @@ group
                state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
-               image.normal: camera_btn_gallery_mask.png;
+               image.normal: "camera_btn_gallery_mask.png";
             }
          }
          part { 
