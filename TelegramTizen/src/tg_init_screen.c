@@ -10,14 +10,14 @@
 #include "index.h"
 
 #define MAX_INDEX 7
-#define RIGHT_BUTTON_WIDTH (320*1.4)
-#define RIGHT_BUTTON_HEIGHT (104*1.4)
+#define RIGHT_BUTTON_WIDTH (320*1.4f)
+#define RIGHT_BUTTON_HEIGHT (104*1.4f)
 
-#define LEFT_BUTTON_WIDTH (320*1.4)
-#define LEFT_BUTTON_HEIGHT (104*1.4)
+#define LEFT_BUTTON_WIDTH (320*1.4f)
+#define LEFT_BUTTON_HEIGHT (104*1.4f)
 
-#define CENTER_BUTTON_WIDTH (496*1.4)
-#define CENTER_BUTTON_HEIGHT (104*1.4)
+#define CENTER_BUTTON_WIDTH (496*1.4f)
+#define CENTER_BUTTON_HEIGHT (104*1.4f)
 
 static void _set_init_screen(Evas_Object *layout);
 

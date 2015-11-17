@@ -17,7 +17,7 @@
 #include "tg_main_item_deletion_view.h"
 #include "tg_search_message_view.h"
 
-#define IMAGE_SIZE (36*1.4)
+#define IMAGE_SIZE (36*1.4f)
 
 
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)

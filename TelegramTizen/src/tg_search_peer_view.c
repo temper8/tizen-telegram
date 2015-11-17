@@ -13,7 +13,7 @@
 #include "device_contacts_manager.h"
 
 #define COMMAND_MENU_ITEM_COUNT 2
-#define MOBILE_BUTTON_SIZE (98*1.4)
+#define MOBILE_BUTTON_SIZE (98*1.4f)
 
 typedef struct {
 	char* string;
