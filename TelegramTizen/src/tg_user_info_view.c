@@ -408,7 +408,6 @@ void on_user_info_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
-	evas_object_size_hint_min_set(box, -1, 230);
 	elm_object_content_set(ad->msg_popup, box);
 	evas_object_show(ad->msg_popup);
 }

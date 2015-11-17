@@ -10,6 +10,14 @@
 #include "index.h"
 
 #define MAX_INDEX 7
+#define RIGHT_BUTTON_WIDTH (320*1.4)
+#define RIGHT_BUTTON_HEIGHT (104*1.4)
+
+#define LEFT_BUTTON_WIDTH (320*1.4)
+#define LEFT_BUTTON_HEIGHT (104*1.4)
+
+#define CENTER_BUTTON_WIDTH (496*1.4)
+#define CENTER_BUTTON_HEIGHT (104*1.4)
 
 static void _set_init_screen(Evas_Object *layout);
 
@@ -169,8 +177,8 @@ static Evas_Object *_create_bottom_button(Evas_Object *layout, char *edj_path)
 	elm_layout_file_set(right_btn, edj_path, "button,style");
 	evas_object_size_hint_weight_set(right_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(right_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_min_set(right_btn, 320, 104);
-	evas_object_size_hint_max_set(right_btn, 320, 104);
+	evas_object_size_hint_min_set(right_btn, ELM_SCALE_SIZE(RIGHT_BUTTON_WIDTH), ELM_SCALE_SIZE(RIGHT_BUTTON_HEIGHT));
+	evas_object_size_hint_max_set(right_btn, ELM_SCALE_SIZE(RIGHT_BUTTON_WIDTH), ELM_SCALE_SIZE(RIGHT_BUTTON_HEIGHT));
 	evas_object_show(right_btn);
 	elm_object_part_text_set(right_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
 	elm_object_part_content_set(bottom_layout, "right,button", right_btn);
@@ -181,8 +189,8 @@ static Evas_Object *_create_bottom_button(Evas_Object *layout, char *edj_path)
 	elm_layout_file_set(left_btn, edj_path, "button,style");
 	evas_object_size_hint_weight_set(left_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(left_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_min_set(left_btn, 320, 104);
-	evas_object_size_hint_max_set(left_btn, 320, 104);
+	evas_object_size_hint_min_set(left_btn, ELM_SCALE_SIZE(LEFT_BUTTON_WIDTH), ELM_SCALE_SIZE(LEFT_BUTTON_HEIGHT));
+	evas_object_size_hint_max_set(left_btn, ELM_SCALE_SIZE(LEFT_BUTTON_WIDTH), ELM_SCALE_SIZE(LEFT_BUTTON_HEIGHT));
 	evas_object_show(left_btn);
 	elm_object_part_text_set(left_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_PREVIOUS"));
 	elm_object_part_content_set(bottom_layout, "left,button", left_btn);
@@ -193,8 +201,8 @@ static Evas_Object *_create_bottom_button(Evas_Object *layout, char *edj_path)
 	elm_layout_file_set(center_btn, edj_path, "button,style");
 	evas_object_size_hint_weight_set(center_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(center_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_min_set(center_btn, 496, 104);
-	evas_object_size_hint_max_set(center_btn, 656, 104);
+	evas_object_size_hint_min_set(center_btn, ELM_SCALE_SIZE(CENTER_BUTTON_WIDTH), ELM_SCALE_SIZE(CENTER_BUTTON_HEIGHT));
+	evas_object_size_hint_max_set(center_btn, ELM_SCALE_SIZE(CENTER_BUTTON_WIDTH), ELM_SCALE_SIZE(CENTER_BUTTON_HEIGHT));
 	evas_object_show(center_btn);
 	elm_object_part_text_set(center_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
 	elm_object_part_content_set(bottom_layout, "center,button", center_btn);

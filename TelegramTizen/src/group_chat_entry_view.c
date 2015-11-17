@@ -117,7 +117,6 @@ void on_image_load_options_cb(void *data, Evas_Object *obj, void *event_info)
 	}
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
-	evas_object_size_hint_min_set(box, -1, 230);
 	elm_object_content_set(popup, box);
 
 	evas_object_show(popup);

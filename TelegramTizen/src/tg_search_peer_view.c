@@ -13,6 +13,7 @@
 #include "device_contacts_manager.h"
 
 #define COMMAND_MENU_ITEM_COUNT 2
+#define MOBILE_BUTTON_SIZE (98*1.4)
 
 typedef struct {
 	char* string;
@@ -365,19 +366,8 @@ static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *pa
 		evas_object_show(phone_delete_btn);
 		return phone_delete_btn;
 	} else if (0 == strcmp(part, "elm.icon.1")) {
-		/*
-		Evas_Object* mobile_btn = elm_button_add(obj);
-		elm_object_style_set(mobile_btn, "dropdown");
-		evas_object_size_hint_weight_set(mobile_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(mobile_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_size_hint_min_set(mobile_btn, 180, 100);
-		//evas_object_smart_callback_add(mobile_btn, "clicked", delete_btn_clicked, phone_entry);
-		elm_object_translatable_text_set(mobile_btn, "IDS_TGRAM_OPT_MOBILE");
-		evas_object_show(mobile_btn);
-		return mobile_btn;
-		*/
-
 	}
+
 	return NULL;
 }
 
@@ -603,7 +593,7 @@ static Evas_Object *_get_icon_cb(void *data, Evas_Object *obj, const char *part)
 		elm_object_style_set(mobile_btn, "transparent");
 		evas_object_size_hint_weight_set(mobile_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(mobile_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_size_hint_min_set(mobile_btn, 98, 98);
+		evas_object_size_hint_min_set(mobile_btn, ELM_SCALE_SIZE(MOBILE_BUTTON_SIZE), ELM_SCALE_SIZE(MOBILE_BUTTON_SIZE));
 		evas_object_smart_callback_add(mobile_btn, "clicked", phone_btn_clicked, obj);
 		elm_object_translatable_text_set(mobile_btn, "IDS_TGRAM_OPT_MOBILE");
 		evas_object_show(mobile_btn);

@@ -322,12 +322,10 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 		for (i = 0; i < 3; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
 		}
-		evas_object_size_hint_min_set(box, -1, 345);
 	} else {
 		for (i = 0; i < 2; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
 		}
-		evas_object_size_hint_min_set(box, -1, 230);
 	}
 	evas_object_show(genlist);
 	elm_box_pack_end(box, genlist);
@@ -3059,11 +3057,6 @@ void refresh_messaging_view(appdata_s *ad)
 
 	Evas_Object *chat_conv_list = evas_object_data_get(ad->nf, "chat_list");
 	if (chat_conv_list) {
-		/*
-		Evas_Coord w, h;
-		elm_win_screen_size_get(ad->win, NULL, NULL, &w, &h);
-		evas_object_size_hint_min_set(chat_conv_list, w, h);
-		*/
 		elm_genlist_realized_items_update(chat_conv_list);
 		Elm_Object_Item *item = elm_genlist_last_item_get(chat_conv_list);
 		elm_genlist_item_show(item, ELM_GENLIST_ITEM_SCROLLTO_TOP);

@@ -17,6 +17,8 @@
 #include "tg_main_item_deletion_view.h"
 #include "tg_search_message_view.h"
 
+#define IMAGE_SIZE (36*1.4)
+
 
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
@@ -48,7 +50,7 @@ static Evas_Object* on_menu_item_image_get_cb(void *data, Evas_Object *obj, cons
 	if (!strcmp(part, "elm.swallow.icon")) {
 		Evas_Object *img = elm_image_add(obj);
 		elm_image_file_set(img, ui_utils_get_resource(main_view_menu_items[id][1]), NULL);
-		evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(36), ELM_SCALE_SIZE(36));
+		evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(IMAGE_SIZE), ELM_SCALE_SIZE(IMAGE_SIZE));
 		return img;
 	}
 	return NULL;
@@ -509,7 +511,6 @@ static void on_buddy_list_longpress(void *data, Evas_Object *obj, void *event_in
 		}
 		evas_object_show(genlist);
 		elm_box_pack_end(box, genlist);
-		evas_object_size_hint_min_set(box, -1, 230);
 		elm_object_content_set(popup, box);
 		evas_object_show(popup);
 	}

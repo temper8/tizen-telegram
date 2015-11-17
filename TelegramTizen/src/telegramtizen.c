@@ -3343,7 +3343,8 @@ static void create_base_gui(appdata_s *ad)
 	elm_win_autodel_set(ad->win, EINA_TRUE);
 
 	elm_win_indicator_mode_set(ad->win, ELM_WIN_INDICATOR_SHOW);
-	elm_app_base_scale_set(1.8);
+	/* Telegram guideline 720 x 1280 */
+	elm_app_base_scale_set(2.6);
 
 	if (elm_win_wm_rotation_supported_get(ad->win)) {
 		int rots[2] = {0, 180};
