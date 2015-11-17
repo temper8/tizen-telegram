@@ -3346,8 +3346,8 @@ static void create_base_gui(appdata_s *ad)
 	elm_app_base_scale_set(1.8);
 
 	if (elm_win_wm_rotation_supported_get(ad->win)) {
-		int rots[4] = { 0, 90, 180, 270 };
-		elm_win_wm_rotation_available_rotations_set(ad->win, (const int *)(&rots), 4);
+		int rots[2] = {0, 180};
+		elm_win_wm_rotation_available_rotations_set(ad->win, (const int *)(&rots), sizeof(rots) / sizeof(int));
 	}
 	ad->target_direction = tg_get_device_orientation();
 	char edj_path[PATH_MAX] = {0, };
