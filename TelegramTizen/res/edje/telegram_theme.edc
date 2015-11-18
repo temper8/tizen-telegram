@@ -3402,6 +3402,7 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
                }
                image {
                   normal: "telegram_bubble_bg_send.#.png";
+                  border: 40 57 0 0;
                }
                color: 45 165 224 225;
             }
@@ -3563,13 +3564,13 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
             	state: "default" 0.0;
             	min: 1 1;
             	align: 1.0 0.5;
-               	rel1 {
-                	to: "pad_top";
-		  			relative: 1.0 1.0;
+              rel1 {
+                	to: "pad_vertical";
+					relative: 0.0 0.0;
                }
-               rel2 {
-                  to: "pad_bottom";
-                  relative: 1.0 0.0;
+             rel2 {
+					to: "pad_vertical";
+					relative: 0.0 1.0;
                }
             	visible: 1;
             	color: ENTRY_BUBBLE_TIME_COLOR;
@@ -3590,11 +3591,11 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
           	min: 5 0;
            	max: 5 -1;
        		rel1 {
-          		to: "time";
+          		to: "status_icon";
           		relative: 0 0;
        		}
        		rel2 {
-          		to: "time";
+          		to: "status_icon";
           		relative: 0 1;
        		}
       		align: 0.5 1;
@@ -3611,13 +3612,13 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
              	min: 20 20;
             	max: 20 20;
             	align: 1.0 0.5;
-            	rel1 {
-                	to: "pad_vertical";
-					relative: 0.0 0.0;
+               rel1 {
+                	to: "pad_top";
+		  			relative: 1.0 1.0;
                }
                rel2 {
-					to: "pad_vertical";
-					relative: 0.0 1.0;
+                  to: "pad_bottom";
+                  relative: 1.0 0.0;
                }
        //        color_class: "W055";
 

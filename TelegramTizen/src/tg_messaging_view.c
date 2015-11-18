@@ -1297,15 +1297,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			// To be handled for group chat
 
-			char temp_name[256] = {0,};
-			if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
-				snprintf(temp_name, sizeof(temp_name), "<font=Tizen:style=Regular color=#000000 align=left><font_size=12>%s</br></br></font_size></font>", sender_name);
-			} else {
-				snprintf(temp_name, sizeof(temp_name), "<font=Tizen:style=Regular color=#000000 align=left><font_size=12>%s</br></font_size></font>", sender_name);
-			}
-
 			Eina_Strbuf *buf = eina_strbuf_new();
-			eina_strbuf_append(buf, temp_name);
 
 			if (sender_name) {
 				free(sender_name);
