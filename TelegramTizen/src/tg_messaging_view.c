@@ -1241,15 +1241,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 				evas_object_show(layout);
 
-				Evas_Object *ser_lbl = elm_label_add(obj);
-				char temp_msg[4*256] = {0,};
-				snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#808080 align=center><font_size=27>%s</font_size></font>", msg->message);
-				elm_object_text_set(ser_lbl, temp_msg);
-				elm_label_ellipsis_set(ser_lbl, EINA_TRUE);
-				//evas_object_resize(ser_lbl, 200, 15);
-				evas_object_show(ser_lbl);
-
-				elm_object_part_content_set(layout, "elm.text", ser_lbl);
+				elm_object_part_text_set(layout, "elm.text", msg->message);
 				return layout;
 			} else if (msg->service == 1) {
 				char edj_path[PATH_MAX] = {0, };
@@ -1261,15 +1253,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 				evas_object_show(layout);
 
-				Evas_Object* ser_lbl = elm_label_add(obj);
-				char temp_msg[4*256] = {0,};
-				snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#666666 align=center><font_size=30>%s</font_size></font>", msg->message);
-				elm_object_text_set(ser_lbl, temp_msg);
-				elm_label_ellipsis_set(ser_lbl, EINA_TRUE);
-				evas_object_resize(ser_lbl, 200, 15);
-				evas_object_show(ser_lbl);
-
-				elm_object_part_content_set(layout, "swallow.chat_service_text", ser_lbl);
+				elm_object_part_text_set(layout, "elm.text", msg->message);
 
 				return layout;
 			}
@@ -1280,12 +1264,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			elm_entry_editable_set(entry, EINA_FALSE);
 			elm_entry_context_menu_disabled_set(entry, EINA_TRUE);
-
-			//elm_entry_magnifier_disabled_set(entry, EINA_TRUE);
-			// FIXME: Deprecated API
-			//elm_entry_selection_handler_disabled_set(entry, EINA_TRUE);
-
-			//elm_object_theme_set(layout, ad->theme);
 
 			char *sender_name = NULL;
 			if(msg->out) {
@@ -3188,6 +3166,8 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_align_set(msg_box_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(msg_box_layout);
 
+	/* if background is set, Using this code */
+#if 0
 	Evas_Object *list_bg = elm_image_add(msg_box_layout);
 	evas_object_size_hint_align_set(list_bg, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(list_bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -3201,6 +3181,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
     evas_object_show(list_bg);
 
     elm_object_part_content_set(msg_box_layout, "swallow.gen_list.bg", list_bg);
+#endif
 
 	Evas_Object *chat_conv_list = elm_genlist_add(ad->nf);
 	elm_genlist_mode_set(chat_conv_list, ELM_LIST_COMPRESS);

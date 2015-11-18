@@ -32,6 +32,22 @@ styles {
 		tag:  "b" "+ font=Tizen:style=Bold";
 		tag:  "tab" "\t";
 	}
+	style {
+		name: "chat_data,display";
+		base: "font=Tizen=Regular text_class=ATO013 font_size=28 align=center color=#808080 color_class=ATO013";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
+	style {
+		name: "group,display";
+		base: "font=Tizen=Regular text_class=ATO024 font_size=28 align=center color=#666666 color_class=ATO024";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
 }
 
 collections {
@@ -1118,6 +1134,17 @@ group
     {
        	name: "chat_messaging_layout";
     	parts{
+    		part {
+    			name: "bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					color: 255 255 255 255;
+					visible: 1;
+				}
+			}
 			part{
     			name: "swallow.chat_box";
     			type: SWALLOW;
@@ -1125,7 +1152,6 @@ group
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 0.0; to_y: "swallow.entry"; }
-    				color: 0 0 0 0;
     			}
     		}
     		part {
@@ -1155,7 +1181,6 @@ group
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 0.25; }
-    				color: 0 0 0 0;
     			}
     		}
     		part{
@@ -1165,7 +1190,6 @@ group
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 0.25; }
-    				color: 0 0 0 0;
     			}
     		}
     		part {
@@ -1175,7 +1199,7 @@ group
 					state: "default" 0.0;
 					rel1.to: "swallow.entry";
 					rel2.to: "swallow.entry";
-					color: 255 255 255 255;
+					color: 250 250 250 255;
 					visible: 1;
 				}
 			}
@@ -1399,7 +1423,6 @@ group
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 1.0; }
-    				color: 255 255 255 255;
     			}
     		}
     		part{
@@ -1411,7 +1434,6 @@ group
     				align: 0 0;
     				rel1 { relative: 0.0 0.0; to: "swallow.gen_list.bg"; }
     				rel2 { relative: 1.0 1.0; to: "swallow.gen_list.bg"; }
-    				color: 50 23 55 255;
     			}
     		}
     	}
@@ -1524,134 +1546,121 @@ group
 	}
 }
 
-
-	group
-    {
-    	name: "chat_date_item_box";
-    	parts{
-    		part{
-    			name: "chat_serv_image";
-    			type:IMAGE;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 1.0; }
-    				max: 480 2;
-    				image {
-						normal: "telegram_date_divider.#.png";
-					}
-    			}
-    		}  		
-    	}
-	}
-
-
-
 	group {
     	name: "chat_date_item";
     	parts {
+    		part {
+    			name: "bg";
+    			type: RECT;
+    			description {
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    				color: 250 250 250 255;
+    				visible: 1;
+    			}
+    		}
     	     part {
     	      	name: "sp1";
          		type: SPACER;
-           		description { 
-           		    state: "default" 0.0;
+           	description {
+           		state: "default" 0.0;
             		min: 32 38;
-            		max: 32 38;
             		fixed: 1 1;
-            		rel1 { relative: 0.0 0.5; to_y: "elm.text";}
-            		rel2 { relative: 0.0 0.5; to_y: "elm.text";}
+            		rel1 { relative: 0.0 0.5; to: "bg";}
+            		rel2 { relative: 0.0 0.5; to: "bg";}
+            		align: 0.0 0.5;
          	 	}
       		 }
       		 part {
     	      	name: "sp2";
          		type: SPACER;
-           		description { 
-           		    state: "default" 0.0;
+           	description {
+           		state: "default" 0.0;
             		min: 12 38;
-            		max: 12 38;
             		fixed: 1 1;
-            		rel1 { relative: 0.0 0.5; to_x: "elm.text"; to_y: "elm.text"; }
-            		rel2 { relative: 0.0 0.5; to_x:"elm.text"; to: "elm.text"; }
+            		rel1 { relative: 0.0 0.5; to: "elm.text"; }
+            		rel2 { relative: 0.0 0.5; to: "elm.text"; }
+            		align: 1.0 0.5;
          	 	}
       		 }
       		 part {
     	      	name: "sp3";
          		type: SPACER;
-           		description { 
-           		    state: "default" 0.0;
+           	description {
+           		state: "default" 0.0;
             		min: 12 38; 
-            		max: 12 38;
             		fixed: 1 1;
             		rel1 { relative: 1.0 0.5; to: "elm.text"; }
             		rel2 { relative: 1.0 0.5; to: "elm.text"; }
+            		align: 0.0 0.5;
          	 	}
       		 }
       		 
       		 part {
     	      	name: "sp4";
          		type: SPACER;
-           		description { 
-           		    state: "default" 0.0;
+           	description {
+           		state: "default" 0.0;
             		min: 32 38;
-            		max: 32 38;
             		fixed: 1 1;            		
-            		rel1 { relative: 1.0 0.5; to_y: "elm.text"; }
-            		rel2 { relative: 1.0 0.5; to_y: "elm.text";}
+            		rel1 { relative: 1.0 0.5; to: "bg"; }
+            		rel2 { relative: 1.0 0.5; to: "bg"; }
+            		align: 1.0 0.5;
          	 	}
       		 }
-      		 
-    		 part {
-    		 	name: "elm.text";
-         		type: SWALLOW;
-         		description { state: "default" 0.0;
-            		rel1 { relative: 0.5 0.5; }
+      		part {
+				name: "elm.text";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.5 0.5; }
             		rel2 { relative: 0.5 0.5; }
-            		min: 216 38;
-            		max: -1 38;
+            		min: 224 38;
             		fixed: 1 1;
-         		}
-      		}
-      			
+					text {
+						style: "chat_data,display";
+						min: 0 1;
+						text: "Mon,/jan.2015";
+					}
+				}
+			}
       		part{
-    			name: "left_dev";
+    			name: "left_line";
     			type:IMAGE;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 1.0 0.5; to_x: "sp1"; to_y: "elm.text"; }
-    				rel2 { relative: 0.0 0.5; to_x: "sp2"; to_y: "elm.text"; }
+    				rel1 { relative: 1.0 0.5; to: "sp1"; }
+    				rel2 { relative: 0.0 0.5; to: "sp2"; }
     				min: 0 2;
-    				max: -1 2;
     				fixed: 0 1;
     				image {
 						normal: "telegram_date_divider.#.png";
 					}
+					color: 0 0 0 51;
     			}
     		}
     		part{
-    			name: "right_dev";
+    			name: "right_line";
     			type:IMAGE;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 1.0 0.5; to_x: "sp3"; to_y: "elm.text"; }
-    				rel2 { relative: 0.0 0.5; to_x: "sp4"; to_y: "elm.text"; }
+    				rel1 { relative: 1.0 0.5; to: "sp3"; }
+    				rel2 { relative: 0.0 0.5; to: "sp4"; }
     				min: 0 2;
-    				max: -1 2;
     				fixed: 0 1;
     				image {
 						normal: "telegram_date_divider.#.png";
 					}
+					color: 0 0 0 51;
     			}
-    		} 
-      		
+    		}
     	}
 	}
 
 	images {
 		image: "telegram_button_on_bg.#.png" COMP;
 	}
-	
-	
-	
 
 	group
     {
@@ -1663,38 +1672,67 @@ group
 				scale: 1;    			
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.5; }
-    				rel2 { relative: 1.0 0.5; }
-					max: -1 116;
-					min: 0 116;
-					align: 0.5 0.5;
-					fixed: 0 1;
-					color: 0 0 0 0;
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+					color: 250 250 250 255;
     			}    			
     		}
+    		part {
+    	      	name: "left,pad";
+         		type: SPACER;
+           	description {
+           		state: "default" 0.0;
+            		min: 32 89;
+            		fixed: 1 1;
+            		rel1 { relative: 0.0 0.5; to: "bg";}
+            		rel2 { relative: 0.0 0.5; to: "bg";}
+            		align: 0.0 0.5;
+         	 	}
+      		 }
+      		 part {
+    	      	name: "right,pad";
+         		type: SPACER;
+           	description { 
+           		state: "default" 0.0;
+            		min: 32 89;
+            		fixed: 1 1;
+            		rel1 { relative: 1.0 0.5; to: "bg";}
+            		rel2 { relative: 1.0 0.5; to: "bg";}
+            		align: 1.0 0.5;
+         	 	}
+      		 }
     		part{
     			name: "chat_serv_image";
     			type:IMAGE;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 32/720 27/116; to, "bg"; }
-    				rel2 { relative: (720-32)/720 (116-41)/116; to, "bg"; }
+    				rel1 { relative: 1.0 0.0; to, "left,pad"; }
+    				rel2 { relative: 0.0 0.0; to, "right,pad"; }
+    				align: 0.5 1.0;
+    				min: 0 48;
+    				fixed: 0 1;
     				image {
-    					border: 46 46 0 0;		    	   
+    					border: 20 20 0 0;
 						normal: "telegram_button_on_bg.#.png";
 					}
 					color: 0 0 0 25;
     			}
     		}
-    		part{
-    			name: "swallow.chat_service_text";
-    			type:SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; to: "chat_serv_image"; }
+    		part {
+				name: "elm.text";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "chat_serv_image"; }
     				rel2 { relative: 1.0 1.0; to: "chat_serv_image"; }
-    			}
-    		}    		
+            		fixed: 1 1;
+					text {
+						style: "group,display";
+						min: 0 1;
+						text: "Mon,/jan.2015";
+					}
+				}
+			}
     	}
 	}
 
