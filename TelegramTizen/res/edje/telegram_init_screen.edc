@@ -396,13 +396,13 @@ collections {
          }
          part {
 				name: "phone_status";
+				scale: 1;
 				type: TEXT;
 				description {
 					state: "default" 0.0;
-					fixed: 1 0;
 					rel1 { relative: 32/720 0.0; }
-               	rel2 { relative: 688/720 0.0; offset: 0 130; }
-					align: 0.5 0.5;
+ 					rel2 { relative: 688/720 0.0; }
+					align: 0.5 0.0;
 					color: 0 0 0 255;
 					text {
 						min: 0 1;
@@ -410,6 +410,8 @@ collections {
 						text: "";
 						align: 0.0 0.5;
 					}
+					min: 0 130;
+					fixed: 0 1;
 				}
 			}
         part {
@@ -436,11 +438,11 @@ collections {
             type: RECT;
             scale: 1;
             description {
-            	state: "default" 0.0;
+              state: "default" 0.0;
               rel1 { relative: 0.0 1.0; to: "code_entry"; }
               rel2 { relative: 1.0 1.0; to: "code_entry"; }
-              fixed: 0 1;
               min: 0 1;
+              fixed: 0 1;
               color: 61 185 204 255;
               align: 0.5 0.5;
             }
@@ -460,15 +462,15 @@ collections {
 				type: TEXTBLOCK;
 				description {
 					state: "default" 0.0;
-					fixed: 1 0;
 					rel1 { relative: 32/720 0.0; to_y: "inform,bg"; offset: 0 30; }
-               	rel2 { relative: 688/720 0.0; to_y: "inform,bg"; offset: 0 160; }
-					align: 0.5 0.5;
+					rel2 { relative: 688/720 0.0; to_y: "inform,bg"; offset: 0 30; }
+					align: 0.5 0.0;
 					text {
 						style: "text,display";
 						min: 0 1;
 						text: "we have sent you an SMS";
 					}
+					fixed: 0 1;
 				}
 			}
          part {
@@ -476,15 +478,15 @@ collections {
 				type: TEXTBLOCK;
 				description {
 					state: "default" 0.0;
-					fixed: 1 0;
-               	rel1 { relative: 32/720 1.0; to_y: "inform"; }
-               	rel2 { relative: 688/720 1.0; to_y: "inform"; offset: 0 130; }
-					align: 0.5 0.5;
+					rel1 { relative: 32/720 1.0; to_y: "inform"; }
+					rel2 { relative: 688/720 1.0; to_y: "inform"; }
+					align: 0.5 0.0;
 					text {
 						style: "call,display";
 						min: 0 1;
 						text: "telegram will call you in";
 					}
+					fixed: 0 1;
 				}
 			}
       } //parts
@@ -1136,7 +1138,6 @@ group
 					align: 0.5 0.5;
 					text {
 						style: "nomessage,display";
-						min: 0 1;
 						text: "No message";
 					}
 					visible: 0;
@@ -1208,25 +1209,6 @@ group
     		}
     	}
     }
-
-    group
-    {
-    	name: "full_screen";
-    	parts{
-    		part{
-    			name:"swallow.fullscreen";
-    			type:SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				min: 30 30;
-					max: 30 30;	
-    				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 1.0; }
-    			}
-    		}
-    	}
-    }
-
 	group
     {
     	name: "chat_entry_box";
@@ -1565,10 +1547,9 @@ group
 
 
 
-	group
-    {
+	group {
     	name: "chat_date_item";
-    	parts{    	
+    	parts {
     	     part {
     	      	name: "sp1";
          		type: SPACER;
@@ -1739,23 +1720,6 @@ group
 				state: "default" 0.0;				
 				rel1 { relative: 0.4 0.0; }
 				rel2 { relative: 1.0 0.1; }
-				color: 0 0 0 0;
-			}    	   			
-		}
-	
-		part{
-			name: "swallow.img_bg";
-			type:SWALLOW;
-			description{
-				state: "default" 0.0;
-				min: WIN_WIDTH/2 100;
-    			max: WIN_WIDTH/2 100;
-				rel1 { 
-					relative: 0.4 0.1; 
-				}
-				rel2 { 
-					relative: 0.9 0.9;
-				}
 				color: 0 0 0 0;
 			}    	   			
 		}
@@ -1957,24 +1921,6 @@ group
 				color: 0 0 0 0;
 			}    	   			
 		}
-		
-		part{
-			name: "swallow.img_bg";
-			type:SWALLOW;
-			description{
-				state: "default" 0.0;
-				min: WIN_WIDTH/2 100;
-    			max: WIN_WIDTH/2 100;
-				rel1 { 
-					relative: 0.1 0.1; 
-				}
-				rel2 { 
-					relative: 1.1 0.9;
-				}
-				color: 0 0 0 0;
-			}    	   			
-		}
-		
 		part{
 			name: "swallow.image_info";
 			type:SWALLOW;
@@ -2098,26 +2044,10 @@ group
             type: SWALLOW;            
             description { 
                state: default 0.0;
+               rel1.relative: 0.0 0.5;
+               rel2.relative: 1.0 0.5;
                min: 0 135;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 1.0;
-               color: 0 0 0 0;
-            }
-         }
-      }
-    }
-    
-    group { 
-	  name: "add_contact_custom_item";
-      parts {
-         part { 
-            name: "swallow.item";
-            type: SWALLOW;            
-            description { 
-               state: default 0.0;
-               min: 720 440;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 1.0;
+               fixed: 0 1;
                color: 0 0 0 0;
             }
          }
@@ -2455,37 +2385,7 @@ group
          }
       }
     }
-    
 
-    group { 
-	  name: "main_list_status_item";
-      parts {
-         part { 
-            name: "swallow.date";
-            type: SWALLOW;            
-            description { 
-               state: default 0.0;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.5;
-               color: 255 0 0 255;               
-            }
-         }
-         part {
-            name: "swallow.status";
-            type: SWALLOW;            
-            description {
-               state: default 0.0;
-               min: 50 50;
-               max: 50 50;
-               rel1.relative: 0.0 0.5;
-               rel2.relative: 1.0 1.0;
-               color: 0 255 0 255;
-            }
-         }
- 
-      }
-    }
-    
    group { 
 	  name: "main_list_name_status_item";
       parts {
@@ -2494,9 +2394,10 @@ group
             type: RECT;
             description { 
                state: default 0.0;
+               rel1.relative: 0.5 0.0;
+               rel2.relative: 0.5 0.5;
                min: 150 0;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.5;
+               fixed: 1 0;
                color: 255 0 0 0;               
             }
          }
@@ -2505,9 +2406,10 @@ group
             type: SWALLOW;            
             description { 
                state: default 0.0;
+               rel1.relative: 0.5 0.0;
+               rel2.relative: 0.5 0.5;
                min: 150 0;
-               rel1.relative: 0.0 0.0;
-               rel2.relative: 1.0 0.5;
+               fixed: 1 0;
                color: 255 0 0 255;               
             }
          }
@@ -2516,9 +2418,10 @@ group
             type: SWALLOW;            
             description {
                state: default 0.0;
+               rel1.relative: 0.5 0.5;
+               rel2.relative: 0.5 1.0;
                min: 150 0;
-               rel1.relative: 0.0 0.5;
-               rel2.relative: 1.0 1.0;
+               fixed: 1 0;
                color: 0 255 0 255;
             }
          }
@@ -3015,11 +2918,11 @@ group
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.27;}
+    				rel1 { relative: 0.0 1.0;}
     				rel2 { relative: 1.0 1.0;}
     				align: 0.5 1.0;
-    				fixed: 0.5 1.0;
     				min: 0 100;    								
+					fixed: 0 1;
     				color: 50 100 255 255;
     			}
     		}
@@ -3521,180 +3424,6 @@ group
     	}
      }
      
-     group {
-   	  name: "create_contact_screen";
-      parts {
-          part {
-         	name: "screen_bg";
-            type: RECT;
-            description {
-            	state: "default" 0.0;
-              rel1 { relative: 0.0 0.0; }
-              rel2 { relative: 1.0 1.0; }
-              color: 255 255 255 255;
-            }
-         }
-        part {
-        	name: "image,bg";
-            type: RECT;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-              rel1 { relative: 0.0 0.0; to_y: "image"; }
-              rel2 { relative: 1.0 1.0; to_y: "image"; }
-              color: 255 255 255 255;
-              align: 0.5 0.5;
-            }
-         }
-         part {
-         	name: "image";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-              rel1 { relative: 0.0 0.0; }
-              rel2 { relative: 1.0 0.0; }
-              min: 0 440;
-              align: 0.5 0.0;
-            }
-         }
-        part {
-        	  name: "first_name_entry,bg";
-            type: RECT;
-            description {
-            	state: "default" 0.0;
-              rel1 { relative: 0.0 1.0; to_y: "image"; }
-              rel2 { relative: 1.0 1.0; to_y: "image"; offset: 0 120; }
-              color: 255 255 255 255;
-            }
-        }
-       part {
-        	name: "second_name_entry,bg";
-            type: RECT;
-            description {
-            state: "default" 0.0;
-              rel1 { relative: 0.0 1.0; to_y: "first_name_entry,bg"; }
-              rel2 { relative: 1.0 1.0; to_y: "first_name_entry,bg"; offset: 0 120; }
-              color: 242 247 249 255;
-            }
-        }
-        part {
-			name: "name_text";
-			type: TEXTBLOCK;
-			description {
-				state: "default" 0.0;
-				rel1 { relative: 32/720 0.0; to_y: "first_name_entry,bg"; }
-				rel2 { relative: 212/720 1.0; to_y: "first_name_entry,bg"; }
-				align: 0.0 0.5;
-				fixed: 1 1;
-				min: 180 96;
-				max: 180 96;
-				text {
-					style: "name,display";
-					min: 0 1;
-					text: "Name";
-				}
-			}
-		}
-       part {
-        	name: "first_name_entry";
-            type: SWALLOW;
-            description {
-            	state: "default" 0.0;
-              rel1 { relative: 244/720 0.0; to_y: "first_name_entry,bg"; }
-              rel2 { relative: 573/720 1.0; to_y: "first_name_entry,bg"; }
-              align: 0.5 0.5;
-            }
-         }
-       part {
-        	name: "second_name_entry";
-            type: SWALLOW;
-            description {
-            	state: "default" 0.0;
-              rel1 { relative: 244/720 0.0; to_y: "second_name_entry,bg"; }
-              rel2 { relative: 573/720 1.0; to_y: "second_name_entry,bg"; }
-              align: 0.5 0.5;
-            }
-         }
-         /*
-         part {
-         	name: "phone_number_list";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-            	fixed: 1 1;
-            	align: 0.5 0.0;
-              rel1 { relative: 0.0 1.0; to_y: "second_name_entry,bg"; }
-              rel2 { relative: 1.0 1.0; to_y: "second_name_entry,bg"; }
-              min: 0 120;
-            }
-         }
-        part {
-         	name: "phone_btn";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-            	fixed: 1 1;
-            	align: 0.0 0.0;
-              rel1 { relative: 0.0 1.0; to_y: "phone_number_list"; }
-              rel2 { relative: 0.0 1.0; to_y: "phone_number_list"; }
-              min: 98 98;
-            }
-         }*/
-        part {
-         	name: "name_check";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-            	align: 0.5 0.5;
-              rel1 { relative: 590/720 0.0; to_y: "first_name_entry"; }
-              rel2 { relative: 710/720 1.0; to_y: "first_name_entry"; }
-              visible: 1;
-            }
-         }
-          part {
-         	name: "second_name_check";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-            	align: 0.5 0.5;
-              rel1 { relative: 590/720 0.0; to_y: "second_name_entry"; }
-              rel2 { relative: 710/720 1.0; to_y: "second_name_entry"; }
-              visible: 1;
-            }
-         }
-         /*
-		part {
-         	name: "mobile_button";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-            	align: 0.5 0.5;
-              rel1 { relative: 32/720 0.0; to_y: "phone_number_entry"; }
-              rel2 { relative: 212/720 1.0; to_y: "phone_number_entry"; }
-              visible: 1;
-            }
-         }
-         part {
-         	name: "phone_number_delete";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            	state: "default" 0.0;
-            	align: 0.5 0.5;
-              rel1 { relative: 590/720 0.0; to_y: "phone_number_entry"; }
-              rel2 { relative: 710/720 1.0; to_y: "phone_number_entry"; }
-              visible: 1;
-            }
-         } */
-      } //parts
-   } //create contact_screen
-   
    #define PART(TYPE, NAME, DESCRIPION) \
    part { name: NAME; \
       scale: 1; \
@@ -3804,12 +3533,13 @@ group
     			type: IMAGE;
        		scale: 1;
     			description {
-    				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 1.0; }
+    				rel1 { relative: 0.0 0.5; }
+    				rel2 { relative: 1.0 0.5; }
     				image.normal: "telegram_caller_id_default_masking_full.png";
     				color: 255 255 255 255;
     				min: 0 440;
     				max: -1 440;
+					fixed: 0 1;
     			}
             }
     		part {
@@ -3998,6 +3728,7 @@ group
                rel2 { relative: 0.5 0.5; to: "elm.icon.1"; }
                align: 0.5 0.5;
                min: 98 98;
+               fixed: 1 1;
                image.normal: "core_icon_container.png";
             	}
             	description {
@@ -4015,6 +3746,7 @@ group
                rel2 { relative: 0.5 0.5; to: "elm.icon.1"; }
                align: 0.5 0.5;
                min: 60 60;
+               fixed: 1 1;
                image.normal: "telegram_circle_btn_ic_call.png";
             	}
             }

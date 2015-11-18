@@ -187,7 +187,6 @@ collections {
 					text {
 						style: "label,style";
 						text: "Phone Number";
-						min: 0 0;
 					}
 				}
 			}

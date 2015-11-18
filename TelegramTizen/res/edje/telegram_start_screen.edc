@@ -53,11 +53,11 @@ collections {
 				type: SWALLOW;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 0.5 (679 + INDICATOR_H)/1280; }
-					rel2 { relative: 0.5 (799 + INDICATOR_H)/1280; }
-					fixed: 1 0;
+					rel1 { relative: 0.5 (739 + INDICATOR_H)/1280; }
+					rel2 { relative: 0.5 (739 + INDICATOR_H)/1280; }
 					min: 496 78;
 					max: 496 78;
+					fixed: 1 1;
 					align: 0.5 0.5;
 				}
 			}
@@ -338,13 +338,11 @@ collections {
 				type: TEXTBLOCK;
 				description {
 					state: "default" 0.0;
-					fixed: 1 0;
 					rel1 { relative: 0.0 242/371; }
 					rel2 { relative: 1.0 371/371; }
 					align: 0.5 0.5;
 					text {
 						style: "help,comment";
-						min: 0 1;
 						text: "The world's fastest messaging app.";
 					}
 				}
