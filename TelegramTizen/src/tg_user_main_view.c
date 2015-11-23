@@ -999,41 +999,36 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 		int size = eina_list_count(ad->main_list);
 		if (size > 0) {
 
-			Evas_Object* no_chat_img = evas_object_data_get(ad->nf, "no_chat_image");
-			if(no_chat_img) {
-				evas_object_del(no_chat_img);
+			Evas_Object* layout = evas_object_data_get(ad->nf, "no_chat_image");
+			if(layout) {
+				elm_object_signal_emit(layout, "no_chat_hide", "no_chat_text");
 			}
 
-			Evas_Object* bg_box = evas_object_data_get(ad->nf, "main_list_box");
-			if (bg_box) {
-				int i;
-				static Elm_Genlist_Item_Class itc;
-				Evas_Object *buddy_list = elm_genlist_add(ad->nf);
-				elm_list_mode_set(buddy_list, ELM_LIST_COMPRESS);
-				elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
-				evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-				evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
-				evas_object_data_set(buddy_list, "app_data", ad);
+			int i;
+			static Elm_Genlist_Item_Class itc;
+			Evas_Object *buddy_list = elm_genlist_add(ad->nf);
+			elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
+			evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+			evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+			evas_object_data_set(buddy_list, "app_data", ad);
 
-				itc.item_style = "full";
-				itc.func.text_get = NULL;
-				itc.func.content_get = on_chat_item_load_requested;
-				itc.func.state_get = NULL;
-				itc.func.del = NULL;
+			itc.item_style = "full";
+			itc.func.text_get = NULL;
+			itc.func.content_get = on_chat_item_load_requested;
+			itc.func.state_get = NULL;
+			itc.func.del = NULL;
 
-				int size = eina_list_count(ad->main_list);
-				if(size > 0) {
-					for (i = 0; i < size; i++) {
-						elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
-					}
-				} else {
-					i = 1;
+			int size = eina_list_count(ad->main_list);
+			if(size > 0) {
+				for (i = 0; i < size; i++) {
 					elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 				}
-				evas_object_show(buddy_list);
-				elm_box_pack_end(bg_box, buddy_list);
-				evas_object_data_set(ad->nf, "buddy_list", buddy_list);
+			} else {
+				i = 1;
+				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 			}
+			evas_object_show(buddy_list);
+			evas_object_data_set(ad->nf, "buddy_list", buddy_list);
 		}
 	}
 }
@@ -1211,46 +1206,6 @@ static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
 
 }
 
-Evas_Object *create_no_object_layout(appdata_s* ad)
-{
-	if (!ad)
-		return NULL;
-
-	char edj_path[PATH_MAX] = {0, };
-	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
-	Evas_Object* layout = elm_layout_add(ad->nf);
-	elm_layout_file_set(layout, edj_path, "no_chat_layout");
-	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(layout);
-
-	Evas_Object *no_chat_lbl =  elm_label_add(ad->nf);
-	evas_object_size_hint_weight_set(no_chat_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(no_chat_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(no_chat_lbl);
-	elm_label_ellipsis_set(no_chat_lbl, EINA_TRUE);
-
-	char temp_text[256];
-	sprintf(temp_text, "<font=Tizen:style=Bold =#000000 align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_NPBODY_NO_CHATS"));
-
-	elm_object_text_set(no_chat_lbl, temp_text);
-	elm_object_part_content_set(layout, "no_chats_lbl", no_chat_lbl);
-
-	char temp_text1[256*4];
-	sprintf(temp_text1, "<font=Tizen:style=Normal align=center><font_size=30>%s</font_size></font>", i18n_get_text("IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"));
-
-	Evas_Object *no_chat_msg_lbl = elm_entry_add(ad->nf);
-	elm_entry_editable_set(no_chat_msg_lbl, EINA_FALSE);
-	elm_entry_context_menu_disabled_set(no_chat_msg_lbl, EINA_TRUE);
-	//elm_entry_selection_handler_disabled_set(no_chat_msg_lbl, EINA_TRUE);
-	elm_object_text_set(no_chat_msg_lbl, temp_text1);
-
-	elm_object_part_content_set(layout, "no_chats_msg_lbl", no_chat_msg_lbl);
-
-	return layout;
-}
-
 void launch_user_main_view_cb(appdata_s* ad)
 {
 	if (!ad)
@@ -1273,47 +1228,29 @@ void launch_user_main_view_cb(appdata_s* ad)
 	send_request_for_server_connection_status(ad, ad->service_client);
 	send_request_for_delete_notifications(ad, ad->service_client);
 
-	Evas_Object* scroller = elm_scroller_add(ad->nf);
-	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
-
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "user_main_screen_new");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
-	elm_object_content_set(scroller, layout);
 
-	//elm_layout_theme_set(ad->layout, "layout", "drawer", "panel");
-	// sandeep
-	//create_side_main_view(ad);
-
-
-	/************** no chat item++ *********************/
 	Evas_Object *buddy_list = NULL;
-	Evas_Object* bg_box = elm_box_add(layout);
-	evas_object_size_hint_weight_set(bg_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(bg_box, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(bg_box);
-	elm_object_part_content_set(layout, "main_box", bg_box);
 
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
-		Evas_Object* no_chat_img = create_no_object_layout(ad);
+		elm_object_part_text_set(layout, "no_chat_text", i18n_get_text("IDS_TGRAM_NPBODY_NO_CHATS"));
+		elm_object_part_text_set(layout, "explain_text", i18n_get_text("IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"));
+		elm_object_signal_emit(layout, "no_chat_show", "no_chat_text");
 
-		evas_object_data_set(ad->nf, "no_chat_image", no_chat_img);
-
-		elm_box_pack_end(bg_box, no_chat_img);
+		evas_object_data_set(ad->nf, "no_chat_image", layout);
 	} else {
 		int i;
 		static Elm_Genlist_Item_Class itc;
 		buddy_list = elm_genlist_add(ad->nf);
-		elm_list_mode_set(buddy_list, ELM_LIST_COMPRESS);
 		elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
 		evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_data_set(buddy_list, "app_data", ad);
 		elm_genlist_homogeneous_set(buddy_list, EINA_TRUE);
-
 
 		itc.item_style = "full";
 		itc.func.text_get = NULL;
@@ -1331,17 +1268,12 @@ void launch_user_main_view_cb(appdata_s* ad)
 			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 		}
 		evas_object_show(buddy_list);
-		elm_box_pack_end(bg_box, buddy_list);
 		evas_object_data_set(ad->nf, "buddy_list", buddy_list);
 
 		evas_object_smart_callback_add(buddy_list, "longpressed", on_buddy_list_longpress, ad);
 		evas_object_smart_callback_add(buddy_list, "selected", on_main_chat_item_selected, ad);
-
+		elm_object_part_content_set(layout, "main_box", buddy_list);
 	}
-	evas_object_data_set(ad->nf, "main_list_box", bg_box);
-	/************** no chat item-- *********************/
-
-
 
 	create_floating_button(ad);
 #if 0
@@ -1369,7 +1301,7 @@ void launch_user_main_view_cb(appdata_s* ad)
     evas_object_smart_callback_add(search_btn, "unpressed", on_search_icon_unpressed, search_icon);
 #endif
 
-    ad->main_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, scroller, NULL);
+    ad->main_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"), NULL, NULL, layout, NULL);
 
 #if 0
     Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=48>Telegram</font_size></font>", NULL, NULL, scroller, NULL);

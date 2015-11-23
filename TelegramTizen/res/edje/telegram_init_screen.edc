@@ -33,6 +33,14 @@ styles {
 		tag:  "tab" "\t";
 	}
 	style {
+		name: "explain,display";
+		base: "font=Tizen=Regular text_class=ATO019 font_size=28 align=center color=#000000 color_class=ATO019 wrap=mixed";
+		tag:  "br" "\n";
+		tag:  "hilight" "+ font=Tizen:style=Bold";
+		tag:  "b" "+ font=Tizen:style=Bold";
+		tag:  "tab" "\t";
+	}
+	style {
 		name: "chat_data,display";
 		base: "font=Tizen=Regular text_class=ATO013 font_size=28 align=center color=#808080 color_class=ATO013";
 		tag:  "br" "\n";
@@ -622,33 +630,6 @@ collections {
 	} //first name group
 
 	group {
-	  name: "user_main_screen";
-   		parts {
-      		part {
-		      	name: "main_box";
-        		type: SWALLOW;
-         		description {
-         			state: "default" 0.0;
-            		rel1 { relative: 0.0 0.0; }
-            		rel2 { relative: 1.0 1.0; }
-            		color: 222 222 100 222;
-         		}
-      		}
-      		part {
-     			name: "new_chat_icon";
-         		type: SWALLOW;
-         		description {
-         		state: "default" 0.0;
-            		rel1 { relative: 0.75 0.85; }
-            		rel2 { relative: 0.85 0.95; }
-            		color: 50 50 111 111;
-         		}
-      		}
-   		}
-	}
-
-
-	group {
 	  name: "user_main_screen_new";
    		parts {
    		   part {
@@ -658,11 +639,53 @@ collections {
          			state: "default" 0.0;
             		rel1 { relative: 0.0 0.0; }
             		rel2 { relative: 1.0 1.0; }
-            		color: 0 0 0 0;
+            		color: 250 250 250 255;
+            		visible: 1;
          		}
       		}
       		part {
-		      	name: "main_box";
+				name: "no_chat_text";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.1 0.3; }
+					rel2 { relative: 0.9 0.5; }
+					align: 0.5 0.0;
+					text {
+						style: "nomessage,display";
+						text: "No message";
+					}
+					visible: 0;
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+			}
+			part {
+				name: "explain_text";
+				type: TEXTBLOCK;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 1.0; to: "no_chat_text"; }
+					rel2 { relative: 0.9 1.0; }
+					align: 0.5 0.0;
+					text {
+						style: "explain,display";
+						text: "Start message";
+						align: 0.5 0.0;
+					}
+					visible: 0;
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+			}
+			part {
+      			name: "main_box";
         		type: SWALLOW;            
          		description {
          			state: "default" 0.0;
@@ -671,16 +694,25 @@ collections {
             		color: 0 0 0 0;
          		}
       		}
-      		part {
-     			name: "new_chat_icon";
-         		type: SWALLOW;            
-         		description {
-         		state: "default" 0.0;
-            		rel1 { relative: 0.65 0.85; }
-            		rel2 { relative: 0.95 0.95; }
-         		}
-      		}
    		}
+   		programs {
+    		program {
+    			name: "show";
+    			signal: "no_chat_show";
+    			source: "no_chat_text";
+    			action: STATE_SET "show" 0.0;
+    			target: "no_chat_text";
+    			target: "explain_text";
+    		}
+    		program {
+    			name: "hide";
+    			signal: "no_chat_hide";
+    			source: "no_chat_text";
+    			action: STATE_SET "default" 0.0;
+    			target: "no_chat_text";
+    			target: "explain_text";
+    		}
+    	}
 	}
 	
 	group {
@@ -2184,23 +2216,31 @@ group
       }
     }
     
-    group { 
-	  name: "main_list_custom_item";
-      parts {
-         part { 
-            name: "swallow.item";
-            type: SWALLOW;            
-            description { 
-               state: default 0.0;
-               rel1.relative: 0.0 0.5;
-               rel2.relative: 1.0 0.5;
-               min: 0 135;
-               fixed: 0 1;
-               color: 0 0 0 0;
-            }
-         }
-      }
-    }
+	group {
+		name: "main_list_custom_item";
+		parts {
+			part {
+				name: "bg";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					min: 0 135;
+				}
+			}
+			part {
+				name: "swallow.item";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1.relative: 0.0 0.0;
+					rel2.relative: 1.0 1.0;
+					visible: 1;
+				}
+			}
+		}
+	}
     
    group { 
 	  name: "main_list_custom_sent_item";
@@ -3316,45 +3356,7 @@ group
     		}    		
     	}
 	}
-	
-	group
-	{
-       	name: "no_chat_layout";
-    	parts{
-    	    part {
-				name: "swallow.splash_screen,bg";
-				type: RECT;
-				description {
-					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; }
-					rel2 { relative: 1.0 1.0; }
-					color: 255 255 255 255;
-				}
-			}  
-			part{
-    			name: "no_chats_lbl";
-    			type: SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.05 0.3; }
-    				rel2 { relative: 0.95 0.4; }
-    				color: 0 255 0 255;
-    			}
-    		}
-    		part{
-    			name: "no_chats_msg_lbl";
-    			type: SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.05 0.4; }
-    				rel2 { relative: 0.95 0.7; }    	
-    				color: 255 0 0 255;
-    			}
-    		}
-    	}    	
-	}
-	
-	
+
 	images {
 		image: "Telegram-main-icon.png" COMP;
 	}

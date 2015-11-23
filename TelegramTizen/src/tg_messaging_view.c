@@ -1306,7 +1306,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			if (msg->media_type == tgl_message_media_none) {
 				char temp_msg[4*256] = {0,};
-				snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Regular color=#ffffff align=left><font_size=15>%s</font_size></font>", msg->message);
+				snprintf(temp_msg, sizeof(temp_msg), "%s", msg->message);
 				eina_strbuf_append(buf, temp_msg);
 				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 				eina_strbuf_free(buf);
