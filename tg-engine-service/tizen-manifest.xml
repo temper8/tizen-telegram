@@ -3,7 +3,6 @@
     <profile name="mobile"/>
     <service-application appid="org.tizen.tg-engine-service" exec="tg-engine-service" multiple="false" nodisplay="true" taskmanage="false" type="capp">
         <label>tg-engine-service</label>
-        <icon>ic_launcher.png</icon>
         <background-category value="background-network"/>
         <background-category value="download"/>
         <background-category value="iot-communication"/>
@@ -12,27 +11,27 @@
         <background-category value="sensor"/>
     </service-application>
     <privileges>
-        <privilege>http://tizen.org/privilege/location</privilege>
-        <privilege>http://tizen.org/privilege/network.get</privilege>
-        <privilege>http://tizen.org/privilege/keymanager</privilege>
-        <privilege>http://tizen.org/privilege/camera</privilege>
-        <privilege>http://tizen.org/privilege/contact.write</privilege>
-        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
-        <privilege>http://tizen.org/privilege/content.write</privilege>
-        <privilege>http://tizen.org/privilege/push</privilege>
-        <privilege>http://tizen.org/privilege/network.profile</privilege>
-        <privilege>http://tizen.org/privilege/display</privilege>
-        <privilege>http://tizen.org/privilege/account.read</privilege>
-        <privilege>http://tizen.org/privilege/externalstorage</privilege>
-        <privilege>http://tizen.org/privilege/recorder</privilege>
-        <privilege>http://tizen.org/privilege/account.write</privilege>
-        <privilege>http://tizen.org/privilege/bluetooth</privilege>
-        <privilege>http://tizen.org/privilege/mediastorage</privilege>
-        <privilege>http://tizen.org/privilege/internet</privilege>
-        <privilege>http://tizen.org/privilege/network.set</privilege>
-        <privilege>http://tizen.org/privilege/notification</privilege>
-        <privilege>http://tizen.org/privilege/externalstorage.appdata</privilege>
         <privilege>http://tizen.org/privilege/apphistory.read</privilege>
+        <privilege>http://tizen.org/privilege/location</privilege>
         <privilege>http://tizen.org/privilege/contact.read</privilege>
+        <privilege>http://tizen.org/privilege/account.read</privilege>
+        <privilege>http://tizen.org/privilege/network.set</privilege>
+        <privilege>http://tizen.org/privilege/account.write</privilege>
+        <privilege>http://tizen.org/privilege/keymanager</privilege>
+        <privilege>http://tizen.org/privilege/display</privilege>
+        <privilege>http://tizen.org/privilege/camera</privilege>
+        <privilege>http://tizen.org/privilege/externalstorage</privilege>
+        <privilege>http://tizen.org/privilege/content.write</privilege>
+        <privilege>http://tizen.org/privilege/mediastorage</privilege>
+        <privilege>http://tizen.org/privilege/network.get</privilege>
+        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+        <privilege>http://tizen.org/privilege/contact.write</privilege>
+        <privilege>http://tizen.org/privilege/push</privilege>
+        <privilege>http://tizen.org/privilege/bluetooth</privilege>
+        <privilege>http://tizen.org/privilege/internet</privilege>
+        <privilege>http://tizen.org/privilege/notification</privilege>
+        <privilege>http://tizen.org/privilege/network.profile</privilege>
+        <privilege>http://tizen.org/privilege/recorder</privilege>
+        <privilege>http://tizen.org/privilege/externalstorage.appdata</privilege>
     </privileges>
 </manifest>
