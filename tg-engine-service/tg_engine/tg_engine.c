@@ -1006,7 +1006,7 @@ void on_new_chat_info_received(struct tgl_state *TLS, void *callback_extra, int 
 	if (chat_info->user_list) {
 		for (int i = 0; i < chat_info->user_list_size; i++) {
 			int user_id = chat_info->user_list[i].user_id;
-			Eina_Bool is_present_in_db = is_user_present_peer_table(user_id);
+			Eina_Bool is_present_in_db = is_user_present_buddy_table(user_id);
 			char* tb_name = get_table_name_from_number(user_id);
 			create_buddy_msg_table(tb_name);
 			if (!is_present_in_db) {
@@ -1492,7 +1492,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				}
 #else
 				char* tb_name = get_table_name_from_number(user_id);
-				Eina_Bool is_present_in_db = is_user_present_peer_table(user_id);
+				Eina_Bool is_present_in_db = is_user_present_buddy_table(user_id);
 				create_buddy_msg_table(tb_name);
 				if (!is_present_in_db) {
 					tgl_do_get_user_info(TLS, M->from_id, 0, on_new_buddy_info_loaded, M);
@@ -1553,7 +1553,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 
 				// check whether user is present or not
 
-				Eina_Bool is_present_in_peer_db = is_user_present_peer_table(user_id);
+				Eina_Bool is_present_in_peer_db = is_user_present_buddy_table(user_id);
 
 				if (!is_present_in_peer_db) {
 					tgl_do_get_chat_info(TLS, M->to_id, 0, &on_requested_chat_info_received, M);
@@ -1819,6 +1819,21 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 	if (!chat_info->user_list) {
 		tgl_do_get_chat_info(TLS, chat_info->id, 0, &on_chat_info_received, NULL);
 		return;
+	} else {
+		for (int i = 0; i < chat_info->user_list_size; i++) {
+			int user_id = chat_info->user_list[i].user_id;
+			Eina_Bool is_present_in_db = is_user_present_buddy_table(user_id);
+			char* tb_name = get_table_name_from_number(user_id);
+			create_buddy_msg_table(tb_name);
+			if (!is_present_in_db) {
+				// add to buddy table
+				tgl_peer_id_t from_id;
+				from_id.id = user_id;
+				from_id.type = TGL_PEER_USER;
+				tgl_do_get_user_info(TLS, from_id, 0, on_new_buddy_info_loaded, NULL);
+			}
+			free(tb_name);
+		}
 	}
 
 	tg_data = TLS->callback_data;
@@ -1945,7 +1960,7 @@ static Eina_Bool send_chat_loading_is_done_response(void *data)
 
 void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_user *contacts[])
 {
-	tg_engine_data_s *tg_data = TLS->callback_data;
+	//tg_engine_data_s *tg_data = TLS->callback_data;
 	for (int i = size - 1; i >= 0; i--) {
 		struct tgl_user *buddy = contacts[i];
 		char* msg_table = get_table_name_from_number(buddy->id.id);
@@ -2099,6 +2114,10 @@ void on_message_sent_to_buddy(struct tgl_state *TLS, void *callback_extra, int s
 			char* tb_name = get_table_name_from_number(org_msg->to_id.id);
 			update_msg_into_db(org_msg, tb_name, org_msg->id);
 			if (org_msg->media.type == tgl_message_media_photo || org_msg->media.type == tgl_message_media_document || message->media.type == tgl_message_media_geo) {
+				if (org_msg->media.type == tgl_message_media_photo) {
+					org_msg->media.photo.sizes_num = 0;
+					org_msg->media.photo.sizes = NULL;
+				}
 				update_sent_media_info_in_db(org_msg, (long long)org_msg->id);
 			}
 			send_message_sent_to_buddy_response(tg_data, org_msg->to_id.id, org_msg->id, tb_name, EINA_FALSE, tgl_get_peer_type(org_msg->to_id));
@@ -2973,6 +2992,27 @@ void do_delete_buddy(int buddy_id)
 	peer_id.type = TGL_PEER_USER;
 	tgl_do_del_contact(s_info.TLS, peer_id, &on_user_delete_response , (void*)(buddy_id));
 }
+
+void on_message_deleted(struct tgl_state *TLS, void *callback_extra, int success)
+{
+	msg_container_s *msg_details = (msg_container_s*)callback_extra;
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (success) {
+		// update database
+		send_message_deleted_response(tg_data, msg_details->buddy_id, msg_details->message_id, EINA_TRUE);
+	} else {
+		send_message_deleted_response(tg_data, msg_details->buddy_id, msg_details->message_id, EINA_FALSE);
+	}
+}
+
+void do_delete_message(int buddy_id, int message_id)
+{
+	msg_container_s *msg_details = (msg_container_s*)malloc(sizeof(msg_container_s));
+	msg_details->buddy_id = buddy_id;
+	msg_details->message_id = message_id;
+	tgl_do_delete_msg(s_info.TLS, message_id, &on_message_deleted , (void*)(msg_details));
+}
+
 
 void do_block_buddy(int buddy_id)
 {

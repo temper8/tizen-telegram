@@ -25,6 +25,11 @@ typedef enum MESSAGE_STATE {
 	TG_MESSAGE_STATE_UNKNOWN
 } TG_MESSAGE_STATE;
 
+typedef struct msg_container {
+	int buddy_id;
+	int message_id;
+} msg_container_s;
+
 extern char *ui_utils_get_resource(const char *res_name);
 
 extern char *get_table_name_from_number(const int id);

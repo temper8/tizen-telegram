@@ -350,6 +350,19 @@ static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Ob
 	return icon;
 }
 
+void on_chat_profile_pic_changed(appdata_s *ad, char *file_path)
+{
+	if (!ad || !file_path) {
+		return;
+	}
+
+	Evas_Object *profile_image = evas_object_data_get(ad->nf, "profile_picture");
+	if (profile_image) {
+		elm_image_file_set(profile_image, file_path, NULL);
+	}
+
+}
+
 void on_group_chat_info_changed(appdata_s *ad, char *type_of_change)
 {
 	if (!ad || !type_of_change) {

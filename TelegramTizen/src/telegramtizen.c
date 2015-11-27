@@ -441,28 +441,32 @@ void load_main_list_data(appdata_s *ad)
 
 
 						if (peer_info->peer_type == TGL_PEER_USER) {
-							char *user_name = NULL;
-							char *first_name = NULL;
-							char *last_name = NULL;
-							char *phone_num = NULL;
-							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+							if (peer_info->is_unknown == 1) {
+								main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
+							} else {
+								char *user_name = NULL;
+								char *first_name = NULL;
+								char *last_name = NULL;
+								char *phone_num = NULL;
+								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-							if (!first_name || strstr(first_name ,"null") != 0) {
-								first_name = NULL;
-							}
+								if (!first_name || strstr(first_name ,"null") != 0) {
+									first_name = NULL;
+								}
 
-							if (!first_name && !last_name && phone_num) {
-								first_name = phone_num;
-							}
+								if (!first_name && !last_name && phone_num) {
+									first_name = phone_num;
+								}
 
-							if (!last_name || strstr(last_name ,"null") != 0) {
-								last_name = "";
+								if (!last_name || strstr(last_name ,"null") != 0) {
+									last_name = "";
+								}
+								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+								strcpy(user_name, first_name);
+								strcat(user_name, " ");
+								strcat(user_name, last_name);
+								main_list_item->buddy_display_name = user_name;
 							}
-							user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-							strcpy(user_name, first_name);
-							strcat(user_name, " ");
-							strcat(user_name, last_name);
-							main_list_item->buddy_display_name = user_name;
 						} else if (peer_info->peer_type == TGL_PEER_CHAT) {
 							main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
 						} else {
@@ -1478,6 +1482,12 @@ static int on_buddy_profile_pic_updated(appdata_s *app, bundle *const rec_msg)
 				}
 			}
 		}
+
+		if (app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
+				&& app->peer_in_cahtting_data->use_data->peer_id == user_id) {
+			on_chat_profile_pic_changed(app, pic_file_path);
+		}
+
 	}
 	return result;
 }

@@ -121,6 +121,14 @@ void process_delete_user_request(tg_engine_data_s* tg_data, int buddy_id)
 	do_delete_buddy(buddy_id);
 }
 
+void process_delete_message_request(tg_engine_data_s* tg_data, int buddy_id, int message_id)
+{
+	if (!tgl_engine_get_TLS()) {
+		return;
+	}
+	do_delete_message(buddy_id, message_id);
+}
+
 void process_block_user_request(tg_engine_data_s* tg_data, int buddy_id)
 {
 	if (!tgl_engine_get_TLS()) {
@@ -1114,6 +1122,57 @@ void send_buddy_deleted_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	}
 	bundle_free(msg);
 }
+
+void send_message_deleted_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, Eina_Bool is_success)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "message_deleted") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char usr_id_str[50];
+	sprintf(usr_id_str,"%d",buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char msg_id_str[50];
+	sprintf(msg_id_str,"%d",message_id);
+
+	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+
+	if (is_success) {
+		if (bundle_add_str(msg, "is_success", "true") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else {
+		if (bundle_add_str(msg, "is_success", "false") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	}
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+	}
+	bundle_free(msg);
+}
+
 
 void send_buddy_blocked_response(tg_engine_data_s *tg_data, int buddy_id, Eina_Bool is_success)
 {

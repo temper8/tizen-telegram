@@ -268,6 +268,18 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
     	process_delete_user_request(tg_data, buddy_id);
 
+    } else if (strcmp(cmd_key_val, "delete_message") == 0) {
+
+    	char* buddy_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+    	int buddy_id = atoi(buddy_id_str);
+
+    	char* message_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "message_id", &message_id_str);
+    	int message_id = atoi(message_id_str);
+
+    	process_delete_message_request(tg_data, buddy_id, message_id);
+
     } else if (strcmp(cmd_key_val, "block_buddy") == 0) {
 
     	char* buddy_id_str = NULL;
