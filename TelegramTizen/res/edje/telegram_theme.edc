@@ -302,135 +302,57 @@ styles {
       }
    }
 
-   group { name: "elm/layout/bubble/sentmessage1/default";
-      parts {
-         part { name: "base";
-            type: RECT;
-            repeat_events: 1;
-            description { state: "default" 0.0;
-            color: 250 250 250 255;
-            }
-         }
-         part { name: "elm.select_icon.pad";
-            type: SPACER;
-            scale: 1;
-            description { state: "default" 0.0;
-               rel2.relative: 1.0 0.0;
-               rel2.to: "elm.bottom.pad";
-               align: 1.0 1.0;
-               min: 10 0;
-               max: 10 -1;
-               fixed: 1 1;
-            }
-         }
-		part { name: "edge_pad";
-            type: SPACER;
-            scale: 1;
-            description { state: "default" 0.0;
-               rel1.to: "base";//relative: 1.0 0.0;
-               rel2.to: "base";
-               align: 1 0;
-               min: 7 0;
-               max: 7 -1;
-            }
-         }
-         part { name: "elm.swallow.select_icon1";
-            clip_to: "disclip";
-            type: SWALLOW;
-            scale: 0;
-            description { state: "default" 0.0;
-			rel1 { 
-               to: "elm.select_icon.pad";
-               relative: 0.0 1.0;
-               }
-	       	rel2 { 
-               to: "elm.select_icon.pad";
-               relative: 0.0 1.0;
-               }
-               min: 30 31;
-				max: 30 31;
-				fixed: 1 1;
-               align: 1.0 1.0;
-               visible: 0;
-            }
-            description { state: "selectview" 0.0;
-               inherit: "default" 0.0;
-               visible: 1;
-            }
-         }
-        part { name: "elm.icon";
-         clip_to: "disclip";
-            type: SWALLOW;
-            scale: 1;
-            description {
-            state: "default" 0.0;
-				rel2 {
-					to_x: "edge_pad";
-					to_y: "elm.bottom.pad";
-					relative: 0.0 0.0;
+	group {
+		name: "elm/layout/bubble/sentmessage1/default";
+		parts {
+			part {
+				name: "base";
+				type: RECT;
+				repeat_events: 1;
+				description {
+					state: "default" 0.0;
+					color: 250 250 250 255;
 				}
-               align: 0.0 0.0;
-               fixed: 1 0;
-            }
-            description { state: "selectview" 0.0;
-               inherit: "default" 0.0;
-               rel2 {
-                  to_x: "elm.swallow.select_icon1";
-                  relative: 0.0 0.0;
-               }
-            }
-         }
-         part { name: "elm.bottom.pad";
-            type: SPACER;
-            scale: 1;
-            description { state: "default" 0.0;
-               rel1.relative: 0.0 1.0;
-               align: 0.5 1.0;
-               min: 0 BUBBLE_LAYOUT_BOTTOM_PAD;
-               fixed: 0 1;
-            }
-         }
-         part { name: "disclip";
-             type: RECT;
-             description { state: "default" 0.0;
-             }
-             description { state: "disabled" 0.0;
-                inherit: "default" 0.0;
-                color_class: "W0541";
-             }
-         }
-      }
-      programs {
-         program { name: "go_disabled";
-            signal: "elm,state,disabled";
-            source: "elm";
-            action: STATE_SET "disabled" 0.0;
-            target: "disclip";
-         }
-         program { name: "go_enabled";
-            signal: "elm,state,enabled";
-            source: "elm";
-            action: STATE_SET "default" 0.0;
-            target: "disclip";
-         }
-         program { name: "go_defaultview";
-            signal: "elm,state,select,disable";
-            source: "elm";
-            action: STATE_SET "default" 0.0;
-            //transition: DECELERATE 0.7;
-            target: "elm.swallow.select_icon1";
-            target: "elm.icon";
-         }
-         program { name: "go_selectview";
-            signal: "elm,state,select,enable";
-            source: "elm";
-            action: STATE_SET "selectview" 0.0;
-            //transition: DECELERATE 0.7;
-            target: "elm.swallow.select_icon1";
-            target: "elm.icon";
-         }
-      }
-   }
+			}
+			part {
+				name: "top,pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 0.0; }
+					min: 0 10;
+					fixed: 0 1;
+					align: 0.5 0.0;
+				}
+			}
+			part {
+				name: "elm.icon";
+				type: SWALLOW;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "top,pad"; }
+					rel2 { relative: 1.0 0.0; to: "top,pad"; }
+					align: 0.0 0.0;
+				}
+			}
+			part {
+				name: "bottom,pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 1.0; to: "elm.icon"; }
+					rel2 { relative: 1.0 1.0; to: "elm.icon"; }
+					min: 0 10;
+					fixed: 0 1;
+					align: 0.5 0.0;
+				}
+			}
+		} //parts
+	}
 
    group { name: "elm/layout/bubble/seperator/default";
       parts {
@@ -3147,15 +3069,25 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
 	group { name: "elm/entry/base-noedit/sentmessage1";
 		parts {
 			part {
+				name: "elm.top.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 0.0; }
+					min: 0 10;
+					align: 0.5 0.0;
+				}
+			}
+			part {
 				name: "right,pad";
 				type: SPACER;
 				scale: 1;
 				description {
 					rel1 { relative: 1.0 0.0; }
 					rel2 { relative: 1.0 1.0; }
-					align: 1.0 0.5;
 					min: 15 0;
-					fixed: 1 0;
+					align: 1.0 0.5;
 				}
 			}
 			part {
@@ -3164,9 +3096,8 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; to_x: "text,top,pad"; to_y: "text,left,pad"; }
-					rel2 { relative: 1.0 1.0; to_y: "text,bottom,pad"; to_y: "text,right,pad"; }
-					align: 0.5 0.5;
+					rel1 { relative: 0.0 0.0; to: "elm.text"; offset: -40 -26; }
+					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 57 26; }
 					image {
 						normal: "telegram_bubble_bg_send_ef.#.png";
 						border: 40 57 26 26;
@@ -3179,9 +3110,8 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; to_x: "text,top,pad"; to_y: "text,left,pad"; }
-					rel2 { relative: 1.0 1.0; to_y: "text,bottom,pad"; to_y: "text,right,pad"; }
-					align: 0.5 0.5;
+					rel1 { relative: 0.0 0.0; to: "elm.text"; offset: -40 -26; }
+					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 57 26; }
 					image {
 						normal: "telegram_bubble_bg_send.#.png";
 						border: 40 57 26 26;
@@ -3195,27 +3125,14 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
 				}
 			}
 			part {
-				name: "text,left,pad";
-				type: SPACER;
-				scale: 1;
-				description {
-					rel1 { relative: 0.0 0.0; to: "elm.text"; }
-					rel2 { relative: 0.0 1.0; to: "elm.text"; }
-					align: 1.0 0.5;
-					min: 40 0;
-					fixed: 1 0;
-				}
-			}
-			part {
 				name: "text,right,pad";
 				type: SPACER;
 				scale: 1;
 				description {
-					rel1 { relative: 1.0 0.0; to: "elm.text"; }
-					rel2 { relative: 1.0 1.0; to: "elm.text"; }
-					align: 0.0 0.5;
+					rel1 { relative: 0.0 0.0; to: "right,pad"; }
+					rel2 { relative: 0.0 1.0; to: "right,pad"; }
+					align: 1.0 0.5;
 					min: 57 0;
-					fixed: 1 0;
 				}
 			}
 			part {
@@ -3223,135 +3140,167 @@ group { name: "elm/layout/bubble/readmessage/my_layout";
 				type: SPACER;
 				scale: 1;
 				description {
-					rel1 { relative: 0.0 0.0; to: "elm.text"; }
-					rel2 { relative: 1.0 0.0; to: "elm.text"; }
-					align: 0.5 1.0;
-					min: 0 26;
-					fixed: 0 1;
-				}
-			}
-			part {
-				name: "text,bottom,pad";
-				type: SPACER;
-				scale: 1;
-				description {
-					rel1 { relative: 0.0 1.0; to: "time"; }
-					rel2 { relative: 1.0 1.0; to: "time"; }
+					rel1 { relative: 0.0 1.0; to: "elm.top.pad"; }
+					rel2 { relative: 1.0 1.0; to: "elm.top.pad"; }
 					align: 0.5 0.0;
 					min: 0 26;
-					fixed: 0 1;
-				}
-			}
-			part {
-				name: "test";
-				type: RECT;
-				scale: 1;
-				description {
-					state: "default" 0.0;
-					rel1.to: "elm.text";
-					rel2.to: "elm.text";
-					color: 255 0 0 255;
-					visible: 1;
 				}
 			}
 			part {
 				name: "elm.text";
 				type: TEXTBLOCK;
 				mouse_events: 1;
+				entry_mode: PLAIN;
+				select_mode: BLOCK_HANDLE;
+				cursor_mode: UNDER;
 				scale: 1;
 				multiline: 1;
 				description {
 					state: "default" 0.0;
-					align: 1.0 0.0;
-					rel1 { relative: 0.0 0.0; to_x: "right,pad"; }
-					rel2 { relative: 0.0 0.0; to_x: "right,pad"; }
+					rel1 { relative: 1.0 1.0; to_x: "elm.bubble.leftbottom.pad"; to_y: "text,top,pad";}
+					rel2 { relative: 0.0 0.0; to_x: "text,right,pad"; to_y: "elm.bubble.leftbottom.pad"; }
+					min: 159 0;
 					max: 318 -1;
-					min: 159 36;
+					align: 1.0 0.0;
 					text {
 						style: "entry_bubble_sent_textblock_style";
-						min: 0 1;
+						min: 1 1;
 						align: 1.0 0.0;
+						ellipsis: -1;
 					}
 				}
 			}
-		part {
-			name: "time";
-			type:TEXT;
-			mouse_events: 1;
-			scale: 1;
-			description {
-            	state: "default" 0.0;
-            	min: 1 1;
-            	align: 1.0 0.5;
-              rel1 { relative: 0.0 1.0; to_x: "status_icon"; to_y: "elm.text"; }
-              rel1 { relative: 0.0 1.0; to_x: "status_icon"; to_y: "elm.text"; }
-            	visible: 1;
-            	fixed: 1 1;
-            	min: 0 38;
-            	color: 250 250 250 255;
-            	text {
-            		min: 1 1;
-            		align: 0.5 0.5;
-            		size: 28;
+			part {
+				name: "elm.bubble.rightbottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1{
+						to: "elm.text";
+						relative: 1.0 1.0;
+					}
+					rel2.to: "elm.text";
+					align: 0.0 0.0;
+					min: 57 64;
 				}
 			}
-		}
-		part {
-			name: "status_icon";
-			type: SWALLOW;
-			mouse_events: 1;
-			scale: 1;
-			description {
-				state: "default" 0.0;
-              rel1 { relative: 0.0 1.0; to_x: "text,right,pad"; to_y: "elm.text"; }
-              rel1 { relative: 0.0 1.0; to_x: "text,right,pad"; to_y: "elm.text"; }
-              fixed: 1 1;
-				min: 0 0;
-				align: 1.0 0.5;
-				visible: 0;
+			part {
+				name: "time";
+				type: TEXT;
+				mouse_events: 1;
+				scale: 1;
+				description {
+	            	state: "default" 0.0;
+	              rel1 { relative: 0.0 0.0; to: "status_icon"; }
+	              rel2 { relative: 0.0 1.0; to: "status_icon"; }
+	            	visible: 1;
+	            	align: 1.0 0.5;
+	            	min: 0 38;
+	            	color: 250 250 250 255;
+	            	text {
+	            		min: 1 1;
+	            		align: 1.0 0.5;
+	            		size: 28;
+	            		ellipsis: -1;
+					}
+				}
 			}
-			description {
-				state: "status,on";
-				inherit: "default" 0.0;
-				min: 38 38;
-				visible: 1;
+			part {
+				name: "status_icon";
+				type: SWALLOW;
+				mouse_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					rel2 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					align: 1.0 0.0;
+					min: 0 38;
+				}
+				description {
+					state: "status,on";
+					inherit: "default" 0.0;
+					min: 38 38;
+					visible: 1;
+				}
 			}
-		}
-		part {
-			name: "event.rect";
-			type: RECT;
-			repeat_events: 1;
-			scale: 1;
-			description {
-				state: "default" 0.0;
-				color: 0 0 0 0;
-				rel1.to: "elm.image.bg";
-				rel2.to: "elm.image.bg";
+			part {
+				name: "elm.bubble.leftbottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 0.0; to_y: "elm.bottom.pad"; }
+					rel2 { relative: 464/720 0.0; to_y: "elm.bottom.pad"; }
+					min: 0 64;
+					align: 0.0 1.0;
+				}
 			}
-		}
-	} // parts
-	programs {
-		program {
-			name: "focus";
-			signal: "load";
-			source: "";
-			action: FOCUS_SET;
-			target: "elm.text";
-		}
-		program {
-			name: "mouse_down";
-			signal: "mouse,down,1";
-			source: "event.rect";
-			action:  STATE_SET "pressed" 0.0;
-			target: "elm.image.bg";
-		}
-		program {
-			name: "mouse_up";
-			signal: "mouse,up,1";
-			source: "event.rect";
-			action:  STATE_SET "default" 0.0;
-			target: "elm.image.bg";
-		}
-	} //programs
-} //group
+			part {
+				name: "elm.bottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 1.0; }
+					rel2 { relative: 1.0 1.0; }
+					align: 0.5 1.0;
+					min: 0 10;
+				}
+			}
+			part {
+				name: "event.rect";
+				type: RECT;
+				repeat_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					color: 0 0 0 0;
+					rel1.to: "elm.image.bg";
+					rel2.to: "elm.image.bg";
+				}
+			}
+		} // parts
+		programs {
+			program {
+				name: "focus";
+				signal: "load";
+				source: "";
+				action: FOCUS_SET;
+				target: "elm.text";
+			}
+			program {
+				name: "mouse_down";
+				signal: "mouse,down,1";
+				source: "event.rect";
+				action:  STATE_SET "pressed" 0.0;
+				target: "elm.image.bg";
+			}
+			program {
+				name: "mouse_up";
+				signal: "mouse,up,1";
+				source: "event.rect";
+				action:  STATE_SET "default" 0.0;
+				target: "elm.image.bg";
+			}
+			program {
+				name: "mouse_clicked";
+				signal: "mouse,clicked,1";
+				source: "event.rect";
+				action:  SIGNAL_EMIT "clicked" "item";
+			}
+			program {
+				name: "status_on";
+				signal: "status_on";
+				source: "status";
+				action:  STATE_SET "status,on" 0.0;
+				target: "status_icon";
+			}
+			program {
+				name: "status_off";
+				signal: "status_off";
+				source: "status";
+				action:  STATE_SET "default" 0.0;
+				target: "status_icon";
+			}
+		} //programs
+	} //group
 } //collection
