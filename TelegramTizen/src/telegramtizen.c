@@ -3710,7 +3710,10 @@ ui_app_lang_changed(app_event_info_h event_info, void *user_data)
 	/*APP_EVENT_LANGUAGE_CHANGED*/
 	char *locale = NULL;
 	system_settings_get_value_string(SYSTEM_SETTINGS_KEY_LOCALE_LANGUAGE, &locale);
-	elm_language_set(locale);
+	if (locale) {
+		setlocale(LC_ALL, locale);
+		elm_language_set(locale);
+	}
 	free(locale);
 	return;
 }

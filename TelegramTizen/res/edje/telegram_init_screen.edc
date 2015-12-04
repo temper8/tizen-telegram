@@ -1710,7 +1710,7 @@ group
     				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 1.0; }
     				min: 0 98;
-    				color: 250 250 250 255;
+    				color: 250 250 250 0;
     				visible: 1;
     			}
     		}
@@ -1851,7 +1851,7 @@ group
     				rel1 { relative: 0.0 0.0; }
     				rel2 { relative: 1.0 1.0; }
     				min: 0 89;
-					color: 250 250 250 255;
+					color: 250 250 250 0;
     			}    			
     		}
     		part {
@@ -3678,6 +3678,7 @@ group
         parts {
         		PART(SWALLOW, "elm.swallow.bg",
                 description { state: "default" 0.0;
+                min: 0 440;
              	   }
                 )
            part {
@@ -3941,5 +3942,4 @@ group
         	}
         }
     } // theme
-   
 }

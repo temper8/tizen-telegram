@@ -1234,7 +1234,14 @@ static void __resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
 	int x, y, w, h;
 	evas_object_geometry_get(obj, &x, &y, &w, &h);
-	LOGD(" entry layout size : %d, %d, %d, %d", x, y, w, h);
+	LOGD(" %s size : %d, %d, %d, %d", data, x, y, w, h);
+}
+
+static void __hint_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
+{
+	int x, y, w, h;
+	evas_object_size_hint_min_get(obj, &w, &h);
+	LOGD(" %s size : %d, %d", data, w, h);
 }
 
 Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const char *part)
@@ -1349,6 +1356,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			if (msg->media_type == tgl_message_media_none) {
 				char *temp_msg = replace(msg->message, '\n', "<br>");
 				eina_strbuf_append(buf, temp_msg);
+				LOGD("!!!!!! message: %s", eina_strbuf_string_get(buf));
 				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 				eina_strbuf_free(buf);
 
@@ -1481,7 +1489,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			elm_object_part_content_set(entry, "status_icon", status_obj);
 			evas_object_show(status_obj);
 
-			evas_object_event_callback_add(entry, EVAS_CALLBACK_RESIZE, __resize_cb, NULL);
+			LOGD("!!!!!! entry: %p", entry);
+			evas_object_event_callback_add(entry, EVAS_CALLBACK_RESIZE, __resize_cb, "entry");
+			evas_object_event_callback_add(entry, EVAS_CALLBACK_CHANGED_SIZE_HINTS, __hint_cb, "HINT : entry");
 
 			free(tablename);
 			if(msg->message) {
@@ -3266,22 +3276,19 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_align_set(msg_box_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(msg_box_layout);
 
-	/* if background is set, Using this code */
-#if 0
 	Evas_Object *list_bg = elm_image_add(msg_box_layout);
 	evas_object_size_hint_align_set(list_bg, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(list_bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	if (ad->chat_background) {
 		elm_image_file_set(list_bg, ad->chat_background, NULL);
 	} else {
-		elm_image_file_set(list_bg, ui_utils_get_resource(TG_CHAT_DEFAULT_BG), NULL);
+		//elm_image_file_set(list_bg, ui_utils_get_resource(TG_CHAT_DEFAULT_BG), NULL);
 	}
     elm_image_resizable_set(list_bg, EINA_TRUE, EINA_TRUE);
     elm_image_fill_outside_set(list_bg, EINA_TRUE);
     evas_object_show(list_bg);
 
     elm_object_part_content_set(msg_box_layout, "swallow.gen_list.bg", list_bg);
-#endif
 
 	Evas_Object *chat_scroller = elm_scroller_add(ad->nf);
 	evas_object_size_hint_weight_set(chat_scroller, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);

@@ -148,8 +148,8 @@ styles {
       tag:  "preedit_sub4" "+ backing=on backing_color="ENTRY_PREEDIT_SUB4_COLOR_INC" underline=on underline_color="ENTRY_PREEDIT_UNDERLINE_COLOR_INC;
    }
    style {
-      name: "entry_bubble_sent_textblock_style";
-      base: "font=Tizen:style=Regular font_size=36 color=#FAFAFA color_class=ATO014 wrap=mixed align=left";
+      name: "entry_bubble_single_textblock_style";
+      base: "font=Tizen:style=Regular font_size=36 color=#FAFAFA color_class=ATO014 align=left";
       tag:  "br" "\n";
       tag:  "ps" "ps";
       tag:  "tab" "\t";
@@ -159,8 +159,8 @@ styles {
       tag:  "hilight" "+ font_weight=Bold";
    }
    style {
-      name: "entry_bubble_receive_textblock_style";
-      base: "font=Tizen:style=Samsung sans-regular style="ENTRY_BUBBLE_RECEV_TEXT_SHADOW_STYLE" font_size="ENTRY_BUBBLE_TEXT_SIZE" color="ENTRY_BUBBLE_RECEV_TEXT_COLOR"  left_margin=1 right_margin=2 wrap=mixed";
+      name: "entry_bubble_multi_textblock_style";
+      base: "font=Tizen:style=Regular font_size=36 color=#FAFAFA color_class=ATO014 wrap=mixed align=left";
       tag:  "br" "\n";
       tag:  "ps" "ps";
       tag:  "tab" "\t";
@@ -2112,7 +2112,7 @@ type:TEXT;
 					max: 318 -1;
 					align: 0.0 0.0;
 					text {
-						style: "entry_bubble_sent_textblock_style";
+						style: "entry_bubble_single_textblock_style";
 						min: 1 1;
 						align: 0.0 0.0;
 						ellipsis: -1;
@@ -2123,6 +2123,7 @@ type:TEXT;
 					inherit: "default" 0.0;
 					min: 318 0;
 					text {
+					style: "entry_bubble_multi_textblock_style";
 						min: 0 1;
 						align: 1.0 0.0;
 					}
@@ -2292,20 +2293,25 @@ type:TEXT;
 	         if (!get_int(multilined) && ((w >= ww))) {
 	            set_state(PART:"elm.text", "multi", 0.0);
 	            set_int(multilined, 1);
-	         } else if (get_int(multilined) && (h < hh)) {
-	            set_state(PART:"elm.text", "default", 0.0);
-	            set_int(multilined, 0);
 	         }
 	      }
 	   }
 		parts {
 			part {
+				name: "base";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+				}
+			}
+			part {
 				name: "elm.top.pad";
 				type: SPACER;
 				scale: 1;
 				description {
-					rel1 { relative: 0.0 0.0; }
-					rel2 { relative: 1.0 0.0; }
+					rel1 { relative: 0.0 0.0; to: "base"; }
+					rel2 { relative: 1.0 0.0; to: "base"; }
 					min: 0 10;
 					align: 0.5 0.0;
 				}
@@ -2401,11 +2407,10 @@ type:TEXT;
 					state: "default" 0.0;
 					rel1 { relative: 1.0 1.0; to_x: "elm.bubble.leftbottom.pad"; to_y: "text,top,pad";}
 					rel2 { relative: 0.0 0.0; to_x: "text,right,pad"; to_y: "elm.bubble.leftbottom.pad"; }
-					min: 159 0;
-					max: 318 -1;
+					min: 159 70;
 					align: 1.0 0.0;
 					text {
-						style: "entry_bubble_sent_textblock_style";
+						style: "entry_bubble_single_textblock_style";
 						min: 1 1;
 						align: 1.0 0.0;
 						ellipsis: -1;
@@ -2414,8 +2419,9 @@ type:TEXT;
 				description {
 					state: "multi" 0.0;
 					inherit: "default" 0.0;
-					min: 318 0;
+					min: 318 70;
 					text {
+						style: "entry_bubble_multi_textblock_style";
 						min: 0 1;
 						align: 1.0 0.0;
 					}

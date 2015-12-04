@@ -6,6 +6,7 @@
 
 #include "tg_db_wrapper.h"
 #include <mime_type.h>
+#include <utils_i18n.h>
 
 void create_data_base_tables()
 {
@@ -1879,13 +1880,11 @@ int insert_current_date_to_table(char* tb_name)
 		struct tm old_lt;
 		(void) localtime_r(&old_t, &old_lt);
 
-
 		int cur_time = time(NULL);
 		time_t new_t = cur_time;
 
 		struct tm new_lt;
 		(void) localtime_r(&new_t, &new_lt);
-
 
 		if (old_lt.tm_mday == new_lt.tm_mday && old_lt.tm_mon == new_lt.tm_mon && old_lt.tm_year == new_lt.tm_year) {
 			// no need of new date
@@ -1895,7 +1894,7 @@ int insert_current_date_to_table(char* tb_name)
 			time_t t = cur_time;
 
 			char *format = NULL;
-			format = "%a, %d%b. %Y";
+			format = "%a, %e %b %Y";
 
 			struct tm lt;
 			char res[256];
@@ -1929,7 +1928,7 @@ int insert_current_date_to_table(char* tb_name)
 		time_t t = cur_time;
 
 		char *format = NULL;
-		format = "%a, %d%b. %Y";
+		format = "%a, %e %b %Y";
 
 		struct tm lt;
 		char res[256];
