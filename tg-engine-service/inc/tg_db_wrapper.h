@@ -245,6 +245,8 @@ Eina_Bool is_chat_id_already_exists(struct tgl_chat *C);
 
 struct tgl_message* get_latest_message_from_message_table(char* table_name);
 
+struct tgl_message* get_message_from_message_tableby_message_id(char* table_name, int id);
+
 int insert_current_date_to_table(char* tb_name);
 
 struct tgl_media* get_media_details_from_db(long long media_id);

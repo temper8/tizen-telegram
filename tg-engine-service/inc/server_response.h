@@ -14,6 +14,8 @@ extern void process_registration_command(tg_engine_data_s *tg_data, char *phone_
 extern void process_validation_command(tg_engine_data_s *tg_data, char *code);
 extern void process_logout_command(tg_engine_data_s *tg_data);
 extern void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
+extern void process_typing_status_to_buddy_command(int buddy_id, int type_of_chat, int typing_status);
+extern void process_forward_message_command(int to_id, int type_of_chat, int from_id, int message_id, int temp_message_id);
 extern void process_marked_as_read_command(int buddy_id, int type_of_chat);
 extern void process_delete_group_chat_request(tg_engine_data_s* tg_data, int chat_id);
 extern void process_delete_selected_group_chats_request(tg_engine_data_s* tg_data, Eina_List *sel_grp_chats);

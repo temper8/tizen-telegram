@@ -156,9 +156,49 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		//send event to application
 
-
 	} else if (strcmp(cmd_key_val, "restart_server") == 0) {
 		on_restart_service_requested(tg_data);
+
+	} else if (strcmp(cmd_key_val, "send_typing_status") == 0) {
+
+		char* buddy_id_str = NULL;
+		res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+		int buddy_id = atoi(buddy_id_str);
+
+		char* type_of_chat_str = NULL;
+		res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
+		int type_of_chat = atoi(type_of_chat_str);
+
+		char* typing_status_str = NULL;
+		res = bundle_get_str(rec_msg, "typing_status", &typing_status_str);
+		int typing_status = atoi(typing_status_str);
+
+		process_typing_status_to_buddy_command(buddy_id, type_of_chat, typing_status);
+
+	} else if (strcmp(cmd_key_val, "message_forward") == 0) {
+
+		char* from_id_str = NULL;
+		res = bundle_get_str(rec_msg, "from_id", &from_id_str);
+		int from_id = atoi(from_id_str);
+
+		char* to_id_str = NULL;
+		res = bundle_get_str(rec_msg, "to_id", &to_id_str);
+		int to_id = atoi(to_id_str);
+
+		char* type_of_chat_str = NULL;
+		res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
+		int type_of_chat = atoi(type_of_chat_str);
+
+		char* message_id_str = NULL;
+		res = bundle_get_str(rec_msg, "message_id", &message_id_str);
+		int message_id = atoi(message_id_str);
+
+		char* temp_message_id_str = NULL;
+		res = bundle_get_str(rec_msg, "temp_message_id", &temp_message_id_str);
+		int temp_message_id = atoi(temp_message_id_str);
+
+		process_forward_message_command(to_id, type_of_chat, from_id, message_id, temp_message_id);
+
 	} else if (strcmp(cmd_key_val, "message_transport") == 0) {
 
 		char* buddy_id_str = NULL;
@@ -683,6 +723,7 @@ bool service_app_create(void *data)
 	tg_data->current_chat_index = 0;
 	tg_data->buddy_list = NULL;
 	tg_data->current_buddy_index = 0;
+	tg_data->is_first_time_registration = EINA_FALSE;
 	//tg_data->is_loading_completed = EINA_FALSE;
 	RETVM_IF(!tg_data->tg_server, SVC_RES_FAIL, "Failed to create proxy client");
 

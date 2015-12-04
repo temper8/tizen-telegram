@@ -65,6 +65,22 @@ void process_logout_command(tg_engine_data_s *tg_data)
 	logout_telegram(tg_data);
 }
 
+void process_forward_message_command(int to_id, int type_of_chat, int from_id, int message_id, int temp_message_id)
+{
+	if (!tgl_engine_get_TLS()) {
+		return;
+	}
+	forward_message_to_buddy(to_id, type_of_chat, from_id, message_id, temp_message_id);
+}
+
+void process_typing_status_to_buddy_command(int buddy_id, int type_of_chat, int typing_status)
+{
+	if (!tgl_engine_get_TLS()) {
+		return;
+	}
+	send_typing_status_to_buddy(buddy_id, type_of_chat, typing_status);
+}
+
 void process_send_message_command(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat)
 {
 	if (!msg_data || !tgl_engine_get_TLS()) {
