@@ -1488,6 +1488,12 @@ static int on_buddy_profile_pic_updated(appdata_s *app, bundle *const rec_msg)
 			on_chat_profile_pic_changed(app, pic_file_path);
 		}
 
+		if (app->current_app_state ==  TG_SET_CHAT_INFO_STATE && app->peer_in_cahtting_data
+				&& app->peer_in_cahtting_data->use_data->peer_id == user_id) {
+			//on_chat_profile_pic_changed(app, pic_file_path);
+
+			//show_toast(app, "Chat profile picture updated successfully.");
+		}
 	}
 	return result;
 }
@@ -3066,41 +3072,36 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			break;
 		case TG_CHAT_MESSAGING_VIEW_STATE:
             // to be handled 
-#if 0
-			if (ad->is_last_msg_changed) {
-				// update main view.
-				// refresh main view
-				if (ad->main_list) {
-					if (ad->main_item_in_cahtting_data) {
-						tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
-						if (old_item->peer_print_name) {
-							free(old_item->peer_print_name);
-							old_item->peer_print_name = NULL;
-						}
-						if (old_item->last_message) {
-							free(old_item->last_message);
-							old_item->last_message = NULL;
-						}
-						if (old_item->profile_pic_path) {
-							free(old_item->profile_pic_path);
-							old_item->profile_pic_path = NULL;
-						}
-						if (old_item->buddy_display_name) {
-							free(old_item->buddy_display_name);
-							old_item->buddy_display_name = NULL;
-						}
 
-						old_item->date_lbl = NULL;
-						old_item->msg_status_lbl = NULL;
-						old_item->main_item_layout = NULL;
-						old_item->profile_pic = NULL;
-						old_item->profile_pic_path = NULL;
-						old_item->status_lbl = NULL;
-						old_item->user_name_lbl = NULL;
-						ad->main_list = eina_list_remove(ad->main_list,  ad->main_item_in_cahtting_data);
-
-						ad->main_item_in_cahtting_data = NULL;
+			if (ad->main_list) {
+				if (ad->main_item_in_cahtting_data) {
+					tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+					ad->main_list = eina_list_remove(ad->main_list,  ad->main_item_in_cahtting_data);
+					if (old_item->peer_print_name) {
+						free(old_item->peer_print_name);
+						old_item->peer_print_name = NULL;
 					}
+					if (old_item->last_message) {
+						free(old_item->last_message);
+						old_item->last_message = NULL;
+					}
+					if (old_item->profile_pic_path) {
+						free(old_item->profile_pic_path);
+						old_item->profile_pic_path = NULL;
+					}
+					if (old_item->buddy_display_name) {
+						free(old_item->buddy_display_name);
+						old_item->buddy_display_name = NULL;
+					}
+
+					old_item->date_lbl = NULL;
+					old_item->msg_status_lbl = NULL;
+					old_item->main_item_layout = NULL;
+					old_item->profile_pic = NULL;
+					old_item->profile_pic_path = NULL;
+					old_item->status_lbl = NULL;
+					old_item->user_name_lbl = NULL;
+					ad->main_item_in_cahtting_data = NULL;
 					if (ad->peer_in_cahtting_data) {
 						peer_with_pic_s *item = ad->peer_in_cahtting_data;
 						tg_main_list_item_s* latest_item = get_latest_item(ad, item);
@@ -3109,33 +3110,10 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 						}
 					}
 				}
-
-			} else {
-
+				refresh_main_list_view(ad, EINA_FALSE);
 			}
-			refresh_main_list_view(ad, EINA_FALSE);
-#endif
-
-			eext_object_event_callback_del(ad->nf, EEXT_CALLBACK_MORE, on_messaging_menu_button_clicked);
-			ad->main_item_in_cahtting_data = NULL;
-			ad->buddy_in_cahtting_data = NULL;
-			ad->peer_in_cahtting_data = NULL;
-#if 0
 			elm_naviframe_item_pop(ad->nf);
-			show_floating_button(ad);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
-#else
-			show_loading_popup(ad);
-			load_registered_user_data(ad);
-			load_buddy_list_data(ad);
-			load_unknown_buddy_list_data(ad);
-			load_peer_data(ad);
-			load_main_list_data(ad);
-			if (ad->main_item) {
-				elm_naviframe_item_pop_to(ad->main_item);
-			}
-			ecore_timer_add(1, on_load_main_view_requested, ad);
-#endif
 			break;
 		case TG_SELECT_BUDDY_VIEW:
 			elm_naviframe_item_pop(ad->nf);

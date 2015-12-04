@@ -2027,16 +2027,18 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				online_members++;
 			}
 
-			char *buddy_name = get_buddy_name_from_id(chat_info->chat_users[i]);
-
-			if (buddy_name) {
-				if (!names_of_buddies) {
-					names_of_buddies = (char*)malloc(strlen(buddy_name) + 1);
-					strcpy(names_of_buddies, buddy_name);
-				} else {
-					names_of_buddies = (char*)realloc(names_of_buddies, strlen(names_of_buddies) + strlen(" / ") + strlen(buddy_name) + 1);
-					strcat(names_of_buddies, " / ");
-					strcat(names_of_buddies, buddy_name);
+			char *buddy_full_name = get_buddy_name_from_id(chat_info->chat_users[i]);
+			if (buddy_full_name) {
+				char *buddy_name =  replace(buddy_full_name, '_', " ");
+				if (buddy_name) {
+					if (!names_of_buddies) {
+						names_of_buddies = (char*)malloc(strlen(buddy_name) + 1);
+						strcpy(names_of_buddies, buddy_name);
+					} else {
+						names_of_buddies = (char*)realloc(names_of_buddies, strlen(names_of_buddies) + strlen(" / ") + strlen(buddy_name) + 1);
+						strcat(names_of_buddies, " / ");
+						strcat(names_of_buddies, buddy_name);
+					}
 				}
 			}
 		}
