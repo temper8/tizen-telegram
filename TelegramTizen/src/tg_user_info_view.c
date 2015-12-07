@@ -624,6 +624,58 @@ static void on_user_info_call_clicked(void *data, Evas_Object *obj, void *event_
 	app_control_destroy(app_control);
 }
 
+static void compare_with_current_date(int rtime, Elm_Object_Item *nf_it)
+{
+	char time_str[256]={0,};
+	time_t local_t = time(NULL);
+	int diff_sec = 0;
+	int diff_min = 0;
+	int diff_hour = 0;
+	int diff_day = 0;
+
+	diff_sec = local_t - rtime;
+	diff_min = diff_sec / 60;
+	diff_hour = diff_min / 60;
+	diff_day = diff_hour / 24;
+	LOGD("different : day : %d, hour = %d, min = %d, sec = %d", diff_day, diff_hour, diff_min, diff_sec);
+
+
+	if (diff_day > 30) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"));
+		goto OUT;
+	}
+
+	if (diff_day > 7) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"));
+		goto OUT;
+	}
+	if (diff_day > 1) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"));
+		goto OUT;
+	}
+
+	if (diff_hour > 1) {
+		snprintf(time_str, sizeof(time_str) - 1, i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"), diff_hour);
+		goto OUT;
+	}
+
+	if (diff_hour == 1) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"));
+		goto OUT;
+	}
+	if (diff_min > 1) {
+		snprintf(time_str, sizeof(time_str) - 1, i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"), diff_min);
+		goto OUT;
+	}
+	if (diff_min == 1) {
+		snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"));
+		goto OUT;
+	}
+	snprintf(time_str, sizeof(time_str) - 1, "%s", i18n_get_text("IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"));
+
+OUT:
+	elm_object_item_part_text_set(nf_it, "subtitle", time_str);
+}
 
 void launch_user_info_screen(appdata_s* ad, int peer_id)
 {
@@ -775,25 +827,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 			if (is_online > 0) {
 				elm_object_item_part_text_set(navi_item, "subtitle", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 			} else {
-				time_t t = last_seen;
-
-				if (is_today) {
-					format = "Last seen %I:%M %p";
-				} else {
-					format = "Last seen %b %d, %I:%M %P";
-				}
-
-				struct tm lt;
-				char res[256];
-				(void) localtime_r(&t, &lt);
-
-				if (strftime(res, sizeof(res), format, &lt) == 0) {
-					(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-							"date/time into buffer of size %u "
-							"using: '%s'\n",
-							sizeof(res), format);
-				}
-				elm_object_item_part_text_set(navi_item, "subtitle", res);
+				compare_with_current_date(last_seen, navi_item);
 			}
 
 			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
@@ -813,15 +847,39 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 
 	Evas_Object *profile_pic = NULL;
+	Evas_Object *image_layout = NULL;
 
 	if (ad->peer_in_cahtting_data->use_data->photo_path && strlen(ad->peer_in_cahtting_data->use_data->photo_path) > 0 && strstr(ad->peer_in_cahtting_data->use_data->photo_path, "_null_") == NULL) {
-		profile_pic = get_image_from_path(ad->peer_in_cahtting_data->use_data->photo_path, ad->nf);
-	} else  {
-		profile_pic = get_image_from_path(ui_utils_get_resource(TG_CALLER_ID_IMAGE), ad->nf);
+
 		evas_object_color_set(profile_pic, 45, 165, 224, 255);
+
+		image_layout = elm_layout_add(ad->nf);
+		elm_layout_file_set(image_layout, edj_path, "contact_image_masking");
+		evas_object_size_hint_weight_set(image_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(image_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(image_layout);
+
+		profile_pic = get_image_from_path(ad->peer_in_cahtting_data->use_data->photo_path, ad->nf);
+		evas_object_color_set(profile_pic, 45, 165, 224, 225);
+
+		elm_object_part_content_set(image_layout, "image", profile_pic);
+	} else  {
+
+		evas_object_color_set(profile_pic, 45, 165, 224, 255);
+
+		image_layout = elm_layout_add(ad->nf);
+		elm_layout_file_set(image_layout, edj_path, "contact_image_masking");
+		evas_object_size_hint_weight_set(image_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(image_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(image_layout);
+
+		profile_pic = get_image_from_path(ui_utils_get_resource(TG_CALLER_ID_IMAGE), ad->nf);
+		evas_object_color_set(profile_pic, 45, 165, 224, 225);
+
+		elm_object_part_content_set(image_layout, "image", profile_pic);
 	}
 
-	elm_object_part_content_set(layout, "swallow.profile_pic", profile_pic);
+	elm_object_part_content_set(layout, "swallow.profile_pic", image_layout);
 
 	/************************* profile pic *******************************************/
 
@@ -836,7 +894,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 	Evas_Object *phone_type = elm_label_add(ad->nf);
 	elm_object_style_set(phone_type, "transparent");
 	char phone_type_str[256];
-	sprintf(phone_type_str, "<font=Tizen:style=Normal color=#A9A9A9 align=left><font_size=35>&nbsp;&nbsp;%s</font_size></font>","Mobile");
+	sprintf(phone_type_str, "<font=Tizen:style=Normal color=#A9A9A9 align=left><font_size=35>&nbsp;&nbsp;%s</font_size></font>",i18n_get_text("IDS_TGRAM_BODY_MOBILE_ABB"));
 	elm_object_text_set(phone_type, phone_type_str);
 	evas_object_size_hint_weight_set(phone_type, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(phone_type, EVAS_HINT_FILL, EVAS_HINT_FILL);

@@ -218,7 +218,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 	}
 
 
-	if (id == 0) {
+	if (id == 1) { // Clear history
 		if (user_data->peer_type == TGL_PEER_USER || user_data->peer_type == TGL_PEER_CHAT) {
 
 #if 0
@@ -319,7 +319,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 		}
 
-	} else if (id == 1) {
+	} else if (id == 2) { //Delete
 		if (user_data->peer_type == TGL_PEER_USER) {
 			char* tablename = get_table_name_from_number(user_data->peer_id);
 			delete_all_records(tablename);
@@ -371,8 +371,9 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		} else {
 
 		}
+	} else if (id == 0) { // View profile
+		launch_user_info_screen(ad, user_data->peer_id);
 	} else {
-
 	}
 	if (ad->msg_popup) {
 		evas_object_del(ad->msg_popup);
@@ -385,9 +386,9 @@ char* on_messaging_menu_group_text_get_cb(void *data, Evas_Object *obj, const ch
 {
 	int id = (int) data;
 	if (id == 0) {
-		return strdup("Clear history");
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
 	} else {
-		return strdup("Delete and exit");
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 	}
 }
 
@@ -399,17 +400,20 @@ char* on_messaging_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 	tg_peer_info_s *user_data = sel_item->use_data;
 	if ((user_data->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user_data->peer_id)) {
 	    if (id == 0) {
-	    	return strdup("Add to contacts");
+	    	return strdup(i18n_get_text("IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"));
 	    } else if (id == 1) {
-			return strdup("Clear history");
+	    	return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
 		} else {
-			return strdup("Delete");
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 		}
 	} else {
 		if (id == 0) {
-			return strdup("Clear history");
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_VIEW_PROFILE_ABB"));
+		}
+		else if (id == 1) {
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
 		} else {
-			return strdup("Delete");
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 		}
 	}
 }
@@ -463,13 +467,12 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	tg_peer_info_s *user_data = sel_item->use_data;
-	if ((user_data->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user_data->peer_id)) {
-		for (i = 0; i < 3; i++) {
+	if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+		for (i = 0; i < 2; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
 		}
 	} else {
-		for (i = 0; i < 2; i++) {
+		for (i = 0; i < 3; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
 		}
 	}
@@ -1471,7 +1474,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			if (msg->media_type == tgl_message_media_none) {
 				char *temp_msg = replace(msg->message, '\n', "<br>");
 				eina_strbuf_append(buf, temp_msg);
-				LOGD("!!!!!! message: %s", eina_strbuf_string_get(buf));
 				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 				eina_strbuf_free(buf);
 
@@ -1604,7 +1606,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			elm_object_part_content_set(entry, "status_icon", status_obj);
 			evas_object_show(status_obj);
 
-			LOGD("!!!!!! entry: %p", entry);
 			evas_object_event_callback_add(entry, EVAS_CALLBACK_RESIZE, __resize_cb, "entry");
 			evas_object_event_callback_add(entry, EVAS_CALLBACK_CHANGED_SIZE_HINTS, __hint_cb, "HINT : entry");
 

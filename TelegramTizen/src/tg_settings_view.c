@@ -339,12 +339,9 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 
 	//evas_object_data_set(popup, "cam_icon", cam_icon);
 	evas_object_data_set(popup, "app_data", ad);
-	/* box */
-	box = elm_box_add(popup);
-	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	/* genlist */
-	genlist = elm_genlist_add(box);
+	genlist = elm_genlist_add(popup);
 	evas_object_size_hint_weight_set(genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(genlist, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
@@ -358,8 +355,7 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_image_request_option_selected_cb, popup);
 	}
 	evas_object_show(genlist);
-	elm_box_pack_end(box, genlist);
-	elm_object_content_set(popup, box);
+	elm_object_content_set(popup, genlist);
 
 	evas_object_show(popup);
 }
