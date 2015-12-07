@@ -77,6 +77,7 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		if (id == 0) {
 			show_toast(ad, "Add contact to ur buddies");
 		} else if (id == 1) {
+#if 0
 			char* tablename = get_table_name_from_number(user_data->peer_id);
 			delete_all_records(tablename);
 			free(tablename);
@@ -112,6 +113,62 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 				ad->main_item_in_cahtting_data = NULL;
 			}
 			ad->is_last_msg_changed = EINA_FALSE;
+#else
+			// mark all the massages for deletion.
+			char* tablename = get_table_name_from_number(user_data->peer_id);
+			mark_all_records_for_deletion(tablename);
+			// delete date messages
+			delete_date_messages_from_table(tablename);
+			free(tablename);
+			// clear screen
+			// clear all messages
+			Evas_Object *scroller = evas_object_data_get(ad->nf, "chat_list");
+
+
+			Evas_Object *box_layout = NULL;
+			Evas_Object *box = NULL;
+			Eina_List *list = NULL;
+
+			box_layout = elm_object_content_get(scroller);
+			if (!box_layout) {
+				LOGE("Fail to get the box into scroller");
+				return;
+			}
+
+			list = elm_box_children_get(box_layout);
+			if (!list) {
+				LOGE("Fail to get the list into box");
+				return;
+			}
+
+			box = eina_list_nth(list, 0);
+			if (!box) {
+				LOGE("Fail to get the box into box layout");
+				return;
+			}
+
+			eina_list_free(list);
+			elm_box_clear(box);
+			elm_box_recalculate(box);
+
+
+			// send request to server
+			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
+
+			if (ad->main_item_in_cahtting_data) {
+				tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+				if (old_item->last_message) {
+					free(old_item->last_message);
+					old_item->last_message = NULL;
+				}
+				old_item->last_message = strdup("");
+			}
+
+			Evas_Object *nomsg_layout = evas_object_data_del(ad->nf, "chat_list_no_msg_text");
+			if (nomsg_layout) {
+				elm_object_signal_emit(nomsg_layout, "show", "message");
+			}
+#endif
 		} else {
 			char* tablename = get_table_name_from_number(user_data->peer_id);
 			delete_all_records(tablename);
@@ -163,6 +220,8 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 	if (id == 0) {
 		if (user_data->peer_type == TGL_PEER_USER || user_data->peer_type == TGL_PEER_CHAT) {
+
+#if 0
 			char* tablename = get_table_name_from_number(user_data->peer_id);
 			delete_all_records(tablename);
 			free(tablename);
@@ -199,6 +258,62 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 			}
 
 			ad->is_last_msg_changed = EINA_FALSE;
+#else
+			// mark all the massages for deletion.
+			char* tablename = get_table_name_from_number(user_data->peer_id);
+			mark_all_records_for_deletion(tablename);
+			// delete date messages
+			delete_date_messages_from_table(tablename);
+			free(tablename);
+			// clear screen
+			// clear all messages
+			Evas_Object *scroller = evas_object_data_get(ad->nf, "chat_list");
+
+
+			Evas_Object *box_layout = NULL;
+			Evas_Object *box = NULL;
+			Eina_List *list = NULL;
+
+			box_layout = elm_object_content_get(scroller);
+			if (!box_layout) {
+				LOGE("Fail to get the box into scroller");
+				return;
+			}
+
+			list = elm_box_children_get(box_layout);
+			if (!list) {
+				LOGE("Fail to get the list into box");
+				return;
+			}
+
+			box = eina_list_nth(list, 0);
+			if (!box) {
+				LOGE("Fail to get the box into box layout");
+				return;
+			}
+
+			eina_list_free(list);
+			elm_box_clear(box);
+			elm_box_recalculate(box);
+
+
+			// send request to server
+			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
+
+			if (ad->main_item_in_cahtting_data) {
+				tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+				if (old_item->last_message) {
+					free(old_item->last_message);
+					old_item->last_message = NULL;
+				}
+				old_item->last_message = strdup("");
+			}
+
+			Evas_Object *nomsg_layout = evas_object_data_del(ad->nf, "chat_list_no_msg_text");
+			if (nomsg_layout) {
+				elm_object_signal_emit(nomsg_layout, "show", "message");
+			}
+#endif
 
 		} else {
 
@@ -1821,6 +1936,7 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
+	msg.is_marked_for_delete = 0;
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
 	insert_msg_into_db(&msg, msg_table, unique_id);
@@ -1886,6 +2002,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
+	msg.is_marked_for_delete = 0;
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
 	insert_msg_into_db(&msg, msg_table, unique_id);
@@ -2194,7 +2311,7 @@ static Eina_Bool on_new_contact_message_send_cb(void *data)
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
-
+	msg.is_marked_for_delete = 0;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
@@ -2266,7 +2383,7 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
-
+	msg.is_marked_for_delete = 0;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
@@ -2320,6 +2437,7 @@ static Eina_Bool on_new_location_message_send_cb(void *data)
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
+	msg.is_marked_for_delete = 0;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
@@ -2386,6 +2504,7 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
+	msg.is_marked_for_delete = 0;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
@@ -2444,6 +2563,7 @@ static Eina_Bool on_new_media_message_send_cb(void *data)
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
+	msg.is_marked_for_delete = 0;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
@@ -2519,6 +2639,7 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 	msg.to_id = sel_item->use_data->peer_id;
 	msg.unread = 0;
 	msg.msg_state = TG_MESSAGE_STATE_SENDING;
+	msg.is_marked_for_delete = 0;
 
 	char* msg_table = get_table_name_from_number(msg.to_id);
 	create_buddy_msg_table(msg_table);
@@ -2619,7 +2740,16 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
 
-	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, NULL);
+	char unknown_str[50];
+	int unknown = 0;
+	sprintf(unknown_str, "%d", unknown);
+
+	char* where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(unknown_str) + 1);
+	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+
+	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, where_clause);
 	if(!vals) {
 		// set no messages yet
 		return EINA_FALSE;

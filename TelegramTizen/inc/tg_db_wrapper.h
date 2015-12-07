@@ -159,6 +159,7 @@
 #define MESSAGE_INFO_TABLE_MEDIA_TYPE "media_type"
 #define MESSAGE_INFO_TABLE_MEDIA_ID "media_id"
 #define MESSAGE_INFO_TABLE_UNIQUE_ID "unique_id"
+#define MESSAGE_INFO_TABLE_MARKED_FOR_DELETE "is_marked_delete"
 
 #define CHAT_INFO_TABLE_NAME "chat_info_table"
 
@@ -266,6 +267,10 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name);
 Eina_List* get_all_buddy_details(char* name);
 
 void create_buddy_msg_table(const char* table_name);
+
+Eina_Bool mark_all_records_for_deletion(char *tablename);
+
+Eina_Bool delete_date_messages_from_table(char *tablename);
 
 Eina_Bool insert_unsent_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *msg_type, const char * msg_data, const char *type_of_chat);
 Eina_Bool insert_unsent_media_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *media_id, const char *msg_type, const char *file_path, const char *type_of_chat);

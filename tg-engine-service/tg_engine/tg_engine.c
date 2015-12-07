@@ -55,6 +55,7 @@ static void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int 
 static void on_document_download_completed(struct tgl_state *TLS, void *callback_extra, int success, char *filename);
 static void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename);
 static void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U);
+extern void delete_all_messages_from_chat(int buddy_id, int type_of_chat);
 void tgl_engine_var_init(void)
 {
 	s_info.default_username = NULL;
@@ -1754,6 +1755,7 @@ void on_new_group_icon_loaded(struct tgl_state *TLS, void *callback_extra, int s
 		msg.to_id.type = tg_data->id.type;
 		msg.unread = 0;
 		msg.media.type = -1;
+		msg.is_marked_for_delete = 0;
 		int t = time(NULL);
 		insert_msg_into_db(&msg, msg_table, t);
 		free(msg_table);
@@ -2045,6 +2047,11 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 				free(msg_table);
 			}
 		}
+
+		char* msg_table = get_table_name_from_number(UC->id.id);
+		create_buddy_msg_table(msg_table);
+		delete_all_messages_from_chat(UC->id.id, UC->id.type);
+		free(msg_table);
 	}
 
 	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
@@ -2939,6 +2946,55 @@ void on_mark_read_callback(struct tgl_state *TLS, void *callback_extra, int succ
 {
 	// message read sent successfully. update to UI if needed.
 }
+
+
+void on_message_deleted_from_message_list(struct tgl_state *TLS, void *callback_extra, int success)
+{
+	msg_list_container_s *msg_list_container = (msg_list_container_s*)callback_extra;
+	tg_engine_data_s *tg_data = TLS->callback_data;
+
+	if (success && msg_list_container) {
+		// delete message from message table
+		char* tb_name = get_table_name_from_number(msg_list_container->buddy_id);
+		delete_message_from_table(tb_name, msg_list_container->current_message_id);
+		free(tb_name);
+	}
+
+	if (msg_list_container && msg_list_container->message_ids) {
+		if (msg_list_container->current_index < eina_list_count(msg_list_container->message_ids)) {
+			msg_list_container->current_index = msg_list_container->current_index + 1;
+			msg_list_container->current_message_id = (int)eina_list_nth(msg_list_container->message_ids, msg_list_container->current_index);
+			tgl_do_delete_msg(s_info.TLS, msg_list_container->current_message_id, &on_message_deleted_from_message_list , (void*)(msg_list_container));
+		} else {
+			eina_list_free(msg_list_container->message_ids);
+			free(msg_list_container);
+		}
+	}
+}
+
+void delete_all_messages_from_chat(int buddy_id, int type_of_chat)
+{
+	tgl_peer_id_t chat_id;
+	chat_id.id = buddy_id;
+	chat_id.type = type_of_chat;
+
+	char* tb_name = get_table_name_from_number(buddy_id);
+	//get all message ids from table.
+	Eina_List *msg_ids = get_all_message_ids_from_table(tb_name);
+	free(tb_name);
+
+	if (msg_ids && eina_list_count(msg_ids) > 0) {
+		msg_list_container_s *msg_list_container = (msg_list_container_s*)malloc(sizeof(msg_list_container_s));
+		msg_list_container->message_ids = msg_ids;
+		msg_list_container->buddy_id = buddy_id;
+		msg_list_container->current_index = 0;
+		msg_list_container->current_message_id = (int)eina_list_nth(msg_list_container->message_ids, msg_list_container->current_index);
+
+		tgl_do_delete_msg(s_info.TLS, msg_list_container->current_message_id, &on_message_deleted_from_message_list , (void*)(msg_list_container));
+	}
+
+}
+
 
 void send_do_mark_read_messages(int buddy_id, int type_of_chat)
 {

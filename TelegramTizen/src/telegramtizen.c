@@ -3114,6 +3114,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			}
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_USER_MAIN_VIEW_STATE;
+			show_floating_button(ad);
 			break;
 		case TG_SELECT_BUDDY_VIEW:
 			elm_naviframe_item_pop(ad->nf);

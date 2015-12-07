@@ -442,6 +442,7 @@ typedef struct tg_message {
 	int media_type;
 	char* media_id;
 	int unique_id;
+	int is_marked_for_delete;
 } tg_message_s;
 
 typedef struct tgl_media {

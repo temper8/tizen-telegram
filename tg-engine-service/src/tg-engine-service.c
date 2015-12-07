@@ -222,6 +222,17 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		process_send_message_command(buddy_id, message_id, msg_type, msg_data_str, type_of_chat);
 
+	} else if (strcmp(cmd_key_val, "delete_all_messages_from_table") == 0) {
+
+    	char* buddy_id_str = NULL;
+    	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);
+    	int buddy_id = atoi(buddy_id_str);
+
+    	char* type_of_chat_str = NULL;
+    	res = bundle_get_str(rec_msg, "type_of_chat", &type_of_chat_str);
+    	int type_of_chat = atoi(type_of_chat_str);
+    	process_delete_all_msgs_from_table_command(buddy_id, type_of_chat);
+
     } else if (strcmp(cmd_key_val, "marked_as_read") == 0) {
     	char* buddy_id_str = NULL;
     	res = bundle_get_str(rec_msg, "buddy_id", &buddy_id_str);

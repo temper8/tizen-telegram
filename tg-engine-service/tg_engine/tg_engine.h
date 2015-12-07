@@ -163,6 +163,7 @@ typedef struct contact_data {
 
 
 extern void send_do_mark_read_messages(int buddy_id, int type_of_chat);
+extern void delete_all_messages_from_chat(int buddy_id, int type_of_chat);
 extern void send_message_to_buddy(int buddy_id, int message_id, int msg_type, char* msg_data, int type_of_chat);
 extern void send_typing_status_to_buddy(int buddy_id, int type_of_chat, int typing_status);
 extern void forward_message_to_buddy(int to_id, int type_of_chat, int from_id, int message_id, int temp_message_id);

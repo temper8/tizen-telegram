@@ -18,6 +18,7 @@ void send_request_for_validation(appdata_s *ad, service_client* service_client, 
 // type_of_chat 0-buddy, 1-group_chat 2-encrpted_chat
 void send_request_for_message_transport(appdata_s *ad, service_client* service_client, const int buddy_id, const int message_id, const int msg_type, const char* data, const int type_of_chat);
 void send_request_for_marked_as_read(appdata_s *ad, service_client* service_client, const int buddy_id, const int type_of_chat);
+void send_delete_all_messages_request(appdata_s *ad, service_client* service_client, const int buddy_id, const int type_of_chat);
 void send_delete_selected_group_chats_request(appdata_s *ad, service_client* service_client, Eina_List *sel_grp_chats);
 void send_delete_group_chat_request(appdata_s *ad, service_client* service_client, const int chat_id);
 void send_add_buddy_request(appdata_s *ad, service_client* service_client, const int buddy_id, const char *first_name, const char *last_name, const char *phone_number);

@@ -13,6 +13,8 @@
 
 extern int tg_db_fini(void);
 extern int tg_db_init(void);
+extern sqlite3* create_database(char* database_name);
+extern Eina_Bool close_database(sqlite3* db);
 extern Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_List* column_types);
 extern Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_List* column_types, Eina_List* column_values);
 extern Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_List* column_types, Eina_List* column_values, const char* where_clause);

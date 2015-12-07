@@ -699,7 +699,8 @@ static void on_invite_friends_clicked(void *data, Evas_Object *obj, void *event_
 		return;
 	}
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
-	app_control_set_mime(app_control,"text/html");
+	app_control_set_uri(app_control, "sms:");
+	//app_control_set_mime(app_control,"text/html");
 	char *text = "Invite you to telegram! https://telegram.org/dl";
 	app_control_add_extra_data(app_control, APP_CONTROL_DATA_TEXT, text);
 	if (app_control_send_launch_request(app_control, NULL, NULL) == APP_CONTROL_ERROR_NONE) {
@@ -853,7 +854,7 @@ static void on_contact_item_clicked(void *data, Evas_Object *obj, void *event_in
 		return;
 	}
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
-	app_control_set_mime(app_control,"text/html");
+	app_control_set_uri(app_control, "sms:");
 
 	char phone_num[512] = {0,};
 	strcpy(phone_num, "sms:");

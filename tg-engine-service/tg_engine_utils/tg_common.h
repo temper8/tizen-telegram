@@ -30,6 +30,13 @@ typedef struct msg_container {
 	int message_id;
 } msg_container_s;
 
+typedef struct msg_list_container {
+	Eina_List *message_ids;
+	int buddy_id;
+	int current_message_id;
+	int current_index;
+} msg_list_container_s;
+
 extern char *ui_utils_get_resource(const char *res_name);
 
 extern char *get_table_name_from_number(const int id);
