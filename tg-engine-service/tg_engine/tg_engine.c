@@ -3071,6 +3071,39 @@ void on_buddy_readded(struct tgl_state *TLS,void *callback_extra, int success, i
 	}
 }
 
+void on_new_buddy_added(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[])
+{
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (success) {
+		struct tgl_user *buddy = users[0];
+		if (buddy) {
+			char* msg_table = get_table_name_from_number(buddy->id.id);
+			create_buddy_msg_table(msg_table);
+			free(msg_table);
+
+			if (buddy->id.id == 333000 || buddy->id.id == 777000) {
+				buddy->is_unknown = 1;
+			} else {
+				buddy->is_unknown = 0;
+			}
+			init_insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
+			tgl_peer_t* UC = tgl_peer_get(TLS, buddy->id);
+			if (UC) {
+				init_insert_peer_into_database(UC, 0, 0, 0);
+			}
+			tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
+
+			// send response to application
+			send_new_contact_added_response(tg_data, buddy->id.id, EINA_TRUE);
+		} else {
+			send_new_contact_added_response(tg_data, -1, EINA_FALSE);
+		}
+
+	} else {
+		send_new_contact_added_response(tg_data, -1, EINA_TRUE);
+	}
+}
+
 void do_add_buddy(int buddy_id, char *first_name, char *last_name, char *phone_num)
 {
 	if (!first_name) {
@@ -3084,7 +3117,11 @@ void do_add_buddy(int buddy_id, char *first_name, char *last_name, char *phone_n
 	}
 
 	if (first_name && last_name && phone_num) {
-		tgl_do_add_contact(s_info.TLS, phone_num, first_name, last_name, 0, on_buddy_readded, (void*)(buddy_id));
+		if (buddy_id == -1) {
+			tgl_do_add_contact(s_info.TLS, phone_num, first_name, last_name, 0, on_new_buddy_added, (void*)(buddy_id));
+		} else {
+			tgl_do_add_contact(s_info.TLS, phone_num, first_name, last_name, 0, on_buddy_readded, (void*)(buddy_id));
+		}
 	}
 }
 

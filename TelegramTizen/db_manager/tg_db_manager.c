@@ -620,7 +620,8 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 
 				text = (const char *)sqlite3_column_text(stmt, col);
 				if (!text || text[0] == '\0') {
-					val = strdup("_null_");
+					//val = strdup("_null_");
+					val = strdup("");
 				} else {
 					val = strdup(text);
 				}

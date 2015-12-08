@@ -11,6 +11,8 @@
 #include "contact_selection_view.h"
 #include "ucol.h"
 #include "device_contacts_manager.h"
+#include "tg_search_peer_view.h"
+#include "server_requests.h"
 
 #define COMMAND_MENU_ITEM_COUNT 2
 #define MOBILE_BUTTON_SIZE (98*1.4f)
@@ -22,7 +24,9 @@ typedef struct {
 	Elm_Object_Item *item;
 } _command_item_info;
 
-
+static void _append_command_item(Evas_Object *genlist, appdata_s *ad);
+static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list);
+static void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list);
 static void on_invite_friends_clicked(void *data, Evas_Object *obj, void *event_info);
 static void on_group_chat_clicked(void *data, Evas_Object *obj, void *event_info);
 static void on_secret_chat_clicked(void *data, Evas_Object *obj, void *event_info);
@@ -357,6 +361,11 @@ static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *pa
 		evas_object_smart_callback_add(phone_entry, "unfocused", onUnfocus, layout);
 		evas_object_show(phone_entry);
 
+		appdata_s *ad = evas_object_data_get(obj, "app_data");
+		if (ad) {
+			evas_object_data_set(ad->nf, "add_contact_phone_number", phone_entry);
+		}
+
 		return layout;
 	} else if (0 == strcmp(part, "elm.icon.2")) {
 
@@ -390,6 +399,11 @@ static Evas_Object *_get_first_name_content_cb(void *data, Evas_Object *obj, con
 		evas_object_smart_callback_add(phone_entry, "unfocused", onUnfocus, layout);
 		evas_object_show(phone_entry);
 
+		appdata_s *ad = evas_object_data_get(obj, "app_data");
+		if (ad) {
+			evas_object_data_set(ad->nf, "add_contact_first_name", phone_entry);
+		}
+
 		return layout;
 
 	} else if (0 == strcmp(part, "elm.icon.2")) {
@@ -421,6 +435,11 @@ static Evas_Object *_get_second_name_content_cb(void *data, Evas_Object *obj, co
 		evas_object_smart_callback_add(phone_entry, "focused", onFocus, layout);
 		evas_object_smart_callback_add(phone_entry, "unfocused", onUnfocus, layout);
 		evas_object_show(phone_entry);
+
+		appdata_s *ad = evas_object_data_get(obj, "app_data");
+		if (ad) {
+			evas_object_data_set(ad->nf, "add_contact_last_name", phone_entry);
+		}
 
 		return layout;
 
@@ -471,6 +490,10 @@ static Evas_Object *_get_picture_cb(void *data, Evas_Object *obj, const char *pa
 		profile_pic = get_image_from_path(ui_utils_get_resource(TG_CALLER_ID_IMAGE), obj);
 		evas_object_color_set(profile_pic, 45, 165, 224, 225);
 
+		appdata_s *ad = evas_object_data_get(obj, "app_data");
+		if (ad) {
+			evas_object_data_set(ad->nf, "add_contact_pic", profile_pic);
+		}
 		elm_object_part_content_set(image_layout, "image", profile_pic);
 
 		return image_layout;
@@ -631,9 +654,60 @@ static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
 	return list;
 }
 
+void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
+{
+	if (is_success) {
+		elm_naviframe_item_pop(ad->nf);
+		ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+		show_floating_button(ad);
+
+		// add new buddy to list
+		Evas_Object *peer_list = evas_object_data_get(ad->nf, "search_list");
+		if (peer_list) {
+			elm_genlist_clear(peer_list);
+			clear_search_list(ad);
+			free_contact_list(ad->contact_list);
+
+			ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
+			ad->contact_list = get_contact_list_from_device_db();
+
+			_append_command_item(peer_list, ad);
+			_append_peer_item(peer_list, ad, ad->search_peer_list);
+			if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
+				_append_contact_item(peer_list, ad, ad->contact_list);
+			}
+		}
+	} else {
+		// show failed message
+	}
+}
+
 static void on_new_contact_done_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
+	char* phone_num = NULL;
+	char* first_name = NULL;
+	char* last_name = NULL;
+	char* profile_pic_path = NULL;
+
+	Evas_Object *phone_num_entry = evas_object_data_get(ad->nf, "add_contact_phone_number");
+	if (phone_num_entry)
+		phone_num = elm_entry_markup_to_utf8(elm_object_text_get(phone_num_entry));
+
+	Evas_Object *first_name_entry = evas_object_data_get(ad->nf, "add_contact_first_name");
+	if (first_name_entry)
+		first_name = elm_entry_markup_to_utf8(elm_object_text_get(first_name_entry));
+
+	Evas_Object *last_name_entry = evas_object_data_get(ad->nf, "add_contact_last_name");
+	if (last_name_entry)
+		last_name = elm_entry_markup_to_utf8(elm_object_text_get(last_name_entry));
+
+	if ((phone_num && strlen(phone_num) > 0) && (first_name && strlen(first_name) > 0) && (last_name && strlen(last_name) > 0)) {
+		show_loading_popup(ad);
+		send_add_buddy_request(ad, ad->service_client, -1, first_name, last_name, phone_num);
+	} else {
+		// show message
+	}
 }
 
 static void on_new_contact_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -685,7 +759,7 @@ int on_create_new_contact(appdata_s* ad)
 	elm_object_item_part_content_set(navi_item, "title_left_btn", cancel_btn);
 
 	evas_object_data_set(ad->nf, "name_done_btn", (void*)done_btn);
-	elm_object_disabled_set(done_btn, EINA_TRUE);
+	//elm_object_disabled_set(done_btn, EINA_TRUE);
 }
 
 
@@ -807,7 +881,7 @@ static void _update_index_item(void *data, void *item_data, int id, Eina_List *l
 }
 #endif
 
-static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
+void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
 {
 	int i;
 	static Elm_Genlist_Item_Class itc;
@@ -937,7 +1011,7 @@ Evas_Object* on_contact_list_image_requested(void *data, Evas_Object *obj, const
 }
 
 
-static void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
+void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
 {
 
 	if (!genlist || !ad || !item_list) {
@@ -969,7 +1043,7 @@ static void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List*
 	}
 }
 
-static void _append_command_item(Evas_Object *genlist, appdata_s *ad)
+void _append_command_item(Evas_Object *genlist, appdata_s *ad)
 {
 	int i;
 	static Elm_Genlist_Item_Class itc;
