@@ -549,6 +549,7 @@ struct tgl_message {
 	int date;
 	int service;
 	int msg_state;
+	int is_marked_for_delete;
 	union {
 		struct tgl_message_action action;
 		struct {

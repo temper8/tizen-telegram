@@ -662,6 +662,8 @@ void create_buddy_msg_table(const char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+
 
 	Eina_List* col_types = NULL;
 	//col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY);
@@ -680,6 +682,7 @@ void create_buddy_msg_table(const char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
@@ -745,6 +748,7 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 			date_msg.service = 2;
 			date_msg.unread = 0;
 			date_msg.out = 0;
+			date_msg.is_marked_for_delete = 0;
 			insert_msg_into_db(&date_msg, tb_name, t);
 
 			if (last_msg->message) {
@@ -783,6 +787,7 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 		date_msg.service = 2;
 		date_msg.unread = 0;
 		date_msg.out = 0;
+		date_msg.is_marked_for_delete = 0;
 		insert_msg_into_db(&date_msg, tb_name, t);
 		return date_msg.id;
 	}
@@ -844,6 +849,7 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 			date_msg.service = 2;
 			date_msg.unread = 0;
 			date_msg.out = 0;
+			date_msg.is_marked_for_delete = 0;
 			insert_msg_into_db(&date_msg, tb_name, t);
 			if (last_msg->message) {
 				free(last_msg->message);
@@ -881,6 +887,7 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 		date_msg.service = 2;
 		date_msg.unread = 0;
 		date_msg.out = 0;
+		date_msg.is_marked_for_delete = 0;
 		insert_msg_into_db(&date_msg, tb_name, t);
 		return date_msg.id;
 	}
@@ -943,6 +950,7 @@ int insert_current_date_to_table(char* tb_name)
 			date_msg.service = 2;
 			date_msg.unread = 0;
 			date_msg.out = 0;
+			date_msg.is_marked_for_delete = 0;
 			insert_msg_into_db(&date_msg, tb_name, t);
 			if (last_msg->message) {
 				free(last_msg->message);
@@ -980,6 +988,7 @@ int insert_current_date_to_table(char* tb_name)
 		date_msg.service = 2;
 		date_msg.unread = 0;
 		date_msg.out = 0;
+		date_msg.is_marked_for_delete = 0;
 		insert_msg_into_db(&date_msg, tb_name, t);
 		return date_msg.id;
 	}
@@ -996,6 +1005,7 @@ Eina_Bool insert_buddy_msg_to_db(struct tgl_message *M)
 	} else if (tgl_get_peer_type(M->to_id) == TGL_PEER_CHAT) {
 		user_id = M->to_id.id;
 	}
+	M->is_marked_for_delete = 0;
 	char* tb_name = get_table_name_from_number(user_id);
 	Eina_Bool ret = insert_msg_into_db(M, tb_name, t);
 	free(tb_name);
@@ -1027,6 +1037,8 @@ struct tgl_message* get_latest_message_from_message_table(char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -1044,6 +1056,7 @@ struct tgl_message* get_latest_message_from_message_table(char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_FALSE, NULL);
@@ -1142,18 +1155,70 @@ struct tgl_message* get_latest_message_from_message_table(char* table_name)
 			message->media.type  = *temp_media_type;
 			free(temp_media_type);
 		}
+
+		int *temp_delete_marked = (int*)eina_list_nth(ts_msg, 14);
+		if (temp_delete_marked) {
+			message->is_marked_for_delete  = *temp_delete_marked;
+			free(temp_delete_marked);
+		}
+
 		// to do, get media id based on media type
 	}
 	return message;
 }
 
 
+Eina_List* get_all_message_ids_from_table(char *table_name)
+{
+	if (!table_name) {
+		return NULL;
+	}
+
+	Eina_List *msg_ids = NULL;
+	Eina_List *message_details = NULL;
+	Eina_List *col_names = NULL;
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	char* where_clause = NULL;
+	char delete_str[50];
+	sprintf(delete_str,"%d",1);
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(delete_str) + 1);
+	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(where_clause, " = ");
+	strcat(where_clause, delete_str);
+
+	message_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+
+	free(where_clause);
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	if (msg_ids) {
+		for (int i = 0; i < eina_list_count(msg_ids); i++) {
+			Eina_List* ts_msg = eina_list_nth(message_details, 0);
+			int *temp_msg_id = (int*)eina_list_nth(ts_msg, 0);
+			if (temp_msg_id) {
+				int msg_id  = *temp_msg_id;
+				msg_ids = eina_list_append(msg_ids, (void*)msg_id);
+				free(temp_msg_id);
+			}
+		}
+	}
+	return msg_ids;
+}
+
 struct tgl_message* get_message_from_message_tableby_message_id(char *table_name, int msg_id)
 {
-	struct tgl_message* message = NULL;
-	Eina_List* message_details = NULL;
+	if (!table_name) {
+		return NULL;
+	}
+	struct tgl_message *message = NULL;
+	Eina_List *message_details = NULL;
 
-	Eina_List* col_names = NULL;
+	Eina_List *col_names = NULL;
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
@@ -1876,6 +1941,7 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -1893,6 +1959,7 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	Eina_List* col_values = NULL;
@@ -1960,6 +2027,7 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 	}
 
 	col_values = eina_list_append(col_values, &unique_id);
+	col_values = eina_list_append(col_values, &(M->is_marked_for_delete));
 
 	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
 	if(!ret) {
@@ -5299,3 +5367,35 @@ Eina_Bool is_user_present_chat_table(int peer_id)
 	eina_list_free(col_types);
 	return ret;
 }
+
+Eina_Bool delete_message_from_table(char *tablename, int msg_id)
+{
+	if (!tablename) {
+		return EINA_FALSE;
+	}
+
+	char* where_clause = NULL;
+	char msg_id_str[50];
+	sprintf(msg_id_str,"%d", msg_id);
+
+	char *var_query = (char*)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(" WHERE ") + strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + strlen(";") + 1);
+	strcpy(var_query, "DELETE FROM ");
+	strcat(var_query, tablename);
+	strcat(var_query, " WHERE ");
+	strcat(var_query, MESSAGE_INFO_TABLE_MESSAGE_ID);
+	strcat(var_query, " = ");
+	strcat(var_query, msg_id_str);
+	strcat(var_query, ";");
+	int ret;
+	char* err_msg = 0;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	close_database(db);
+	if( ret != SQLITE_OK ){
+		sqlite3_free(err_msg);
+		return EINA_FALSE;
+	}
+	free(var_query);
+	return EINA_TRUE;
+}
+

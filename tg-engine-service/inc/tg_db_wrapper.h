@@ -155,6 +155,7 @@
 #define MESSAGE_INFO_TABLE_MEDIA_TYPE "media_type"
 #define MESSAGE_INFO_TABLE_MEDIA_ID "media_id"
 #define MESSAGE_INFO_TABLE_UNIQUE_ID "unique_id"
+#define MESSAGE_INFO_TABLE_MARKED_FOR_DELETE "is_marked_delete"
 
 
 #define CHAT_INFO_TABLE_NAME "chat_info_table"
@@ -277,5 +278,9 @@ Eina_Bool is_user_present_chat_table(int id);
 int update_current_date_to_table(char* tb_name, int recent_msg_date);
 
 int set_date_item_to_table(char* tb_name, int recent_msg_date);
+
+Eina_List* get_all_message_ids_from_table(char *table_name);
+
+Eina_Bool delete_message_from_table(char *tablename, int msg_id);
 
 #endif /* TG_DB_WRAPPER_H_ */

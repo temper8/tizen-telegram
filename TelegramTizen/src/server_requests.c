@@ -652,6 +652,64 @@ void send_delete_group_chat_request(appdata_s *ad, service_client* service_clien
 
 }
 
+void send_delete_all_messages_request(appdata_s *ad, service_client* service_client, const int buddy_id, const int type_of_chat)
+{
+
+	bundle *msg;
+	char tmp[50];
+	int result;
+
+	if (!service_client) {
+		failed_to_communicate_server(ad);
+		return;
+	}
+
+	msg = bundle_create();
+	if (!msg) {
+		failed_to_communicate_server(ad);
+		return;
+	}
+
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		failed_to_communicate_server(ad);
+		return;
+	}
+
+	if (bundle_add_str(msg, "command", "delete_all_messages_from_table") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		failed_to_communicate_server(ad);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", buddy_id);
+
+	if (bundle_add_str(msg, "buddy_id", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		failed_to_communicate_server(ad);
+		return;
+	}
+
+	snprintf(tmp, sizeof(tmp) - 1, "%d", type_of_chat);
+	if (bundle_add_str(msg, "type_of_chat", tmp) != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+		failed_to_communicate_server(ad);
+		return;
+	}
+
+	result = service_client_send_message(service_client, msg);
+	if(result != SVC_RES_OK) {
+		failed_to_communicate_server(ad);
+	}
+	bundle_free(msg);
+
+}
+
+
 void send_request_for_marked_as_read(appdata_s *ad, service_client* service_client, const int buddy_id, const int type_of_chat)
 {
 	bundle *msg;

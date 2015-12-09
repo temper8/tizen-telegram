@@ -161,6 +161,14 @@ void process_unblock_user_request(tg_engine_data_s* tg_data, int buddy_id)
 	do_unblock_buddy(buddy_id);
 }
 
+void process_delete_all_msgs_from_table_command(int buddy_id, int type_of_chat)
+{
+	if (!tgl_engine_get_TLS()) {
+		return;
+	}
+	delete_all_messages_from_chat(buddy_id, type_of_chat);
+}
+
 void process_marked_as_read_command(int buddy_id, int type_of_chat)
 {
 	if (!tgl_engine_get_TLS()) {

@@ -1638,6 +1638,7 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -1656,17 +1657,22 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-
-
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	char service_str[50];
 	sprintf(service_str, "%d", 2);
 
-	char* where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" <> ") + strlen(service_str) + 1);
+	char marked_del_str[50];
+	sprintf(marked_del_str, "%d", 1);
+
+	char* where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" <> ") + strlen(service_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE)+ strlen(" <> ")+ strlen(marked_del_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_SERVICE);
 	strcat(where_clause, " <> ");
 	strcat(where_clause, service_str);
-
+	strcat(where_clause, " AND ");
+	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(where_clause, " <> ");
+	strcat(where_clause, marked_del_str);
 
 	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_FALSE, where_clause);
 	free(where_clause);
@@ -1919,6 +1925,7 @@ int insert_current_date_to_table(char* tb_name)
 			date_msg.unread = 0;
 			date_msg.out = 0;
 			date_msg.media_id = "";
+			date_msg.is_marked_for_delete = 0;
 			insert_msg_into_db(&date_msg, tb_name, date_msg.msg_id);
 			return date_msg.msg_id;
 		}
@@ -1952,6 +1959,7 @@ int insert_current_date_to_table(char* tb_name)
 		date_msg.unread = 0;
 		date_msg.out = 0;
 		date_msg.media_id = "";
+		date_msg.is_marked_for_delete = 0;
 		insert_msg_into_db(&date_msg, tb_name, date_msg.msg_id);
 		return date_msg.msg_id;
 	}
@@ -2237,7 +2245,7 @@ void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
-
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
 
 	Eina_List* col_types = NULL;
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
@@ -2255,6 +2263,7 @@ void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 
@@ -2282,6 +2291,8 @@ void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 	col_values = eina_list_append(col_values, M->media_id);
 
 	col_values = eina_list_append(col_values, &unique_id);
+
+	col_values = eina_list_append(col_values, &(M->is_marked_for_delete));
 
 	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
 	if(!ret) {
@@ -4063,6 +4074,8 @@ void create_buddy_msg_table(const char* table_name)
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
 	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+
 
 	Eina_List* col_types = NULL;
 	//col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY);
@@ -4082,6 +4095,7 @@ void create_buddy_msg_table(const char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
 	if(!ret) {
@@ -4090,6 +4104,40 @@ void create_buddy_msg_table(const char* table_name)
 	eina_list_free(col_names);
 	eina_list_free(col_types);
 }
+
+
+Eina_Bool mark_all_records_for_deletion(char *tablename)
+{
+	if (!tablename) {
+		return EINA_FALSE;
+	}
+	char *var_query = (char*)malloc(strlen("UPDATE ") + strlen(tablename) + strlen(" SET ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen("1") + strlen(" WHERE ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen("0") + strlen(";") + 1);
+	strcpy(var_query, "UPDATE ");
+	strcat(var_query, tablename);
+	strcat(var_query, " SET ");
+	strcat(var_query, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(var_query, " = ");
+	strcat(var_query, "1");
+	strcat(var_query, " WHERE ");
+	strcat(var_query, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(var_query, " = ");
+	strcat(var_query, "0");
+	strcat(var_query, ";");
+
+	char* err_msg = 0;
+	int ret;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	close_database(db);
+	if( ret != SQLITE_OK ){
+		sqlite3_free(err_msg);
+		return EINA_FALSE;
+	}
+
+	free(var_query);
+	return EINA_TRUE;
+}
+
 
 void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **last_name, char **phone_number)
 {
@@ -4139,4 +4187,35 @@ void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **l
 	}
 	eina_list_free(col_names);
 	return;
+}
+
+Eina_Bool delete_date_messages_from_table(char *tablename)
+{
+	if (!tablename) {
+		return EINA_FALSE;
+	}
+
+	char* where_clause = NULL;
+	char service_id_str[50];
+	sprintf(service_id_str,"%d", 2);
+
+	char *var_query = (char*)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(" WHERE ") + strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" = ") + strlen(service_id_str) + strlen(";") + 1);
+	strcpy(var_query, "DELETE FROM ");
+	strcat(var_query, tablename);
+	strcat(var_query, " WHERE ");
+	strcat(var_query, MESSAGE_INFO_TABLE_SERVICE);
+	strcat(var_query, " = ");
+	strcat(var_query, service_id_str);
+	strcat(var_query, ";");
+	int ret;
+	char* err_msg = 0;
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	close_database(db);
+	if( ret != SQLITE_OK ){
+		sqlite3_free(err_msg);
+		return EINA_FALSE;
+	}
+	free(var_query);
+	return EINA_TRUE;
 }
