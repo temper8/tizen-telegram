@@ -376,28 +376,22 @@ void on_chat_bg_select_result_cb(app_control_h request, app_control_h reply, app
 			if (file_path) {
 				appdata_s *ad = (appdata_s*)user_data;
 				if (ad) {
-					Evas_Object *chat_bg = evas_object_data_get(ad->nf, "settings_chat_bg");
+					preference_set_string(TG_CHAT_BG_PREFERENCE, file_path);
+					char *chat_bg = NULL;
+					preference_get_string(TG_CHAT_BG_PREFERENCE, &chat_bg);
+
+					if (ad->chat_background) {
+						free(ad->chat_background);
+						ad->chat_background = NULL;
+					}
+
 					if (chat_bg) {
-						elm_image_file_set(chat_bg, file_path, NULL);
+						ad->chat_background = strdup(chat_bg);
+					}
 
-						preference_set_string(TG_CHAT_BG_PREFERENCE, file_path);
-
-						char *chat_bg = NULL;
-						preference_get_string(TG_CHAT_BG_PREFERENCE, &chat_bg);
-
-						if (ad->chat_background) {
-							free(ad->chat_background);
-							ad->chat_background = NULL;
-						}
-
-						if (chat_bg) {
-							ad->chat_background = strdup(chat_bg);
-						}
-
-						if (!ad->chat_background) {
-							ad->chat_background = strdup(ui_utils_get_resource(TG_CHAT_DEFAULT_BG));
-							preference_set_string(TG_CHAT_BG_PREFERENCE, ad->chat_background);
-						}
+					if (!ad->chat_background) {
+						ad->chat_background = strdup(ui_utils_get_resource(TG_CHAT_DEFAULT_BG));
+						preference_set_string(TG_CHAT_BG_PREFERENCE, ad->chat_background);
 					}
 				}
 				break;

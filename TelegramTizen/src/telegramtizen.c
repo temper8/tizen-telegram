@@ -2114,7 +2114,7 @@ static int on_self_profile_pic_updated(appdata_s *app, bundle *const rec_msg)
 		if (app->current_app_state == TG_SETTINGS_SCREEN_STATE) {
 			Evas_Object* set_pro_pic = evas_object_data_get(app->nf, "settings_user_profile_pic");
 			if (set_pro_pic) {
-				elm_image_file_set(profile_pic, file_path, NULL);
+				elm_image_file_set(set_pro_pic, file_path, NULL);
 			}
 		}
 	}

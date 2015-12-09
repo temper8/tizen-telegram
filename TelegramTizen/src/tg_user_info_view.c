@@ -850,9 +850,6 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 	Evas_Object *image_layout = NULL;
 
 	if (ad->peer_in_cahtting_data->use_data->photo_path && strlen(ad->peer_in_cahtting_data->use_data->photo_path) > 0 && strstr(ad->peer_in_cahtting_data->use_data->photo_path, "_null_") == NULL) {
-
-		evas_object_color_set(profile_pic, 45, 165, 224, 255);
-
 		image_layout = elm_layout_add(ad->nf);
 		elm_layout_file_set(image_layout, edj_path, "contact_image_masking");
 		evas_object_size_hint_weight_set(image_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -860,13 +857,10 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 		evas_object_show(image_layout);
 
 		profile_pic = get_image_from_path(ad->peer_in_cahtting_data->use_data->photo_path, ad->nf);
-		evas_object_color_set(profile_pic, 45, 165, 224, 225);
+		//evas_object_color_set(profile_pic, 45, 165, 224, 225);
 
 		elm_object_part_content_set(image_layout, "image", profile_pic);
 	} else  {
-
-		evas_object_color_set(profile_pic, 45, 165, 224, 255);
-
 		image_layout = elm_layout_add(ad->nf);
 		elm_layout_file_set(image_layout, edj_path, "contact_image_masking");
 		evas_object_size_hint_weight_set(image_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
