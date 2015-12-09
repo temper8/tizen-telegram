@@ -77,6 +77,7 @@ extern void send_group_chat_new_buddy_response(tg_engine_data_s *tg_data, int pe
 extern void send_group_chat_delete_buddy_response(tg_engine_data_s *tg_data, int peer_id, Eina_Bool is_success);
 extern void send_response_for_server_connection_status(tg_engine_data_s *tg_data, Eina_Bool connection_status);
 extern void send_response_for_logout(tg_engine_data_s *tg_data);
+extern void send_new_contact_added_response(tg_engine_data_s *tg_data, int buddy_id, Eina_Bool is_success);
 
 extern void send_self_profile_name_updated_response(tg_engine_data_s *tg_data, char *first_name, char *last_name, Eina_Bool is_success);
 extern void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id);

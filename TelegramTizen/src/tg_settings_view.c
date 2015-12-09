@@ -367,9 +367,6 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 
 /**************************************************************************/
 
-
-
-
 void on_chat_bg_select_result_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
 {
 	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
