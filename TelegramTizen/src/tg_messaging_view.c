@@ -1412,7 +1412,26 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 				evas_object_show(layout);
 
-				elm_object_part_text_set(layout, "elm.text", msg->message);
+				// convert date from string to int
+				char *date_str = msg->message;
+				int date_num = atoi(date_str);
+
+				// convert date format
+				time_t t = date_num;
+				char *format = NULL;
+				format = "%a, %e %b %Y";
+				struct tm lt;
+				char res[256];
+				(void) localtime_r(&t, &lt);
+
+				if (strftime(res, sizeof(res), format, &lt) == 0) {
+					(void) fprintf(stderr,  "strftime(3): cannot format supplied "
+							"date/time into buffer of size %u "
+							"using: '%s'\n",
+							sizeof(res), format);
+				}
+
+				elm_object_part_text_set(layout, "elm.text", res);
 				return layout;
 			} else if (msg->service == 1) {
 				Evas_Object *layout = NULL;

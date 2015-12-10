@@ -12,6 +12,7 @@ static void failed_to_communicate_server(appdata_s *ad)
 	if (!ad)
 		return;
 
+	show_toast(ad, "server is not ready");
 	hide_loading_popup(ad);
 	//show_toast(ad, "Check your network settings.");
 }

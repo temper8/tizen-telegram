@@ -1897,6 +1897,7 @@ int insert_current_date_to_table(char* tb_name)
 			return -1;
 		} else {
 			int cur_time = time(NULL);
+#if 0
 			time_t t = cur_time;
 
 			char *format = NULL;
@@ -1912,7 +1913,11 @@ int insert_current_date_to_table(char* tb_name)
 						"using: '%s'\n",
 						sizeof(res), format);
 			}
-
+#else
+			// convert time to string
+			char res[256];
+			sprintf(res, "%d", cur_time);
+#endif
 			srand(time(NULL));
 			int r = rand();
 			tg_message_s date_msg;
@@ -1932,6 +1937,7 @@ int insert_current_date_to_table(char* tb_name)
 
 	} else {
 		int cur_time = time(NULL);
+#if 0
 		time_t t = cur_time;
 
 		char *format = NULL;
@@ -1947,6 +1953,11 @@ int insert_current_date_to_table(char* tb_name)
 					"using: '%s'\n",
 					sizeof(res), format);
 		}
+#else
+		// convert time to string
+		char res[256];
+		sprintf(res, "%d", cur_time);
+#endif
 		srand(time(NULL));
 		int r = rand();
 		tg_message_s date_msg;

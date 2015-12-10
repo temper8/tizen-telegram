@@ -722,10 +722,11 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 		} else {
 			int cur_time = recent_msg_date;
 			time_t t = cur_time;
-
+			char res[256];
+			sprintf(res, "%d", cur_time);
+#if 0
 			char *format = NULL;
 			format = "%a, %d%b. %Y";
-
 			struct tm lt;
 			char res[256];
 			(void) localtime_r(&t, &lt);
@@ -736,7 +737,7 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 						"using: '%s'\n",
 						sizeof(res), format);
 			}
-
+#endif
 			srand(time(NULL));
 			int r = rand();
 			struct tgl_message date_msg;
@@ -762,7 +763,10 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 	} else {
 		int cur_time = recent_msg_date;
 		time_t t = cur_time;
+		char res[256];
+		sprintf(res, "%d", cur_time);
 
+#if 0
 		char *format = NULL;
 		format = "%a, %d%b. %Y";
 
@@ -776,6 +780,7 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 					"using: '%s'\n",
 					sizeof(res), format);
 		}
+#endif
 		srand(time(NULL));
 		int r = rand();
 		struct tgl_message date_msg;
@@ -823,7 +828,9 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 		} else {
 			int cur_time = time(NULL);
 			time_t t = cur_time;
-
+			char res[256];
+			sprintf(res, "%d", cur_time);
+#if 0
 			char *format = NULL;
 			format = "%a, %d%b. %Y";
 
@@ -833,11 +840,11 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 
 			if (strftime(res, sizeof(res), format, &lt) == 0) {
 				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-						"date/time into buffer of size %u "
+						"date/time into buffer of size %u "strftime
 						"using: '%s'\n",
 						sizeof(res), format);
 			}
-
+#endif
 			srand(time(NULL));
 			int r = rand();
 			struct tgl_message date_msg;
@@ -862,7 +869,10 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 	} else {
 		int cur_time = time(NULL);
 		time_t t = cur_time;
+		char res[256];
+		sprintf(res, "%d", cur_time);
 
+#if 0
 		char *format = NULL;
 		format = "%a, %d%b. %Y";
 
@@ -876,6 +886,7 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 					"using: '%s'\n",
 					sizeof(res), format);
 		}
+#endif
 		srand(time(NULL));
 		int r = rand();
 		struct tgl_message date_msg;
@@ -924,7 +935,7 @@ int insert_current_date_to_table(char* tb_name)
 		} else {
 			int cur_time = time(NULL);
 			time_t t = cur_time;
-
+#if 0
 			char *format = NULL;
 			format = "%a, %d%b. %Y";
 
@@ -938,7 +949,11 @@ int insert_current_date_to_table(char* tb_name)
 						"using: '%s'\n",
 						sizeof(res), format);
 			}
-
+#else
+			// convert time to string
+			char res[256];
+			sprintf(res, "%d", cur_time);
+#endif
 			srand(time(NULL));
 			int r = rand();
 			struct tgl_message date_msg;
@@ -963,7 +978,7 @@ int insert_current_date_to_table(char* tb_name)
 	} else {
 		int cur_time = time(NULL);
 		time_t t = cur_time;
-
+#if 0
 		char *format = NULL;
 		format = "%a, %d%b. %Y";
 
@@ -977,6 +992,11 @@ int insert_current_date_to_table(char* tb_name)
 					"using: '%s'\n",
 					sizeof(res), format);
 		}
+#else
+		// convert time to string
+		char res[256];
+		sprintf(res, "%d", cur_time);
+#endif
 		srand(time(NULL));
 		int r = rand();
 		struct tgl_message date_msg;

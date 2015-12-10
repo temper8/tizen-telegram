@@ -59,8 +59,8 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 		strcpy(phone_number, cunt_code);
 		strcat(phone_number, phone_num);
 		ad->phone_number = strdup(phone_number);
-		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_TRUE);
 		show_loading_popup(ad);
+		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_TRUE);
 	} else {
 
 	}
