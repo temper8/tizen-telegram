@@ -10,7 +10,7 @@ styles {
 	}
 	style {
 		name: "call,display";
-		base: "font=Tizen=Regular text_class=ATO023 font_size=32 align=left color=#999999 color_class=ATO023 wrap=mixed";
+		base: "font=Tizen:style=Regular text_class=ATO023 font_size=32 align=left color=#999999 color_class=ATO023 wrap=mixed";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -18,7 +18,7 @@ styles {
 	}
 	style {
 		name: "name,display";
-		base: "font=Tizen=Regular text_class=ATO009 font_size=40 align=left color=#666666 color_class=ATO009 wrap=mixed";
+		base: "font=Tizen:style=Regular text_class=ATO009 font_size=40 align=left color=#666666 color_class=ATO009 wrap=mixed";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -26,7 +26,7 @@ styles {
 	}
 	style {
 		name: "nomessage,display";
-		base: "font=Tizen=Regular text_class=ATO019 font_size=40 align=center color=#000000 color_class=ATO019 wrap=mixed";
+		base: "font=Tizen:style=Regular text_class=ATO019 font_size=40 align=center color=#000000 color_class=ATO019 wrap=mixed";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -34,7 +34,7 @@ styles {
 	}
 	style {
 		name: "explain,display";
-		base: "font=Tizen=Regular text_class=ATO019 font_size=28 align=center color=#000000 color_class=ATO019 wrap=mixed";
+		base: "font=Tizen:style=Regular text_class=ATO019 font_size=28 align=center color=#000000 color_class=ATO019 wrap=mixed";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -42,7 +42,7 @@ styles {
 	}
 	style {
 		name: "chat_data,display";
-		base: "font=Tizen=Regular text_class=ATO013 font_size=28 align=center color=#808080 color_class=ATO013";
+		base: "font=Tizen:style=Regular text_class=ATO013 font_size=28 align=center color=#808080 color_class=ATO013";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -50,7 +50,7 @@ styles {
 	}
 	style {
 		name: "group,display";
-		base: "font=Tizen=Regular text_class=ATO024 font_size=28 align=center color=#666666 color_class=ATO024";
+		base: "font=Tizen:style=Regular text_class=ATO024 font_size=28 align=center color=#666666 color_class=ATO024";
 		tag:  "br" "\n";
 		tag:  "hilight" "+ font=Tizen:style=Bold";
 		tag:  "b" "+ font=Tizen:style=Bold";
@@ -169,6 +169,9 @@ collections {
 		image: "telegram_attach_image_round_bg.#.png" COMP;
 		image: "telegram_attach_image_round_line.#.png" COMP;
 		image: "telegram_attach_image_round_shadow.#.png" COMP;
+		image: "telegram_reply.png" COMP;
+		image: "telegram_cancle.png" COMP;
+		image: "ic_attach_download.png" COMP;
 	}
 
    group {
@@ -1228,6 +1231,39 @@ group
     			}
     		}
     		part {
+				name: "message,bg";
+				type: RECT;
+				description {
+					state: "default" 0.0;
+					rel1.to: "swallow.messagebubble";
+					rel2.to: "swallow.messagebubble";
+					color: 250 250 250 255;
+					visible: 0;
+				}
+				description {
+    				state: "show" 0.0;
+    				inherit: "default" 0.0;
+    				visible: 1;
+    			}
+			}
+    		part{
+    			name: "swallow.messagebubble";
+    			type: SWALLOW;
+    			description {
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 0.0; to: swallow.entry; }
+    				rel2 { relative: 1.0 0.0; to: swallow.entry; }
+    				align: 0.5 1.0;
+    				fixed: 0 1;
+    				visible: 0;
+    			}
+    			description {
+    				state: "show" 0.0;
+    				inherit: "default" 0.0;
+    				visible: 1;
+    			}
+    		}
+    		part {
 				name: "entry,bg";
 				type: RECT;
 				description {
@@ -1241,7 +1277,7 @@ group
     		part{
     			name: "swallow.entry";
     			type: SWALLOW;
-    			description{
+    			description {
     				state: "default" 0.0;
     				rel1 { relative: 0.0 1.0; }
     				rel2 { relative: 1.0 1.0; }
@@ -1266,8 +1302,211 @@ group
     			action: STATE_SET "default" 0.0;
     			target: "no_msg_text";
     		}
+    		program {
+    			name: "show,message";
+    			source: "bubblemessage";
+    			signal: "show";
+    			action: STATE_SET "show" 0.0;
+    			target: "swallow.messagebubble";
+    			target: "message,bg";
+    		}
+    		program {
+    			name: "hide,message";
+    			source: "bubblemessage";
+    			signal: "hide";
+    			action: STATE_SET "default" 0.0;
+    			target: "swallow.messagebubble";
+    			target: "message,bg";
+    		}
     	}
     }
+    
+    group
+    {
+    	name: "bubble_layout";
+    	parts{
+    	    part {
+				name: "bg";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					min: 0 135;
+				}
+		   }
+		   part{
+    			name: "image,divider";
+    			type: IMAGE;
+    			description{
+    				state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to, "bg"; }
+					rel2 { relative: 1.0 0.0; to, "bg"; }
+					min: 0 2;
+					fixed: 0 1;
+    				image {
+						normal: "telegram_date_divider.#.png";
+					}
+					color: 115 115 115 51;
+    			}
+    		}
+			part {
+				name: "left,pad";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "bg"; }
+					rel2 { relative: 0.0 1.0; to: "bg"; }
+					align: 0.0 0.5;
+					min: 24 0;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "right,pad";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 0.0; to: "bg"; }
+					rel2 { relative: 1.0 1.0; to: "bg"; }
+					align: 1.0 0.5;
+					min: 24 0;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "image,reply";
+    			type: IMAGE;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 1.0 0.5; to: "left,pad"; }
+    				rel2 { relative: 1.0 0.5; to: "left,pad"; }
+    				fixed: 1 1;
+    				min: 72 72;
+    				align: 0.0 0.5;
+    				image.normal: "telegram_reply.png";
+    				color: 106 126 204 255;
+    			}
+			}
+			part {
+				name: "pressed,cancel";
+				type: IMAGE;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.5 0.5; to: "image,cancel"; }
+					rel2 { relative: 0.5 0.5; to: "image,cancel"; }
+					fixed: 1 1;
+					min: 50 50;
+					image.normal: "telegram_attach_image_round_bg.#.png";
+					color: 106 126 204 76;
+					visible: 0;
+				}
+				description {
+					state: "pressed" 0.0;
+					inherit: "default" 0.0;
+					min: 72 72;
+					visible: 1;
+				}
+			}
+			part {
+				name: "image,cancel";
+    			type: IMAGE;
+    			description{
+    				state: "default" 0.0;
+  					rel1 { relative: 0.0 0.5; to: "right,pad"; }
+    				rel2 { relative: 0.0 0.5; to: "right,pad"; }
+    				fixed: 1 1;
+    				min: 72 72;
+    				align: 1.0 0.5;
+    				image.normal: "telegram_cancle.png";
+    				color: 106 126 204 255;
+    			}
+			}
+			part {
+				name: "left,text,pad";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 0.0; to_x: "image,reply"; to_y: "bg"; }
+					rel2 { relative: 1.0 1.0; to_x: "image,reply"; to_y: "bg"; }
+					align: 0.0 0.5;
+					min: 12 0;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "right,text,pad";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to_x: "image,cancel"; to_y: "bg"; }
+					rel2 { relative: 0.0 1.0; to_x: "image,cancel"; to_y: "bg"; }
+					align: 1.0 0.5;
+					min: 12 0;
+					fixed: 1 0;
+				}
+			}
+			part{
+    			name: "text_name";
+    			type:TEXT;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 1.0 0.0; to: "left,text,pad"; }
+    				rel2 { relative: 0.0 0.5; to: "right,text,pad"; }
+    				align: 0.0 1.0;
+    				color: 106 126 204 255;
+    				text {
+    					font: "Tizen:style=Regular";
+						size: 36;
+						text: "Stan Smith";
+						align: 0.0 1.0;
+					}
+    			}
+    		}
+    		part{
+    			name: "text_message";
+    			type: TEXT;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 1.0 0.5; to: "left,text,pad"; }
+    				rel2 { relative: 0.0 1.0; to: "right,text,pad"; }
+    				align: 0.0 0.0;
+    				color: 77 77 77 255;
+    				text {
+    					font: "Tizen:style=Light";
+						size: 36;
+						text: "Hey! See you soon!";
+						align: 0.0 0.0;
+						ellipsis: 1;
+					}
+    			}
+    		}
+    	} //parts
+    	programs {
+    		program {
+    			name: "cancel,pressed";
+    			signal: "mouse,down,1";
+    			source: "image,cancel";
+    			action: STATE_SET "pressed" 0.0;
+    			target: "pressed,cancel";
+    			transition: LINEAR 0.2;
+    		}
+    		program {
+    			name: "cancel,release";
+    			signal: "mouse,up,1";
+    			source: "image,cancel";
+    			action: STATE_SET "default" 0.0;
+    			target: "pressed,cancel";
+    		}
+    		program {
+    			name: "cancel,clicked";
+    			signal: "mouse,clicked,1";
+    			source: "image,cancel";
+    			action: SIGNAL_EMIT "cancel" "clicked";
+    		}
+    	} //programs
+    } //group
+    
 	group
     {
     	name: "chat_entry_box";
@@ -2017,12 +2256,6 @@ group
 		}
 	}
 }
-	
-images {
-	image: "ic_attach_download.png" COMP;
-}
-
-
 
 group
 {
@@ -2717,13 +2950,14 @@ group
     group { 
 	  name: "bubble_received_media_layout";
       parts {
-         part { 
+        part { 
             name: "swallow.image_item";
             type: SWALLOW; 
             description { 
                state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
+               min: 318 0;
              }
          }
          part { 
@@ -3340,8 +3574,8 @@ group
 				type: RECT;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 0.0 0.0; to, "swallow.chat_image"; }
-					rel2 { relative: 1.0 1.0; to, "swallow.chat_image"; }			
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 1.0 1.0; }			
 					color: 0 0 0 0;								
 				}
 			}
@@ -3350,11 +3584,11 @@ group
     			type:IMAGE;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: -0.015 -0.015; to, "chat_image_base"; }
-    				rel2 { relative: 1.01 1.01; to, "chat_image_base"; }
+    				rel1 { relative: 0.0 0.0; to, "swallow.chat_image"; }
+    				rel2 { relative: 1.0 1.0; to, "swallow.chat_image"; }
     				visible:1;
     				image {
-    				    border: 20 20 20 20;    				    
+    				    border: 6 6 6 6;    				    
 						normal: "telegram_attach_image_round_line.#.png";
 					}
 					color: 250 250 250 255;
@@ -3365,10 +3599,10 @@ group
     			type:IMAGE;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: -0.015 -0.01; to, "chat_image_base"; }
-    				rel2 { relative: 1.015 1.01; to, "chat_image_base"; }
+    				rel1 { relative: 0.0 0.0; to, "swallow.chat_image"; }
+    				rel2 { relative: 1.0 1.0; to, "swallow.chat_image"; }
     				image {
-    				    border: 20 20 20 20;    				    
+    				    border: 6 6 6 6;    				    
 						normal: "telegram_attach_image_round_shadow.#.png";
 					}
 					color: 0 0 0 51;
@@ -3956,4 +4190,113 @@ group
         	}
         }
     } // theme
+    
+    group {
+    	name: "download_btn";
+    	parts {
+    		part {
+    			name: "bg";
+    			type: SPACER;
+    			description {
+    				rel1 { relative: 0.0 0.0; }
+    				rel2 { relative: 1.0 1.0; }
+    			}
+    		}
+    		part {
+				name: "download_image";
+				type: SWALLOW;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.5 0.5; to: "bg"; }
+					rel2 { relative: 0.5 0.5; to: "bg"; }
+					fixed: 1 1;
+					min: 50 50;
+					//image.normal: "ic_attach_download.png";
+					//color: 106 126 204 255;
+					visible: 1;
+				}
+				description {
+					state: "pressed" 0.0;
+					inherit: "default" 0.0;
+					color: 60 71 115 255;
+				}
+			}
+			part{
+    			name: "size";
+    			type:TEXT;
+    			description{
+    				state: "default" 0.0;
+    				rel1 { relative: 0.0 1.0; to_y: "download_image"; }
+    				rel2 { relative: 1.0 1.0; to_y: "download_image"; }
+    				color: 0 0 0 255;
+    				align: 0.5 0.0;
+    				text {
+    					font: "Tizen:style=Regular";
+						size: 30;
+						min: 1 1;
+						text: "size";
+						align: 0.5 0.0;
+					}
+    			}
+    		}
+    	} //parts
+  		programs {
+  			program {
+  				name: "pressed";
+  				signal: "mouse,down,1";
+  				source: "download_image";
+  				action: STATE_SET "pressed" 0.0;
+  				target: "download_image";
+  			}
+  			program {
+  				name: "release";
+  				signal: "mouse,up,1";
+  				source: "download_image";
+  				action: STATE_SET "default" 0.0;
+  				target: "download_image";
+  			}
+  			program {
+  				name: "clicked";
+  				signal: "mouse,clicked,1";
+  				source: "download_image";
+  				action: STATE_SET "default" 0.0;
+  				target: "download_image";
+  			}
+  		} //programs
+    }
+    
+    group {
+    	name: "entry,send,layout";
+    	parts {
+    		part {
+    			name: "elm.swallow.content";
+    			type: SWALLOW;
+    			scale: 1;
+    			description {
+    				state: "default" 0.0;
+    				fixed: 1 0;
+    				rel1.relative: 1.0 0.0;
+    				rel2.relative: 1.0 1.0;
+    				align: 1.0 0.5;
+    			}
+    		}
+    	}
+    }
+    group {
+    	name: "entry,receive,layout";
+    	parts {
+    		part {
+    			name: "elm.swallow.content";
+    			type: SWALLOW;
+    			scale: 1;
+    			description {
+    				state: "default" 0.0;
+    				fixed: 1 0;
+    				rel1.relative: 0.0 0.0;
+    				rel2.relative: 0.0 1.0;
+    				align: 0.0 0.5;
+    			}
+    		}
+    	}
+    }
 }
