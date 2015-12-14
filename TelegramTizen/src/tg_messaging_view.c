@@ -16,6 +16,57 @@
 #include "tg_audio_player.h"
 #include <metadata_extractor.h>
 
+static int scroller_show_bottom_edge(Evas_Object *scroller)
+{
+	if (!scroller) {
+		LOGE("Cannot get the scroller");
+		return 0;
+	}
+	Evas_Object *box_layout = NULL;
+	Evas_Object *box = NULL;
+	Eina_List *list = NULL;
+	Eina_List *box_list = NULL;
+	Evas_Object *last_item = NULL;
+
+	box_layout = elm_object_content_get(scroller);
+	if (!box_layout) {
+		LOGE("Fail to get the box into scroller");
+		return 0;
+	}
+	list = elm_box_children_get(box_layout);
+	if (!list) {
+		LOGE("Fail to get the list into box");
+		return 0;
+	}
+
+	box = eina_list_nth(list, 0);
+	if (!box) {
+		LOGE("Fail to get the box into box layout");
+		return 0;
+	}
+
+	box_list = elm_box_children_get(box);
+	if (!box_list) {
+		LOGE("Fail to get the box_list into box");
+		return 0;
+	}
+
+	last_item = eina_list_nth(box_list, eina_list_count(box_list)-1);
+	if (!last_item) {
+		LOGE("Fail to get the last item into box");
+		return 0;
+	}
+
+	int y, h;
+	evas_object_geometry_get(last_item, NULL, &y, NULL, &h);
+	LOGD("position of last item(%d) : %d, %d",eina_list_count(box_list), y, h);
+	elm_scroller_region_show(scroller, 0, y, 720, 1280);
+
+	eina_list_free(box_list);
+	eina_list_free(list);
+
+	return 1;
+}
 
 static void scroller_push_item(Evas_Object *scroller, Evas_Object *item)
 {
@@ -44,7 +95,7 @@ static void scroller_push_item(Evas_Object *scroller, Evas_Object *item)
 	eina_list_free(list);
 
 	elm_box_pack_end(box, item);
-	elm_box_recalculate(box);
+	//elm_box_recalculate(box);
 
 	return;
 }
@@ -1248,16 +1299,15 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					int media_size_kbs = (media_size < (1 << 20)); //convert to kbs
 					char media_size_str[10] = { 0, };
 					if (media_size_kbs > 0) {
-						sprintf(media_size_str, "%dKiB", media_size_kbs);
+						sprintf(media_size_str, "%dKB", media_size_kbs);
 					} else {
 						sprintf(media_size_str, "%dB", media_size);
 					}
 
 
-					Evas_Object *size_btn = elm_button_add(entry);
-					char temp_msg[256] = {0,};
-					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Bold color=#008000 align=center><font_size=30>%s</font_size></font>", media_size_str);
-					elm_object_text_set(size_btn, temp_msg);
+					Evas_Object *size_btn = elm_layout_add(entry);
+					elm_layout_file_set(size_btn, edj_path, "download_btn");
+					elm_object_part_text_set(size_btn, "size", media_size_str);
 					evas_object_size_hint_weight_set(size_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 					evas_object_size_hint_align_set(size_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
 					evas_object_show(size_btn);
@@ -1265,7 +1315,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					evas_object_data_set(size_btn, "image_state", "ready_to_download");
 
 					Evas_Object* download_img = get_image_from_path(ui_utils_get_resource(MEDIA_DOWNLOAD_ICON), entry);
-					elm_object_content_set(size_btn, download_img);
+					elm_object_part_content_set(size_btn, "download_image", download_img);
 
 					elm_object_part_content_set(rec_img_layout, "swallow.download_btn", size_btn);
 
@@ -1355,16 +1405,13 @@ static void __resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 	LOGD(" %s size : %d, %d, %d, %d", data, x, y, w, h);
 }
 
-static void __hint_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
-{
-	int x, y, w, h;
-	evas_object_size_hint_min_get(obj, &w, &h);
-	LOGD(" %s size : %d, %d", data, w, h);
-}
-
 Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *entry = elm_entry_add(obj);
+	Evas_Object *layout = NULL;
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
 	if (!strcmp(part, "elm.icon.entry")) {
 
@@ -1402,10 +1449,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			}
 
 			if (msg->service == 2) {
-				Evas_Object *layout = NULL;
-				char edj_path[PATH_MAX] = {0, };
-				app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
 				layout = elm_layout_add(obj);
 				elm_layout_file_set(layout, edj_path, "chat_date_item");
 				evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -1434,10 +1477,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				elm_object_part_text_set(layout, "elm.text", res);
 				return layout;
 			} else if (msg->service == 1) {
-				Evas_Object *layout = NULL;
-				char edj_path[PATH_MAX] = {0, };
-				app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
 				layout = elm_layout_add(obj);
 				elm_layout_file_set(layout, edj_path, "chat_service_item_box");
 				evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -1454,12 +1493,16 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			elm_entry_editable_set(entry, EINA_FALSE);
 			elm_entry_context_menu_disabled_set(entry, EINA_TRUE);
+			elm_entry_single_line_set(entry, EINA_TRUE);
 
+			layout = elm_layout_add(obj);
 
 			if(msg->out) {
+				elm_layout_file_set(layout, edj_path, "entry,send,layout");
 				elm_object_style_set(entry, "sentmessage1");
 				//sender_name = replace(ad->current_user_data->print_name, '_', " ");
 			} else {
+				elm_layout_file_set(layout, edj_path, "entry,receive,layout");
 				elm_object_style_set(entry, "readmessage1");
 
 				/* If you need to get the name, you need this code */
@@ -1480,6 +1523,10 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				}
 				*/
 			}
+
+			evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+			elm_object_part_content_set(layout,"elm.swallow.content", entry);
+			evas_object_show(layout);
 
 			elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
 			evas_object_size_hint_weight_set(entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -1510,9 +1557,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 							}
 
 						} else if (strstr(media_msg->doc_type, "video") != NULL) {
-							eina_strbuf_append(buf, "<item size=147x147 vsize=full hsize=full href=itemprovider></item>");
+							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
-							eina_strbuf_append(buf, "<item size=147x147 vsize=full href=itemprovider></item>");
+							eina_strbuf_append(buf, "<item size=318x200 vsize=full href=itemprovider></item>");
 						}
 					}
 				} else {
@@ -1527,9 +1574,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 							eina_strbuf_append(buf, "<item size=247x30 vsize=full hsize=full href=itemprovider></item>");
 						} else if (strstr(media_msg->doc_type, "video") != NULL) {
-							eina_strbuf_append(buf, "<item size=100x147 vsize=full hsize=full href=itemprovider></item>");
+							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
-							eina_strbuf_append(buf, "<item size=100x147 vsize=full href=itemprovider></item>");
+							eina_strbuf_append(buf, "<item size=318x200 vsize=full href=itemprovider></item>");
 						}
 					}
 				}
@@ -1626,7 +1673,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			evas_object_show(status_obj);
 
 			evas_object_event_callback_add(entry, EVAS_CALLBACK_RESIZE, __resize_cb, "entry");
-			evas_object_event_callback_add(entry, EVAS_CALLBACK_CHANGED_SIZE_HINTS, __hint_cb, "HINT : entry");
 
 			free(tablename);
 			if(msg->message) {
@@ -1651,7 +1697,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 		}
 #endif
 	}
-	return entry;
+	return layout;
 }
 
 void on_text_message_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
@@ -1668,12 +1714,52 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	tg_peer_info_s* peer_item = pic_peer_item->use_data;
 	char* tablename = get_table_name_from_number(peer_item->peer_id);
 	tg_message_s* msg = get_message_from_message_table(message_id, tablename);
+
+	Evas_Object* chat_scroller = evas_object_data_get(ad->nf, "chat_list");
+	Evas_Object *message = NULL;
+
 	if (msg) {
 			// update peer table
 			if (peer_item) {
 				peer_item->last_msg_id = msg->msg_id;
 				peer_item->last_msg_date =  msg->date;
 				insert_or_update_peer_into_database(peer_item);
+			}
+
+			Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
+			if (layout) {
+				int is_end_edge = (int) evas_object_data_get(layout, "is_end_edge");
+				if (!is_end_edge) {
+					Evas_Object *bubble_layout = NULL;
+					bubble_layout = elm_object_part_content_get(layout, "swallow.messagebubble");
+
+					int user_id = (int) evas_object_data_get(chat_scroller, "user_id");
+					peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+					char *sender_name = NULL;
+					if (sel_item->use_data->peer_type == TGL_PEER_USER) {
+						sender_name = replace(sel_item->use_data->print_name, '_', " ");
+					} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+						int from_id = msg->from_id;
+						// get name of buddy
+						char* buddy_name = get_buddy_name_from_id(from_id);
+						if (buddy_name) {
+							sender_name = replace(buddy_name, '_', " ");
+							free(buddy_name);
+						}
+					} else {
+						sender_name = replace(sel_item->use_data->print_name, '_', " ");
+					}
+
+					elm_object_part_text_set(bubble_layout, "text_name", sender_name);
+					elm_object_part_text_set(bubble_layout, "text_message", msg->message);
+					elm_object_signal_emit(layout, "show", "bubblemessage");
+				} else {
+					int ret = 1;
+					ret = scroller_show_bottom_edge(chat_scroller);
+					if (!ret) {
+						LOGE("Fail to show the bottom of scroller");
+					}
+				}
 			}
 
 		if(msg->message) {
@@ -1689,9 +1775,6 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 		free(msg);
 	}
 	free(tablename);
-
-	Evas_Object* chat_scroller = evas_object_data_get(ad->nf, "chat_list");
-	Evas_Object *message = NULL;
 
 	message = on_message_item_content_get_cb((void *)message_id, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)message_id);
@@ -1819,7 +1902,6 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									elm_image_file_set(img_item, file_path, NULL);
 								}
 							}
-
 						}
 						break;
 					}
@@ -1993,6 +2075,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 	Evas_Object* text_entry = evas_object_data_get(chat_scroller, "text_entry");
+	int ret = 1;
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 	const char* text_to_send = elm_entry_markup_to_utf8(elm_object_text_get(text_entry));
@@ -2047,6 +2130,10 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	message = on_message_item_content_get_cb((void *)unique_id, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)unique_id);
 	scroller_push_item(chat_scroller, message);
+	ret = scroller_show_bottom_edge(chat_scroller);
+	if (!ret) {
+		LOGE("Fail to show the bottom of scroller");
+	}
 
 	elm_entry_entry_set(text_entry, "");
 	ad->is_last_msg_changed = EINA_TRUE;
@@ -2244,6 +2331,16 @@ static Eina_Bool on_change_input_type_requested(void *data)
 	return ECORE_CALLBACK_CANCEL;
 }
 
+static void on_message_cancel_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
+{
+	Evas_Object *layout = data;
+	if (!layout) {
+		LOGE("Fail to get the layout");
+		return;
+	}
+	elm_object_signal_emit(layout, "hide", "bubblemessage");
+}
+
 static void on_message_smiley_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
 {
 	Evas_Object* text_entry = data;
@@ -2272,11 +2369,18 @@ static void on_message_text_entry_changed(void *data, Evas_Object *obj, void *ev
 		LOGE("Fail to get the entry layout");
 		return;
 	}
+	int attach_show = (int) evas_object_data_get(layout, "is_attach_show");
 
 	if (elm_entry_is_empty(obj)) {
-		elm_object_signal_emit(layout, "show", "attach_btn");
+		if (!attach_show) {
+			elm_object_signal_emit(layout, "show", "attach_btn");
+			evas_object_data_set(layout, "is_attach_show", (void *) 1);
+		}
 	} else {
-		elm_object_signal_emit(layout, "hide", "attach_btn");
+		if (attach_show) {
+			elm_object_signal_emit(layout, "hide", "attach_btn");
+			evas_object_data_set(layout, "is_attach_show", (void *) 0);
+		}
 	}
 }
 
@@ -2696,49 +2800,15 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 static Eina_Bool on_timer_expired(void *data)
 {
 	Evas_Object *scroller = data;
+	int ret = 1;
 
-	if (scroller) {
-		Evas_Object *box_layout = NULL;
-		Evas_Object *box = NULL;
-		Eina_List *list = NULL;
-		Eina_List *box_list = NULL;
-		Evas_Object *last_item = NULL;
-
-		box_layout = elm_object_content_get(scroller);
-		if (!box_layout) {
-			LOGE("Fail to get the box into scroller");
-			return ECORE_CALLBACK_CANCEL;
-		}
-		list = elm_box_children_get(box_layout);
-		if (!list) {
-			LOGE("Fail to get the list into box");
-			return ECORE_CALLBACK_CANCEL;
-		}
-
-		box = eina_list_nth(list, 0);
-		if (!box) {
-			LOGE("Fail to get the box into box layout");
-			return ECORE_CALLBACK_CANCEL;
-		}
-
-		box_list = elm_box_children_get(box);
-		if (!box_list) {
-			LOGE("Fail to get the box_list into box");
-			return ECORE_CALLBACK_CANCEL;
-		}
-
-		last_item = eina_list_nth(box_list, eina_list_count(box_list)-1);
-		if (!last_item) {
-			LOGE("Fail to get the last item into box");
-			return ECORE_CALLBACK_CANCEL;
-		}
-
-		int x, y;
-		evas_object_geometry_get(last_item, &x, &y, NULL, NULL);
-		elm_scroller_region_show(scroller, x, y, -1, -1);
-
-		eina_list_free(box_list);
-		eina_list_free(list);
+	if (!scroller) {
+		LOGE("Cannot get the scroller");
+		return ECORE_CALLBACK_CANCEL;
+	}
+	ret = scroller_show_bottom_edge(scroller);
+	if (!ret) {
+		LOGE("Fail to show the bottom of scroller");
 	}
 
 	return ECORE_CALLBACK_CANCEL;
@@ -3391,6 +3461,24 @@ static Eina_Bool _pop_cb(void *data, Elm_Object_Item *it)
 	return EINA_TRUE;
 }
 
+static void _edge_cb(void *data, Evas_Object *scroller, void *event_info)
+{
+	Evas_Object *layout = data;
+	int is_end_edge = 0;
+	is_end_edge = (int)evas_object_data_get(layout, "is_end_edge");
+
+	if (!is_end_edge) {
+		elm_object_signal_emit(layout, "hide", "bubblemessage");
+		evas_object_data_set(layout, "is_end_edge", (void *) 1);
+	}
+}
+
+static void _scroll_cb(void *data, Evas_Object *scroller, void *event_info)
+{
+	Evas_Object *layout = data;
+	evas_object_data_set(layout, "is_end_edge", (void *) 0);
+}
+
 void launch_messaging_view_cb(appdata_s* ad, int user_id)
 {
 	if (!ad)
@@ -3445,6 +3533,9 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_align_set(chat_scroller, EVAS_HINT_FILL, 0.0);
 	elm_scroller_policy_set(chat_scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 	evas_object_show(chat_scroller);
+	evas_object_smart_callback_add(chat_scroller, "scroll", _scroll_cb, layout);
+	evas_object_smart_callback_add(chat_scroller, "edge,bottom", _edge_cb, layout);
+	evas_object_data_set(layout, "is_end_edge", (void *) 1);
 
 	Evas_Object *align_box = elm_box_add(chat_scroller);
 	if (!align_box) {
@@ -3502,9 +3593,11 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_align_set(text_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_size_hint_weight_set(text_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_show(text_entry);
+	evas_object_data_set(entry_box_layout, "is_attach_show", (void *) 1);
 
 	elm_object_part_content_set(entry_layout, "elm.swallow.content", text_entry);
 	evas_object_smart_callback_add(text_entry, "changed", on_message_text_entry_changed, entry_box_layout);
+	evas_object_smart_callback_add(text_entry, "preedit,changed", on_message_text_entry_changed, entry_box_layout);
 	evas_object_smart_callback_add(text_entry, "clicked", on_message_text_entry_clicked, NULL);
 	elm_object_part_content_set(entry_box_layout, "swallow.text_entry", entry_layout);
 
@@ -3512,8 +3605,26 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_object_signal_callback_add(entry_box_layout, "smile", "clicked", on_message_smiley_clicked, text_entry);
 	elm_object_signal_callback_add(entry_box_layout, "attach", "clicked", on_media_attach_clicked, chat_scroller);
 	elm_object_signal_callback_add(entry_box_layout, "send", "clicked", on_text_message_send_clicked, chat_scroller);
+	elm_object_part_content_set(layout, "swallow.entry", entry_box_layout);
 
 	/********************** END: entry layout*******************************/
+
+	/************************* START: message bubble ************************/
+
+	Evas_Object* bubble_layout = elm_layout_add(ad->win);
+	if (!bubble_layout) {
+		LOGE("Fail to add the bubble_layout");
+	}
+
+	elm_layout_file_set(bubble_layout, edj_path, "bubble_layout");
+	evas_object_size_hint_align_set(bubble_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(bubble_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_show(bubble_layout);
+	elm_object_signal_callback_add(bubble_layout, "cancel", "clicked", on_message_cancel_clicked, layout);
+	elm_object_part_content_set(layout, "swallow.messagebubble", bubble_layout);
+	evas_object_data_set(ad->nf, "main_layout", layout);
+
+	/********************** END: entry message bubble*******************************/
 
 	evas_object_data_set(ad->nf, "chat_list", (void*)chat_scroller);
 	evas_object_data_set(chat_scroller, "app_data", ad);
@@ -3533,14 +3644,13 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	}
 
 	Elm_Object_Item *nf_it = elm_naviframe_item_push(ad->nf, temp_name, NULL, NULL, layout, NULL);
-	elm_object_part_content_set(layout, "swallow.entry", entry_box_layout);
 	evas_object_data_set(ad->nf, "navi_item", nf_it);
 
 	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
 
 	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
 	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
-	elm_object_item_part_content_set(nf_it, "title_left_btn", back_btn);
+	elm_object_item_part_content_set(nf_it, "elm.swallow.prev_btn", back_btn);
 	elm_naviframe_item_pop_cb_set(nf_it, _pop_cb, ad);
 
 	/******************** expand ************************/

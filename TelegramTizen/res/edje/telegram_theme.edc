@@ -150,24 +150,10 @@ styles {
    style {
       name: "entry_bubble_single_textblock_style";
       base: "font=Tizen:style=Regular font_size=36 color=#FAFAFA color_class=ATO014 align=left";
-      tag:  "br" "\n";
-      tag:  "ps" "ps";
-      tag:  "tab" "\t";
-      tag:  "em" "+ font_style=Oblique";
-      tag:  "b" "+ font_weight=Bold";
-      tag:  "link" "+ color=#800 underline=on underline_color=#8008";
-      tag:  "hilight" "+ font_weight=Bold";
    }
    style {
       name: "entry_bubble_multi_textblock_style";
       base: "font=Tizen:style=Regular font_size=36 color=#FAFAFA color_class=ATO014 wrap=mixed align=left";
-      tag:  "br" "\n";
-      tag:  "ps" "ps";
-      tag:  "tab" "\t";
-      tag:  "em" "+ font_style=Oblique";
-      tag:  "b" "+ font_weight=Bold";
-      tag:  "link" "+ color=#800 underline=on underline_color=#8008";
-      tag:  "hilight" "+ font_weight=Bold";
    }
 }
 
@@ -1985,7 +1971,7 @@ type:TEXT;
 /**************land ********************/
 
 
-	group { name: "elm/entry/base-noedit/readmessage1";
+	group { name: "elm/entry/base-single-noedit/readmessage1";
 		script {
 	      public multilined = 0;
 	
@@ -1998,23 +1984,30 @@ type:TEXT;
 	
 	         if (!get_int(multilined) && ((w >= ww))) {
 	            set_state(PART:"elm.text", "multi", 0.0);
+	            set_state(PART:"elm.text.spacer", "multi", 0.0);
 	            set_int(multilined, 1);
-	         } else if (get_int(multilined) && (h < hh)) {
-	            set_state(PART:"elm.text", "default", 0.0);
-	            set_int(multilined, 0);
 	         }
 	      }
 	   }
 		parts {
 			part {
+				name: "base";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+				}
+			}
+			part {
 				name: "elm.top.pad";
 				type: SPACER;
 				scale: 1;
 				description {
-					rel1 { relative: 0.0 0.0; }
-					rel2 { relative: 1.0 0.0; }
+					rel1 { relative: 0.0 0.0; to: "base"; }
+					rel2 { relative: 1.0 0.0; to: "base"; }
 					min: 0 10;
 					align: 0.5 0.0;
+					fixed: 1 0;
 				}
 			}
 			part {
@@ -2026,6 +2019,7 @@ type:TEXT;
 					rel2 { relative: 0.0 1.0; }
 					min: 15 0;
 					align: 0.0 0.5;
+					fixed: 1 0;
 				}
 			}
 			part {
@@ -2038,8 +2032,9 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 40 26; }
 					image {
 						normal: "telegram_bubble_bg_receive_ef.#.png";
-						border: 57 40 26 26;
+						border: 57 40 26 64;
 					}
+					fixed: 1 1;
 				}
 			}
 			part {
@@ -2052,9 +2047,10 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 40 26; }
 					image {
 						normal: "telegram_bubble_bg_receive.#.png";
-						border: 57 40 26 26;
+						border: 57 40 26 64;
 					}
 					color: 106 126 204 225;
+					fixed: 1 1;
 				}
 				description {
 					state: "pressed" 0.0;
@@ -2071,6 +2067,7 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "left,pad"; }
 					align: 0.0 0.5;
 					min: 57 0;
+					fixed: 1 0;
 				}
 			}
 			part {
@@ -2082,6 +2079,7 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "elm.top.pad"; }
 					align: 0.5 0.0;
 					min: 0 26;
+					fixed: 0 1;
 				}
 			}
 			part {
@@ -2090,11 +2088,31 @@ type:TEXT;
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					fixed: 1 1;
-					min: 318 80;
-					max: 318 80;
 					rel1.relative: 0.5 0.5;
 					rel2.relative: 0.5 0.5;
+					min: 318 80;
+					max: 318 80;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.text.spacer";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 1.0; to_x: "text,left,pad";  to_y: "text,top,pad"; }
+					rel2 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					min: 159 0;
+					max: 159 0;
+					fixed: 1 1;
+					align: 0.0 0.5;
+				}
+				description {
+					state: "multi" 0.0;
+					inherit: "default" 0.0;
+					min: 318 0;
+					max: 318 0;
 				}
 			}
 			part {
@@ -2106,26 +2124,24 @@ type:TEXT;
 				multiline: 1;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 1.0 1.0; to_x: "text,left,pad"; to_y: "text,top,pad";}
-					rel2 { relative: 0.0 0.0; to_x: "elm.rightbottom.pad"; to_y: "elm.rightbottom.pad"; }
-					min: 159 0;
-					max: 318 -1;
+					rel1 { relative: 0.0 1.0; to_x: "elm.text.spacer"; to_y: "text,top,pad";}
+					rel2 { relative: 1.0 0.0; to_x: "elm.text.spacer"; to_y: "elm.rightbottom.pad"; }
 					align: 0.0 0.0;
+					fixed: 1 0;
 					text {
 						style: "entry_bubble_single_textblock_style";
 						min: 1 1;
-						align: 0.0 0.0;
+						align: 1.0 0.0;
 						ellipsis: -1;
 					}
 				}
 				description {
 					state: "multi" 0.0;
 					inherit: "default" 0.0;
-					min: 318 0;
 					text {
-					style: "entry_bubble_multi_textblock_style";
+						style: "entry_bubble_multi_textblock_style";
 						min: 0 1;
-						align: 1.0 0.0;
+						align: 0.0 0.0;
 					}
 				}
 			}
@@ -2141,6 +2157,7 @@ type:TEXT;
 					rel2.to: "elm.text";
 					align: 0.0 0.0;
 					min: 40 64;
+					fixed: 1 1;
 				}
 			}
 			part {
@@ -2155,6 +2172,7 @@ type:TEXT;
 	            	visible: 1;
 	            	align: 1.0 0.5;
 	            	min: 0 38;
+	            	fixed: 1 1;
 	            	color: 250 250 250 255;
 	            	text {
 	            		min: 1 1;
@@ -2175,6 +2193,7 @@ type:TEXT;
 					rel2 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
 					align: 1.0 0.0;
 					min: 0 38;
+					fixed: 1 1;
 				}
 				description {
 					state: "status,on";
@@ -2188,10 +2207,11 @@ type:TEXT;
 				type: SPACER;
 				scale: 1;
 				description {
-					rel1 { relative: 271/720 0.0; to_y: "elm.bottom.pad"; }
+					rel1 { relative: 1.0 0.0; to_y: "elm.bottom.pad"; }
 					rel2 { relative: 1.0 0.0; to_y: "elm.bottom.pad"; }
 					min: 0 64;
 					align: 0.0 1.0;
+					fixed: 1 1;
 				}
 			}
 			part {
@@ -2203,6 +2223,7 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; }
 					align: 0.5 1.0;
 					min: 0 10;
+					fixed: 0 1;
 				}
 			}
 			part {
@@ -2279,7 +2300,7 @@ type:TEXT;
 		} //programs
 	} //group	
 
-	group { name: "elm/entry/base-noedit/sentmessage1";
+	group { name: "elm/entry/base-single-noedit/sentmessage1";
 		script {
 	      public multilined = 0;
 	
@@ -2292,6 +2313,7 @@ type:TEXT;
 	
 	         if (!get_int(multilined) && ((w >= ww))) {
 	            set_state(PART:"elm.text", "multi", 0.0);
+	            set_state(PART:"elm.text.spacer", "multi", 0.0);
 	            set_int(multilined, 1);
 	         }
 	      }
@@ -2303,6 +2325,8 @@ type:TEXT;
 				scale: 1;
 				description {
 					state: "default" 0.0;
+					//min: 720 0;
+					//max: 720 -1;
 				}
 			}
 			part {
@@ -2314,6 +2338,7 @@ type:TEXT;
 					rel2 { relative: 1.0 0.0; to: "base"; }
 					min: 0 10;
 					align: 0.5 0.0;
+					fixed: 0 1;
 				}
 			}
 			part {
@@ -2325,6 +2350,7 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; }
 					min: 15 0;
 					align: 1.0 0.5;
+					fixed: 1 0;
 				}
 			}
 			part {
@@ -2337,8 +2363,9 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 57 26; }
 					image {
 						normal: "telegram_bubble_bg_send_ef.#.png";
-						border: 40 57 26 26;
+						border: 40 57 26 64;
 					}
+					fixed: 1 1;
 				}
 			}
 			part {
@@ -2351,9 +2378,10 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 57 26; }
 					image {
 						normal: "telegram_bubble_bg_send.#.png";
-						border: 40 57 26 26;
+						border: 40 57 26 64;
 					}
 					color: 45 165 224 229;
+					fixed: 1 1;
 				}
 				description {
 					state: "pressed" 0.0;
@@ -2370,6 +2398,7 @@ type:TEXT;
 					rel2 { relative: 0.0 1.0; to: "right,pad"; }
 					align: 1.0 0.5;
 					min: 57 0;
+					fixed: 1 0;
 				}
 			}
 			part {
@@ -2381,6 +2410,7 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; to: "elm.top.pad"; }
 					align: 0.5 0.0;
 					min: 0 26;
+					fixed: 0 1;
 				}
 			}
 			part {
@@ -2389,11 +2419,31 @@ type:TEXT;
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					fixed: 1 1;
-					min: 318 80;
-					max: 318 80;
 					rel1.relative: 0.5 0.5;
 					rel2.relative: 0.5 0.5;
+					min: 318 80;
+					max: 318 80;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.text.spacer";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 1.0; to: "elm.bubble.leftbottom.pad"; }
+					rel2 { relative: 0.0 1.0; to: "text,right,pad"; }
+					min: 159 0;
+					max: 159 0;
+					fixed: 1 1;
+					align: 1.0 0.5;
+				}
+				description {
+					state: "multi" 0.0;
+					inherit: "default" 0.0;
+					min: 318 0;
+					max: 318 0;
 				}
 			}
 			part {
@@ -2405,10 +2455,10 @@ type:TEXT;
 				multiline: 1;
 				description {
 					state: "default" 0.0;
-					rel1 { relative: 1.0 1.0; to_x: "elm.bubble.leftbottom.pad"; to_y: "text,top,pad";}
-					rel2 { relative: 0.0 0.0; to_x: "text,right,pad"; to_y: "elm.bubble.leftbottom.pad"; }
-					min: 159 70;
+					rel1 { relative: 0.0 1.0; to_x: "elm.text.spacer"; to_y: "text,top,pad";}
+					rel2 { relative: 1.0 0.0; to_x: "elm.text.spacer"; to_y: "elm.bubble.leftbottom.pad"; }
 					align: 1.0 0.0;
+					fixed: 1 0;
 					text {
 						style: "entry_bubble_single_textblock_style";
 						min: 1 1;
@@ -2419,7 +2469,6 @@ type:TEXT;
 				description {
 					state: "multi" 0.0;
 					inherit: "default" 0.0;
-					min: 318 70;
 					text {
 						style: "entry_bubble_multi_textblock_style";
 						min: 0 1;
@@ -2439,6 +2488,7 @@ type:TEXT;
 					rel2.to: "elm.text";
 					align: 0.0 0.0;
 					min: 57 64;
+					fixed: 1 1;
 				}
 			}
 			part {
@@ -2453,6 +2503,7 @@ type:TEXT;
 	            	visible: 1;
 	            	align: 1.0 0.5;
 	            	min: 0 38;
+	            	fixed: 1 1;
 	            	color: 250 250 250 255;
 	            	text {
 	            		min: 1 1;
@@ -2473,6 +2524,7 @@ type:TEXT;
 					rel2 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
 					align: 1.0 0.0;
 					min: 0 38;
+					fixed: 1 1;
 				}
 				description {
 					state: "status,on";
@@ -2487,8 +2539,9 @@ type:TEXT;
 				scale: 1;
 				description {
 					rel1 { relative: 0.0 0.0; to_y: "elm.bottom.pad"; }
-					rel2 { relative: 449/720 0.0; to_y: "elm.bottom.pad"; }
+					rel2 { relative: 0.0 0.0; to_y: "elm.bottom.pad"; }
 					min: 0 64;
+					fixed: 1 1;
 					align: 0.0 1.0;
 				}
 			}
@@ -2501,6 +2554,7 @@ type:TEXT;
 					rel2 { relative: 1.0 1.0; }
 					align: 0.5 1.0;
 					min: 0 10;
+					fixed: 0 1;
 				}
 			}
 			part {
