@@ -638,7 +638,7 @@ static Eina_Bool on_send_media_message_requested(void *data)
 	}
 	return ECORE_CALLBACK_CANCEL;
 }
-
+static Eina_Bool on_load_offline_messages(void *data);
 static Eina_Bool on_send_unsent_messages_requested(void *data)
 {
 	struct tgl_state *TLS = data;
@@ -757,7 +757,7 @@ static Eina_Bool on_send_unsent_messages_requested(void *data)
 			}
 			eina_list_free(unset_media_msgs);
 		}
-
+		ecore_timer_add(5, on_load_offline_messages, TLS);
 	}
     return ECORE_CALLBACK_CANCEL;
 }
@@ -1678,16 +1678,20 @@ struct tgl_update_callback upd_cb = {
 	.type_notification = tg_type_notification,
 	.type_in_chat_notification = tg_type_in_chat_notification,
 	.type_in_secret_chat_notification = tg_type_in_secret_chat_notification,
-	.status_notification = tg_status_notification,
+	//.status_notification = tg_status_notification,
+	.status_notification = NULL,
 	.user_registered = tg_user_registered,
 	.user_activated = tg_user_activated,
 	.new_authorization = tg_new_authorization,
-	.user_update = tg_user_update,
-	.chat_update = tg_chat_update,
+	//.user_update = tg_user_update,
+	.user_update = NULL,
+	//.chat_update = tg_chat_update,
+	.chat_update = NULL,
 	.secret_chat_update = tg_secret_chat_update,
 	.msg_receive = tg_msg_receive,
 	.our_id = tg_our_id,
-	.user_status_update = tg_user_status_update
+	//.user_status_update = tg_user_status_update
+	.user_status_update = NULL
 };
 
 void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
@@ -1864,6 +1868,7 @@ void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int succe
 	}
 }
 
+#if 0
 void on_chat_history_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -1937,7 +1942,9 @@ static Eina_Bool on_load_buddy_history_requested(void *data)
 	}
 	return ECORE_CALLBACK_CANCEL;
 }
+#endif
 
+#if 0
 static Eina_Bool send_login_activated_response(void *data)
 {
 	struct tgl_state *TLS = data;
@@ -1958,6 +1965,7 @@ static Eina_Bool send_chat_loading_is_done_response(void *data)
 	}
 	return ECORE_CALLBACK_CANCEL;
 }
+#endif
 
 void on_offline_chat_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[])
 {
@@ -1974,6 +1982,144 @@ void on_offline_chat_received(struct tgl_state *TLS, void *callback_extra, int s
 	}
 }
 
+static Eina_Bool on_load_offline_messages(void *data)
+{
+	struct tgl_state *TLS = data;
+	if (TLS) {
+		tg_engine_data_s *tg_data = TLS->callback_data;
+		if (!tg_data->is_first_time_registration) {
+			if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
+				for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
+					tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
+					struct tgl_message *last_msg = UC->last;
+					if (last_msg) {
+						// check last message in message table
+						char* msg_table = get_table_name_from_number(UC->id.id);
+						struct tgl_message* org_last_msg = get_message_from_message_tableby_message_id(msg_table, last_msg->id);
+						if (!org_last_msg) {
+							tgl_do_get_history(s_info.TLS, UC->id, 10, 0, on_offline_chat_received, UC);
+						} else {
+							if (org_last_msg->message) {
+								free(org_last_msg->message);
+							}
+							free(org_last_msg);
+						}
+						free(msg_table);
+					}
+				}
+			}
+		}
+		if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
+			for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
+				tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
+				char* msg_table = get_table_name_from_number(UC->id.id);
+				create_buddy_msg_table(msg_table);
+				delete_all_messages_from_chat(UC->id.id, UC->id.type);
+				free(msg_table);
+			}
+		}
+	}
+	return ECORE_CALLBACK_CANCEL;
+}
+
+
+extern void on_peer_chat_info_received(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *chat_info);
+
+static Eina_Bool on_async_peer_info_requested(void *data)
+{
+	struct tgl_state *TLS = data;
+	if (TLS) {
+		tg_engine_data_s *tg_data = TLS->callback_data;
+		tg_data->current_chat_index = tg_data->current_chat_index + 1;
+		if (tg_data->current_chat_index < eina_list_count(tg_data->chat_list)) {
+			tgl_peer_t* UC = eina_list_nth(tg_data->chat_list, tg_data->current_chat_index);
+			if (UC) {
+				tgl_do_get_chat_info(TLS, UC->id, 0, &on_peer_chat_info_received, NULL);
+			}
+		} else {
+			send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
+			ecore_timer_add(5, on_send_unsent_messages_requested, TLS);
+		}
+	}
+	return ECORE_CALLBACK_CANCEL;
+}
+
+void on_peer_chat_info_received(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *chat_info)
+{
+	char *msg_table;
+
+	if (!chat_info) {
+		// go for next chat
+		goto end;
+	}
+	if (chat_info->flags == 144) {
+		// go for next chat
+		goto end;
+	}
+	msg_table = get_table_name_from_number(chat_info->id.id);
+	create_buddy_msg_table(msg_table);
+
+	if (chat_info->admin_id > 0) {
+		set_date_item_to_table(msg_table, chat_info->date);
+		tgl_peer_id_t admin_id;
+		admin_id.id = chat_info->admin_id;
+		admin_id.type = TGL_PEER_USER;
+
+		tgl_peer_t* UC = tgl_peer_get(TLS, admin_id);
+		int msg_len = strlen(UC->user.first_name) + strlen(" created the group") + 1;
+		char* creator_name = (char*)malloc(msg_len);
+		strcpy(creator_name, UC->user.first_name);
+		strcat(creator_name, " created the group");
+		struct tgl_message msg;
+		int cur_time = chat_info->date;
+		msg.to_id = chat_info->id;
+		msg.from_id = admin_id;
+		msg.id = cur_time;
+		msg.message = creator_name;
+		msg.message_len = msg_len;
+		msg.unread = 0;
+		msg.date = cur_time;
+		msg.media.type = tgl_message_media_none;
+		msg.service = 1;
+		msg.out = 0;
+
+		insert_buddy_msg_to_db(&msg);
+		free(creator_name);
+	}
+
+	free(msg_table);
+	if (chat_info->user_list) {
+		for (int i = 0; i < chat_info->user_list_size; i++) {
+			int user_id = chat_info->user_list[i].user_id;
+			Eina_Bool is_present_in_db = is_user_present_buddy_table(user_id);
+			char* tb_name = get_table_name_from_number(user_id);
+			create_buddy_msg_table(tb_name);
+			if (!is_present_in_db) {
+				// add to buddy table
+				tgl_peer_id_t from_id;
+				from_id.id = user_id;
+				from_id.type = TGL_PEER_USER;
+				tgl_do_get_user_info(TLS, from_id, 0, on_new_buddy_info_loaded, NULL);
+			}
+			free(tb_name);
+		}
+	} else {
+
+	}
+
+	insert_chat_info_to_db(chat_info, NULL);
+
+	struct tgl_photo *pic = &(chat_info->photo);
+	if(pic) {
+		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	}
+
+end:
+	ecore_timer_add(0.5, on_async_peer_info_requested, TLS);
+	return;
+}
+
+
 void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, int success, int size, tgl_peer_id_t peers[], int last_msg_id[], int unread_count[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -1985,13 +2131,17 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 		eina_list_free(tg_data->buddy_list);
 		tg_data->buddy_list = NULL;
 	}
+	if (tg_data->peer_list) {
+		eina_list_free(tg_data->peer_list);
+		tg_data->peer_list = NULL;
+	}
 	for (int i = size - 1; i >= 0; i--) {
 		tgl_peer_t* UC = tgl_peer_get(TLS, peers[i]);
         // user exited from chat
 		if(UC->flags == 144) {
 			continue;
 		}
-
+		tg_data->peer_list = eina_list_append(tg_data->peer_list, UC);
 		// insert into peer table
 		switch (tgl_get_peer_type(peers[i])) {
 			case TGL_PEER_USER:
@@ -2013,8 +2163,10 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 				}
 				break;
 			case TGL_PEER_CHAT:
+
 				tg_data->chat_list = eina_list_append(tg_data->chat_list, UC);
 				insert_peer_into_database(UC, last_msg_id[i], unread_count[i], 0);
+
 				break;
 			case TGL_PEER_ENCR_CHAT:
 				// To-Do
@@ -2023,10 +2175,7 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 				break;
 		}
 
-		if (UC->id.id == 55544761) {
-			printf("Dummy id\n");
-		}
-
+#if 0
 		if (!tg_data->is_first_time_registration) {
 			struct tgl_message *last_msg = UC->last;
 			if (last_msg) {
@@ -2052,14 +2201,23 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 		create_buddy_msg_table(msg_table);
 		delete_all_messages_from_chat(UC->id.id, UC->id.type);
 		free(msg_table);
+#endif
 	}
-
-	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
 #if 0
-	tgl_do_update_contact_list(TLS, on_contacts_received, NULL);
-#else
+	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
 	send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
 #endif
+
+	if ((tg_data->chat_list == NULL) || (eina_list_count(tg_data->chat_list) <= 0)) {
+		send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
+	} else {
+		// load chat info one by one.
+		tg_data->current_chat_index = 0;
+		tgl_peer_t* UC = eina_list_nth(tg_data->chat_list, tg_data->current_chat_index);
+		if (UC) {
+			tgl_do_get_chat_info(TLS, UC->id, 0, &on_peer_chat_info_received, NULL);
+		}
+	}
 }
 
 void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_user *contacts[])
@@ -2084,20 +2242,13 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 	}
 
 	// inform client that contact loading is done.
-	//send_contacts_load_done_response(EINA_TRUE);
-
 	for (int i = size - 1; i >= 0; i--) {
 		struct tgl_user *buddy = contacts[i];
 		tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
 	}
-#if 0
-	//send_response_for_server_connection_status(tg_data, tg_data->is_login_activated);
-	ecore_timer_add(3, on_send_unsent_messages_requested, TLS);
-	//ecore_timer_add(6, on_load_buddy_history_requested, TLS);
-	send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
-#else
+
 	tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
-#endif
+
 }
 
 void add_contacts_to_account(struct tgl_state *TLS)
@@ -2141,6 +2292,7 @@ void on_user_info_loaded(struct tgl_state *TLS, void *extra, int success, struct
 	if(pic) {
 		tgl_do_load_photo(TLS, pic ,&on_buddy_pic_loaded, buddy);
 	}
+
 	buddy->is_unknown = 0;
 	init_insert_buddy_into_db(USER_INFO_TABLE_NAME, buddy);
 
@@ -3195,11 +3347,37 @@ void do_unblock_buddy(int buddy_id)
 	tgl_do_unblock_user(s_info.TLS, peer_id, &on_user_unblock_response , (void*)(buddy_id));
 }
 
+extern void on_selected_group_chats_delete_reponse(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M);
+static Eina_Bool on_async_chat_deletion_requested(void *data)
+{
+	Eina_List *sel_grp_chats = data;
+	if (sel_grp_chats) {
+		tg_engine_data_s *tg_data = tgl_engine_get_TLS()->callback_data;
+		tg_data->current_group_chat_index = tg_data->current_group_chat_index + 1;
+
+		if (tg_data->current_group_chat_index < eina_list_count(sel_grp_chats)) {
+			int group_chat_id = (int)eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
+
+			tgl_peer_id_t chat_id;
+			chat_id.id = group_chat_id;
+			chat_id.type = TGL_PEER_CHAT;
+
+			tgl_peer_id_t self_id = tg_data->id;
+
+			tgl_do_del_user_from_chat(s_info.TLS, chat_id, self_id, on_selected_group_chats_delete_reponse, (void*)(sel_grp_chats));
+		} else {
+			send_selected_group_chats_deleted_response(tg_data);
+		}
+	}
+	return ECORE_CALLBACK_CANCEL;
+}
+
+
 void on_selected_group_chats_delete_reponse(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M)
 {
 	Eina_List *sel_grp_chats = callback_extra;
 	tg_engine_data_s *tg_data = TLS->callback_data;
-	int chat_id = eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
+	int chat_id = (int)eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
 
 	if (success) {
 		// update database
@@ -3211,22 +3389,7 @@ void on_selected_group_chats_delete_reponse(struct tgl_state *TLS, void *callbac
 	} else {
 
 	}
-
-	tg_data->current_group_chat_index = tg_data->current_group_chat_index + 1;
-
-	if (tg_data->current_group_chat_index < eina_list_count(sel_grp_chats)) {
-		int group_chat_id = (int)eina_list_nth(sel_grp_chats, tg_data->current_group_chat_index);
-
-		tgl_peer_id_t chat_id;
-		chat_id.id = group_chat_id;
-		chat_id.type = TGL_PEER_CHAT;
-
-		tgl_peer_id_t self_id = tg_data->id;
-
-		tgl_do_del_user_from_chat(s_info.TLS, chat_id, self_id, on_selected_group_chats_delete_reponse, (void*)(sel_grp_chats));
-	} else {
-		send_selected_group_chats_deleted_response(tg_data);
-	}
+	ecore_timer_add(3, on_async_chat_deletion_requested, sel_grp_chats);
 }
 
 void delete_selected_group_chat(tg_engine_data_s *tg_data, Eina_List *sel_grp_chats)

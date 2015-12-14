@@ -121,6 +121,11 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 			tg_data->buddy_list = NULL;
 		}
 
+		if (tg_data->peer_list) {
+			eina_list_free(tg_data->peer_list);
+			tg_data->peer_list = NULL;
+		}
+
 		tgl_engine_var_free();
 
 		tg_db_fini();
@@ -733,6 +738,7 @@ bool service_app_create(void *data)
 	tg_data->chat_list = NULL;
 	tg_data->current_chat_index = 0;
 	tg_data->buddy_list = NULL;
+	tg_data->peer_list = NULL;
 	tg_data->current_buddy_index = 0;
 	tg_data->is_first_time_registration = EINA_FALSE;
 	//tg_data->is_loading_completed = EINA_FALSE;
@@ -828,6 +834,11 @@ void free_connection(tg_engine_data_s* tg_data)
 	if (tg_data->buddy_list) {
 		eina_list_free(tg_data->buddy_list);
 		tg_data->buddy_list = NULL;
+	}
+
+	if (tg_data->peer_list) {
+		eina_list_free(tg_data->peer_list);
+		tg_data->peer_list = NULL;
 	}
 
 	tgl_engine_var_free();

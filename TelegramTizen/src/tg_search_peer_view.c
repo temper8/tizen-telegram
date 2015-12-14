@@ -13,6 +13,7 @@
 #include "device_contacts_manager.h"
 #include "tg_search_peer_view.h"
 #include "server_requests.h"
+#include <contacts.h>
 
 #define COMMAND_MENU_ITEM_COUNT 2
 #define MOBILE_BUTTON_SIZE (98*1.4f)
@@ -652,6 +653,66 @@ static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
 	evas_object_show(list);
 	elm_object_focus_set(list, EINA_TRUE);
 	return list;
+}
+
+void add_contact_to_phone_book(appdata_s *ad)
+{
+	if (!ad)
+		return;
+
+	char* phone_num = NULL;
+	char* first_name = NULL;
+	char* last_name = NULL;
+	char* profile_pic_path = NULL;
+
+	Evas_Object *phone_num_entry = evas_object_data_get(ad->nf, "add_contact_phone_number");
+	if (phone_num_entry)
+		phone_num = elm_entry_markup_to_utf8(elm_object_text_get(phone_num_entry));
+
+	Evas_Object *first_name_entry = evas_object_data_get(ad->nf, "add_contact_first_name");
+	if (first_name_entry)
+		first_name = elm_entry_markup_to_utf8(elm_object_text_get(first_name_entry));
+
+	Evas_Object *last_name_entry = evas_object_data_get(ad->nf, "add_contact_last_name");
+	if (last_name_entry)
+		last_name = elm_entry_markup_to_utf8(elm_object_text_get(last_name_entry));
+
+	if ((phone_num && strlen(phone_num) > 0) && (first_name && strlen(first_name) > 0) && (last_name && strlen(last_name) > 0)) {
+
+		contacts_record_h contact = NULL;
+		contacts_record_create(_contacts_contact._uri, &contact);
+
+		// add name
+		contacts_record_h name = NULL;
+		contacts_record_create(_contacts_name._uri, &name);
+		contacts_record_set_str(name, _contacts_name.first, first_name);
+		contacts_record_add_child_record(contact, _contacts_contact.name, name);
+
+
+		// add name
+		contacts_record_h lname = NULL;
+		contacts_record_create(_contacts_name._uri, &lname);
+		contacts_record_set_str(lname, _contacts_name.last, first_name);
+		contacts_record_add_child_record(contact, _contacts_contact.name, lname);
+
+		// add number
+		contacts_record_h number = NULL;
+		contacts_record_create(_contacts_number._uri, &number);
+		contacts_record_set_str(name, _contacts_number.number, phone_num);
+		contacts_record_add_child_record(contact, _contacts_contact.number, number);
+
+		// insert to database
+		int contact_id = 0;
+		contacts_db_insert_record(contact, &contact_id);
+
+		// destroy record
+		contacts_record_destroy(contact, true);
+
+
+	} else {
+		// show message
+	}
+
 }
 
 void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)

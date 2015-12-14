@@ -176,7 +176,7 @@ struct query *tglq_send_query(struct tgl_state *TLS, struct tgl_dc *DC, int ints
 static int fail_on_error(struct tgl_state *TLS, struct query *q, int error_code, int l, char *error)
 {
 	fprintf(stderr, "error #%d: %.*s\n", error_code, l, error);
-	assert(0);
+	//assert(0);
 	return 0;
 }
 

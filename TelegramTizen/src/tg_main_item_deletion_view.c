@@ -62,6 +62,56 @@ void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina
 		return;
 	}
 	if (ad->main_list && eina_list_count(ad->main_list) > 0) {
+
+		if (org_id ==0) {
+			Eina_Bool all_items_selected = checked;
+			evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
+			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
+				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+				item->is_selected = checked;
+				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, i + 1);
+				if (list_item) {
+					elm_genlist_item_selected_set(list_item, EINA_FALSE);
+					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
+					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
+					elm_check_state_set(lcheckbox, checked);
+				}
+			}
+		} else {
+			tg_main_list_item_s *item = eina_list_nth(ad->main_list, org_id - 1);
+			item->is_selected = checked;
+			if (!checked) {
+				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
+				if (list_item) {
+					Eina_Bool all_items_selected = checked;
+					evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
+					elm_genlist_item_selected_set(list_item, EINA_FALSE);
+					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
+					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
+					elm_check_state_set(lcheckbox, EINA_FALSE);
+				}
+			} else {
+				Eina_Bool all_items_selected = EINA_TRUE;
+				for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
+					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+					if (!item->is_selected) {
+						all_items_selected = EINA_FALSE;
+					}
+				}
+				if (all_items_selected) {
+					Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
+					if (list_item) {
+						elm_genlist_item_selected_set(list_item, EINA_TRUE);
+						Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
+						Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
+						elm_check_state_set(lcheckbox, EINA_TRUE);
+						evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
+					}
+				}
+			}
+		}
+
+#if 0
 		if (org_id ==0) {
 			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
 				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
@@ -106,7 +156,9 @@ void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina
 				}
 			}
 		}
+#endif
 	}
+
 }
 
 void on_main_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
@@ -230,10 +282,8 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 	if (!ad)
 		return;
 
-	show_loading_popup(ad);
-	// delete  users.
-
 	Eina_List *sel_grp_chat = NULL;
+	int num_of_sel_items = 0;
 
 	for (int i = 0; i < eina_list_count(ad->main_list); i++) {
 		tg_main_list_item_s* sel_item = eina_list_nth(ad->main_list, i);
@@ -242,7 +292,7 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 				char* tablename = get_table_name_from_number(sel_item->peer_id);
 				delete_all_records(tablename);
 				free(tablename);
-
+#if 0
 				// delete from main list
 				if (sel_item->peer_print_name) {
 					free(sel_item->peer_print_name);
@@ -265,10 +315,20 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 				sel_item->user_name_lbl = NULL;
 				//ad->main_list
 				ad->main_list = eina_list_remove(ad->main_list, sel_item);
+#endif
 			} else if (sel_item->peer_type == TGL_PEER_CHAT) {
 				sel_grp_chat = eina_list_append(sel_grp_chat, sel_item);
 			}
+			num_of_sel_items++;
 		}
+	}
+
+
+
+
+	if (num_of_sel_items <= 0) {
+		show_toast(ad, "Select items to delete.");
+		return;
 	}
 
 	if (sel_grp_chat && eina_list_count(sel_grp_chat) > 0) {
@@ -282,6 +342,7 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 		show_floating_button(ad);
 		hide_loading_popup(ad);
 #else
+		show_loading_popup(ad);
 		load_registered_user_data(ad);
 		load_buddy_list_data(ad);
 		load_unknown_buddy_list_data(ad);

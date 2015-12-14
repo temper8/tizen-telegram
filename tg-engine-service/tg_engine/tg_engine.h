@@ -151,6 +151,7 @@ typedef struct tg_engine_data {
 	int current_buddy_index;
 	int current_group_chat_index;
 	Ecore_Timer *code_response_timer;
+	Eina_List *peer_list;
 } tg_engine_data_s;
 
 typedef struct contact_data {
