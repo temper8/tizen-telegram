@@ -457,7 +457,8 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		EINA_LIST_FOREACH(ad->main_list, l, item) {
 			//user = item->use_data;
 
-			if (ucol_ncompare(item->peer_print_name, entry_text, strlen(entry_text)) == 0) {
+			if (ucol_search(item->peer_print_name, entry_text) != -ENOENT) {
+				LOGD("search result : %d", ucol_search(item->peer_print_name, entry_text));
 				result_list = eina_list_append(result_list, item);
 			}
 		}

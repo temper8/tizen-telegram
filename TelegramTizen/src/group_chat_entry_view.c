@@ -132,7 +132,7 @@ char* on_group_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int)data;
 	Eina_List* selected_buddies = evas_object_data_get(obj, "selected_buddies");
-
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	int size = eina_list_count(selected_buddies);
 	if (size <= 0) {
@@ -149,13 +149,14 @@ char* on_group_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 	user_data_with_pic_s* item = eina_list_nth(selected_buddies, id);
 	user_data_s* user = item->use_data;
 
-	if (!strcmp(part,"elm.text")){
-		char* user_name = replace(user->print_name, '_', " ");
-		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
-		free(user_name);
-		return strdup(buf);
-
+	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+		char *full_name = replace(user->print_name, '_', " ");
+		return full_name;
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+		char* last_seen = get_budy_state(ad, user->user_id.id);
+		if (last_seen) {
+			return last_seen;
+		}
 	}
 
 	return NULL;
@@ -178,7 +179,8 @@ Evas_Object* on_group_buddy_selection_part_content_get_cb(void *data, Evas_Objec
 		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
 			profile_pic = create_image_object_from_file(user->photo_path, obj);
 		} else {
-			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
+			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_SINGLE_PIC), obj);
+			evas_object_color_set(profile_pic, 45, 165, 224, 255);
 		}
 
 		char edj_path[PATH_MAX] = {0, };
@@ -246,12 +248,7 @@ void on_group_chat_cancel_buton_clicked(void *data, Evas_Object *object, void *e
 	elm_panel_hidden_set(ad->panel, EINA_FALSE);
 }
 
-char* group_chat_entry_requested_cb(void *data, Evas_Object *obj, const char *part)
-{
-	//int id = (int) data;
-	return NULL;
-}
-
+#if 0
 Evas_Object* group_chat_pic_requested_cb(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *eo = NULL;
@@ -281,6 +278,17 @@ Evas_Object* group_chat_pic_requested_cb(void *data, Evas_Object *obj, const cha
 	}
 	return eo;
 }
+#endif
+
+static void _on_name_entry_focused(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *layout = data;
+	if (elm_object_focus_get(layout)) {
+		elm_object_signal_emit(layout, "elm,state,focused", "");
+	} else{
+		elm_object_signal_emit(layout, "elm,state,unfocused", "");
+	}
+}
 
 void launch_group_chat_name_entry_view(void *data)
 {
@@ -303,17 +311,34 @@ void launch_group_chat_name_entry_view(void *data)
 	elm_object_content_set(scroller, main_layout);
 
 	Evas_Object* entry_layout = elm_layout_add(ad->win);
-	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-	elm_layout_file_set(entry_layout, edj_path, "group_chat_photo_name_entry");
-	evas_object_show(entry_layout);
+	elm_layout_theme_set(entry_layout, "layout", "searchfield", "singleline");
+	evas_object_size_hint_align_set(entry_layout, EVAS_HINT_FILL, 0.0);
+	evas_object_size_hint_weight_set(entry_layout, EVAS_HINT_EXPAND, 0.0);
+
+	/* entry */
+
+	Evas_Object* name_entry = elm_entry_add(entry_layout);
+	elm_entry_cursor_end_set(name_entry);
+	evas_object_size_hint_weight_set(name_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(name_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	elm_entry_single_line_set(name_entry,  EINA_TRUE);
+	elm_entry_scrollable_set (name_entry, EINA_FALSE);
+	elm_entry_cnp_mode_set(name_entry, ELM_CNP_MODE_NO_IMAGE);
+	elm_entry_context_menu_disabled_set(name_entry, EINA_TRUE);
+	elm_object_part_text_set(name_entry, "elm.guide", i18n_get_text("IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"));
+	elm_object_focus_set(name_entry, EINA_FALSE);
+
+	limit_filter_data.max_char_count = 20;
+	elm_entry_markup_filter_append(name_entry, elm_entry_filter_limit_size, &limit_filter_data);
+	evas_object_show(name_entry);
+	elm_object_part_content_set(entry_layout, "elm.swallow.content", name_entry);
+	evas_object_smart_callback_add(name_entry, "focused", _on_name_entry_focused, entry_layout);
 	elm_object_part_content_set(main_layout, "swallow.group_chat_entry_box", entry_layout);
 
 #if 0
 	Evas_Object* cam_icon = elm_image_add(main_layout);
 	elm_image_file_set(cam_icon, ui_utils_get_resource(CAMERA_ICON), NULL);
 	evas_object_show(cam_icon);
-#endif
-#if 0
 
 	Evas_Object *cam_icon = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_MULTI_PIC), main_layout);
 	evas_object_color_set(cam_icon, 45, 165, 224, 255);
@@ -333,13 +358,12 @@ void launch_group_chat_name_entry_view(void *data)
 
 	evas_object_smart_callback_add(cam_icon, "clicked", on_image_load_options_cb, (void*)cam_icon);
 	elm_object_part_content_set(entry_layout, "swallow.cam_box", eo);
-#endif
+
+
 
 	/********************* list *************************/
 
-
 	Evas_Object *list = elm_genlist_add(ad->nf);
-	elm_list_mode_set(list, ELM_LIST_COMPRESS);
 	elm_genlist_mode_set(list, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(list, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -360,14 +384,10 @@ void launch_group_chat_name_entry_view(void *data)
 
 
 	/******************** list *************************/
+#endif
 
 
-	Evas_Object* name_entry = elm_entry_add(main_layout);
-	elm_entry_single_line_set(name_entry, EINA_TRUE);
-	limit_filter_data.max_char_count = 20;
-	elm_entry_markup_filter_append(name_entry, elm_entry_filter_limit_size, &limit_filter_data);
-	evas_object_show(name_entry);
-	elm_object_part_content_set(entry_layout, "swallow.entry_box", name_entry);
+	/***************** contacts header *************************/
 
 	Eina_List* selected_buddies = NULL;
 
@@ -379,20 +399,10 @@ void launch_group_chat_name_entry_view(void *data)
 		}
 	}
 
-	/***************** contacts header *************************/
-	Evas_Object* contact_lbl = elm_label_add(ad->nf);
-	evas_object_show(contact_lbl);
-	evas_object_size_hint_weight_set(contact_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(contact_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
-
 	char res_str[256] = {'\0'};
 	sprintf(res_str, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), eina_list_count(selected_buddies));
 
-	char count_str[256] = {'\0'};
-	sprintf(count_str, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=45>&nbsp;&nbsp;%s</font_size></font>", res_str);
-
-	elm_object_text_set(contact_lbl, count_str);
-	elm_object_part_content_set(main_layout, "swallow.contacts_header", contact_lbl);
+	elm_object_part_text_set(main_layout, "text,selected", res_str);
 	/***************** contacts header *************************/
 
 
@@ -400,8 +410,6 @@ void launch_group_chat_name_entry_view(void *data)
 
 	Evas_Object* buddy_gen_list = elm_genlist_add(ad->nf);
 	elm_list_mode_set(buddy_gen_list, ELM_LIST_COMPRESS);
-	// FIXME: Deprecated API
-	//elm_genlist_decorate_mode_set(buddy_gen_list, ELM_LIST_COMPRESS);
 	evas_object_size_hint_weight_set(buddy_gen_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(buddy_gen_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
@@ -415,7 +423,7 @@ void launch_group_chat_name_entry_view(void *data)
 	evas_object_data_set(name_entry, "selected_buddies", (void*)selected_buddies);
 	//evas_object_data_set(name_entry, "cam_icon", cam_icon);
 
-	itc.item_style = "default_style";
+	itc.item_style = "type1";
 	itc.func.text_get = on_group_buddy_name_get_cb;
 	itc.func.content_get = on_group_buddy_selection_part_content_get_cb;
 	itc.func.state_get = NULL;
@@ -436,7 +444,7 @@ void launch_group_chat_name_entry_view(void *data)
 
 	elm_object_part_content_set(main_layout, "swallow.group_chat_buddy_list_box", buddy_gen_list);
 
-	Elm_Object_Item* chat_nav_item = elm_naviframe_item_push(ad->nf, "New Group", NULL, NULL, scroller, NULL);
+	Elm_Object_Item* chat_nav_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_CREATE_GROUP_ABB"), NULL, NULL, scroller, NULL);
 
 	Evas_Object *done_btn = elm_button_add(ad->nf);
 	elm_object_style_set(done_btn, "naviframe/title_right");

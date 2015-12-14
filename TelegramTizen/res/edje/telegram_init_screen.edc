@@ -3330,8 +3330,8 @@ group
          		description {
          			state: "default" 0.0;
             		rel1 { relative: 0.0 0.0; }
-            		rel2 { relative: 1.0 0.2; }
-            		color: 255 255 255 255;
+            		rel2 { relative: 1.0 1.0; }
+            		color: 250 250 250 255;
          		}
       		}	
     		part{
@@ -3340,95 +3340,50 @@ group
     			description{
     				state: "default" 0.0;
     				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 0.2; }    				
+    				rel2 { relative: 1.0 0.0; }
+    				align: 0.5 0.0;
+    				min: 0 120;
+    				fixed: 0 1;
     			}
     		}
     		part {
-		      	name: "contacts_header,bg";
-        		type: RECT;
-         		description {
-         			state: "default" 0.0;
-            		rel1 { relative: 0.0 0.2; }
-            		rel2 { relative: 1.0 0.27; }
-            		color: 96 96 96 255;
-         		}
-      		}
-      		part {
-		      	name: "swallow.contacts_header";
-        		type: SWALLOW;
-         		description {
-         			state: "default" 0.0;
-            		rel1 { relative: 0.0 0.2; }
-            		rel2 { relative: 1.0 0.27; }
-            		color: 96 96 96 255;
-         		}
-      		}
-	 
+    			name: "text,pad";
+    			type: SPACER;
+    			description {
+    				rel1 { relative: 0.0 1.0; to_y: "swallow.group_chat_entry_box"; }
+    				rel2 { relative: 0.0 1.0; to_y: "swallow.group_chat_entry_box"; }
+    				min: 40 0;
+    				fixed: 1 0;
+    				align: 0.0 0.5;
+    			}
+    		}
+    		part {
+    			name: "text,selected";
+    			type: TEXT;
+    			description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 1.0; to_x: "text,pad"; to_y: "swallow.group_chat_entry_box"; }
+    				rel2 { relative: 1.0 1.0; to: "swallow.group_chat_entry_box"; }
+					align: 0.5 0.0;
+					color: 37 137 186 255;
+					text {
+						min: 0 1;
+						size: 32;
+						text: "selected";
+						align: 0.0 0.5;
+					}
+					min: 0 64;
+					fixed: 0 1;
+				}
+    		}
     		part{
     			name: "swallow.group_chat_buddy_list_box";
     			type:SWALLOW;
     			description{
     				state: "default" 0.0;
-    				rel1 { relative: 0.0 1.0;}
-    				rel2 { relative: 1.0 1.0;}
-    				align: 0.5 1.0;
-    				min: 0 100;    								
-					fixed: 0 1;
-    				color: 50 100 255 255;
-    			}
-    		}
-    	}   
-	}
-
-	group
-	{
-		name: "group_chat_photo_name_entry";
-    	parts{
-    	    part{
-    			name: "swallow.cam_box, bg";
-    			type: RECT;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 0.9; }
-    				color: 255 255 255 255; 				
-    			}    			
-    		}
-    	
-    		part{
-    			name: "swallow.cam_box";
-    			type: SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.0 0.0; }
-    				rel2 { relative: 1.0 0.9; }
-    				color: 0 0 0 0; 				
-    			}    			
-    		}
-    					
-      		part{
-    			name: "swallow.entry_box,bg";
-    			type: IMAGE;
-    			description{
-    				state: "default" 0.0;
-					rel1 { relative: 0.28 0.65; }
-					rel2 { relative: 0.9 0.68; }
-    				max: 800 2;
-    				image {
-						normal: "telegram_date_divider.#.png";
-					}
-					color: 0 0 0 51;
-    			}
-    		}  
-		 
-    		part{
-    			name: "swallow.entry_box";
-    			type:SWALLOW;
-    			description{
-    				state: "default" 0.0;
-    				rel1 { relative: 0.3 0.3;}
-    				rel2 { relative: 0.87 0.65;}  								
-    				color: 50 100 255 255;
+    				rel1 { relative: 0.0 1.0; to_y: "text,selected"; }
+    				rel2 { relative: 1.0 1.0; }
+    				align: 0.5 0.0;
     			}
     		}
     	}   
