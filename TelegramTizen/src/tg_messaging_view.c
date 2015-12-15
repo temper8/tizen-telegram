@@ -25,8 +25,6 @@ static int scroller_show_bottom_edge(Evas_Object *scroller)
 	Evas_Object *box_layout = NULL;
 	Evas_Object *box = NULL;
 	Eina_List *list = NULL;
-	Eina_List *box_list = NULL;
-	Evas_Object *last_item = NULL;
 
 	box_layout = elm_object_content_get(scroller);
 	if (!box_layout) {
@@ -45,24 +43,10 @@ static int scroller_show_bottom_edge(Evas_Object *scroller)
 		return 0;
 	}
 
-	box_list = elm_box_children_get(box);
-	if (!box_list) {
-		LOGE("Fail to get the box_list into box");
-		return 0;
-	}
+	int h;
+	evas_object_geometry_get(box, NULL, NULL, NULL, &h);
+	elm_scroller_region_show(scroller, 0, h, 720, 1280);
 
-	last_item = eina_list_nth(box_list, eina_list_count(box_list)-1);
-	if (!last_item) {
-		LOGE("Fail to get the last item into box");
-		return 0;
-	}
-
-	int y, h;
-	evas_object_geometry_get(last_item, NULL, &y, NULL, &h);
-	LOGD("position of last item(%d) : %d, %d",eina_list_count(box_list), y, h);
-	elm_scroller_region_show(scroller, 0, y, 720, 1280);
-
-	eina_list_free(box_list);
 	eina_list_free(list);
 
 	return 1;
@@ -1400,9 +1384,23 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 static void __resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
-	int x, y, w, h;
-	evas_object_geometry_get(obj, &x, &y, &w, &h);
-	LOGD(" %s size : %d, %d, %d, %d", data, x, y, w, h);
+	appdata_s *ad = data;
+	Evas_Object *layout = NULL;
+	Evas_Object *chat_scroller = NULL;
+
+	layout = evas_object_data_get(ad->nf, "main_layout");
+	chat_scroller = evas_object_data_get(ad->nf, "chat_list");
+
+	int is_end_edge = 0;
+	is_end_edge = (int)evas_object_data_get(layout, "is_end_edge");
+
+	if (is_end_edge) {
+		int ret = 1;
+		ret = scroller_show_bottom_edge(chat_scroller);
+		if (!ret) {
+			LOGE("Fail to show the bottom of scroller");
+		}
+	}
 }
 
 Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const char *part)
@@ -1672,8 +1670,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			elm_object_part_content_set(entry, "status_icon", status_obj);
 			evas_object_show(status_obj);
 
-			evas_object_event_callback_add(entry, EVAS_CALLBACK_RESIZE, __resize_cb, "entry");
-
 			free(tablename);
 			if(msg->message) {
 				free(msg->message);
@@ -1753,12 +1749,6 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 					elm_object_part_text_set(bubble_layout, "text_name", sender_name);
 					elm_object_part_text_set(bubble_layout, "text_message", msg->message);
 					elm_object_signal_emit(layout, "show", "bubblemessage");
-				} else {
-					int ret = 1;
-					ret = scroller_show_bottom_edge(chat_scroller);
-					if (!ret) {
-						LOGE("Fail to show the bottom of scroller");
-					}
 				}
 			}
 
@@ -2127,13 +2117,12 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 
 	Evas_Object *message = NULL;
 
+	Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
+	evas_object_data_set(layout, "is_end_edge", (void *) 1);
+
 	message = on_message_item_content_get_cb((void *)unique_id, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)unique_id);
 	scroller_push_item(chat_scroller, message);
-	ret = scroller_show_bottom_edge(chat_scroller);
-	if (!ret) {
-		LOGE("Fail to show the bottom of scroller");
-	}
 
 	elm_entry_entry_set(text_entry, "");
 	ad->is_last_msg_changed = EINA_TRUE;
@@ -3560,6 +3549,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_size_hint_align_set(chat_box, EVAS_HINT_FILL, 0.0);
 	evas_object_show(chat_box);
 	elm_box_pack_end(align_box, chat_box);
+	evas_object_event_callback_add(chat_box, EVAS_CALLBACK_RESIZE, __resize_cb, ad);
 
 	elm_object_part_content_set(msg_box_layout, "swallow.gen_list", chat_scroller);
 	elm_object_part_content_set(layout, "swallow.chat_box", msg_box_layout);
