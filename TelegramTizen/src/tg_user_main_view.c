@@ -745,7 +745,7 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 #endif
 		char* user_name = str_replace(item->buddy_display_name, "_null_", "");
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<font=Tizen:style=Bold color=#000000 align=left><font_size=35>%s</font_size></font>", user_name);
+		snprintf(buf, 512, "<font=Tizen:style=Large color=#000000 align=left><font_size=40>%s</font_size></font>", user_name);
 		free(user_name);
 
 		Evas_Object*  name_lbl = elm_label_add(ad->nf);
@@ -770,31 +770,21 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 			org_msg = strdup("");
 		}
 
-		int len_org_str = strlen(org_msg);
-
-		char res[30] = {'\0'};
 		char status_buf[126] = {'\0'};
-		if(len_org_str > 30) {
-			strncpy(res, org_msg, 29);
-			if(item->last_msg_service) {
-				sprintf(status_buf,"<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", res);
-			} else {
-				sprintf(status_buf,"<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", res);
-			}
+		if(item->last_msg_service) {
+			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
 		} else {
-			if(item->last_msg_service) {
-				sprintf(status_buf, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
-			} else {
-				sprintf(status_buf, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
-			}
+			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
 		}
+
 		free(org_msg);
 
-		Evas_Object*  status_lbl = elm_label_add(ad->nf);
+		Evas_Object* status_lbl = elm_label_add(ad->nf);
 		elm_object_text_set(status_lbl, status_buf);
 		evas_object_size_hint_weight_set(status_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(status_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_show(status_lbl);
+		elm_label_ellipsis_set(status_lbl, EINA_TRUE);
 
 		item->status_lbl = status_lbl;
 		evas_object_event_callback_add(item->status_lbl, EVAS_CALLBACK_DEL, on_buddy_user_status_deleted, item);
@@ -825,9 +815,9 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 			}
 
 			char time_str[128]={0,};
-			sprintf(time_str, "<font=Tizen:style=Normal color=#000000 align=right><font_size=27>%s</font_size></font>", res);
+			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
 
-			elm_object_text_set(time_lbl,time_str);
+			elm_object_text_set(time_lbl, time_str);
 
 
 		} else {
@@ -846,9 +836,9 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 			}
 
 			char time_str[128]={0,};
-			sprintf(time_str, "<font=Tizen:style=Normal color=#000000 align=right><font_size=27>%s</font_size></font>", res);
+			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
 
-			elm_object_text_set(time_lbl,time_str);
+			elm_object_text_set(time_lbl, time_str);
 		}
 
 		evas_object_size_hint_weight_set(time_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -899,22 +889,15 @@ Evas_Object* on_chat_item_load_requested(void *data, Evas_Object *obj, const cha
 
 			} else {
 				if (item->number_of_unread_msgs > 0) {
-					Evas_Object* num_lbl = elm_label_add(ad->nf);
-					elm_object_style_set(num_lbl, "transparent");
 					char unread_msgs[256];
-					sprintf(unread_msgs, "<font=Tizen:style=Bold color=#ffffff align=center><font_size=25>%d</font_size></font>", item->number_of_unread_msgs);
-					elm_object_text_set(num_lbl, unread_msgs);
-					evas_object_size_hint_weight_set(num_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-					evas_object_size_hint_align_set(num_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
-					evas_object_show(num_lbl);
+					sprintf(unread_msgs, "%d", item->number_of_unread_msgs);
 
 					Evas_Object* msg_status = elm_layout_add(ad->nf);
 					elm_layout_file_set(msg_status, edj_path, "count_bg_layout");
 					evas_object_size_hint_weight_set(msg_status, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 					evas_object_size_hint_align_set(msg_status, EVAS_HINT_FILL, EVAS_HINT_FILL);
 					evas_object_show(msg_status);
-					elm_object_part_content_set(msg_status, "content", num_lbl);
-					//evas_object_color_set(num_lbl, 37, 137, 186, 255 * 0.8);
+					elm_object_part_text_set(msg_status, "content", unread_msgs);
 					elm_object_part_content_set(item_layout, "swallow.unread_count", msg_status);
 				}
 			}
