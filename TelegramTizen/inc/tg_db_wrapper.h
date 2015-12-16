@@ -272,6 +272,8 @@ Eina_Bool mark_all_records_for_deletion(char *tablename);
 
 Eina_Bool delete_date_messages_from_table(char *tablename);
 
+Eina_Bool is_phone_number_exists_in_buddy_list(const char *phone_num);
+
 Eina_Bool insert_unsent_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *msg_type, const char * msg_data, const char *type_of_chat);
 Eina_Bool insert_unsent_media_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *media_id, const char *msg_type, const char *file_path, const char *type_of_chat);
 #if 0

@@ -6,6 +6,7 @@
 
 #include "device_contacts_manager.h"
 #include "tg_common.h"
+#include "tg_db_wrapper.h"
 #include "logger.h"
 
 bool sc_cdetails_get_contact_val(sc_common_contact_fields field_type, int contact_id, char **value)
@@ -114,9 +115,13 @@ Eina_List* get_contact_list_from_device_db()
 						}
 					}
 
+					// check contact exist in buddylist
+					Eina_Bool is_tg_contact = EINA_FALSE;
+					if (contact_data->phone_number) {
+						is_tg_contact = is_phone_number_exists_in_buddy_list(contact_data->phone_number);
+					}
 
-					if (contact_data->phone_number == NULL) {
-
+					if (contact_data->phone_number == NULL || is_tg_contact) {
 
 						if (contact_data->display_name) {
 							free(contact_data->display_name);

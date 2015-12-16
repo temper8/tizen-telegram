@@ -1282,6 +1282,50 @@ char* get_buddy_name_from_id(int buddy_id)
 	return profile_name;
 }
 
+Eina_Bool is_phone_number_exists_in_buddy_list(const char *phone_num)
+{
+	Eina_Bool is_exist = EINA_FALSE;
+	if (!phone_num)
+		return is_exist;
+
+	char* table_name = BUDDY_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHONE_NO);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	char *where_clause = NULL;
+	where_clause = (char *)malloc(strlen(USER_INFO_TABLE_PHONE_NO) + strlen(" LIKE '") + strlen("%") + strlen(phone_num) + strlen("%'") + 1);
+	strcpy(where_clause, USER_INFO_TABLE_PHONE_NO);
+	strcat(where_clause, " LIKE '");
+	strcat(where_clause, "%");
+	strcat(where_clause, phone_num);
+	strcat(where_clause, "%'");
+
+	Eina_List* buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
+		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		if (buddy_details && eina_list_count(buddy_details) > 0) {
+			char* name = (char*)eina_list_nth(buddy_details, 0);
+
+			if (name && strlen(name) > 0) {
+				is_exist = EINA_TRUE;
+			}
+			free(name);
+			eina_list_free(buddy_details);
+		}
+
+		eina_list_free(buddy_details_array);
+	}
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	return is_exist;
+}
+
 char* get_buddy_phone_num_from_id(int buddy_id)
 {
 	Eina_List* buddy_details_array = NULL;
@@ -1305,8 +1349,6 @@ char* get_buddy_phone_num_from_id(int buddy_id)
 
 	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
 	free(where_clause);
-
-
 
 	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
 		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
