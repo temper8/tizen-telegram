@@ -433,6 +433,7 @@ void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info)
 	switch(ad->current_app_state) {
 	case TG_PEER_SEARCH_VIEW_STATE:
 		//elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+		ad->is_loading_from_msg_view = EINA_FALSE;
 		on_create_new_contact(ad);
 		//delete_floating_button(ad);
 		break;

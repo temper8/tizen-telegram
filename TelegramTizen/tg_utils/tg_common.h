@@ -584,6 +584,7 @@ typedef struct appdata {
 	//int msg_count;
 	Eina_List *contact_list;
 	Elm_Naviframe_Item *main_item;
+	Eina_Bool is_loading_from_msg_view;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);

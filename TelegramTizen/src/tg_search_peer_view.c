@@ -364,9 +364,13 @@ static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *pa
 
 		appdata_s *ad = evas_object_data_get(obj, "app_data");
 		if (ad) {
+			if(ad->is_loading_from_msg_view) {
+				char temp_name[512] = {'\0'};
+				snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(ad->peer_in_cahtting_data->use_data->peer_id));
+				elm_object_text_set(phone_entry, temp_name);
+			}
 			evas_object_data_set(ad->nf, "add_contact_phone_number", phone_entry);
 		}
-
 		return layout;
 	} else if (0 == strcmp(part, "elm.icon.2")) {
 
@@ -718,24 +722,38 @@ void add_contact_to_phone_book(appdata_s *ad)
 void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
 {
 	if (is_success) {
-		elm_naviframe_item_pop(ad->nf);
-		ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
-		show_floating_button(ad);
 
-		// add new buddy to list
-		Evas_Object *peer_list = evas_object_data_get(ad->nf, "search_list");
-		if (peer_list) {
-			elm_genlist_clear(peer_list);
-			clear_search_list(ad);
-			free_contact_list(ad->contact_list);
+		if (ad->is_loading_from_msg_view) {
+			show_loading_popup(ad);
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
+			elm_naviframe_item_pop(ad->nf);
+			load_registered_user_data(ad);
+			load_buddy_list_data(ad);
+			load_unknown_buddy_list_data(ad);
+			load_peer_data(ad);
+			load_main_list_data(ad);
+			ecore_timer_add(1, on_load_main_view_requested, ad);
+		} else {
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+			show_floating_button(ad);
 
-			ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
-			ad->contact_list = get_contact_list_from_device_db();
+			// add new buddy to list
+			Evas_Object *peer_list = evas_object_data_get(ad->nf, "search_list");
+			if (peer_list) {
+				elm_genlist_clear(peer_list);
+				clear_search_list(ad);
+				free_contact_list(ad->contact_list);
 
-			_append_command_item(peer_list, ad);
-			_append_peer_item(peer_list, ad, ad->search_peer_list);
-			if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
-				_append_contact_item(peer_list, ad, ad->contact_list);
+				ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
+				ad->contact_list = get_contact_list_from_device_db();
+
+				_append_command_item(peer_list, ad);
+				_append_peer_item(peer_list, ad, ad->search_peer_list);
+				if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
+					_append_contact_item(peer_list, ad, ad->contact_list);
+				}
 			}
 		}
 	} else {
@@ -774,15 +792,22 @@ static void on_new_contact_done_clicked(void *data, Evas_Object *obj, void *even
 static void on_new_contact_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
+	if (!ad)
+		return;
 	elm_naviframe_item_pop(ad->nf);
-	ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
-	show_floating_button(ad);
+	if (ad->is_loading_from_msg_view) {
+		ad->is_loading_from_msg_view = EINA_FALSE;
+		ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
+	} else {
+		ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+		show_floating_button(ad);
+	}
 }
 
-int on_create_new_contact(appdata_s* ad)
+void on_create_new_contact(appdata_s* ad)
 {
 	if (!ad)
-		return 0;
+		return;
 
 	delete_floating_button(ad);
 	ad->current_app_state = TG_ADD_CONTACT_STATE;

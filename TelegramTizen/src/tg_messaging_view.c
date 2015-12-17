@@ -15,6 +15,7 @@
 #include "tg_chat_info_view.h"
 #include "tg_audio_player.h"
 #include <metadata_extractor.h>
+#include "tg_search_peer_view.h"
 
 static int scroller_show_bottom_edge(Evas_Object *scroller)
 {
@@ -110,7 +111,8 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 	if (get_buddy_unknown_status(user_data->peer_id) && user_data->peer_type == TGL_PEER_USER) {
 
 		if (id == 0) {
-			show_toast(ad, "Add contact to ur buddies");
+			ad->is_loading_from_msg_view = EINA_TRUE;
+			on_create_new_contact(ad);
 		} else if (id == 1) {
 #if 0
 			char* tablename = get_table_name_from_number(user_data->peer_id);
@@ -356,10 +358,12 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 	} else if (id == 2) { //Delete
 		if (user_data->peer_type == TGL_PEER_USER) {
+			show_loading_popup(ad);
 			char* tablename = get_table_name_from_number(user_data->peer_id);
 			delete_all_records(tablename);
 			free(tablename);
 
+#if 0
 			// clear all messages
 			Evas_Object *genlist = evas_object_data_get(ad->nf, "chat_list");
 			elm_genlist_clear(genlist);
@@ -395,7 +399,15 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 
 			app_nf_back_cb(ad, NULL, NULL);
-
+#else
+			elm_naviframe_item_pop(ad->nf);
+			load_registered_user_data(ad);
+			load_buddy_list_data(ad);
+			load_unknown_buddy_list_data(ad);
+			load_peer_data(ad);
+			load_main_list_data(ad);
+			ecore_timer_add(1, on_load_main_view_requested, ad);
+#endif
 
 		} else if (user_data->peer_type == TGL_PEER_CHAT) {
 

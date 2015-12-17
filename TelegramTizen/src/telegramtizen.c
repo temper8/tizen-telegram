@@ -3444,8 +3444,13 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			break;
 		case TG_ADD_CONTACT_STATE:
 			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
-			show_floating_button(ad);
+			if (ad->is_loading_from_msg_view) {
+				ad->is_loading_from_msg_view = EINA_FALSE;
+				ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
+			} else {
+				ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+				show_floating_button(ad);
+			}
 			break;
 		case TG_BUDDY_LIST_SELECTION_STATE:
 			if (ad->buddy_list) {

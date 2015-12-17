@@ -11,7 +11,7 @@
 #include "tg_common.h"
 
 extern void launch_start_peer_search_view(appdata_s* ad);
-extern int on_create_new_contact(appdata_s* ad);
+extern void on_create_new_contact(appdata_s* ad);
 extern void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success);
 
 #endif /* TG_SEARCH_PEER_VIEW_H_ */
