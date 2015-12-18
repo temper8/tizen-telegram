@@ -1252,7 +1252,7 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		EINA_LIST_FOREACH(ad->search_peer_list, l, item) {
 			user = item->use_data;
 
-			if (ucol_ncompare(user->print_name, entry_text, strlen(entry_text)) == 0) {
+			if (ucol_search(user->print_name, entry_text) != -ENOENT) {
 				result_list = eina_list_append(result_list, item);
 			}
 		}
@@ -1265,7 +1265,12 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 
 	LOGD("count of result_list is %d", eina_list_count(result_list));
 
-	if (result_list) {
+	if (!(entry_text == NULL || strlen(entry_text) == 0) && !result_list) {
+		Evas_Object *no_contents = evas_object_data_get(ad->nf, "no_contents_layout");
+
+		elm_object_part_content_unset(main_layout, "elm.swallow.content");
+		elm_object_part_content_set(main_layout, "elm.swallow.content", no_contents);
+	} else {
 		Evas_Object *fs_layout = evas_object_data_get(ad->nf, "fs_layout");
 		_append_peer_item(search_list, data, result_list);
 		Evas_Object *content = elm_object_part_content_unset(main_layout, "elm.swallow.content");
@@ -1273,12 +1278,6 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 			evas_object_hide(content);
 		}
 		elm_object_part_content_set(main_layout, "elm.swallow.content", fs_layout);
-
-	} else {
-		Evas_Object *no_contents = evas_object_data_get(ad->nf, "no_contents_layout");
-
-		elm_object_part_content_unset(main_layout, "elm.swallow.content");
-		elm_object_part_content_set(main_layout, "elm.swallow.content", no_contents);
 	}
 
 	elm_index_level_go(index, 0);

@@ -3182,27 +3182,25 @@ group
       }
     }
     
-    group { 
+    group {
 	  name: "bubble_audio_item_layout";
       parts {
          part {
             name: "swallow.play_icon";
-            type: SWALLOW; 
+            type: SWALLOW;
             description {
                state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 0.2 1.0;
-               color: 255 0 0 255;                       
             }
          }
          part {
             name: "swallow.progress_icon";
-            type: SWALLOW; 
-            description { 
+            type: SWALLOW;
+            description {
                state: default 0.0;
                rel1.relative: 0.25 0.0;
-               rel2.relative: 0.75 1.0;
-               color: 0 255 0 255;                       
+               rel2.relative: 1.0 1.0;
             }
          }
       }
@@ -4348,14 +4346,7 @@ group
 					rel2 { relative: 0.5 0.5; to: "bg"; }
 					fixed: 1 1;
 					min: 50 50;
-					//image.normal: "ic_attach_download.png";
-					//color: 106 126 204 255;
 					visible: 1;
-				}
-				description {
-					state: "pressed" 0.0;
-					inherit: "default" 0.0;
-					color: 60 71 115 255;
 				}
 			}
 			part{
@@ -4378,21 +4369,7 @@ group
     		}
     	} //parts
   		programs {
-  			program {
-  				name: "pressed";
-  				signal: "mouse,down,1";
-  				source: "download_image";
-  				action: STATE_SET "pressed" 0.0;
-  				target: "download_image";
-  			}
-  			program {
-  				name: "release";
-  				signal: "mouse,up,1";
-  				source: "download_image";
-  				action: STATE_SET "default" 0.0;
-  				target: "download_image";
-  			}
-  			program {
+   			program {
   				name: "clicked";
   				signal: "mouse,clicked,1";
   				source: "download_image";

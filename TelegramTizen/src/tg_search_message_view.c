@@ -450,7 +450,6 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 			//user = item->use_data;
 
 			if (ucol_search(item->peer_print_name, entry_text) != -ENOENT) {
-				LOGD("search result : %d", ucol_search(item->peer_print_name, entry_text));
 				result_list = eina_list_append(result_list, item);
 			}
 		}
