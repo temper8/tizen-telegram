@@ -52,7 +52,7 @@ tg_player_handler* init_audio_player(const char *audio_file, tg_player_state_cha
 		return NULL;
 	tg_player_handler *player = NULL;
 	if (access(audio_file, F_OK) != -1) {
-		tg_player_handler *player = (tg_player_handler*)malloc(sizeof(tg_player_handler));
+		player = (tg_player_handler*)malloc(sizeof(tg_player_handler));
 		if (player) {
 			player->timer = NULL;
 			player->current_pos = 0;
