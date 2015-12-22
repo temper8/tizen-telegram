@@ -139,7 +139,6 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 #else
 		int ret = recursive_dir_delete(DEFAULT_TELEGRAM_PATH);
 #endif
-		send_response_for_logout(tg_data);
 		tgl_engine_var_init();
 		tg_db_init();
 		tg_data->tg_state = TG_ENGINE_STATE_NONE;
@@ -160,6 +159,8 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		tg_data->code_response_timer = NULL;
 
 		//send event to application
+
+		send_response_for_logout(tg_data);
 
 	} else if (strcmp(cmd_key_val, "restart_server") == 0) {
 		on_restart_service_requested(tg_data);

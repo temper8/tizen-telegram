@@ -1446,11 +1446,13 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 		//Eina_Bool is_blur_image = EINA_FALSE;
 
 		if (msg) {
+#if 0
 			if (msg->unread) {
 				msg->unread = 0;
 				update_msg_into_db(msg, tablename);
 				ad->is_last_msg_changed = EINA_TRUE;
 			}
+#endif
 			if (msg->out) {
 
 			} else {
@@ -3679,6 +3681,15 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	/******************** expand ************************/
 
 	Eina_Bool ret = load_chat_history(chat_scroller);
+
+	int buddy_id = sel_item->use_data->peer_id;
+	char* tablename = get_table_name_from_number(buddy_id);
+
+	Eina_Bool res = set_all_rows_read(tablename);
+	if (!res) {
+		//failed.
+	}
+	free(tablename);
 
 	if (!ret) {
 		LOGD("There is no message in chat room");
