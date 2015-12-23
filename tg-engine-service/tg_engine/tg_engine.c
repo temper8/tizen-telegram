@@ -3015,6 +3015,8 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 						doc_prop->mime_type = strdup("video/mp4");
 					} else if (strstr(img_details->doc_type, "audio") != NULL) {
 						doc_prop->mime_type = strdup("audio/wav");
+					} else if (strstr(img_details->doc_type, "image/gif") != NULL) {
+						doc_prop->mime_type = strdup("image/gif");
 					}
 				}
 			} else {
@@ -3025,6 +3027,8 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 				doc_prop->flags =  FLAG_DOCUMENT_VIDEO;
 			} else if (strstr(img_details->doc_type, "audio") != NULL) {
 				doc_prop->flags =  FLAG_DOCUMENT_AUDIO;
+			} else if (strstr(img_details->doc_type, "image") != NULL) {
+				doc_prop->flags =  FLAG_DOCUMENT_ANIMATED;
 			}
 
 			tgl_do_load_document(s_info.TLS, doc_prop ,on_document_download_completed, doc_prop);
