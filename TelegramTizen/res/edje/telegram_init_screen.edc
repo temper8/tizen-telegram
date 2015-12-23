@@ -903,6 +903,7 @@ collections {
                 state: default 0.0;
                rel1.relative: 0.0 0.0;
                rel2.relative: 1.0 1.0;
+               min: 98 98;
             }
          }
          part { 
@@ -2487,6 +2488,56 @@ group
     }
     
 	group {
+		name: "main_list_date";
+		parts {
+			part {
+				name: "bg";
+				type: SPACER;
+				description {
+					state: "default" 0.0;
+					min: 175 94;
+				}
+			}
+			part {
+				name: "swallow.read_unread_status";
+				type: SWALLOW;            
+				description {
+					state: default 0.0;
+					rel1 { relative: 0.0 0.0; to: "swallow.date"; }
+					rel2 { relative: 0.0 1.0; to: "swallow.date"; }
+					align: 1.0 0.0;
+					min: 54 0 ;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "swallow.date";
+				type: SWALLOW;            
+				description {
+					state: default 0.0;
+					rel1 { relative: 1.0 0.0; to: "bg"; }
+					rel2 { relative: 1.0 0.0; to: "bg"; }
+					align: 1.0 0.0;
+					min: 121 54;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "swallow.unread_count";
+				type: SWALLOW;            
+				description {
+					state: default 0.0;
+					rel1 { relative: 1.0 1.0; to: "swallow.date"; }
+					rel2 { relative: 1.0 1.0; to: "swallow.date"; }
+					align: 1.0 0.0;
+					min: 50 50;
+					fixed: 1 1;
+				}
+			}
+		}
+	}
+    
+	group {
 		name: "main_list_custom_item";
 		parts {
 			part {
@@ -3879,8 +3930,8 @@ group
     			description{
     				state: "default" 0.0;
     				rel1 { relative: 1.0 0.1; to: "left,pad"; }
-    				rel2 { relative: 0.65 0.5; }    	
-    				color: 0 0 0 0;
+    				rel2 { relative: 0.65 0.5; }
+    				align: 0.0 0.5;
     			}
     		}
     		
@@ -3890,8 +3941,8 @@ group
     		 	description{
     		 		   	state: "default" 0.0;
     					rel1 { relative: 1.0 0.5; to: "left,pad"; }
-    					rel2 { relative: 0.65 0.9; }    	
-    					color: 0 0 0 0;
+    					rel2 { relative: 0.65 0.9; }
+    					align: 0.0 0.5;
     			 }
     		}
     		part{
@@ -3899,9 +3950,9 @@ group
     		 	type: SWALLOW;
     		 	description{
     		 		   	state: "default" 0.0;
-    					rel1 { relative: 0.7 0.0; }
-    					rel2 { relative: 0.85 1.0; }    	
-    					color: 0 0 0 0;
+    					rel1 { relative: 0.7 0.0; to: "buddy_info_screen,bg"; }
+    					rel2 { relative: 0.85 1.0; to: "buddy_info_screen,bg"; }
+    					align: 0.0 0.5;
     			 }
     		}
     		part{
@@ -3909,9 +3960,9 @@ group
     		 	type: SWALLOW;
     		 	description{
     		 		   	state: "default" 0.0;
-    					rel1 { relative: 0.85 0.0; }
-    					rel2 { relative: 1.0 1.0; }    	
-    					color: 0 0 0 0;
+    					rel1 { relative: 0.85 0.0; to: "buddy_info_screen,bg"; }
+    					rel2 { relative: 1.0 1.0; to: "buddy_info_screen,bg"; }
+    					align: 0.0 0.5;
     			 }
     		}
     		

@@ -973,7 +973,6 @@ void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list
 	static Elm_Genlist_Item_Class itc;
 	Elm_Object_Item* item = NULL;
 
-	//itc.item_style = "2line.top";
 	itc.item_style = "type1";
 	itc.func.text_get = on_peer_list_name_requested;
 	itc.func.content_get = on_peer_list_image_requested;
@@ -988,9 +987,6 @@ void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_peer_item_clicked, (void*) i);
 		}
-	} else {
-		i = 1;
-		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 	}
 }
 
@@ -1108,7 +1104,6 @@ void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_l
 	static Elm_Genlist_Item_Class itc;
 	Elm_Object_Item* item = NULL;
 
-	//itc.item_style = "2line.top";
 	itc.item_style = "type1";
 	itc.func.text_get = on_contact_list_name_requested;
 	itc.func.content_get = on_contact_list_image_requested;
@@ -1123,9 +1118,6 @@ void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_l
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_contact_item_clicked, (void*) i);
 		}
-	} else {
-		i = 1;
-		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 	}
 }
 
@@ -1133,7 +1125,6 @@ void _append_command_item(Evas_Object *genlist, appdata_s *ad)
 {
 	int i;
 	static Elm_Genlist_Item_Class itc;
-	Elm_Object_Item* item = NULL;
 
 	//itc.item_style = "2line.top";
 	itc.item_style = "type1";
@@ -1143,7 +1134,7 @@ void _append_command_item(Evas_Object *genlist, appdata_s *ad)
 	itc.func.del = NULL;
 
 	for (i = 0; i < COMMAND_MENU_ITEM_COUNT; i++) {
-		elm_genlist_item_append(genlist, &itc, i, NULL, ELM_GENLIST_ITEM_NONE, contact_screen_command_item_list[i].func, ad);
+		elm_genlist_item_append(genlist, &itc, (void *)i, NULL, ELM_GENLIST_ITEM_NONE, contact_screen_command_item_list[i].func, ad);
 	}
 
 

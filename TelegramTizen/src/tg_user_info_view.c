@@ -908,14 +908,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
     elm_image_file_set(msg_icon, ui_utils_get_resource(TG_USER_INFO_MESSAGE), NULL);
     evas_object_show(msg_icon);
     evas_object_color_set(msg_icon, 45, 165, 224, 255);
-	Evas_Object* msg_pic_layout = elm_layout_add(ad->nf);
-	elm_layout_file_set(msg_pic_layout, edj_path, "circle_layout");
-	evas_object_size_hint_weight_set(msg_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(msg_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(msg_pic_layout);
-	elm_object_part_content_set(msg_pic_layout, "content", msg_icon);
-
-    elm_object_content_set(msg_btn, msg_pic_layout);
+    elm_object_content_set(msg_btn, msg_icon);
 
     evas_object_smart_callback_add(msg_btn, "clicked", on_user_info_msg_clicked, ad);
     evas_object_smart_callback_add(msg_btn, "pressed", on_user_info_icon_pressed, msg_icon);
@@ -934,14 +927,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
     elm_image_file_set(call_icon, ui_utils_get_resource(TG_USER_INFO_CALL), NULL);
     evas_object_show(call_icon);
     evas_object_color_set(call_icon, 45, 165, 224, 255);
-	Evas_Object* call_pic_layout = elm_layout_add(ad->nf);
-	elm_layout_file_set(call_pic_layout, edj_path, "circle_layout");
-	evas_object_size_hint_weight_set(call_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(call_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(call_pic_layout);
-	elm_object_part_content_set(call_pic_layout, "content", call_icon);
-
-    elm_object_content_set(call_btn, call_pic_layout);
+    elm_object_content_set(call_btn, call_icon);
 
     evas_object_smart_callback_add(call_btn, "clicked", on_user_info_call_clicked, ad);
     evas_object_smart_callback_add(call_btn, "pressed", on_user_info_icon_pressed, call_icon);

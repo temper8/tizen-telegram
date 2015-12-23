@@ -1144,6 +1144,9 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			img_path = get_video_thumb_path_from_db(atoll(msg->media_id));
 			if (img_path == NULL || strlen(img_path) == 0 || strstr(img_path, "_null_") != NULL) {
 				img_path = get_media_path_from_db(atoll(msg->media_id));
+				if( access (img_path, F_OK) == -1 ) {
+					img_path = NULL;
+				}
 			}
 			if (img_path == NULL || strlen(img_path) == 0 || strstr(img_path, "_null_") != NULL) {
 				const char *tmp;
@@ -1513,6 +1516,8 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			Eina_Strbuf *buf = eina_strbuf_new();
 			char *caption = NULL;
+
+			LOGD("entry media type is %d", msg->media_type);
 
 			if (msg->media_type == tgl_message_media_none) {
 				char *temp_msg = replace(msg->message, '\n', "<br>");
