@@ -2237,7 +2237,7 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 		init_insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
 		tgl_peer_t* UC = tgl_peer_get(TLS, buddy->id);
 		if (UC) {
-			init_insert_peer_into_database(UC, 0, 0, 0);
+			insert_peer_into_database(UC, 0, 0, 0);
 		}
 	}
 
@@ -3241,7 +3241,7 @@ void on_new_buddy_added(struct tgl_state *TLS,void *callback_extra, int success,
 			init_insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
 			tgl_peer_t* UC = tgl_peer_get(TLS, buddy->id);
 			if (UC) {
-				init_insert_peer_into_database(UC, 0, 0, 0);
+				insert_peer_into_database(UC, 0, 0, 0);
 			}
 			tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
 

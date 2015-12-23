@@ -235,6 +235,8 @@ int get_unread_message_count(char* table_name);
 
 extern void update_msg_into_db(tg_message_s *M, char* table_name);
 
+extern Eina_Bool set_all_rows_read(const char *table_name);
+
 void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **last_name, char **phone_number);
 
 char* get_buddy_name_from_id(int buddy_id);

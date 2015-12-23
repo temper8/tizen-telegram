@@ -1829,7 +1829,46 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 		}
 	}
 	return message;
+}
 
+Eina_Bool set_all_rows_read(const char *table_name)
+{
+	if (!table_name)
+		return EINA_FALSE;
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNREAD);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	Eina_List* col_values = NULL;
+	int un_read_res = 0;
+	col_values = eina_list_append(col_values, &(un_read_res));
+
+	char* where_clause = NULL;
+	char usr_str[50];
+	int un_read = 1;
+	sprintf(usr_str,"%d", un_read);
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(usr_str) + 1);
+	strcpy(where_clause, MESSAGE_INFO_TABLE_UNREAD);
+	strcat(where_clause, " = ");
+	strcat(where_clause, usr_str);
+
+	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
+
+	if(!ret) {
+		//("error: database creation failed");
+	} else {
+
+	}
+
+	free(where_clause);
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	eina_list_free(col_values);
+
+	return EINA_TRUE;
 }
 
 void update_msg_into_db(tg_message_s *M, char* table_name)
