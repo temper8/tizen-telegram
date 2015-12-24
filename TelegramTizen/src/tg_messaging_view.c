@@ -1512,6 +1512,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			// To be handled for group chat
 
 			Eina_Strbuf *buf = eina_strbuf_new();
+			char *caption = NULL;
 
 			if (msg->media_type == tgl_message_media_none) {
 				char *temp_msg = replace(msg->message, '\n', "<br>");
@@ -1523,6 +1524,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				elm_entry_item_provider_append(entry, item_provider, chat_scroller);
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
+				if (media_msg->caption && strlen(media_msg) > 0) {
+					caption = strdup(media_msg->caption);
+				}
 				if (msg->out) {
 					if (media_msg) {
 						if (strstr(media_msg->doc_type, "audio") != NULL) {
@@ -1555,6 +1559,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else if(msg->media_type == tgl_message_media_geo) {
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
+				if (media_msg->caption && strlen(media_msg) > 0) {
+					caption = strdup(media_msg->caption);
+				}
 				char loc_url[4*256] = {0,};
 				if (media_msg) {
 					snprintf(loc_url, sizeof(loc_url), "https://maps.google.com/?q=%s,%s", media_msg->latitude, media_msg->longitude);
@@ -1573,6 +1580,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else if(msg->media_type == tgl_message_media_contact) {
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
+				if (media_msg->caption && strlen(media_msg) > 0) {
+					caption = strdup(media_msg->caption);
+				}
 
 				if (media_msg) {
 					char temp_msg[4*256] = {0,};
@@ -1593,6 +1603,10 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			}
 			ad->loaded_msg_list = eina_list_append(ad->loaded_msg_list, entry);
+			if (caption) {
+				// implement UI.
+				free(caption);
+			}
 
 			//set time
 			time_t t = msg->date;
@@ -1750,7 +1764,7 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 }
 
 
-void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id, const char* file_path)
+void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id, const char *file_path, const char *caption)
 {
 	if (!ad)
 		return;
@@ -1855,9 +1869,9 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 
 //elm_object_part_content_set(comp_img_layout, "swallow.chat_send_image", image);
 
-void on_video_thumb_download_completed(appdata_s* ad, int buddy_id, long long media_id, const char* file_path)
+void on_video_thumb_download_completed(appdata_s* ad, int buddy_id, long long media_id, const char* file_path, const char *caption)
 {
-	on_media_download_completed(ad, buddy_id, media_id, file_path);
+	on_media_download_completed(ad, buddy_id, media_id, file_path, caption);
 }
 
 void on_text_message_state_changed(appdata_s* ad, tg_message_s *msg, int type_of_chat)

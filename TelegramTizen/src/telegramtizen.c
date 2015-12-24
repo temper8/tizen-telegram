@@ -2312,10 +2312,14 @@ static int on_media_message_download_completed(appdata_s *app, bundle *const rec
 		show_toast(app, "media download failed.");
 	}
 
+	char* caption = NULL;
+	result = bundle_get_str(rec_msg, "caption", &caption);
+
+
 	if (file_name && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
 			&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
 		// update media to sent state
-		on_media_download_completed(app, buddy_id, media_id, file_name);
+		on_media_download_completed(app, buddy_id, media_id, file_name, caption);
 	}
 	return result;
 }
@@ -2338,10 +2342,13 @@ static int on_video_message_thumb_download_completed(appdata_s *app, bundle *con
 	char* file_name = NULL;
 	result = bundle_get_str(rec_msg, "file_name", &file_name);
 
+	char* caption = NULL;
+	result = bundle_get_str(rec_msg, "caption", &caption);
+
 	if (file_name && app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE && app->peer_in_cahtting_data
 			&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
 		// update thumbnail icon
-		on_video_thumb_download_completed(app, buddy_id, media_id, file_name);
+		on_video_thumb_download_completed(app, buddy_id, media_id, file_name, caption);
 	}
 	return result;
 }

@@ -56,8 +56,8 @@ extern void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int b
 extern void send_group_chat_deleted_response(tg_engine_data_s *tg_data, int chat_id, Eina_Bool is_success);
 extern void send_selected_group_chats_deleted_response(tg_engine_data_s *tg_data);
 extern void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, char* phone, int type_of_chat);
-extern void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);
-extern void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename);
+extern void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename, const char *caption);
+extern void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename, const char* caption);
 extern void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id);
 extern void send_new_buddy_added_response(tg_engine_data_s *tg_data, int buddy_id);
 extern void send_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id, const char *type_of_change);

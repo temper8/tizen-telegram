@@ -1447,7 +1447,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	bundle_free(msg);
 }
 
-void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename)
+void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename, const char* caption)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -1496,6 +1496,18 @@ void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int
 		}
 	}
 
+	if (caption) {
+		if (bundle_add_str(msg, "caption", caption) != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else  {
+		if (bundle_add_str(msg, "caption", "") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	}
+
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
@@ -1505,7 +1517,7 @@ void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int
 	bundle_free(msg);
 }
 
-void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename)
+void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy_id, int to_id, long long media_id, const char* filename, const char *caption)
 {
 	bundle *msg = bundle_create();
 	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
@@ -1549,6 +1561,18 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 		}
 	} else  {
 		if (bundle_add_str(msg, "file_name", "failed_to_load") != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	}
+
+	if (caption) {
+		if (bundle_add_str(msg, "caption", caption) != 0) {
+			ERR("Failed to add data by key to bundle");
+			bundle_free(msg);
+		}
+	} else  {
+		if (bundle_add_str(msg, "caption", "") != 0) {
 			ERR("Failed to add data by key to bundle");
 			bundle_free(msg);
 		}

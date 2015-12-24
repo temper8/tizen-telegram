@@ -1112,7 +1112,7 @@ void on_video_thumb_loaded(struct tgl_state *TLS, void *callback_extra, int succ
 		update_video_thumb_in_db(media_id, filename);
 		tg_engine_data_s *tg_data = TLS->callback_data;
 		if (M->from_id.id == tg_data->id.id) {
-			send_video_thumb_download_completed_response(tg_data, M->from_id.id, M->to_id.id, media_id, filename);
+			send_video_thumb_download_completed_response(tg_data, M->from_id.id, M->to_id.id, media_id, filename, NULL);
 		} else {
 			send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, tgl_get_peer_type(M->to_id));
 		}
@@ -2373,11 +2373,11 @@ void on_image_download_completed(struct tgl_state *TLS, void *callback_extra, in
 		if(photo_prop && filename) {
 			update_receive_media_info_in_db(media_id, filename);
 			//send response to application
-			send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, filename);
+			send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, filename, photo_prop->caption);
 			free(photo_prop);
 		}
 	} else {
-		send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, NULL);
+		send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, NULL, NULL);
 	}
 }
 
@@ -2392,10 +2392,10 @@ void on_document_download_completed(struct tgl_state *TLS, void *callback_extra,
 		if(doc_prop && filename) {
 			update_receive_media_info_in_db(media_id, filename);
 			//send response to application
-			send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, filename);
+			send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, filename, doc_prop->caption);
 		}
 	} else {
-		send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, NULL);
+		send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, NULL, NULL);
 	}
 
 	if (doc_prop) {
@@ -2898,7 +2898,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 	struct tgl_media* img_details = get_media_details_from_db(media_id);
 
 	if(!img_details) {
-		send_media_download_completed_response(tg_data, -1, buddy_id, media_id, NULL);
+		send_media_download_completed_response(tg_data, -1, buddy_id, media_id, NULL, NULL);
 		return;
 	} else {
 
