@@ -1690,8 +1690,7 @@ struct tgl_update_callback upd_cb = {
 	.secret_chat_update = tg_secret_chat_update,
 	.msg_receive = tg_msg_receive,
 	.our_id = tg_our_id,
-	//.user_status_update = tg_user_status_update
-	.user_status_update = NULL
+	.user_status_update = tg_user_status_update
 };
 
 void on_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
