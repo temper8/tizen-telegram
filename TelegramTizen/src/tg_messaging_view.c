@@ -1529,7 +1529,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				elm_entry_item_provider_append(entry, item_provider, chat_scroller);
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
-				if (media_msg->caption && strlen(media_msg) > 0) {
+				if (media_msg && media_msg->caption && strlen(media_msg->caption) > 0) {
 					caption = strdup(media_msg->caption);
 				}
 				if (msg->out) {
@@ -1564,11 +1564,12 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else if(msg->media_type == tgl_message_media_geo) {
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
-				if (media_msg->caption && strlen(media_msg) > 0) {
-					caption = strdup(media_msg->caption);
-				}
+
 				char loc_url[4*256] = {0,};
 				if (media_msg) {
+					if (media_msg->caption && strlen(media_msg->caption) > 0) {
+						caption = strdup(media_msg->caption);
+					}
 					snprintf(loc_url, sizeof(loc_url), "https://maps.google.com/?q=%s,%s", media_msg->latitude, media_msg->longitude);
 					char temp_msg[4*256] = {0,};
 					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Normal|underline color=#0000FF align=left><font_size=15>%s</font_size></font>", loc_url);
@@ -1585,11 +1586,11 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else if(msg->media_type == tgl_message_media_contact) {
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
-				if (media_msg->caption && strlen(media_msg) > 0) {
-					caption = strdup(media_msg->caption);
-				}
 
 				if (media_msg) {
+					if (media_msg->caption && strlen(media_msg->caption) > 0) {
+						caption = strdup(media_msg->caption);
+					}
 					char temp_msg[4*256] = {0,};
 					snprintf(temp_msg, sizeof(temp_msg), "<font=Tizen:style=Normal|underline color=#000000 align=left><font_size=15>%s %s, %s</font_size></font>", media_msg->first_name, media_msg->last_name, media_msg->phone_no);
 					eina_strbuf_append(buf, temp_msg);
@@ -1610,6 +1611,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			ad->loaded_msg_list = eina_list_append(ad->loaded_msg_list, entry);
 			if (caption) {
 				// implement UI.
+				LOGD("caption is (%s)", caption);
 				free(caption);
 			}
 
