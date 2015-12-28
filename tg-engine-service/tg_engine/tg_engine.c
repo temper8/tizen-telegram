@@ -2469,7 +2469,8 @@ void on_contact_added(struct tgl_state *TLS,void *callback_extra, int success, i
 		}
 
 	} else {
-		tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
+		//tgl_do_get_dialog_list(TLS, on_contacts_and_chats_loaded, NULL);
+		tgl_do_update_contact_list(TLS, on_contacts_received, NULL);
 		free_contact_data(data->contact_list_to_add);
 		data->contact_list_to_add = NULL;
 	}
