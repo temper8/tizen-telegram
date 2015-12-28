@@ -625,7 +625,22 @@ void on_sent_media_item_clicked(void* data, Evas_Object* layout, void* event_inf
 	}
 }
 
-static Evas_Object* get_image_from_path(const char* path, Evas_Object* parent)
+static Evas_Object *get_gif_image_from_path(const char* path, Evas_Object* parent, char *key)
+{
+	if (!path || !parent || !key) {
+			return NULL;
+		}
+	LOGD(">>>>>>>>>> key : %s", key);
+		Evas_Object *media_image = elm_image_add(parent);
+		elm_image_aspect_fixed_set(media_image, EINA_FALSE);
+		elm_image_file_set(media_image, path, key);
+		evas_object_size_hint_weight_set(media_image, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(media_image, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(media_image);
+		return media_image;
+}
+
+static Evas_Object *get_image_from_path(const char* path, Evas_Object* parent)
 {
 	if (!path || !parent) {
 		return NULL;
@@ -1141,18 +1156,15 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 			Eina_Bool is_blur_image = EINA_FALSE;
 			char* img_path = NULL;
-			img_path = get_video_thumb_path_from_db(atoll(msg->media_id));
-			if (img_path == NULL || strlen(img_path) == 0 || strstr(img_path, "_null_") != NULL) {
-				img_path = get_media_path_from_db(atoll(msg->media_id));
-				if( access (img_path, F_OK) == -1 ) {
-					img_path = NULL;
-				}
-			}
-			if (img_path == NULL || strlen(img_path) == 0 || strstr(img_path, "_null_") != NULL) {
+			Evas_Object *temp = NULL;
+			temp = evas_object_data_del(entry, "img_object");
+			if (temp == NULL) {
 				const char *tmp;
 				tmp = ui_utils_get_resource(BLUR_BG);
 				img_path = strdup(tmp);
 				is_blur_image = EINA_TRUE;
+			} else {
+				item_to_display = temp;
 			}
 
 			if (msg->media_type == tgl_message_media_document) {
@@ -1187,7 +1199,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 				if (msg->media_type == tgl_message_media_photo) {
 
-					item_to_display = get_image_from_path(img_path, entry);
+					//item_to_display = get_image_from_path(img_path, entry);
 
 				} else {
 					if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
@@ -1195,9 +1207,9 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 						item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
 
 					} else {
-						item_to_display = get_image_from_path(img_path, entry);
-						//elm_image_animated_set(item_to_display, EINA_TRUE);
-						//elm_image_animated_play_set(item_to_display, EINA_TRUE);
+						//item_to_display = get_image_from_path(img_path, entry);
+						elm_image_animated_set(item_to_display, EINA_TRUE);
+						elm_image_animated_play_set(item_to_display, EINA_TRUE);
 					}
 				}
 
@@ -1206,7 +1218,6 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 					if (msg->media_type == tgl_message_media_photo) {
 
-						item_to_display = get_image_from_path(img_path, entry);
 						evas_object_data_set(entry, "image_object", (void*)item_to_display);
 
 					} else {
@@ -1215,10 +1226,9 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 							item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
 
 						} else {
-							item_to_display = get_image_from_path(img_path, entry);
 							evas_object_data_set(entry, "image_object", (void*)item_to_display);
-							//elm_image_animated_set(item_to_display, EINA_TRUE);
-							//elm_image_animated_play_set(item_to_display, EINA_TRUE);
+							elm_image_animated_set(item_to_display, EINA_TRUE);
+							elm_image_animated_play_set(item_to_display, EINA_TRUE);
 						}
 					}
 
@@ -1240,8 +1250,6 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 							img_item = get_media_layout_with_play(img_path, entry, EINA_FALSE);
 						} else {
 							img_item = get_image_from_path(img_path, entry);
-							//elm_image_animated_set(img_item, EINA_TRUE);
-							//elm_image_animated_play_set(img_item, EINA_TRUE);
 						}
 					}
 					elm_object_part_content_set(rec_img_layout, "swallow.image_item", img_item);
@@ -1315,7 +1323,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			} else if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
 				evas_object_data_set(entry, "media_type", (void*)strdup("audio"));
 			} else {
-				evas_object_data_set(entry, "media_type", (void*)strdup("image"));
+				evas_object_data_set(entry, "media_type", (void*)strdup("animated_image"));
 			}
 		}
 
@@ -1380,6 +1388,42 @@ static void __resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 			LOGE("Fail to show the bottom of scroller");
 		}
 	}
+}
+
+static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *image, int size)
+{
+	char* img_path = NULL;
+	img_path = get_video_thumb_path_from_db(atoll(msg->media_id));
+	if (img_path == NULL || strlen(img_path) == 0 || strstr(img_path, "_null_") != NULL) {
+		img_path = get_media_path_from_db(atoll(msg->media_id));
+		if( access (img_path, F_OK) == -1 ) {
+			img_path = NULL;
+		}
+	}
+
+	int w, h, entry_h;
+	Evas_Object *img_item = NULL;
+	char key[256] = {0, };
+	snprintf(key, sizeof(key), "%d", msg->msg_id);
+	if (msg->media_type == tgl_message_media_document) {
+		img_item = get_gif_image_from_path(img_path, entry, key);
+	} else {
+		img_item = get_image_from_path(img_path, entry);
+	}
+	w = 0;
+	h = 0;
+	if (img_item) {
+		evas_object_data_set(entry, "img_object", img_item);
+		elm_image_object_size_get(img_item, &w, &h);
+	}
+
+	if (w && h) {
+		entry_h = (318 * h) / w;
+	} else {
+		entry_h = 200;
+		evas_object_data_set(entry, "img_object", NULL);
+	}
+	snprintf(image, size - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
 }
 
 Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const char *part)
@@ -1544,7 +1588,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						} else if (strstr(media_msg->doc_type, "video") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
-							eina_strbuf_append(buf, "<item size=318x200 vsize=full href=itemprovider></item>");
+							char image[256]={0,};
+							_create_image_item(msg, entry, image, sizeof(image));
+							eina_strbuf_append(buf, image);
 						}
 					}
 				} else {
@@ -1554,7 +1600,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						} else if (strstr(media_msg->doc_type, "video") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
-							eina_strbuf_append(buf, "<item size=318x200 vsize=full href=itemprovider></item>");
+							char image[256]={0,};
+							_create_image_item(msg, entry, image, sizeof(image));
+							eina_strbuf_append(buf, image);
 						}
 					}
 				}
@@ -1859,9 +1907,38 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									//Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), img_item);
 									elm_object_part_content_set(img_item, "swallow.play_btn", play_img);
 								} else if (strstr(media_type_str, "image") != NULL) {
-									elm_image_file_set(img_item, file_path, NULL);
-									//elm_image_animated_set(img_item, EINA_TRUE);
-									//elm_image_animated_play_set(img_item, EINA_TRUE);
+
+									img_item = get_image_from_path(file_path, entry);
+									int w, h, entry_h;
+									elm_image_object_size_get(img_item, &w, &h);
+									entry_h = (318 * h) / w;
+									Eina_Strbuf *buf = eina_strbuf_new();
+									char image[256]={0,};
+									evas_object_data_set(entry, "img_object", img_item);
+									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
+									eina_strbuf_append(buf, image);
+									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
+									eina_strbuf_free(buf);
+
+								} else if (strstr(media_type_str, "animated_image") != NULL) {
+
+									int msg_id = (int) evas_object_data_get(entry, "message_id");
+									char key[256] = {0, };
+									snprintf(key, sizeof(key), "%d", msg_id);
+
+									img_item = get_gif_image_from_path(file_path, entry, key);
+									elm_image_animated_set(img_item, EINA_TRUE);
+									elm_image_animated_play_set(img_item, EINA_TRUE);
+									int w, h, entry_h;
+									elm_image_object_size_get(img_item, &w, &h);
+									entry_h = (318 * h) / w;
+									evas_object_data_set(entry, "img_object", img_item);
+									Eina_Strbuf *buf = eina_strbuf_new();
+									char image[256]={0,};
+									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
+									eina_strbuf_append(buf, image);
+									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
+									eina_strbuf_free(buf);
 								}
 							}
 						}
