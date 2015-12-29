@@ -153,7 +153,7 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		}
 	}
 
-	int col_val_count = eina_list_count(column_values);
+	int col_val_count = eina_list_count(column_names);
 
 	for(int col = 0; col < col_val_count ; col++) {
 
@@ -231,7 +231,7 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	strcat(var_query, " SET ");
 
 
-	int col_val_count = eina_list_count(column_values);
+	int col_val_count = eina_list_count(column_names);
 
 	for(int col = 0; col < col_val_count ; col++) {
 		char* col_name = eina_list_nth(column_names, col);

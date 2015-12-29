@@ -1103,6 +1103,22 @@ void on_new_chat_pic_loaded(struct tgl_state *TLS, void *callback_extra, int suc
 	}
 }
 
+void on_media_sticker_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
+{
+	struct tgl_message *M = (struct tgl_message*)callback_extra;
+	if (success && filename) {
+		// update in db and send info to app...
+		long long media_id = M->media.document.id;
+		update_receive_media_info_in_db(media_id, filename);
+		tg_engine_data_s *tg_data = TLS->callback_data;
+		if (M->from_id.id == tg_data->id.id) {
+
+		} else {
+			send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, tgl_get_peer_type(M->to_id));
+		}
+	}
+}
+
 void on_video_thumb_loaded(struct tgl_state *TLS, void *callback_extra, int success, char *filename)
 {
 	struct tgl_message *M = (struct tgl_message*)callback_extra;
@@ -1511,6 +1527,9 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
 					M->message = strdup("Video");
 					M->message_len = strlen("Video");
+				} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_STICKER)) {
+					M->message = strdup("Sticker");
+					M->message_len = strlen("Sticker");
 				}
 				insert_buddy_msg_to_db(M);
 				if(M->media.type != tgl_message_media_none) {
@@ -1520,6 +1539,9 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 						return;
 					} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
 
+					} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_STICKER)) {
+						tgl_do_load_document(TLS, &(M->media.document), on_media_sticker_loaded, M);
+						return;
 					}
 				}
 				// inform to application
