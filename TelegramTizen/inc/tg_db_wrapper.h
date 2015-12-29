@@ -230,7 +230,7 @@ void insert_media_info_to_db(tg_message_s *M, char *file_path, int width, int he
 Eina_List* get_image_details_from_db(long long media_id);
 Eina_List* get_image_sizes_from_db(long long media_id);
 
-tg_message_s* get_latest_message_from_message_table(char* table_name);
+tg_message_s* get_latest_message_from_message_table(char* table_name, Eina_Bool is_for_date);
 int get_unread_message_count(char* table_name);
 
 extern void update_msg_into_db(tg_message_s *M, char* table_name);

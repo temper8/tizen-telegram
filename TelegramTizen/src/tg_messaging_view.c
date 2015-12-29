@@ -2057,7 +2057,7 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 	if (!text_to_send || (strlen(text_to_send) == 0))
 		return ECORE_CALLBACK_CANCEL;
 
-	int unique_id = time(NULL);
+	int unique_id = get_time_stamp_in_macro();
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -2120,11 +2120,13 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	if (!text_to_send || (strlen(text_to_send) == 0))
 		return;
 
-	if(add_date_item_to_chat(data)) {
+	if (add_date_item_to_chat(data)) {
 		//ecore_timer_add(2, on_new_text_message_send_cb, chat_scroller);
 		//return;
+		wait_for(1);
 	}
-	int unique_id = time(NULL);
+
+	int unique_id = get_time_stamp_in_macro();
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -2510,18 +2512,19 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 
-	if(add_date_item_to_chat(data)) {
+	if (add_date_item_to_chat(data)) {
 /*		evas_object_data_set(chat_scroller, "contact_first_name", strdup(first_name));
 		evas_object_data_set(chat_scroller, "contact_last_name", strdup(last_name));
 		evas_object_data_set(chat_scroller, "contact_phone_number", strdup(phone_number));
 
 		ecore_timer_add(2, on_new_contact_message_send_cb, chat_scroller);
 		return;*/
+		wait_for(1);
 	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	int unique_id = get_time_stamp_in_macro();
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -2633,16 +2636,17 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 
-	if(add_date_item_to_chat(data)) {
+	if (add_date_item_to_chat(data)) {
 /*		evas_object_data_set(chat_scroller, "contact_latitude", strdup(latitude));
 		evas_object_data_set(chat_scroller, "contact_longitude", strdup(longitude));
 		ecore_timer_add(2, on_new_location_message_send_cb, chat_scroller);
 		return;*/
+		wait_for(1);
 	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	int unique_id = get_time_stamp_in_macro();
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
@@ -2764,7 +2768,7 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 	Evas_Object *chat_scroller = data;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
-	if(add_date_item_to_chat(data)) {
+	if (add_date_item_to_chat(data)) {
 /*		int temp_file_type = file_type;
 		char file_type_char[10]= {0, };
 		sprintf(file_type_char, "%d", temp_file_type);
@@ -2773,10 +2777,11 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 
 		ecore_timer_add(2, on_new_media_message_send_cb, chat_scroller);
 		return;*/
+		wait_for(1);
 	}
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
-	int unique_id = time(NULL);
+	int unique_id = get_time_stamp_in_macro();
 
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);

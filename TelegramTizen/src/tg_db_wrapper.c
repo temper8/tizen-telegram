@@ -1657,7 +1657,7 @@ int get_unread_message_count(char* table_name)
 }
 
 
-tg_message_s* get_latest_message_from_message_table(char* table_name)
+tg_message_s* get_latest_message_from_message_table(char* table_name, Eina_Bool is_for_date)
 {
 	tg_message_s* message = NULL;
 
@@ -1706,18 +1706,23 @@ tg_message_s* get_latest_message_from_message_table(char* table_name)
 
 	char marked_del_str[50];
 	sprintf(marked_del_str, "%d", 1);
-
-	char* where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" <> ") + strlen(service_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE)+ strlen(" <> ")+ strlen(marked_del_str) + 1);
-	strcpy(where_clause, MESSAGE_INFO_TABLE_SERVICE);
-	strcat(where_clause, " <> ");
-	strcat(where_clause, service_str);
-	strcat(where_clause, " AND ");
-	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
-	strcat(where_clause, " <> ");
-	strcat(where_clause, marked_del_str);
+	char* where_clause = NULL;
+	if (!is_for_date) {
+		where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" != ") + strlen(service_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE)+ strlen(" != ")+ strlen(marked_del_str) + 1);
+		strcpy(where_clause, MESSAGE_INFO_TABLE_SERVICE);
+		strcat(where_clause, " != ");
+		strcat(where_clause, service_str);
+		strcat(where_clause, " AND ");
+		strcat(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+		strcat(where_clause, " != ");
+		strcat(where_clause, marked_del_str);
+	}
 
 	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_FALSE, where_clause);
-	free(where_clause);
+	if (where_clause) {
+		free(where_clause);
+		where_clause = NULL;
+	}
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
@@ -1959,7 +1964,7 @@ void update_msg_into_db(tg_message_s *M, char* table_name)
 
 int insert_current_date_to_table(char* tb_name)
 {
-	tg_message_s* last_msg = get_latest_message_from_message_table(tb_name);
+	tg_message_s* last_msg = get_latest_message_from_message_table(tb_name, EINA_TRUE);
 	if (last_msg) {
 		int old_date = last_msg->date;
 		time_t old_t = old_date;
@@ -1967,8 +1972,7 @@ int insert_current_date_to_table(char* tb_name)
 		struct tm old_lt;
 		(void) localtime_r(&old_t, &old_lt);
 
-		int cur_time = time(NULL);
-		time_t new_t = cur_time;
+		time_t new_t = time(NULL);
 
 		struct tm new_lt;
 		(void) localtime_r(&new_t, &new_lt);
@@ -1977,33 +1981,16 @@ int insert_current_date_to_table(char* tb_name)
 			// no need of new date
 			return -1;
 		} else {
+			tg_message_s date_msg;
+			date_msg.msg_id = get_time_stamp_in_macro();
+			date_msg.media_type = tgl_message_media_none;
+
 			int cur_time = time(NULL);
-#if 0
-			time_t t = cur_time;
-
-			char *format = NULL;
-			format = "%a, %e %b %Y";
-
-			struct tm lt;
-			char res[256];
-			(void) localtime_r(&t, &lt);
-
-			if (strftime(res, sizeof(res), format, &lt) == 0) {
-				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-						"date/time into buffer of size %u "
-						"using: '%s'\n",
-						sizeof(res), format);
-			}
-#else
+			cur_time = cur_time - 10;
 			// convert time to string
 			char res[256];
 			sprintf(res, "%d", cur_time);
-#endif
-			srand(time(NULL));
-			int r = rand();
-			tg_message_s date_msg;
-			date_msg.msg_id = 2*r;
-			date_msg.media_type = tgl_message_media_none;
+
 			date_msg.date = cur_time;
 			date_msg.message = res;
 			date_msg.message_len = strlen(res);
@@ -2017,33 +2004,15 @@ int insert_current_date_to_table(char* tb_name)
 		}
 
 	} else {
+		tg_message_s date_msg;
+		date_msg.msg_id = get_time_stamp_in_macro();
+		date_msg.media_type = tgl_message_media_none;
+
 		int cur_time = time(NULL);
-#if 0
-		time_t t = cur_time;
-
-		char *format = NULL;
-		format = "%a, %e %b %Y";
-
-		struct tm lt;
-		char res[256];
-		(void) localtime_r(&t, &lt);
-
-		if (strftime(res, sizeof(res), format, &lt) == 0) {
-			(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-					"date/time into buffer of size %u "
-					"using: '%s'\n",
-					sizeof(res), format);
-		}
-#else
+		cur_time = cur_time - 10;
 		// convert time to string
 		char res[256];
 		sprintf(res, "%d", cur_time);
-#endif
-		srand(time(NULL));
-		int r = rand();
-		tg_message_s date_msg;
-		date_msg.msg_id = 2*r;
-		date_msg.media_type = tgl_message_media_none;
 		date_msg.date = cur_time;
 		date_msg.message = res;
 		date_msg.message_len = strlen(res);

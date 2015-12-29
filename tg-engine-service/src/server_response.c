@@ -800,6 +800,86 @@ void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, int budd
 	bundle_free(msg);
 }
 
+
+void send_message_with_date_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int date_id, int type_of_chat)
+{
+	bundle *msg = bundle_create();
+	if (bundle_add_str(msg, "app_name", "Tizen Telegram") != 0)	{
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	if (bundle_add_str(msg, "command", "message_received_with_date") != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char from_id_str[50];
+	sprintf(from_id_str,"%d",from_id);
+
+	if (bundle_add_str(msg, "from_id", from_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char to_id_str[50];
+	sprintf(to_id_str,"%d",to_id);
+
+	if (bundle_add_str(msg, "to_id", to_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char msg_id_str[50];
+	sprintf(msg_id_str,"%lld",message_id);
+
+	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char date_id_str[50];
+	sprintf(date_id_str,"%d",date_id);
+
+	if (bundle_add_str(msg, "date_id", date_id_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	char type_of_chat_str[50];
+	sprintf(type_of_chat_str,"%d",type_of_chat);
+
+	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0) {
+		ERR("Failed to add data by key to bundle");
+		bundle_free(msg);
+	}
+
+	int result = SVC_RES_FAIL;
+	result = tg_server_send_message(tg_data->tg_server, msg);
+
+	if(result != SVC_RES_OK) {
+		// error: cient not ready
+		// send notification
+		char *icon_path = ui_utils_get_resource(DEFAULT_TELEGRAM_ICON);
+		char *title = "Telegram";
+		char content[512];
+
+		int unread_msg_cnt = get_number_of_unread_messages();
+		sprintf(content, "%d new messages received.", unread_msg_cnt);
+
+		char *sound_track = NULL;
+		char *app_id = TELEGRAM_APP_ID;
+		tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
+
+		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+		if (BADGE_ERROR_NONE != err) {
+
+		}
+	}
+	bundle_free(msg);
+}
+
+
 void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int type_of_chat)
 {
 	bundle *msg = bundle_create();

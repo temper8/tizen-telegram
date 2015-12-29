@@ -1030,7 +1030,7 @@ void on_new_chat_info_received(struct tgl_state *TLS, void *callback_extra, int 
 	strcat(creator_name, " created the group");
 
 	int cur_time = time(NULL);
-	M->id = cur_time;
+	M->id = chat_info->id.id;
 	M->message = creator_name;
 	M->message_len = msg_len;
 	M->unread = 1;
@@ -1241,7 +1241,7 @@ void on_requested_update_chat_received(struct tgl_state *TLS, void *callback_ext
 			int cur_time = chat_info->date;
 			msg.to_id = chat_info->id;
 			msg.from_id = admin_id;
-			msg.id = cur_time;
+			msg.id = chat_info->id.id;
 			msg.message = creator_name;
 			msg.message_len = msg_len;
 			msg.unread = 0;
@@ -1503,32 +1503,30 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 #endif
 				int msg_id = update_current_date_to_table(tb_name, M->date);
 				free(tb_name);
+
+
+				if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
+					M->message = strdup("Audio");
+					M->message_len = strlen("Audio");
+				} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
+					M->message = strdup("Video");
+					M->message_len = strlen("Video");
+				}
+				insert_buddy_msg_to_db(M);
+				if(M->media.type != tgl_message_media_none) {
+					insert_media_info_to_db(M, "");
+					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
+						tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
+						return;
+					} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
+
+					}
+				}
+				// inform to application
+
 				if (msg_id > 0) {
-					send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
-
-					struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
-					msg_data->M = M;
-					msg_data->TLS = TLS;
-					msg_data->send_timer = ecore_timer_add(6, on_msg_received_cb, msg_data);
+					send_message_with_date_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, msg_id, tgl_get_peer_type(M->to_id));
 				} else {
-					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
-						M->message = strdup("Audio");
-						M->message_len = strlen("Audio");
-					} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
-						M->message = strdup("Video");
-						M->message_len = strlen("Video");
-					}
-					insert_buddy_msg_to_db(M);
-					if(M->media.type != tgl_message_media_none) {
-						insert_media_info_to_db(M, "");
-						if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
-							tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
-							return;
-						} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
-
-						}
-					}
-					// inform to application
 					send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, tgl_get_peer_type(M->to_id));
 				}
 
@@ -1553,13 +1551,13 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				}
 
 				// check whether user is present or not
-
+#if 0
 				Eina_Bool is_present_in_peer_db = is_user_present_buddy_table(user_id);
-
 				if (!is_present_in_peer_db) {
 					tgl_do_get_chat_info(TLS, M->to_id, 0, &on_requested_chat_info_received, M);
 					return;
 				}
+#endif
 
 				Eina_Bool is_present_in_chat_db = is_user_present_chat_table(user_id);
 				if (!is_present_in_chat_db) {
@@ -1571,29 +1569,27 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 				char* tb_name = get_table_name_from_number(user_id);
 				int msg_id = update_current_date_to_table(tb_name, M->date);
 				free(tb_name);
+
+				if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
+					M->message = strdup("Audio");
+					M->message_len = strlen("Audio");
+				} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
+					M->message = strdup("Video");
+					M->message_len = strlen("Video");
+				}
+				insert_buddy_msg_to_db(M);
+				if(M->media.type != tgl_message_media_none) {
+					insert_media_info_to_db(M, "");
+					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
+						tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
+						return;
+					}
+				}
+				// inform to application
+
 				if (msg_id > 0) {
-					send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
-					struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
-					msg_data->M = M;
-					msg_data->TLS = TLS;
-					msg_data->send_timer = ecore_timer_add(6, on_msg_received_cb, msg_data);
+					send_message_with_date_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, msg_id, tgl_get_peer_type(M->to_id));
 				} else {
-					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_AUDIO)) {
-						M->message = strdup("Audio");
-						M->message_len = strlen("Audio");
-					} else if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
-						M->message = strdup("Video");
-						M->message_len = strlen("Video");
-					}
-					insert_buddy_msg_to_db(M);
-					if(M->media.type != tgl_message_media_none) {
-						insert_media_info_to_db(M, "");
-						if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
-							tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
-							return;
-						}
-					}
-					// inform to application
 					send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, M->id, tgl_get_peer_type(M->to_id));
 				}
 			}
@@ -1804,7 +1800,7 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 			int cur_time = chat_info->date;
 			msg.to_id = chat_info->id;
 			msg.from_id = admin_id;
-			msg.id = cur_time;
+			msg.id = chat_info->id.id;
 			msg.message = creator_name;
 			msg.message_len = msg_len;
 			msg.unread = 0;
@@ -1969,15 +1965,18 @@ static Eina_Bool send_chat_loading_is_done_response(void *data)
 void on_offline_chat_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
-	for (int i = 0; i < size; i++) {
+	for (int i = size - 1; i >= 0; i--) {
 		struct tgl_message* message = list[i];
 		if (message->service || message->from_id.id == tg_data->id.id) {
 			continue;
 		}
+		/*
 		Eina_Bool ret = insert_buddy_msg_to_db(message);
 		if (ret) {
 			tg_msg_receive(s_info.TLS, message);
 		}
+		*/
+		tg_msg_receive(s_info.TLS, message);
 	}
 }
 
@@ -2070,14 +2069,14 @@ void on_peer_chat_info_received(struct tgl_state *TLS, void *callback_extra, int
 		strcpy(creator_name, UC->user.first_name);
 		strcat(creator_name, " created the group");
 		struct tgl_message msg;
-		int cur_time = chat_info->date;
+
 		msg.to_id = chat_info->id;
 		msg.from_id = admin_id;
-		msg.id = cur_time;
+		msg.id = chat_info->id.id;
 		msg.message = creator_name;
 		msg.message_len = msg_len;
 		msg.unread = 0;
-		msg.date = cur_time;
+		msg.date = chat_info->date;
 		msg.media.type = tgl_message_media_none;
 		msg.service = 1;
 		msg.out = 0;
@@ -2114,7 +2113,7 @@ void on_peer_chat_info_received(struct tgl_state *TLS, void *callback_extra, int
 	}
 
 end:
-	ecore_timer_add(0.5, on_async_peer_info_requested, TLS);
+	ecore_timer_add(1, on_async_peer_info_requested, TLS);
 	return;
 }
 
@@ -2209,6 +2208,7 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 
 	if ((tg_data->chat_list == NULL) || (eina_list_count(tg_data->chat_list) <= 0)) {
 		send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
+		ecore_timer_add(5, on_send_unsent_messages_requested, TLS);
 	} else {
 		// load chat info one by one.
 		tg_data->current_chat_index = 0;
@@ -2560,7 +2560,7 @@ void on_new_group_created(struct tgl_state *TLS, void *callback_extra, int succe
 
 
 				int cur_time = time(NULL);
-				M->id = cur_time;
+				M->id = M->to_id.id;
 				M->message = creator_name;
 				M->message_len = msg_len;
 				M->unread = 1;

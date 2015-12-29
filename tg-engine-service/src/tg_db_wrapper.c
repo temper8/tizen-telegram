@@ -697,6 +697,7 @@ void create_buddy_msg_table(const char* table_name)
 int set_date_item_to_table(char* tb_name, int recent_msg_date)
 {
 	struct tgl_message* last_msg = get_latest_message_from_message_table(tb_name);
+	recent_msg_date = recent_msg_date - 1;
 	if (last_msg) {
 		int old_date = last_msg->date;
 		time_t old_t = old_date;
@@ -724,26 +725,11 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 			time_t t = cur_time;
 			char res[256];
 			sprintf(res, "%d", cur_time);
-#if 0
-			char *format = NULL;
-			format = "%a, %d%b. %Y";
-			struct tm lt;
-			char res[256];
-			(void) localtime_r(&t, &lt);
 
-			if (strftime(res, sizeof(res), format, &lt) == 0) {
-				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-						"date/time into buffer of size %u "
-						"using: '%s'\n",
-						sizeof(res), format);
-			}
-#endif
-			srand(time(NULL));
-			int r = rand();
 			struct tgl_message date_msg;
-			date_msg.id = r;
+			date_msg.id = recent_msg_date;
 			date_msg.media.type = tgl_message_media_none;
-			date_msg.date = recent_msg_date - 1;
+			date_msg.date = recent_msg_date;
 			date_msg.message = res;
 			date_msg.message_len = strlen(res);
 			date_msg.service = 2;
@@ -766,27 +752,10 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 		char res[256];
 		sprintf(res, "%d", cur_time);
 
-#if 0
-		char *format = NULL;
-		format = "%a, %d%b. %Y";
-
-		struct tm lt;
-		char res[256];
-		(void) localtime_r(&t, &lt);
-
-		if (strftime(res, sizeof(res), format, &lt) == 0) {
-			(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-					"date/time into buffer of size %u "
-					"using: '%s'\n",
-					sizeof(res), format);
-		}
-#endif
-		srand(time(NULL));
-		int r = rand();
 		struct tgl_message date_msg;
-		date_msg.id = r;
+		date_msg.id = recent_msg_date;
 		date_msg.media.type = tgl_message_media_none;
-		date_msg.date = recent_msg_date - 1;
+		date_msg.date = recent_msg_date;
 		date_msg.message = res;
 		date_msg.message_len = strlen(res);
 		date_msg.service = 2;
@@ -803,6 +772,7 @@ int set_date_item_to_table(char* tb_name, int recent_msg_date)
 int update_current_date_to_table(char* tb_name, int recent_msg_date)
 {
 	struct tgl_message* last_msg = get_latest_message_from_message_table(tb_name);
+	recent_msg_date = recent_msg_date -1;
 	if (last_msg) {
 		int old_date = last_msg->date;
 		time_t old_t = old_date;
@@ -810,9 +780,7 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 		struct tm old_lt;
 		(void) localtime_r(&old_t, &old_lt);
 
-
-		int cur_time = time(NULL);
-		time_t new_t = cur_time;
+		time_t new_t = recent_msg_date;
 
 		struct tm new_lt;
 		(void) localtime_r(&new_t, &new_lt);
@@ -826,31 +794,15 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 
 			return -1;
 		} else {
-			int cur_time = time(NULL);
-			time_t t = cur_time;
-			char res[256];
-			sprintf(res, "%d", cur_time);
-#if 0
-			char *format = NULL;
-			format = "%a, %d%b. %Y";
 
-			struct tm lt;
+			time_t t = recent_msg_date;
 			char res[256];
-			(void) localtime_r(&t, &lt);
+			sprintf(res, "%d", recent_msg_date);
 
-			if (strftime(res, sizeof(res), format, &lt) == 0) {
-				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-						"date/time into buffer of size %u "strftime
-						"using: '%s'\n",
-						sizeof(res), format);
-			}
-#endif
-			srand(time(NULL));
-			int r = rand();
 			struct tgl_message date_msg;
-			date_msg.id = r;
+			date_msg.id = recent_msg_date;
 			date_msg.media.type = tgl_message_media_none;
-			date_msg.date = recent_msg_date - 1;
+			date_msg.date = recent_msg_date;
 			date_msg.message = res;
 			date_msg.message_len = strlen(res);
 			date_msg.service = 2;
@@ -867,32 +819,15 @@ int update_current_date_to_table(char* tb_name, int recent_msg_date)
 		}
 
 	} else {
-		int cur_time = time(NULL);
-		time_t t = cur_time;
+
+		time_t t = recent_msg_date;
 		char res[256];
-		sprintf(res, "%d", cur_time);
+		sprintf(res, "%d", recent_msg_date);
 
-#if 0
-		char *format = NULL;
-		format = "%a, %d%b. %Y";
-
-		struct tm lt;
-		char res[256];
-		(void) localtime_r(&t, &lt);
-
-		if (strftime(res, sizeof(res), format, &lt) == 0) {
-			(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-					"date/time into buffer of size %u "
-					"using: '%s'\n",
-					sizeof(res), format);
-		}
-#endif
-		srand(time(NULL));
-		int r = rand();
 		struct tgl_message date_msg;
-		date_msg.id = r;
+		date_msg.id = recent_msg_date;
 		date_msg.media.type = tgl_message_media_none;
-		date_msg.date = recent_msg_date - 1;
+		date_msg.date = recent_msg_date;
 		date_msg.message = res;
 		date_msg.message_len = strlen(res);
 		date_msg.service = 2;
@@ -954,10 +889,8 @@ int insert_current_date_to_table(char* tb_name)
 			char res[256];
 			sprintf(res, "%d", cur_time);
 #endif
-			srand(time(NULL));
-			int r = rand();
 			struct tgl_message date_msg;
-			date_msg.id = r;
+			date_msg.id = get_time_stamp_in_macro();
 			date_msg.media.type = tgl_message_media_none;
 			date_msg.date = cur_time;
 			date_msg.message = res;
@@ -997,10 +930,8 @@ int insert_current_date_to_table(char* tb_name)
 		char res[256];
 		sprintf(res, "%d", cur_time);
 #endif
-		srand(time(NULL));
-		int r = rand();
 		struct tgl_message date_msg;
-		date_msg.id = r;
+		date_msg.id = get_time_stamp_in_macro();
 		date_msg.media.type = tgl_message_media_none;
 		date_msg.date = cur_time;
 		date_msg.message = res;

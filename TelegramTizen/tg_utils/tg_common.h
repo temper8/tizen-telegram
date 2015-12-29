@@ -1050,6 +1050,19 @@ static inline TELEGRAM_APP_FILE_TYPE_E telegram_common_get_file_type(const char 
 	return file_type;
 }
 
+static uint64_t get_time_stamp_in_macro()
+{
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+}
+
+static void wait_for(unsigned int secs)
+{
+    int retTime = time(0) + secs;
+    while (time(0) < retTime);
+}
+
 typedef struct _telegram_Time
 {
 	int hours;

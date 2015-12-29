@@ -52,6 +52,7 @@ extern void send_self_user_name_updated_response(tg_engine_data_s *tg_data, char
 extern void send_contacts_and_chats_load_done_response(tg_engine_data_s *tg_data, Eina_Bool is_success);
 extern void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, int buddy_id, char* file_path);
 extern void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int type_of_chat);
+extern void send_message_with_date_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int date_id, int type_of_chat);
 extern void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id, int message_id, char* table_name, Eina_Bool is_success, int type_of_chat);
 extern void send_group_chat_deleted_response(tg_engine_data_s *tg_data, int chat_id, Eina_Bool is_success);
 extern void send_selected_group_chats_deleted_response(tg_engine_data_s *tg_data);

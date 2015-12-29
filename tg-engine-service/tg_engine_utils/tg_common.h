@@ -37,6 +37,13 @@ typedef struct msg_list_container {
 	int current_index;
 } msg_list_container_s;
 
+static uint64_t get_time_stamp_in_macro()
+{
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+}
+
 extern char *ui_utils_get_resource(const char *res_name);
 
 extern char *get_table_name_from_number(const int id);
