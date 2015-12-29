@@ -1942,7 +1942,6 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 								}
 							}
 						}
-						break;
 					}
 
 				}
