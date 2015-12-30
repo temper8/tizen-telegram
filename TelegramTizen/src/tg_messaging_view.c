@@ -630,14 +630,14 @@ static Evas_Object *get_gif_image_from_path(const char* path, Evas_Object* paren
 	if (!path || !parent || !key) {
 			return NULL;
 		}
-	LOGD(">>>>>>>>>> key : %s", key);
-		Evas_Object *media_image = elm_image_add(parent);
-		elm_image_aspect_fixed_set(media_image, EINA_FALSE);
-		elm_image_file_set(media_image, path, key);
-		evas_object_size_hint_weight_set(media_image, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(media_image, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_show(media_image);
-		return media_image;
+	LOGD("key : %s", key);
+	Evas_Object *media_image = elm_image_add(parent);
+	elm_image_aspect_fixed_set(media_image, EINA_FALSE);
+	elm_image_file_set(media_image, path, key);
+	evas_object_size_hint_weight_set(media_image, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(media_image, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(media_image);
+	return media_image;
 }
 
 static Evas_Object *get_image_from_path(const char* path, Evas_Object* parent)
@@ -1302,7 +1302,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					evas_object_data_set(entry, "button_object", (void*)size_btn);
 					evas_object_data_set(entry, "image_size", (void*)strdup(media_size_str));
 
-					ad->loaded_msg_list = eina_list_append(ad->loaded_msg_list, entry);
+					//ad->loaded_msg_list = eina_list_append(ad->loaded_msg_list, entry);
 
 					item_to_display = rec_img_layout;
 				}
@@ -1331,7 +1331,11 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			} else if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
 				evas_object_data_set(entry, "media_type", (void*)strdup("audio"));
 			} else {
-				evas_object_data_set(entry, "media_type", (void*)strdup("animated_image"));
+				if (strstr(media_msg->mime_type, "webp") != NULL) {
+					evas_object_data_set(entry, "media_type", (void*)strdup("image"));
+				} else {
+					evas_object_data_set(entry, "media_type", (void*)strdup("animated_gif"));
+				}
 			}
 		}
 
@@ -1938,15 +1942,15 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 									eina_strbuf_free(buf);
 
-								} else if (strstr(media_type_str, "animated_image") != NULL) {
+								} else if (strstr(media_type_str, "animated_gif") != NULL) {
 
 									int msg_id = (int) evas_object_data_get(entry, "message_id");
 									char key[256] = {0, };
 									snprintf(key, sizeof(key), "%d", msg_id);
 
 									img_item = get_gif_image_from_path(file_path, entry, key);
-									elm_image_animated_set(img_item, EINA_TRUE);
-									elm_image_animated_play_set(img_item, EINA_TRUE);
+									//elm_image_animated_set(img_item, EINA_TRUE);
+									//elm_image_animated_play_set(img_item, EINA_TRUE);
 									int w, h, entry_h;
 									elm_image_object_size_get(img_item, &w, &h);
 									entry_h = (318 * h) / w;
@@ -3155,7 +3159,7 @@ static void _result_cb(attach_panel_h attach_panel, attach_panel_content_categor
 	default:
 		break;
 	}
-
+	attach_panel_hide(attach_panel);
 }
 
 void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
