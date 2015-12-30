@@ -1157,7 +1157,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			Eina_Bool is_blur_image = EINA_FALSE;
 			char* img_path = NULL;
 			Evas_Object *temp = NULL;
-			temp = evas_object_data_del(entry, "img_object");
+			temp = evas_object_data_get(entry, "img_object");
 			if (temp == NULL) {
 				const char *tmp;
 				tmp = ui_utils_get_resource(BLUR_BG);
@@ -1185,6 +1185,10 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 				char* media_file = get_media_path_from_db(atoll(msg->media_id));
 				if (!media_file || !strcmp(media_file, "_null_") || strlen(media_file) <= 0 ||  access(media_file, F_OK) == -1) {
 					is_blur_image = EINA_TRUE;
+				}
+
+				if (media_file && strstr(media_file, ".webp") != NULL) {
+					is_blur_image = EINA_FALSE;
 				}
 				free(media_file);
 
@@ -1226,9 +1230,13 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 							item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
 
 						} else {
-							evas_object_data_set(entry, "image_object", (void*)item_to_display);
-							elm_image_animated_set(item_to_display, EINA_TRUE);
-							elm_image_animated_play_set(item_to_display, EINA_TRUE);
+							if (strstr(media_msg->mime_type, "webp") != NULL) {
+								evas_object_data_set(entry, "image_object", (void*)item_to_display);
+							} else {
+								evas_object_data_set(entry, "image_object", (void*)item_to_display);
+								elm_image_animated_set(item_to_display, EINA_TRUE);
+								elm_image_animated_play_set(item_to_display, EINA_TRUE);
+							}
 						}
 					}
 
@@ -1405,11 +1413,17 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 	Evas_Object *img_item = NULL;
 	char key[256] = {0, };
 	snprintf(key, sizeof(key), "%d", msg->msg_id);
-	if (msg->media_type == tgl_message_media_document) {
-		img_item = get_gif_image_from_path(img_path, entry, key);
-	} else {
+
+	if (img_path && strstr(img_path, ".webp") != NULL) {
 		img_item = get_image_from_path(img_path, entry);
+	} else {
+		if (msg->media_type == tgl_message_media_document) {
+			img_item = get_gif_image_from_path(img_path, entry, key);
+		} else {
+			img_item = get_image_from_path(img_path, entry);
+		}
 	}
+
 	w = 0;
 	h = 0;
 	if (img_item) {
@@ -1417,11 +1431,15 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 		elm_image_object_size_get(img_item, &w, &h);
 	}
 
-	if (w && h) {
-		entry_h = (318 * h) / w;
-	} else {
+	if (img_path && strstr(img_path, ".webp") != NULL) {
 		entry_h = 200;
-		evas_object_data_set(entry, "img_object", NULL);
+	} else {
+		if (w && h) {
+			entry_h = (318 * h) / w;
+		} else {
+			entry_h = 200;
+			evas_object_data_set(entry, "img_object", NULL);
+		}
 	}
 	snprintf(image, size - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
 }
