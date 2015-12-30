@@ -2141,7 +2141,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	if (add_date_item_to_chat(data)) {
 		//ecore_timer_add(2, on_new_text_message_send_cb, chat_scroller);
 		//return;
-		wait_for(1);
+		wait_for(2);
 	}
 
 	int unique_id = get_time_stamp_in_macro();
@@ -2537,7 +2537,7 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 
 		ecore_timer_add(2, on_new_contact_message_send_cb, chat_scroller);
 		return;*/
-		wait_for(1);
+		wait_for(2);
 	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
@@ -2659,7 +2659,7 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 		evas_object_data_set(chat_scroller, "contact_longitude", strdup(longitude));
 		ecore_timer_add(2, on_new_location_message_send_cb, chat_scroller);
 		return;*/
-		wait_for(1);
+		wait_for(2);
 	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
@@ -2795,7 +2795,7 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 
 		ecore_timer_add(2, on_new_media_message_send_cb, chat_scroller);
 		return;*/
-		wait_for(1);
+		wait_for(2);
 	}
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 

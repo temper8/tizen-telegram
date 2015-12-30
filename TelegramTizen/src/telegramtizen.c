@@ -1538,6 +1538,58 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 	} else {
 		id_to_check = to_id;
 	}
+
+	if (type_of_chat == TGL_PEER_USER) {
+		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_USER_INFO_STATE) && app->peer_in_cahtting_data
+				&& app->peer_in_cahtting_data->use_data->peer_id == from_id) {
+			if (with_date) {
+				char* date_id_str = NULL;
+				result = bundle_get_str(rec_msg, "date_id", &date_id_str);
+				int date_id = atoi(date_id_str);
+				on_text_message_received_from_buddy(app, date_id, type_of_chat);
+				wait_for(1);
+				on_text_message_received_from_buddy(app, message_id, type_of_chat);
+			} else {
+				on_text_message_received_from_buddy(app, message_id, type_of_chat);
+			}
+			return result;
+		}
+
+	} else if (type_of_chat == TGL_PEER_CHAT) {
+		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_CHAT_INFO_STATE) && app->peer_in_cahtting_data
+				&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
+			char* tablename = get_table_name_from_number(to_id);
+			tg_message_s* msg = get_message_from_message_table(message_id, tablename);
+			if (msg) {
+				// To be handled.
+				if (with_date) {
+					char* date_id_str = NULL;
+					result = bundle_get_str(rec_msg, "date_id", &date_id_str);
+					int date_id = atoi(date_id_str);
+					on_text_message_received_from_buddy(app, date_id, type_of_chat);
+					wait_for(1);
+					on_text_message_received_from_buddy(app, message_id, type_of_chat);
+				} else {
+					on_text_message_received_from_buddy(app, message_id, type_of_chat);
+				}
+				if(msg->message) {
+					free(msg->message);
+					msg->message = NULL;
+				}
+
+				if(msg->media_id) {
+					free(msg->media_id);
+					msg->media_id = NULL;
+				}
+			}
+			free(msg);
+			free(tablename);
+			return result;
+		}
+	}
+
+
+
 	if (app->main_list) {
 		int main_list_size = eina_list_count(app->main_list);
 		for (int i = 0; i < main_list_size; i++) {
@@ -1742,55 +1794,6 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 				 refresh_main_list_view(app, EINA_TRUE);
 			 }
 		 }
-	}
-
-	if (type_of_chat == TGL_PEER_USER) {
-		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_USER_INFO_STATE) && app->peer_in_cahtting_data
-				&& app->peer_in_cahtting_data->use_data->peer_id == from_id) {
-			if (with_date) {
-				char* date_id_str = NULL;
-				result = bundle_get_str(rec_msg, "date_id", &date_id_str);
-				int date_id = atoi(date_id_str);
-				on_text_message_received_from_buddy(app, date_id, type_of_chat);
-				wait_for(1);
-				on_text_message_received_from_buddy(app, message_id, type_of_chat);
-			} else {
-				on_text_message_received_from_buddy(app, message_id, type_of_chat);
-			}
-			return result;
-		}
-
-	} else if (type_of_chat == TGL_PEER_CHAT) {
-		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_CHAT_INFO_STATE) && app->peer_in_cahtting_data
-				&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
-			char* tablename = get_table_name_from_number(to_id);
-			tg_message_s* msg = get_message_from_message_table(message_id, tablename);
-			if (msg) {
-				// To be handled.
-				if (with_date) {
-					char* date_id_str = NULL;
-					result = bundle_get_str(rec_msg, "date_id", &date_id_str);
-					int date_id = atoi(date_id_str);
-					on_text_message_received_from_buddy(app, date_id, type_of_chat);
-					wait_for(1);
-					on_text_message_received_from_buddy(app, message_id, type_of_chat);
-				} else {
-					on_text_message_received_from_buddy(app, message_id, type_of_chat);
-				}
-				if(msg->message) {
-					free(msg->message);
-					msg->message = NULL;
-				}
-
-				if(msg->media_id) {
-					free(msg->media_id);
-					msg->media_id = NULL;
-				}
-			}
-			free(msg);
-			free(tablename);
-			return result;
-		}
 	}
 
 	if (app->s_app_visible_state == APP_STATE_IN_BACKGROUND || app->current_app_state !=  TG_USER_MAIN_VIEW_STATE) {
