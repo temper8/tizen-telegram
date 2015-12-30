@@ -532,7 +532,7 @@ void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event_info)
 		if (sel_item->peer_type == TGL_PEER_CHAT) {
 
 			tg_chat_info_s* chat_info = get_chat_info(sel_item->peer_id);
-			if (!chat_info) {
+			if (!chat_info || (chat_info && chat_info->user_list_size <= 0)) {
 				// request chat info
 				//show_toast(ad, "Loading chat info. Please wait.");
 				show_loading_popup(ad);

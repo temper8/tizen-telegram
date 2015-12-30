@@ -2322,7 +2322,15 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				online_members++;
 			}
 
-			char *buddy_full_name = get_buddy_name_from_id(chat_info->chat_users[i]);
+			char *buddy_full_name = NULL;
+			int buddy_id = chat_info->chat_users[i];
+
+			if (buddy_id == ad->current_user_data->user_id.id) {
+				buddy_full_name = strdup(ad->current_user_data->print_name);
+			} else {
+				buddy_full_name = get_buddy_name_from_id(buddy_id);
+			}
+
 			if (buddy_full_name) {
 				char *buddy_name =  replace(buddy_full_name, '_', " ");
 				if (buddy_name) {
@@ -2335,6 +2343,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 						strcat(names_of_buddies, buddy_name);
 					}
 				}
+				free(buddy_full_name);
 			}
 		}
 
