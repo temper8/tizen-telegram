@@ -3770,7 +3770,7 @@ static void create_base_gui(appdata_s *ad)
 		ad->chat_background = strdup(ui_utils_get_resource(TG_CHAT_DEFAULT_BG));
 		preference_set_string(TG_CHAT_BG_PREFERENCE, ad->chat_background);
 	}
-
+	launch_tg_server(ad);
 	ecore_timer_add(5, on_init_view_requested, ad);
 	ucol_init();
 }
@@ -3814,7 +3814,6 @@ static bool app_create(void *data)
 
 	}
 	init_service(ad);
-	launch_tg_server(ad);
 	return true;
 }
 

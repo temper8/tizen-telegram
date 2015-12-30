@@ -26,10 +26,11 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		res = bundle_get_str(rec_msg, "phone_number", &ph_no_key_val);
 		res = bundle_get_str(rec_msg, "through_sms", &sms_key_val);
 
+#if 0
 		if (tg_data->tg_state != TG_ENGINE_STATE_NONE && tg_data->tg_state != TG_ENGINE_STATE_REGISTRATION) {
 			on_restart_service_requested(tg_data);
 		}
-
+#endif
 		Eina_Bool th_sms = EINA_TRUE;
 
 		if (strcmp(sms_key_val, "true") == 0) {
