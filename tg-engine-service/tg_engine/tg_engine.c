@@ -2011,6 +2011,11 @@ static Eina_Bool on_load_offline_messages(void *data)
 			if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
 				for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
 					tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
+
+					if (UC->id.id == 333000 || UC->id.id == 777000) {
+						continue;
+					}
+
 					struct tgl_message *last_msg = UC->last;
 					if (last_msg) {
 						// check last message in message table
