@@ -15,10 +15,11 @@
 
 void process_registration_command(tg_engine_data_s *tg_data, char* phone_no, Eina_Bool trough_sms)
 {
+#if 0
 	if (trough_sms && (tg_data->tg_state != TG_ENGINE_STATE_REGISTRATION || !phone_no)) {
 		return;
 	}
-
+#endif
 	if (!tg_data || !tgl_engine_get_TLS()) {
 		// service not running. error handling
 		return;

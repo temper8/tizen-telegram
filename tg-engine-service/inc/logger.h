@@ -5,8 +5,8 @@
  *      Author: sandeep
  */
 
-#ifndef LOGGER_H_
-#define LOGGER_H_
+#ifndef __LOGGER_H__
+#define __LOGGER_H__
 
 #include <dlog.h>
 
@@ -21,7 +21,15 @@
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 
+#define LOGI(fmt, arg...) dlog_print(DLOG_INFO, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
+
 #define DBG(fmt, arg...) dlog_print(DLOG_DEBUG, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
+
+#define LOGD(fmt, arg...) dlog_print(DLOG_DEBUG, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 
@@ -30,6 +38,10 @@
         __func__, __LINE__, ##arg)
 
 #define ERR(fmt, arg...) dlog_print(DLOG_ERROR, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
+
+#define LOGE(fmt, arg...) dlog_print(DLOG_ERROR, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 
@@ -49,4 +61,41 @@
     } \
 }
 
-#endif /* LOGGER_H_ */
+#define retv_if(expr, val) do { \
+	if (expr) { \
+		ERR("(%s) -> %s() return", #expr, __FUNCTION__); \
+		return (val); \
+	} \
+} while (0)
+
+#define ret_if(expr) do { \
+	if (expr) { \
+		ERR("(%s) -> %s() return", #expr, __FUNCTION__); \
+		return; \
+	} \
+} while (0)
+
+#define goto_if(expr, val) do { \
+	if (expr) { \
+		ERR("(%s) -> goto", #expr); \
+		goto val; \
+	} \
+} while (0)
+
+#define break_if(expr) { \
+	if (expr) { \
+		ERR("(%s) -> break", #expr); \
+		break; \
+	} \
+}
+
+#define continue_if(expr) { \
+	if (expr) { \
+		ERR("(%s) -> continue", #expr); \
+		continue; \
+	} \
+}
+
+
+
+#endif /* __LOGGER_H__ */
