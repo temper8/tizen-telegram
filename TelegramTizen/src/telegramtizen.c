@@ -2734,7 +2734,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 	} else if (strcmp(rec_key_val, "logout_completed") == 0) {
 
 		free_app_data(app, EINA_TRUE);
-
+		hide_loading_popup(app);
 		app->phone_number = NULL;
 		app->buddy_list = NULL;
 		app->unknown_buddy_list = NULL;
@@ -2766,10 +2766,13 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		}
 
 		init_service(app);
-		hide_loading_popup(app);
-		elm_naviframe_item_pop(app->nf);
-		ecore_timer_add(1, on_logout_completed, app);
 
+		elm_naviframe_item_pop(app->nf);
+		//ecore_timer_add(1, on_logout_completed, app);
+		elm_naviframe_item_pop(app->nf);
+		app->current_app_state = TG_REGISTRATION_STATE;
+		launch_init_screen(app);
+		return result;
 	}
 
 	if (strcmp(rec_key_val, "contacts_and_chats_load_done") == 0) {

@@ -152,6 +152,7 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		tg_data->mhash = NULL;
 		tg_data->lazy_init_idler = NULL;
 		tg_data->code_response_timer = NULL;
+		tg_data->get_string = NULL;
 
 		init_tl_engine(data);
 		tgl_login(tgl_engine_get_TLS());
