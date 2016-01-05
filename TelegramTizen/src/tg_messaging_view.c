@@ -3709,7 +3709,41 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	char temp_name[512] = {'\0'};
 
 	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
+		//snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+
+		char *phone_num = get_buddy_phone_num_from_id(sel_item->use_data->peer_id);
+
+		if (phone_num == NULL || (phone_num && strcmp(phone_num, "+") == 0)) {
+			char *user_name = NULL;
+			char *first_name = NULL;
+			char *last_name = NULL;
+			char *phone_num = NULL;
+			get_buddy_contact_details_from_db(sel_item->use_data->peer_id, &first_name, &last_name, &phone_num);
+
+			if (!first_name || strstr(first_name ,"null") != 0) {
+				first_name = NULL;
+			}
+
+			if (!first_name && !last_name && phone_num) {
+				first_name = phone_num;
+			}
+
+			if (!last_name || strstr(last_name ,"null") != 0) {
+				last_name = "";
+			}
+			user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+			strcpy(user_name, first_name);
+			strcat(user_name, " ");
+			strcat(user_name, last_name);
+			snprintf(temp_name, 512, "%s", user_name);
+			free(user_name);
+
+		} else {
 			snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+		}
+		free(phone_num);
+
+
 	} else {
 		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
 		snprintf(temp_name, 512, "%s", user_name);

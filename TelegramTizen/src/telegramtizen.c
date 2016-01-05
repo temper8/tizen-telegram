@@ -448,6 +448,30 @@ void load_main_list_data(appdata_s *ad)
 						if (peer_info->peer_type == TGL_PEER_USER) {
 							if (peer_info->is_unknown == 1) {
 								main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
+								if (main_list_item->buddy_display_name == NULL || (main_list_item->buddy_display_name && strcmp(main_list_item->buddy_display_name, "+") == 0)) {
+									char *user_name = NULL;
+									char *first_name = NULL;
+									char *last_name = NULL;
+									char *phone_num = NULL;
+									get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+									if (!first_name || strstr(first_name ,"null") != 0) {
+										first_name = NULL;
+									}
+
+									if (!first_name && !last_name && phone_num) {
+										first_name = phone_num;
+									}
+
+									if (!last_name || strstr(last_name ,"null") != 0) {
+										last_name = "";
+									}
+									user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+									strcpy(user_name, first_name);
+									strcat(user_name, " ");
+									strcat(user_name, last_name);
+									main_list_item->buddy_display_name = user_name;
+								}
 							} else {
 								char *user_name = NULL;
 								char *first_name = NULL;
@@ -3044,6 +3068,30 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 					if (peer_info->peer_type == TGL_PEER_USER) {
 						if (peer_info->is_unknown == 1) {
 							main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
+							if (main_list_item->buddy_display_name == NULL || (main_list_item->buddy_display_name && strcmp(main_list_item->buddy_display_name, "+") == 0)) {
+								char *user_name = NULL;
+								char *first_name = NULL;
+								char *last_name = NULL;
+								char *phone_num = NULL;
+								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+								if (!first_name || strstr(first_name ,"null") != 0) {
+									first_name = NULL;
+								}
+
+								if (!first_name && !last_name && phone_num) {
+									first_name = phone_num;
+								}
+
+								if (!last_name || strstr(last_name ,"null") != 0) {
+									last_name = "";
+								}
+								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+								strcpy(user_name, first_name);
+								strcat(user_name, " ");
+								strcat(user_name, last_name);
+								main_list_item->buddy_display_name = user_name;
+							}
 						} else {
 							char *user_name = NULL;
 							char *first_name = NULL;
@@ -3363,6 +3411,30 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 									if (peer_info->peer_type == TGL_PEER_USER) {
 										if (peer_info->is_unknown == 1) {
 											main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
+											if (main_list_item->buddy_display_name == NULL || (main_list_item->buddy_display_name && strcmp(main_list_item->buddy_display_name, "+") == 0)) {
+												char *user_name = NULL;
+												char *first_name = NULL;
+												char *last_name = NULL;
+												char *phone_num = NULL;
+												get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+												if (!first_name || strstr(first_name ,"null") != 0) {
+													first_name = NULL;
+												}
+
+												if (!first_name && !last_name && phone_num) {
+													first_name = phone_num;
+												}
+
+												if (!last_name || strstr(last_name ,"null") != 0) {
+													last_name = "";
+												}
+												user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
+												strcpy(user_name, first_name);
+												strcat(user_name, " ");
+												strcat(user_name, last_name);
+												main_list_item->buddy_display_name = user_name;
+											}
 										} else {
 											char *user_name = NULL;
 											char *first_name = NULL;

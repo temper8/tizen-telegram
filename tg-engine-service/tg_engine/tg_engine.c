@@ -2184,6 +2184,7 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 						buddy->is_unknown = 1;
 						init_insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
 						insert_peer_into_database(UC, last_msg_id[i], unread_count[i], 1);
+						tgl_do_get_user_info(TLS, buddy->id, 0, on_buddy_info_loaded, NULL);
 					}
 				}
 				break;
