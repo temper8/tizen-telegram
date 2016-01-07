@@ -2041,7 +2041,13 @@ Eina_Bool add_date_item_to_chat(void *data)
 {
 	Evas_Object *chat_scroller = data;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
+	if (!ad) {
+		return EINA_FALSE;
+	}
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
+	if (!ad->peer_list) {
+		return EINA_FALSE;
+	}
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
@@ -2080,6 +2086,9 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 		return ECORE_CALLBACK_CANCEL;
 
 	int unique_id = get_time_stamp_in_macro();
+	if (unique_id < 0) {
+		unique_id = -1 * unique_id;
+	}
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -2133,6 +2142,9 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 {
 	Evas_Object* chat_scroller = data;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
+	if (!ad) {
+		return;
+	}
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 	Evas_Object* text_entry = evas_object_data_get(chat_scroller, "text_entry");
 	int ret = 1;
@@ -2149,6 +2161,9 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	}
 
 	int unique_id = get_time_stamp_in_macro();
+	if (unique_id < 0) {
+		unique_id = -1 * unique_id;
+	}
 	tg_message_s msg;
 	msg.msg_id = unique_id;
 	msg.from_id = ad->current_user_data->user_id.id;
@@ -2541,6 +2556,9 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 {
 	Evas_Object *chat_scroller = data;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
+	if (!ad) {
+		return;
+	}
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 
 	if (add_date_item_to_chat(data)) {
@@ -2556,7 +2574,9 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
 	int unique_id = get_time_stamp_in_macro();
-
+	if (unique_id < 0) {
+		unique_id = -1 * unique_id;
+	}
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
 
@@ -2665,6 +2685,9 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 {
 	Evas_Object *chat_scroller = data;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
+	if (!ad) {
+		return;
+	}
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 
 	if (add_date_item_to_chat(data)) {
@@ -2678,7 +2701,9 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
 	int unique_id = get_time_stamp_in_macro();
-
+	if (unique_id < 0) {
+		unique_id = -1 * unique_id;
+	}
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
 
@@ -2798,6 +2823,9 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 {
 	Evas_Object *chat_scroller = data;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
+	if (!ad) {
+		return;
+	}
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 	if (add_date_item_to_chat(data)) {
 /*		int temp_file_type = file_type;
@@ -2813,7 +2841,9 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 
 	int unique_id = get_time_stamp_in_macro();
-
+	if (unique_id < 0) {
+		unique_id = -1 * unique_id;
+	}
 	char unique_id_str[50];
 	sprintf(unique_id_str, "%d", unique_id);
 
@@ -3321,7 +3351,13 @@ void on_media_attach_dismissed_cb(void *data, Evas_Object *obj, void *event_info
 static void on_media_attach_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
 {
 	Evas_Object* chat_scroller = data;
+	if (!chat_scroller) {
+		return;
+	}
 	appdata_s *ad = evas_object_data_get(chat_scroller, "app_data");
+	if (!ad) {
+		return;
+	}
 	attach_panel_h attach_panel = NULL;
 	int ret;
 	bool visible = false;
@@ -3329,11 +3365,13 @@ static void on_media_attach_clicked(void *data, Evas_Object *obj, const char *em
 	attach_panel = evas_object_data_get(ad->conform, "attach_panel");
 	if (attach_panel) {
 			if (attach_panel_get_visibility(attach_panel, &visible) != ATTACH_PANEL_ERROR_NONE) {
+				attach_panel_set_result_cb(attach_panel, _result_cb, chat_scroller);
 				return;
 			}
 			if (!visible) {
 				attach_panel_show(attach_panel);
 			}
+			attach_panel_set_result_cb(attach_panel, _result_cb, chat_scroller);
 			return;
 		}
 

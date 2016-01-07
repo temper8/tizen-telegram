@@ -904,7 +904,9 @@ int insert_current_date_to_table(char* tb_name)
 				free(last_msg->message);
 			}
 			free(last_msg);
-
+			if (date_msg.id < 0) {
+				date_msg.id = -1 * date_msg.id;
+			}
 			return date_msg.id;
 		}
 
@@ -941,6 +943,9 @@ int insert_current_date_to_table(char* tb_name)
 		date_msg.out = 0;
 		date_msg.is_marked_for_delete = 0;
 		insert_msg_into_db(&date_msg, tb_name, t);
+		if (date_msg.id < 0) {
+			date_msg.id = -1 * date_msg.id;
+		}
 		return date_msg.id;
 	}
 	return -1;

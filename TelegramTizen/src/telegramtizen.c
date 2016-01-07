@@ -3760,7 +3760,7 @@ void on_tg_service_result_cb(app_control_h request, app_control_h reply, app_con
 	}
 }
 
-static void launch_tg_server(void *data)
+void launch_tg_server(void *data)
 {
 	appdata_s *ad = data;
 	app_control_h app_control = NULL;

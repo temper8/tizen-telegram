@@ -2000,6 +2000,9 @@ int insert_current_date_to_table(char* tb_name)
 			date_msg.media_id = "";
 			date_msg.is_marked_for_delete = 0;
 			insert_msg_into_db(&date_msg, tb_name, date_msg.msg_id);
+			if (date_msg.msg_id < 0) {
+				date_msg.msg_id = -1 * date_msg.msg_id;
+			}
 			return date_msg.msg_id;
 		}
 
@@ -2022,6 +2025,9 @@ int insert_current_date_to_table(char* tb_name)
 		date_msg.media_id = "";
 		date_msg.is_marked_for_delete = 0;
 		insert_msg_into_db(&date_msg, tb_name, date_msg.msg_id);
+		if (date_msg.msg_id < 0) {
+			date_msg.msg_id = -1 * date_msg.msg_id;
+		}
 		return date_msg.msg_id;
 	}
 	return -1;

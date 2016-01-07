@@ -1146,4 +1146,6 @@ extern char *str_replace(char *orig, char *rep, char *with);
 
 extern Eina_Bool on_load_main_view_requested(void *data);
 
+extern void launch_tg_server(void *data);
+
 #endif /* TG_COMMON_H_ */

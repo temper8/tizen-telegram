@@ -12,9 +12,10 @@ static void failed_to_communicate_server(appdata_s *ad)
 	if (!ad)
 		return;
 
-	show_toast(ad, "server is not ready");
+	//show_toast(ad, "server is not ready");
 	hide_loading_popup(ad);
-	//show_toast(ad, "Check your network settings.");
+	// start server
+	launch_tg_server(ad);
 }
 
 void send_request_for_restart_server(appdata_s *ad, service_client* service_client)
