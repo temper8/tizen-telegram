@@ -3904,6 +3904,11 @@ app_pause(void *data)
 	appdata_s *app_data = data;
 	if (app_data) {
 		app_data->s_app_visible_state = APP_STATE_IN_BACKGROUND;
+		int unread_msg_cnt = get_number_of_unread_messages();
+		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+		if (BADGE_ERROR_NONE != err) {
+
+		}
 	}
 }
 

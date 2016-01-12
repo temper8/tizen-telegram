@@ -1421,10 +1421,12 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 	if (img_path && strstr(img_path, ".webp") != NULL) {
 		img_item = get_image_from_path(img_path, entry);
 	} else {
-		if (msg->media_type == tgl_message_media_document) {
-			img_item = get_gif_image_from_path(img_path, entry, key);
-		} else {
-			img_item = get_image_from_path(img_path, entry);
+		if (img_path) {
+			if (msg->media_type == tgl_message_media_document) {
+				img_item = get_gif_image_from_path(img_path, entry, key);
+			} else {
+				img_item = get_image_from_path(img_path, entry);
+			}
 		}
 	}
 
@@ -3377,6 +3379,9 @@ static void on_media_attach_clicked(void *data, Evas_Object *obj, const char *em
 
 	ret = attach_panel_create(ad->conform, &attach_panel);
 
+	if (!attach_panel) {
+		return;
+	}
 	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_IMAGE, NULL);
 	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_CAMERA, NULL);
 	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VOICE, NULL);

@@ -5144,13 +5144,32 @@ int get_unread_message_count(char* table_name)
 	char unread_str[50];
 	sprintf(unread_str, "%d", 1);
 
-	char out_str[50];
-	sprintf(out_str, "%d", 0);
 
-	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(unread_str) + 1);
+
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(unread_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_OUT_MSG) + strlen(" = ") + strlen(unread_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" = ") + strlen(unread_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_UNREAD);
 	strcat(where_clause, " = ");
 	strcat(where_clause, unread_str);
+	strcat(where_clause, " AND ");
+	strcat(where_clause, MESSAGE_INFO_TABLE_OUT_MSG);
+	strcat(where_clause, " != ");
+	strcat(where_clause, unread_str);
+	strcat(where_clause, " AND ");
+	strcat(where_clause, MESSAGE_INFO_TABLE_SERVICE);
+	strcat(where_clause, " < ");
+	strcat(where_clause, unread_str);
+
+
+#if 0
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(unread_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_OUT_MSG) + strlen(" != ") + strlen(unread_str) + 1);
+	strcpy(where_clause, MESSAGE_INFO_TABLE_UNREAD);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unread_str);
+	strcat(where_clause, " AND ");
+	strcat(where_clause, MESSAGE_INFO_TABLE_OUT_MSG);
+	strcat(where_clause, " != ");
+	strcat(where_clause, unread_str);
+#endif
 
 	num_of_rows = get_number_of_rows(table_name, where_clause);
 	free(where_clause);
