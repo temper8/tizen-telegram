@@ -718,6 +718,14 @@ void add_contact_to_phone_book(appdata_s *ad)
 	}
 
 }
+static Eina_Bool on_contacts_reloaded(void *data)
+{
+	appdata_s *ad = data;
+	elm_naviframe_item_pop(ad->nf);
+	ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
+	show_floating_button(ad);
+	return ECORE_CALLBACK_CANCEL;
+}
 
 void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
 {
@@ -735,10 +743,6 @@ void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bo
 			load_main_list_data(ad);
 			ecore_timer_add(1, on_load_main_view_requested, ad);
 		} else {
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
-			show_floating_button(ad);
-
 			// add new buddy to list
 			Evas_Object *peer_list = evas_object_data_get(ad->nf, "search_list");
 			if (peer_list) {
@@ -755,6 +759,7 @@ void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bo
 					_append_contact_item(peer_list, ad, ad->contact_list);
 				}
 			}
+			ecore_timer_add(5, on_contacts_reloaded, ad);
 		}
 	} else {
 		// show failed message
@@ -782,6 +787,7 @@ static void on_new_contact_done_clicked(void *data, Evas_Object *obj, void *even
 		last_name = elm_entry_markup_to_utf8(elm_object_text_get(last_name_entry));
 
 	if ((phone_num && strlen(phone_num) > 0) && (first_name && strlen(first_name) > 0) && (last_name && strlen(last_name) > 0)) {
+		add_contact_to_phone_book(ad);
 		show_loading_popup(ad);
 		send_add_buddy_request(ad, ad->service_client, -1, first_name, last_name, phone_num);
 	} else {

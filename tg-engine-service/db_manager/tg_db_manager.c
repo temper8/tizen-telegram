@@ -28,7 +28,7 @@ sqlite3* create_database(char* database_name)
 		return NULL;
 
 	int ret;
-	sqlite3 *db;
+	sqlite3 *db = NULL;
 	ret = sqlite3_open(database_name, &db);
 	//ret = sqlite3_open_v2(database_name, &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE, NULL);
 	if(ret) {

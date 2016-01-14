@@ -805,14 +805,18 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
 
+	char temp_name[512] = {'\0'};
+	char* user_name = replace(ad->peer_in_cahtting_data->use_data->print_name, '_', " ");
+	snprintf(temp_name, 512, "%s", user_name);
+	free(user_name);
 
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, ad->main_item_in_cahtting_data->buddy_display_name, NULL, NULL, scroller, NULL);
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, temp_name, NULL, NULL, scroller, NULL);
 	elm_object_item_part_text_set(navi_item, "subtitle", "Subtitle");
 
 
 	/*********************** set last seen ******************************/
 
-	Eina_List* buddy_details_array = get_buddy_info(ad->main_item_in_cahtting_data->peer_id);
+	Eina_List* buddy_details_array = get_buddy_info(ad->peer_in_cahtting_data->use_data->peer_id);
 	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
 		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
 		if (buddy_details && eina_list_count(buddy_details) > 0) {

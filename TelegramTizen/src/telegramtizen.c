@@ -1864,6 +1864,8 @@ static int on_new_contact_added(appdata_s *app, bundle *const rec_msg)
 	if (is_success) {
 		load_buddy_list_data(app);
 		load_peer_data(app);
+	} else {
+		show_toast(app, "Failed to add contact. Please try after sometime.");
 	}
 	hide_loading_popup(app);
 	if (app->current_app_state == TG_ADD_CONTACT_STATE) {
@@ -2047,6 +2049,7 @@ static int on_group_chat_deleted_response(appdata_s *app, bundle *const rec_msg)
 
 			elm_naviframe_item_pop(app->nf);
 			app->current_app_state = TG_USER_MAIN_VIEW_STATE;
+			show_floating_button(app);
 		}
 
 		if (app->current_app_state ==  TG_SET_CHAT_INFO_STATE && app->peer_in_cahtting_data
