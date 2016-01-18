@@ -549,7 +549,7 @@ Eina_List* get_all_peer_details(char* start_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-	//peer_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL);
+	//peer_details = get_values_from_table_sync(db, table_name, col_names, col_types, NULL, -1, -1);
 	char *where_clause = NULL;
 	if (start_name) {
 		where_clause = (char *)malloc(strlen(PEER_INFO_TABLE_PRINT_NAME) + strlen(" LIKE '") + strlen(start_name) + strlen("%'") + 1);
@@ -758,7 +758,7 @@ Eina_List* get_group_chat_details()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-	chat_details = get_values_from_table_sync(table_name, col_names, col_types, NULL);
+	chat_details = get_values_from_table_sync(table_name, col_names, col_types, NULL, -1, -1);
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
@@ -813,7 +813,7 @@ tg_chat_info_s* get_chat_info(int chat_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, chat_id_str);
 
-	chat_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	chat_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	eina_list_free(col_names);
@@ -968,7 +968,7 @@ Eina_List* get_registered_user_info()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-	user_details = get_values_from_table_sync(table_name, col_names, col_types, NULL);
+	user_details = get_values_from_table_sync(table_name, col_names, col_types, NULL, -1, -1);
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
@@ -1165,7 +1165,7 @@ char* get_chat_bg()
 	strcpy(where_clause, TG_SETTINGS_ROW_ID);
 	strcat(where_clause, " = ");
 	strcat(where_clause, user_id_str);
-	settings_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	settings_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 	if (settings_array && eina_list_count(settings_array) > 0) {
 		Eina_List* settings_details = eina_list_nth(settings_array, 0);
@@ -1209,7 +1209,7 @@ char* get_profile_pic_path(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 
@@ -1256,7 +1256,7 @@ char* get_buddy_name_from_id(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 
@@ -1303,7 +1303,7 @@ Eina_Bool is_phone_number_exists_in_buddy_list(const char *phone_num)
 	strcat(where_clause, phone_num);
 	strcat(where_clause, "%'");
 
-	Eina_List* buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	Eina_List* buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
@@ -1347,7 +1347,7 @@ char* get_buddy_phone_num_from_id(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
@@ -1391,7 +1391,7 @@ int  get_buddy_block_status(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	int is_unknown = 0;
@@ -1436,7 +1436,7 @@ int  get_buddy_delete_status(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	int is_unknown = 0;
@@ -1481,7 +1481,7 @@ int  get_buddy_unknown_status(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	int is_unknown = 0;
@@ -1526,7 +1526,7 @@ int  get_buddy_online_status(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	buddy_details_array = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	int is_online = -1;
@@ -1602,7 +1602,7 @@ Eina_List* get_buddy_info(int buddy_id)
 	strcat(where_clause, " = ");
 	strcat(where_clause, buddy_id_str);
 
-	user_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	user_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	free(where_clause);
 
 	eina_list_free(col_names);
@@ -2087,7 +2087,7 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 	strcat(where_clause, " = ");
 	strcat(where_clause, msg_id_str);
 
-	message_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	message_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 
 	free(where_clause);
 	eina_list_free(col_names);
@@ -2851,7 +2851,7 @@ int get_media_size_from_db(long long media_id)
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DOCUMENT_SIZE);
 
-	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 
 	if (!vals) {
 		//("DB error");
@@ -2895,7 +2895,7 @@ char* get_video_thumb_path_from_db(long long media_id)
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE);
 
-	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	file_path = NULL;
 
 	if (!vals) {
@@ -2944,7 +2944,7 @@ char* get_media_path_from_db(long long media_id)
 	Eina_List* col_names = NULL;
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_FILE_PATH);
 
-	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	file_path = NULL;
 
 	if (!vals) {
@@ -3012,7 +3012,7 @@ Eina_List* get_image_sizes_from_db(long long media_id)
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_SIZE4);
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_WIDTH4);
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_PHOTO_HEIGHT4);
-	vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	eina_list_free(col_types);
 	eina_list_free(col_names);
 
@@ -3168,7 +3168,7 @@ Eina_List* get_image_details_from_db(long long media_id)
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DOCUMENT_DC);
 	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE);
 
-	vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	eina_list_free(col_types);
 	eina_list_free(col_names);
 
@@ -4230,7 +4230,7 @@ void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **l
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_NAME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHONE_NO);
 
-	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, -1, -1);
 	file_path = NULL;
 
 	if (!vals) {

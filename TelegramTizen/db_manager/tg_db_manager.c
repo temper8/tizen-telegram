@@ -520,7 +520,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 }
 
-Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* wc)
+Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* wc, int limit, int offset)
 {
 	sqlite3_stmt *stmt;
 	const char *name;
@@ -575,7 +575,12 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		ptr++;
 	}
 
-	ptr += sprintf(ptr, " FROM %s %s;", table_name, where_clause ? where_clause : "");
+	if (limit == -1 || offset == -1) {
+		ptr += sprintf(ptr, " FROM %s %s;", table_name, where_clause ? where_clause : "");
+	} else {
+		ptr += sprintf(ptr, " FROM %s %s LIMIT %d OFFSET %d;", table_name, where_clause ? where_clause : "", limit, offset);
+	}
+
 
 	LOGD("Query: %s", query);
 
