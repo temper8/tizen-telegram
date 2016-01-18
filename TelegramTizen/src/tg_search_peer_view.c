@@ -880,8 +880,21 @@ static void on_group_chat_clicked(void *data, Evas_Object *obj, void *event_info
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
-	delete_floating_button(ad);
-	launch_contact_selction_view(ad);
+
+	if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
+		delete_floating_button(ad);
+		launch_contact_selction_view(ad);
+	} else {
+		char msg_str[512]={0,};
+		int size = 0;
+		snprintf(msg_str, sizeof(msg_str) - 1, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), size);
+
+		char org_msg[1024] = {0,};
+		strcpy(org_msg, msg_str);
+		strcat(org_msg, ". ");
+		strcat(org_msg, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
+		show_toast(ad, org_msg);
+	}
 }
 
 static void on_secret_chat_clicked(void *data, Evas_Object *obj, void *event_info)
