@@ -481,3 +481,9 @@ msgstr "Eliminación automática al transcurrir un tiempo determinado"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "No reenviable"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "¿Iniciar %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Enviar mensaje a %s"
+

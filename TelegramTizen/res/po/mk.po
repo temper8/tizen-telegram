@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "АБВГДЃЕЖЗЅИЈКЛЉМНЊОПРСТЌУФХЦЧЏШ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Светски %1$sнајбрзата%2$s апликација за размена на пораки\nТаа е %3$sбесплатна%4$s и %5$sбезбедна%6$s."
 
@@ -134,7 +137,7 @@ msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
 msgstr "Последен пат видено пред %d часа"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
-msgstr "Последно видено пред една недела"
+msgstr "Последно видено пред една седмица"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
 msgstr "Последно видено пред еден месец"
@@ -477,4 +480,10 @@ msgstr "Автоматски избришано по претходно пост
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Не може да се препрати"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Почни %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Прати порака на %s"
 

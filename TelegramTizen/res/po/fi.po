@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Maailman %1$snopein%2$s viestintäsovellus\nSe on %3$smaksuton%4$s ja %5$sturvallinen%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Poistetaan automaattisesti esiasetetun ajan kuluttua"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Ei voi siirtää"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Käynnistetäänkö %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Lähetä viesti vastaanottajalle %s"
 

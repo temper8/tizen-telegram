@@ -822,7 +822,7 @@ static int util_get_utf8_len(char ch)
 		return -ENOENT;
 	}
 
-	for (idx = 0; idx < len;) {
+	for (idx = 0; idx <= len;) {
 		ret = ucol_ncompare(haystack + idx, needle, needle_len);
 		if (ret == 0) {
 			return idx;

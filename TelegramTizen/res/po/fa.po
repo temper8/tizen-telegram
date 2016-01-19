@@ -481,3 +481,9 @@ msgstr "پس از گذشت زمان پیش‌تنظیم، به طور خودکا
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "هدایت ممکن نیست"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s راه اندازی شود؟"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "ارسال پیام به ‎%s"
+

@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Världens %1$ssnabbaste%2$s meddelandeprogram\nDet är %3$sgratis%4$s och %5$ssäkert%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Tas bort automatiskt efter en förinställd tid"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Går inte att vidarebefordra"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Starta %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Skicka meddelande till %s"
 

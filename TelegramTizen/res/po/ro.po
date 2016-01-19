@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sCea mai rapidă%2$s aplicaţie de mesagerie\nEste %3$sgratuită%4$s şi %5$ssigură%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Se şterge automat după un interval presetat"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Nu se poate redirecţiona"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Porniţi %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Trimitere mesaj către %s"
 

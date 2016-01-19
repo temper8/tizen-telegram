@@ -481,3 +481,9 @@ msgstr "يتم الحذف تلقائياً بعد وقت مضبوط مسبقاً
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "لا يمكن إعادة التوجيه"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "هل ترغب في بدء %s؟"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "إرسال رسالة إلى %s"
+

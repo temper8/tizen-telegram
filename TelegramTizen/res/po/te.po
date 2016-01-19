@@ -481,3 +481,9 @@ msgstr "ప్రీసెట్ సమయం తర్వాత స్వయం
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "ఫార్వార్డ్ చేయబడదు"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s ను మొదలుపెట్టాలా?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%sకు సందేశాన్ని పంపు"
+

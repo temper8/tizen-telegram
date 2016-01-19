@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪьЮЯ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sНай-бързото%2$s в света приложение за съобщения\nТо е %3$sбезплатно%4$s и %5$sзащитено%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Автоматично изтрит след предварително 
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Не може да се препраща"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Стартиране на %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Изпращане на съобщение до %s"
 

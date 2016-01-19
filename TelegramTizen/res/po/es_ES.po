@@ -481,3 +481,9 @@ msgstr "Se elimina automáticamente después de un tiempo predefinido"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "No se puede reenviar"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "¿Iniciar %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Enviar mensaje a %s"
+

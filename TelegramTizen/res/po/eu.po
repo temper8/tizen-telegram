@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Munduko mezularitza aplikaziorik %1$sazkarrena%2$s\n%3$sDoakoa%4$s eta %5$ssegurua%6$s da."
 
@@ -477,4 +480,10 @@ msgstr "Automatikoki ezabatu da ezarritako denbora igarotakoan"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Ezin da birbidali"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Hasi %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Bidali mezua %s-(e)ri"
 

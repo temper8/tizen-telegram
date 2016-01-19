@@ -481,3 +481,9 @@ msgstr "Алдын ала орнатылған уақыттан кейін ав�
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Бағытын өзгерту мүмкін емес"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s бастау керек пе?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s контактісіне хабар жіберу"
+

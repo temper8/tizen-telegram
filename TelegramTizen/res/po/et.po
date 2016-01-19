@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Maailma %1$skiireim%2$s sõnumsiderakendus\nSee on %3$stasuta%4$s ja %5$sturvaline%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automaatselt kustutatud pärast eelmääratud aega"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Ei saa edastada"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Käivitada %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Saada sõnum kontaktile %s"
 

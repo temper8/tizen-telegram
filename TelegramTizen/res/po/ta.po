@@ -481,3 +481,9 @@ msgstr "முன்னமைத்த நேரத்திற்குப் �
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "முன்னனுப்ப இயலாது"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s துவக்கவா?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s-க்கு தகவல் அனுப்பவும்"
+

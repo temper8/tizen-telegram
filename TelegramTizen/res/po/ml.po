@@ -481,3 +481,9 @@ msgstr "ഒരു മുൻക്രമീകൃത സമയത്തിന് 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "ഫോർവേഡ് ചെയ്യാനാവില്ല"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s ആരംഭിക്കണമോ?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s-ലേക്ക് സന്ദേശമയയ്ക്കുക"
+

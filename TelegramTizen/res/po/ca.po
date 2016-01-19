@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ÀÇÉÈÍÓÒÚÜABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "L'aplicació de missatgeria %1$smés ràpida%2$s del món\nÉs %3$sgratuïta%4$s i %5$ssegura%6$s."
 
@@ -347,10 +350,10 @@ msgid "IDS_TGRAM_OPT_DISABLE"
 msgstr "Deshabilitar"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
-msgstr "Compartir dades contacte"
+msgstr "Compartir detalls contacte"
 
 msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
-msgstr "Les dades del contacte %1$s es compartiran amb %2$s."
+msgstr "Els detalls del contacte %1$s es compartiran amb %2$s."
 
 msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
 msgstr "Compartir"
@@ -386,10 +389,10 @@ msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
 msgstr "Privadesa i seguretat"
 
 msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
-msgstr "Selecc imatge de fons"
+msgstr "Establir imatge de fons"
 
 msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
-msgstr "Selecc foto del perfil"
+msgstr "Establir foto del perfil"
 
 msgid "IDS_TGRAM_OPT_EDIT_NAME"
 msgstr "Editar nom"
@@ -419,13 +422,13 @@ msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
 msgstr "Contingut del xat secret:"
 
 msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Selecc hora esborrat autom"
+msgstr "Establir hora esborrat autom"
 
 msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
 msgstr "Veure detalls contacte"
 
 msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Selecc hora esborrat automàtic"
+msgstr "Establir hora esborrat automàtic"
 
 msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
 msgstr "Esborrar historial"
@@ -473,8 +476,14 @@ msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
 msgstr "No està desat enlloc"
 
 msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
-msgstr "Esborrat automàticament després d'un temps preseleccionat"
+msgstr "Esborrat automàticament després d'un temps preestablert"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "No es pot reenviar"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Vol iniciar %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Enviar missatge a %s"
 

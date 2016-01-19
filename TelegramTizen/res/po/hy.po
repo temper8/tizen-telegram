@@ -481,3 +481,9 @@ msgstr "Ինքնաբերաբար վերացվել է նախադրված ժամի
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Չի կարող փոխանցվել"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Սկսե՞լ %s-ը"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Ուղարկել հաղորդագրություն %sին"
+

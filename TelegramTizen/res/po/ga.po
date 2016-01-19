@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "An feidhmchlár cur teachtaireachtaí %1$sis tapa%2$s ar domhan\nTá sé %3$ssaor in aisce%4$s agus %5$sslán%6$s."
 
@@ -254,7 +257,7 @@ msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
 msgstr "Feicthe an mhí seo"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
-msgstr "Amh. ar phróifíl"
+msgstr "Féach próifíl"
 
 msgid "IDS_TGRAM_OPT_DELETE"
 msgstr "Scrios"
@@ -477,4 +480,10 @@ msgstr "Scriosfar go huathoibríoch é tar éis tréimhse réamhshocraithe"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Cur ar aghaidh dodhéanta"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Tosaigh ar %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Seol teachtaireacht chuig %s"
 

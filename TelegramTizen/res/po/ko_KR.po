@@ -481,3 +481,9 @@ msgstr "일정 시간이 지나면 자동 삭제됨"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "전달할 수 없음"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s을(를) 시작할까요?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s 님에게 메시지 전송"
+

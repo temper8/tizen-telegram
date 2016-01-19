@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ÁÉÍÑÓÚÜABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "A aplicación de mensaxería %1$smáis rápida%2$s do mundo\nÉ %3$sgratuíta%4$s e %5$ssegura%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Eliminado automaticamente despois dun tempo predeterminado"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Non se pode desviar"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Iniciar %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Enviar mensaxe a %s"
 

@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Greičiausia %1$spasaulyje%2$s žinučių siuntimo programa\nji yra %3$snemokama%4$s ir %5$ssaugi%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automatiškai ištrinama praėjus iš anksto nustatytam laikui"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Negalima persiųsti"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Paleisti %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Siųsti žinutę %s"
 

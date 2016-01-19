@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Verdens %1$shurtigste%2$s beskedapp\nDen er %3$sgratis%4$s og %5$ssikker%6$s."
 
@@ -332,7 +335,7 @@ msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "SLET"
 
 msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivér"
+msgstr "Aktiver"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Ignorer i 1 time"
@@ -344,7 +347,7 @@ msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Ignorer i %d dage"
 
 msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivér"
+msgstr "Deaktiver"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Del kontaktoplysninger"
@@ -434,7 +437,7 @@ msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
 msgstr "Forlad chat"
 
 msgid "IDS_TGRAM_OPT_EDIT"
-msgstr "Redigér"
+msgstr "Rediger"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
 msgstr "Føj til kontakter"
@@ -477,4 +480,10 @@ msgstr "Automatisk slettet efter et forudindstillet tidsrum"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Kan ikke viderestilles"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Vil du starte %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Send besked til %s"
 

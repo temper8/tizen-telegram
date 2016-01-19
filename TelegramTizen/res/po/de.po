@@ -113,7 +113,7 @@ msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
 msgstr "Kontaktauswahl"
 
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
-msgstr "Gruppen-Chat"
+msgstr "Gruppenchat"
 
 msgid "IDS_TGRAM_MBODY_SELECT_ALL"
 msgstr "Alle auswählen"
@@ -275,19 +275,19 @@ msgid "IDS_TGRAM_BODY_P1SS_P2SS"
 msgstr "%1$s %2$s"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
-msgstr "Sie haben diesen Gruppen-Chat erstellt."
+msgstr "Sie haben diesen Gruppenchat erstellt."
 
 msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
-msgstr "Gruppen-Chat verlassen"
+msgstr "Gruppenchat verlassen"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s hat den Gruppen-Chat verlassen."
+msgstr "%s hat den Gruppenchat verlassen."
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s erstellte diesen Gruppen-Chat."
+msgstr "%s erstellte diesen Gruppenchat."
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
-msgstr "Verlassen des Gruppen-Chats"
+msgstr "Verlassen des Gruppenchats"
 
 msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
 msgstr "Sie werden diese Gruppe verlassen."
@@ -480,4 +480,10 @@ msgstr "Automatisch nach einer voreingestellten Zeit gelöscht"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Weiterleitung nicht möglich"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s starten?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Nachricht an %s senden"
 

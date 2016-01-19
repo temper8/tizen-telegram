@@ -481,3 +481,9 @@ msgstr "Eliminata automaticamente dopo un determinato lasso di tempo"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Non può essere inoltrata"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Avviare %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Invia messaggio a %s"
+

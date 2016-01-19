@@ -481,3 +481,9 @@ msgstr "પ્રીસેટ સમય પછી સ્વચાલિત ર�
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "ફોર્વર્ડ કરી શકાતું નથી"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s શરૂ કરવું છે કે?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s ને સંદેશાઓ મોકલો"
+

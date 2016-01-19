@@ -212,13 +212,13 @@ msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "联系人"
 
 msgid "IDS_TGRAM_OPT_SETTINGS"
-msgstr "设定"
+msgstr "设置"
 
 msgid "IDS_TGRAM_NPBODY_NO_CHATS"
 msgstr "无聊天"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "若要开始新对话，请点击右下角的创建新群组按钮或按菜单键查看更多选项。"
+msgstr "若要开始新对话，请点击右下角的【创建群组】或按菜单键查看更多选项。"
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
 msgstr "搜索"
@@ -263,7 +263,7 @@ msgid "IDS_TGRAM_OPT_DELETE"
 msgstr "删除"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
-msgstr "通知设定"
+msgstr "通知设置"
 
 msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
 msgstr "这里还没有信息..."
@@ -281,10 +281,10 @@ msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
 msgstr "离开群聊"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s 已离开群聊。"
+msgstr "%s已离开群聊。"
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s 已创建此群聊"
+msgstr "%s已创建此群聊"
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
 msgstr "离开群聊"
@@ -308,7 +308,7 @@ msgid "IDS_TGRAM_HEADER_DELETE"
 msgstr "删除"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "%s 将从 Telegram 的联系人列表中移除。"
+msgstr "%s将从 Telegram 的联系人列表中移除。"
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
 msgstr "复制文本"
@@ -380,7 +380,7 @@ msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
 msgstr "滑动以取消"
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
-msgstr "设定"
+msgstr "设置"
 
 msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
 msgstr "声音和通知"
@@ -398,7 +398,7 @@ msgid "IDS_TGRAM_OPT_EDIT_NAME"
 msgstr "编辑姓名"
 
 msgid "IDS_TGRAM_OPT_LOG_OUT"
-msgstr "登出"
+msgstr "退出"
 
 msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
 msgstr "从相册"
@@ -410,13 +410,13 @@ msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
 msgstr "选择图片"
 
 msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
-msgstr "同时在任何数量的设备上无缝使用 Telegram。但是在您登出之后，私密聊天将不可用。"
+msgstr "可以同时在多个设备上无缝使用 Telegram，但在您退出之后，私密聊天将不可用。"
 
 msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
-msgstr "登出"
+msgstr "退出"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "您已邀请 %s 加入私密聊天。"
+msgstr "您已邀请%s加入私密聊天。"
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
 msgstr "私密聊天内容："
@@ -455,10 +455,10 @@ msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "阻止"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "将阻止 %s。"
+msgstr "将阻止%s。"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "%s 将被解除阻止。"
+msgstr "%s将被解除阻止。"
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
 msgstr "解除阻止"
@@ -467,10 +467,10 @@ msgid "IDS_TGRAM_OPT_SHARE"
 msgstr "分享"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
-msgstr "登出"
+msgstr "退出"
 
 msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
-msgstr "已端对端加密"
+msgstr "已加密端对端"
 
 msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
 msgstr "不会在任何位置保存。"
@@ -480,4 +480,10 @@ msgstr "在预定时间后自动删除。"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "无法转发。"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "开始%s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "发送信息至%s"
 

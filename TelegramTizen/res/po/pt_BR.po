@@ -481,3 +481,9 @@ msgstr "Excluído automaticamente após um tempo predefinido"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Não pode ser encaminhado"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Iniciar %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Envia mensagem para %s"
+

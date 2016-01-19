@@ -1009,17 +1009,49 @@ void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list
 	}
 }
 
-static void on_contact_item_clicked(void *data, Evas_Object *obj, void *event_info)
+static char *group_index_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
-	Elm_Object_Item *it = event_info;
-	elm_genlist_item_selected_set(it, EINA_FALSE);
+	char buf[1024];
+	char *group_text = data;
+	if (!group_text) {
+		group_text = i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM");
+	}
 
-	int item_id = (int) data;
-	appdata_s* ad = evas_object_data_get(obj, "app_data");
-	Eina_List *list = evas_object_data_get(obj, "contact_list");
+	if (!strcmp("elm.text", part))
+	{
+		snprintf(buf, sizeof(buf), "%s", group_text);
+		return strdup(buf);
+	}
 
-	contact_data_s* contact = eina_list_nth(list, item_id);
+	return NULL;
+}
+
+void _append_group_index(Evas_Object *genlist, char *string)
+{
+	static Elm_Genlist_Item_Class itc;
+	Elm_Object_Item* item = NULL;
+
+	itc.item_style = "group_index";
+	itc.func.text_get = group_index_text_get_cb;
+	itc.func.content_get = NULL;
+	itc.func.state_get = NULL;
+	itc.func.del = NULL;
+
+	item = elm_genlist_item_append(genlist, &itc, string, NULL, ELM_GENLIST_ITEM_TREE, NULL, NULL);
+	elm_genlist_item_expanded_set(item, EINA_TRUE);
+}
+
+static void popup_btn_clicked_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *popup = data;
+	evas_object_del(popup);
+}
+
+static void _ok_popup_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	contact_data_s* contact = evas_object_data_get(obj, "contact");
 	if (!contact) {
+		LOGE("Fail to get the contact info");
 		return;
 	}
 
@@ -1043,7 +1075,54 @@ static void on_contact_item_clicked(void *data, Evas_Object *obj, void *event_in
 	}
 	app_control_destroy(app_control);
 
+	popup_btn_clicked_cb(data, NULL, NULL);
+
 	return;
+}
+
+static void on_contact_item_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	Evas_Object *popup;
+	Evas_Object *btn;
+
+	Elm_Object_Item *it = event_info;
+	elm_genlist_item_selected_set(it, EINA_FALSE);
+
+	int item_id = (int) data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	Eina_List *list = evas_object_data_get(obj, "contact_list");
+	contact_data_s* contact = eina_list_nth(list, item_id);
+	if (!contact) {
+		LOGE("Fail to get the contact info");
+		return;
+	}
+
+	char temp_name[512] = {'\0'};
+	snprintf(temp_name, 512, i18n_get_text("IDS_PB_OPT_SEND_MESSAGE_TO_PS"), contact->display_name);
+
+	/* popup */
+	popup = elm_popup_add(ad->win);
+	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
+	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
+	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_translatable_text_set(popup, temp_name);
+
+	/* ok button */
+	btn = elm_button_add(popup);
+	elm_object_style_set(btn, "popup");
+	elm_object_translatable_text_set(btn, "IDS_TGRAM_MBODY_INVITE_FRIENDS");
+	elm_object_part_content_set(popup, "button1", btn);
+
+	evas_object_smart_callback_add(btn, "clicked", _ok_popup_clicked, popup);
+	evas_object_data_set(btn, "contact", contact);
+
+	/* cancel button */
+	btn = elm_button_add(popup);
+	elm_object_style_set(btn, "popup");
+	elm_object_translatable_text_set(btn, "IDS_TGRAM_ACBUTTON_CANCEL_ABB");
+	elm_object_part_content_set(popup, "button2", btn);
+	evas_object_smart_callback_add(btn, "clicked", popup_btn_clicked_cb, popup);
+	evas_object_show(popup);
 }
 
 char* on_contact_list_name_requested(void *data, Evas_Object *obj, const char *part)
@@ -1200,28 +1279,6 @@ void _group_index_selected_cb(void *data, Evas_Object *obj EINA_UNUSED, void *ev
 		evas_object_smart_callback_call(check, "changed", NULL);
 	}
 }
-
-/*
-char* _group_index_text_get_cb(void *data, Evas_Object *obj, const char *part)
-{
-	char *text = (char*)data;
-
-	if (!strcmp(part, "elm.text.main")) {
-		return strdup(text);
-	}
-}
-
-void _append_gl_group_index(Evas_Object *genlist, char* text) {
-	static Elm_Genlist_Item_Class itc;
-	ret_if(!itc);
-
-	itc.item_style = "groupindex";
-	itc.func.text_get = _group_index_text_get_cb;
-	itc.func.content_get = NULL;
-	itc.func.del = gl_del_cb;
-
-	elm_genlist_item_append(genlist, &itc, strdup(text), NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
-}*/
 
 static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_info)
 {
@@ -1488,7 +1545,9 @@ void launch_start_peer_search_view(appdata_s* ad)
 	elm_object_part_content_set(fs_layout, "elm.swallow.content", peer_list);
 
 	_append_command_item(peer_list, ad);
+	_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
 	_append_peer_item(peer_list, ad, ad->search_peer_list);
+	_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
 	if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
 		_append_contact_item(peer_list, ad, ad->contact_list);
 	}

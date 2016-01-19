@@ -481,3 +481,9 @@ msgstr "Automatically deleted after a preset time"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Cannot be forwarded"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Start %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Send message to %s"
+

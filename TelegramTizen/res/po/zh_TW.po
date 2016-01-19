@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "全球%1$s最快速%2$s的傳訊應用程式\n%3$s免費使用%4$s且%5$s高度安全%6$s。"
 
@@ -215,7 +218,7 @@ msgid "IDS_TGRAM_NPBODY_NO_CHATS"
 msgstr "無聊天"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "若要開始新對話，請輕觸右下方的建立新群組按鈕或按功能表鍵，即可取得更多選項。"
+msgstr "若要開始新對話，請輕觸右下方的 [建立新群組] 按鈕或按 [功能表] 鍵，即可取得更多選項。"
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
 msgstr "搜尋"
@@ -278,10 +281,10 @@ msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
 msgstr "離開群組聊天"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s 已離開群組聊天。"
+msgstr "%s已離開群組聊天。"
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s 已建立此群組聊天。"
+msgstr "%s已建立此群組聊天。"
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
 msgstr "離開群組聊天"
@@ -305,7 +308,7 @@ msgid "IDS_TGRAM_HEADER_DELETE"
 msgstr "刪除"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "將自 Telegram 聯絡人清單移除 %s 。"
+msgstr "將自 Telegram 聯絡人清單移除%s。"
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
 msgstr "複製文字"
@@ -413,7 +416,7 @@ msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
 msgstr "登出"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "您已邀請 %s 加入私密聊天。"
+msgstr "您已邀請%s加入私密聊天。"
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
 msgstr "私密聊天室內容："
@@ -452,10 +455,10 @@ msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "封鎖"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "將封鎖 %s。"
+msgstr "將封鎖%s。"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "將取消封鎖 %s。"
+msgstr "將取消封鎖%s。"
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
 msgstr "解除封鎖"
@@ -477,4 +480,10 @@ msgstr "在預設時間後自動刪除"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "無法轉寄檔案"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "要開始%s嗎？"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "傳送訊息至%s"
 

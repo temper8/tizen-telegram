@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "AĀBCČDEĒFGĢHIĪJKĶLĻMNŅOPRSŠTUŪVZŽ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Pasaulē %1$svisātrākā%2$s ziņapmaiņas programma\nTā ir %3$sbezmaksas%4$s un %5$sdroša%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automātiski izdzēsts pēc iepriekš iestatītā laika"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Nevar pārsūtīt"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Vai aktivizēt %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Sūtīt ziņu adresātam %s"
 

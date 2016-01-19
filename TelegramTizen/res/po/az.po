@@ -481,3 +481,9 @@ msgstr "Qurulan vaxtdan sonra avtomatik silindi"
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Yönləndirilə bilməz"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s başladılsın?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s-a mesaj göndər"
+

@@ -481,3 +481,9 @@ msgstr "ಪ್ರೀಸೆಟ್ ಸಮಯದ ನಂತರ ಸ್ವಯಂಚಾ
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "ಫಾರ್ವರ್ಡ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s ಆರಂಭಿಸುವುದೆ?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%sಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ"
+

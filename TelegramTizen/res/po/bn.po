@@ -481,3 +481,9 @@ msgstr "একটি প্রিসেট সময়ের পরে স্ব�
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "অগ্রবর্তী করা যাবে না"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s আরম্ভ করবেন?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s-এ বার্তা পাঠান"
+

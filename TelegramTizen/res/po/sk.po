@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "AÁÄBCČDĎEÉFGHIÍJKLĹĽMNŇOÓÔPQRŔSŠTŤUÚVWXYÝZŽ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sNajrýchlejšia%2$s aplikácia na výmenu správ na svete\nJe %3$szadarmo%4$s a %5$sbezpečná%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automaticky odstránené po predvolenom čase"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Nedá sa preposlať"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Spustiť %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Odoslať správu príjemcovi %s"
 

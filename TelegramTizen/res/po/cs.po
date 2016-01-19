@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "The world's %1$sNejrychlejší%2$s aplikace pro zasílání zpráv na světě\nJe %3$szdarma%4$s a %5$szabezpečená%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automaticky odstraněn po uplynutí nastavené doby"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Nelze předat dál"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Spustit %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Odeslat zprávu uživateli %s"
 

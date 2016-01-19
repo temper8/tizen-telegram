@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Η πιο %1$sγρήγορη%2$s εφαρμογή ανταλλαγής μηνυμάτων στον κόσμο\nΕίναι %3$sδωρεάν%4$s και %5$sασφαλής%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Διαγράφεται αυτόματα μετά από ένα προκ�
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Δεν είναι δυνατή η προώθηση"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Να γίνει εκκίνηση του %s;"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Αποστολή μηνύματος σε %s"
 

@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sNajbrža%2$s aplikacija za razmenu poruka na svetu\n%3$sBesplatna%4$s je i %5$sbezbedna%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automatski izbrisano nakon unapred podešenog vremena"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Ne može da se prosleđuje"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Pokreni %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Pošalji poruku na %s"
 

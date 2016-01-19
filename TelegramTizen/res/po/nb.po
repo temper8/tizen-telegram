@@ -1,3 +1,6 @@
+msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Verdens %1$sraskeste%2$s meldingsapp\nDen er %3$sgratis%4$s og %5$ssikker%6$s."
 
@@ -477,4 +480,10 @@ msgstr "Automatisk slettet etter en forhåndsinnstilt tid"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Kan ikke videresendes"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Starte %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Send melding til %s"
 

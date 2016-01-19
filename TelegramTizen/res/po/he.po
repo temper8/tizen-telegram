@@ -1,489 +1,489 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-msgstr "AÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ"
+msgstr "אבגדהוזחטיכלמנסעפצקרשת"
 
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
-msgstr "A világ %1$sleggyorsabb%2$s üzenetküldő alkalmazása\n%3$sIngyenes%4$s és %5$sbiztonságos%6$s."
+msgstr "יישום העברת ההודעות %1$sהמהיר ביותר%2$s בעולם\nיישום %3$sחינמי%4$s %5$sובטוח%6$s."
 
 msgid "IDS_TGRAM_HEADER_TELEGRAM"
-msgstr "Telegram"
+msgstr "מברק"
 
 msgid "IDS_TGRAM_HEADER_FAST"
-msgstr "Gyors"
+msgstr "מהיר"
 
 msgid "IDS_TGRAM_HEADER_FREE"
-msgstr "Ingyenes"
+msgstr "חינם"
 
 msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
-msgstr "HASZNÁLAT MEGKEZDÉSE"
+msgstr "התחל העברת הודעות"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
-msgstr "Tovább"
+msgstr "הבא"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS_ABB4"
-msgstr "Előző"
+msgstr "הקודם"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB6"
-msgstr "Tovább"
+msgstr "הבא"
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_DELIVERS_MESSAGES_NFASTER_THAN_ANY_OTHER_APP"
-msgstr "A %1$sTelegram%2$s minden egyéb\nalkalmazásnál gyorsabban kézbesíti az üzeneteket."
+msgstr "היישום %1$sמברק%2$s מעביר הודעות\nמהר יותר מכל יישום אחר."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_IS_FREE_FOREVER_N_NNO_ADS_NO_SUBSCRIPTION_FEES"
-msgstr "A %1$sTelegram%2$s ingyenes, és az is marad.\n\nNem lesznek benne hirdetések, és nem lesz előfizetési díja."
+msgstr "היישום %1$sמברק%2$s הוא חינמי וכך יישאר לתמיד.\n\nללא מודעות. ללא דמי מנוי."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_KEEPS_YOUR_MESSAGES_NSAFE_FROM_HACKERS"
-msgstr "A %1$sTelegram%2$s megvédi\nüzeneteit a támadóktól."
+msgstr "היישום %1$sמברק%2$s יגן על ההודעות\nשלך מהאקרים."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_HAS_NO_LIMITS_ON_THE_SIZE_OF_NCHATS_AND_MEDIA_YOU_CAN_SHARE"
-msgstr "A %1$sTelegram%2$s nem korlátozza a csevegések\nés a megosztható médiaelemek méretét."
+msgstr "ביישום %1$sמברק%2$s אין הגבלה על הגודל של\nצ'אטים ומדיה שניתן לשתף."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_ALLOWS_YOU_TO_ACCESS_NYOUR_MESSAGES_FROM_MULTIPLE_DEVICES"
-msgstr "A %1$sTelegram%2$s alkalmazással\ntöbb eszközről is hozzáférhet üzeneteihez."
+msgstr "היישום %1$sמברק%2$s מאפשר לך לגשת אל\nההודעות שלך דרך מכשירים מרובים."
 
 msgid "IDS_TGRAM_SBODY_P1SSTELEGRAMP2SS_MESSAGES_ARE_STRONGLY_ENCRYPTED_NAND_CAN_BE_DELETED_AUTOMATICALLY"
-msgstr "A %1$sTelegram%2$s üzeneteit erős titkosítás\nés az automatikus törlés lehetősége védi."
+msgstr "הודעות %1$sמברק%2$s מוצפנות בהצפנה חזקה\nוניתן למחוק אותן באופן אוטומטי."
 
 msgid "IDS_TGRAM_HEADER_SECURE"
-msgstr "Biztonságos"
+msgstr "מאובטח"
 
 msgid "IDS_TGRAM_HEADER_POWERFUL"
-msgstr "Hatékony"
+msgstr "חזק"
 
 msgid "IDS_TGRAM_HEADER_CLOUD_BASED_ABB"
-msgstr "Felhőalapú"
+msgstr "מבוסס ענן"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
-msgstr "Védett"
+msgstr "פרטי"
 
 msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Előző"
+msgstr "הקודם"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
-msgstr "MÉGSE"
+msgstr "ביטול"
 
 msgid "IDS_TGRAM_ACBUTTON_DONE_ABB"
-msgstr "KÉSZ"
+msgstr "בוצע"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"
-msgstr "Szám megad."
+msgstr "הזנת מספר"
 
 msgid "IDS_TGRAM_HEADER_ENTER_CODE_ABB"
-msgstr "Kód megadása"
+msgstr "הזנת קוד"
 
 msgid "IDS_TGRAM_HEADER_ENTER_NAME_ABB2"
-msgstr "Név megadása"
+msgstr "הזנת שם"
 
 msgid "IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"
-msgstr "Erősítse meg az országkódot, és adja meg a telefonszámát."
+msgstr "אשר את קידומת המדינה והזן את מספר הטלפון שלך."
 
 msgid "IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"
-msgstr "Elküldtük a hitelesítőkódot. Nézze meg az üzeneteit, és adja meg a hitelesítőkódot."
+msgstr "קוד האימות נשלח. בדוק בהודעות שלך והזן את קוד האימות."
 
 msgid "IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"
-msgstr "A Telegram %1$d.%2$d-kor hív."
+msgstr "היישום 'מברק' יתקשר בעוד %1$d:%2$d."
 
 msgid "IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"
-msgstr "Adja meg a nevét."
+msgstr "הזן שם פרטי ושם משפחה."
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_HREQUIRED_ABB"
-msgstr "Utónév (kötelező)"
+msgstr "שם פרטי (חובה)"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_HREQUIRED_ABB"
-msgstr "Vezetéknév (kötelező)"
+msgstr "שם משפחה (חובה)"
 
 msgid "IDS_TGRAM_BODY_CODE"
-msgstr "Kód"
+msgstr "קוד"
 
 msgid "IDS_TGRAM_BODY_PHONE_NUMBER_ABB"
-msgstr "Telefonszám"
+msgstr "מספר טלפון"
 
 msgid "IDS_TGRAM_HEADER_CONTACTS_ABB"
-msgstr "Névjegyzék"
+msgstr "אנשי קשר"
 
 msgid "IDS_TGRAM_NPBODY_SEARCH"
-msgstr "Keresés"
+msgstr "חיפוש"
 
 msgid "IDS_TGRAM_MBODY_INVITE_FRIENDS"
-msgstr "Ismerősök meghívása"
+msgstr "הזמן חברים"
 
 msgid "IDS_TGRAM_MBODY_SECRET_CHAT"
-msgstr "Titkos csevegés"
+msgstr "צ'אט סודי"
 
 msgid "IDS_TGRAM_TMBODY_SELECT_CONTACTS_ABB"
-msgstr "Partnerek kijelölése"
+msgstr "בחר אנשי קשר"
 
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
-msgstr "Csoportos csevegés"
+msgstr "צ'אט קבוצתי"
 
 msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Összes kijelölése"
+msgstr "בחר הכל"
 
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
-msgstr "Csoport létreh."
+msgstr "יצירת קבוצה"
 
 msgid "IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"
-msgstr "Új csoportnév"
+msgstr "שם קבוצה חדש"
 
 msgid "IDS_TGRAM_BUTTON_PD_SELECTED_ABB"
-msgstr "%d kijelölve"
+msgstr "נבחרו %d"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "%d perce nézte utoljára"
+msgstr "נראה לאחרונה לפני %d דקות"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "1 órája nézte utoljára"
+msgstr "נראה לאחרונה לפני שעה"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "%d órája nézte utoljára"
+msgstr "נראה לאחרונה לפני %d שעות"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_WEEK_ABB"
-msgstr "Kev. mint 1 hete nézte utoljára"
+msgstr "נראה לאחרונה בשבוע האחרון"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_WITHIN_MONTH_ABB"
-msgstr "Kev. mint 1 hónapja nézte utolj."
+msgstr "נראה לאחרונה בחודש האחרון"
 
 msgid "IDS_TGRAM_SBODY_ONLINE"
-msgstr "Online"
+msgstr "מקוון"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_RECENTLY_ABB"
-msgstr "Nemrég nézte utoljára"
+msgstr "נראה לאחרונה לפני זמן קצר"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Régen nézte utoljára"
+msgstr "נראה לאחרונה לפני זמן רב"
 
 msgid "IDS_TGRAM_SBODY_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "1 perce nézte utoljára"
+msgstr "נראה לאחרונה לפני דקה"
 
 msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
-msgstr "KÜLD"
+msgstr "שלח"
 
 msgid "IDS_TGRAM_BODY_P1SD_P2SD"
 msgstr "%1$d/%2$d"
 
 msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
-msgstr "Üzenet írása"
+msgstr "חיבור הודעה"
 
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
-msgstr "Névjegy létrehozása"
+msgstr "יצירת איש קשר"
 
 msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Név"
+msgstr "שם"
 
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
-msgstr "Utónév"
+msgstr "שם פרטי"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
-msgstr "Vezetéknév"
+msgstr "שם משפחה"
 
 msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
+msgstr "נייד"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
-msgstr "Telefonszám"
+msgstr "מספר טלפון"
 
 msgid "IDS_TGRAM_OPT_MOBILE"
-msgstr "Mobil"
+msgstr "נייד"
 
 msgid "IDS_TGRAM_OPT_HOME"
-msgstr "Otthoni"
+msgstr "בית"
 
 msgid "IDS_TGRAM_OPT_WORK"
-msgstr "Munkahelyi"
+msgstr "עבודה"
 
 msgid "IDS_TGRAM_OPT_FAX_HHOME"
-msgstr "Fax (otthoni)"
+msgstr "פקס (בית)"
 
 msgid "IDS_TGRAM_OPT_FAX_HWORK"
-msgstr "Fax (munkahelyi)"
+msgstr "פקס (עבודה)"
 
 msgid "IDS_TGRAM_OPT_FAX_HOTHER_ABB"
-msgstr "Fax (egyéb)"
+msgstr "פקס (אחר)"
 
 msgid "IDS_TGRAM_OPT_PAGER"
-msgstr "Személyhívó"
+msgstr "איתורית"
 
 msgid "IDS_TGRAM_OPT_OTHER"
-msgstr "Egyéb"
+msgstr "אחר"
 
 msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Keresés"
+msgstr "חיפוש"
 
 msgid "IDS_TGRAM_OPT_CONTACTS"
-msgstr "Névjegyzék"
+msgstr "אנשי קשר"
 
 msgid "IDS_TGRAM_OPT_SETTINGS"
-msgstr "Beállítások"
+msgstr "הגדרות"
 
 msgid "IDS_TGRAM_NPBODY_NO_CHATS"
-msgstr "Nincs csevegés"
+msgstr "אין צ׳אטים"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
-msgstr "Új beszélgetés indításához érintse meg az Új csoport létrehozása gombot a jobb alsó sarokban, vagy nyomja meg a Menü gombot egyéb lehetőségekért."
+msgstr "כדי להתחיל שיחה חדשה, הקש על לחצן 'צור קבוצה חדשה' בפינה הימנית התחתונה או לחץ על מקש התפריט כדי להציג אפשרויות נוספות."
 
 msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Keresés"
+msgstr "חיפוש"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
-msgstr "Nincs találat"
+msgstr "לא נמצאו תוצאות"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHAT_ABB"
-msgstr "Csev. kijelölése"
+msgstr "בחירת צ'אט"
 
 msgid "IDS_TGRAM_HEADER_SELECT_CHATS_ABB"
-msgstr "Csev. kijelölése"
+msgstr "בחירת צ'אטים"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_RECENTLY_ABB"
-msgstr "Nemrég nézte utoljára"
+msgstr "נראה לאחרונה לפני זמן קצר"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_LONG_TIME_AGO_ABB"
-msgstr "Régen nézte utoljára"
+msgstr "נראה לאחרונה לפני זמן רב"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_MINUTE_AGO_ABB"
-msgstr "1 perce nézte utoljára"
+msgstr "נראה לאחרונה לפני דקה"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_MINUTES_AGO_ABB"
-msgstr "%d perce nézte utoljára"
+msgstr "נראה לאחרונה לפני %d דקות"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_1_HOUR_AGO_ABB"
-msgstr "1 órája nézte utoljára"
+msgstr "נראה לאחרונה לפני שעה"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_PD_HOURS_AGO_ABB"
-msgstr "%d órája nézte utoljára"
+msgstr "נראה לאחרונה לפני %d שעות"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_WEEK_ABB"
-msgstr "Kevesebb mint 1 hete nézte utoljára"
+msgstr "נראה לאחרונה בשבוע האחרון"
 
 msgid "IDS_TGRAM_HEADER_LAST_SEEN_WITHIN_A_MONTH_ABB"
-msgstr "Kevesebb mint 1 hónapja nézte utoljára"
+msgstr "נראה לאחרונה בחודש האחרון"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
-msgstr "Profil megjelen."
+msgstr "הצג פרופיל"
 
 msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Törlés"
+msgstr "מחק"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
-msgstr "Értesítési beállítások"
+msgstr "הגדרות התראה"
 
 msgid "IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"
-msgstr "Még nincs üzenet..."
+msgstr "עדיין אין כאן הודעות..."
 
 msgid "IDS_TGRAM_BODY_PD_PARTICIPANTS"
-msgstr "%d résztvevő"
+msgstr "%d משתתפים"
 
 msgid "IDS_TGRAM_BODY_P1SS_P2SS"
-msgstr "%2$s %1$s."
+msgstr "%1$s %2$s"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_CREATED_THIS_GROUP_CHAT"
-msgstr "Létrehozta a csoportos csevegést."
+msgstr "אתה יצרת את הצ'אט הקבוצתי הזה."
 
 msgid "IDS_TGRAM_OPT_LEAVE_GROUP_CHAT_ABB"
-msgstr "Csoportos csevegés elhagyása"
+msgstr "צא מצ'אט קבוצתי"
 
 msgid "IDS_TGRAM_BODY_PS_HAS_LEFT_THE_GROUP_CHAT_ABB"
-msgstr "%s kilépett a csevegésből."
+msgstr "%s עזב את הצ'אט הקבוצתי."
 
 msgid "IDS_TGRAM_HEADER_PS_CREATED_THIS_GROUP_CHAT_ABB"
-msgstr "%s létrehozta a csoportos csevegést."
+msgstr "%s יצר את הצ'אט הקבוצתי הזה."
 
 msgid "IDS_TGRAM_HEADER_LEAVE_GROUP_CHAT_ABB2"
-msgstr "Csoportos csevegés elhagyása"
+msgstr "יציאה מצ'אט קבוצתי"
 
 msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
-msgstr "Így elhagyja a csoportot."
+msgstr "כעת תצא מקבוצה זו."
 
 msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
-msgstr "Mégse"
+msgstr "ביטול"
 
 msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
-msgstr "Kilépés"
+msgstr "עזוב"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
-msgstr "Hozzáadás a Telegramhoz"
+msgstr "הוסף ל'מברק'"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
-msgstr "Ismeretlen"
+msgstr "בלתי ידוע"
 
 msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Törlés"
+msgstr "מחק"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
-msgstr "Eltávolítja %s partnert a Telegram névjegyzékéből."
+msgstr "%s יוסר מרשימת אנשי הקשר שלך ביישום 'מברק'."
 
 msgid "IDS_TGRAM_OPT_COPY_TEXT"
-msgstr "Szöveg másolása"
+msgstr "העתק טקסט"
 
 msgid "IDS_TGRAM_OPT_FORWARD"
-msgstr "Továbbküldés"
+msgstr "הבא"
 
 msgid "IDS_TGRAM_OPT_FORWARD_VIA_TELEGRAM_ABB"
-msgstr "Továbbküldés a Telegrammal"
+msgstr "העבר באמצעות 'מברק'"
 
 msgid "IDS_TGRAM_OPT_REPLY"
-msgstr "Válasz"
+msgstr "השב"
 
 msgid "IDS_TGRAM_POP_THIS_MESSAGE_WILL_BE_DELETED"
-msgstr "Törli ezt az üzenetet?"
+msgstr "הודעה זו תימחק."
 
 msgid "IDS_TGRAM_OPT_PROFILE_DETAILS_ABB"
-msgstr "Profiladatok"
+msgstr "פרטי פרופיל"
 
 msgid "IDS_TGRAM_HEADER_SELECT_ITEMS_ABB3"
-msgstr "Elemek kijelöl."
+msgstr "בחירת פריטים"
 
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
-msgstr "TÖRLÉS"
+msgstr "מחק"
 
 msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Engedélyezés"
+msgstr "הפעל"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
-msgstr "Elnémítás 1 órára"
+msgstr "השתק למשך שעה אחת"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_HOURS_ABB"
-msgstr "Elnémítás %d órára"
+msgstr "השתק למשך %d שעות"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
-msgstr "Elnémítás %d napra"
+msgstr "השתק למשך %d ימים"
 
 msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Letiltás"
+msgstr "השבת"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
-msgstr "Névjegyadatok megosztása"
+msgstr "שיתוף פרטי איש קשר"
 
 msgid "IDS_TGRAM_POP_P1SSS_CONTACT_DETAILS_WILL_BE_SHARED_WITH_P2SS"
-msgstr "Megosztja %1$s névjegyadatait %2$s felhasználóval."
+msgstr "פרטי הקשר של %1$s ישותפו עם %2$s."
 
 msgid "IDS_TGRAM_BUTTON_SHARE_ABB2"
-msgstr "Megosztás"
+msgstr "שתף"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"
-msgstr "Felvétel a Névjegyzékbe"
+msgstr "הוסף לאנשי קשר"
 
 msgid "IDS_TGRAM_OPT_CALL"
-msgstr "Hívás"
+msgstr "שיחה"
 
 msgid "IDS_TGRAM_OPT_COMPOSE_MESSAGE_ABB"
-msgstr "Üzenet írása"
+msgstr "חבר הודעה"
 
 msgid "IDS_TGRAM_OPT_CREATE_CONTACT_ABB"
-msgstr "Névjegy létrehozása"
+msgstr "צור איש קשר"
 
 msgid "IDS_TGRAM_OPT_UPDATE_CONTACT_ABB2"
-msgstr "Névjegy frissítése"
+msgstr "עדכן איש קשר"
 
 msgid "IDS_TGRAM_OPT_SAVE"
-msgstr "Mentés"
+msgstr "שמור"
 
 msgid "IDS_TGRAM_HEADER_SLIDE_TO_CANCEL_ABB"
-msgstr "Húzásra megszak."
+msgstr "החלקה כדי לבטל"
 
 msgid "IDS_TGRAM_HEADER_SETTINGS_ABB4"
-msgstr "Beállítások"
+msgstr "הגדרות"
 
 msgid "IDS_TGRAM_OPT_SOUNDS_AND_NOTIFICATIONS_ABB"
-msgstr "Hangok és értesítések"
+msgstr "צלילים והתראות"
 
 msgid "IDS_TGRAM_OPT_PRIVACY_AND_SECURITY_ABB"
-msgstr "Adatvédelem és biztonság"
+msgstr "פרטיות ואבטחה"
 
 msgid "IDS_TGRAM_OPT_SET_BACKGROUND_IMAGE_ABB"
-msgstr "Háttérkép beállítása"
+msgstr "הגדר תמונת רקע"
 
 msgid "IDS_TGRAM_OPT_SET_PROFILE_PICTURE_ABB"
-msgstr "Profilkép beállítása"
+msgstr "קבע תמונת פרופיל"
 
 msgid "IDS_TGRAM_OPT_EDIT_NAME"
-msgstr "Név szerkesztése"
+msgstr "ערוך שם"
 
 msgid "IDS_TGRAM_OPT_LOG_OUT"
-msgstr "Kijelentkezés"
+msgstr "צא מהמערכת"
 
 msgid "IDS_TGRAM_OPT_FROM_GALLERY_ABB2"
-msgstr "A Galériából"
+msgstr "מתוך 'גלריה'"
 
 msgid "IDS_TGRAM_OPT_TAKE_PICTURE_ABB"
-msgstr "Kép készítése"
+msgstr "צלם תמונה"
 
 msgid "IDS_TGRAM_HEADER_SELECT_IMAGE_ABB2"
-msgstr "Kép kiválaszt."
+msgstr "בחירת תמונה"
 
 msgid "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG"
-msgstr "A Telegram szolgáltatást zökkenőmentesen használhatja egyszerre több eszközön is. A kijelentkezés után azonban nem érheti el a titkos csevegéseket."
+msgstr "היעזר ביישום 'מברק' באופן חלק ושקוף בכל מספר של מכשירים במקביל. עם זאת, צ'אטים סודיים לא יהיו זמינים עוד לאחר שתצא מהמערכת."
 
 msgid "IDS_TGRAM_BUTTON_LOG_OUT_ABB2"
-msgstr "Kijelentkezés"
+msgstr "צא מהמערכת"
 
 msgid "IDS_TGRAM_BODY_YOU_HAVE_INVITED_PS_TO_A_SECRET_CHAT"
-msgstr "Meghívta %s felhasználót egy titkos csevegésbe."
+msgstr "הזמנת את %s לצ'אט סודי."
 
 msgid "IDS_TGRAM_BODY_SECRET_CHAT_CONTENT_C"
-msgstr "A titkos csevegés tartalma:"
+msgstr "תוכן צ'אט סודי:"
 
 msgid "IDS_TGRAM_HEADER_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Aut. törlési idő beállítása"
+msgstr "הגדרת זמן למחיקה אוטומטית"
 
 msgid "IDS_TGRAM_OPT_VIEW_CONTACT_DETAILS_ABB"
-msgstr "Névadatok megtekintése"
+msgstr "הצג פרטי איש קשר"
 
 msgid "IDS_TGRAM_OPT_SET_AUTO_DELETE_TIME_ABB"
-msgstr "Automat. törlési idő beállítása"
+msgstr "הגדר זמן למחיקה אוטומטית"
 
 msgid "IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"
-msgstr "Előzmények törlése"
+msgstr "נקה היסטוריה"
 
 msgid "IDS_TGRAM_OPT_LEAVE_CHAT"
-msgstr "Kilépés a csevegésből"
+msgstr "עזוב את הצ’אט"
 
 msgid "IDS_TGRAM_OPT_EDIT"
-msgstr "Szerkesztés"
+msgstr "ערוך"
 
 msgid "IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"
-msgstr "Névjegyzékbe"
+msgstr "הוסף לאנשי קשר"
 
 msgid "IDS_TGRAM_OPT_START_SECRET_CHAT_ABB"
-msgstr "Titkos csevegés indítása"
+msgstr "התחל צ'אט סודי"
 
 msgid "IDS_TGRAM_OPT_BLOCK"
-msgstr "Tiltás"
+msgstr "חסום"
 
 msgid "IDS_TGRAM_OPT_UNBLOCK"
-msgstr "Feloldás"
+msgstr "בטל חסימה"
 
 msgid "IDS_TGRAM_HEADER_BLOCK"
-msgstr "Blokkolás"
+msgstr "חסימה"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s blokkolva lesz."
+msgstr "%s ייחסם."
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
-msgstr "Feloldja %s blokkolását."
+msgstr "חסימת %s תבוטל."
 
 msgid "IDS_TGRAM_HEADER_UNBLOCK"
-msgstr "Feloldás"
+msgstr "ביטול חסימה"
 
 msgid "IDS_TGRAM_OPT_SHARE"
-msgstr "Megosztás"
+msgstr "שתף"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
-msgstr "Kijelentkezés"
+msgstr "יציאה מהמערכת"
 
 msgid "IDS_TGRAM_BODY_ENCRYPTED_FROM_END_TO_END_M_NOUN"
-msgstr "Minden pillanatban titkosítva van"
+msgstr "הצפנה מההתחלה ועד הסוף"
 
 msgid "IDS_TGRAM_BODY_NOT_SAVED_ANYWHERE_M_NOUN"
-msgstr "A szolgáltatás sehova sem menti"
+msgstr "לא שמור באף מקום"
 
 msgid "IDS_TGRAM_BODY_AUTOMATICALLY_DELETED_AFTER_A_PRESET_TIME_M_NOUN"
-msgstr "A beállított idő leteltével automatikusan törlődik"
+msgstr "מחיקה אוטומטית תתבצע לאחר פרק זמן מוגדר מראש"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
-msgstr "Nem küldhető tovább"
+msgstr "אין אפשרות העברה"
 
 msgid "IDS_JAVA_BODY_START_PS_Q"
-msgstr "Elindítja: %s?"
+msgstr "להתחיל %s?"
 
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
-msgstr "Üzenet küldése %s számára"
+msgstr "שלח הודעה אל %s"
 

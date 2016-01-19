@@ -481,3 +481,9 @@ msgstr "ลบอัตโนมัติเมื่อเลยเวลาท
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "ไม่สามารถส่งต่อได้"
 
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "เริ่ม %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "ส่งข้อความถึง %s"
+
