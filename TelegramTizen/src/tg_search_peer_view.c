@@ -31,6 +31,7 @@ static void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List*
 static void on_invite_friends_clicked(void *data, Evas_Object *obj, void *event_info);
 static void on_group_chat_clicked(void *data, Evas_Object *obj, void *event_info);
 static void on_secret_chat_clicked(void *data, Evas_Object *obj, void *event_info);
+extern void _append_group_index(Evas_Object *genlist, char *string);
 
 static _command_item_info contact_screen_command_item_list[COMMAND_MENU_ITEM_COUNT] = {
 	{"IDS_TGRAM_MBODY_INVITE_FRIENDS",	TELEGRAM_CONTACT_ADD_ICON, on_invite_friends_clicked, NULL},
@@ -682,9 +683,59 @@ void add_contact_to_phone_book(appdata_s *ad)
 		last_name = elm_entry_markup_to_utf8(elm_object_text_get(last_name_entry));
 
 	if ((phone_num && strlen(phone_num) > 0) && (first_name && strlen(first_name) > 0) && (last_name && strlen(last_name) > 0)) {
+		int err_code = contacts_connect();
+
+
+		/*********************************************************************/
+
+		 contacts_query_h query = NULL;
+		 contacts_query_create(_contacts_person_contact._uri, &query);
+
+		 contacts_filter_h filter = NULL;
+		 contacts_filter_create(_contacts_person_contact._uri, &filter);
+
+		 contacts_filter_add_int(filter, _contacts_person_contact.address_book_id, CONTACTS_MATCH_EQUAL, 0);
+		 contacts_query_set_filter(query, filter);
+
+		 contacts_list_h list = NULL;
+		 int ret_val = contacts_db_search_records_with_query(query, phone_num, -1, -1, &list);
+
+
+		 contacts_filter_destroy(filter);
+		 contacts_query_destroy(query);
+
+		 contacts_record_h record = NULL;
+		 Eina_Bool is_contact_exists = EINA_FALSE;
+		 do
+		 {
+			 contacts_list_get_current_record_p(list, &record);
+			 if (NULL == record) {
+				 break;
+			 }
+			 is_contact_exists = EINA_TRUE;
+		 } while (CONTACTS_ERROR_NONE == contacts_list_next(list));
+		 contacts_list_destroy(list, true); // Destroy child records automatically
+
+		 if (is_contact_exists) {
+			 err_code = contacts_disconnect();
+			 return;
+		 }
+
+		/***********************************************************************/
 
 		contacts_record_h contact = NULL;
 		contacts_record_create(_contacts_contact._uri, &contact);
+
+		char dis_name_str[1024] = {0,};
+		strcpy(dis_name_str, first_name);
+		strcat(dis_name_str, " ");
+		strcat(dis_name_str, last_name);
+
+		// add name
+		contacts_record_h dis_name = NULL;
+		contacts_record_create(_contacts_name._uri, &dis_name);
+		contacts_record_set_str(dis_name, _contacts_name.first, dis_name_str);
+		contacts_record_add_child_record(contact, _contacts_contact.display_name, dis_name);
 
 		// add name
 		contacts_record_h name = NULL;
@@ -696,23 +747,28 @@ void add_contact_to_phone_book(appdata_s *ad)
 		// add name
 		contacts_record_h lname = NULL;
 		contacts_record_create(_contacts_name._uri, &lname);
-		contacts_record_set_str(lname, _contacts_name.last, first_name);
+		contacts_record_set_str(lname, _contacts_name.last, last_name);
 		contacts_record_add_child_record(contact, _contacts_contact.name, lname);
 
 		// add number
 		contacts_record_h number = NULL;
 		contacts_record_create(_contacts_number._uri, &number);
-		contacts_record_set_str(name, _contacts_number.number, phone_num);
+		contacts_record_set_str(number, _contacts_number.number, phone_num);
 		contacts_record_add_child_record(contact, _contacts_contact.number, number);
 
 		// insert to database
 		int contact_id = 0;
-		contacts_db_insert_record(contact, &contact_id);
+		int ret = contacts_db_insert_record(contact, &contact_id);
+
+		if (ret == 0) {
+			printf(" contact insert success\n");
+		} else {
+			printf(" contact insert failed\n");
+		}
 
 		// destroy record
 		contacts_record_destroy(contact, true);
-
-
+		err_code = contacts_disconnect();
 	} else {
 		// show message
 	}
@@ -754,15 +810,39 @@ void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bo
 				ad->contact_list = get_contact_list_from_device_db();
 
 				_append_command_item(peer_list, ad);
-				_append_peer_item(peer_list, ad, ad->search_peer_list);
+				if (ad->search_peer_list && eina_list_count(ad->search_peer_list) > 0) {
+					_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
+					_append_peer_item(peer_list, ad, ad->search_peer_list);
+				}
 				if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
+					_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
 					_append_contact_item(peer_list, ad, ad->contact_list);
 				}
 			}
-			ecore_timer_add(5, on_contacts_reloaded, ad);
+			ecore_timer_add(2, on_contacts_reloaded, ad);
 		}
 	} else {
 		// show failed message
+		Evas_Object *peer_list = evas_object_data_get(ad->nf, "search_list");
+		if (peer_list) {
+			elm_genlist_clear(peer_list);
+			clear_search_list(ad);
+			free_contact_list(ad->contact_list);
+
+			ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
+			ad->contact_list = get_contact_list_from_device_db();
+
+			_append_command_item(peer_list, ad);
+			if (ad->search_peer_list && eina_list_count(ad->search_peer_list) > 0) {
+				_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
+				_append_peer_item(peer_list, ad, ad->search_peer_list);
+			}
+			if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
+				_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
+				_append_contact_item(peer_list, ad, ad->contact_list);
+			}
+		}
+		ecore_timer_add(2, on_contacts_reloaded, ad);
 	}
 }
 
@@ -792,6 +872,21 @@ static void on_new_contact_done_clicked(void *data, Evas_Object *obj, void *even
 		send_add_buddy_request(ad, ad->service_client, -1, first_name, last_name, phone_num);
 	} else {
 		// show message
+
+		if (!first_name || strlen(first_name) <= 0) {
+			show_toast(ad, i18n_get_text("IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"));
+			return;
+		}
+		if (!last_name || strlen(last_name) <= 0) {
+			show_toast(ad, i18n_get_text("IDS_TGRAM_BODY_ENTER_YOUR_FIRST_AND_LAST_NAME_ABB"));
+			return;
+		}
+
+		if (!phone_num || strlen(phone_num) <= 0) {
+			show_toast(ad, i18n_get_text("IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"));
+			return;
+		}
+
 	}
 }
 
@@ -1549,10 +1644,13 @@ void launch_start_peer_search_view(appdata_s* ad)
 	elm_object_part_content_set(fs_layout, "elm.swallow.content", peer_list);
 
 	_append_command_item(peer_list, ad);
-	_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
-	_append_peer_item(peer_list, ad, ad->search_peer_list);
-	_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
+	if (ad->search_peer_list && eina_list_count(ad->search_peer_list) > 0) {
+		_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
+		_append_peer_item(peer_list, ad, ad->search_peer_list);
+	}
+
 	if (ad->contact_list && eina_list_count(ad->contact_list) > 0) {
+		_append_group_index(peer_list, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
 		_append_contact_item(peer_list, ad, ad->contact_list);
 	}
 

@@ -1865,7 +1865,7 @@ static int on_new_contact_added(appdata_s *app, bundle *const rec_msg)
 		load_buddy_list_data(app);
 		load_peer_data(app);
 	} else {
-		show_toast(app, "Failed to add contact. Please try after sometime.");
+		//show_toast(app, "Failed to add contact. Please try after sometime.");
 	}
 	hide_loading_popup(app);
 	if (app->current_app_state == TG_ADD_CONTACT_STATE) {
