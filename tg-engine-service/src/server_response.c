@@ -868,11 +868,10 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 		int unread_msg_cnt = get_number_of_unread_messages();
 		sprintf(content, "%d new messages received.", unread_msg_cnt);
 
-		char *sound_track = NULL;
-		char *app_id = TELEGRAM_APP_ID;
-		tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
-
 		if (unread_msg_cnt > 0) {
+			char *sound_track = NULL;
+			char *app_id = TELEGRAM_APP_ID;
+			tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
 			int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
 			if (BADGE_ERROR_NONE != err) {
 
@@ -941,11 +940,10 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 		int unread_msg_cnt = get_number_of_unread_messages();
 		sprintf(content, "%d new messages received.", unread_msg_cnt);
 
-		char *sound_track = NULL;
-		char *app_id = TELEGRAM_APP_ID;
-		tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
-
 		if (unread_msg_cnt > 0) {
+			char *sound_track = NULL;
+			char *app_id = TELEGRAM_APP_ID;
+			tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
 			int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
 			if (BADGE_ERROR_NONE != err) {
 
