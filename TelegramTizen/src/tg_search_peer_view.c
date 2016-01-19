@@ -660,10 +660,10 @@ static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
 	return list;
 }
 
-void add_contact_to_phone_book(appdata_s *ad)
+Eina_Bool add_contact_to_phone_book(appdata_s *ad)
 {
 	if (!ad)
-		return;
+		return EINA_FALSE;
 
 	char* phone_num = NULL;
 	char* first_name = NULL;
@@ -718,7 +718,9 @@ void add_contact_to_phone_book(appdata_s *ad)
 
 		 if (is_contact_exists) {
 			 err_code = contacts_disconnect();
-			 return;
+			 hide_loading_popup(ad);
+			 show_toast(ad, i18n_get_text("IDS_CST_BODY_CONTACT_ALREADY_EXISTS"));
+			 return EINA_FALSE;
 		 }
 
 		/***********************************************************************/
@@ -769,14 +771,16 @@ void add_contact_to_phone_book(appdata_s *ad)
 		// destroy record
 		contacts_record_destroy(contact, true);
 		err_code = contacts_disconnect();
+		return EINA_TRUE;
 	} else {
 		// show message
 	}
-
+	return EINA_FALSE;
 }
 static Eina_Bool on_contacts_reloaded(void *data)
 {
 	appdata_s *ad = data;
+	hide_loading_popup(ad);
 	elm_naviframe_item_pop(ad->nf);
 	ad->current_app_state = TG_PEER_SEARCH_VIEW_STATE;
 	show_floating_button(ad);
@@ -819,7 +823,8 @@ void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bo
 					_append_contact_item(peer_list, ad, ad->contact_list);
 				}
 			}
-			ecore_timer_add(2, on_contacts_reloaded, ad);
+			show_loading_popup(ad);
+			ecore_timer_add(5, on_contacts_reloaded, ad);
 		}
 	} else {
 		// show failed message
@@ -842,7 +847,8 @@ void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bo
 				_append_contact_item(peer_list, ad, ad->contact_list);
 			}
 		}
-		ecore_timer_add(2, on_contacts_reloaded, ad);
+		show_loading_popup(ad);
+		ecore_timer_add(5, on_contacts_reloaded, ad);
 	}
 }
 
@@ -867,9 +873,10 @@ static void on_new_contact_done_clicked(void *data, Evas_Object *obj, void *even
 		last_name = elm_entry_markup_to_utf8(elm_object_text_get(last_name_entry));
 
 	if ((phone_num && strlen(phone_num) > 0) && (first_name && strlen(first_name) > 0) && (last_name && strlen(last_name) > 0)) {
-		add_contact_to_phone_book(ad);
-		show_loading_popup(ad);
-		send_add_buddy_request(ad, ad->service_client, -1, first_name, last_name, phone_num);
+		if (add_contact_to_phone_book(ad)) {
+			show_loading_popup(ad);
+			send_add_buddy_request(ad, ad->service_client, -1, first_name, last_name, phone_num);
+		}
 	} else {
 		// show message
 
