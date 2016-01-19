@@ -1232,8 +1232,8 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 	Evas_Object *main_layout = evas_object_data_get(ad->nf, "main_layout");
 	Evas_Object *index = evas_object_data_get(ad->nf, "fs_index");
 
-	user_data_with_pic_s *item;
-	user_data_s* user; // = item->use_data;
+	user_data_with_pic_s *tl_item;
+	user_data_s* tl_user; // = item->use_data;
 
 	if (!search_list) {
 		DBG("search_list is null");
@@ -1244,50 +1244,77 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 
 	entry_text = trim(elm_entry_markup_to_utf8(elm_object_text_get(obj)));
 
-	Eina_List *result_list = NULL;
-	Eina_List *l = NULL;
+	Eina_List *tl_result_list = NULL;
+	Eina_List *ll = NULL;
 
+	// telegram contacts
 	if (ucol_is_jamo(entry_text)) {
 		LOGD("entry_text is jamo, %s", entry_text);
-		EINA_LIST_FOREACH(ad->search_peer_list, l, item) {
+		EINA_LIST_FOREACH(ad->search_peer_list, ll, tl_item) {
 			int result;
-			user = item->use_data;
-			result = ucol_compare_first_letters(user->print_name, entry_text);
+			tl_user = tl_item->use_data;
+			result = ucol_compare_first_letters(tl_user->print_name, entry_text);
 			if (result == 0) {
-				result_list = eina_list_append(result_list, item);
+				tl_result_list = eina_list_append(tl_result_list, tl_item);
 			}
 		}
 	} else {
 		LOGD("entry_text is not jamo, %s", entry_text);
-		EINA_LIST_FOREACH(ad->search_peer_list, l, item) {
-			user = item->use_data;
+		EINA_LIST_FOREACH(ad->search_peer_list, ll, tl_item) {
+			tl_user = tl_item->use_data;
 
-			if (ucol_search(user->print_name, entry_text) != -ENOENT) {
-				result_list = eina_list_append(result_list, item);
+			if (ucol_search(tl_user->print_name, entry_text) != -ENOENT) {
+				tl_result_list = eina_list_append(tl_result_list, tl_item);
+			}
+		}
+	}
+	Eina_List *contact_result_list = NULL;
+	Eina_List *l = NULL;
+	contact_data_s* cn_item = NULL;
+	//device contacts
+	if (ucol_is_jamo(entry_text)) {
+		LOGD("entry_text is jamo, %s", entry_text);
+		EINA_LIST_FOREACH(ad->contact_list, l, cn_item) {
+			int result;
+			result = ucol_compare_first_letters(cn_item->display_name, entry_text);
+			if (result == 0) {
+				contact_result_list = eina_list_append(contact_result_list, cn_item);
+			}
+		}
+	} else {
+		LOGD("entry_text is not jamo, %s", entry_text);
+		EINA_LIST_FOREACH(ad->contact_list, l, cn_item) {
+			if (ucol_search(cn_item->display_name, entry_text) != -ENOENT) {
+				contact_result_list = eina_list_append(contact_result_list, cn_item);
 			}
 		}
 	}
 
-	if ((entry_text == NULL || strlen(entry_text) == 0) && result_list == NULL) {
-		result_list = ad->search_peer_list;
+
+	if ((entry_text == NULL || strlen(entry_text) == 0) && tl_result_list == NULL && contact_result_list == NULL) {
+		tl_result_list = ad->search_peer_list;
+		contact_result_list = ad->contact_list;
 		_append_command_item(search_list, ad);
 	}
 
-	LOGD("count of result_list is %d", eina_list_count(result_list));
+	LOGD("count of result_list is %d", eina_list_count(tl_result_list));
 
-	if (!(entry_text == NULL || strlen(entry_text) == 0) && !result_list) {
+	if (!(entry_text == NULL || strlen(entry_text) == 0) && !tl_result_list && !contact_result_list) {
 		Evas_Object *no_contents = evas_object_data_get(ad->nf, "no_contents_layout");
-
 		elm_object_part_content_unset(main_layout, "elm.swallow.content");
 		elm_object_part_content_set(main_layout, "elm.swallow.content", no_contents);
 	} else {
 		Evas_Object *fs_layout = evas_object_data_get(ad->nf, "fs_layout");
-		_append_peer_item(search_list, data, result_list);
+		_append_peer_item(search_list, data, tl_result_list);
 		Evas_Object *content = elm_object_part_content_unset(main_layout, "elm.swallow.content");
 		if (evas_object_data_get(ad->nf, "no_contents_layout") == content) {
 			evas_object_hide(content);
 		}
 		elm_object_part_content_set(main_layout, "elm.swallow.content", fs_layout);
+
+		if (contact_result_list && eina_list_count(contact_result_list) > 0) {
+			_append_contact_item(search_list, ad, contact_result_list);
+		}
 	}
 
 	elm_index_level_go(index, 0);
