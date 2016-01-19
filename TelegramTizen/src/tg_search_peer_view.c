@@ -1362,7 +1362,10 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		elm_object_part_content_set(main_layout, "elm.swallow.content", no_contents);
 	} else {
 		Evas_Object *fs_layout = evas_object_data_get(ad->nf, "fs_layout");
-		_append_peer_item(search_list, data, tl_result_list);
+		if (tl_result_list && eina_list_count(tl_result_list) > 0) {
+			_append_group_index(search_list, i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
+			_append_peer_item(search_list, data, tl_result_list);
+		}
 		Evas_Object *content = elm_object_part_content_unset(main_layout, "elm.swallow.content");
 		if (evas_object_data_get(ad->nf, "no_contents_layout") == content) {
 			evas_object_hide(content);
@@ -1370,6 +1373,7 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		elm_object_part_content_set(main_layout, "elm.swallow.content", fs_layout);
 
 		if (contact_result_list && eina_list_count(contact_result_list) > 0) {
+			_append_group_index(search_list, i18n_get_text("IDS_TGRAM_MBODY_INVITE_FRIENDS"));
 			_append_contact_item(search_list, ad, contact_result_list);
 		}
 	}
