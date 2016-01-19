@@ -487,3 +487,6 @@ msgstr "%sを開始しますか？"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sにメッセージを送信します。"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "連絡先は既に存在します。"
+

@@ -487,3 +487,6 @@ msgstr "%s을(를) 시작할까요?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s 님에게 메시지 전송"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "동일한 연락처가 있습니다."
+

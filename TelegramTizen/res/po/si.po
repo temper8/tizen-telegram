@@ -487,3 +487,6 @@ msgstr "%s අරඹන්නද?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "පණිවිඩය %s වෙත යවන්න"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "සබඳතාව දැනටමත් ඇත."
+

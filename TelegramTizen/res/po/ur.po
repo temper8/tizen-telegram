@@ -487,3 +487,6 @@ msgstr "%s شروع کریں؟"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s کو پیغام بھیجیں"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "رابطہ پہلے سے موجود ہے"
+

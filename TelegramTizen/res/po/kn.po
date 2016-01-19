@@ -487,3 +487,6 @@ msgstr "%s ಆರಂಭಿಸುವುದೆ?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "ಸಂಪರ್ಕ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ."
+

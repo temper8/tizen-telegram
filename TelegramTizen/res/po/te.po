@@ -487,3 +487,6 @@ msgstr "%s ను మొదలుపెట్టాలా?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sకు సందేశాన్ని పంపు"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "పరిచయం ఇప్పటికే ఉంది."
+

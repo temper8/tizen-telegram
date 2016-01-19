@@ -487,3 +487,6 @@ msgstr "Pokreni %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Pošalji poruku na %s"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Кontakt već postoji."
+

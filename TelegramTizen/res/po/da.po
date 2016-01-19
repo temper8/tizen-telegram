@@ -487,3 +487,6 @@ msgstr "Vil du starte %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Send besked til %s"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Kontakt findes allerede."
+

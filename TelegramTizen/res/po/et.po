@@ -487,3 +487,6 @@ msgstr "Käivitada %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Saada sõnum kontaktile %s"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Kontakt on juba olemas."
+

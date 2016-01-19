@@ -487,3 +487,6 @@ msgstr "開始%s嗎？"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "發送訊息至%s"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "聯絡人已存在。"
+

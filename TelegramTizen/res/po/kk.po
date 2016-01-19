@@ -487,3 +487,6 @@ msgstr "%s бастау керек пе?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s контактісіне хабар жіберу"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Контакт бар."
+

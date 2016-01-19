@@ -487,3 +487,6 @@ msgstr "Почни %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Прати порака на %s"
 
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Контактот веќе постои."
+
