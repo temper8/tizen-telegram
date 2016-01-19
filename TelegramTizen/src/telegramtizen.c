@@ -1827,6 +1827,11 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 		char content[512];
 
 		int unread_msg_cnt = get_number_of_unread_messages();
+
+		if (unread_msg_cnt <= 0) {
+			return result;
+		}
+
 		sprintf(content, "%d new messages received.", unread_msg_cnt);
 
 		char *sound_track = NULL;
@@ -3720,6 +3725,10 @@ Eina_Bool on_load_main_view_requested(void *data)
 		hide_loading_popup(ad);
 		launch_user_main_view_cb(ad);
 		int unread_msg_cnt = get_number_of_unread_messages();
+		if (unread_msg_cnt <= 0) {
+			return ECORE_CALLBACK_CANCEL;
+		}
+
 		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
 		if (BADGE_ERROR_NONE != err) {
 
@@ -3908,6 +3917,9 @@ app_pause(void *data)
 	if (app_data) {
 		app_data->s_app_visible_state = APP_STATE_IN_BACKGROUND;
 		int unread_msg_cnt = get_number_of_unread_messages();
+		if (unread_msg_cnt <= 0) {
+			return;
+		}
 		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
 		if (BADGE_ERROR_NONE != err) {
 
@@ -3932,11 +3944,12 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 	}
 
 	int unread_msg_cnt = get_number_of_unread_messages();
-	int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-	if (BADGE_ERROR_NONE != err) {
+	if (unread_msg_cnt > 0) {
+		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+		if (BADGE_ERROR_NONE != err) {
 
+		}
 	}
-
 	if (app_data->panel) {
 		Evas_Object *panel_list = evas_object_data_get(app_data->panel, "panel_list");
 		if (panel_list) {

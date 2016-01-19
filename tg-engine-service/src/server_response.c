@@ -872,9 +872,11 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 		char *app_id = TELEGRAM_APP_ID;
 		tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
 
-		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		if (BADGE_ERROR_NONE != err) {
+		if (unread_msg_cnt > 0) {
+			int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+			if (BADGE_ERROR_NONE != err) {
 
+			}
 		}
 	}
 	bundle_free(msg);
@@ -943,9 +945,11 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 		char *app_id = TELEGRAM_APP_ID;
 		tg_notification_create(tg_data, icon_path, title, content, sound_track, app_id);
 
-		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		if (BADGE_ERROR_NONE != err) {
+		if (unread_msg_cnt > 0) {
+			int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+			if (BADGE_ERROR_NONE != err) {
 
+			}
 		}
 	}
 	bundle_free(msg);
