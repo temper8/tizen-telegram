@@ -2855,7 +2855,7 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 	strcat(where_clause, " = ");
 	strcat(where_clause, unknown_str);
 
-	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, where_clause);
+	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, where_clause, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
 	if(!vals) {
 		// set no messages yet
 		return EINA_FALSE;

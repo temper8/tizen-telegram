@@ -386,41 +386,24 @@ int get_number_of_rows(char* table_name, char* where_clause)
 	return no_of_rows;
 }
 
-Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause)
+Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause, unsigned int limit, unsigned int offset)
 {
 	Eina_List* query_vals = NULL;
+
 
 	if (!table_name) {
 		return NULL;
 	}
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+
 	/*****No rows identification*****/
-
-	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
-	strcpy(row_cnt_qry, "SELECT COUNT(*) FROM ");
-	strcat(row_cnt_qry, table_name);
-	strcat(row_cnt_qry, ";");
-
-	int no_of_rows = 0;
-	//ret = sqlite3_exec(s_info.db,var_query, callback,(void*)s_info.db, &err_msg);
-
-	sqlite3_stmt *stmt;
-	if (sqlite3_prepare_v2(db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
-		if (sqlite3_step(stmt) == SQLITE_ERROR) {
-			no_of_rows = 0;
-		} else {
-			no_of_rows = sqlite3_column_int(stmt, 0);
-		}
-		sqlite3_finalize(stmt);
-	}
-	close_database(db);
-	free(row_cnt_qry);
-	if(no_of_rows <= 0) {
+	if (get_number_of_rows(table_name, NULL) == 0) {
+		/* There are no rows */
 		return NULL;
 	}
 
 	/********************************/
-	db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3_stmt *stmt;
+	sqlite3* db =  create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);
@@ -479,7 +462,17 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		}
 	}
 
-
+	if (limit != TG_DBMGR_NOLIMITED && offset != TG_DBMGR_NOLIMITED) {
+		if (limit > 4000000000 && offset > 4000000000) {
+			/* too big size to handle. ignore */
+		}
+		else {
+			char limit_clause[50] = { 0, };
+			snprintf(limit_clause, 50, " LIMIT %d OFFSET %d ", limit, offset);
+			var_query = realloc(var_query, strlen(var_query) + strlen(limit_clause) + 1);
+			strcat(var_query, limit_clause);
+		}
+	}
 
 	var_query = realloc(var_query, strlen(var_query) + 2);
 	strcat(var_query, ";");
@@ -520,7 +513,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 }
 
-Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* wc, int limit, int offset)
+Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* wc, unsigned int limit, unsigned int offset)
 {
 	sqlite3_stmt *stmt;
 	const char *name;
@@ -555,6 +548,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	query_len += strlen(" FROM ");
 	query_len += strlen(table_name) + 1;
 	query_len += (where_clause ? strlen(where_clause) : 0);
+	query_len += ((limit != TG_DBMGR_NOLIMITED && offset != TG_DBMGR_NOLIMITED) ? strlen("LIMIT OFFSET") + 20 : 0);
 	query_len += 2;
 
 	query = malloc(query_len);
@@ -575,12 +569,11 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		ptr++;
 	}
 
-	if (limit == -1 || offset == -1) {
+	if (limit == TG_DBMGR_NOLIMITED || offset == TG_DBMGR_NOLIMITED) {
 		ptr += sprintf(ptr, " FROM %s %s;", table_name, where_clause ? where_clause : "");
 	} else {
 		ptr += sprintf(ptr, " FROM %s %s LIMIT %d OFFSET %d;", table_name, where_clause ? where_clause : "", limit, offset);
 	}
-
 
 	LOGD("Query: %s", query);
 
