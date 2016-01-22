@@ -462,7 +462,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		}
 	}
 
-	if (limit != TG_DBMGR_NOLIMITED && offset != TG_DBMGR_NOLIMITED) {
+	if (limit != TG_DBMGR_NOLIMITED) {
 		if (limit > 4000000000 && offset > 4000000000) {
 			/* too big size to handle. ignore */
 		}
@@ -548,7 +548,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 	query_len += strlen(" FROM ");
 	query_len += strlen(table_name) + 1;
 	query_len += (where_clause ? strlen(where_clause) : 0);
-	query_len += ((limit != TG_DBMGR_NOLIMITED && offset != TG_DBMGR_NOLIMITED) ? strlen("LIMIT OFFSET") + 20 : 0);
+	query_len += ((limit != TG_DBMGR_NOLIMITED) ? strlen("LIMIT OFFSET") + 20 : 0);
 	query_len += 2;
 
 	query = malloc(query_len);
@@ -569,7 +569,7 @@ Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_
 		ptr++;
 	}
 
-	if (limit == TG_DBMGR_NOLIMITED || offset == TG_DBMGR_NOLIMITED) {
+	if (limit == TG_DBMGR_NOLIMITED) {
 		ptr += sprintf(ptr, " FROM %s %s;", table_name, where_clause ? where_clause : "");
 	} else {
 		ptr += sprintf(ptr, " FROM %s %s LIMIT %d OFFSET %d;", table_name, where_clause ? where_clause : "", limit, offset);
