@@ -137,12 +137,12 @@ char *tgl_engine_get_state_filename(void)
   return s_info.state_file_name;
 }
 
-char *tgl_engine_get_secret_chat_filename (void)
+char *tgl_engine_get_secret_chat_filename(void)
 {
   return s_info.secret_chat_file_name;
 }
 
-char *tgl_engine_get_downloads_directory (void)
+char *tgl_engine_get_downloads_directory(void)
 {
   return s_info.downloads_directory;
 }
@@ -173,7 +173,7 @@ void write_secret_chat(tgl_peer_t *_P, void *extra)
 {
 	struct tgl_secret_chat *P = (void *)_P;
 
-	if (tgl_get_peer_type (P->id) != TGL_PEER_ENCR_CHAT) {
+	if (tgl_get_peer_type(P->id) != TGL_PEER_ENCR_CHAT) {
 		return;
 	}
 
@@ -183,27 +183,27 @@ void write_secret_chat(tgl_peer_t *_P, void *extra)
 
 	int *a = extra;
 	int fd = a[0];
-	a[1] ++;
+	a[1]++;
 
-	int id = tgl_get_peer_id (P->id);
-	assert (write (fd, &id, 4) == 4);
-	//assert (write (fd, &P->flags, 4) == 4);
+	int id = tgl_get_peer_id(P->id);
+	assert(write(fd, &id, 4) == 4);
+	//assert(write(fd, &P->flags, 4) == 4);
 	int l = strlen(P->print_name);
-	assert(write (fd, &l, 4) == 4);
-	assert(write (fd, P->print_name, l) == l);
-	assert(write (fd, &P->user_id, 4) == 4);
-	assert(write (fd, &P->admin_id, 4) == 4);
-	assert(write (fd, &P->date, 4) == 4);
-	assert(write (fd, &P->ttl, 4) == 4);
-	assert(write (fd, &P->layer, 4) == 4);
-	assert(write (fd, &P->access_hash, 8) == 8);
-	assert(write (fd, &P->state, 4) == 4);
-	assert(write (fd, &P->key_fingerprint, 8) == 8);
-	assert(write (fd, &P->key, 256) == 256);
-	assert(write (fd, &P->first_key_sha, 20) == 20);
-	assert(write (fd, &P->in_seq_no, 4) == 4);
-	assert(write (fd, &P->last_in_seq_no, 4) == 4);
-	assert(write (fd, &P->out_seq_no, 4) == 4);
+	assert(write(fd, &l, 4) == 4);
+	assert(write(fd, P->print_name, l) == l);
+	assert(write(fd, &P->user_id, 4) == 4);
+	assert(write(fd, &P->admin_id, 4) == 4);
+	assert(write(fd, &P->date, 4) == 4);
+	assert(write(fd, &P->ttl, 4) == 4);
+	assert(write(fd, &P->layer, 4) == 4);
+	assert(write(fd, &P->access_hash, 8) == 8);
+	assert(write(fd, &P->state, 4) == 4);
+	assert(write(fd, &P->key_fingerprint, 8) == 8);
+	assert(write(fd, &P->key, 256) == 256);
+	assert(write(fd, &P->first_key_sha, 20) == 20);
+	assert(write(fd, &P->in_seq_no, 4) == 4);
+	assert(write(fd, &P->last_in_seq_no, 4) == 4);
+	assert(write(fd, &P->out_seq_no, 4) == 4);
 }
 
 void write_secret_chat_file(void)
@@ -211,13 +211,13 @@ void write_secret_chat_file(void)
 	if (s_info.binlog_enabled) {
 		return;
 	}
-	int secret_chat_fd = open (tgl_engine_get_secret_chat_filename(), O_CREAT | O_RDWR, 0600);
-	assert (secret_chat_fd >= 0);
+	int secret_chat_fd = open(tgl_engine_get_secret_chat_filename(), O_CREAT | O_RDWR, 0600);
+	assert(secret_chat_fd >= 0);
 	int x = SECRET_CHAT_FILE_MAGIC;
-	assert (write (secret_chat_fd, &x, 4) == 4);
+	assert(write(secret_chat_fd, &x, 4) == 4);
 	x = 2;
-	assert (write (secret_chat_fd, &x, 4) == 4); // version
-	assert (write (secret_chat_fd, &x, 4) == 4); // num
+	assert(write(secret_chat_fd, &x, 4) == 4); // version
+	assert(write(secret_chat_fd, &x, 4) == 4); // num
 
 	int y[2];
 	y[0] = secret_chat_fd;
@@ -226,7 +226,7 @@ void write_secret_chat_file(void)
 	tgl_peer_iterator_ex(s_info.TLS, write_secret_chat, y);
 
 	lseek(secret_chat_fd, 8, SEEK_SET);
-	assert(write (secret_chat_fd, &y[1], 4) == 4);
+	assert(write(secret_chat_fd, &y[1], 4) == 4);
 	close(secret_chat_fd);
 }
 
@@ -319,11 +319,11 @@ void read_secret_chat(int fd, int v)
 	}
 
 	bl_do_encr_chat_create(s_info.TLS, id, user_id, admin_id, s, l);
-	struct tgl_secret_chat  *P =(void *)tgl_peer_get(s_info.TLS, TGL_MK_ENCR_CHAT(id));
-	assert(P &&(P->flags & FLAG_CREATED));
+	struct tgl_secret_chat *P = (void *)tgl_peer_get(s_info.TLS, TGL_MK_ENCR_CHAT(id));
+	assert(P && (P->flags & FLAG_CREATED));
 	bl_do_encr_chat_set_date(s_info.TLS, P, date);
 	bl_do_encr_chat_set_ttl(s_info.TLS, P, ttl);
-	bl_do_encr_chat_set_layer(s_info.TLS ,P, layer);
+	bl_do_encr_chat_set_layer(s_info.TLS , P, layer);
 	bl_do_encr_chat_set_access_hash(s_info.TLS, P, access_hash);
 	bl_do_encr_chat_set_state(s_info.TLS, P, state);
 	bl_do_encr_chat_set_key(s_info.TLS, P, key, key_fingerprint);
@@ -358,7 +358,7 @@ void read_secret_chat_file(void)
 	assert(v == 0 || v == 1 || v == 2); // version
 	assert(read(secret_chat_fd, &x, 4) == 4);
 	assert(x >= 0);
-	while(x --> 0) {
+	while (x --> 0) {
 		read_secret_chat(secret_chat_fd, v);
 	}
 	close(secret_chat_fd);
@@ -380,7 +380,7 @@ void read_state_file(void)
 		return;
 	}
 
-	if (magic !=(int)STATE_FILE_MAGIC) {
+	if (magic != (int)STATE_FILE_MAGIC) {
 		close(state_file_fd);
 		return;
 	}
@@ -429,7 +429,7 @@ void read_auth_file(void)
 	unsigned x;
 	unsigned m;
 
-	if (read(auth_file_fd, &m, 4) < 4 ||(m != DC_SERIALIZED_MAGIC)) {
+	if (read(auth_file_fd, &m, 4) < 4 || (m != DC_SERIALIZED_MAGIC)) {
 		close(auth_file_fd);
 		empty_auth_file();
 		return;
@@ -441,7 +441,7 @@ void read_auth_file(void)
 	assert(read(auth_file_fd, &dc_working_num, 4) == 4);
 
 	int i;
-	for(i = 0; i <=(int)x; i++) {
+	for (i = 0; i <= (int)x; i++) {
 		int y;
 		assert(read(auth_file_fd, &y, 4) == 4);
 		if (y) {
@@ -527,7 +527,7 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 
 	tg_data->get_string = callback;
 	tg_data->callback_arg = arg;
-	if (strcmp (prompt, "phone number:") == 0) {
+	if (strcmp(prompt, "phone number:") == 0) {
 
 		if (tg_data->tg_state == TG_ENGINE_STATE_REGISTRATION) {
 			send_request_phone_num_again(tg_data);
@@ -539,7 +539,7 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 				tg_data->code_response_timer = ecore_timer_add(60, on_code_request_timer_expired, tg_data);
 			}
 		}
-	} else if (strcmp (prompt, "code('call' for phone call):") == 0) {
+	} else if (strcmp(prompt, "code('call' for phone call):") == 0) {
 
 		if (tg_data->code_response_timer) {
 			ecore_timer_del(tg_data->code_response_timer);
@@ -556,12 +556,12 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 			send_registration_response(tg_data, EINA_TRUE);
 		}
 
-	} else if (strcmp (prompt, "register [Y/n]:") == 0) {
+	} else if (strcmp(prompt, "register [Y/n]:") == 0) {
 
 		tg_data->tg_state = TG_ENGINE_STATE_PROFILE_REGISTRATION;
 		tg_data->get_string(TLS, "Y", tg_data->callback_arg);
 
-	} else if (strcmp (prompt, "First name:") == 0) {
+	} else if (strcmp(prompt, "First name:") == 0) {
 		// request for first name
 
 		tg_data->tg_state = TG_ENGINE_STATE_PROFILE_FIRST_NAME_REGISTRATION;
@@ -573,7 +573,7 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 			send_name_registration_response(tg_data);
 		}
 
-	} else if (strcmp (prompt, "Last name:") == 0) {
+	} else if (strcmp(prompt, "Last name:") == 0) {
 		// request for last name
 		tg_data->tg_state = TG_ENGINE_STATE_PROFILE_LAST_NAME_REGISTRATION;
 
@@ -659,7 +659,7 @@ static Eina_Bool on_send_unsent_messages_requested(void *data)
 		//tg_engine_data_s *tg_data = TLS->callback_data;
 
 		Eina_List *unset_text_msgs = get_all_unsent_text_messages();
-		if (unset_text_msgs && eina_list_count(unset_text_msgs) > 0 ) {
+		if (unset_text_msgs && eina_list_count(unset_text_msgs) > 0) {
 			for (int i = 0 ; i < eina_list_count(unset_text_msgs) ; i++) {
 				sent_message_data_s* msg_info = eina_list_nth(unset_text_msgs, i);
 				if (msg_info) {
@@ -707,7 +707,7 @@ static Eina_Bool on_send_unsent_messages_requested(void *data)
 
 		Eina_List *unset_media_msgs = get_all_unsent_media_messages();
 		int init_time = 10;
-		if (unset_media_msgs && eina_list_count(unset_media_msgs) > 0 ) {
+		if (unset_media_msgs && eina_list_count(unset_media_msgs) > 0) {
 			for (int i = 0 ; i < eina_list_count(unset_media_msgs) ; i++) {
 				sent_media_data_s* media_info = eina_list_nth(unset_media_msgs, i);
 				if (media_info) {
@@ -789,7 +789,7 @@ void tg_type_notification(struct tgl_state *TLS, struct tgl_user* buddy, enum tg
 		name_of_buddy = (char *)malloc(strlen(buddy->first_name) + strlen(buddy->last_name) + 1);
 		strcpy(name_of_buddy, buddy->first_name);
 		strcat(name_of_buddy, buddy->last_name);
-	} else if(buddy->first_name) {
+	} else if (buddy->first_name) {
 		name_of_buddy = (char *)malloc(strlen(buddy->first_name) + 1);
 		strcpy(name_of_buddy, buddy->first_name);
 	} else {
@@ -826,7 +826,7 @@ void tg_status_notification(struct tgl_state *TLS, struct tgl_user *buddy)
 			name_of_buddy = (char *)malloc(strlen(buddy->first_name) + strlen(buddy->last_name) + 1);
 			strcpy(name_of_buddy, buddy->first_name);
 			strcat(name_of_buddy, buddy->last_name);
-		} else if(buddy->first_name) {
+		} else if (buddy->first_name) {
 			name_of_buddy = (char *)malloc(strlen(buddy->first_name) + 1);
 			strcpy(name_of_buddy, buddy->first_name);
 		} else {
@@ -929,7 +929,7 @@ void tg_user_update(struct tgl_state *TLS, struct tgl_user *buddy, unsigned flag
 
 		strcpy(name_of_buddy, buddy->first_name);
 		strcpy(name_of_buddy + first_len, buddy->last_name);
-	} else if(buddy->first_name) {
+	} else if (buddy->first_name) {
 		name_of_buddy = strdup(buddy->first_name);
 		name_of_buddy_len = strlen(name_of_buddy);
 	} else {
@@ -1158,7 +1158,7 @@ static Eina_Bool on_msg_received_cb(void *data)
 {
 	struct tg_temp_msg_data *msg_data = data;
 	insert_buddy_msg_to_db(msg_data->M);
-	if(msg_data->M->media.type != tgl_message_media_none) {
+	if (msg_data->M->media.type != tgl_message_media_none) {
 		insert_media_info_to_db(msg_data->M, "");
 		if (msg_data->M->media.type != tgl_message_media_none && (msg_data->M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
 			tgl_do_load_document_thumb(msg_data->TLS, &(msg_data->M->media.document), on_video_thumb_loaded, msg_data->M);
@@ -1203,8 +1203,8 @@ void on_requested_chat_info_received(struct tgl_state *TLS, void *callback_extra
 
 	insert_chat_info_to_db(chat_info, NULL);
 	struct tgl_photo *pic = &(chat_info->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_chat_pic_loaded, chat_info);
 	}
 
 	// send message
@@ -1224,7 +1224,7 @@ void on_requested_chat_info_received(struct tgl_state *TLS, void *callback_extra
 			M->message_len = strlen("Video");
 		}
 		insert_buddy_msg_to_db(M);
-		if(M->media.type != tgl_message_media_none) {
+		if (M->media.type != tgl_message_media_none) {
 			insert_media_info_to_db(M, "");
 			if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
 				tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
@@ -1297,8 +1297,8 @@ void on_requested_update_chat_received(struct tgl_state *TLS, void *callback_ext
 
 	insert_chat_info_to_db(chat_info, NULL);
 	struct tgl_photo *pic = &(chat_info->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_chat_pic_loaded, chat_info);
 	}
 	//char *type_of_change = strdup("add_user");
 	tgl_peer_t* chat_UC = tgl_peer_get(TLS, chat_info->id);
@@ -1318,7 +1318,7 @@ void do_update_chat_info(int chat_id)
 
 void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U)
 {
-	if(!U) {
+	if (!U) {
 		return;
 	}
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -1331,8 +1331,8 @@ void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int s
 	U->is_unknown = 1;
 	init_insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, U);
 	struct tgl_photo* pic = &(U->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_buddy_pic_loaded,U);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_buddy_pic_loaded, U);
 	}
 
 	send_new_buddy_added_response(tg_data, U->id.id);
@@ -1357,7 +1357,7 @@ void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int s
 				M->message_len = strlen("Video");
 			}
 			insert_buddy_msg_to_db(M);
-			if(M->media.type != tgl_message_media_none) {
+			if (M->media.type != tgl_message_media_none) {
 				insert_media_info_to_db(M, "");
 				if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
 					tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
@@ -1384,7 +1384,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 		}
 		if (M->service) {
 			// this is service message. to be handled in telegram.
-			if (tgl_get_peer_id (M->from_id) != TLS->our_id) {
+			if (tgl_get_peer_id(M->from_id) != TLS->our_id) {
 				char *type_of_change = NULL;
 				if (M->action.type == tgl_message_action_chat_create) {
 
@@ -1420,8 +1420,8 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 					int msg_id = insert_current_date_to_table(msg_table);
 					free(msg_table);
 					struct tgl_photo *pic = &(M->action.photo);
-					if(pic) {
-						tgl_do_load_photo(TLS, pic ,&on_new_chat_pic_loaded, M);
+					if (pic) {
+						tgl_do_load_photo(TLS, pic, &on_new_chat_pic_loaded, M);
 					}
 
 				} else if (M->action.type == tgl_message_action_chat_delete_photo) {
@@ -1545,7 +1545,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 					M->message_len = strlen("Sticker");
 				}
 				insert_buddy_msg_to_db(M);
-				if(M->media.type != tgl_message_media_none) {
+				if (M->media.type != tgl_message_media_none) {
 					insert_media_info_to_db(M, "");
 					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
 						tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
@@ -1571,7 +1571,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 
 		} else {
 
-			if ((tgl_get_peer_type (M->from_id) == TGL_PEER_USER) && (tgl_get_peer_id (M->from_id) == TLS->our_id)) {
+			if ((tgl_get_peer_type(M->from_id) == TGL_PEER_USER) && (tgl_get_peer_id(M->from_id) == TLS->our_id)) {
 
 			} else {
 				if (M->media.type != tgl_message_media_none) {
@@ -1613,7 +1613,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 					M->message_len = strlen("Video");
 				}
 				insert_buddy_msg_to_db(M);
-				if(M->media.type != tgl_message_media_none) {
+				if (M->media.type != tgl_message_media_none) {
 					insert_media_info_to_db(M, "");
 					if (M->media.type != tgl_message_media_none && (M->media.document.flags & FLAG_DOCUMENT_VIDEO)) {
 						tgl_do_load_document_thumb(TLS, &(M->media.document), on_video_thumb_loaded, M);
@@ -1645,7 +1645,7 @@ void tg_notification(struct tgl_state *TLS, char *type, char *message)
 void tg_user_status_update(struct tgl_state *TLS, struct tgl_user *U)
 {
 
-	if (tgl_get_peer_type (U->id) != TGL_PEER_USER) {
+	if (tgl_get_peer_type(U->id) != TGL_PEER_USER) {
 		return;
 	}
 
@@ -1743,7 +1743,7 @@ void on_buddy_pic_loaded(struct tgl_state *TLS, void *callback_extra, int succes
 	tg_engine_data_s *tg_data = TLS->callback_data;
 
 	if (buddy && buddy->id.id == tg_data->id.id) {
-		if(filename) {
+		if (filename) {
 			update_buddy_pic_db(filename, USER_INFO_TABLE_NAME, buddy->id.id);
 			update_buddy_pic_db(filename, BUDDY_INFO_TABLE_NAME, buddy->id.id);
 			send_buddy_profile_pic_updated_response(TLS->callback_data, buddy->id.id, filename);
@@ -1766,7 +1766,7 @@ void on_new_group_icon_loaded(struct tgl_state *TLS, void *callback_extra, int s
 
 	tg_data = TLS->callback_data;
 
-	if(tg_data->new_group_icon) {
+	if (tg_data->new_group_icon) {
 
 		char *msg_table = get_table_name_from_number(chat_info->id.id);
 		create_buddy_msg_table(msg_table);
@@ -1782,7 +1782,7 @@ void on_new_group_icon_loaded(struct tgl_state *TLS, void *callback_extra, int s
 		msg.fwd_from_id.type = 0;
 		msg.id = 0;
 		msg.message = msg_data;
-		msg.message_len = strlen (msg_data);
+		msg.message_len = strlen(msg_data);
 		msg.out = 0;
 		msg.service = 0;
 		msg.to_id.id = 0;
@@ -1876,14 +1876,14 @@ void on_chat_info_received(struct tgl_state *TLS, void *callback_extra, int succ
 
 	insert_chat_info_to_db(chat_info, NULL);
 	struct tgl_photo *pic = &(chat_info->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_chat_pic_loaded, chat_info);
 	}
 }
 
 void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U)
 {
-	if(!U) {
+	if (!U) {
 		return;
 	}
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -1893,8 +1893,8 @@ void on_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int succe
 
 	//update_buddy_into_db(BUDDY_INFO_TABLE_NAME, U);
 	struct tgl_photo* pic = &(U->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_buddy_pic_loaded,U);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_buddy_pic_loaded, U);
 	}
 }
 
@@ -2240,8 +2240,8 @@ void on_peer_chat_info_received(struct tgl_state *TLS, void *callback_extra, int
 	insert_chat_info_to_db(chat_info, NULL);
 
 	struct tgl_photo *pic = &(chat_info->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_chat_pic_loaded, chat_info);
 	}
 
 end:
@@ -2268,7 +2268,7 @@ void on_contacts_and_chats_loaded(struct tgl_state *TLS, void *callback_extra, i
 	for (int i = size - 1; i >= 0; i--) {
 		tgl_peer_t* UC = tgl_peer_get(TLS, peers[i]);
         // user exited from chat
-		if(UC->flags == 144) {
+		if (UC->flags == 144) {
 			continue;
 		}
 		tg_data->peer_list = eina_list_append(tg_data->peer_list, UC);
@@ -2386,8 +2386,7 @@ void on_contacts_received(struct tgl_state *TLS, void *callback_extra, int succe
 void add_contacts_to_account(struct tgl_state *TLS)
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
-	if(sc_db_utils_connect())
-	{
+	if (sc_db_utils_connect()) {
 		Eina_List* contact_list = get_contact_list_from_device_db();
 		sc_db_utils_disconnect();
 
@@ -2421,8 +2420,8 @@ void on_user_info_loaded(struct tgl_state *TLS, void *extra, int success, struct
 	tg_data->id.type = buddy->id.type;
 
 	struct tgl_photo* pic = &(buddy->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_buddy_pic_loaded, buddy);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_buddy_pic_loaded, buddy);
 	}
 
 	buddy->is_unknown = 0;
@@ -2503,7 +2502,7 @@ void on_image_download_completed(struct tgl_state *TLS, void *callback_extra, in
 	int buddy_id = photo_prop->user_id;
 	int to_id = photo_prop->to_peer_id;
 	if (success) {
-		if(photo_prop && filename) {
+		if (photo_prop && filename) {
 			update_receive_media_info_in_db(media_id, filename);
 			//send response to application
 			send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, filename, photo_prop->caption);
@@ -2522,7 +2521,7 @@ void on_document_download_completed(struct tgl_state *TLS, void *callback_extra,
 	int buddy_id = doc_prop->user_id;
 	int to_id = doc_prop->to_peer_id;
 	if (success) {
-		if(doc_prop && filename) {
+		if (doc_prop && filename) {
 			update_receive_media_info_in_db(media_id, filename);
 			//send response to application
 			send_media_download_completed_response(tg_data, buddy_id, to_id, media_id, filename, doc_prop->caption);
@@ -2569,7 +2568,7 @@ void free_contact_data(Eina_List *contact_data)
 	}
 }
 
-void on_contact_added(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[])
+void on_contact_added(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_user *users[])
 {
 	tg_engine_data_s* data = callback_extra;
 
@@ -2645,10 +2644,10 @@ void on_new_group_icon_loaded(struct tgl_state *TLS, void *callback_extra, int s
 				free(creator_name);
 				free(msg_table);
 				struct tgl_photo *pic = &(M->action.photo);
-				if(pic) {
+				if (pic) {
 					tgl_peer_t* UC = tgl_peer_get(TLS, M->to_id);
 					struct tgl_chat *chat_info = &(UC->chat);
-					tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded, chat_info);
+					tgl_do_load_photo(TLS, pic, &on_chat_pic_loaded, chat_info);
 				}
 
 
@@ -3031,7 +3030,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 	// get media details by mediaid
 	struct tgl_media* img_details = get_media_details_from_db(media_id);
 
-	if(!img_details) {
+	if (!img_details) {
 		send_media_download_completed_response(tg_data, -1, buddy_id, media_id, NULL, NULL);
 		return;
 	} else {
@@ -3058,10 +3057,10 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 					photo_prop->sizes[i].w = img_details->photo_width1;
 					photo_prop->sizes[i].h = img_details->photo_height1;
 					photo_prop->sizes[i].size = img_details->photo_size1;
-					if(img_details->photo_data1) {
+					if (img_details->photo_data1) {
 						photo_prop->sizes[i].data = strdup(img_details->photo_data1);
 					}
-					if(img_details->photo_type1) {
+					if (img_details->photo_type1) {
 						photo_prop->sizes[i].type = strdup(img_details->photo_type1);
 					}
 					photo_prop->sizes[i].loc.dc = img_details->photo_loc_dc1;
@@ -3073,10 +3072,10 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 					photo_prop->sizes[i].w = img_details->photo_width2;
 					photo_prop->sizes[i].h = img_details->photo_height2;
 					photo_prop->sizes[i].size = img_details->photo_size2;
-					if(img_details->photo_data2) {
+					if (img_details->photo_data2) {
 						photo_prop->sizes[i].data = strdup(img_details->photo_data2);
 					}
-					if(img_details->photo_type2) {
+					if (img_details->photo_type2) {
 						photo_prop->sizes[i].type = strdup(img_details->photo_type2);
 					}
 					photo_prop->sizes[i].loc.dc = img_details->photo_loc_dc2;
@@ -3089,10 +3088,10 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 					photo_prop->sizes[i].w = img_details->photo_width3;
 					photo_prop->sizes[i].h = img_details->photo_height3;
 					photo_prop->sizes[i].size = img_details->photo_size3;
-					if(img_details->photo_data3) {
+					if (img_details->photo_data3) {
 						photo_prop->sizes[i].data = strdup(img_details->photo_data3);
 					}
-					if(img_details->photo_type3) {
+					if (img_details->photo_type3) {
 						photo_prop->sizes[i].type = strdup(img_details->photo_type3);
 					}
 					photo_prop->sizes[i].loc.dc = img_details->photo_loc_dc3;
@@ -3105,10 +3104,10 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 					photo_prop->sizes[i].w = img_details->photo_width4;
 					photo_prop->sizes[i].h = img_details->photo_height4;
 					photo_prop->sizes[i].size = img_details->photo_size4;
-					if(img_details->photo_data4) {
+					if (img_details->photo_data4) {
 						photo_prop->sizes[i].data = strdup(img_details->photo_data4);
 					}
-					if(img_details->photo_type4) {
+					if (img_details->photo_type4) {
 						photo_prop->sizes[i].type = strdup(img_details->photo_type4);
 					}
 					photo_prop->sizes[i].loc.dc = img_details->photo_loc_dc4;
@@ -3121,7 +3120,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 				}
 			}
 			photo_prop->to_peer_id = buddy_id;
-			tgl_do_load_photo(s_info.TLS, photo_prop ,&on_image_download_completed, photo_prop);
+			tgl_do_load_photo(s_info.TLS, photo_prop, &on_image_download_completed, photo_prop);
 
 		} else if (img_details->media_type == tgl_message_media_document) {
 			struct tgl_document* doc_prop = (struct tgl_document*)malloc(sizeof(struct tgl_document));
@@ -3164,7 +3163,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 				doc_prop->flags =  FLAG_DOCUMENT_ANIMATED;
 			}
 
-			tgl_do_load_document(s_info.TLS, doc_prop ,on_document_download_completed, doc_prop);
+			tgl_do_load_document(s_info.TLS, doc_prop, on_document_download_completed, doc_prop);
 
 
 		} else {
@@ -3347,7 +3346,7 @@ void on_user_delete_response(struct tgl_state *TLS, void *callback_extra, int su
 }
 
 
-void on_buddy_readded(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[])
+void on_buddy_readded(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_user *users[])
 {
 	int buddy_id = (int)callback_extra;
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -3360,7 +3359,7 @@ void on_buddy_readded(struct tgl_state *TLS,void *callback_extra, int success, i
 	}
 }
 
-void on_new_buddy_added(struct tgl_state *TLS,void *callback_extra, int success, int size, struct tgl_user *users[])
+void on_new_buddy_added(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_user *users[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
 	if (success && size > 0) {
@@ -3599,8 +3598,8 @@ void on_new_msg_requested_chat_info_received(struct tgl_state *TLS, void *callba
 
 	insert_chat_info_to_db(chat_info, NULL);
 	struct tgl_photo *pic = &(chat_info->photo);
-	if(pic) {
-		tgl_do_load_photo(TLS, pic ,&on_chat_pic_loaded,chat_info);
+	if (pic) {
+		tgl_do_load_photo(TLS, pic, &on_chat_pic_loaded, chat_info);
 	}
 
 	tgl_do_send_message(s_info.TLS, msg->to_id, msg->message, strlen(msg->message), &on_message_sent_to_buddy, (void*)(msg));
@@ -3783,7 +3782,7 @@ void check_type_sizes(void)
 
 int str_empty(char *str)
 {
-	return((str == NULL) ||(strlen(str) < 1));
+	return ((str == NULL) || (strlen(str) < 1));
 }
 
 void parse_config(void)

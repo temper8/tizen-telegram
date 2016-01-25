@@ -189,7 +189,7 @@ static int fetch_comb_binlog_user_add(struct tgl_state *TLS, void *extra)
 	} else {
 		assert(!(_U->flags & FLAG_CREATED));
 	}
-	struct tgl_user *U =(void *)_U;
+	struct tgl_user *U = (void *)_U;
 	U->flags |= FLAG_CREATED;
 	if (tgl_get_peer_id(id) == TLS->our_id) {
 		U->flags |= FLAG_USER_SELF;
@@ -199,7 +199,7 @@ static int fetch_comb_binlog_user_add(struct tgl_state *TLS, void *extra)
 	assert(!U->print_name);
 	U->print_name = TLS->callback.create_print_name(TLS, U->id, U->first_name, U->last_name, 0, 0);
 
-	tglp_peer_insert_name(TLS,(void *)U);
+	tglp_peer_insert_name(TLS, (void *)U);
 	U->access_hash = fetch_long();
 	U->phone = fetch_str_dup();
 	if (fetch_int()) {
@@ -220,7 +220,7 @@ static int fetch_comb_binlog_user_delete(struct tgl_state *TLS, void *extra)
 	U->flags |= FLAG_DELETED;
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_DELETED);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_DELETED);
 	}
 	return 0;
 }
@@ -232,7 +232,7 @@ static int fetch_comb_binlog_user_set_access_hash(struct tgl_state *TLS, void *e
 	assert(U);
 	U->user.access_hash = fetch_long();
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_ACCESS_HASH);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_ACCESS_HASH);
 	}
 	return 0;
 }
@@ -248,7 +248,7 @@ static int fetch_comb_binlog_user_set_phone(struct tgl_state *TLS, void *extra)
 	U->user.phone = fetch_str_dup();
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_PHONE);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_PHONE);
 	}
 	return 0;
 }
@@ -259,11 +259,14 @@ static int fetch_comb_binlog_user_set_friend(struct tgl_state *TLS, void *extra)
 	tgl_peer_t *U = tgl_peer_get(TLS, id);
 	assert(U);
 	int friend = fetch_int();
-	if (friend) { U->flags |= FLAG_USER_CONTACT; }
-	else { U->flags &= ~FLAG_USER_CONTACT; }
+	if (friend) {
+		U->flags |= FLAG_USER_CONTACT;
+	} else {
+		U->flags &= ~FLAG_USER_CONTACT;
+	}
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_CONTACT);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_CONTACT);
 	}
 	return 0;
 }
@@ -280,7 +283,7 @@ static int fetch_comb_binlog_user_set_full_photo(struct tgl_state *TLS, void *ex
 	U->flags |= FLAG_HAS_PHOTO;
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_PHOTO);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_PHOTO);
 	}
 	return 0;
 }
@@ -294,7 +297,7 @@ static int fetch_comb_binlog_user_set_blocked(struct tgl_state *TLS, void *extra
 	U->user.blocked = fetch_int();
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_BLOCKED);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_BLOCKED);
 	}
 	return 0;
 }
@@ -312,7 +315,7 @@ static int fetch_comb_binlog_user_set_real_name(struct tgl_state *TLS, void *ext
 	U->user.real_last_name = fetch_str_dup();
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_REAL_NAME);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_REAL_NAME);
 	}
 	return 0;
 }
@@ -332,10 +335,10 @@ static int fetch_comb_binlog_user_set_name(struct tgl_state *TLS, void *extra)
 		tfree_str(U->print_name);
 	}
 	U->print_name = TLS->callback.create_print_name(TLS, U->id, U->user.first_name, U->user.last_name, 0, 0);
-	tglp_peer_insert_name(TLS,(void *)U);
+	tglp_peer_insert_name(TLS, (void *)U);
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_NAME);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_NAME);
 	}
 	return 0;
 }
@@ -350,7 +353,7 @@ static int fetch_comb_binlog_user_set_username(struct tgl_state *TLS, void *extr
 	U->user.username = fetch_str_dup();
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_USERNAME);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_USERNAME);
 	}
 	return 0;
 }
@@ -375,7 +378,7 @@ static int fetch_comb_binlog_user_set_photo(struct tgl_state *TLS, void *extra)
 	}
 
 	if (TLS->callback.user_update) {
-		TLS->callback.user_update(TLS,(void *)U, TGL_UPDATE_PHOTO);
+		TLS->callback.user_update(TLS, (void *)U, TGL_UPDATE_PHOTO);
 	}
 	return 0;
 }
@@ -415,7 +418,7 @@ static int fetch_comb_binlog_encr_chat_requested(struct tgl_state *TLS, void *ex
 	} else {
 		assert(!(_U->flags & FLAG_CREATED));
 	}
-	struct tgl_secret_chat *U =(void *)_U;
+	struct tgl_secret_chat *U = (void *)_U;
 	U->access_hash = fetch_long();
 	U->date = fetch_int();
 	U->admin_id = fetch_int();
@@ -430,7 +433,7 @@ static int fetch_comb_binlog_encr_chat_requested(struct tgl_state *TLS, void *ex
 		tsnprintf(buf, 99, "user#%d", U->user_id);
 		U->print_name = TLS->callback.create_print_name(TLS, id, "!", buf, 0, 0);
 	}
-	tglp_peer_insert_name(TLS,(void *)U);
+	tglp_peer_insert_name(TLS, (void *)U);
 	U->g_key = talloc(256);
 	U->nonce = talloc(256);
 	fetch_ints(U->g_key, 64);
@@ -452,7 +455,7 @@ static int fetch_comb_binlog_encr_chat_set_access_hash(struct tgl_state *TLS, vo
 	assert(U);
 	U->encr_chat.access_hash = fetch_long();
 	if (TLS->callback.secret_chat_update) {
-		TLS->callback.secret_chat_update(TLS,(void *)U, TGL_UPDATE_ACCESS_HASH);
+		TLS->callback.secret_chat_update(TLS, (void *)U, TGL_UPDATE_ACCESS_HASH);
 	}
 	return 0;
 }
@@ -582,7 +585,7 @@ static int fetch_comb_binlog_encr_chat_init(struct tgl_state *TLS, void *extra)
 	P->flags |= FLAG_CREATED;
 
 	if (TLS->callback.secret_chat_update) {
-		TLS->callback.secret_chat_update(TLS,(void *)P, TGL_UPDATE_CREATED);
+		TLS->callback.secret_chat_update(TLS, (void *)P, TGL_UPDATE_CREATED);
 	}
 	return 0;
 }
@@ -601,7 +604,7 @@ static int fetch_comb_binlog_encr_chat_create(struct tgl_state *TLS, void *extra
 	P->flags |= FLAG_CREATED;
 
 	if (TLS->callback.secret_chat_update) {
-		TLS->callback.secret_chat_update(TLS,(void *)P, TGL_UPDATE_CREATED);
+		TLS->callback.secret_chat_update(TLS, (void *)P, TGL_UPDATE_CREATED);
 	}
 	return 0;
 }
@@ -622,7 +625,7 @@ static int fetch_comb_binlog_chat_create(struct tgl_state *TLS, void *extra)
 	C->title = fetch_str_dup();
 	assert(!C->print_title);
 	C->print_title = TLS->callback.create_print_name(TLS, id, C->title, 0, 0, 0);
-	tglp_peer_insert_name(TLS,(void *)C);
+	tglp_peer_insert_name(TLS, (void *)C);
 	C->users_num = fetch_int();
 	C->date = fetch_int();
 	C->version = fetch_int();
@@ -639,12 +642,12 @@ static int fetch_comb_binlog_chat_create(struct tgl_state *TLS, void *extra)
 static int fetch_comb_binlog_chat_change_flags(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	C->chat.flags |= fetch_int();
 	C->chat.flags &= ~fetch_int();
 
 	if (TLS->callback.chat_update) {
-		TLS->callback.chat_update(TLS,(void *)C, TGL_UPDATE_FLAGS);
+		TLS->callback.chat_update(TLS, (void *)C, TGL_UPDATE_FLAGS);
 	}
 	return 0;
 }
@@ -652,19 +655,19 @@ static int fetch_comb_binlog_chat_change_flags(struct tgl_state *TLS, void *extr
 static int fetch_comb_binlog_chat_set_title(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 
 	if (C->chat.title) { tfree_str(C->chat.title); }
 	C->chat.title = fetch_str_dup();
 	if (C->print_name) {
-		tglp_peer_delete_name(TLS,(void *)C);
+		tglp_peer_delete_name(TLS, (void *)C);
 		tfree_str(C->print_name);
 	}
 	C->print_name = TLS->callback.create_print_name(TLS, C->id, C->chat.title, 0, 0, 0);
-	tglp_peer_insert_name(TLS,(void *)C);
+	tglp_peer_insert_name(TLS, (void *)C);
 
 	if (TLS->callback.chat_update) {
-		TLS->callback.chat_update(TLS,(void *)C, TGL_UPDATE_TITLE);
+		TLS->callback.chat_update(TLS, (void *)C, TGL_UPDATE_TITLE);
 	}
 	return 0;
 }
@@ -672,12 +675,12 @@ static int fetch_comb_binlog_chat_set_title(struct tgl_state *TLS, void *extra)
 static int fetch_comb_binlog_chat_set_photo(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	fetch_data(&C->photo_big, sizeof(struct tgl_file_location));
 	fetch_data(&C->photo_small, sizeof(struct tgl_file_location));
 
 	if (TLS->callback.chat_update) {
-		TLS->callback.chat_update(TLS,(void *)C, TGL_UPDATE_PHOTO);
+		TLS->callback.chat_update(TLS, (void *)C, TGL_UPDATE_PHOTO);
 	}
 	return 0;
 }
@@ -685,7 +688,7 @@ static int fetch_comb_binlog_chat_set_photo(struct tgl_state *TLS, void *extra)
 static int fetch_comb_binlog_chat_set_date(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	C->chat.date = fetch_int();
 	return 0;
 }
@@ -693,7 +696,7 @@ static int fetch_comb_binlog_chat_set_date(struct tgl_state *TLS, void *extra)
 static int fetch_comb_binlog_chat_set_version(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	C->chat.version = fetch_int();
 	C->chat.users_num = fetch_int();
 	return 0;
@@ -702,11 +705,11 @@ static int fetch_comb_binlog_chat_set_version(struct tgl_state *TLS, void *extra
 static int fetch_comb_binlog_chat_set_admin(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	C->chat.admin_id = fetch_int();
 
 	if (TLS->callback.chat_update) {
-		TLS->callback.chat_update(TLS,(void *)C, TGL_UPDATE_ADMIN);
+		TLS->callback.chat_update(TLS, (void *)C, TGL_UPDATE_ADMIN);
 	}
 	return 0;
 }
@@ -714,7 +717,7 @@ static int fetch_comb_binlog_chat_set_admin(struct tgl_state *TLS, void *extra)
 static int fetch_comb_binlog_chat_set_participants(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	C->chat.user_list_version = fetch_int();
 	if (C->chat.user_list) { tfree(C->chat.user_list, 12 * C->chat.user_list_size); }
 	C->chat.user_list_size = fetch_int();
@@ -722,7 +725,7 @@ static int fetch_comb_binlog_chat_set_participants(struct tgl_state *TLS, void *
 	fetch_ints(C->chat.user_list, 3 * C->chat.user_list_size);
 
 	if (TLS->callback.chat_update) {
-		TLS->callback.chat_update(TLS,(void *)C, TGL_UPDATE_MEMBERS);
+		TLS->callback.chat_update(TLS, (void *)C, TGL_UPDATE_MEMBERS);
 	}
 	return 0;
 }
@@ -730,9 +733,9 @@ static int fetch_comb_binlog_chat_set_participants(struct tgl_state *TLS, void *
 static int fetch_comb_binlog_chat_set_full_photo(struct tgl_state *TLS, void *extra)
 {
 	tgl_peer_t *C = tgl_peer_get(TLS, TGL_MK_CHAT(fetch_int()));
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 
-	assert(C &&(C->flags & FLAG_CREATED));
+	assert(C && (C->flags & FLAG_CREATED));
 	if (C->flags & FLAG_HAS_PHOTO) {
 		tgls_free_photo(TLS, &C->chat.photo);
 	}
@@ -740,7 +743,7 @@ static int fetch_comb_binlog_chat_set_full_photo(struct tgl_state *TLS, void *ex
 	C->flags |= FLAG_HAS_PHOTO;
 
 	if (TLS->callback.chat_update) {
-		TLS->callback.chat_update(TLS,(void *)C, TGL_UPDATE_PHOTO);
+		TLS->callback.chat_update(TLS, (void *)C, TGL_UPDATE_PHOTO);
 	}
 	return 0;
 }
@@ -749,7 +752,7 @@ static int fetch_comb_binlog_chat_add_participant(struct tgl_state *TLS, void *e
 {
 	tgl_peer_id_t id = TGL_MK_CHAT(fetch_int());
 	tgl_peer_t *_C = tgl_peer_get(TLS, id);
-	assert(_C &&(_C->flags & FLAG_CREATED));
+	assert(_C && (_C->flags & FLAG_CREATED));
 	struct tgl_chat *C = &_C->chat;
 
 	int version = fetch_int();
@@ -759,11 +762,11 @@ static int fetch_comb_binlog_chat_add_participant(struct tgl_state *TLS, void *e
 	assert(C->user_list_version < version);
 
 	int i;
-	for(i = 0; i < C->user_list_size; i++) {
+	for (i = 0; i < C->user_list_size; i++) {
 		assert(C->user_list[i].user_id != user);
 	}
 
-	C->user_list_size ++;
+	C->user_list_size++;
 	C->user_list = trealloc(C->user_list, 12 * C->user_list_size - 12, 12 * C->user_list_size);
 	C->user_list[C->user_list_size - 1].user_id = user;
 	C->user_list[C->user_list_size - 1].inviter_id = inviter;
@@ -780,7 +783,7 @@ static int fetch_comb_binlog_chat_del_participant(struct tgl_state *TLS, void *e
 {
 	tgl_peer_id_t id = TGL_MK_CHAT(fetch_int());
 	tgl_peer_t *_C = tgl_peer_get(TLS, id);
-	assert(_C &&(_C->flags & FLAG_CREATED));
+	assert(_C && (_C->flags & FLAG_CREATED));
 	struct tgl_chat *C = &_C->chat;
 
 	int version = fetch_int();
@@ -788,7 +791,7 @@ static int fetch_comb_binlog_chat_del_participant(struct tgl_state *TLS, void *e
 	assert(C->user_list_version < version);
 
 	int i;
-	for(i = 0; i < C->user_list_size; i++) {
+	for (i = 0; i < C->user_list_size; i++) {
 		if (C->user_list[i].user_id == user) {
 			struct tgl_chat_user t;
 			t = C->user_list[i];
@@ -797,7 +800,7 @@ static int fetch_comb_binlog_chat_del_participant(struct tgl_state *TLS, void *e
 		}
 	}
 	assert(C->user_list[C->user_list_size - 1].user_id == user);
-	C->user_list_size --;
+	C->user_list_size--;
 	C->user_list = trealloc(C->user_list, 12 * C->user_list_size + 12, 12 * C->user_list_size);
 	C->user_list_version = version;
 
@@ -870,7 +873,7 @@ static int fetch_comb_binlog_send_message_text(struct tgl_state *TLS, void *extr
 	if (t == TGL_PEER_ENCR_CHAT) {
 		tgl_peer_t *P = tgl_peer_get(TLS, M->to_id);
 		if (P && P->encr_chat.layer >= 17) {
-			P->encr_chat.out_seq_no ++;
+			P->encr_chat.out_seq_no++;
 		}
 	}
 	M->date = fetch_int();
@@ -920,7 +923,7 @@ static int fetch_comb_binlog_send_message_action_encr(struct tgl_state *TLS, voi
 	tgl_peer_t *P = tgl_peer_get(TLS, M->to_id);
 	if (P) {
 		if (P->encr_chat.layer >= 17) {
-			P->encr_chat.out_seq_no ++;
+			P->encr_chat.out_seq_no++;
 		}
 	}
 
@@ -1059,7 +1062,7 @@ static int fetch_comb_binlog_create_message_media_encr_pending(struct tgl_state 
 	tgl_peer_t *P = tgl_peer_get(TLS, M->to_id);
 	if (P) {
 		if (P->encr_chat.layer >= 17) {
-			P->encr_chat.out_seq_no ++;
+			P->encr_chat.out_seq_no++;
 		}
 	}
 
@@ -1083,7 +1086,7 @@ static int fetch_comb_binlog_create_message_media_encr_sent(struct tgl_state *TL
 {
 	long long id = fetch_long();
 	struct tgl_message *M = tgl_message_get(TLS, id);
-	assert(M &&(M->flags & FLAG_CREATED));
+	assert(M && (M->flags & FLAG_CREATED));
 	tglf_fetch_encrypted_message_file(TLS, &M->media);
 	tglm_message_remove_unsent(TLS, M);
 	M->flags &= ~FLAG_PENDING;
@@ -1166,7 +1169,7 @@ static int fetch_comb_binlog_create_message_service_encr(struct tgl_state *TLS, 
 	M->to_id = tgl_set_peer_id(t, fetch_int());
 	M->date = fetch_int();
 
-	struct tgl_secret_chat *E =(void *)tgl_peer_get(TLS, M->to_id);
+	struct tgl_secret_chat *E = (void *)tgl_peer_get(TLS, M->to_id);
 	assert(E);
 
 	tglf_fetch_message_action_encrypted(TLS, &M->action);
@@ -1293,7 +1296,7 @@ static int fetch_comb_binlog_msg_seq_update(struct tgl_state *TLS, void *extra)
 {
 	struct tgl_message *M = tgl_message_get(TLS, fetch_long());
 	assert(M);
-	TLS->seq ++;
+	TLS->seq++;
 	vlogprintf(E_DEBUG - 1 + 2 * in_replay_log, "seq %d=>%d\n", TLS->seq - 1, TLS->seq);
 
 	if (!(M->flags & FLAG_ENCRYPTED)) {
@@ -1329,7 +1332,7 @@ static int fetch_comb_binlog_msg_update(struct tgl_state *TLS, void *extra)
 static int fetch_comb_binlog_reset_authorization(struct tgl_state *TLS, void *extra)
 {
 	int i;
-	for(i = 0; i <= TLS->max_dc_num; i++) if (TLS->DC_list[i]) {
+	for (i = 0; i <= TLS->max_dc_num; i++) if (TLS->DC_list[i]) {
 		struct tgl_dc *D = TLS->DC_list[i];
 		D->flags = 0;
 		D->state = st_init;
@@ -1427,9 +1430,9 @@ static void replay_log_event(struct tgl_state *TLS)
 	in_ptr = rptr;
 
 	int ok = -1;
-	in_ptr ++;
+	in_ptr++;
 
-	switch(op) {
+	switch (op) {
 		FETCH_COMBINATOR_FUNCTION(binlog_start)
 		FETCH_COMBINATOR_FUNCTION(binlog_dc_option)
 		FETCH_COMBINATOR_FUNCTION(binlog_auth_key)
@@ -1509,14 +1512,14 @@ static void replay_log_event(struct tgl_state *TLS)
 		FETCH_COMBINATOR_FUNCTION(binlog_encr_chat_exchange_commit)
 		FETCH_COMBINATOR_FUNCTION(binlog_encr_chat_exchange_confirm)
 		FETCH_COMBINATOR_FUNCTION(binlog_encr_chat_exchange_abort)
-		default:
+		default :
 			vlogprintf(E_ERROR, "Unknown op 0x%08x\n", op);
 			assert(0);
 	}
 	assert(ok >= 0);
 
 	assert(in_ptr == in_end);
-	binlog_pos +=(in_ptr - rptr) * 4;
+	binlog_pos += (in_ptr - rptr) * 4;
 	rptr = in_ptr;
 }
 
@@ -1580,7 +1583,7 @@ static void create_new_binlog(struct tgl_state *TLS)
 		perror("Write new binlog");
 		exit(2);
 	}
-	assert(write(fd, packet_buffer,(packet_ptr - packet_buffer) * 4) ==(packet_ptr - packet_buffer) * 4);
+	assert(write(fd, packet_buffer, (packet_ptr - packet_buffer) * 4) == (packet_ptr - packet_buffer) * 4);
 	close(fd);
 }
 
@@ -1598,17 +1601,17 @@ void tgl_replay_log(struct tgl_state *TLS)
 	}
 	int end = 0;
 	in_replay_log = 1;
-	while(1) {
+	while (1) {
 		if (!end && wptr - rptr < MAX_LOG_EVENT_SIZE / 4) {
 			if (wptr == rptr) {
 				wptr = rptr = binlog_buffer;
 			} else {
 				int x = wptr - rptr;
 				memcpy(binlog_buffer, rptr, 4 * x);
-				wptr -=(rptr - binlog_buffer);
+				wptr -= (rptr - binlog_buffer);
 				rptr = binlog_buffer;
 			}
-			int l =(binlog_buffer + BINLOG_BUFFER_SIZE - wptr) * 4;
+			int l = (binlog_buffer + BINLOG_BUFFER_SIZE - wptr) * 4;
 			int k = read(fd, wptr, l);
 			if (k < 0) {
 				perror("read binlog");
@@ -1618,7 +1621,7 @@ void tgl_replay_log(struct tgl_state *TLS)
 			if (k < l) {
 				end = 1;
 			}
-			wptr +=(k / 4);
+			wptr += (k / 4);
 		}
 		if (wptr == rptr) { break; }
 		replay_log_event(TLS);
@@ -1648,13 +1651,13 @@ static void add_log_event(struct tgl_state *TLS, const int *data, int len)
 {
 	vlogprintf(E_DEBUG, "Add log event: magic = 0x%08x, len = %d\n", data[0], len);
 	assert(!(len & 3));
-	rptr =(void *)data;
+	rptr = (void *)data;
 	wptr = rptr +(len / 4);
 	int *in = in_ptr;
 	int *end = in_end;
 	replay_log_event(TLS);
 	if (rptr != wptr) {
-		vlogprintf(E_ERROR, "Unread %lld ints. Len = %d\n",(long long)(wptr - rptr), len);
+		vlogprintf(E_ERROR, "Unread %lld ints. Len = %d\n", (long long)(wptr - rptr), len);
 		assert(rptr == wptr);
 	}
 	if (TLS->binlog_enabled) {
@@ -1673,7 +1676,7 @@ void bl_do_set_auth_key_id(struct tgl_state *TLS, int num, unsigned char *buf)
 	int *ev = alloc_log_event(8 + 8 + 256);
 	ev[0] = CODE_binlog_auth_key;
 	ev[1] = num;
-	* (long long *)(ev + 2) = fingerprint;
+	*(long long *)(ev + 2) = fingerprint;
 	memcpy(ev + 4, buf, 256);
 	add_log_event(TLS, ev, 8 + 8 + 256);
 }
@@ -1761,8 +1764,8 @@ void bl_do_set_user_profile_photo(struct tgl_state *TLS, struct tgl_user *U, lon
 
 void bl_do_user_set_name(struct tgl_state *TLS, struct tgl_user *U, const char *f, int fl, const char *l, int ll)
 {
-	if ((U->first_name &&(int)strlen(U->first_name) == fl && !strncmp(U->first_name, f, fl)) &&
-			(U->last_name  &&(int)strlen(U->last_name)  == ll && !strncmp(U->last_name,  l, ll))) {
+	if ((U->first_name && (int)strlen(U->first_name) == fl && !strncmp(U->first_name, f, fl)) &&
+			(U->last_name  && (int)strlen(U->last_name)  == ll && !strncmp(U->last_name,  l, ll))) {
 		return;
 	}
 	clear_packet();
@@ -1775,7 +1778,7 @@ void bl_do_user_set_name(struct tgl_state *TLS, struct tgl_user *U, const char *
 
 void bl_do_user_set_username(struct tgl_state *TLS, struct tgl_user *U, const char *f, int l)
 {
-	if ((U->username &&(int)strlen(U->username) == l && !strncmp(U->username, f, l)) ||
+	if ((U->username && (int)strlen(U->username) == l && !strncmp(U->username, f, l)) ||
 			(!l && !U->username)) {
 		return;
 	}
@@ -1794,13 +1797,13 @@ void bl_do_user_set_access_hash(struct tgl_state *TLS, struct tgl_user *U, long 
 	int *ev = alloc_log_event(16);
 	ev[0] = CODE_binlog_user_set_access_hash;
 	ev[1] = tgl_get_peer_id(U->id);
-	* (long long *)(ev + 2) = access_token;
+	*(long long *)(ev + 2) = access_token;
 	add_log_event(TLS, ev, 16);
 }
 
 void bl_do_user_set_phone(struct tgl_state *TLS, struct tgl_user *U, const char *p, int pl)
 {
-	if (U->phone &&(int)strlen(U->phone) == pl && !strncmp(U->phone, p, pl))
+	if (U->phone && (int)strlen(U->phone) == pl && !strncmp(U->phone, p, pl))
 		return;
 
 	clear_packet();
@@ -1812,7 +1815,7 @@ void bl_do_user_set_phone(struct tgl_state *TLS, struct tgl_user *U, const char 
 
 void bl_do_user_set_friend(struct tgl_state *TLS, struct tgl_user *U, int friend)
 {
-	if (friend ==((U->flags & FLAG_USER_CONTACT) != 0))
+	if (friend == ((U->flags & FLAG_USER_CONTACT) != 0))
 		return;
 
 	int *ev = alloc_log_event(12);
@@ -1881,8 +1884,8 @@ void bl_do_user_set_blocked(struct tgl_state *TLS, struct tgl_user *U, int block
 
 void bl_do_user_set_real_name(struct tgl_state *TLS, struct tgl_user *U, const char *f, int fl, const char *l, int ll)
 {
-	if ((U->real_first_name &&(int)strlen(U->real_first_name) == fl && !strncmp(U->real_first_name, f, fl)) &&
-			(U->real_last_name  &&(int)strlen(U->real_last_name)  == ll && !strncmp(U->real_last_name,  l, ll))) {
+	if ((U->real_first_name && (int)strlen(U->real_first_name) == fl && !strncmp(U->real_first_name, f, fl)) &&
+			(U->real_last_name  && (int)strlen(U->real_last_name)  == ll && !strncmp(U->real_last_name,  l, ll))) {
 		return;
 	}
 
@@ -1913,7 +1916,7 @@ void bl_do_encr_chat_requested(struct tgl_state *TLS, struct tgl_secret_chat *U,
 	int *ev = alloc_log_event(540);
 	ev[0] = CODE_binlog_encr_chat_requested;
 	ev[1] = tgl_get_peer_id(U->id);
-	* (long long *)(ev + 2) = access_hash;
+	*(long long *)(ev + 2) = access_hash;
 	ev[4] = date;
 	ev[5] = admin_id;
 	ev[6] = user_id;
@@ -1930,7 +1933,7 @@ void bl_do_encr_chat_set_access_hash(struct tgl_state *TLS, struct tgl_secret_ch
 	int *ev = alloc_log_event(16);
 	ev[0] = CODE_binlog_encr_chat_set_access_hash;
 	ev[1] = tgl_get_peer_id(U->id);
-	* (long long *)(ev + 2) = access_hash;
+	*(long long *)(ev + 2) = access_hash;
 	add_log_event(TLS, ev, 16);
 }
 
@@ -1992,7 +1995,7 @@ void bl_do_encr_chat_accepted(struct tgl_state *TLS, struct tgl_secret_chat *U, 
 	ev[1] = tgl_get_peer_id(U->id);
 	memcpy(ev + 2, g_key, 256);
 	memcpy(ev + 66, nonce, 256);
-	* (long long *)(ev + 130) = key_fingerprint;
+	*(long long *)(ev + 130) = key_fingerprint;
 	add_log_event(TLS, ev, 528);
 }
 
@@ -2013,7 +2016,7 @@ void bl_do_encr_chat_set_key(struct tgl_state *TLS, struct tgl_secret_chat *E, u
 	ev[0] = CODE_binlog_encr_chat_set_key;
 	ev[1] = tgl_get_peer_id(E->id);
 	memcpy(ev + 2, key, 256);
-	* (long long *)(ev + 66) = key_fingerprint;
+	*(long long *)(ev + 66) = key_fingerprint;
 	add_log_event(TLS, ev, 272);
 }
 
@@ -2168,7 +2171,7 @@ void bl_do_chat_forbid(struct tgl_state *TLS, struct tgl_chat *C, int on)
 
 void bl_do_chat_set_title(struct tgl_state *TLS, struct tgl_chat *C, const char *s, int l)
 {
-	if (C->title &&(int)strlen(C->title) == l && !strncmp(C->title, s, l))
+	if (C->title && (int)strlen(C->title) == l && !strncmp(C->title, s, l))
 		return;
 
 	clear_packet();
@@ -2270,7 +2273,7 @@ void bl_do_chat_set_participants(struct tgl_state *TLS, struct tgl_chat *C, int 
 
 void bl_do_chat_set_full_photo(struct tgl_state *TLS, struct tgl_chat *U, const int *start, int len)
 {
-	if (U->photo.id == * (long long *)(start + 1))
+	if (U->photo.id == *(long long *)(start + 1))
 		return;
 
 	int *ev = alloc_log_event(len + 8);
@@ -2495,7 +2498,7 @@ void bl_do_set_unread_long(struct tgl_state *TLS, struct tgl_message *M, int unr
 
 void bl_do_set_unread(struct tgl_state *TLS, struct tgl_message *M, int unread)
 {
-	if (M->id !=(int)M->id)
+	if (M->id != (int)M->id)
 		bl_do_set_unread_long(TLS, M, unread);
 
 	if (unread || !M->unread)

@@ -62,7 +62,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 	eina_list_free(col_names);
@@ -108,7 +108,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_DEFAULT);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 	eina_list_free(col_names);
@@ -254,7 +254,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -297,7 +297,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -334,7 +334,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -366,7 +366,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -398,7 +398,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -411,14 +411,14 @@ void delete_message_from_unsent_db(int message_id)
 {
 	char* where_clause = NULL;
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d", message_id);
+	sprintf(msg_id_str, "%d", message_id);
 	where_clause = (char*)malloc(strlen(MESSAGE_TRANSPORT_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + 1);
 	strcpy(where_clause, MESSAGE_TRANSPORT_TABLE_MESSAGE_ID);
 	strcat(where_clause, " = ");
 	strcat(where_clause, msg_id_str);
 	Eina_Bool ret = delete_record(MESSAGE_TRANSPORT_TABLE_NAME, where_clause);
 	free(where_clause);
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -527,14 +527,14 @@ void delete_media_from_unsent_db(int message_id)
 {
 	char* where_clause = NULL;
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d", message_id);
+	sprintf(msg_id_str, "%d", message_id);
 	where_clause = (char*)malloc(strlen(MEDIA_TRANSPORT_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + 1);
 	strcpy(where_clause, MEDIA_TRANSPORT_TABLE_MESSAGE_ID);
 	strcat(where_clause, " = ");
 	strcat(where_clause, msg_id_str);
 	Eina_Bool ret = delete_record(MEDIA_TRANSPORT_TABLE_NAME, where_clause);
 	free(where_clause);
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -652,7 +652,7 @@ Eina_List* get_all_unsent_media_messages()
 
 void create_buddy_msg_table(const char* table_name)
 {
-	if(!table_name) {
+	if (!table_name) {
 		return;
 	}
 	// create user info table
@@ -698,7 +698,7 @@ void create_buddy_msg_table(const char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	}
 	eina_list_free(col_names);
@@ -1152,7 +1152,7 @@ Eina_List* get_all_message_ids_from_table(char *table_name)
 
 	char* where_clause = NULL;
 	char delete_str[50];
-	sprintf(delete_str,"%d",1);
+	sprintf(delete_str, "%d", 1);
 	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(delete_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
 	strcat(where_clause, " = ");
@@ -1224,7 +1224,7 @@ struct tgl_message* get_message_from_message_tableby_message_id(char *table_name
 
 	char* where_clause = NULL;
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d",msg_id);
+	sprintf(msg_id_str, "%d", msg_id);
 	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
 	strcat(where_clause, " = ");
@@ -1396,9 +1396,9 @@ void update_peer_info_database(tgl_peer_t* UC, int is_unknown)
 	col_values = eina_list_append(col_values, &(UC->structure_version));
 
 
-	if (UC->id.type == TGL_PEER_USER ) {
+	if (UC->id.type == TGL_PEER_USER) {
 		col_values = eina_list_append(col_values, &(UC->user.status.when));
-	} else if (UC->id.type == TGL_PEER_CHAT ) {
+	} else if (UC->id.type == TGL_PEER_CHAT) {
 		col_values = eina_list_append(col_values, &(UC->chat.date));
 	} else {
 		int last_seen = 0;
@@ -1415,12 +1415,12 @@ void update_peer_info_database(tgl_peer_t* UC, int is_unknown)
 	col_values = eina_list_append(col_values, &(photo_id));
 	col_values = eina_list_append(col_values, &(is_unknown));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 		// already exist. So update the table
 		char* where_clause = NULL;
 		char user_id_str[50];
-		sprintf(user_id_str,"%d",UC->id.id);
+		sprintf(user_id_str, "%d", UC->id.id);
 		where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 		strcpy(where_clause, PEER_INFO_TABLE_CHAT_ID);
 		strcat(where_clause, " = ");
@@ -1439,14 +1439,14 @@ void delete_chat_from_db(int peer_id)
 {
 	char* where_clause = NULL;
 	char user_id_str[50];
-	sprintf(user_id_str,"%d", peer_id);
+	sprintf(user_id_str, "%d", peer_id);
 	where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 	strcpy(where_clause, PEER_INFO_TABLE_CHAT_ID);
 	strcat(where_clause, " = ");
 	strcat(where_clause, user_id_str);
 	Eina_Bool ret = delete_record(PEER_INFO_TABLE_NAME, where_clause);
 	free(where_clause);
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -1457,14 +1457,14 @@ void delete_buddy_from_db(int peer_id)
 {
 	char* where_clause = NULL;
 	char user_id_str[50];
-	sprintf(user_id_str,"%d", peer_id);
+	sprintf(user_id_str, "%d", peer_id);
 	where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
 	strcat(where_clause, " = ");
 	strcat(where_clause, user_id_str);
 	Eina_Bool ret = delete_record(BUDDY_INFO_TABLE_NAME, where_clause);
 	free(where_clause);
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -1534,9 +1534,9 @@ void init_insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_
 
 	col_values = eina_list_append(col_values, &(unread_count));
 
-	if (UC->id.type == TGL_PEER_USER ) {
+	if (UC->id.type == TGL_PEER_USER) {
 		col_values = eina_list_append(col_values, &(UC->user.status.when));
-	} else if (UC->id.type == TGL_PEER_CHAT ) {
+	} else if (UC->id.type == TGL_PEER_CHAT) {
 		col_values = eina_list_append(col_values, &(UC->chat.date));
 	} else {
 		int last_seen = 0;
@@ -1555,8 +1555,8 @@ void init_insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_
 	col_values = eina_list_append(col_values, &(photo_id));
 	col_values = eina_list_append(col_values, &(is_unknown));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 
 	} else {
 
@@ -1630,9 +1630,9 @@ void insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_count
 
 	col_values = eina_list_append(col_values, &(unread_count));
 
-	if (UC->id.type == TGL_PEER_USER ) {
+	if (UC->id.type == TGL_PEER_USER) {
 		col_values = eina_list_append(col_values, &(UC->user.status.when));
-	} else if (UC->id.type == TGL_PEER_CHAT ) {
+	} else if (UC->id.type == TGL_PEER_CHAT) {
 		col_values = eina_list_append(col_values, &(UC->chat.date));
 	} else {
 		int last_seen = 0;
@@ -1651,12 +1651,12 @@ void insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_count
 	col_values = eina_list_append(col_values, &(photo_id));
 	col_values = eina_list_append(col_values, &(is_unknown));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 		// already exist. So update the table
 		char* where_clause = NULL;
 		char user_id_str[50];
-		sprintf(user_id_str,"%d",UC->id.id);
+		sprintf(user_id_str, "%d", UC->id.id);
 		where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 		strcpy(where_clause, PEER_INFO_TABLE_CHAT_ID);
 		strcat(where_clause, " = ");
@@ -1821,52 +1821,52 @@ struct tgl_message* get_message_from_message_table(long long msg_id, char* table
 		char *temp_media_id = (char*)eina_list_nth(ts_msg, 14);
 
 		char *eptr;
-		if(message->media.type == tgl_message_media_none) {
+		if (message->media.type == tgl_message_media_none) {
 
 			if (temp_media_id) {
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_photo) {
+		} else if (message->media.type == tgl_message_media_photo) {
 
 			if (temp_media_id) {
 				message->media.photo.id  = strtoll(temp_media_id, &eptr, 10);
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_document) {
+		} else if (message->media.type == tgl_message_media_document) {
 
 			if (temp_media_id) {
 				message->media.document.id  = strtoll(temp_media_id, &eptr, 10);
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_geo) {
+		} else if (message->media.type == tgl_message_media_geo) {
 
 			if (temp_media_id) {
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_contact) {
+		} else if (message->media.type == tgl_message_media_contact) {
 
 			if (temp_media_id) {
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_unsupported) {
+		} else if (message->media.type == tgl_message_media_unsupported) {
 
 			if (temp_media_id) {
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_photo_encr) {
+		} else if (message->media.type == tgl_message_media_photo_encr) {
 
 			if (temp_media_id) {
 				message->media.encr_photo.id  = strtoll(temp_media_id, &eptr, 10);
 				free(temp_media_id);
 			}
 
-		} else if(message->media.type == tgl_message_media_document_encr) {
+		} else if (message->media.type == tgl_message_media_document_encr) {
 
 			if (temp_media_id) {
 				message->media.encr_document.id  = strtoll(temp_media_id, &eptr, 10);
@@ -1888,7 +1888,7 @@ struct tgl_message* get_message_from_message_table(long long msg_id, char* table
 
 Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 {
-	if(!M) {
+	if (!M) {
 		return EINA_FALSE;
 	}
 
@@ -1942,7 +1942,7 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 	col_values = eina_list_append(col_values, &(M->date));
 	col_values = eina_list_append(col_values, &(M->service));
 
-	if(M->message)
+	if (M->message)
 		col_values = eina_list_append(col_values, M->message);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -1952,42 +1952,42 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 	col_values = eina_list_append(col_values, &(M->media.type));
 
 	char *dummy_val = "";
-	if(M->media.type == tgl_message_media_none) {
+	if (M->media.type == tgl_message_media_none) {
 		col_values = eina_list_append(col_values, (dummy_val));
-	} else if(M->media.type == tgl_message_media_photo) {
+	} else if (M->media.type == tgl_message_media_photo) {
 
 		char temp_media_id[50];
 		sprintf(temp_media_id, "%lld", M->media.photo.id);
 
 		col_values = eina_list_append(col_values, temp_media_id);
-	} else if(M->media.type == tgl_message_media_document) {
+	} else if (M->media.type == tgl_message_media_document) {
 
 		char temp_media_id[50];
 		sprintf(temp_media_id, "%lld", M->media.document.id);
 
 		col_values = eina_list_append(col_values, temp_media_id);
-	} else if(M->media.type == tgl_message_media_geo) {
+	} else if (M->media.type == tgl_message_media_geo) {
 		char temp_media_id[50];
 		sprintf(temp_media_id, "%lld", M->media.document.id);
 		col_values = eina_list_append(col_values, temp_media_id);
-	} else if(M->media.type == tgl_message_media_contact) {
+	} else if (M->media.type == tgl_message_media_contact) {
 
 		char temp_media_id[50];
-		sprintf(temp_media_id, "%d",M->media.user_id);
+		sprintf(temp_media_id, "%d", M->media.user_id);
 
 		col_values = eina_list_append(col_values, temp_media_id);
-	} else if(M->media.type == tgl_message_media_unsupported) {
+	} else if (M->media.type == tgl_message_media_unsupported) {
 		col_values = eina_list_append(col_values, (dummy_val));
-	} else if(M->media.type == tgl_message_media_photo_encr) {
+	} else if (M->media.type == tgl_message_media_photo_encr) {
 
 		char temp_media_id[50];
-		sprintf(temp_media_id, "%lld",M->media.encr_photo.id);
+		sprintf(temp_media_id, "%lld", M->media.encr_photo.id);
 
 		col_values = eina_list_append(col_values, temp_media_id);
-	} else if(M->media.type == tgl_message_media_document_encr) {
+	} else if (M->media.type == tgl_message_media_document_encr) {
 
 		char temp_media_id[50];
-		sprintf(temp_media_id, "%lld",M->media.encr_document.id);
+		sprintf(temp_media_id, "%lld", M->media.encr_document.id);
 
 		col_values = eina_list_append(col_values, temp_media_id);
 	} else  {
@@ -1997,8 +1997,8 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 	col_values = eina_list_append(col_values, &unique_id);
 	col_values = eina_list_append(col_values, &(M->is_marked_for_delete));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -2011,7 +2011,7 @@ Eina_Bool insert_msg_into_db(struct tgl_message *M, char* table_name, int unique
 
 void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 {
-	if(!M) {
+	if (!M) {
 		return;
 	}
 
@@ -2067,7 +2067,7 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		col_values = eina_list_append(col_values, &(M->date));
 		col_values = eina_list_append(col_values, &(M->service));
 
-		if(M->message)
+		if (M->message)
 			col_values = eina_list_append(col_values, M->message);
 		else
 			col_values = eina_list_append(col_values, " ");
@@ -2077,40 +2077,40 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		col_values = eina_list_append(col_values, &(M->media.type));
 
 		char *dummy_val = "";
-		if(M->media.type == tgl_message_media_none) {
+		if (M->media.type == tgl_message_media_none) {
 			col_values = eina_list_append(col_values, (dummy_val));
-		} else if(M->media.type == tgl_message_media_photo) {
+		} else if (M->media.type == tgl_message_media_photo) {
 
 			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld", M->media.photo.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
-		} else if(M->media.type == tgl_message_media_document) {
+		} else if (M->media.type == tgl_message_media_document) {
 
 			char temp_media_id[50];
 			sprintf(temp_media_id, "%lld", M->media.document.id);
 			col_values = eina_list_append(col_values, temp_media_id);
 
-		} else if(M->media.type == tgl_message_media_geo) {
+		} else if (M->media.type == tgl_message_media_geo) {
 			col_values = eina_list_append(col_values, (dummy_val));
-		} else if(M->media.type == tgl_message_media_contact) {
+		} else if (M->media.type == tgl_message_media_contact) {
 
 			char temp_media_id[50];
-			sprintf(temp_media_id, "%d",M->media.user_id);
+			sprintf(temp_media_id, "%d", M->media.user_id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
-		} else if(M->media.type == tgl_message_media_unsupported) {
+		} else if (M->media.type == tgl_message_media_unsupported) {
 			col_values = eina_list_append(col_values, (dummy_val));
-		} else if(M->media.type == tgl_message_media_photo_encr) {
+		} else if (M->media.type == tgl_message_media_photo_encr) {
 
 			char temp_media_id[50];
-			sprintf(temp_media_id, "%lld",M->media.encr_photo.id);
+			sprintf(temp_media_id, "%lld", M->media.encr_photo.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
-		} else if(M->media.type == tgl_message_media_document_encr) {
+		} else if (M->media.type == tgl_message_media_document_encr) {
 
 			char temp_media_id[50];
-			sprintf(temp_media_id, "%lld",M->media.document.id);
+			sprintf(temp_media_id, "%lld", M->media.document.id);
 
 			col_values = eina_list_append(col_values, temp_media_id);
 		} else  {
@@ -2128,7 +2128,7 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		if (unique_id > 0) {
 
 			char usr_str[50];
-			sprintf(usr_str,"%d",unique_id);
+			sprintf(usr_str, "%d", unique_id);
 			where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNIQUE_ID) + strlen(" = ") + strlen(usr_str) + 1);
 			strcpy(where_clause, MESSAGE_INFO_TABLE_UNIQUE_ID);
 			strcat(where_clause, " = ");
@@ -2137,7 +2137,7 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 		} else {
 
 			char usr_str[50];
-			sprintf(usr_str,"%lld", M->id);
+			sprintf(usr_str, "%lld", M->id);
 			where_clause = (char *)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(usr_str) + 1);
 			strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
 			strcat(where_clause, " = ");
@@ -2147,7 +2147,7 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 
 		Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-		if(!ret) {
+		if (!ret) {
 			//("error: database creation failed");
 		} else {
 
@@ -2211,7 +2211,7 @@ Eina_Bool is_chat_id_already_exists(struct tgl_chat *chat_info)
 
 	int chat_id = chat_info->id.id;
 	char chat_str[50];
-	sprintf(chat_str,"%d",chat_id);
+	sprintf(chat_str, "%d",  chat_id);
 
 	char* where_clause = (char*)malloc(strlen(CHAT_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(chat_str));
 	strcpy(where_clause, CHAT_INFO_TABLE_CHAT_ID);
@@ -2228,7 +2228,7 @@ Eina_Bool is_chat_id_already_exists(struct tgl_chat *chat_info)
 
 	char* chat_name = NULL;
 
-	if(!vals) {
+	if (!vals) {
 		//("DB error");
 		return EINA_FALSE;
 	} else {
@@ -2237,7 +2237,7 @@ Eina_Bool is_chat_id_already_exists(struct tgl_chat *chat_info)
 		for (int i = 0 ; i < row_count ; i++) {
 			Eina_List* row_vals = eina_list_nth(vals, i);
 			chat_name = (char*)eina_list_nth(row_vals, 0);
-			if(!chat_name) {
+			if (!chat_name) {
 				//("DB Error");
 				return EINA_FALSE;
 			} else {
@@ -2248,7 +2248,7 @@ Eina_Bool is_chat_id_already_exists(struct tgl_chat *chat_info)
 		eina_list_free(vals);
 	}
 
-	if(chat_name) {
+	if (chat_name) {
 		free(chat_name);
 		return EINA_TRUE;
 	}
@@ -2258,7 +2258,7 @@ Eina_Bool is_chat_id_already_exists(struct tgl_chat *chat_info)
 
 void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 {
-	if(!U) {
+	if (!U) {
 		return;
 	}
 	Eina_List* col_names = NULL;
@@ -2297,7 +2297,7 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 
 	Eina_List* col_values = NULL;
 	col_values = eina_list_append(col_values, &(U->id.id));
-	if(U->print_name)
+	if (U->print_name)
 		col_values = eina_list_append(col_values, U->print_name);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2305,17 +2305,17 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 	col_values = eina_list_append(col_values, &(U->structure_version));
 	col_values = eina_list_append(col_values, &(U->photo_id));
 
-	if(U->first_name)
+	if (U->first_name)
 		col_values = eina_list_append(col_values, U->first_name);
 	else
 		col_values = eina_list_append(col_values, "");
-	if(U->last_name)
+	if (U->last_name)
 		col_values = eina_list_append(col_values, U->last_name);
 	else
 		col_values = eina_list_append(col_values, "");
 
 	char phone_num[256];
-	if(U->phone) {
+	if (U->phone) {
 		if (strstr(U->phone, "+") == NULL) {
 			strcpy(phone_num, "+");
 			strcat(phone_num, U->phone);
@@ -2329,17 +2329,17 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 
 	col_values = eina_list_append(col_values, &(U->access_hash));
 
-	if(U->real_first_name)
+	if (U->real_first_name)
 		col_values = eina_list_append(col_values, U->real_first_name);
 	else
 		col_values = eina_list_append(col_values, "");
 
-	if(U->real_last_name)
+	if (U->real_last_name)
 		col_values = eina_list_append(col_values, U->real_last_name);
 	else
 		col_values = eina_list_append(col_values, "");
 
-	if(U->username)
+	if (U->username)
 		col_values = eina_list_append(col_values, U->username);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2349,12 +2349,12 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 	col_values = eina_list_append(col_values, &(U->blocked));
 	col_values = eina_list_append(col_values, &(U->is_unknown));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 		// already exist. So update the table
 		char* where_clause = NULL;
 		char user_id_str[50];
-		sprintf(user_id_str,"%d",U->id.id);
+		sprintf(user_id_str, "%d", U->id.id);
 		where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 		strcpy(where_clause, USER_INFO_TABLE_USER_ID);
 		strcat(where_clause, " = ");
@@ -2371,7 +2371,7 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 
 void update_buddy_into_db(char* table_name, struct tgl_user* U)
 {
-	if(!U) {
+	if (!U) {
 		return;
 	}
 
@@ -2413,7 +2413,7 @@ void update_buddy_into_db(char* table_name, struct tgl_user* U)
 
 	Eina_List* col_values = NULL;
 	col_values = eina_list_append(col_values, &(U->id.id));
-	if(U->print_name)
+	if (U->print_name)
 		col_values = eina_list_append(col_values, U->print_name);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2422,17 +2422,17 @@ void update_buddy_into_db(char* table_name, struct tgl_user* U)
 	//col_values = eina_list_append(col_values, "");
 	col_values = eina_list_append(col_values, &(U->photo_id));
 
-	if(U->first_name)
+	if (U->first_name)
 		col_values = eina_list_append(col_values, U->first_name);
 	else
 		col_values = eina_list_append(col_values, "");
-	if(U->last_name)
+	if (U->last_name)
 		col_values = eina_list_append(col_values, U->last_name);
 	else
 		col_values = eina_list_append(col_values, "");
 
 	char phone_num[256];
-	if(U->phone) {
+	if (U->phone) {
 		if (strstr(U->phone, "+") == NULL) {
 			strcpy(phone_num, "+");
 			strcat(phone_num, U->phone);
@@ -2446,17 +2446,17 @@ void update_buddy_into_db(char* table_name, struct tgl_user* U)
 
 	col_values = eina_list_append(col_values, &(U->access_hash));
 
-	if(U->real_first_name)
+	if (U->real_first_name)
 		col_values = eina_list_append(col_values, U->real_first_name);
 	else
 		col_values = eina_list_append(col_values, "");
 
-	if(U->real_last_name)
+	if (U->real_last_name)
 		col_values = eina_list_append(col_values, U->real_last_name);
 	else
 		col_values = eina_list_append(col_values, "");
 
-	if(U->username)
+	if (U->username)
 		col_values = eina_list_append(col_values, U->username);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2467,13 +2467,13 @@ void update_buddy_into_db(char* table_name, struct tgl_user* U)
 	//col_values = eina_list_append(col_values, &(U->is_unknown));
 
 #if 0
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 #endif
 		// already exist. So update the table
 		char* where_clause = NULL;
 		char user_id_str[50];
-		sprintf(user_id_str,"%d",U->id.id);
+		sprintf(user_id_str, "%d", U->id.id);
 		where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 		strcpy(where_clause, USER_INFO_TABLE_USER_ID);
 		strcat(where_clause, " = ");
@@ -2534,7 +2534,7 @@ void insert_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 	col_values = eina_list_append(col_values, &(chat_info->id.id));
 	col_values = eina_list_append(col_values, &(chat_info->flags));
 
-	if(chat_info->print_title)
+	if (chat_info->print_title)
 		col_values = eina_list_append(col_values, chat_info->print_title);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2553,7 +2553,7 @@ void insert_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 		col_values = eina_list_append(col_values, "");
 	}
 
-	if(chat_info->title)
+	if (chat_info->title)
 		col_values = eina_list_append(col_values, chat_info->title);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2577,7 +2577,7 @@ void insert_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 		for (int i = 0; i < chat_info->user_list_size; i++) {
 			char temp_user_id[15];
 			int temp_id = chat_info->user_list[i].user_id;
-			sprintf(temp_user_id,"%d",temp_id);
+			sprintf(temp_user_id, "%d", temp_id);
 			chat_user_ids[i] = (char*)malloc(strlen(temp_user_id) + 1);
 			strcpy(chat_user_ids[i], temp_user_id);
 			total_len = total_len + strlen(temp_user_id);
@@ -2608,12 +2608,12 @@ void insert_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 	col_values = eina_list_append(col_values, &(chat_info->version));
 	col_values = eina_list_append(col_values, &(chat_info->admin_id));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types, col_values);
+	if (!ret) {
 		// already exist. So update the table
 		char* where_clause = NULL;
 		char chat_id_str[50];
-		sprintf(chat_id_str,"%d", chat_info->id.id);
+		sprintf(chat_id_str, "%d", chat_info->id.id);
 		where_clause = (char*)malloc(strlen(CHAT_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(chat_id_str) + 1);
 		strcpy(where_clause, CHAT_INFO_TABLE_CHAT_ID);
 		strcat(where_clause, " = ");
@@ -2678,7 +2678,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 	col_values = eina_list_append(col_values, &(chat_info->id.id));
 	col_values = eina_list_append(col_values, &(chat_info->flags));
 
-	if(chat_info->print_title)
+	if (chat_info->print_title)
 		col_values = eina_list_append(col_values, chat_info->print_title);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2695,7 +2695,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 		col_values = eina_list_append(col_values, photo_path);
 	}
 
-	if(chat_info->title)
+	if (chat_info->title)
 		col_values = eina_list_append(col_values, chat_info->title);
 	else
 		col_values = eina_list_append(col_values, "");
@@ -2719,7 +2719,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 		for (int i = 0; i < chat_info->user_list_size; i++) {
 			char temp_user_id[15];
 			int temp_id = chat_info->user_list[i].user_id;
-			sprintf(temp_user_id,"%d",temp_id);
+			sprintf(temp_user_id, "%d", temp_id);
 			chat_user_ids[i] = (char*)malloc(strlen(temp_user_id) + 1);
 			strcpy(chat_user_ids[i], temp_user_id);
 			total_len = total_len + strlen(temp_user_id);
@@ -2752,7 +2752,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 	char* where_clause = NULL;
 
 	char chat_id_str[50];
-	sprintf(chat_id_str,"%d",chat_info->id.id);
+	sprintf(chat_id_str, "%d",  chat_info->id.id);
 	where_clause = (char*)malloc(strlen(CHAT_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(chat_id_str) + 1);
 	strcpy(where_clause, CHAT_INFO_TABLE_CHAT_ID);
 	strcat(where_clause, " = ");
@@ -2760,7 +2760,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		// error handling
 	} else {
 
@@ -2781,7 +2781,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 
 
 	char chat_id_str[50];
-	sprintf(chat_id_str,"%d",chat_info->id.id);
+	sprintf(chat_id_str, "%d",  chat_info->id.id);
 	char* where_clause = (char*)malloc(strlen(CHAT_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(chat_id_str) + 1);
 	strcpy(where_clause, CHAT_INFO_TABLE_CHAT_ID);
 	strcat(where_clause, " = ");
@@ -2794,7 +2794,7 @@ Eina_Bool update_chat_info_to_db(struct tgl_chat *chat_info, char* photo_path)
 	eina_list_free(col_types);
 	eina_list_free(col_values);
 	free(where_clause);
-	if(!ret) {
+	if (!ret) {
 		return EINA_FALSE;
 	}
 	return EINA_TRUE;
@@ -2820,7 +2820,7 @@ void update_buddy_pic_db(char* file_path, char* table_name, int id)
 	char* where_clause = NULL;
 
 	char usr_str[50];
-	sprintf(usr_str,"%d",id);
+	sprintf(usr_str, "%d", id);
 	where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
 	strcat(where_clause, " = ");
@@ -2828,7 +2828,7 @@ void update_buddy_pic_db(char* file_path, char* table_name, int id)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		// error handling
 	} else {
 
@@ -2857,7 +2857,7 @@ void update_buddy_block_db(char* table_name, int id, int block)
 	char* where_clause = NULL;
 
 	char usr_str[50];
-	sprintf(usr_str,"%d",id);
+	sprintf(usr_str, "%d", id);
 	where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
 	strcat(where_clause, " = ");
@@ -2865,7 +2865,7 @@ void update_buddy_block_db(char* table_name, int id, int block)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		// error handling
 	} else {
 
@@ -2894,7 +2894,7 @@ void update_buddy_delete_db(char* table_name, int id, int delete_item)
 	char* where_clause = NULL;
 
 	char usr_str[50];
-	sprintf(usr_str,"%d",id);
+	sprintf(usr_str, "%d", id);
 	where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, USER_INFO_TABLE_USER_ID);
 	strcat(where_clause, " = ");
@@ -2902,7 +2902,7 @@ void update_buddy_delete_db(char* table_name, int id, int delete_item)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		// error handling
 	} else {
 
@@ -2972,7 +2972,7 @@ Eina_List* get_buddy_info(int buddy_id)
 
 void update_receive_media_info_in_db(long long media_id, char* file_path)
 {
-	if(!file_path) {
+	if (!file_path) {
 		return;
 	}
 	char* table_name = MEDIA_INFO_TABLE_NAME;
@@ -2996,7 +2996,7 @@ void update_receive_media_info_in_db(long long media_id, char* file_path)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		// error handling
 	} else {
 
@@ -3010,7 +3010,7 @@ void update_receive_media_info_in_db(long long media_id, char* file_path)
 
 void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 {
-	if(!M) {
+	if (!M) {
 		return;
 	}
 
@@ -3184,7 +3184,7 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 		col_values = eina_list_append(col_values, &(M->media.photo.user_id));
 		col_values = eina_list_append(col_values, &(M->media.photo.date));
 
-		if(M->media.photo.caption)
+		if (M->media.photo.caption)
 			col_values = eina_list_append(col_values, M->media.photo.caption);
 		else
 			col_values = eina_list_append(col_values, "");
@@ -3193,10 +3193,10 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 		double latitude = M->media.photo.geo.latitude;
 
 		char long_str[50];
-		sprintf(long_str,"%lf",longitude);
+		sprintf(long_str, "%lf", longitude);
 
 		char lat_str[50];
-		sprintf(lat_str,"%lf",latitude);
+		sprintf(lat_str, "%lf", latitude);
 
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, long_str);
@@ -3208,7 +3208,7 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 			//struct tgl_photo_size photo_size = M->media.photo->sizes[i];
 
 			char* photo_type = M->media.photo.sizes[i].type;
-			if(photo_type) {
+			if (photo_type) {
 				col_values = eina_list_append(col_values, photo_type);
 			} else {
 				col_values = eina_list_append(col_values, "");
@@ -3299,7 +3299,7 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 		col_values = eina_list_append(col_values, &(M->media.document.user_id));
 		col_values = eina_list_append(col_values, &(M->media.document.date));
 
-		if(M->media.document.caption)
+		if (M->media.document.caption)
 			col_values = eina_list_append(col_values, M->media.document.caption);
 		else
 			col_values = eina_list_append(col_values, "");
@@ -3309,17 +3309,17 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 		double latitude =  M->media.geo.latitude;
 
 		char long_str[50];
-		sprintf(long_str,"%lf",longitude);
+		sprintf(long_str, "%lf", longitude);
 
 		char lat_str[50];
-		sprintf(lat_str,"%lf",latitude);
+		sprintf(lat_str, "%lf", latitude);
 
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, &(M->media.document.size));
 
 		char* photo_type = M->media.document.thumb.type;
-		if(photo_type) {
+		if (photo_type) {
 			col_values = eina_list_append(col_values, photo_type);
 		} else {
 			col_values = eina_list_append(col_values, "");
@@ -3406,10 +3406,10 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 
 
 			char long_str[50];
-			sprintf(long_str,"%2.15f",M->media.geo.longitude);
+			sprintf(long_str, "%2.15f", M->media.geo.longitude);
 
 			char lat_str[50];
-			sprintf(lat_str,"%2.15f",M->media.geo.latitude);
+			sprintf(lat_str, "%2.15f", M->media.geo.latitude);
 
 			col_values = eina_list_append(col_values, long_str);
 			col_values = eina_list_append(col_values, long_str);
@@ -3461,10 +3461,10 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 		double latitude = 0.0f;
 
 		char long_str[50];
-		sprintf(long_str,"%lf",longitude);
+		sprintf(long_str, "%lf", longitude);
 
 		char lat_str[50];
-		sprintf(lat_str,"%lf",latitude);
+		sprintf(lat_str, "%lf", latitude);
 
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, long_str);
@@ -3500,28 +3500,28 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 		}
 	}
 
-	if(M->media.phone) {
+	if (M->media.phone) {
 		//col_values = eina_list_append(col_values, M->media.phone);
 		col_values = eina_list_append(col_values, "");
 	} else {
 		col_values = eina_list_append(col_values, "");
 	}
 
-	if(M->media.first_name) {
+	if (M->media.first_name) {
 		//col_values = eina_list_append(col_values, M->media.first_name);
 		col_values = eina_list_append(col_values, "");
 	} else {
 		col_values = eina_list_append(col_values, "");
 	}
 
-	if(M->media.last_name) {
+	if (M->media.last_name) {
 		//col_values = eina_list_append(col_values, M->media.last_name);
 		col_values = eina_list_append(col_values, "");
 	} else {
 		col_values = eina_list_append(col_values, "");
 	}
 
-	if(file_path) {
+	if (file_path) {
 		col_values = eina_list_append(col_values, file_path);
 	} else {
 		col_values = eina_list_append(col_values, "");
@@ -3629,8 +3629,8 @@ void insert_media_info_to_db(struct tgl_message *M, char* file_path)
 
 	col_values = eina_list_append(col_values, "");
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -3657,7 +3657,7 @@ void update_video_thumb_in_db(long long media_id, char* thumb_file)
 	col_values = eina_list_append(col_values, thumb_file);
 
 	char usr_str[50];
-	sprintf(usr_str,"%lld",media_id);
+	sprintf(usr_str, "%lld", media_id);
 	char *where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = '") + strlen(usr_str) + strlen("'") + 1);
 	strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 	strcat(where_clause, " = '");
@@ -3666,7 +3666,7 @@ void update_video_thumb_in_db(long long media_id, char* thumb_file)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -3679,7 +3679,7 @@ void update_video_thumb_in_db(long long media_id, char* thumb_file)
 
 void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 {
-	if(!M) {
+	if (!M) {
 		return;
 	}
 
@@ -3851,7 +3851,7 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		col_values = eina_list_append(col_values, &(M->media.photo.user_id));
 		col_values = eina_list_append(col_values, &(M->media.photo.date));
 
-		if(M->media.photo.caption)
+		if (M->media.photo.caption)
 			col_values = eina_list_append(col_values, M->media.photo.caption);
 		else
 			col_values = eina_list_append(col_values, "");
@@ -3860,10 +3860,10 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		double latitude = M->media.photo.geo.latitude;
 
 		char long_str[50];
-		sprintf(long_str,"%lf",longitude);
+		sprintf(long_str, "%lf", longitude);
 
 		char lat_str[50];
-		sprintf(lat_str,"%lf",latitude);
+		sprintf(lat_str, "%lf", latitude);
 
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, long_str);
@@ -3880,7 +3880,7 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 			//struct tgl_photo_size photo_size = M->media.photo->sizes[i];
 
 			char* photo_type = M->media.photo.sizes[i].type;
-			if(photo_type) {
+			if (photo_type) {
 				col_values = eina_list_append(col_values, photo_type);
 			} else {
 				col_values = eina_list_append(col_values, "");
@@ -3969,7 +3969,7 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		col_values = eina_list_append(col_values, &(M->media.document.user_id));
 		col_values = eina_list_append(col_values, &(M->media.document.date));
 
-		if(M->media.document.caption)
+		if (M->media.document.caption)
 			col_values = eina_list_append(col_values, M->media.document.caption);
 		else
 			col_values = eina_list_append(col_values, "");
@@ -3979,17 +3979,17 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		double latitude =  M->media.geo.latitude;
 
 		char long_str[50];
-		sprintf(long_str,"%lf",longitude);
+		sprintf(long_str, "%lf", longitude);
 
 		char lat_str[50];
-		sprintf(lat_str,"%lf",latitude);
+		sprintf(lat_str, "%lf", latitude);
 
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, &(M->media.document.size));
 
 		char* photo_type = M->media.document.thumb.type;
-		if(photo_type) {
+		if (photo_type) {
 			col_values = eina_list_append(col_values, photo_type);
 		} else {
 			col_values = eina_list_append(col_values, "");
@@ -4076,10 +4076,10 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		double latitude = 0.0f;
 
 		char long_str[50];
-		sprintf(long_str,"%lf",longitude);
+		sprintf(long_str, "%lf", longitude);
 
 		char lat_str[50];
-		sprintf(lat_str,"%lf",latitude);
+		sprintf(lat_str, "%lf", latitude);
 
 		col_values = eina_list_append(col_values, long_str);
 		col_values = eina_list_append(col_values, long_str);
@@ -4115,21 +4115,21 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		}
 	}
 
-	if(M->media.phone) {
+	if (M->media.phone) {
 		//col_values = eina_list_append(col_values, M->media.phone);
 		col_values = eina_list_append(col_values, "");
 	} else {
 		col_values = eina_list_append(col_values, "");
 	}
 
-	if(M->media.first_name) {
+	if (M->media.first_name) {
 		//col_values = eina_list_append(col_values, M->media.first_name);
 		col_values = eina_list_append(col_values, "");
 	} else {
 		col_values = eina_list_append(col_values, "");
 	}
 
-	if(M->media.last_name) {
+	if (M->media.last_name) {
 		//col_values = eina_list_append(col_values, M->media.last_name);
 		col_values = eina_list_append(col_values, "");
 	} else {
@@ -4240,9 +4240,9 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 	//col_values = eina_list_append(col_values, "");
 
 	char* where_clause = NULL;
-	if(unique_val != 0 ) {
+	if (unique_val != 0) {
 		char usr_str[50];
-		sprintf(usr_str,"%lld",unique_val);
+		sprintf(usr_str, "%lld", unique_val);
 		where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = '") + strlen(usr_str) + strlen("'") + 1);
 		strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 		strcat(where_clause, " = '");
@@ -4250,7 +4250,7 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 		strcat(where_clause, "'");
 	} else {
 		char usr_str[50];
-		sprintf(usr_str,"%lld",M->media.photo.id);
+		sprintf(usr_str, "%lld", M->media.photo.id);
 		where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = '") + strlen(usr_str) + strlen("'") + 1);
 		strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 		strcat(where_clause, " = '");
@@ -4260,7 +4260,7 @@ void update_sent_media_info_in_db(struct tgl_message *M, long long unique_val)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -4286,7 +4286,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_media_id = (char *)eina_list_nth(row_vals, 0);
 
-	if(temp_media_id) {
+	if (temp_media_id) {
 		media_info->media_id = atoll(temp_media_id);
 		free(temp_media_id);
 	} else {
@@ -4295,7 +4295,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	int* temp_media_type = (int*)eina_list_nth(row_vals, 1);
 
-	if(temp_media_type) {
+	if (temp_media_type) {
 		media_info->media_type = *temp_media_type;
 		free(temp_media_type);
 	} else {
@@ -4304,7 +4304,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_access_hash = (char *)eina_list_nth(row_vals, 2);
 
-	if(temp_access_hash) {
+	if (temp_access_hash) {
 		media_info->access_hash = atoll(temp_access_hash);
 		free(temp_access_hash);
 	} else {
@@ -4313,7 +4313,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	int* temp_user_id = (int*)eina_list_nth(row_vals, 3);
 
-	if(temp_user_id) {
+	if (temp_user_id) {
 		media_info->user_id = *temp_user_id;
 		free(temp_user_id);
 	} else {
@@ -4322,7 +4322,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	int* temp_date = (int*)eina_list_nth(row_vals, 4);
 
-	if(temp_date) {
+	if (temp_date) {
 		media_info->date = *temp_date;
 		free(temp_date);
 	} else {
@@ -4331,14 +4331,14 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_caption = (char *)eina_list_nth(row_vals, 5);
 
-	if(temp_caption) {
+	if (temp_caption) {
 		media_info->caption = strdup(temp_caption);
 		free(temp_caption);
 	}
 
 	char *temp_longitude = (char *)eina_list_nth(row_vals, 6);
 
-	if(temp_longitude) {
+	if (temp_longitude) {
 		media_info->longitude = strdup(temp_longitude);
 		free(temp_longitude);
 	} else {
@@ -4347,7 +4347,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_latitude = (char *)eina_list_nth(row_vals, 7);
 
-	if(temp_latitude) {
+	if (temp_latitude) {
 		media_info->latitude = strdup(temp_latitude);
 		free(temp_latitude);
 	} else {
@@ -4356,7 +4356,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	int* temp_sizes = (int*)eina_list_nth(row_vals, 8);
 
-	if(temp_sizes) {
+	if (temp_sizes) {
 		media_info->sizes = *temp_sizes;
 		free(temp_sizes);
 	} else {
@@ -4367,7 +4367,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type1 = (char *)eina_list_nth(row_vals, 9);
 	if (temp_photo_type1 && strlen(temp_photo_type1) > 0) {
-		media_info->photo_type1 =strdup(temp_photo_type1);
+		media_info->photo_type1 = strdup(temp_photo_type1);
 		free(temp_photo_type1);
 	} else {
 		media_info->photo_type1 = 0;
@@ -4384,7 +4384,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol1 = (char *)eina_list_nth(row_vals, 11);
-	if(temp_photo_loc_vol1 && strlen(temp_photo_loc_vol1) > 0) {
+	if (temp_photo_loc_vol1 && strlen(temp_photo_loc_vol1) > 0) {
 		media_info->photo_loc_vol1 = atoll(temp_photo_loc_vol1);
 		free(temp_photo_loc_vol1);
 	} else {
@@ -4401,7 +4401,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec1 = (char *)eina_list_nth(row_vals, 13);
-	if(temp_photo_loc_sec1 && strlen(temp_photo_loc_sec1) > 0) {
+	if (temp_photo_loc_sec1 && strlen(temp_photo_loc_sec1) > 0) {
 		media_info->photo_loc_sec1 = atoll(temp_photo_loc_sec1);
 		free(temp_photo_loc_sec1);
 	} else {
@@ -4410,7 +4410,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width1 = (int*)eina_list_nth(row_vals, 14);
-	if(temp_photo_width1) {
+	if (temp_photo_width1) {
 		media_info->photo_width1 = *temp_photo_width1;
 		free(temp_photo_width1);
 	} else {
@@ -4419,7 +4419,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height1 = (int*)eina_list_nth(row_vals, 15);
-	if(temp_photo_height1) {
+	if (temp_photo_height1) {
 		media_info->photo_height1 = *temp_photo_height1;
 		free(temp_photo_height1);
 	} else {
@@ -4427,7 +4427,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size1 = (int*)eina_list_nth(row_vals, 16);
-	if(temp_photo_size1) {
+	if (temp_photo_size1) {
 		media_info->photo_size1 = *temp_photo_size1;
 		free(temp_photo_size1);
 	} else {
@@ -4436,7 +4436,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data1 = (char *)eina_list_nth(row_vals, 17);
-	if(temp_photo_data1 && strlen(temp_photo_data1) > 0) {
+	if (temp_photo_data1 && strlen(temp_photo_data1) > 0) {
 		media_info->photo_data1 = strdup(temp_photo_data1);
 		free(temp_photo_data1);
 	} else {
@@ -4446,7 +4446,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type2 = (char *)eina_list_nth(row_vals, 18);
 	if (temp_photo_type2 && strlen(temp_photo_type2) > 0) {
-		media_info->photo_type2 =strdup(temp_photo_type2);
+		media_info->photo_type2 = strdup(temp_photo_type2);
 		free(temp_photo_type2);
 	} else {
 		media_info->photo_type2 = 0;
@@ -4463,7 +4463,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol2 = (char *)eina_list_nth(row_vals, 20);
-	if(temp_photo_loc_vol2 && strlen(temp_photo_loc_vol2) > 0) {
+	if (temp_photo_loc_vol2 && strlen(temp_photo_loc_vol2) > 0) {
 		media_info->photo_loc_vol2 = atoll(temp_photo_loc_vol2);
 		free(temp_photo_loc_vol2);
 	} else {
@@ -4480,7 +4480,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec2 = (char *)eina_list_nth(row_vals, 22);
-	if(temp_photo_loc_sec2 && strlen(temp_photo_loc_sec2) > 0) {
+	if (temp_photo_loc_sec2 && strlen(temp_photo_loc_sec2) > 0) {
 		media_info->photo_loc_sec2 = atoll(temp_photo_loc_sec2);
 		free(temp_photo_loc_sec2);
 	} else {
@@ -4489,7 +4489,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width2 = (int*)eina_list_nth(row_vals, 23);
-	if(temp_photo_width2) {
+	if (temp_photo_width2) {
 		media_info->photo_width2 = *temp_photo_width2;
 		free(temp_photo_width2);
 	} else {
@@ -4498,7 +4498,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height2 = (int*)eina_list_nth(row_vals, 24);
-	if(temp_photo_height2) {
+	if (temp_photo_height2) {
 		media_info->photo_height2 = *temp_photo_height2;
 		free(temp_photo_height2);
 	} else {
@@ -4506,7 +4506,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size2 = (int*)eina_list_nth(row_vals, 25);
-	if(temp_photo_size2) {
+	if (temp_photo_size2) {
 		media_info->photo_size2 = *temp_photo_size2;
 		free(temp_photo_size2);
 	} else {
@@ -4515,7 +4515,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data2 = (char *)eina_list_nth(row_vals, 26);
-	if(temp_photo_data2 && strlen(temp_photo_data2) > 0) {
+	if (temp_photo_data2 && strlen(temp_photo_data2) > 0) {
 		media_info->photo_data2 = strdup(temp_photo_data2);
 		free(temp_photo_data2);
 	} else {
@@ -4524,7 +4524,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type3 = (char *)eina_list_nth(row_vals, 27);
 	if (temp_photo_type3 && strlen(temp_photo_type3) > 0) {
-		media_info->photo_type3 =strdup(temp_photo_type3);
+		media_info->photo_type3 = strdup(temp_photo_type3);
 		free(temp_photo_type3);
 	} else {
 		media_info->photo_type3 = 0;
@@ -4541,7 +4541,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol3 = (char *)eina_list_nth(row_vals, 29);
-	if(temp_photo_loc_vol3 && strlen(temp_photo_loc_vol3) > 0) {
+	if (temp_photo_loc_vol3 && strlen(temp_photo_loc_vol3) > 0) {
 		media_info->photo_loc_vol3 = atoll(temp_photo_loc_vol3);
 		free(temp_photo_loc_vol3);
 	} else {
@@ -4558,7 +4558,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec3 = (char *)eina_list_nth(row_vals, 31);
-	if(temp_photo_loc_sec3 && strlen(temp_photo_loc_sec3) > 0) {
+	if (temp_photo_loc_sec3 && strlen(temp_photo_loc_sec3) > 0) {
 		media_info->photo_loc_sec3 = atoll(temp_photo_loc_sec3);
 		free(temp_photo_loc_sec3);
 	} else {
@@ -4567,7 +4567,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width3 = (int*)eina_list_nth(row_vals, 32);
-	if(temp_photo_width3) {
+	if (temp_photo_width3) {
 		media_info->photo_width3 = *temp_photo_width3;
 		free(temp_photo_width3);
 	} else {
@@ -4576,7 +4576,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height3 = (int*)eina_list_nth(row_vals, 33);
-	if(temp_photo_height3) {
+	if (temp_photo_height3) {
 		media_info->photo_height3 = *temp_photo_height3;
 		free(temp_photo_height3);
 	} else {
@@ -4584,7 +4584,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size3 = (int*)eina_list_nth(row_vals, 34);
-	if(temp_photo_size3) {
+	if (temp_photo_size3) {
 		media_info->photo_size3 = *temp_photo_size3;
 		free(temp_photo_size3);
 	} else {
@@ -4593,7 +4593,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data3 = (char *)eina_list_nth(row_vals, 35);
-	if(temp_photo_data3 && strlen(temp_photo_data3) > 0) {
+	if (temp_photo_data3 && strlen(temp_photo_data3) > 0) {
 		media_info->photo_data3 = strdup(temp_photo_data3);
 		free(temp_photo_data3);
 	} else {
@@ -4602,7 +4602,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type4 = (char *)eina_list_nth(row_vals, 36);
 	if (temp_photo_type4 && strlen(temp_photo_type4) > 0) {
-		media_info->photo_type4 =strdup(temp_photo_type4);
+		media_info->photo_type4 = strdup(temp_photo_type4);
 		free(temp_photo_type4);
 	} else {
 		media_info->photo_type4 = 0;
@@ -4619,7 +4619,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol4 = (char *)eina_list_nth(row_vals, 38);
-	if(temp_photo_loc_vol4 && strlen(temp_photo_loc_vol4) > 0) {
+	if (temp_photo_loc_vol4 && strlen(temp_photo_loc_vol4) > 0) {
 		media_info->photo_loc_vol4 = atoll(temp_photo_loc_vol4);
 		free(temp_photo_loc_vol4);
 	} else {
@@ -4636,7 +4636,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec4 = (char *)eina_list_nth(row_vals, 40);
-	if(temp_photo_loc_sec4 && strlen(temp_photo_loc_sec4) > 0) {
+	if (temp_photo_loc_sec4 && strlen(temp_photo_loc_sec4) > 0) {
 		media_info->photo_loc_sec4 = atoll(temp_photo_loc_sec4);
 		free(temp_photo_loc_sec4);
 	} else {
@@ -4645,7 +4645,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width4 = (int*)eina_list_nth(row_vals, 41);
-	if(temp_photo_width4) {
+	if (temp_photo_width4) {
 		media_info->photo_width4 = *temp_photo_width4;
 		free(temp_photo_width4);
 	} else {
@@ -4654,7 +4654,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height4 = (int*)eina_list_nth(row_vals, 42);
-	if(temp_photo_height4) {
+	if (temp_photo_height4) {
 		media_info->photo_height4 = *temp_photo_height4;
 		free(temp_photo_height4);
 	} else {
@@ -4662,7 +4662,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size4 = (int*)eina_list_nth(row_vals, 43);
-	if(temp_photo_size4) {
+	if (temp_photo_size4) {
 		media_info->photo_size4 = *temp_photo_size4;
 		free(temp_photo_size4);
 	} else {
@@ -4671,7 +4671,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data4 = (char *)eina_list_nth(row_vals, 44);
-	if(temp_photo_data4 && strlen(temp_photo_data4) > 0) {
+	if (temp_photo_data4 && strlen(temp_photo_data4) > 0) {
 		media_info->photo_data4 = strdup(temp_photo_data4);
 		free(temp_photo_data4);
 	} else {
@@ -4683,7 +4683,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_phone_no = (char *)eina_list_nth(row_vals, 45);
 
-	if(temp_phone_no && strlen(temp_phone_no) > 0) {
+	if (temp_phone_no && strlen(temp_phone_no) > 0) {
 		media_info->phone_no = strdup(temp_phone_no);
 		free(temp_phone_no);
 	} else {
@@ -4692,7 +4692,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_first_name = (char *)eina_list_nth(row_vals, 46);
 
-	if(temp_first_name && strlen(temp_first_name) > 0) {
+	if (temp_first_name && strlen(temp_first_name) > 0) {
 		media_info->first_name = strdup(temp_first_name);
 		free(temp_first_name);
 	} else {
@@ -4701,7 +4701,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_last_name = (char *)eina_list_nth(row_vals, 47);
 
-	if(temp_last_name && strlen(temp_last_name) > 0) {
+	if (temp_last_name && strlen(temp_last_name) > 0) {
 		media_info->last_name = strdup(temp_last_name);
 		free(temp_last_name);
 	} else {
@@ -4710,7 +4710,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_file_path = (char *)eina_list_nth(row_vals, 48);
 
-	if(temp_file_path && strlen(temp_file_path) > 0) {
+	if (temp_file_path && strlen(temp_file_path) > 0) {
 		media_info->file_path = strdup(temp_file_path);
 		free(temp_file_path);
 	} else {
@@ -4719,7 +4719,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_mime_type = (char *)eina_list_nth(row_vals, 49);
 
-	if(temp_mime_type && strlen(temp_mime_type) > 0) {
+	if (temp_mime_type && strlen(temp_mime_type) > 0) {
 		media_info->mime_type = strdup(temp_mime_type);
 		free(temp_mime_type);
 	} else {
@@ -4728,7 +4728,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 
 	char *temp_doc_type = (char *)eina_list_nth(row_vals, 50);
 
-	if(temp_doc_type && strlen(temp_doc_type) > 0) {
+	if (temp_doc_type && strlen(temp_doc_type) > 0) {
 		media_info->doc_type = strdup(temp_doc_type);
 		free(temp_doc_type);
 	} else {
@@ -4736,7 +4736,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_width = (int*)eina_list_nth(row_vals, 51);
-	if(temp_doc_width) {
+	if (temp_doc_width) {
 		media_info->doc_width = *temp_doc_width;
 		free(temp_doc_width);
 	} else {
@@ -4744,7 +4744,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_height = (int*)eina_list_nth(row_vals, 52);
-	if(temp_doc_height) {
+	if (temp_doc_height) {
 		media_info->doc_height = *temp_doc_height;
 		free(temp_doc_height);
 	} else {
@@ -4752,7 +4752,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_duration = (int*)eina_list_nth(row_vals, 53);
-	if(temp_doc_duration) {
+	if (temp_doc_duration) {
 		media_info->doc_duration = *temp_doc_duration;
 		free(temp_doc_duration);
 	} else {
@@ -4760,7 +4760,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_size = (int*)eina_list_nth(row_vals, 54);
-	if(temp_doc_size) {
+	if (temp_doc_size) {
 		media_info->doc_size = *temp_doc_size;
 		free(temp_doc_size);
 	} else {
@@ -4768,7 +4768,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_dc = (int*)eina_list_nth(row_vals, 55);
-	if(temp_doc_size) {
+	if (temp_doc_size) {
 		media_info->doc_dc = *temp_doc_dc;
 		free(temp_doc_dc);
 	} else {
@@ -4776,7 +4776,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 	}
 
 	char* temp_doc_thumb_path = (int*)eina_list_nth(row_vals, 56);
-	if(temp_doc_thumb_path) {
+	if (temp_doc_thumb_path) {
 		media_info->doc_thumb_path = strdup(temp_doc_thumb_path);
 		free(temp_doc_thumb_path);
 	} else {
@@ -4796,7 +4796,7 @@ Eina_List* get_image_details_from_db(long long media_id)
 	char* table_name = MEDIA_INFO_TABLE_NAME;
 
 	char usr_str[50];
-	sprintf(usr_str,"%lld",media_id);
+	sprintf(usr_str, "%lld", media_id);
 	char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 	strcat(where_clause, " = ");
@@ -5363,7 +5363,7 @@ Eina_Bool delete_message_from_table(char *tablename, int msg_id)
 
 	char* where_clause = NULL;
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d", msg_id);
+	sprintf(msg_id_str, "%d", msg_id);
 
 	char *var_query = (char*)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(" WHERE ") + strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(msg_id_str) + strlen(";") + 1);
 	strcpy(var_query, "DELETE FROM ");
@@ -5376,9 +5376,9 @@ Eina_Bool delete_message_from_table(char *tablename, int msg_id)
 	int ret;
 	char* err_msg = 0;
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
-	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
-	if( ret != SQLITE_OK ){
+	if (ret != SQLITE_OK) {
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}

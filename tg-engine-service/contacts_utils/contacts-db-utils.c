@@ -26,8 +26,7 @@ static bool is_connected = false;
 
 bool sc_db_utils_connect()
 {
-	if(!is_connected)
-	{
+	if (!is_connected) {
 		is_connected = sc_db_utils_is_success(contacts_connect());
 	}
 	return is_connected;
@@ -35,8 +34,7 @@ bool sc_db_utils_connect()
 
 bool sc_db_utils_disconnect()
 {
-	if(is_connected)
-	{
+	if (is_connected) {
 		is_connected = !sc_db_utils_is_success(contacts_disconnect());
 	}
 	return !is_connected;
@@ -51,14 +49,11 @@ bool sc_db_utils_is_success(int err_code)
 {
 #ifdef _DEBUG
 
-	if(err_code == CONTACTS_ERROR_NONE)
-	{
+	if (err_code == CONTACTS_ERROR_NONE) {
 		return true;
-	}
-	else
-	{
+	} else {
 		const char *error_message = NULL;
-		switch(err_code) {
+		switch (err_code) {
 		case CONTACTS_ERROR_OUT_OF_MEMORY:
 			error_message = "Out of memory";
 			break;

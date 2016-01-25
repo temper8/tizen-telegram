@@ -66,7 +66,7 @@ void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const c
 	app_control_destroy(service);
 	bundle_free(b);
 	ret = notification_free(tg_data->s_notififcation);
-	if(ret != NOTIFICATION_ERROR_NONE) {
+	if (ret != NOTIFICATION_ERROR_NONE) {
 	}
 	return;
 }
@@ -76,7 +76,7 @@ char *replace(const char *s, char ch, const char *repl)
 	int count = 0;
 	const char *t;
 
-	for(t = s; *t; t++) {
+	for (t = s; *t; t++) {
 		count += (*t == ch);
 	}
 
@@ -84,8 +84,8 @@ char *replace(const char *s, char ch, const char *repl)
 	char *res = malloc(strlen(s) + (rlen - 1) * count + 1);
 	char *ptr = res;
 
-	for(t = s; *t; t++) {
-		if(*t == ch) {
+	for (t = s; *t; t++) {
+		if (*t == ch) {
 			memcpy(ptr, repl, rlen);
 			ptr += rlen;
 		} else {

@@ -30,8 +30,7 @@
 
 #define DATE_STRING_LENGTH  11
 
-static const char * const _common_contact_fields_names[] =
-{
+static const char * const _common_contact_fields_names[] = {
 	"Phone",
 	"First Name",
 	"Last Name",
@@ -55,7 +54,7 @@ void sc_common_get_contact_properties(sc_common_contact_fields field_type, unsig
 	const char *temp_child_uri = NULL;
 	unsigned temp_child_property_id = 0;
 
-	switch(field_type) {
+	switch (field_type) {
 	case CF_ADDRESSBOOK:
 		//Not needed
 		break;
@@ -104,23 +103,22 @@ void sc_common_get_contact_properties(sc_common_contact_fields field_type, unsig
 		break;
 	}
 
-	if(parent_property_id) {
+	if (parent_property_id) {
 		*parent_property_id = temp_parent_property_id;
 	}
 
-	if(child_uri) {
+	if (child_uri) {
 		*child_uri = temp_child_uri;
 	}
 
-	if(child_property_id) {
+	if (child_property_id) {
 		*child_property_id = temp_child_property_id;
 	}
 }
 
 int sc_common_date_to_int(const struct tm *date)
 {
-	if(!date)
-	{
+	if (!date) {
 		time_t current_time = time(NULL);
 		date = localtime(&current_time);
 	}
@@ -142,8 +140,7 @@ struct tm sc_common_int_to_date(int date_value)
 char *sc_common_date_to_str(struct tm *date)
 {
 	char *ret_str = malloc(DATE_STRING_LENGTH);
-	if(ret_str)
-	{
+	if (ret_str) {
 		sprintf(ret_str, "%d/%d/%d", date->tm_year + 1900, date->tm_mon + 1, date->tm_mday);
 	}
 	return ret_str;

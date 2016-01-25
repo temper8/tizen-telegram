@@ -606,7 +606,7 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		process_set_username_command(tg_data, buddy_id, username);
 
 	} else if (strcmp(cmd_key_val, "delete_all_notifications") == 0) {
-		if(tg_data->s_notififcation) {
+		if (tg_data->s_notififcation) {
 			notification_delete_all(NOTIFICATION_TYPE_NOTI);
 			tg_data->s_notififcation = NULL;
 		}
@@ -709,7 +709,7 @@ void on_connection_type_changed_cb(connection_type_e type, void *user_data)
 				break;
 			}
 		}
-	} else if(type == CONNECTION_TYPE_CELLULAR) {
+	} else if (type == CONNECTION_TYPE_CELLULAR) {
 		connection_cellular_state_e cellular_state;
 
 		err_code = connection_get_cellular_state(tg_data->connection, &cellular_state);

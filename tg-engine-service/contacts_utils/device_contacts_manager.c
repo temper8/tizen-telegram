@@ -30,23 +30,17 @@ bool sc_cdetails_get_contact_val(sc_common_contact_fields field_type, int contac
 	sc_common_get_contact_properties(field_type, &parent_property_id, NULL, &child_property_id);
 
 	contacts_record_h contact_record = NULL;
-	if(sc_db_utils_is_success(contacts_db_get_record(_contacts_contact._uri, contact_id, &contact_record)))
-	{
-		if(CF_BIRTHDAY == field_type)
-		{
+	if (sc_db_utils_is_success(contacts_db_get_record(_contacts_contact._uri, contact_id, &contact_record))) {
+		if (CF_BIRTHDAY == field_type) {
 			int ivalue = 0;
-			if( sc_record_utils_get_child_int(contact_record, parent_property_id, child_property_id, &ivalue))
-			{
+			if (sc_record_utils_get_child_int(contact_record, parent_property_id, child_property_id, &ivalue)) {
 				struct tm date = sc_common_int_to_date(ivalue);
 				*value = sc_common_date_to_str(&date);
 				is_success = true;
 			}
-		}
-		else
-		{
-			if( sc_record_utils_get_child_str_p(contact_record, parent_property_id, child_property_id, &tmp_value)
-					&& tmp_value)
-			{
+		} else {
+			if (sc_record_utils_get_child_str_p(contact_record, parent_property_id, child_property_id, &tmp_value)
+					&& tmp_value) {
 				*value = strdup(tmp_value);
 				is_success = true;
 			}
@@ -63,15 +57,12 @@ Eina_List* get_contact_list_from_device_db()
 	contacts_record_h record = NULL;
 	contacts_list_h person_list = NULL;
 
-	if(sc_db_utils_is_success(contacts_db_get_all_records(_contacts_person._uri, 0, 0, &person_list)))
-	{
-		CONTACTS_LIST_FOREACH(person_list, record)
-		{
+	if (sc_db_utils_is_success(contacts_db_get_all_records(_contacts_person._uri, 0, 0, &person_list))) {
+		CONTACTS_LIST_FOREACH(person_list, record) {
 			char *name = NULL;
 			int id = 0;
 			if (sc_db_utils_is_success(contacts_record_get_str_p(record, _contacts_person.display_name, &name))
-					&& sc_db_utils_is_success(contacts_record_get_int(record, _contacts_person.id, &id)))
-			{
+					&& sc_db_utils_is_success(contacts_record_get_int(record, _contacts_person.id, &id))) {
 				contact_data_s* contact_data = (contact_data_s*)malloc(sizeof(contact_data_s));
 				contact_data->display_name = NULL;
 				contact_data->first_name = NULL;
@@ -82,8 +73,7 @@ Eina_List* get_contact_list_from_device_db()
 				contact_data->display_name = strdup(elm_entry_utf8_to_markup(name));
 
 				char *first_name = NULL;
-				if(sc_cdetails_get_contact_val(CF_FIRST_NAME, contact_data->contact_id, &first_name))
-				{
+				if (sc_cdetails_get_contact_val(CF_FIRST_NAME, contact_data->contact_id, &first_name)) {
 					if (first_name) {
 						contact_data->first_name = strdup(elm_entry_utf8_to_markup(first_name));
 						free(first_name);
@@ -91,8 +81,7 @@ Eina_List* get_contact_list_from_device_db()
 				}
 
 				char *last_name = NULL;
-				if(sc_cdetails_get_contact_val(CF_LAST_NAME, contact_data->contact_id, &last_name))
-				{
+				if (sc_cdetails_get_contact_val(CF_LAST_NAME, contact_data->contact_id, &last_name)) {
 					if (last_name) {
 						contact_data->last_name = strdup(elm_entry_utf8_to_markup(last_name));
 						free(last_name);
@@ -100,8 +89,7 @@ Eina_List* get_contact_list_from_device_db()
 				}
 
 				char *phone_number = NULL;
-				if(sc_cdetails_get_contact_val(CF_PHONE_NUMBER, contact_data->contact_id, &phone_number))
-				{
+				if (sc_cdetails_get_contact_val(CF_PHONE_NUMBER, contact_data->contact_id, &phone_number)) {
 					if (phone_number) {
 						contact_data->phone_number = strdup(elm_entry_utf8_to_markup(phone_number));
 						free(phone_number);

@@ -279,7 +279,7 @@ void send_request_phone_num_again(tg_engine_data_s *tg_data)
 
 	result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -317,7 +317,7 @@ void send_request_code_again(tg_engine_data_s *tg_data)
 
 	result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -361,7 +361,7 @@ void send_registration_response(tg_engine_data_s *tg_data, Eina_Bool is_success)
 
 	result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -382,7 +382,7 @@ void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id)
 	}
 
 	char chat_id_str[50];
-	sprintf(chat_id_str,"%d",chat_id);
+	sprintf(chat_id_str, "%d", chat_id);
 	if (bundle_add_str(msg, "chat_id", chat_id_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -390,7 +390,7 @@ void send_new_group_added_response(tg_engine_data_s *tg_data, int chat_id)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -411,7 +411,7 @@ void send_new_buddy_added_response(tg_engine_data_s *tg_data, int buddy_id)
 	}
 
 	char buddy_id_str[50];
-	sprintf(buddy_id_str,"%d",buddy_id);
+	sprintf(buddy_id_str, "%d", buddy_id);
 	if (bundle_add_str(msg, "buddy_id", buddy_id_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -419,7 +419,7 @@ void send_new_buddy_added_response(tg_engine_data_s *tg_data, int buddy_id)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -440,7 +440,7 @@ void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int
 	}
 
 	char chat_id_str[50];
-	sprintf(chat_id_str,"%d",chat_id);
+	sprintf(chat_id_str, "%d", chat_id);
 	if (bundle_add_str(msg, "chat_id", chat_id_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -449,7 +449,7 @@ void send_response_to_group_chat_updated_response(tg_engine_data_s *tg_data, int
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -470,7 +470,7 @@ void send_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id, co
 	}
 
 	char chat_id_str[50];
-	sprintf(chat_id_str,"%d",chat_id);
+	sprintf(chat_id_str, "%d", chat_id);
 	if (bundle_add_str(msg, "chat_id", chat_id_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -484,7 +484,7 @@ void send_group_chat_updated_response(tg_engine_data_s *tg_data, int chat_id, co
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -505,7 +505,7 @@ void send_chat_profile_pic_updated_response(tg_engine_data_s *tg_data, int chat_
 	}
 
 	char chat_id_str[50];
-	sprintf(chat_id_str,"%d",chat_id);
+	sprintf(chat_id_str, "%d", chat_id);
 	if (bundle_add_str(msg, "chat_id", chat_id_str) != 0)	{
 		ERR("Failed to add data by key to bundle");
 		bundle_free(msg);
@@ -517,7 +517,7 @@ void send_chat_profile_pic_updated_response(tg_engine_data_s *tg_data, int chat_
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 
@@ -539,7 +539,7 @@ void send_name_registration_response(tg_engine_data_s *tg_data)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -560,7 +560,7 @@ void send_add_contacts_request(tg_engine_data_s *tg_data)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -581,7 +581,7 @@ void send_server_not_initialized_response(tg_engine_data_s *tg_data)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -615,7 +615,7 @@ void send_contacts_and_chats_load_done_response(tg_engine_data_s *tg_data, Eina_
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -659,7 +659,7 @@ void send_self_profile_name_updated_response(tg_engine_data_s *tg_data, char *fi
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -699,7 +699,7 @@ void send_self_user_name_updated_response(tg_engine_data_s *tg_data, char *usern
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -738,7 +738,7 @@ void send_self_profile_picture_updated_response(tg_engine_data_s *tg_data, char 
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -772,7 +772,7 @@ void send_contacts_load_done_response(tg_engine_data_s *tg_data, Eina_Bool is_su
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -792,7 +792,7 @@ void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, int budd
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "user_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -807,7 +807,7 @@ void send_buddy_profile_pic_updated_response(tg_engine_data_s *tg_data, int budd
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -828,7 +828,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	}
 
 	char from_id_str[50];
-	sprintf(from_id_str,"%d",from_id);
+	sprintf(from_id_str, "%d", from_id);
 
 	if (bundle_add_str(msg, "from_id", from_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -836,7 +836,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	}
 
 	char to_id_str[50];
-	sprintf(to_id_str,"%d",to_id);
+	sprintf(to_id_str, "%d", to_id);
 
 	if (bundle_add_str(msg, "to_id", to_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -844,7 +844,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%lld",message_id);
+	sprintf(msg_id_str, "%lld", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -852,7 +852,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	}
 
 	char date_id_str[50];
-	sprintf(date_id_str,"%d",date_id);
+	sprintf(date_id_str, "%d", date_id);
 
 	if (bundle_add_str(msg, "date_id", date_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -860,7 +860,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	}
 
 	char type_of_chat_str[50];
-	sprintf(type_of_chat_str,"%d",type_of_chat);
+	sprintf(type_of_chat_str, "%d", type_of_chat);
 
 	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -870,7 +870,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 		// send notification
 		char *icon_path = ui_utils_get_resource(DEFAULT_TELEGRAM_ICON);
@@ -908,7 +908,7 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 	}
 
 	char from_id_str[50];
-	sprintf(from_id_str,"%d",from_id);
+	sprintf(from_id_str, "%d", from_id);
 
 	if (bundle_add_str(msg, "from_id", from_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -916,7 +916,7 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 	}
 
 	char to_id_str[50];
-	sprintf(to_id_str,"%d",to_id);
+	sprintf(to_id_str, "%d", to_id);
 
 	if (bundle_add_str(msg, "to_id", to_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -924,7 +924,7 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%lld",message_id);
+	sprintf(msg_id_str, "%lld", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -932,7 +932,7 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 	}
 
 	char type_of_chat_str[50];
-	sprintf(type_of_chat_str,"%d",type_of_chat);
+	sprintf(type_of_chat_str, "%d", type_of_chat);
 
 	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -942,7 +942,7 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 		// send notification
 		char *icon_path = ui_utils_get_resource(DEFAULT_TELEGRAM_ICON);
@@ -979,7 +979,7 @@ void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -987,7 +987,7 @@ void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d", message_id);
+	sprintf(msg_id_str, "%d", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1020,7 +1020,7 @@ void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 
 	char type_of_chat_str[50];
-	sprintf(type_of_chat_str,"%d",type_of_chat);
+	sprintf(type_of_chat_str, "%d", type_of_chat);
 
 	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1030,7 +1030,7 @@ void send_message_read_by_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1050,7 +1050,7 @@ void send_group_chat_delete_buddy_response(tg_engine_data_s *tg_data, int peer_i
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",peer_id);
+	sprintf(usr_id_str, "%d", peer_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1071,7 +1071,7 @@ void send_group_chat_delete_buddy_response(tg_engine_data_s *tg_data, int peer_i
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1091,7 +1091,7 @@ void send_group_chat_new_buddy_response(tg_engine_data_s *tg_data, int peer_id, 
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",peer_id);
+	sprintf(usr_id_str, "%d", peer_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1112,7 +1112,7 @@ void send_group_chat_new_buddy_response(tg_engine_data_s *tg_data, int peer_id, 
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1132,7 +1132,7 @@ void send_group_chat_rename_response(tg_engine_data_s *tg_data, int peer_id, Ein
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",peer_id);
+	sprintf(usr_id_str, "%d", peer_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1153,7 +1153,7 @@ void send_group_chat_rename_response(tg_engine_data_s *tg_data, int peer_id, Ein
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1173,7 +1173,7 @@ void send_new_contact_added_response(tg_engine_data_s *tg_data, int buddy_id, Ei
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1194,7 +1194,7 @@ void send_new_contact_added_response(tg_engine_data_s *tg_data, int buddy_id, Ei
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1215,7 +1215,7 @@ void send_buddy_readded_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1236,7 +1236,7 @@ void send_buddy_readded_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1256,7 +1256,7 @@ void send_buddy_deleted_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1277,7 +1277,7 @@ void send_buddy_deleted_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1297,7 +1297,7 @@ void send_message_deleted_response(tg_engine_data_s *tg_data, int buddy_id, int 
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1305,7 +1305,7 @@ void send_message_deleted_response(tg_engine_data_s *tg_data, int buddy_id, int 
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d",message_id);
+	sprintf(msg_id_str, "%d", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1327,7 +1327,7 @@ void send_message_deleted_response(tg_engine_data_s *tg_data, int buddy_id, int 
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1348,7 +1348,7 @@ void send_buddy_blocked_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1369,7 +1369,7 @@ void send_buddy_blocked_response(tg_engine_data_s *tg_data, int buddy_id, Eina_B
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1389,7 +1389,7 @@ void send_buddy_unblocked_response(tg_engine_data_s *tg_data, int buddy_id, Eina
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1410,7 +1410,7 @@ void send_buddy_unblocked_response(tg_engine_data_s *tg_data, int buddy_id, Eina
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1432,7 +1432,7 @@ void send_selected_group_chats_deleted_response(tg_engine_data_s *tg_data)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1452,7 +1452,7 @@ void send_group_chat_deleted_response(tg_engine_data_s *tg_data, int chat_id, Ei
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",chat_id);
+	sprintf(usr_id_str, "%d", chat_id);
 
 	if (bundle_add_str(msg, "chat_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1473,7 +1473,7 @@ void send_group_chat_deleted_response(tg_engine_data_s *tg_data, int chat_id, Ei
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1493,7 +1493,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1501,7 +1501,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 
 	char msg_id_str[50];
-	sprintf(msg_id_str,"%d", message_id);
+	sprintf(msg_id_str, "%d", message_id);
 
 	if (bundle_add_str(msg, "message_id", msg_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1526,7 +1526,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	}
 
 	char type_of_chat_str[50];
-	sprintf(type_of_chat_str,"%d",type_of_chat);
+	sprintf(type_of_chat_str, "%d", type_of_chat);
 
 	if (bundle_add_str(msg, "type_of_chat", type_of_chat_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1536,7 +1536,7 @@ void send_message_sent_to_buddy_response(tg_engine_data_s *tg_data, int buddy_id
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1556,7 +1556,7 @@ void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1564,7 +1564,7 @@ void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int
 	}
 
 	char to_id_str[50];
-	sprintf(to_id_str,"%d",to_id);
+	sprintf(to_id_str, "%d", to_id);
 
 	if (bundle_add_str(msg, "to_peer_id", to_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1572,7 +1572,7 @@ void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int
 	}
 
 	char media_id_str[50];
-	sprintf(media_id_str,"%lld",media_id);
+	sprintf(media_id_str, "%lld", media_id);
 
 	if (bundle_add_str(msg, "media_id", media_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1606,7 +1606,7 @@ void send_video_thumb_download_completed_response(tg_engine_data_s *tg_data, int
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1626,7 +1626,7 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1634,7 +1634,7 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 	}
 
 	char to_id_str[50];
-	sprintf(to_id_str,"%d",to_id);
+	sprintf(to_id_str, "%d", to_id);
 
 	if (bundle_add_str(msg, "to_peer_id", to_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1642,7 +1642,7 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 	}
 
 	char media_id_str[50];
-	sprintf(media_id_str,"%lld",media_id);
+	sprintf(media_id_str, "%lld", media_id);
 
 	if (bundle_add_str(msg, "media_id", media_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1676,7 +1676,7 @@ void send_media_download_completed_response(tg_engine_data_s *tg_data, int buddy
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1699,7 +1699,7 @@ void send_contact_updated_response(tg_engine_data_s *tg_data, int buddy_id, char
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1714,7 +1714,7 @@ void send_contact_updated_response(tg_engine_data_s *tg_data, int buddy_id, char
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1734,7 +1734,7 @@ void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id)
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1744,7 +1744,7 @@ void send_buddy_status_updated_response(tg_engine_data_s *tg_data, int buddy_id)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1764,7 +1764,7 @@ void send_buddy_status_notification_response(tg_engine_data_s *tg_data, int budd
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1792,7 +1792,7 @@ void send_buddy_status_notification_response(tg_engine_data_s *tg_data, int budd
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1812,7 +1812,7 @@ void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_
 	}
 
 	char usr_id_str[50];
-	sprintf(usr_id_str,"%d",buddy_id);
+	sprintf(usr_id_str, "%d", buddy_id);
 
 	if (bundle_add_str(msg, "buddy_id", usr_id_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1825,7 +1825,7 @@ void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_
 	}
 
 	char type_status_str[50];
-	sprintf(type_status_str,"%d",type_status);
+	sprintf(type_status_str, "%d", type_status);
 
 	if (bundle_add_str(msg, "type_status", type_status_str) != 0) {
 		ERR("Failed to add data by key to bundle");
@@ -1835,7 +1835,7 @@ void send_buddy_type_notification_response(tg_engine_data_s *tg_data, int buddy_
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1867,7 +1867,7 @@ void send_response_for_logout(tg_engine_data_s *tg_data)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1905,7 +1905,7 @@ void send_response_for_server_connection_status(tg_engine_data_s *tg_data, Eina_
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
@@ -1936,7 +1936,7 @@ void send_server_connection_failed_response(tg_engine_data_s *tg_data)
 	int result = SVC_RES_FAIL;
 	result = tg_server_send_message(tg_data->tg_server, msg);
 
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error: cient not ready
 	}
 	bundle_free(msg);
