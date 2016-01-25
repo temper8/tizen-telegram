@@ -1,9 +1,20 @@
 /*
- * tg_settings_view.c
- *
- *  Created on: Sep 29, 2015
- *      Author: sandeep
- */
+    This file is part of Telegram application for tizen
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 
 #include "tg_settings_view.h"
@@ -685,7 +696,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 				last_name = ad->current_user_data->last_name;
 
 
-				if (!first_name || strstr(first_name, "null") != 0) {
+				if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 					first_name = NULL;
 				}
 
@@ -693,7 +704,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 					first_name = "";
 				}
 
-				if (!last_name || strstr(last_name, "null") != 0) {
+				if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 					last_name = "";
 				}
 				user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);

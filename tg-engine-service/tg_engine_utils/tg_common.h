@@ -1,9 +1,20 @@
 /*
- * tg_common.h
- *
- *  Created on: May 19, 2015
- *      Author: sandeep
- */
+    This file is part of Telegram application for tizen
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 #ifndef TG_COMMON_H_
 #define TG_COMMON_H_
@@ -13,7 +24,7 @@
 #include <notification.h>
 #include "tg_engine.h"
 
-#define TELEGRAM_APP_ID "org.tizen.telegramtizen"
+#define TELEGRAM_APP_ID "org.tizen.telegram_tizen"
 
 typedef enum MESSAGE_STATE {
 	TG_MESSAGE_STATE_SENDING = 1,

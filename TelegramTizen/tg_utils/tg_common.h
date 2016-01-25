@@ -1,9 +1,20 @@
 /*
- * tg_common.h
- *
- *  Created on: May 19, 2015
- *      Author: sandeep
- */
+    This file is part of Telegram application for tizen
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 #ifndef TG_COMMON_H_
 #define TG_COMMON_H_
@@ -25,7 +36,7 @@
 #if !defined(PACKAGE)
 #define PACKAGE "org.tizen.telegram_tizen"
 #endif
-#define TELEGRAM_APP_ID "org.tizen.telegramtizen"
+#define TELEGRAM_APP_ID "org.tizen.telegram_tizen"
 #define EDJ_REG_FILE "edje/telegram_tizen_reg.edj"
 #define EDJ_LOGIN_FILE "edje/telegram_tizen_login.edj"
 #define EDJ_CHAT_LIST_FILE "edje/telegram_chat_list.edj"
