@@ -33,8 +33,7 @@ service_client *service_client_create()
 
 void service_client_destroy(service_client *service_cl)
 {
-	if (service_cl)
-	{
+	if (service_cl) {
 		message_port_unregister_local_port(service_cl->local_port_id);
 		free(service_cl->remote_port_name);
 		free(service_cl->remote_app_name);
@@ -127,7 +126,7 @@ int _service_client_set_remote_data(service_client *service_cl,
 		service_cl->remote_app_name = temp_rem_app_name;
 	}
 
-	if (temp_rem_port_name){
+	if (temp_rem_port_name) {
 		service_cl->remote_port_name = temp_rem_port_name;
 	}
 
@@ -178,11 +177,11 @@ static void _on_message_received_cb(int port_id,
 	RETM_IF(!user_data, "user_data is NULL");
 	service_client *service_cl = user_data;
 	int res = _service_client_set_remote_data(service_cl, rem_app_name, rem_port_name);
-	RETM_IF(res != SVC_RES_OK ,"Failed to set remote data to message port");
+	RETM_IF(res != SVC_RES_OK, "Failed to set remote data to message port");
 
 	if (service_cl->cb_func) {
 		res = service_cl->cb_func(service_cl->cb_data, rec_msg);
-		RETM_IF(res != SVC_RES_OK ,"Message port callback function failed");
+		RETM_IF(res != SVC_RES_OK, "Message port callback function failed");
 	} else {
 		DBG("Message port callback function not set");
 	}

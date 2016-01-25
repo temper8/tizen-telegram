@@ -24,7 +24,7 @@ char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part
 {
 	int org_id = (int) data;
 	if (org_id == 0) {
-		if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+		if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
 			return strdup(i18n_get_text("IDS_TGRAM_MBODY_SELECT_ALL"));
 		}
 		return NULL;
@@ -39,10 +39,10 @@ char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part
 	if (!item) {
 		return NULL;
 	}
-	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
 		char *full_name = replace(item->peer_print_name, '_', " ");
 		return full_name;
-	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
 		char* org_msg = NULL;
 		if (item->last_message) {
 			org_msg = item->last_message;
@@ -63,7 +63,7 @@ void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina
 	}
 	if (ad->main_list && eina_list_count(ad->main_list) > 0) {
 
-		if (org_id ==0) {
+		if (org_id == 0) {
 			Eina_Bool all_items_selected = checked;
 			evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
 			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
@@ -112,7 +112,7 @@ void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina
 		}
 
 #if 0
-		if (org_id ==0) {
+		if (org_id == 0) {
 			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
 				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
 				item->is_selected = checked;
@@ -381,7 +381,7 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "user_main_screen_new");
@@ -423,7 +423,7 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 		itc.func.del = NULL;
 
 		int size = eina_list_count(ad->main_list);
-		if(size > 0) {
+		if (size > 0) {
 			for (i = 0; i <= size; i++) {
 				if (i < size) {
 					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);

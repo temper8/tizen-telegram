@@ -368,8 +368,7 @@ char* on_messaging_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 	} else {
 		if (id == 0) {
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_VIEW_PROFILE_ABB"));
-		}
-		else if (id == 1) {
+		} else if (id == 1) {
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
 		} else {
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
@@ -509,7 +508,7 @@ void on_sent_media_item_clicked(void* data, Evas_Object* layout, void* event_inf
 	char* media_type_str = evas_object_data_get(layout, "media_type");
 	char* media_file = evas_object_data_get(layout, "media_file");
 
-	if( access (media_file, F_OK) != -1 ) {
+	if (access(media_file, F_OK) != -1) {
 
 	} else {
 		media_file = NULL;
@@ -518,17 +517,17 @@ void on_sent_media_item_clicked(void* data, Evas_Object* layout, void* event_inf
 	if (media_file && strlen(media_file) > 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load image");
 			return;
 		}
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_VIEW);
 		if (media_type_str && strstr(media_type_str, "video") != NULL) {
-			app_control_set_mime(app_control,"video/*");
+			app_control_set_mime(app_control, "video/*");
 		} else if (media_type_str && strstr(media_type_str, "audio") != NULL) {
-			app_control_set_mime(app_control,"audio/*");
+			app_control_set_mime(app_control, "audio/*");
 		} else {
-			app_control_set_mime(app_control,"image/*");
+			app_control_set_mime(app_control, "image/*");
 		}
 		app_control_set_uri(app_control, media_file);
 
@@ -577,23 +576,23 @@ int get_image_size(long long media_id)
 	int media_size = 0;
 	for (int i = 0 ; i < row_count ; i++) {
 		Eina_List* row_vals = eina_list_nth(media_sizes, i);
-		int* temp_size1 = (int*)eina_list_nth(row_vals, 0);
-		if(temp_size1) {
+		int *temp_size1 = (int *)eina_list_nth(row_vals, 0);
+		if (temp_size1) {
 			size1 = *temp_size1;
 			free(temp_size1);
 		}
-		int* temp_size2 = (int*)eina_list_nth(row_vals, 3);
-		if(temp_size2) {
+		int *temp_size2 = (int*)eina_list_nth(row_vals, 3);
+		if (temp_size2) {
 			size2 = *temp_size2;
 			free(temp_size2);
 		}
-		int* temp_size3 = (int*)eina_list_nth(row_vals, 6);
-		if(temp_size3) {
+		int *temp_size3 = (int*)eina_list_nth(row_vals, 6);
+		if (temp_size3) {
 			size3 = *temp_size3;
 			free(temp_size3);
 		}
-		int* temp_size4 = (int*)eina_list_nth(row_vals, 9);
-		if(temp_size4) {
+		int *temp_size4 = (int*)eina_list_nth(row_vals, 9);
+		if (temp_size4) {
 			size4 = *temp_size4;
 			free(temp_size4);
 		}
@@ -640,7 +639,7 @@ void on_media_chat_item_clicked(void* data, Evas_Object *entry, void* event_info
 
 	char *media_file = get_media_path_from_db(media_id);
 
-	if( access (media_file, F_OK) != -1 ) {
+	if (access(media_file, F_OK) != -1) {
 
 	} else {
 		media_file = NULL;
@@ -778,7 +777,7 @@ void audio_player_state_changed(void* handler, TG_AUDIO_PLAYER_STATE state, void
 	}
 
 	Eina_Bool is_play_mode = (Eina_Bool)evas_object_data_get(parent, "is_play_mode");
-	switch(audio_payer->state) {
+	switch (audio_payer->state) {
 	case TG_AUDIO_PLAYER_STATE_NONE:
 		break;
 	case TG_AUDIO_PLAYER_STATE_INITIALIZED:
@@ -1028,11 +1027,11 @@ static Evas_Object *get_audio_layout_with_play(Evas_Object *parent)
 
 	//}
 
-	if(msg->message) {
+	if (msg->message) {
 		free(msg->message);
 		msg->message = NULL;
 	}
-	if(msg->media_id) {
+	if (msg->media_id) {
 		free(msg->media_id);
 		msg->media_id = NULL;
 	}
@@ -1166,7 +1165,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					if (msg->media_type == tgl_message_media_photo) {
 						img_item = get_image_from_path(img_path, entry);
 					} else {
-						if ((media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL )|| (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL)) {
+						if ((media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) || (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL)) {
 							img_item = get_media_layout_with_play(img_path, entry, EINA_FALSE);
 						} else {
 							img_item = get_image_from_path(img_path, entry);
@@ -1276,12 +1275,12 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			}
 		}
 
-		if(msg->message) {
+		if (msg->message) {
 			free(msg->message);
 			msg->message = NULL;
 		}
 
-		if(msg->media_id) {
+		if (msg->media_id) {
 			free(msg->media_id);
 			msg->media_id = NULL;
 		}
@@ -1320,7 +1319,7 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 	img_path = get_video_thumb_path_from_db(atoll(msg->media_id));
 	if (img_path == NULL || (img_path && strlen(img_path) == 0) || (img_path && strstr(img_path, "_null_") != NULL)) {
 		img_path = get_media_path_from_db(atoll(msg->media_id));
-		if( access (img_path, F_OK) == -1 ) {
+		if (access(img_path, F_OK) == -1) {
 			img_path = NULL;
 		}
 	}
@@ -1456,7 +1455,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			layout = elm_layout_add(obj);
 
-			if(msg->out) {
+			if (msg->out) {
 				elm_layout_file_set(layout, edj_path, "entry,send,layout");
 				elm_object_style_set(entry, "sentmessage1");
 				//sender_name = replace(ad->current_user_data->print_name, '_', " ");
@@ -1484,7 +1483,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			}
 
 			evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-			elm_object_part_content_set(layout,"elm.swallow.content", entry);
+			elm_object_part_content_set(layout, "elm.swallow.content", entry);
 			evas_object_show(layout);
 
 			elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
@@ -1505,7 +1504,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 				eina_strbuf_free(buf);
 
-			} else if(msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
+			} else if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
 				elm_entry_item_provider_append(entry, item_provider, chat_scroller);
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
@@ -1524,7 +1523,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						} else if (media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
-							char image[256]={0,};
+							char image[256] = {0,};
 							_create_image_item(msg, entry, image, sizeof(image));
 							eina_strbuf_append(buf, image);
 						}
@@ -1536,7 +1535,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						} else if (media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
-							char image[256]={0,};
+							char image[256] = {0,};
 							_create_image_item(msg, entry, image, sizeof(image));
 							eina_strbuf_append(buf, image);
 						}
@@ -1545,7 +1544,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				free_media_details(media_msg);
 				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 				eina_strbuf_free(buf);
-			} else if(msg->media_type == tgl_message_media_geo) {
+			} else if (msg->media_type == tgl_message_media_geo) {
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
 
@@ -1567,7 +1566,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				evas_object_data_set(entry, "location_url", (void*)strdup(loc_url));
 				evas_object_smart_callback_add(entry, "clicked", on_media_chat_item_clicked, NULL);
 
-			} else if(msg->media_type == tgl_message_media_contact) {
+			} else if (msg->media_type == tgl_message_media_contact) {
 
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
 
@@ -1583,11 +1582,11 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 					free_media_details(media_msg);
 				}
 
-			} else if(msg->media_type == tgl_message_media_unsupported) {
+			} else if (msg->media_type == tgl_message_media_unsupported) {
 
-			} else if(msg->media_type == tgl_message_media_photo_encr) {
+			} else if (msg->media_type == tgl_message_media_photo_encr) {
 
-			} else if(msg->media_type == tgl_message_media_document_encr) {
+			} else if (msg->media_type == tgl_message_media_document_encr) {
 
 			} else  {
 
@@ -1613,7 +1612,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 						sizeof(res), format);
 			}
 
-			char time_str[20]={0,};
+			char time_str[20] = {0,};
 			snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 			elm_object_part_text_set(entry, "time", time_str);
 
@@ -1622,24 +1621,24 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 			evas_object_size_hint_align_set(status_obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-			if(msg->msg_state == TG_MESSAGE_STATE_SENDING) {
+			if (msg->msg_state == TG_MESSAGE_STATE_SENDING) {
 				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENDING_ICON), NULL);
 				elm_object_signal_emit(entry, "status_on", "status");
-			} else if(msg->msg_state == TG_MESSAGE_STATE_SENT) {
+			} else if (msg->msg_state == TG_MESSAGE_STATE_SENT) {
 				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENT_ICON), NULL);
 				elm_object_signal_emit(entry, "status_on", "status");
-			} else if(msg->msg_state == TG_MESSAGE_STATE_DELIVERED) {
+			} else if (msg->msg_state == TG_MESSAGE_STATE_DELIVERED) {
 				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_DELIVERED_ICON), NULL);
 				elm_object_signal_emit(entry, "status_on", "status");
-			} else if(msg->msg_state == TG_MESSAGE_STATE_RECEIVED) {
+			} else if (msg->msg_state == TG_MESSAGE_STATE_RECEIVED) {
 				elm_object_signal_emit(entry, "status_off", "status");
-			} else if(msg->msg_state == TG_MESSAGE_STATE_FAILED) {
+			} else if (msg->msg_state == TG_MESSAGE_STATE_FAILED) {
 				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_FAILED_ICON), NULL);
 				elm_object_signal_emit(entry, "status_on", "status");
-			} else if(msg->msg_state == TG_MESSAGE_STATE_READ) {
+			} else if (msg->msg_state == TG_MESSAGE_STATE_READ) {
 				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_READ_ICON), NULL);
 				elm_object_signal_emit(entry, "status_on", "status");
-			} else if(msg->msg_state == TG_MESSAGE_STATE_UNKNOWN) {
+			} else if (msg->msg_state == TG_MESSAGE_STATE_UNKNOWN) {
 				elm_object_signal_emit(entry, "status_off", "status");
 			}
 
@@ -1647,12 +1646,12 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			evas_object_show(status_obj);
 
 			free(tablename);
-			if(msg->message) {
+			if (msg->message) {
 				free(msg->message);
 				msg->message = NULL;
 			}
 
-			if(msg->media_id) {
+			if (msg->media_id) {
 				free(msg->media_id);
 				msg->media_id = NULL;
 			}
@@ -1728,12 +1727,12 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 				}
 			}
 
-		if(msg->message) {
+		if (msg->message) {
 			free(msg->message);
 			msg->message = NULL;
 		}
 
-		if(msg->media_id) {
+		if (msg->media_id) {
 			free(msg->media_id);
 			msg->media_id = NULL;
 		}
@@ -1849,7 +1848,7 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									elm_image_object_size_get(img_item, &w, &h);
 									entry_h = (318 * h) / w;
 									Eina_Strbuf *buf = eina_strbuf_new();
-									char image[256]={0,};
+									char image[256] = {0,};
 									evas_object_data_set(entry, "img_object", img_item);
 									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
 									eina_strbuf_append(buf, image);
@@ -1870,7 +1869,7 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									entry_h = (318 * h) / w;
 									evas_object_data_set(entry, "img_object", img_item);
 									Eina_Strbuf *buf = eina_strbuf_new();
-									char image[256]={0,};
+									char image[256] = {0,};
 									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
 									eina_strbuf_append(buf, image);
 									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
@@ -1923,24 +1922,24 @@ void on_text_message_state_changed(appdata_s* ad, tg_message_s *msg, int type_of
 
 					Evas_Object* status_obj = elm_object_part_content_get(entry, "status_icon");
 					if (status_obj) {
-						if(msg->msg_state == TG_MESSAGE_STATE_SENDING) {
+						if (msg->msg_state == TG_MESSAGE_STATE_SENDING) {
 							elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENDING_ICON), NULL);
 							elm_object_signal_emit(entry, "status_on", "status");
-						} else if(msg->msg_state == TG_MESSAGE_STATE_SENT) {
+						} else if (msg->msg_state == TG_MESSAGE_STATE_SENT) {
 							elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENT_ICON), NULL);
 							elm_object_signal_emit(entry, "status_on", "status");
-						} else if(msg->msg_state == TG_MESSAGE_STATE_DELIVERED) {
+						} else if (msg->msg_state == TG_MESSAGE_STATE_DELIVERED) {
 							elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_DELIVERED_ICON), NULL);
 							elm_object_signal_emit(entry, "status_on", "status");
-						} else if(msg->msg_state == TG_MESSAGE_STATE_RECEIVED) {
+						} else if (msg->msg_state == TG_MESSAGE_STATE_RECEIVED) {
 							elm_object_signal_emit(entry, "status_off", "status");
-						} else if(msg->msg_state == TG_MESSAGE_STATE_FAILED) {
+						} else if (msg->msg_state == TG_MESSAGE_STATE_FAILED) {
 							elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_FAILED_ICON), NULL);
 							elm_object_signal_emit(entry, "status_on", "status");
-						} else if(msg->msg_state == TG_MESSAGE_STATE_READ) {
+						} else if (msg->msg_state == TG_MESSAGE_STATE_READ) {
 							elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_READ_ICON), NULL);
 							elm_object_signal_emit(entry, "status_on", "status");
-						} else if(msg->msg_state == TG_MESSAGE_STATE_UNKNOWN) {
+						} else if (msg->msg_state == TG_MESSAGE_STATE_UNKNOWN) {
 							elm_object_signal_emit(entry, "status_off", "status");
 						}
 					}
@@ -2009,7 +2008,7 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = 0;
 	msg.message = (char*)text_to_send;
@@ -2084,7 +2083,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = 0;
 	msg.message = (char*)text_to_send;
@@ -2135,14 +2134,14 @@ void on_user_status_changed(appdata_s* ad, char* status)
 		return;
 
 	Elm_Object_Item *nf_it = evas_object_data_get(ad->nf, "navi_item");
-	char status_str[256]={0,};
+	char status_str[256] = {0,};
 	snprintf(status_str, sizeof(status_str) - 1, "%s", status);
 	elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 }
 
 static void compare_with_current_date(int rtime, Elm_Object_Item *nf_it)
 {
-	char time_str[256]={0,};
+	char time_str[256] = {0,};
 	time_t local_t = time(NULL);
 	int diff_sec = 0;
 	int diff_min = 0;
@@ -2212,7 +2211,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				int last_seen = *temp_last_seen;
 
 				if (is_online > 0) {
-					char status_str[256]={0,};
+					char status_str[256] = {0,};
 					snprintf(status_str, sizeof(status_str) - 1, "%s", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 					elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 				} else {
@@ -2232,7 +2231,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 
 		tg_chat_info_s* chat_info = get_chat_info(buddy_id);
 		if (!chat_info) {
-			char status_str[256]={0,};
+			char status_str[256] = {0,};
 			snprintf(status_str, sizeof(status_str) - 1, "Unidentified.");
 			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 			return;
@@ -2280,34 +2279,34 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 
 #if 0
 		if (online_members == 0) {
-			char status_str[256]={0,};
+			char status_str[256] = {0,};
 			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d %s</font_size></font>", user_list_size, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"));
 			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 		} else {
-			char status_str[256]={0,};
+			char status_str[256] = {0,};
 			snprintf(status_str, sizeof(status_str) - 1, "<font=Tizen:style=Bold color=#ffffff align=left><font_size=30>%d %s, %d %s</font_size></font>", user_list_size, , online_members, i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
 			elm_object_item_part_text_set(nf_it, "subtitle", status_str);
 		}
 #else
-		char status_str[256]={0,};
+		char status_str[256] = {0,};
 		snprintf(status_str, sizeof(status_str) - 1, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), user_list_size);
 
-		char temp_status_str[512]={0,};
+		char temp_status_str[512] = {0,};
 		snprintf(temp_status_str, sizeof(temp_status_str) - 1, "%s", status_str);
 
 		elm_object_item_part_text_set(nf_it, "subtitle", temp_status_str);
 #endif
 
 		if (chat_info) {
-			if(chat_info->print_title) {
+			if (chat_info->print_title) {
 				free(chat_info->print_title);
 				chat_info->print_title = NULL;
 			}
-			if(chat_info->photo_path) {
+			if (chat_info->photo_path) {
 				free(chat_info->photo_path);
 				chat_info->photo_path = NULL;
 			}
-			if(chat_info->title) {
+			if (chat_info->title) {
 				free(chat_info->title);
 				chat_info->title = NULL;
 			}
@@ -2422,7 +2421,7 @@ static Eina_Bool on_new_contact_message_send_cb(void *data)
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = unique_id;
 	msg.message = "";
@@ -2500,7 +2499,7 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = unique_id;
 	msg.message = "";
@@ -2554,7 +2553,7 @@ static Eina_Bool on_new_location_message_send_cb(void *data)
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = unique_id;
 	msg.message = "";
@@ -2627,7 +2626,7 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = unique_id;
 	msg.message = "";
@@ -2686,7 +2685,7 @@ static Eina_Bool on_new_media_message_send_cb(void *data)
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = unique_id;
 	msg.message = "";
@@ -2767,7 +2766,7 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 	msg.date = time(NULL);
 	msg.flags = 0;
 	msg.fwd_date = 0;
-	msg.fwd_from_id= 0;
+	msg.fwd_from_id = 0;
 	msg.fwd_from_id = 0;
 	msg.unique_id = unique_id;
 	msg.message = "";
@@ -2856,7 +2855,7 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 	strcat(where_clause, unknown_str);
 
 	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, where_clause, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
-	if(!vals) {
+	if (!vals) {
 		// set no messages yet
 		return EINA_FALSE;
 	} else {
@@ -2921,7 +2920,7 @@ void on_gallery_app_control_reply_cb(app_control_h request, app_control_h reply,
 			return;
 		}
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			send_media_message_to_buddy(chat_scroller, file_path, tgl_message_media_photo);
 			free(file_path);
@@ -2981,7 +2980,7 @@ void on_video_app_control_reply_cb(app_control_h request, app_control_h reply, a
 			}
 			return;
 		}
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			send_media_message_to_buddy(chat_scroller, file_path, tgl_message_media_document);
 			free(file_path);
@@ -3001,7 +3000,7 @@ void on_file_app_control_reply_cb(app_control_h request, app_control_h reply, ap
 		int array_length = 0;
 		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 
 			// get mime type of the file
@@ -3066,7 +3065,7 @@ static void on_voice_record_reply_cb(app_control_h request, app_control_h reply,
 			return;
 		}
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			send_media_message_to_buddy(chat_scroller, file_path, tgl_message_media_document);
 			free(file_path);
@@ -3090,7 +3089,7 @@ void on_contact_app_control_reply_cb(app_control_h request, app_control_h reply,
 
 static void _result_cb(attach_panel_h attach_panel, attach_panel_content_category_e content_category, app_control_h result, app_control_result_e result_code, void *user_data)
 {
-	switch(content_category) {
+	switch (content_category) {
 	case ATTACH_PANEL_CONTENT_CATEGORY_IMAGE:
 	case ATTACH_PANEL_CONTENT_CATEGORY_CAMERA:
 		on_gallery_app_control_reply_cb(NULL, result, result_code, user_data);
@@ -3123,33 +3122,33 @@ void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	if (strcasecmp(label, POPUP_TEXT_TAKE_GALLERY) == 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load image picker");
 			return;
 		}
 
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
 
-		app_control_set_mime(app_control,"image/*");
+		app_control_set_mime(app_control, "image/*");
 		app_control_add_extra_data(app_control, APP_CONTROL_DATA_SELECTION_MODE, "single");
 		app_control_send_launch_request(app_control, &on_gallery_app_control_reply_cb, data);
 		app_control_destroy(app_control);
 	} else if (strcasecmp(label, POPUP_TEXT_TAKE_PHOTO) == 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load image picker");
 			return;
 		}
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_CREATE_CONTENT);
-		app_control_set_mime(app_control,"image/jpg");
+		app_control_set_mime(app_control, "image/jpg");
 		//app_control_add_extra_data(app_control, "crop", "caller_id");
 		app_control_send_launch_request(app_control, &on_gallery_app_control_reply_cb, data);
 		app_control_destroy(app_control);
 	} else if (strcasecmp(label, POPUP_TEXT_TAKE_VIDEO) == 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load image picker");
 			return;
 		}
@@ -3168,7 +3167,7 @@ void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
 
 		char recording_size[128] = {0, };
 		snprintf(recording_size, sizeof(recording_size), "%d", request_KB_size);
-		app_control_set_mime(app_control,"video/3gp");
+		app_control_set_mime(app_control, "video/3gp");
 		app_control_add_extra_data(app_control, "LIMIT", recording_size);
 		app_control_add_extra_data(app_control, "RESOLUTION", "VGA");
 		app_control_add_extra_data(app_control, "CALLER", "telegram");
@@ -3179,7 +3178,7 @@ void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
 
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load image picker");
 			return;
 		}
@@ -3201,21 +3200,21 @@ void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
 		char recording_size[128] = {0, };
 		snprintf(recording_size, sizeof(recording_size), "%d", request_KB_size);
 		app_control_add_extra_data(app_control, "SIZE", recording_size);
-		app_control_set_mime(app_control,"audio/*");
+		app_control_set_mime(app_control, "audio/*");
 		app_control_send_launch_request(app_control, &on_voice_record_reply_cb, data);
 		app_control_destroy(app_control);
 
 	} else if (strcasecmp(label, POPUP_TEXT_TAKE_FILE) == 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load image picker");
 			return;
 		}
 
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
 
-		app_control_set_mime(app_control,"*/*");
+		app_control_set_mime(app_control, "*/*");
 		app_control_add_extra_data(app_control, APP_CONTROL_DATA_SELECTION_MODE, "single");
 		app_control_send_launch_request(app_control, &on_file_app_control_reply_cb, data);
 		app_control_destroy(app_control);
@@ -3223,7 +3222,7 @@ void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	} else if (strcasecmp(label, POPUP_TEXT_TAKE_LOCATION) == 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load location picker");
 			return;
 		}
@@ -3235,12 +3234,12 @@ void on_media_type_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	} else if (strcasecmp(label, POPUP_TEXT_TAKE_CONTACT) == 0) {
 		app_control_h app_control;
 		int ret = app_control_create(&app_control);
-		if(ret != APP_CONTROL_ERROR_NONE) {
+		if (ret != APP_CONTROL_ERROR_NONE) {
 			show_toast(ad, "Error: Can not load location picker");
 			return;
 		}
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
-		app_control_set_mime(app_control,"application/vnd.tizen.contact");
+		app_control_set_mime(app_control, "application/vnd.tizen.contact");
 		app_control_add_extra_data(app_control, APP_CONTROL_DATA_SELECTION_MODE, "single");
 		app_control_send_launch_request(app_control, &on_contact_app_control_reply_cb, data);
 		app_control_destroy(app_control);
@@ -3433,7 +3432,7 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 		evas_object_size_hint_weight_set(grp_names_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(grp_names_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		elm_entry_single_line_set(grp_names_lbl,  EINA_FALSE);
-		elm_entry_scrollable_set (grp_names_lbl, EINA_TRUE);
+		elm_entry_scrollable_set(grp_names_lbl, EINA_TRUE);
 		elm_entry_cnp_mode_set(grp_names_lbl, ELM_CNP_MODE_NO_IMAGE);
 		elm_entry_context_menu_disabled_set(grp_names_lbl, EINA_TRUE);
 		elm_object_focus_set(grp_names_lbl, EINA_FALSE);
@@ -3445,7 +3444,7 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 		if (names_of_buddies) {
 			int len = strlen(names_of_buddies);
 			char *names_str = (char*)malloc(len + 256);
-			sprintf(names_str, "<font=Tizen:style=Bold color=#FAFAFA align=center><font_size=40>%s</font_size></font>",names_of_buddies);
+			sprintf(names_str, "<font=Tizen:style=Bold color=#FAFAFA align=center><font_size=40>%s</font_size></font>", names_of_buddies);
 			elm_object_text_set(grp_names_lbl, names_str);
 			free(names_str);
 		}
@@ -3676,7 +3675,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 			char *phone_num = NULL;
 			get_buddy_contact_details_from_db(sel_item->use_data->peer_id, &first_name, &last_name, &phone_num);
 
-			if (!first_name || strstr(first_name ,"null") != 0) {
+			if (!first_name || strstr(first_name, "null") != 0) {
 				first_name = NULL;
 			}
 
@@ -3684,7 +3683,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 				first_name = phone_num;
 			}
 
-			if (!last_name || strstr(last_name ,"null") != 0) {
+			if (!last_name || strstr(last_name, "null") != 0) {
 				last_name = "";
 			}
 			user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);

@@ -74,7 +74,7 @@ void launch_editname_screen(appdata_s* ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	elm_win_resize_object_add(ad->win, scroller);
 
@@ -92,7 +92,7 @@ void launch_editname_screen(appdata_s* ad)
 	elm_object_part_text_set(first_name_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_FIRST_NAME_ABB"));
 
 	elm_entry_single_line_set(first_name_entry, EINA_TRUE);
-	elm_entry_scrollable_set (first_name_entry, EINA_FALSE);
+	elm_entry_scrollable_set(first_name_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(first_name_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(first_name_entry, EINA_TRUE);
 	elm_entry_text_style_user_push(first_name_entry, "DEFAULT='color=#000000'");
@@ -110,7 +110,7 @@ void launch_editname_screen(appdata_s* ad)
 	elm_object_part_text_set(second_name_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_LAST_NAME_ABB"));
 
 	elm_entry_single_line_set(second_name_entry, EINA_TRUE);
-	elm_entry_scrollable_set (second_name_entry, EINA_FALSE);
+	elm_entry_scrollable_set(second_name_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(second_name_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(second_name_entry, EINA_TRUE);
 	elm_entry_text_style_user_push(second_name_entry, "DEFAULT='color=#000000'");

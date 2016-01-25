@@ -256,7 +256,7 @@ void on_image_select_result_cb(app_control_h request, app_control_h reply, app_c
 		int array_length = 0;
 		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = path_arryay[i];
 			if (file_path) {
 				appdata_s *ad = (appdata_s*)user_data;
@@ -283,7 +283,7 @@ void on_image_request_option_selected_cb(void *data, Evas_Object *obj, void *eve
 
 	appdata_s *ad = evas_object_data_get(popup, "app_data");
 
-	if(ret != APP_CONTROL_ERROR_NONE) {
+	if (ret != APP_CONTROL_ERROR_NONE) {
 		show_toast(ad, "Error: Can not load image picker");
 		return;
 	}
@@ -294,7 +294,7 @@ void on_image_request_option_selected_cb(void *data, Evas_Object *obj, void *eve
 		app_control_send_launch_request(app_control, &on_image_select_result_cb, ad);
 	} else {
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
-		app_control_set_mime(app_control,"image/*");
+		app_control_set_mime(app_control, "image/*");
 		app_control_send_launch_request(app_control, &on_image_select_result_cb, ad);
 	}
 
@@ -371,7 +371,7 @@ void on_chat_bg_select_result_cb(app_control_h request, app_control_h reply, app
 		int array_length = 0;
 		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = path_arryay[i];
 			if (file_path) {
 				appdata_s *ad = (appdata_s*)user_data;
@@ -414,7 +414,7 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 	appdata_s *ad = evas_object_data_get(popup, "app_data");
 
-	if(ret != APP_CONTROL_ERROR_NONE) {
+	if (ret != APP_CONTROL_ERROR_NONE) {
 		show_toast(ad, "Error: Can not load image picker");
 		return;
 	}
@@ -437,7 +437,7 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		app_control_set_launch_mode(app_control, APP_CONTROL_LAUNCH_MODE_GROUP);
 		app_control_set_app_id(app_control, "ug-gallery-efl");
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
-		app_control_set_mime(app_control,"image/*");
+		app_control_set_mime(app_control, "image/*");
 		app_control_send_launch_request(app_control, &on_chat_bg_select_result_cb, ad);
 	}
 
@@ -523,7 +523,7 @@ void launch_settings_screen(appdata_s* ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "settings_screen");
@@ -670,8 +670,8 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 	char *user_name = NULL;
 	char *first_name = NULL;
 	char *last_name = NULL;
-	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
-		switch(id) {
+	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
+		switch (id) {
 			case 0:
 				//return replace(ad->current_user_data->print_name, '_', " ");
 #if 0
@@ -685,7 +685,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 				last_name = ad->current_user_data->last_name;
 
 
-				if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
+				if (!first_name || strstr(first_name, "null") != 0) {
 					first_name = NULL;
 				}
 
@@ -693,7 +693,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 					first_name = "";
 				}
 
-				if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
+				if (!last_name || strstr(last_name, "null") != 0) {
 					last_name = "";
 				}
 				user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -709,8 +709,8 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 		}
 
 
-	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
-		switch(id) {
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
+		switch (id) {
 			case 0:
 			if (ad->current_user_data->online) {
 				return strdup(i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));
@@ -727,7 +727,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 Evas_Object* _content_requested_cb(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *eo = NULL;
-	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")) {
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 		int id = (int) data;
@@ -791,7 +791,7 @@ static void _create_logout_popup(appdata_s *ad)
 	elm_popup_align_set(popup, ELM_NOTIFY_ALIGN_FILL, 1.0);
 	eext_object_event_callback_add(popup, EEXT_CALLBACK_BACK, eext_popup_back_cb, NULL);
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_translatable_text_set(popup,"IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG");
+	elm_object_translatable_text_set(popup, "IDS_TGRAM_POP_USE_TELEGRAM_SEAMLESSLY_ACROSS_ANY_NUMBER_OF_DEVICES_MSG");
 	elm_object_part_text_set(popup, "title,text", i18n_get_text("IDS_TGRAM_OPT_LOG_OUT"));
 
 	/* logout button */

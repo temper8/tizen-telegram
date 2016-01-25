@@ -60,7 +60,7 @@ void launch_set_username_cb(appdata_s *ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "set_user_name_layout");
@@ -76,7 +76,7 @@ void launch_set_username_cb(appdata_s *ad)
 	evas_object_size_hint_weight_set(username_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(username_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_entry_single_line_set(username_entry,  EINA_TRUE);
-	elm_entry_scrollable_set (username_entry, EINA_FALSE);
+	elm_entry_scrollable_set(username_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(username_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(username_entry, EINA_TRUE);
 	elm_entry_text_style_user_push(username_entry, "DEFAULT='color=#000000'");

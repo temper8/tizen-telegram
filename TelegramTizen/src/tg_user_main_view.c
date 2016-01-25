@@ -32,16 +32,16 @@ static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Ob
 
 static char* on_menu_item_name_get_cb(void *data, Evas_Object *obj, const char *part)
 {
-		if (!strcmp(part,"elm.text"))
-		{
-			int id = (int) data;
+	if (!strcmp(part, "elm.text")) {
+		int id = (int) data;
 
-			char temp_text[256];
-			sprintf(temp_text, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
+		char temp_text[256];
+		sprintf(temp_text, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
 
-			return strdup(temp_text);
-		}
-		else return NULL;
+		return strdup(temp_text);
+	} else {
+		return NULL;
+	}
 }
 
 static Evas_Object* on_menu_item_image_get_cb(void *data, Evas_Object *obj, const char *part)
@@ -64,7 +64,7 @@ static void launch_contact_picker(appdata_s* ad)
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
 	//app_control_set_app_id(app_control, "tizen.messages");
 	//app_control_add_extra_data(app_control, APP_CONTROL_DATA_TO, recipient);
-	app_control_set_mime(app_control,"text/html");
+	app_control_set_mime(app_control, "text/html");
 	char *text = "Invite you to telegram! https://telegram.org/dl";
 	app_control_add_extra_data(app_control, APP_CONTROL_DATA_TEXT, text);
 	if (app_control_send_launch_request(app_control, NULL, NULL) == APP_CONTROL_ERROR_NONE) {
@@ -108,7 +108,7 @@ Evas_Object* create_side_panel_list(appdata_s* ad, Evas_Object *parent)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "user_main_screen_side_panel");
@@ -267,7 +267,7 @@ void on_side_panel_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
 	Elm_Object_Item *it = (Elm_Object_Item *) elm_list_selected_item_get(obj);
-	if(it == NULL) return;
+	if (it == NULL) return;
 	elm_object_item_part_text_set(elm_naviframe_top_item_get(ad->nf), NULL, elm_object_item_part_text_get(it, "default"));
 	elm_list_item_selected_set(it, EINA_FALSE);
 }
@@ -379,10 +379,10 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 								sizeof(res), format);
 					}
 
-					char time_str[256]={0,};
+					char time_str[256] = {0,};
 					snprintf(time_str, sizeof(time_str), "<font=Tizen:style=Normal color=#000000 align=center><font_size=25>%s</font_size></font>", res);
 
-					elm_object_text_set(sel_item->date_lbl,time_str);
+					elm_object_text_set(sel_item->date_lbl, time_str);
 				}
 			}
 #if 0
@@ -720,7 +720,7 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 						sizeof(res), format);
 			}
 
-			char time_str[128]={0,};
+			char time_str[128] = {0,};
 			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl, time_str);
@@ -739,7 +739,7 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 						sizeof(res), format);
 			}
 
-			char time_str[128]={0,};
+			char time_str[128] = {0, };
 			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl, time_str);
@@ -765,19 +765,19 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 				evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 				evas_object_size_hint_align_set(status_obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-				if(item->last_msg_status == TG_MESSAGE_STATE_SENDING) {
+				if (item->last_msg_status == TG_MESSAGE_STATE_SENDING) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENDING_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_SENT) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_SENT) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENT_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_DELIVERED) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_DELIVERED) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_DELIVERED_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_RECEIVED) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_RECEIVED) {
 
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_FAILED) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_FAILED) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_FAILED_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_READ) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_READ) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_READ_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_UNKNOWN) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_UNKNOWN) {
 
 				}
 #if 0
@@ -788,7 +788,7 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 				evas_object_show(msg_status);
 				elm_object_part_content_set(msg_status, "content", status_obj);
 #endif
-				evas_object_color_set(status_obj, 75, 96,178, 255);
+				evas_object_color_set(status_obj, 75, 96, 178, 255);
 				elm_object_part_content_set(item_layout, "swallow.read_unread_status", status_obj);
 
 			} else {
@@ -840,7 +840,7 @@ static char* on_chat_text_load_requested(void *data, Evas_Object *obj, const cha
 		}
 
 		char status_buf[126] = {'\0'};
-		if(item->last_msg_service) {
+		if (item->last_msg_service) {
 			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
 		} else {
 			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
@@ -867,7 +867,7 @@ void reload_main_list_view(appdata_s* ad)
 		itc.func.del = NULL;
 
 		int size = eina_list_count(ad->main_list);
-		if(size > 0) {
+		if (size > 0) {
 			for (i = 0; i < size; i++) {
 				elm_genlist_item_append(buddy_list, &itc, (void*) i, NULL, ELM_GENLIST_ITEM_NONE, on_main_chat_item_selected, (void*) i);
 			}
@@ -908,7 +908,7 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 			int i = 0;
 			if (ad->main_list) {
 				int size = eina_list_count(ad->main_list);
-				if(size > 0) {
+				if (size > 0) {
 					for (i = 0; i < size; i++) {
 						elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 					}
@@ -925,7 +925,7 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 		if (size > 0) {
 
 			Evas_Object* layout = evas_object_data_get(ad->nf, "no_chat_image");
-			if(layout) {
+			if (layout) {
 				elm_object_signal_emit(layout, "no_chat_hide", "no_chat_text");
 			}
 
@@ -944,7 +944,7 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 			itc.func.del = NULL;
 
 			int size = eina_list_count(ad->main_list);
-			if(size > 0) {
+			if (size > 0) {
 				for (i = 0; i < size; i++) {
 					elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 				}
@@ -1184,7 +1184,7 @@ void launch_user_main_view_cb(appdata_s* ad)
 		itc.func.del = NULL;
 
 		int size = eina_list_count(ad->main_list);
-		if(size > 0) {
+		if (size > 0) {
 			for (i = 0; i < size; i++) {
 				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
 			}

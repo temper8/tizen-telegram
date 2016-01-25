@@ -28,7 +28,7 @@ char* on_buddy_select_list_name_requested(void *data, Evas_Object *obj, const ch
 	int size = eina_list_count(ad->buddy_list);
 
 	if (size <= 0) {
-		if (!strcmp(part,"elm.text")){
+		if (!strcmp(part, "elm.text")) {
 			char buf[512] = {'\0'};
 			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", "No Items");
 			return strdup(buf);
@@ -41,7 +41,7 @@ char* on_buddy_select_list_name_requested(void *data, Evas_Object *obj, const ch
 	user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
 	user_data_s* user = item->use_data;
 
-	if (!strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text")) {
 		char* user_name = replace(user->print_name, '_', " ");
 		char buf[512] = {'\0'};
 		snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
@@ -211,15 +211,15 @@ static void on_buddy_item_selected(void *data, Evas_Object *obj, void *event_inf
 		}
 	}
 
-	if(chat_info->print_title) {
+	if (chat_info->print_title) {
 		free(chat_info->print_title);
 		chat_info->print_title = NULL;
 	}
-	if(chat_info->photo_path) {
+	if (chat_info->photo_path) {
 		free(chat_info->photo_path);
 		chat_info->photo_path = NULL;
 	}
-	if(chat_info->title) {
+	if (chat_info->title) {
 		free(chat_info->title);
 		chat_info->title = NULL;
 	}
@@ -252,7 +252,7 @@ void launch_select_buddy_view(appdata_s* ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	int i;
 	static Elm_Genlist_Item_Class itc1;
@@ -274,7 +274,7 @@ void launch_select_buddy_view(appdata_s* ad)
 		size = eina_list_count(ad->buddy_list);
 	}
 
-	if(size > 0) {
+	if (size > 0) {
 		for (i = 0; i < size; i++) {
 			elm_genlist_item_append(buddy_list, &itc1, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_item_selected, (void*) i);
 		}

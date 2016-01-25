@@ -4,7 +4,7 @@
 
 void index_destroy(Evas_Object *index)
 {
-	if(NULL == index) {
+	if (NULL == index) {
 		LOGE("index is NULL");
 		return;
 	}
@@ -21,13 +21,13 @@ Evas_Object *index_create(Evas_Object *parent, unsigned int count)
 	Evas_Object *index = NULL;
 	register int i = 0;
 
-	if(NULL == parent) {
+	if (NULL == parent) {
 		LOGE("parent is NULL");
 		return NULL;
 	}
 
 	index = elm_index_add(parent);
-	if(NULL == index) {
+	if (NULL == index) {
 		LOGE("Fail to add the index");
 		return NULL;
 	}
@@ -72,7 +72,7 @@ void index_bring_in(Evas_Object *index, int idx)
 	Elm_Object_Item *idx_it;
 
 	idx_it = elm_index_item_find(index, (void *) idx);
-	if(NULL == idx_it) {
+	if (NULL == idx_it) {
 		LOGE("Fail to find the index item");
 		return;
 	}

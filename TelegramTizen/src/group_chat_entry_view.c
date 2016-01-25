@@ -35,7 +35,7 @@ void on_camera_result_cb(app_control_h request, app_control_h reply, app_control
 		int array_length = 0;
 		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			evas_object_data_set(user_data, "image_path", (void*)file_path);
 			elm_image_file_set(user_data, file_path, NULL);
@@ -59,7 +59,7 @@ void on_image_load_option_selected_cb(void *data, Evas_Object *obj, void *event_
 
 	appdata_s* ad = evas_object_data_get(cam_icon, "app_data");
 
-	if(ret != APP_CONTROL_ERROR_NONE) {
+	if (ret != APP_CONTROL_ERROR_NONE) {
 		show_toast(ad, "Error: Can not load image picker");
 		return;
 	}
@@ -70,7 +70,7 @@ void on_image_load_option_selected_cb(void *data, Evas_Object *obj, void *event_
 		app_control_send_launch_request(app_control, &on_camera_result_cb, cam_icon);
 	} else {
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
-		app_control_set_mime(app_control,"image/*");
+		app_control_set_mime(app_control, "image/*");
 		app_control_send_launch_request(app_control, &on_camera_result_cb, cam_icon);
 	}
 
@@ -136,7 +136,7 @@ char* on_group_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 
 	int size = eina_list_count(selected_buddies);
 	if (size <= 0) {
-		if (!strcmp(part,"elm.text")){
+		if (!strcmp(part, "elm.text")) {
 			char buf[512] = {'\0'};
 			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", "No Items");
 			return strdup(buf);
@@ -149,10 +149,10 @@ char* on_group_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 	user_data_with_pic_s* item = eina_list_nth(selected_buddies, id);
 	user_data_s* user = item->use_data;
 
-	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
 		char *full_name = replace(user->print_name, '_', " ");
 		return full_name;
-	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
 		char* last_seen = get_budy_state(ad, user->user_id.id);
 		if (last_seen) {
 			return last_seen;
@@ -252,7 +252,7 @@ void on_group_chat_cancel_buton_clicked(void *data, Evas_Object *object, void *e
 Evas_Object* group_chat_pic_requested_cb(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *eo = NULL;
-	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")) {
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
 		int id = (int) data;
 		if (id == 0) {
@@ -297,7 +297,7 @@ void launch_group_chat_name_entry_view(void *data)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	char edj_path[PATH_MAX] = {0, };
 
@@ -322,7 +322,7 @@ void launch_group_chat_name_entry_view(void *data)
 	evas_object_size_hint_weight_set(name_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(name_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_entry_single_line_set(name_entry,  EINA_TRUE);
-	elm_entry_scrollable_set (name_entry, EINA_FALSE);
+	elm_entry_scrollable_set(name_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(name_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(name_entry, EINA_TRUE);
 	elm_object_part_text_set(name_entry, "elm.guide", i18n_get_text("IDS_TGRAM_NPBODY_NEW_GROUP_NAME_ABB"));

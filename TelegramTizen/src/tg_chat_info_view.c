@@ -133,7 +133,7 @@ char* on_chat_info_buddy_name_get_cb(void *data, Evas_Object *obj, const char *p
 
 	int size = eina_list_count(selected_buddies);
 	if (size <= 0) {
-		if (!strcmp(part,"elm.text")){
+		if (!strcmp(part, "elm.text")) {
 			char buf[512] = {'\0'};
 			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", "No Items");
 			return strdup(buf);
@@ -147,7 +147,7 @@ char* on_chat_info_buddy_name_get_cb(void *data, Evas_Object *obj, const char *p
 	if (!user)
 		return NULL;
 
-	if (!strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text")) {
 		char* user_name = replace(user->print_name, '_', " ");
 		char buf[512] = {'\0'};
 		snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
@@ -204,7 +204,7 @@ void on_chat_image_select_result_cb(app_control_h request, app_control_h reply, 
 		int array_length = 0;
 		app_control_get_extra_data_array(reply, APP_CONTROL_DATA_SELECTED, &path_arryay,  &array_length);
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = path_arryay[i];
 			if (file_path) {
 				appdata_s *ad = (appdata_s*)user_data;
@@ -235,7 +235,7 @@ void on_chat_image_request_option_selected_cb(void *data, Evas_Object *obj, void
 
 	appdata_s *ad = evas_object_data_get(popup, "app_data");
 
-	if(ret != APP_CONTROL_ERROR_NONE) {
+	if (ret != APP_CONTROL_ERROR_NONE) {
 		show_toast(ad, "Error: Can not load image picker");
 		return;
 	}
@@ -246,7 +246,7 @@ void on_chat_image_request_option_selected_cb(void *data, Evas_Object *obj, void
 		app_control_send_launch_request(app_control, &on_chat_image_select_result_cb, ad);
 	} else {
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
-		app_control_set_mime(app_control,"image/*");
+		app_control_set_mime(app_control, "image/*");
 		app_control_send_launch_request(app_control, &on_chat_image_select_result_cb, ad);
 	}
 
@@ -358,7 +358,7 @@ void on_group_chat_info_updated(appdata_s *ad, char *type_of_change)
 			free(user_name);
 			Evas_Object *profile_name = evas_object_data_get(ad->nf, "chat_info_name");
 			if (profile_name) {
-				elm_object_text_set(profile_name,temp_name);
+				elm_object_text_set(profile_name, temp_name);
 			}
 		}
 	} else if (strstr(type_of_change, "delete_photo") != NULL) {
@@ -418,15 +418,15 @@ void on_group_chat_info_updated(appdata_s *ad, char *type_of_change)
 					}
 				}
 
-				if(chat_info->print_title) {
+				if (chat_info->print_title) {
 					free(chat_info->print_title);
 					chat_info->print_title = NULL;
 				}
-				if(chat_info->photo_path) {
+				if (chat_info->photo_path) {
 					free(chat_info->photo_path);
 					chat_info->photo_path = NULL;
 				}
-				if(chat_info->title) {
+				if (chat_info->title) {
 					free(chat_info->title);
 					chat_info->title = NULL;
 				}
@@ -692,7 +692,7 @@ static void on_user_list_longpress(void *data, Evas_Object *obj, void *event_inf
 	int id = -1;
 	id = (int)elm_object_item_data_get(item);
 
-	if (id ==0) {
+	if (id == 0) {
 		return;
 	}
 	appdata_s *ad = data;
@@ -777,7 +777,7 @@ void launch_chat_info_screen(appdata_s* ad, int chat_id)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "chat_info_screen");
@@ -861,15 +861,15 @@ void launch_chat_info_screen(appdata_s* ad, int chat_id)
 			}
 		}
 
-		if(chat_info->print_title) {
+		if (chat_info->print_title) {
 			free(chat_info->print_title);
 			chat_info->print_title = NULL;
 		}
-		if(chat_info->photo_path) {
+		if (chat_info->photo_path) {
 			free(chat_info->photo_path);
 			chat_info->photo_path = NULL;
 		}
-		if(chat_info->title) {
+		if (chat_info->title) {
 			free(chat_info->title);
 			chat_info->title = NULL;
 		}

@@ -46,7 +46,7 @@ static void _set_init_screen(Evas_Object *layout)
 
 	page_idx = (int)evas_object_data_get(layout, "page_idx");
 
-	switch(page_idx) {
+	switch (page_idx) {
 	case 1:
 		evas_object_color_set(bg, 214, 82, 64, 255);
 		elm_object_signal_emit(content_layout, "fast", "icon");
@@ -97,7 +97,7 @@ static void _set_init_screen(Evas_Object *layout)
 		evas_object_color_set(bg, 45, 165, 224, 255);
 		elm_object_signal_emit(content_layout, "telegram", "icon");
 		elm_object_signal_emit(button, "1,button", "button");
-		elm_object_part_text_set(center_btn,"text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
+		elm_object_part_text_set(center_btn, "text", i18n_get_text("IDS_TGRAM_BUTTON_NEXT_ABB5"));
 		elm_object_translatable_part_text_set(content_layout, "title", i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM"));
 		snprintf(value, sizeof(value), elm_entry_utf8_to_markup(i18n_get_text("IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS")), "<b>", "</b>", "<b>", "</b>", "<b>", "</b>");
 		elm_object_translatable_part_text_set(content_layout, "comment", value);
@@ -115,17 +115,17 @@ static void _bottom_btn_clicked(void *data, Evas_Object *obj, const char *emissi
 	kind = (int)evas_object_data_get(obj, "kind");
 	page_idx = (int)evas_object_data_get(layout, "page_idx");
 
-	switch(kind) {
+	switch (kind) {
 	case 1:
-		page_idx ++;
+		page_idx++;
 		break;
 	case 2:
-		page_idx --;
+		page_idx--;
 		break;
 	case 3:
 	default:
-		if (page_idx == 0) page_idx ++;
-		else page_idx --;
+		if (page_idx == 0) page_idx++;
+		else page_idx--;
 		break;
 	}
 

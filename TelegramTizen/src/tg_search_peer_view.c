@@ -99,10 +99,10 @@ char* on_peer_list_name_requested(void *data, Evas_Object *obj, const char *part
 		return NULL;
 	}
 
-	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
 		char *full_name = replace(user->print_name, '_', " ");
 		return full_name;
-	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
 		char* last_seen = get_budy_state(ad, user->user_id.id);
 		if (last_seen) {
 			return last_seen;
@@ -115,7 +115,7 @@ char* _on_command_name_requested(void *data, Evas_Object *obj, const char *part)
 {
 	int row = (int)data;
 
-	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
 		char buf[512] = {'\0'};
 		snprintf(buf, 512, "<align=left><font_size=45><color=#1776D2>%s</color></font_size></align>", _(contact_screen_command_item_list[row].string));
 		return strdup(buf);
@@ -131,7 +131,7 @@ Evas_Object* _on_command_name_image_requested(void *data, Evas_Object *obj, cons
 	Evas_Object *eo = NULL;
 	char path[256] = {0,};
 
-	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")) {
 
 		Evas_Object *profile_pic = NULL;
 		profile_pic = create_image_object_from_file(ui_utils_get_resource(contact_screen_command_item_list[row].image_path), obj);
@@ -164,7 +164,7 @@ void on_peer_icon_deleted(void *data, Evas *e, Evas_Object *icon, void *event_in
 Evas_Object* on_peer_list_image_requested(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *eo = NULL;
-	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")) {
 		int id = (int) data;
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
 		Eina_List *list = evas_object_data_get(obj, "result_list");
@@ -293,7 +293,7 @@ void on_new_contact_creation_reply_cb(app_control_h request, app_control_h reply
 			return;
 		}
 
-		for(int i = 0 ; i < array_length ; i++) {
+		for (int i = 0 ; i < array_length ; i++) {
 			file_path = strdup(path_arryay[i]);
 			free(file_path);
 		}
@@ -323,11 +323,11 @@ static void list_delete_btn_clicked(void *data, Evas_Object *obj, void *event_in
 	int idx = 3;
 	count = elm_genlist_items_count(genlist);
 
-	while(idx <= count) {
+	while (idx <= count) {
 		item = elm_genlist_nth_item_get(genlist, idx);
 		btn = elm_object_item_part_content_get(item, "elm.icon.2");
 		if (btn == obj) break;
-		idx ++;
+		idx++;
 	}
 
 	elm_object_item_del(item);
@@ -357,7 +357,7 @@ static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *pa
 		elm_object_part_text_set(phone_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_PHONE_NUMBER_ABB"));
 
 		elm_entry_single_line_set(phone_entry, EINA_TRUE);
-		elm_entry_scrollable_set (phone_entry, EINA_TRUE);
+		elm_entry_scrollable_set(phone_entry, EINA_TRUE);
 		elm_object_part_content_set(layout, "elm.swallow.content", phone_entry);
 		evas_object_smart_callback_add(phone_entry, "focused", onFocus, layout);
 		evas_object_smart_callback_add(phone_entry, "unfocused", onUnfocus, layout);
@@ -365,7 +365,7 @@ static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *pa
 
 		appdata_s *ad = evas_object_data_get(obj, "app_data");
 		if (ad) {
-			if(ad->is_loading_from_msg_view) {
+			if (ad->is_loading_from_msg_view) {
 				char temp_name[512] = {'\0'};
 				snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(ad->peer_in_cahtting_data->use_data->peer_id));
 				elm_object_text_set(phone_entry, temp_name);
@@ -399,7 +399,7 @@ static Evas_Object *_get_first_name_content_cb(void *data, Evas_Object *obj, con
 		elm_object_part_text_set(phone_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_FIRST_NAME_ABB"));
 
 		elm_entry_single_line_set(phone_entry, EINA_TRUE);
-		elm_entry_scrollable_set (phone_entry, EINA_TRUE);
+		elm_entry_scrollable_set(phone_entry, EINA_TRUE);
 		elm_object_part_content_set(layout, "elm.swallow.content", phone_entry);
 		evas_object_smart_callback_add(phone_entry, "focused", onFocus, layout);
 		evas_object_smart_callback_add(phone_entry, "unfocused", onUnfocus, layout);
@@ -436,7 +436,7 @@ static Evas_Object *_get_second_name_content_cb(void *data, Evas_Object *obj, co
 		elm_object_part_text_set(phone_entry, "elm.guide", i18n_get_text("IDS_TGRAM_BODY_LAST_NAME_ABB"));
 
 		elm_entry_single_line_set(phone_entry, EINA_TRUE);
-		elm_entry_scrollable_set (phone_entry, EINA_TRUE);
+		elm_entry_scrollable_set(phone_entry, EINA_TRUE);
 		elm_object_part_content_set(layout, "elm.swallow.content", phone_entry);
 		evas_object_smart_callback_add(phone_entry, "focused", onFocus, layout);
 		evas_object_smart_callback_add(phone_entry, "unfocused", onUnfocus, layout);
@@ -521,7 +521,7 @@ static void _append_picture_item(Evas_Object *genlist, appdata_s *ad)
 
 	item = elm_genlist_item_append(genlist, itc, NULL, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
 
-	if(itc) elm_genlist_item_class_free(itc);
+	if (itc) elm_genlist_item_class_free(itc);
 }
 
 static void del_cb(void *data, Evas_Object *obj)
@@ -561,8 +561,8 @@ static void _append_name_item(Evas_Object *genlist, appdata_s *ad)
 	item = elm_genlist_item_append(genlist, itc, second_data, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
 	*second_data = item;
 
-	if(itc) elm_genlist_item_class_free(itc);
-	if(ttc) elm_genlist_item_class_free(ttc);
+	if (itc) elm_genlist_item_class_free(itc);
+	if (ttc) elm_genlist_item_class_free(ttc);
 }
 
 static void _append_phone_item(Evas_Object *genlist, appdata_s *ad)
@@ -584,7 +584,7 @@ static void _append_phone_item(Evas_Object *genlist, appdata_s *ad)
 
 	*item_data = item;
 
-	if(itc) elm_genlist_item_class_free(itc);
+	if (itc) elm_genlist_item_class_free(itc);
 }
 
 static void _insert_before_phone_item(Evas_Object *genlist, appdata_s *ad)
@@ -604,7 +604,7 @@ static void _insert_before_phone_item(Evas_Object *genlist, appdata_s *ad)
 
 	item = elm_genlist_item_insert_before(genlist, itc, NULL, NULL, before, ELM_GENLIST_ITEM_NONE, NULL, NULL);
 
-	if(itc) elm_genlist_item_class_free(itc);
+	if (itc) elm_genlist_item_class_free(itc);
 }
 
 static void phone_btn_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -646,7 +646,7 @@ static void _append_phone_icon(Evas_Object *genlist, appdata_s *ad)
 
 	item = elm_genlist_item_append(genlist, itc, ad, NULL, ELM_GENLIST_ITEM_NONE, NULL, NULL);
 
-	if(itc) elm_genlist_item_class_free(itc);
+	if (itc) elm_genlist_item_class_free(itc);
 }
 
 static Evas_Object* create_genlist(appdata_s *ad, Evas_Object *layout)
@@ -706,8 +706,7 @@ Eina_Bool add_contact_to_phone_book(appdata_s *ad)
 
 		 contacts_record_h record = NULL;
 		 Eina_Bool is_contact_exists = EINA_FALSE;
-		 do
-		 {
+		 do {
 			 contacts_list_get_current_record_p(list, &record);
 			 if (NULL == record) {
 				 break;
@@ -968,7 +967,7 @@ static void on_invite_friends_clicked(void *data, Evas_Object *obj, void *event_
 	}
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
 	app_control_set_uri(app_control, "sms:");
-	//app_control_set_mime(app_control,"text/html");
+	//app_control_set_mime(app_control, "text/html");
 	char *text = "Invite you to telegram! https://telegram.org/dl";
 	app_control_add_extra_data(app_control, APP_CONTROL_DATA_TEXT, text);
 	if (app_control_send_launch_request(app_control, NULL, NULL) == APP_CONTROL_ERROR_NONE) {
@@ -987,7 +986,7 @@ static void on_group_chat_clicked(void *data, Evas_Object *obj, void *event_info
 		delete_floating_button(ad);
 		launch_contact_selction_view(ad);
 	} else {
-		char msg_str[512]={0,};
+		char msg_str[512] = {0,};
 		int size = 0;
 		snprintf(msg_str, sizeof(msg_str) - 1, i18n_get_text("IDS_TGRAM_BODY_PD_PARTICIPANTS"), size);
 
@@ -1104,7 +1103,7 @@ void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list
 
 	evas_object_data_set(genlist, "result_list", item_list);
 
-	if(count > 0) {
+	if (count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_peer_item_clicked, (void*) i);
 		}
@@ -1119,8 +1118,7 @@ static char *group_index_text_get_cb(void *data, Evas_Object *obj, const char *p
 		group_text = i18n_get_text("IDS_TGRAM_HEADER_TELEGRAM");
 	}
 
-	if (!strcmp("elm.text", part))
-	{
+	if (!strcmp("elm.text", part)) {
 		snprintf(buf, sizeof(buf), "%s", group_text);
 		return strdup(buf);
 	}
@@ -1243,9 +1241,9 @@ char* on_contact_list_name_requested(void *data, Evas_Object *obj, const char *p
 		return NULL;
 	}
 
-	if (!strcmp(part,"elm.text.main.left.top") || !strcmp(part,"elm.text")){
+	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
 		return strdup(contact->display_name);
-	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part,"elm.text.sub")) {
+	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
 		return NULL;
 	}
 	return NULL;
@@ -1255,7 +1253,7 @@ char* on_contact_list_name_requested(void *data, Evas_Object *obj, const char *p
 Evas_Object* on_contact_list_image_requested(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *eo = NULL;
-	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")  ) {
+	if (!strcmp(part, "elm.icon.left") || !strcmp(part, "elm.icon.1") || !strcmp(part, "elm.swallow.icon")) {
 		int id = (int) data;
 		appdata_s* ad = evas_object_data_get(obj, "app_data");
 		Eina_List *list = evas_object_data_get(obj, "contact_list");
@@ -1314,7 +1312,7 @@ void _append_contact_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_l
 
 	evas_object_data_set(genlist, "contact_list", item_list);
 
-	if(count > 0) {
+	if (count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_contact_item_clicked, (void*) i);
 		}
@@ -1355,7 +1353,7 @@ static void _append_index_item(Evas_Object *genlist, appdata_s *ad)
 
 	int count = eina_list_count(ad->search_peer_list);
 
-	if(count > 0) {
+	if (count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_peer_item_clicked, (void*) i);
 		}
@@ -1519,7 +1517,7 @@ static Evas_Object *_create_searchbar(Evas_Object* parent, void* data)
 	evas_object_size_hint_weight_set(searchbar_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(searchbar_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_entry_single_line_set(searchbar_entry,  EINA_TRUE);
-	elm_entry_scrollable_set (searchbar_entry, EINA_FALSE);
+	elm_entry_scrollable_set(searchbar_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(searchbar_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(searchbar_entry, EINA_TRUE);
 	elm_object_part_text_set(searchbar_entry, "elm.guide", i18n_get_text("IDS_TGRAM_NPBODY_SEARCH"));

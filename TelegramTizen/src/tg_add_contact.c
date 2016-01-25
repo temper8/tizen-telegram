@@ -174,7 +174,7 @@ void launch_add_contact_screen(appdata_s* ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "add_contact_screen");
@@ -251,14 +251,14 @@ void launch_add_contact_screen(appdata_s* ad)
 	elm_object_part_text_set(first_name_entry, "elm.guide", "<font=Tizen:style=Regular color=#666362 align=left><font_size=36>First name (required)</font_size></font>");
 	elm_object_text_set(first_name_entry, first_name);
 	elm_entry_single_line_set(first_name_entry, EINA_TRUE);
-	elm_entry_scrollable_set (first_name_entry, EINA_FALSE);
+	elm_entry_scrollable_set(first_name_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(first_name_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(first_name_entry, EINA_TRUE);
 	elm_entry_text_style_user_push(first_name_entry, "DEFAULT='color=#000000'");
 	evas_object_show(first_name_entry);
 	elm_object_part_content_set(layout, "first_name_entry", first_name_entry);
 
-	evas_object_data_set(ad->nf, "new_contact_first_name_entry", (void*)first_name_entry);
+	evas_object_data_set(ad->nf, "new_contact_first_name_entry", (void *)first_name_entry);
 
 	evas_object_smart_callback_add(first_name_entry, "changed", on_contact_name_change_enable_ok_button, ad);
 
@@ -269,19 +269,19 @@ void launch_add_contact_screen(appdata_s* ad)
 	elm_object_part_text_set(second_name_entry, "elm.guide", "<font=Tizen:style=Regular color=#666362 align=left><font_size=36>Last name (optional)</font_size></font>");
 
 	elm_entry_single_line_set(second_name_entry, EINA_TRUE);
-	elm_entry_scrollable_set (second_name_entry, EINA_FALSE);
+	elm_entry_scrollable_set(second_name_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(second_name_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(second_name_entry, EINA_TRUE);
 	elm_entry_text_style_user_push(second_name_entry, "DEFAULT='color=#000000'");
 	evas_object_show(second_name_entry);
 	elm_object_part_content_set(layout, "second_name_entry", second_name_entry);
 
-	evas_object_data_set(ad->nf, "new_contact_second_name_entry", (void*)second_name_entry);
+	evas_object_data_set(ad->nf, "new_contact_second_name_entry", (void *)second_name_entry);
 
 	//elm_object_part_content_set(layout, "layout", layout);
 	/*************** Entry screen ****************************/
 
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "User Info", NULL, NULL, scroller, NULL);
+	Elm_Object_Item *navi_item = elm_naviframe_item_push(ad->nf, "User Info", NULL, NULL, scroller, NULL);
 	Evas_Object *done_btn = elm_button_add(ad->nf);
 	elm_object_style_set(done_btn, "naviframe/title_icon");
 	elm_object_text_set(done_btn, "Done");

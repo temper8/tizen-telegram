@@ -32,7 +32,7 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
-		if(id == 0) {
+		if (id == 0) {
 			for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
 				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
 				user_data_s* user = item->use_data;
@@ -93,7 +93,7 @@ char* on_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 	}
 
 	if (list && eina_list_count(list) > 0) {
-		if (!strcmp(part,"elm.text")){
+		if (!strcmp(part, "elm.text")) {
 			if (id == 0) {
 				char buf[512] = { 0, };
 				snprintf(buf, 512, "%s", i18n_get_text("IDS_TGRAM_MBODY_SELECT_ALL"));
@@ -128,7 +128,7 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 		list = ad->buddy_list;
 	}
 	if (ad && list && eina_list_count(list) > 0) {
-		if(id == 0) {
+		if (id == 0) {
 			for (int i = 0 ; i < eina_list_count(list) ; i++) {
 				user_data_with_pic_s *item = eina_list_nth(list, i);
 				user_data_s* user = item->use_data;
@@ -216,7 +216,7 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 		item->contact_icon = image;
 		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, buddy_icon_del_cb, item);
 
-		if(image) {
+		if (image) {
 			char edj_path[PATH_MAX] = {0, };
 			app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 			Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
@@ -380,7 +380,7 @@ static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* it
 
 	evas_object_data_set(genlist, "result_list", item_list);
 
-	if(count > 0) {
+	if (count > 0) {
 		for (i = 0; i < count+1; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_selected, (void*) i);
 			//_update_index_item(ad, item, i, item_list);
@@ -497,7 +497,7 @@ static Evas_Object *create_searchbar(Evas_Object* parent, void* data)
 	evas_object_size_hint_weight_set(searchbar_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(searchbar_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_entry_single_line_set(searchbar_entry,  EINA_TRUE);
-	elm_entry_scrollable_set (searchbar_entry, EINA_FALSE);
+	elm_entry_scrollable_set(searchbar_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(searchbar_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(searchbar_entry, EINA_TRUE);
 	elm_object_part_text_set(searchbar_entry, "elm.guide", i18n_get_text("IDS_TGRAM_NPBODY_SEARCH"));

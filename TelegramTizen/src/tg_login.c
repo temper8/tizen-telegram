@@ -45,9 +45,9 @@ static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event
 #if 1
 	Evas_Object* entry = evas_object_data_get(ad->nf, "code_number_entry");
 
-	if(entry) {
-		char* tval = strdup(elm_object_text_get(entry));
-		char* val = trim(tval);
+	if (entry) {
+		char *tval = strdup(elm_object_text_get(entry));
+		char *val = trim(tval);
 		free(tval);
 		if (!val || strlen(val) <= 0 || numbers_only(val) == 0) {
 			show_toast(ad, "Enter a valid code");
@@ -112,7 +112,7 @@ static Eina_Bool on_code_timer_cb(void* data)
 	Evas_Object *layout = evas_object_data_get(ad->nf, "layout");
 	elm_object_part_text_set(layout, "timer_text", temp_txt);
 
-	if (ad->timer_value == 0 || (seconds == 0 && minutes == 0) ) {
+	if (ad->timer_value == 0 || (seconds == 0 && minutes == 0)) {
 
 		Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
 		ecore_timer_del(timer);
@@ -143,7 +143,7 @@ void launch_login_cb(appdata_s* ad)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "code_check_screen");
@@ -170,7 +170,7 @@ void launch_login_cb(appdata_s* ad)
 	evas_object_size_hint_weight_set(code_number_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(code_number_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_entry_single_line_set(code_number_entry,  EINA_TRUE);
-	elm_entry_scrollable_set (code_number_entry, EINA_FALSE);
+	elm_entry_scrollable_set(code_number_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(code_number_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(code_number_entry, EINA_TRUE);
 	elm_entry_text_style_user_push(code_number_entry, "DEFAULT='color=#000000'");

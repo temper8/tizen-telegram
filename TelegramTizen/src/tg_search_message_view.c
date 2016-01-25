@@ -195,7 +195,7 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 						sizeof(res), format);
 			}
 
-			char time_str[128]={0,};
+			char time_str[128] = {0,};
 			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl, time_str);
@@ -214,7 +214,7 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 						sizeof(res), format);
 			}
 
-			char time_str[128]={0,};
+			char time_str[128] = {0,};
 			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
 
 			elm_object_text_set(time_lbl, time_str);
@@ -240,19 +240,19 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 				evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 				evas_object_size_hint_align_set(status_obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-				if(item->last_msg_status == TG_MESSAGE_STATE_SENDING) {
+				if (item->last_msg_status == TG_MESSAGE_STATE_SENDING) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENDING_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_SENT) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_SENT) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENT_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_DELIVERED) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_DELIVERED) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_DELIVERED_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_RECEIVED) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_RECEIVED) {
 
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_FAILED) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_FAILED) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_FAILED_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_READ) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_READ) {
 					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_READ_ICON), NULL);
-				} else if(item->last_msg_status == TG_MESSAGE_STATE_UNKNOWN) {
+				} else if (item->last_msg_status == TG_MESSAGE_STATE_UNKNOWN) {
 
 				}
 #if 0
@@ -263,7 +263,7 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 				evas_object_show(msg_status);
 				elm_object_part_content_set(msg_status, "content", status_obj);
 #endif
-				evas_object_color_set(status_obj, 75, 96,178, 255);
+				evas_object_color_set(status_obj, 75, 96, 178, 255);
 				elm_object_part_content_set(item_layout, "swallow.read_unread_status", status_obj);
 
 			} else {
@@ -315,7 +315,7 @@ static char* on_chat_text_load_requested(void *data, Evas_Object *obj, const cha
 		}
 
 		char status_buf[126] = {'\0'};
-		if(item->last_msg_service) {
+		if (item->last_msg_service) {
 			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
 		} else {
 			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
@@ -344,7 +344,7 @@ static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* it
 
 	evas_object_data_set(genlist, "result_list", item_list);
 
-	if(count > 0) {
+	if (count > 0) {
 		for (i = 0; i < count; i++) {
 			item = elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_main_chat_item_selected, (void*) i);
 		}
@@ -455,7 +455,7 @@ static Evas_Object *_create_searchbar(Evas_Object* parent, void* data)
 	evas_object_size_hint_weight_set(searchbar_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(searchbar_entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	elm_entry_single_line_set(searchbar_entry,  EINA_TRUE);
-	elm_entry_scrollable_set (searchbar_entry, EINA_FALSE);
+	elm_entry_scrollable_set(searchbar_entry, EINA_FALSE);
 	elm_entry_cnp_mode_set(searchbar_entry, ELM_CNP_MODE_NO_IMAGE);
 	elm_entry_context_menu_disabled_set(searchbar_entry, EINA_TRUE);
 	elm_object_part_text_set(searchbar_entry, "elm.guide", i18n_get_text("IDS_TGRAM_NPBODY_SEARCH"));

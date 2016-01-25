@@ -51,7 +51,7 @@ void send_request_for_restart_server(appdata_s *ad, service_client* service_clie
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error
 		LOGE("Failed to send a service message");
 		failed_to_communicate_server(ad);
@@ -93,7 +93,7 @@ void send_request_for_logout(appdata_s *ad, service_client* service_client)
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error
 		LOGE("Failed to send a service message");
 		failed_to_communicate_server(ad);
@@ -150,7 +150,7 @@ void send_request_for_registration(appdata_s *ad, service_client* service_client
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error
 		LOGE("Failed to send a service message");
 		failed_to_communicate_server(ad);
@@ -313,7 +313,7 @@ void send_add_buddy_request(appdata_s *ad, service_client* service_client, const
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -357,7 +357,7 @@ void send_update_chat_request(appdata_s *ad, service_client* service_client, con
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -402,7 +402,7 @@ void send_start_secret_chat_request(appdata_s *ad, service_client* service_clien
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -447,7 +447,7 @@ void send_delete_buddy_request(appdata_s *ad, service_client* service_client, co
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -492,7 +492,7 @@ void send_block_buddy_request(appdata_s *ad, service_client* service_client, con
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -536,7 +536,7 @@ void send_unblock_buddy_request(appdata_s *ad, service_client* service_client, c
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -603,7 +603,7 @@ void send_delete_selected_group_chats_request(appdata_s *ad, service_client* ser
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -647,7 +647,7 @@ void send_delete_group_chat_request(appdata_s *ad, service_client* service_clien
 		return;
 	}
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -704,7 +704,7 @@ void send_delete_all_messages_request(appdata_s *ad, service_client* service_cli
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -761,7 +761,7 @@ void send_request_for_marked_as_read(appdata_s *ad, service_client* service_clie
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -978,23 +978,23 @@ void send_request_for_media_transport(appdata_s *ad, service_client* service_cli
 	}
 	bundle_free(msg);
 
-	if(buddy_id_str) {
+	if (buddy_id_str) {
 		free(buddy_id_str);
 		buddy_id_str = NULL;
 	}
-	if(msg_id_str) {
+	if (msg_id_str) {
 		free(msg_id_str);
 		msg_id_str = NULL;
 	}
-	if(media_id_str) {
+	if (media_id_str) {
 		free(media_id_str);
 		media_id_str = NULL;
 	}
-	if(msg_type_str) {
+	if (msg_type_str) {
 		free(msg_type_str);
 		msg_type_str = NULL;
 	}
-	if(type_of_chat_str) {
+	if (type_of_chat_str) {
 		free(type_of_chat_str);
 		type_of_chat_str = NULL;
 	}
@@ -1049,7 +1049,7 @@ Eina_Bool send_request_for_media_downloading(appdata_s *ad, service_client* serv
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 		return EINA_FALSE;
 	}
@@ -1149,7 +1149,7 @@ void send_group_creation_request_to_server(appdata_s *ad, service_client* servic
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1201,7 +1201,7 @@ void send_set_group_chat_new_title_request(appdata_s *ad, service_client* servic
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1256,7 +1256,7 @@ void send_remove_buddy_from_group_chat_request(appdata_s *ad, service_client* se
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1311,7 +1311,7 @@ void send_add_buddy_to_group_chat_request(appdata_s *ad, service_client* service
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1363,7 +1363,7 @@ void send_set_group_chat_profile_pic_request(appdata_s *ad, service_client* serv
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1415,7 +1415,7 @@ void send_set_profile_pic_request(appdata_s *ad, service_client* service_client,
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1473,7 +1473,7 @@ void send_update_display_name_request(appdata_s *ad, service_client* service_cli
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1526,7 +1526,7 @@ void send_set_username_request(appdata_s *ad, service_client* service_client, in
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		failed_to_communicate_server(ad);
 	}
 	bundle_free(msg);
@@ -1565,7 +1565,7 @@ void send_request_for_delete_notifications(appdata_s *ad, service_client* servic
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error
 		LOGE("Failed to send a service message");
 		failed_to_communicate_server(ad);
@@ -1606,7 +1606,7 @@ void send_request_for_server_connection_status(appdata_s *ad, service_client* se
 	}
 
 	result = service_client_send_message(service_client, msg);
-	if(result != SVC_RES_OK) {
+	if (result != SVC_RES_OK) {
 		// error
 		LOGE("Failed to send a service message");
 		failed_to_communicate_server(ad);

@@ -197,9 +197,9 @@ static void on_block_selected_cb(appdata_s *ad)
 
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
-		elm_object_text_set(popup,"Are you sure want to unblock this contact?");
+		elm_object_text_set(popup, "Are you sure want to unblock this contact?");
 	} else {
-		elm_object_text_set(popup,"Are you sure want to block this contact?");
+		elm_object_text_set(popup, "Are you sure want to block this contact?");
 	}
 
 	/* ok button */
@@ -255,9 +255,9 @@ static void on_delete_selected_cb(appdata_s *ad)
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 || get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
-		elm_object_text_set(popup,"Are you sure want to add this contact?");
+		elm_object_text_set(popup, "Are you sure want to add this contact?");
 	} else {
-		elm_object_text_set(popup,"Are you sure want to delete this contact?");
+		elm_object_text_set(popup, "Are you sure want to delete this contact?");
 	}
 
 	/* ok button */
@@ -626,7 +626,7 @@ static void on_user_info_call_clicked(void *data, Evas_Object *obj, void *event_
 
 static void compare_with_current_date(int rtime, Elm_Object_Item *nf_it)
 {
-	char time_str[256]={0,};
+	char time_str[256] = {0,};
 	time_t local_t = time(NULL);
 	int diff_sec = 0;
 	int diff_min = 0;
@@ -695,7 +695,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
 	elm_layout_file_set(layout, edj_path, "settings_screen");
@@ -795,7 +795,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
-	elm_scroller_policy_set(scroller,ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
+	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 
 
 	Evas_Object* layout = elm_layout_add(ad->nf);
@@ -892,7 +892,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 	Evas_Object *phone_type = elm_label_add(ad->nf);
 	elm_object_style_set(phone_type, "transparent");
 	char phone_type_str[256];
-	sprintf(phone_type_str, "<font=Tizen:style=Normal color=#A9A9A9 align=left><font_size=35>&nbsp;&nbsp;%s</font_size></font>",i18n_get_text("IDS_TGRAM_BODY_MOBILE_ABB"));
+	sprintf(phone_type_str, "<font=Tizen:style=Normal color=#A9A9A9 align=left><font_size=35>&nbsp;&nbsp;%s</font_size></font>", i18n_get_text("IDS_TGRAM_BODY_MOBILE_ABB"));
 	elm_object_text_set(phone_type, phone_type_str);
 	evas_object_size_hint_weight_set(phone_type, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(phone_type, EVAS_HINT_FILL, EVAS_HINT_FILL);

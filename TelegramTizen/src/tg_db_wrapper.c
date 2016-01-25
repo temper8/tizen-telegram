@@ -321,7 +321,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -337,7 +337,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -370,7 +370,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -402,7 +402,7 @@ void create_data_base_tables()
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 
 	ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		// error occured
 	}
 
@@ -443,15 +443,15 @@ Eina_Bool insert_unsent_message_to_db(const char *app_name, const char *command,
 	Eina_List* col_values = NULL;
 	col_values = eina_list_append(col_values, app_name);
 	col_values = eina_list_append(col_values, command);
-	col_values = eina_list_append(col_values,buddy_id);
+	col_values = eina_list_append(col_values, buddy_id);
 	col_values = eina_list_append(col_values, msg_id);
 	col_values = eina_list_append(col_values, msg_type);
 	col_values = eina_list_append(col_values, msg_data);
 	col_values = eina_list_append(col_values, type_of_chat);
 
 
-	ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	ret = insert_table(table_name, col_names, col_types, col_values);
+	if (!ret) {
 		ret = EINA_FALSE;
 	} else {
 		ret = EINA_TRUE;
@@ -503,8 +503,8 @@ Eina_Bool insert_unsent_media_message_to_db(const char *app_name, const char *co
 	col_values = eina_list_append(col_values, file_path);
 	col_values = eina_list_append(col_values, type_of_chat);
 
-	ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	ret = insert_table(table_name, col_names, col_types, col_values);
+	if (!ret) {
 		ret = EINA_FALSE;
 	} else {
 		ret = EINA_TRUE;
@@ -703,7 +703,7 @@ peer_with_pic_s* get_peer_info(int peer_id)
 
 		eina_list_free(ts_msg);
 
-		item = (peer_with_pic_s*) malloc(sizeof (peer_with_pic_s));
+		item = (peer_with_pic_s*) malloc(sizeof(peer_with_pic_s));
 		item->use_data = peer_info;
 		item->contact_icon = NULL;
 
@@ -1128,16 +1128,16 @@ void set_chat_bg(char *file_path)
 	// already exist. So update the table
 	char* where_clause = NULL;
 	char user_id_str[50];
-	sprintf(user_id_str,"%d",1);
-	where_clause = (char*)malloc(strlen(TG_SETTINGS_ROW_ID) + strlen(" = ") + strlen(user_id_str) + 1);
+	sprintf(user_id_str, "%d", 1);
+	where_clause = (char *)malloc(strlen(TG_SETTINGS_ROW_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 	strcpy(where_clause, TG_SETTINGS_ROW_ID);
 	strcat(where_clause, " = ");
 	strcat(where_clause, user_id_str);
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 	free(where_clause);
 
-	if(!ret) {
-		ret = insert_table(table_name, col_names, col_types,col_values);
+	if (!ret) {
+		ret = insert_table(table_name, col_names, col_types, col_values);
 	} else {
 
 	}
@@ -1160,7 +1160,7 @@ char* get_chat_bg()
 	char *chat_bg = NULL;
 	char* where_clause = NULL;
 	char user_id_str[50];
-	sprintf(user_id_str,"%d",1);
+	sprintf(user_id_str, "%d", 1);
 	where_clause = (char*)malloc(strlen(TG_SETTINGS_ROW_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 	strcpy(where_clause, TG_SETTINGS_ROW_ID);
 	strcat(where_clause, " = ");
@@ -1401,7 +1401,7 @@ int  get_buddy_block_status(int buddy_id)
 		if (buddy_details && eina_list_count(buddy_details) > 0) {
 
 			int *temp_unknown_status = (int*)eina_list_nth(buddy_details, 0);
-			if(temp_unknown_status) {
+			if (temp_unknown_status) {
 				is_unknown = *temp_unknown_status;
 				free(temp_unknown_status);
 			}
@@ -1446,7 +1446,7 @@ int  get_buddy_delete_status(int buddy_id)
 		if (buddy_details && eina_list_count(buddy_details) > 0) {
 
 			int *temp_unknown_status = (int*)eina_list_nth(buddy_details, 0);
-			if(temp_unknown_status) {
+			if (temp_unknown_status) {
 				is_unknown = *temp_unknown_status;
 				free(temp_unknown_status);
 			}
@@ -1491,7 +1491,7 @@ int  get_buddy_unknown_status(int buddy_id)
 		if (buddy_details && eina_list_count(buddy_details) > 0) {
 
 			int *temp_unknown_status = (int*)eina_list_nth(buddy_details, 0);
-			if(temp_unknown_status) {
+			if (temp_unknown_status) {
 				is_unknown = *temp_unknown_status;
 				free(temp_unknown_status);
 			}
@@ -1536,7 +1536,7 @@ int  get_buddy_online_status(int buddy_id)
 		if (buddy_details && eina_list_count(buddy_details) > 0) {
 
 			int *temp_online_status = (int*)eina_list_nth(buddy_details, 0);
-			if(temp_online_status) {
+			if (temp_online_status) {
 				is_online = *temp_online_status;
 				free(temp_online_status);
 			}
@@ -1709,7 +1709,7 @@ tg_message_s* get_latest_message_from_message_table(char* table_name, Eina_Bool 
 	sprintf(marked_del_str, "%d", 1);
 	char* where_clause = NULL;
 	if (!is_for_date) {
-		where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" != ") + strlen(service_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE)+ strlen(" != ")+ strlen(marked_del_str) + 1);
+		where_clause = (char *)malloc(strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" != ") + strlen(service_str) + strlen(" AND ") + strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" != ") + strlen(marked_del_str) + 1);
 		strcpy(where_clause, MESSAGE_INFO_TABLE_SERVICE);
 		strcat(where_clause, " != ");
 		strcat(where_clause, service_str);
@@ -1855,7 +1855,7 @@ Eina_Bool set_all_rows_read(const char *table_name)
 	char* where_clause = NULL;
 	char usr_str[50];
 	int un_read = 1;
-	sprintf(usr_str,"%d", un_read);
+	sprintf(usr_str, "%d", un_read);
 	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_UNREAD) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_UNREAD);
 	strcat(where_clause, " = ");
@@ -1863,7 +1863,7 @@ Eina_Bool set_all_rows_read(const char *table_name)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -1879,7 +1879,7 @@ Eina_Bool set_all_rows_read(const char *table_name)
 
 void update_msg_into_db(tg_message_s *M, char* table_name)
 {
-	if(!M) {
+	if (!M) {
 		return;
 	}
 
@@ -1929,7 +1929,7 @@ void update_msg_into_db(tg_message_s *M, char* table_name)
 	col_values = eina_list_append(col_values, &(M->date));
 	col_values = eina_list_append(col_values, &(M->service));
 
-	if(M->message)
+	if (M->message)
 		col_values = eina_list_append(col_values, M->message);
 	else
 		col_values = eina_list_append(col_values, " ");
@@ -1944,7 +1944,7 @@ void update_msg_into_db(tg_message_s *M, char* table_name)
 	char* where_clause = NULL;
 
 	char usr_str[50];
-	sprintf(usr_str,"%d",M->msg_id);
+	sprintf(usr_str, "%d", M->msg_id);
 	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MESSAGE_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, MESSAGE_INFO_TABLE_MESSAGE_ID);
 	strcat(where_clause, " = ");
@@ -1952,7 +1952,7 @@ void update_msg_into_db(tg_message_s *M, char* table_name)
 
 	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
 
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -2269,12 +2269,12 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 	col_values = eina_list_append(col_values, &(UC->photo_id));
 	col_values = eina_list_append(col_values, &(UC->is_unknown));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types, col_values);
+	if (!ret) {
 		// already exist. So update the table
 		char* where_clause = NULL;
 		char user_id_str[50];
-		sprintf(user_id_str,"%d",UC->peer_id);
+		sprintf(user_id_str, "%d", UC->peer_id);
 		where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(user_id_str) + 1);
 		strcpy(where_clause, PEER_INFO_TABLE_CHAT_ID);
 		strcat(where_clause, " = ");
@@ -2292,7 +2292,7 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC)
 
 void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 {
-	if(!M) {
+	if (!M) {
 		return;
 	}
 
@@ -2347,7 +2347,7 @@ void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 	col_values = eina_list_append(col_values, &(M->date));
 	col_values = eina_list_append(col_values, &(M->service));
 
-	if(M->message)
+	if (M->message)
 		col_values = eina_list_append(col_values, M->message);
 	else
 		col_values = eina_list_append(col_values, " ");
@@ -2362,8 +2362,8 @@ void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id)
 
 	col_values = eina_list_append(col_values, &(M->is_marked_for_delete));
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types, col_values);
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -2531,7 +2531,7 @@ void insert_media_info_to_db(tg_message_s *M, char *file_path, int width, int he
 
 	int media_type = M->media_type;
 
-	col_values = eina_list_append(col_values,M->media_id);
+	col_values = eina_list_append(col_values, M->media_id);
 	col_values = eina_list_append(col_values, &(media_type));
 
 	if (media_type == tgl_message_media_photo) {
@@ -2820,8 +2820,8 @@ void insert_media_info_to_db(tg_message_s *M, char *file_path, int width, int he
 
 
 
-	Eina_Bool ret = insert_table(table_name, col_names, col_types,col_values);
-	if(!ret) {
+	Eina_Bool ret = insert_table(table_name, col_names, col_types, col_values);
+	if (!ret) {
 		//("error: database creation failed");
 	} else {
 
@@ -2979,7 +2979,7 @@ Eina_List* get_image_sizes_from_db(long long media_id)
 
 	char* table_name = MEDIA_INFO_TABLE_NAME;
 	char usr_str[50];
-	sprintf(usr_str,"%lld",media_id);
+	sprintf(usr_str, "%lld", media_id);
 	char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 	strcat(where_clause, " = ");
@@ -3025,7 +3025,7 @@ Eina_List* get_image_details_from_db(long long media_id)
 	char* table_name = MEDIA_INFO_TABLE_NAME;
 
 	char usr_str[50];
-	sprintf(usr_str,"%lld",media_id);
+	sprintf(usr_str, "%lld", media_id);
 	char* where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
 	strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
 	strcat(where_clause, " = ");
@@ -3179,8 +3179,7 @@ Eina_List* get_all_buddy_details(char* start_name)
 {
 
 	Eina_List* user_details = NULL;
-	if (!start_name)
-	{
+	if (!start_name) {
 		start_name = "";
 	}
 
@@ -3290,7 +3289,7 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		char *print_name = (char*)eina_list_nth(row_vals, 1);
-		if(print_name) {
+		if (print_name) {
 			user_data->print_name = strdup(print_name);
 			free(print_name);
 		} else {
@@ -3298,13 +3297,13 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		int *temp_struct_ver = (int*)eina_list_nth(row_vals, 2);
-		if(temp_struct_ver) {
+		if (temp_struct_ver) {
 			user_data->structure_version = *temp_struct_ver;
 			free(temp_struct_ver);
 		}
 
 		char *photo_path = (char*)eina_list_nth(row_vals, 3);
-		if(photo_path) {
+		if (photo_path) {
 			user_data->photo_path = strdup(photo_path);
 			free(photo_path);
 		} else {
@@ -3313,13 +3312,13 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 
 
 		int *temp_photo_id = (int*)eina_list_nth(row_vals, 4);
-		if(temp_photo_id) {
+		if (temp_photo_id) {
 			user_data->photo_id = *temp_photo_id;
 			free(temp_photo_id);
 		}
 
 		char *first_name = (char*)eina_list_nth(row_vals, 5);
-		if(first_name) {
+		if (first_name) {
 			user_data->first_name = strdup(first_name);
 			free(first_name);
 		} else {
@@ -3327,7 +3326,7 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		char *last_name = (char*)eina_list_nth(row_vals, 6);
-		if(last_name) {
+		if (last_name) {
 			user_data->last_name = strdup(last_name);
 			free(last_name);
 		} else {
@@ -3335,7 +3334,7 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		char *phone_no = (char*)eina_list_nth(row_vals, 7);
-		if(phone_no) {
+		if (phone_no) {
 			user_data->phone = strdup(phone_no);
 			free(phone_no);
 		} else {
@@ -3343,13 +3342,13 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		int *temp_access_hash = (int*)eina_list_nth(row_vals, 8);
-		if(temp_access_hash) {
+		if (temp_access_hash) {
 			user_data->access_hash = *temp_access_hash;
 			free(temp_access_hash);
 		}
 
 		char *real_first_name = (char*)eina_list_nth(row_vals, 9);
-		if(real_first_name) {
+		if (real_first_name) {
 			user_data->real_first_name = strdup(real_first_name);
 			free(real_first_name);
 		} else {
@@ -3357,7 +3356,7 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		char *real_last_name = (char*)eina_list_nth(row_vals, 10);
-		if(real_last_name) {
+		if (real_last_name) {
 			user_data->real_last_name = strdup(real_last_name);
 			free(real_last_name);
 		} else {
@@ -3365,7 +3364,7 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		char *user_name = (char*)eina_list_nth(row_vals, 11);
-		if(user_name) {
+		if (user_name) {
 			user_data->username = strdup(user_name);
 			free(user_name);
 		} else {
@@ -3373,36 +3372,36 @@ Eina_List* load_buddy_data_by_name(int current_user, char* name)
 		}
 
 		int *temp_online_status = (int*)eina_list_nth(row_vals, 12);
-		if(temp_online_status) {
+		if (temp_online_status) {
 			user_data->online = *temp_online_status;
 			free(temp_online_status);
 		}
 
 		int *temp_last_seen = (int*)eina_list_nth(row_vals, 13);
-		if(temp_last_seen) {
+		if (temp_last_seen) {
 			user_data->last_seen = *temp_last_seen;
 			free(temp_last_seen);
 		}
 
 		int *temp_is_blocked = (int*)eina_list_nth(row_vals, 14);
-		if(temp_is_blocked) {
+		if (temp_is_blocked) {
 			user_data->is_blocked = *temp_is_blocked;
 			free(temp_is_blocked);
 		}
 
 		int *temp_is_deleted = (int*)eina_list_nth(row_vals, 15);
-		if(temp_is_deleted) {
+		if (temp_is_deleted) {
 			user_data->is_deleted = *temp_is_deleted;
 			free(temp_is_deleted);
 		}
 
 		int *temp_is_unknown = (int*)eina_list_nth(row_vals, 16);
-		if(temp_is_unknown) {
+		if (temp_is_unknown) {
 			user_data->is_unknown = *temp_is_unknown;
 			free(temp_is_unknown);
 		}
 
-		user_data_with_pic_s *item = (user_data_with_pic_s*) malloc(sizeof (user_data_with_pic_s));
+		user_data_with_pic_s *item = (user_data_with_pic_s*) malloc(sizeof(user_data_with_pic_s));
 		item->use_data = user_data;
 		//item->pic_file_location = NULL;
 		item->contact_icon = NULL;
@@ -3505,7 +3504,7 @@ Eina_List* load_peer_data_by_name(char* name)
 
 		eina_list_free(ts_msg);
 
-		peer_with_pic_s *item = (peer_with_pic_s*) malloc(sizeof (peer_with_pic_s));
+		peer_with_pic_s *item = (peer_with_pic_s*) malloc(sizeof(peer_with_pic_s));
 		item->use_data = peer_info;
 		item->contact_icon = NULL;
 
@@ -3587,7 +3586,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_media_id = (char *)eina_list_nth(row_vals, 0);
 
-	if(temp_media_id) {
+	if (temp_media_id) {
 		media_info->media_id = atoll(temp_media_id);
 		free(temp_media_id);
 	} else {
@@ -3596,7 +3595,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	int* temp_media_type = (int*)eina_list_nth(row_vals, 1);
 
-	if(temp_media_type) {
+	if (temp_media_type) {
 		media_info->media_type = *temp_media_type;
 		free(temp_media_type);
 	} else {
@@ -3605,7 +3604,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_access_hash = (char *)eina_list_nth(row_vals, 2);
 
-	if(temp_access_hash) {
+	if (temp_access_hash) {
 		media_info->access_hash = atoll(temp_access_hash);
 		free(temp_access_hash);
 	} else {
@@ -3614,7 +3613,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	int* temp_user_id = (int*)eina_list_nth(row_vals, 3);
 
-	if(temp_user_id) {
+	if (temp_user_id) {
 		media_info->user_id = *temp_user_id;
 		free(temp_user_id);
 	} else {
@@ -3623,7 +3622,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	int* temp_date = (int*)eina_list_nth(row_vals, 4);
 
-	if(temp_date) {
+	if (temp_date) {
 		media_info->date = *temp_date;
 		free(temp_date);
 	} else {
@@ -3632,14 +3631,14 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_caption = (char *)eina_list_nth(row_vals, 5);
 
-	if(temp_caption) {
+	if (temp_caption) {
 		media_info->caption = strdup(temp_caption);
 		free(temp_caption);
 	}
 
 	char *temp_longitude = (char *)eina_list_nth(row_vals, 6);
 
-	if(temp_longitude) {
+	if (temp_longitude) {
 		media_info->longitude = strdup(temp_longitude);
 		free(temp_longitude);
 	} else {
@@ -3648,7 +3647,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_latitude = (char *)eina_list_nth(row_vals, 7);
 
-	if(temp_latitude) {
+	if (temp_latitude) {
 		media_info->latitude = strdup(temp_latitude);
 		free(temp_latitude);
 	} else {
@@ -3657,7 +3656,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	int* temp_sizes = (int*)eina_list_nth(row_vals, 8);
 
-	if(temp_sizes) {
+	if (temp_sizes) {
 		media_info->sizes = *temp_sizes;
 		free(temp_sizes);
 	} else {
@@ -3668,7 +3667,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type1 = (char *)eina_list_nth(row_vals, 9);
 	if (temp_photo_type1 && strlen(temp_photo_type1) > 0) {
-		media_info->photo_type1 =strdup(temp_photo_type1);
+		media_info->photo_type1 = strdup(temp_photo_type1);
 		free(temp_photo_type1);
 	} else {
 		media_info->photo_type1 = 0;
@@ -3685,7 +3684,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol1 = (char *)eina_list_nth(row_vals, 11);
-	if(temp_photo_loc_vol1 && strlen(temp_photo_loc_vol1) > 0) {
+	if (temp_photo_loc_vol1 && strlen(temp_photo_loc_vol1) > 0) {
 		media_info->photo_loc_vol1 = atoll(temp_photo_loc_vol1);
 		free(temp_photo_loc_vol1);
 	} else {
@@ -3702,7 +3701,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec1 = (char *)eina_list_nth(row_vals, 13);
-	if(temp_photo_loc_sec1 && strlen(temp_photo_loc_sec1) > 0) {
+	if (temp_photo_loc_sec1 && strlen(temp_photo_loc_sec1) > 0) {
 		media_info->photo_loc_sec1 = atoll(temp_photo_loc_sec1);
 		free(temp_photo_loc_sec1);
 	} else {
@@ -3711,7 +3710,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width1 = (int*)eina_list_nth(row_vals, 14);
-	if(temp_photo_width1) {
+	if (temp_photo_width1) {
 		media_info->photo_width1 = *temp_photo_width1;
 		free(temp_photo_width1);
 	} else {
@@ -3720,7 +3719,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height1 = (int*)eina_list_nth(row_vals, 15);
-	if(temp_photo_height1) {
+	if (temp_photo_height1) {
 		media_info->photo_height1 = *temp_photo_height1;
 		free(temp_photo_height1);
 	} else {
@@ -3728,7 +3727,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size1 = (int*)eina_list_nth(row_vals, 16);
-	if(temp_photo_size1) {
+	if (temp_photo_size1) {
 		media_info->photo_size1 = *temp_photo_size1;
 		free(temp_photo_size1);
 	} else {
@@ -3737,7 +3736,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data1 = (char *)eina_list_nth(row_vals, 17);
-	if(temp_photo_data1 && strlen(temp_photo_data1) > 0) {
+	if (temp_photo_data1 && strlen(temp_photo_data1) > 0) {
 		media_info->photo_data1 = strdup(temp_photo_data1);
 		free(temp_photo_data1);
 	} else {
@@ -3747,7 +3746,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type2 = (char *)eina_list_nth(row_vals, 18);
 	if (temp_photo_type2 && strlen(temp_photo_type2) > 0) {
-		media_info->photo_type2 =strdup(temp_photo_type2);
+		media_info->photo_type2 = strdup(temp_photo_type2);
 		free(temp_photo_type2);
 	} else {
 		media_info->photo_type2 = 0;
@@ -3764,7 +3763,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol2 = (char *)eina_list_nth(row_vals, 20);
-	if(temp_photo_loc_vol2 && strlen(temp_photo_loc_vol2) > 0) {
+	if (temp_photo_loc_vol2 && strlen(temp_photo_loc_vol2) > 0) {
 		media_info->photo_loc_vol2 = atoll(temp_photo_loc_vol2);
 		free(temp_photo_loc_vol2);
 	} else {
@@ -3781,7 +3780,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec2 = (char *)eina_list_nth(row_vals, 22);
-	if(temp_photo_loc_sec2 && strlen(temp_photo_loc_sec2) > 0) {
+	if (temp_photo_loc_sec2 && strlen(temp_photo_loc_sec2) > 0) {
 		media_info->photo_loc_sec2 = atoll(temp_photo_loc_sec2);
 		free(temp_photo_loc_sec2);
 	} else {
@@ -3790,7 +3789,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width2 = (int*)eina_list_nth(row_vals, 23);
-	if(temp_photo_width2) {
+	if (temp_photo_width2) {
 		media_info->photo_width2 = *temp_photo_width2;
 		free(temp_photo_width2);
 	} else {
@@ -3799,7 +3798,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height2 = (int*)eina_list_nth(row_vals, 24);
-	if(temp_photo_height2) {
+	if (temp_photo_height2) {
 		media_info->photo_height2 = *temp_photo_height2;
 		free(temp_photo_height2);
 	} else {
@@ -3807,7 +3806,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size2 = (int*)eina_list_nth(row_vals, 25);
-	if(temp_photo_size2) {
+	if (temp_photo_size2) {
 		media_info->photo_size2 = *temp_photo_size2;
 		free(temp_photo_size2);
 	} else {
@@ -3816,7 +3815,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data2 = (char *)eina_list_nth(row_vals, 26);
-	if(temp_photo_data2 && strlen(temp_photo_data2) > 0) {
+	if (temp_photo_data2 && strlen(temp_photo_data2) > 0) {
 		media_info->photo_data2 = strdup(temp_photo_data2);
 		free(temp_photo_data2);
 	} else {
@@ -3825,7 +3824,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type3 = (char *)eina_list_nth(row_vals, 27);
 	if (temp_photo_type3 && strlen(temp_photo_type3) > 0) {
-		media_info->photo_type3 =strdup(temp_photo_type3);
+		media_info->photo_type3 = strdup(temp_photo_type3);
 		free(temp_photo_type3);
 	} else {
 		media_info->photo_type3 = 0;
@@ -3842,7 +3841,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol3 = (char *)eina_list_nth(row_vals, 29);
-	if(temp_photo_loc_vol3 && strlen(temp_photo_loc_vol3) > 0) {
+	if (temp_photo_loc_vol3 && strlen(temp_photo_loc_vol3) > 0) {
 		media_info->photo_loc_vol3 = atoll(temp_photo_loc_vol3);
 		free(temp_photo_loc_vol3);
 	} else {
@@ -3859,7 +3858,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec3 = (char *)eina_list_nth(row_vals, 31);
-	if(temp_photo_loc_sec3 && strlen(temp_photo_loc_sec3) > 0) {
+	if (temp_photo_loc_sec3 && strlen(temp_photo_loc_sec3) > 0) {
 		media_info->photo_loc_sec3 = atoll(temp_photo_loc_sec3);
 		free(temp_photo_loc_sec3);
 	} else {
@@ -3868,7 +3867,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width3 = (int*)eina_list_nth(row_vals, 32);
-	if(temp_photo_width3) {
+	if (temp_photo_width3) {
 		media_info->photo_width3 = *temp_photo_width3;
 		free(temp_photo_width3);
 	} else {
@@ -3877,7 +3876,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height3 = (int*)eina_list_nth(row_vals, 33);
-	if(temp_photo_height3) {
+	if (temp_photo_height3) {
 		media_info->photo_height3 = *temp_photo_height3;
 		free(temp_photo_height3);
 	} else {
@@ -3885,7 +3884,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size3 = (int*)eina_list_nth(row_vals, 34);
-	if(temp_photo_size3) {
+	if (temp_photo_size3) {
 		media_info->photo_size3 = *temp_photo_size3;
 		free(temp_photo_size3);
 	} else {
@@ -3894,7 +3893,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data3 = (char *)eina_list_nth(row_vals, 35);
-	if(temp_photo_data3 && strlen(temp_photo_data3) > 0) {
+	if (temp_photo_data3 && strlen(temp_photo_data3) > 0) {
 		media_info->photo_data3 = strdup(temp_photo_data3);
 		free(temp_photo_data3);
 	} else {
@@ -3903,7 +3902,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_photo_type4 = (char *)eina_list_nth(row_vals, 36);
 	if (temp_photo_type4 && strlen(temp_photo_type4) > 0) {
-		media_info->photo_type4 =strdup(temp_photo_type4);
+		media_info->photo_type4 = strdup(temp_photo_type4);
 		free(temp_photo_type4);
 	} else {
 		media_info->photo_type4 = 0;
@@ -3920,7 +3919,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_loc_vol4 = (char *)eina_list_nth(row_vals, 38);
-	if(temp_photo_loc_vol4 && strlen(temp_photo_loc_vol4) > 0) {
+	if (temp_photo_loc_vol4 && strlen(temp_photo_loc_vol4) > 0) {
 		media_info->photo_loc_vol4 = atoll(temp_photo_loc_vol4);
 		free(temp_photo_loc_vol4);
 	} else {
@@ -3937,7 +3936,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	char *temp_photo_loc_sec4 = (char *)eina_list_nth(row_vals, 40);
-	if(temp_photo_loc_sec4 && strlen(temp_photo_loc_sec4) > 0) {
+	if (temp_photo_loc_sec4 && strlen(temp_photo_loc_sec4) > 0) {
 		media_info->photo_loc_sec4 = atoll(temp_photo_loc_sec4);
 		free(temp_photo_loc_sec4);
 	} else {
@@ -3946,7 +3945,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_width4 = (int*)eina_list_nth(row_vals, 41);
-	if(temp_photo_width4) {
+	if (temp_photo_width4) {
 		media_info->photo_width4 = *temp_photo_width4;
 		free(temp_photo_width4);
 	} else {
@@ -3955,7 +3954,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	int* temp_photo_height4 = (int*)eina_list_nth(row_vals, 42);
-	if(temp_photo_height4) {
+	if (temp_photo_height4) {
 		media_info->photo_height4 = *temp_photo_height4;
 		free(temp_photo_height4);
 	} else {
@@ -3963,7 +3962,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_photo_size4 = (int*)eina_list_nth(row_vals, 43);
-	if(temp_photo_size4) {
+	if (temp_photo_size4) {
 		media_info->photo_size4 = *temp_photo_size4;
 		free(temp_photo_size4);
 	} else {
@@ -3972,7 +3971,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 
 	char *temp_photo_data4 = (char *)eina_list_nth(row_vals, 44);
-	if(temp_photo_data4 && strlen(temp_photo_data4) > 0) {
+	if (temp_photo_data4 && strlen(temp_photo_data4) > 0) {
 		media_info->photo_data4 = strdup(temp_photo_data4);
 		free(temp_photo_data4);
 	} else {
@@ -3984,7 +3983,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_phone_no = (char *)eina_list_nth(row_vals, 45);
 
-	if(temp_phone_no && strlen(temp_phone_no) > 0) {
+	if (temp_phone_no && strlen(temp_phone_no) > 0) {
 		media_info->phone_no = strdup(temp_phone_no);
 		free(temp_phone_no);
 	} else {
@@ -3993,7 +3992,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_first_name = (char *)eina_list_nth(row_vals, 46);
 
-	if(temp_first_name && strlen(temp_first_name) > 0) {
+	if (temp_first_name && strlen(temp_first_name) > 0) {
 		media_info->first_name = strdup(temp_first_name);
 		free(temp_first_name);
 	} else {
@@ -4002,7 +4001,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_last_name = (char *)eina_list_nth(row_vals, 47);
 
-	if(temp_last_name && strlen(temp_last_name) > 0) {
+	if (temp_last_name && strlen(temp_last_name) > 0) {
 		media_info->last_name = strdup(temp_last_name);
 		free(temp_last_name);
 	} else {
@@ -4011,7 +4010,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_file_path = (char *)eina_list_nth(row_vals, 48);
 
-	if(temp_file_path && strlen(temp_file_path) > 0) {
+	if (temp_file_path && strlen(temp_file_path) > 0) {
 		media_info->file_path = strdup(temp_file_path);
 		free(temp_file_path);
 	} else {
@@ -4020,7 +4019,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_mime_type = (char *)eina_list_nth(row_vals, 49);
 
-	if(temp_mime_type && strlen(temp_mime_type) > 0) {
+	if (temp_mime_type && strlen(temp_mime_type) > 0) {
 		media_info->mime_type = strdup(temp_mime_type);
 		free(temp_mime_type);
 	} else {
@@ -4029,7 +4028,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 
 	char *temp_doc_type = (char *)eina_list_nth(row_vals, 50);
 
-	if(temp_doc_type && strlen(temp_doc_type) > 0) {
+	if (temp_doc_type && strlen(temp_doc_type) > 0) {
 		media_info->doc_type = strdup(temp_doc_type);
 		free(temp_doc_type);
 	} else {
@@ -4037,7 +4036,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_width = (int*)eina_list_nth(row_vals, 51);
-	if(temp_doc_width) {
+	if (temp_doc_width) {
 		media_info->doc_width = *temp_doc_width;
 		free(temp_doc_width);
 	} else {
@@ -4045,7 +4044,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_height = (int*)eina_list_nth(row_vals, 52);
-	if(temp_doc_height) {
+	if (temp_doc_height) {
 		media_info->doc_height = *temp_doc_height;
 		free(temp_doc_height);
 	} else {
@@ -4053,7 +4052,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_duration = (int*)eina_list_nth(row_vals, 53);
-	if(temp_doc_duration) {
+	if (temp_doc_duration) {
 		media_info->doc_duration = *temp_doc_duration;
 		free(temp_doc_duration);
 	} else {
@@ -4061,7 +4060,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	int* temp_doc_size = (int*)eina_list_nth(row_vals, 54);
-	if(temp_doc_size) {
+	if (temp_doc_size) {
 		media_info->doc_size = *temp_doc_size;
 		free(temp_doc_size);
 	} else {
@@ -4120,7 +4119,7 @@ int get_number_of_unread_messages()
 
 void create_buddy_msg_table(const char* table_name)
 {
-	if(!table_name) {
+	if (!table_name) {
 		return;
 	}
 	// create user info table
@@ -4166,7 +4165,7 @@ void create_buddy_msg_table(const char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
-	if(!ret) {
+	if (!ret) {
 		//("error: database creation failed");
 	}
 	eina_list_free(col_names);
@@ -4195,9 +4194,9 @@ Eina_Bool mark_all_records_for_deletion(char *tablename)
 	char* err_msg = 0;
 	int ret;
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
-	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
-	if( ret != SQLITE_OK ){
+	if (ret != SQLITE_OK) {
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
@@ -4265,7 +4264,7 @@ Eina_Bool delete_date_messages_from_table(char *tablename)
 
 	char* where_clause = NULL;
 	char service_id_str[50];
-	sprintf(service_id_str,"%d", 2);
+	sprintf(service_id_str, "%d", 2);
 
 	char *var_query = (char*)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(" WHERE ") + strlen(MESSAGE_INFO_TABLE_SERVICE) + strlen(" = ") + strlen(service_id_str) + strlen(";") + 1);
 	strcpy(var_query, "DELETE FROM ");
@@ -4278,9 +4277,9 @@ Eina_Bool delete_date_messages_from_table(char *tablename)
 	int ret;
 	char* err_msg = 0;
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
-	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
-	if( ret != SQLITE_OK ){
+	if (ret != SQLITE_OK) {
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
