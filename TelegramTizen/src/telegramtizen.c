@@ -455,7 +455,7 @@ void load_main_list_data(appdata_s *ad)
 									char *phone_num = NULL;
 									get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-									if (!first_name || strstr(first_name ,"null") != 0) {
+									if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 										first_name = NULL;
 									}
 
@@ -463,7 +463,7 @@ void load_main_list_data(appdata_s *ad)
 										first_name = phone_num;
 									}
 
-									if (!last_name || strstr(last_name ,"null") != 0) {
+									if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 										last_name = "";
 									}
 									user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -479,7 +479,7 @@ void load_main_list_data(appdata_s *ad)
 								char *phone_num = NULL;
 								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-								if (!first_name || strstr(first_name ,"null") != 0) {
+								if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 									first_name = NULL;
 								}
 
@@ -487,7 +487,7 @@ void load_main_list_data(appdata_s *ad)
 									first_name = phone_num;
 								}
 
-								if (!last_name || strstr(last_name ,"null") != 0) {
+								if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 									last_name = "";
 								}
 								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -557,7 +557,7 @@ void load_main_list_data(appdata_s *ad)
 								char *phone_num = NULL;
 								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-								if (!first_name || strstr(first_name ,"null") != 0) {
+								if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 									first_name = NULL;
 								}
 
@@ -565,7 +565,7 @@ void load_main_list_data(appdata_s *ad)
 									first_name = phone_num;
 								}
 
-								if (!last_name || strstr(last_name ,"null") != 0) {
+								if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 									last_name = "";
 								}
 								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -2365,7 +2365,7 @@ static int on_media_message_download_completed(appdata_s *app, bundle *const rec
 
 	//file_name == "failed_to_load"
 
-	if (strstr(file_name, "failed_to_load") != NULL) {
+	if (file_name && strstr(file_name, "failed_to_load") != NULL) {
 		// download failed.
 		show_toast(app, "media download failed.");
 	}
@@ -3083,7 +3083,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 								char *phone_num = NULL;
 								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-								if (!first_name || strstr(first_name ,"null") != 0) {
+								if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 									first_name = NULL;
 								}
 
@@ -3091,7 +3091,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 									first_name = phone_num;
 								}
 
-								if (!last_name || strstr(last_name ,"null") != 0) {
+								if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 									last_name = "";
 								}
 								user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -3107,7 +3107,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 							char *phone_num = NULL;
 							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-							if (!first_name || strstr(first_name ,"null") != 0) {
+							if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 								first_name = NULL;
 							}
 
@@ -3119,7 +3119,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 								first_name = "";
 							}
 
-							if (!last_name || strstr(last_name ,"null") != 0) {
+							if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 								last_name = "";
 							}
 							user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -3196,7 +3196,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 							char *phone_num = NULL;
 							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-							if (!first_name || strstr(first_name ,"null") != 0) {
+							if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 								first_name = NULL;
 							}
 
@@ -3206,7 +3206,7 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 							if (!first_name) {
 								first_name = "";
 							}
-							if (!last_name || strstr(last_name ,"null") != 0) {
+							if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 								last_name = "";
 							}
 							user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -3426,7 +3426,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 												char *phone_num = NULL;
 												get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-												if (!first_name || strstr(first_name ,"null") != 0) {
+												if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 													first_name = NULL;
 												}
 
@@ -3434,7 +3434,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 													first_name = phone_num;
 												}
 
-												if (!last_name || strstr(last_name ,"null") != 0) {
+												if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 													last_name = "";
 												}
 												user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -3450,7 +3450,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 											char *phone_num = NULL;
 											get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-											if (!first_name || strstr(first_name ,"null") != 0) {
+											if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 												first_name = NULL;
 											}
 
@@ -3458,7 +3458,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 												first_name = phone_num;
 											}
 
-											if (!last_name || strstr(last_name ,"null") != 0) {
+											if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 												last_name = "";
 											}
 											user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
@@ -3528,7 +3528,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 											char *phone_num = NULL;
 											get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
 
-											if (!first_name || strstr(first_name ,"null") != 0) {
+											if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 												first_name = NULL;
 											}
 
@@ -3536,7 +3536,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 												first_name = phone_num;
 											}
 
-											if (!last_name || strstr(last_name ,"null") != 0) {
+											if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 												last_name = "";
 											}
 											user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);

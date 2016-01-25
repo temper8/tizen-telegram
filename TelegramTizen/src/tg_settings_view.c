@@ -685,7 +685,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 				last_name = ad->current_user_data->last_name;
 
 
-				if (!first_name || strstr(first_name ,"null") != 0) {
+				if (!first_name || (first_name && strstr(first_name ,"null") != 0)) {
 					first_name = NULL;
 				}
 
@@ -693,7 +693,7 @@ char* _text_requested_cb(void *data, Evas_Object *obj, const char *part)
 					first_name = "";
 				}
 
-				if (!last_name || strstr(last_name ,"null") != 0) {
+				if (!last_name || (last_name && strstr(last_name ,"null") != 0)) {
 					last_name = "";
 				}
 				user_name = (char*)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);

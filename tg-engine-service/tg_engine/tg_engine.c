@@ -3132,11 +3132,11 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 			if (!(img_details->mime_type) || strlen(img_details->mime_type) <= 0) {
 
 				if (img_details->doc_type && strlen(img_details->doc_type) > 0) {
-					if (strstr(img_details->doc_type, "video") != NULL) {
+					if (img_details->doc_type && strstr(img_details->doc_type, "video") != NULL) {
 						doc_prop->mime_type = strdup("video/mp4");
-					} else if (strstr(img_details->doc_type, "audio") != NULL) {
+					} else if (img_details->doc_type && strstr(img_details->doc_type, "audio") != NULL) {
 						doc_prop->mime_type = strdup("audio/wav");
-					} else if (strstr(img_details->doc_type, "image/gif") != NULL) {
+					} else if (img_details->doc_type && strstr(img_details->doc_type, "image/gif") != NULL) {
 						doc_prop->mime_type = strdup("image/gif");
 					}
 				}
@@ -3144,11 +3144,11 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 				doc_prop->mime_type = img_details->mime_type;
 			}
 
-			if (strstr(img_details->doc_type, "video") != NULL) {
+			if (strstr(img_details->doc_type && img_details->doc_type, "video") != NULL) {
 				doc_prop->flags =  FLAG_DOCUMENT_VIDEO;
-			} else if (strstr(img_details->doc_type, "audio") != NULL) {
+			} else if (img_details->doc_type && strstr(img_details->doc_type, "audio") != NULL) {
 				doc_prop->flags =  FLAG_DOCUMENT_AUDIO;
-			} else if (strstr(img_details->doc_type, "image") != NULL) {
+			} else if (img_details->doc_type && strstr(img_details->doc_type, "image") != NULL) {
 				doc_prop->flags =  FLAG_DOCUMENT_ANIMATED;
 			}
 
@@ -3675,7 +3675,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 					mime_type_get_mime_type(extn, &mime_type);
 				}
 
-				if (strstr(mime_type, "video") != NULL) {
+				if (mime_type && strstr(mime_type, "video") != NULL) {
 
 					char* thumb_path = get_video_thumb_path_from_db(media_id);
 					tgl_do_send_video(s_info.TLS, -2, msg->to_id, file_path, thumb_path, &on_message_sent_to_buddy, (void*) (msg));
@@ -3683,7 +3683,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 						free(thumb_path);
 						thumb_path = NULL;
 					}
-				} else if (strstr(mime_type, "audio") != NULL) {
+				} else if (mime_type && strstr(mime_type, "audio") != NULL) {
 					tgl_do_send_audio(s_info.TLS, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg));
 				} else {
 
@@ -3723,7 +3723,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 					mime_type_get_mime_type(extn, &mime_type);
 				}
 
-				if (strstr(mime_type, "video") != NULL) {
+				if (mime_type && strstr(mime_type, "video") != NULL) {
 
 					char* thumb_path = get_video_thumb_path_from_db(media_id);
 					tgl_do_send_video(s_info.TLS, -2, msg->to_id, file_path, thumb_path, &on_message_sent_to_buddy, (void*) (msg));
@@ -3731,7 +3731,7 @@ void send_media_to_buddy(int buddy_id, int message_id, int media_id, int msg_typ
 						free(thumb_path);
 						thumb_path = NULL;
 					}
-				} else if (strstr(mime_type, "audio") != NULL) {
+				} else if (mime_type && strstr(mime_type, "audio") != NULL) {
 					tgl_do_send_audio(s_info.TLS, msg->to_id, file_path, &on_message_sent_to_buddy, (void*) (msg));
 				} else {
 

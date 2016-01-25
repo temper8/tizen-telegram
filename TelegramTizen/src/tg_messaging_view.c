@@ -523,9 +523,9 @@ void on_sent_media_item_clicked(void* data, Evas_Object* layout, void* event_inf
 			return;
 		}
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_VIEW);
-		if (strstr(media_type_str, "video") != NULL) {
+		if (media_type_str && strstr(media_type_str, "video") != NULL) {
 			app_control_set_mime(app_control,"video/*");
-		} else if (strstr(media_type_str, "audio") != NULL) {
+		} else if (media_type_str && strstr(media_type_str, "audio") != NULL) {
 			app_control_set_mime(app_control,"audio/*");
 		} else {
 			app_control_set_mime(app_control,"image/*");
@@ -826,7 +826,7 @@ static void on_message_play_pause_clicked(void *data, Evas_Object *obj, void *ev
 	appdata_s * ad = evas_object_data_get(data, "app_data");
 	char *audio_file = evas_object_data_get(data, "audio_file_path");
 	char *media_id = evas_object_data_get(data, "media_id");
-	if (!audio_file  || strlen(audio_file) <= 0 || strstr(audio_file, "_null_") != NULL) {
+	if (!audio_file  || strlen(audio_file) <= 0 || (audio_file && strstr(audio_file, "_null_")) != NULL) {
 		//there is no file. download it.
 		Evas_Object *progressbar = evas_object_data_get(data, "progress_control");
 		Eina_Bool is_download_in_progress = (Eina_Bool)evas_object_data_get(progressbar, "is_download_in_progress");
@@ -1082,12 +1082,12 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			if (msg->media_type == tgl_message_media_document) {
 				media_msg = get_media_details_from_db(atoll(msg->media_id));
 
-				if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+				if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 					if (img_path == NULL || strlen(img_path) == 0) {
 						img_path = strdup(ui_utils_get_resource(TG_VIDEO_ICON));
 					}
 				}
-				if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+				if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 					if (img_path) {
 						free(img_path);
 						img_path = NULL;
@@ -1095,7 +1095,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					img_path = strdup(ui_utils_get_resource(TG_AUDIO_ICON));
 				}
 				char* media_file = get_media_path_from_db(atoll(msg->media_id));
-				if (!media_file || !strcmp(media_file, "_null_") || strlen(media_file) <= 0 ||  access(media_file, F_OK) == -1) {
+				if (!media_file || (media_file && !strcmp(media_file, "_null_")) || (media_file && strlen(media_file) <= 0) ||  (media_file && access(media_file, F_OK) == -1)) {
 					is_blur_image = EINA_TRUE;
 				}
 
@@ -1106,7 +1106,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 			}
 
-			if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+			if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 
 				evas_object_data_set(chat_scroller, "parent_obj", (void*)entry);
 				item_to_display = get_audio_layout_with_play(chat_scroller);
@@ -1118,7 +1118,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					//item_to_display = get_image_from_path(img_path, entry);
 
 				} else {
-					if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+					if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 
 						item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
 
@@ -1137,12 +1137,12 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 						evas_object_data_set(entry, "image_object", (void*)item_to_display);
 
 					} else {
-						if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+						if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 
 							item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
 
 						} else {
-							if (strstr(media_msg->mime_type, "webp") != NULL) {
+							if (media_msg && media_msg->mime_type && strstr(media_msg->mime_type, "webp") != NULL) {
 								evas_object_data_set(entry, "image_object", (void*)item_to_display);
 							} else {
 								evas_object_data_set(entry, "image_object", (void*)item_to_display);
@@ -1166,7 +1166,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					if (msg->media_type == tgl_message_media_photo) {
 						img_item = get_image_from_path(img_path, entry);
 					} else {
-						if ((media_msg && strstr(media_msg->doc_type, "video") != NULL )|| (media_msg && strstr(media_msg->doc_type, "audio") != NULL)) {
+						if ((media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL )|| (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL)) {
 							img_item = get_media_layout_with_play(img_path, entry, EINA_FALSE);
 						} else {
 							img_item = get_image_from_path(img_path, entry);
@@ -1178,9 +1178,9 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					if (msg->media_type == tgl_message_media_photo) {
 						media_size = get_image_size(atoll(msg->media_id));
 					} else {
-						if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+						if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 							media_size = get_media_size_from_db(atoll(msg->media_id));
-						} else if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+						} else if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 							media_size = get_media_size_from_db(atoll(msg->media_id));
 						} else {
 							media_size = get_media_size_from_db(atoll(msg->media_id));
@@ -1238,12 +1238,12 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 		} else if (msg->media_type == tgl_message_media_geo) {
 			evas_object_data_set(entry, "media_type", (void*)strdup("location"));
 		} else {
-			if (media_msg && strstr(media_msg->doc_type, "video") != NULL) {
+			if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 				evas_object_data_set(entry, "media_type", (void*)strdup("video"));
-			} else if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+			} else if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 				evas_object_data_set(entry, "media_type", (void*)strdup("audio"));
 			} else {
-				if (strstr(media_msg->mime_type, "webp") != NULL) {
+				if (media_msg && media_msg->mime_type && strstr(media_msg->mime_type, "webp") != NULL) {
 					evas_object_data_set(entry, "media_type", (void*)strdup("image"));
 				} else {
 					evas_object_data_set(entry, "media_type", (void*)strdup("animated_gif"));
@@ -1253,7 +1253,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 		evas_object_data_set(entry, "media_id", (void*)strdup(msg->media_id));
 		if (item_to_display) {
-			if (media_msg && strstr(media_msg->doc_type, "audio") != NULL) {
+			if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 				layout = item_to_display;
 			} else {
 				char edj_path[PATH_MAX] = {0, };
@@ -1318,7 +1318,7 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 {
 	char* img_path = NULL;
 	img_path = get_video_thumb_path_from_db(atoll(msg->media_id));
-	if (img_path == NULL || strlen(img_path) == 0 || strstr(img_path, "_null_") != NULL) {
+	if (img_path == NULL || (img_path && strlen(img_path) == 0) || (img_path && strstr(img_path, "_null_") != NULL)) {
 		img_path = get_media_path_from_db(atoll(msg->media_id));
 		if( access (img_path, F_OK) == -1 ) {
 			img_path = NULL;
@@ -1514,14 +1514,14 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				}
 				if (msg->out) {
 					if (media_msg) {
-						if (strstr(media_msg->doc_type, "audio") != NULL) {
+						if (media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 							if (ad->target_direction == TELEGRAM_TARGET_DIRECTION_PORTRAIT || ad->target_direction == TELEGRAM_TARGET_DIRECTION_PORTRAIT_INVERSE) {
 								eina_strbuf_append(buf, "<item size=318x100 vsize=full hsize=full href=itemprovider></item>");
 							} else {
 								eina_strbuf_append(buf, "<item size=318x100 vsize=full hsize=full href=itemprovider></item>");
 							}
 
-						} else if (strstr(media_msg->doc_type, "video") != NULL) {
+						} else if (media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
 							char image[256]={0,};
@@ -1531,9 +1531,9 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 					}
 				} else {
 					if (media_msg) {
-						if (strstr(media_msg->doc_type, "audio") != NULL) {
+						if (media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x100 vsize=full hsize=full href=itemprovider></item>");
-						} else if (strstr(media_msg->doc_type, "video") != NULL) {
+						} else if (media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 							eina_strbuf_append(buf, "<item size=318x200 vsize=full hsize=full href=itemprovider></item>");
 						} else {
 							char image[256]={0,};
@@ -1776,12 +1776,12 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 					long long lmedia_id = atoll(media_id_str);
 
 					if (media_id == lmedia_id) {
-						if (img_item || (strstr(media_type_str, "audio") != NULL)) {
+						if (img_item || (media_type_str && strstr(media_type_str, "audio") != NULL)) {
 
 
-							if (strstr(file_path, "failed_to_load") != NULL) {
+							if (file_path && strstr(file_path, "failed_to_load") != NULL) {
 
-								if ((strstr(media_type_str, "audio") != NULL)) {
+								if (media_type_str && (strstr(media_type_str, "audio") != NULL)) {
 									Evas_Object *play_pause_icon = evas_object_data_get(entry, "play_pause_icon");
 									Evas_Object *progressbar = evas_object_data_get(entry, "progress_bar");
 									evas_object_data_set(progressbar, "is_download_in_progress", EINA_FALSE);
@@ -1808,7 +1808,7 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 
 							} else {
 
-								if ((strstr(media_type_str, "audio") != NULL)) {
+								if (media_type_str && (strstr(media_type_str, "audio") != NULL)) {
 									Evas_Object *play_pause_icon = evas_object_data_get(entry, "play_pause_icon");
 									Evas_Object *progressbar = evas_object_data_get(entry, "progress_bar");
 									evas_object_data_set(progressbar, "is_download_in_progress", EINA_FALSE);
@@ -1838,11 +1838,11 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									evas_object_del(size_btn);
 								}
 
-								if ((strstr(media_type_str, "video") != NULL)) {
+								if (media_type_str && (strstr(media_type_str, "video") != NULL)) {
 									Evas_Object* play_img = get_video_paly_icon(img_item);
 									//Evas_Object* play_img = get_image_from_path(ui_utils_get_resource(MEDIA_PLAY_ICON), img_item);
 									elm_object_part_content_set(img_item, "swallow.play_btn", play_img);
-								} else if (strstr(media_type_str, "image") != NULL) {
+								} else if (media_type_str && strstr(media_type_str, "image") != NULL) {
 
 									img_item = get_image_from_path(file_path, entry);
 									int w, h, entry_h;
@@ -1856,7 +1856,7 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 									eina_strbuf_free(buf);
 
-								} else if (strstr(media_type_str, "animated_gif") != NULL) {
+								} else if (media_type_str && strstr(media_type_str, "animated_gif") != NULL) {
 
 									int msg_id = (int) evas_object_data_get(entry, "message_id");
 									char key[256] = {0, };
@@ -3669,6 +3669,7 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 		char *phone_num = get_buddy_phone_num_from_id(sel_item->use_data->peer_id);
 
 		if (phone_num == NULL || (phone_num && strcmp(phone_num, "+") == 0)) {
+#if 0
 			char *user_name = NULL;
 			char *first_name = NULL;
 			char *last_name = NULL;
@@ -3692,7 +3693,12 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 			strcat(user_name, last_name);
 			snprintf(temp_name, 512, "%s", user_name);
 			free(user_name);
-
+#endif
+			if (sel_item->use_data->print_name) {
+				snprintf(temp_name, 512, "%s", sel_item->use_data->print_name);
+			} else {
+				snprintf(temp_name, 512, "%s", "unknown");
+			}
 		} else {
 			snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
 		}
