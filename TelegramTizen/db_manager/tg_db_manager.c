@@ -272,6 +272,56 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 
 }
 
+Eina_Bool create_index(const char* table_name, const char *column_name)
+{
+	if (table_name == NULL || column_name == NULL) {
+		ERR("Invalid Parameter");
+		return EINA_FALSE;
+	}
+
+	char* err_msg = 0;
+	char *query_format = "CREATE INDEX tg_index_%s ON %s (%s);";
+	char *query_string = NULL;
+	int   query_length = strlen(query_format) + strlen(table_name) + (strlen(column_name) * 2) + 20;
+	int   ret;
+	Eina_Bool result = EINA_FALSE;
+
+	query_string = malloc(query_length);
+
+	if (query_string == NULL) {
+		ERR("malloc failed");
+		return EINA_FALSE;
+	}
+
+	snprintf(query_string, query_length, query_format, column_name, table_name, column_name);
+
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+
+	if (db == NULL) {
+		ERR("open failed");
+		goto CLEAN_UP;
+	}
+
+	ret = sqlite3_exec(db, query_string, NULL, NULL, &err_msg);
+
+	if (ret != SQLITE_OK) {
+		DBG("sqlite3_exec failed [%d][%s]", ret, err_msg);
+		goto CLEAN_UP;
+	}
+
+	result = EINA_TRUE;
+
+CLEAN_UP:
+	if (query_string)
+		free(query_string);
+
+	if (db)
+		close_database(db);
+
+	return result;
+
+}
+
 Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names, int (*callback)(void*,int,char**,char**), const char* where_clause, void* data_to_callback)
 {
 	if (!table_name) {
@@ -409,7 +459,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 	/*****No rows identification*****/
 	if (get_number_of_rows(table_name, NULL) == 0) {
-		/* There are no rows */
+		DBG("There are no rows on [%s]", table_name);
 		return NULL;
 	}
 
@@ -465,12 +515,23 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		strcat(var_query, " ORDER BY ");
 		var_query = realloc(var_query, strlen(var_query)+strlen(order_column) + 1);
 		strcat(var_query, order_column);
+
+		if (strcmp(order_column, "date") != 0) {
+			/* If the order column is INTEGER type, removing COLLATE NOCASE and creating index make better performance
+			   Case 1: SELECT * from tg_9595_msg ORDER BY date COLLATE NOCASE ASC LIMIT 1000 OFFSET 0;
+			   Run Time: real 1.582
+			   Case 2: SELECT * from tg_9595_msg ORDER BY date ASC LIMIT 1000 OFFSET 0; + CREATE INDEX msg_idx_date ON tg_9595_msg (date);
+			   Run Time: real 1.067 */
+			var_query = realloc(var_query, strlen(var_query)+strlen(" COLLATE NOCASE ") + 1);
+			strcat(var_query, " COLLATE NOCASE ");
+		}
+
 		if (is_asc) {
-			var_query = realloc(var_query, strlen(var_query)+strlen(" COLLATE NOCASE ASC ") + 1);
-			strcat(var_query, " COLLATE NOCASE ASC ");
+			var_query = realloc(var_query, strlen(var_query)+strlen(" ASC ") + 1);
+			strcat(var_query, " ASC ");
 		} else {
-			var_query = realloc(var_query, strlen(var_query)+strlen(" COLLATE NOCASE DESC ") + 1);
-			strcat(var_query, " COLLATE NOCASE DESC ");
+			var_query = realloc(var_query, strlen(var_query)+strlen(" DESC ") + 1);
+			strcat(var_query, " DESC ");
 		}
 	}
 
@@ -521,6 +582,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 	}
     close_database(db);
 	free(var_query);
+
 	return query_vals;
 
 }

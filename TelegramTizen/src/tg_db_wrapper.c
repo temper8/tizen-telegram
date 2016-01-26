@@ -4180,6 +4180,9 @@ void create_buddy_msg_table(const char* table_name)
 	if (!ret) {
 		//("error: database creation failed");
 	}
+
+	create_index(table_name, "date");
+
 	eina_list_free(col_names);
 	eina_list_free(col_types);
 }
