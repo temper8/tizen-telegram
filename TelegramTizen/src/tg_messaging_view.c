@@ -28,6 +28,39 @@
 #include <metadata_extractor.h>
 #include "tg_search_peer_view.h"
 
+#define PROFILE_BEGIN(pfid) \
+    unsigned int __prf_l1_##pfid = __LINE__;\
+    struct timeval __prf_1_##pfid;\
+    struct timeval __prf_2_##pfid;\
+    do {\
+        gettimeofday(&__prf_1_##pfid, 0);\
+        DBG("**PROFILE BEGIN** [TG: %s() :%s %u ~ ] " #pfid \
+        " ->  Start Time: %u.%06u seconds\n",\
+            __FUNCTION__,\
+        rindex(__FILE__,'/')+1, \
+        __prf_l1_##pfid,\
+        (unsigned int)__prf_1_##pfid.tv_sec,\
+        (unsigned int)__prf_1_##pfid.tv_usec );\
+    } while (0)
+
+
+#define PROFILE_END(pfid) \
+    unsigned int __prf_l2_##pfid = __LINE__;\
+    do { \
+        gettimeofday(&__prf_2_##pfid, 0);\
+        long __ds = __prf_2_##pfid.tv_sec - __prf_1_##pfid.tv_sec;\
+        long __dm = __prf_2_##pfid.tv_usec - __prf_1_##pfid.tv_usec;\
+        if ( __dm < 0 ) { __ds--; __dm = 1000000 + __dm; } \
+        DBG("**PROFILE END** [TG: %s() :%s %u ~ %u] " #pfid                            \
+        " -> Elapsed Time: %u.%06u seconds\n",\
+            __FUNCTION__,\
+        rindex(__FILE__, '/')+1,\
+        __prf_l1_##pfid,\
+        __prf_l2_##pfid,\
+        (unsigned int)(__ds),\
+        (unsigned int)(__dm));\
+    } while (0)
+
 static int scroller_show_bottom_edge(Evas_Object *scroller)
 {
 	if (!scroller) {
@@ -1374,7 +1407,7 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 
 Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const char *part)
 {
-	Evas_Object *entry = elm_entry_add(obj);
+	Evas_Object *entry = NULL;
 	Evas_Object *layout = NULL;
 
 	char edj_path[PATH_MAX] = {0, };
@@ -1456,14 +1489,19 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 				return layout;
 			}
-
 			evas_object_data_set(entry, "chat_list", (void*)chat_scroller);
 			evas_object_data_set(entry, "message_id", (void*)message_id);
 
-			elm_entry_editable_set(entry, EINA_FALSE);
-			elm_entry_context_menu_disabled_set(entry, EINA_TRUE);
-			elm_entry_single_line_set(entry, EINA_TRUE);
-
+			if (msg->media_type != tgl_message_media_none) {
+				entry = elm_entry_add(obj);
+				elm_entry_editable_set(entry, EINA_FALSE);
+				elm_entry_context_menu_disabled_set(entry, EINA_TRUE);
+				elm_entry_single_line_set(entry, EINA_TRUE);
+				elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
+			} else {
+				LOGD("This is label message!");
+				entry = elm_label_add(obj);
+			}
 			layout = elm_layout_add(obj);
 
 			if (msg->out) {
@@ -1497,22 +1535,20 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			elm_object_part_content_set(layout, "elm.swallow.content", entry);
 			evas_object_show(layout);
 
-			elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
 			evas_object_size_hint_weight_set(entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 			evas_object_size_hint_align_set(entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 			evas_object_show(entry);
-
 			// To be handled for group chat
 
 			Eina_Strbuf *buf = eina_strbuf_new();
 			char *caption = NULL;
 
 			LOGD("entry media type is %d", msg->media_type);
-
 			if (msg->media_type == tgl_message_media_none) {
 				char *temp_msg = replace(msg->message, '\n', "<br>");
-				eina_strbuf_append(buf, temp_msg);
-				elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
+				elm_object_part_text_set(entry, "elm.text", temp_msg);
+				//eina_strbuf_append(buf, temp_msg);
+				//elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 				eina_strbuf_free(buf);
 
 			} else if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
@@ -1626,7 +1662,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			char time_str[20] = {0,};
 			snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 			elm_object_part_text_set(entry, "time", time_str);
-
 			Evas_Object *status_obj;
 			status_obj = elm_icon_add(entry);
 			evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -1655,7 +1690,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 			elm_object_part_content_set(entry, "status_icon", status_obj);
 			evas_object_show(status_obj);
-
 			free(tablename);
 			if (msg->message) {
 				free(msg->message);

@@ -627,4 +627,589 @@ styles {
 			}
 		} //programs
 	} //group
+	
+	
+	group { name: "elm/label/base/readmessage1";
+		script {
+	      public multilined = 0;
+	
+	      public check_multiline() {
+	         new x, y, w, h;
+	         new xx, yy, ww, hh;
+	
+	         get_geometry(PART:"elm.text", x, y, w, h);
+	         get_geometry(PART:"elm.spacer.limit", xx, yy, ww, hh);
+	
+	         if (!get_int(multilined) && ((w >= ww))) {
+	            set_state(PART:"elm.text", "multi", 0.0);
+	            set_state(PART:"elm.text.spacer", "multi", 0.0);
+	            set_int(multilined, 1);
+	         }
+	      }
+	   }
+		parts {
+			part {
+				name: "base";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+				}
+			}
+			part {
+				name: "elm.top.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 0.0; to: "base"; }
+					rel2 { relative: 1.0 0.0; to: "base"; }
+					min: 0 36;
+					align: 0.5 0.0;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "text,left,pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 0.0; }
+					rel2 { relative: 0.0 1.0; }
+					min: 72 0;
+					align: 0.0 0.5;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "elm.image.bg.ef";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.text"; offset: -57 -26; }
+					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 40 26; }
+					image {
+						normal: "telegram_bubble_bg_receive_ef.#.png";
+						border: 57 40 26 64;
+					}
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.image.bg";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.text"; offset: -57 -26; }
+					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 40 26; }
+					image {
+						normal: "telegram_bubble_bg_receive.#.png";
+						border: 57 40 26 64;
+					}
+					color: 106 126 204 225;
+					fixed: 1 1;
+				}
+				description {
+					state: "pressed" 0.0;
+					inherit: "default" 0.0;
+					color:  60 71 115 255;
+				}
+			}
+			part {
+				name: "elm.spacer.limit";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1.relative: 0.5 0.5;
+					rel2.relative: 0.5 0.5;
+					min: 318 80;
+					max: 318 80;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.text.spacer";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 1.0; to_x: "text,left,pad";  to_y: "elm.top.pad"; }
+					rel2 { relative: 1.0 0.0; to: "elm.bottom.pad"; }
+					min: 159 0;
+					max: 159 0;
+					fixed: 1 1;
+					align: 0.0 0.5;
+				}
+				description {
+					state: "multi" 0.0;
+					inherit: "default" 0.0;
+					min: 318 0;
+					max: 318 0;
+				}
+			}
+			part {
+				name: "elm.text";
+				type: TEXTBLOCK;
+				mouse_events: 1;
+				scale: 1;
+				multiline: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 1.0; to_x: "elm.text.spacer"; to_y: "elm.top.pad";}
+					rel2 { relative: 1.0 0.0; to_x: "elm.text.spacer"; to_y: "elm.bottom.pad"; }
+					align: 0.0 0.0;
+					fixed: 1 0;
+					text {
+						style: "entry_bubble_single_textblock_style";
+						min: 1 1;
+						align: 1.0 0.0;
+						ellipsis: -1;
+					}
+				}
+				description {
+					state: "multi" 0.0;
+					inherit: "default" 0.0;
+					text {
+						style: "entry_bubble_multi_textblock_style";
+						min: 0 1;
+						align: 0.0 0.0;
+					}
+				}
+			}
+			part {
+				name: "elm.bubble.rightbottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1{
+						to: "elm.text";
+						relative: 1.0 1.0;
+					}
+					rel2.to: "elm.text";
+					align: 0.0 0.0;
+					min: 40 64;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.bottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 1.0; }
+					rel2 { relative: 1.0 1.0; }
+					align: 0.5 1.0;
+					min: 0 74;
+					fixed: 0 1;
+				}
+			}
+			part {
+				name: "time";
+				type: TEXT;
+				mouse_events: 1;
+				scale: 1;
+				description {
+	            	state: "default" 0.0;
+	              rel1 { relative: 0.0 0.0; to: "status_icon"; }
+	              rel2 { relative: 0.0 1.0; to: "status_icon"; }
+	            	visible: 1;
+	            	align: 1.0 0.5;
+	            	min: 0 38;
+	            	fixed: 1 1;
+	            	color: 250 250 250 255;
+	            	text {
+	            		min: 1 1;
+	            		align: 1.0 0.5;
+	            		size: 28;
+	            		ellipsis: -1;
+					}
+				}
+			}
+			part {
+				name: "status_icon";
+				type: SWALLOW;
+				mouse_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					rel2 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					align: 1.0 0.0;
+					min: 0 38;
+					fixed: 1 1;
+				}
+				description {
+					state: "status,on";
+					inherit: "default" 0.0;
+					min: 38 38;
+					visible: 1;
+				}
+			}
+			part {
+				name: "event.rect";
+				type: RECT;
+				repeat_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					color: 0 0 0 0;
+					rel1.to: "elm.image.bg";
+					rel2.to: "elm.image.bg";
+				}
+			}
+		} // parts
+		programs {
+			program {
+				name: "focus";
+				signal: "load";
+				source: "";
+				action: FOCUS_SET;
+				target: "elm.text";
+			}
+			program {
+				name: "text_changed";
+				signal: "entry,changed";
+				source: "*";
+				script {
+					check_multiline();
+				}
+			}
+			program {
+				name: "resized";
+				signal: "resize";
+				source: "*";
+				script {
+					check_multiline();
+				}
+			}
+			program {
+				name: "mouse_down";
+				signal: "mouse,down,1";
+				source: "event.rect";
+				action:  STATE_SET "pressed" 0.0;
+				target: "elm.image.bg";
+			}
+			program {
+				name: "mouse_up";
+				signal: "mouse,up,1";
+				source: "event.rect";
+				action:  STATE_SET "default" 0.0;
+				target: "elm.image.bg";
+			}
+			program {
+				name: "mouse_clicked";
+				signal: "mouse,clicked,1";
+				source: "event.rect";
+				action:  SIGNAL_EMIT "clicked" "item";
+			}
+			program {
+				name: "status_on";
+				signal: "status_on";
+				source: "status";
+				action:  STATE_SET "status,on" 0.0;
+				target: "status_icon";
+			}
+			program {
+				name: "status_off";
+				signal: "status_off";
+				source: "status";
+				action:  STATE_SET "default" 0.0;
+				target: "status_icon";
+			}
+		} //programs
+	} //group	
+
+	group { name: "elm/label/base/sentmessage1";
+		script {
+	      public multilined = 0;
+	
+	      public check_multiline() {
+	         new x, y, w, h;
+	         new xx, yy, ww, hh;
+	
+	         get_geometry(PART:"elm.text", x, y, w, h);
+	         get_geometry(PART:"elm.spacer.limit", xx, yy, ww, hh);
+	
+	         if (!get_int(multilined) && ((w >= ww))) {
+	            set_state(PART:"elm.text", "multi", 0.0);
+	            set_state(PART:"elm.text.spacer", "multi", 0.0);
+	            set_int(multilined, 1);
+	         }
+	      }
+	   }
+		parts {
+			part {
+				name: "base";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+				}
+			}
+			part {
+				name: "elm.top.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 0.0; to: "base"; }
+					rel2 { relative: 1.0 0.0; to: "base"; }
+					min: 0 36;
+					align: 0.5 0.0;
+					fixed: 0 1;
+				}
+			}
+			part {
+				name: "right,pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 1.0 0.0; }
+					rel2 { relative: 1.0 1.0; }
+					min: 72 0;
+					align: 1.0 0.5;
+					fixed: 1 0;
+				}
+			}
+			part {
+				name: "elm.bubble.rightbottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1{
+						to: "elm.text";
+						relative: 1.0 1.0;
+					}
+					rel2.to: "elm.text";
+					align: 0.0 0.0;
+					min: 57 64;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.bottom.pad";
+				type: SPACER;
+				scale: 1;
+				description {
+					rel1 { relative: 0.0 1.0; }
+					rel2 { relative: 1.0 1.0; }
+					align: 0.5 1.0;
+					min: 0 74;
+					fixed: 0 1;
+				}
+			}
+			part {
+				name: "elm.image.bg.ef";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.text"; offset: -40 -26; }
+					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 57 26; }
+					image {
+						normal: "telegram_bubble_bg_send_ef.#.png";
+						border: 40 57 26 64;
+					}
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.image.bg";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.text"; offset: -40 -26; }
+					rel2 { relative: 1.0 1.0; to: "status_icon"; offset: 57 26; }
+					image {
+						normal: "telegram_bubble_bg_send.#.png";
+						border: 40 57 26 64;
+					}
+					color: 45 165 224 229;
+					fixed: 1 1;
+				}
+				description {
+					state: "pressed" 0.0;
+					inherit: "default" 0.0;
+					color: 27 99 135 255;
+				}
+			}
+			part {
+				name: "elm.spacer.limit";
+				type: SPACER;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1.relative: 0.5 0.5;
+					rel2.relative: 0.5 0.5;
+					min: 318 80;
+					max: 318 80;
+					fixed: 1 1;
+				}
+			}
+			part {
+				name: "elm.text.spacer";
+				type: RECT;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1.0 1.0; to: "elm.bottom.pad"; }
+					rel2 { relative: 0.0 1.0; to: "right,pad"; }
+					min: 159 0;
+					max: 159 0;
+					fixed: 1 1;
+					align: 1.0 0.5;
+				}
+				description {
+					state: "multi" 0.0;
+					inherit: "default" 0.0;
+					min: 318 0;
+					max: 318 0;
+				}
+			}
+			part {
+				name: "elm.text";
+				type: TEXTBLOCK;
+				mouse_events: 1;
+				scale: 1;
+				multiline: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 1.0; to_x: "elm.text.spacer"; to_y: "elm.top.pad";}
+					rel2 { relative: 1.0 0.0; to_x: "elm.text.spacer"; to_y: "elm.bottom.pad"; }
+					align: 1.0 0.0;
+					fixed: 1 0;
+					text {
+						style: "entry_bubble_single_textblock_style";
+						min: 1 1;
+						align: 1.0 0.0;
+						ellipsis: -1;
+					}
+				}
+				description {
+					state: "multi" 0.0;
+					inherit: "default" 0.0;
+					text {
+						style: "entry_bubble_multi_textblock_style";
+						min: 0 1;
+						align: 1.0 0.0;
+					}
+				}
+			}
+			part {
+				name: "time";
+				type: TEXT;
+				mouse_events: 1;
+				scale: 1;
+				description {
+	            	state: "default" 0.0;
+	              rel1 { relative: 0.0 0.0; to: "status_icon"; }
+	              rel2 { relative: 0.0 1.0; to: "status_icon"; }
+	            	visible: 1;
+	            	align: 1.0 0.5;
+	            	min: 0 38;
+	            	fixed: 1 1;
+	            	color: 250 250 250 255;
+	            	text {
+	            		min: 1 1;
+	            		align: 1.0 0.5;
+	            		size: 28;
+	            		ellipsis: -1;
+					}
+				}
+			}
+			part {
+				name: "status_icon";
+				type: SWALLOW;
+				mouse_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					rel2 { relative: 0.0 0.0; to: "elm.bubble.rightbottom.pad"; }
+					align: 1.0 0.0;
+					min: 0 38;
+					fixed: 1 1;
+				}
+				description {
+					state: "status,on";
+					inherit: "default" 0.0;
+					min: 38 38;
+					visible: 1;
+				}
+			}
+			part {
+				name: "event.rect";
+				type: RECT;
+				repeat_events: 1;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					color: 0 0 0 0;
+					rel1.to: "elm.image.bg";
+					rel2.to: "elm.image.bg";
+				}
+			}
+		} // parts
+		programs {
+			program {
+				name: "focus";
+				signal: "load";
+				source: "";
+				action: FOCUS_SET;
+				target: "elm.text";
+			}
+			program {
+				name: "text_changed";
+				signal: "entry,changed";
+				source: "*";
+				script {
+					check_multiline();
+				}
+			}
+			program {
+				name: "resized";
+				signal: "resize";
+				source: "*";
+				script {
+					check_multiline();
+				}
+			}
+			program {
+				name: "mouse_down";
+				signal: "mouse,down,1";
+				source: "event.rect";
+				action:  STATE_SET "pressed" 0.0;
+				target: "elm.image.bg";
+			}
+			program {
+				name: "mouse_up";
+				signal: "mouse,up,1";
+				source: "event.rect";
+				action:  STATE_SET "default" 0.0;
+				target: "elm.image.bg";
+			}
+			program {
+				name: "mouse_clicked";
+				signal: "mouse,clicked,1";
+				source: "event.rect";
+				action:  SIGNAL_EMIT "clicked" "item";
+			}
+			program {
+				name: "status_on";
+				signal: "status_on";
+				source: "status";
+				action:  STATE_SET "status,on" 0.0;
+				target: "status_icon";
+			}
+			program {
+				name: "status_off";
+				signal: "status_off";
+				source: "status";
+				action:  STATE_SET "default" 0.0;
+				target: "status_icon";
+			}
+		} //programs
+	} //group
 } //collection
