@@ -158,6 +158,8 @@
 
 #define LIST_CONTACT_ROUND_MASK_ICON FM_ICON_PATH"/info_page_pic_mask.png"
 
+#define TG_LIST_OF_COUNTIRES FM_ICON_PATH"countries.txt"
+
 
 #define FM_ICON_MSG_SENT       FM_ICON_PATH"bubble_sent_bg.#.png"
 #define FM_ICON_MSG_RECEIVE       FM_ICON_PATH"bubble_rec_bg.#.png"
@@ -202,7 +204,7 @@ static char *phone_codes[SIZE_CODE][2] = { {"Argentina (+54)", "+54"},
 										{"Vietnam (+84)" , "+84"}
 									     };
 
-
+#define COUNTRIES_SIZE 1000
 
 #define NUMBER_OF_MENU_ITEMS 5
 
@@ -319,7 +321,8 @@ typedef enum state_of_app {
 	TG_SET_USER_INFO_STATE,
 	TG_SET_CHAT_INFO_STATE,
 	TG_SELECT_BUDDY_VIEW,
-	TG_ADD_CONTACT_STATE
+	TG_ADD_CONTACT_STATE,
+	TG_COUNTRY_SELECTION_VIEW
 } state_of_app_s;
 
 enum tgl_typing_status {
@@ -596,6 +599,14 @@ typedef struct appdata {
 	Eina_List *contact_list;
 	Elm_Naviframe_Item *main_item;
 	Eina_Bool is_loading_from_msg_view;
+	//int size_of_listed_countries;
+	//char *country_names[COUNTRIES_SIZE];
+	//char *country_codes[COUNTRIES_SIZE];
+	Eina_List *country_names_list;
+	Eina_List *country_codes_list;
+	int selected_country_id;
+
+	char *country_code_buffer;
 } appdata_s;
 
 extern void show_toast(appdata_s* ad, char* value);
@@ -1121,6 +1132,8 @@ typedef struct Buddy {
 	char* smsContacts;
 
 } Buddy;
+
+extern void load_list_of_countries(appdata_s *ad);
 
 extern void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max);
 

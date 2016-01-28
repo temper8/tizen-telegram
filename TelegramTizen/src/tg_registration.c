@@ -20,6 +20,7 @@
 #include "tg_db_manager.h"
 #include "server_requests.h"
 #include "tg_login.h"
+#include "tg_country_selection_view.h"
 
 static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
@@ -94,6 +95,50 @@ static void country_name_popup_dismissed_cb(void *data, Evas_Object *obj, void *
 	evas_object_del(obj);
 }
 
+void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_List *country_code_list)
+{
+	int country_code_idx;
+	Evas_Object* country_name_btn;
+	Evas_Object* country_code_btn;
+	Evas_Object* pn_number_entry;
+	Evas_Object* done_btn;
+	char *country_name;
+	char *country_code;
+	char temp_str[32];
+	const char *number_text;
+
+	if (!count_name_list || !country_code_list) {
+		return;
+	}
+
+	country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
+	country_code_btn = evas_object_data_get(ad->nf, "country_code_btn");
+	pn_number_entry = evas_object_data_get(ad->nf, "pn_number_entry");
+
+	country_name = eina_list_nth(count_name_list, ad->selected_country_id);
+
+	if (ad->country_codes_list != country_code_list) {
+		country_code_idx = (int)eina_list_nth(country_code_list, ad->selected_country_id);
+		country_code = eina_list_nth(ad->country_codes_list, country_code_idx);
+	} else {
+		country_code = eina_list_nth(country_code_list, ad->selected_country_id);
+	}
+
+	elm_object_text_set(country_name_btn, country_name);
+
+	snprintf(temp_str, sizeof(temp_str), "<align=center>%s<align>", country_code);
+	elm_object_text_set(country_code_btn, temp_str);
+
+	done_btn = evas_object_data_get(ad->nf, "reg_done_btn");
+	number_text = elm_object_text_get(pn_number_entry);
+
+	if (number_text && strlen(number_text) == MAX_NUM_LENGTH) {
+		elm_object_disabled_set(done_btn, EINA_FALSE);
+	} else {
+		elm_object_disabled_set(done_btn, EINA_TRUE);
+	}
+}
+
 static void country_name_popup_item_select_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
@@ -146,6 +191,7 @@ static void on_country_name_list_clicked(void *data, Evas_Object *obj, void *eve
 {
 	appdata_s *ad = data;
 
+#if 0
 	Evas_Object* country_name_popup = evas_object_data_get(ad->nf, "country_name_popup");
 
 	if (country_name_popup) {
@@ -168,6 +214,9 @@ static void on_country_name_list_clicked(void *data, Evas_Object *obj, void *eve
 	evas_object_show(country_name_popup);
 
 	evas_object_data_set(ad->nf, "country_name_popup", country_name_popup);
+#else
+	launch_country_selection_view(ad);
+#endif
 }
 
 void launch_registration_cb(appdata_s *ad)
@@ -177,6 +226,11 @@ void launch_registration_cb(appdata_s *ad)
 	}
 
 	ad->current_app_state = TG_REGISTRATION_STATE;
+	eina_list_free(ad->country_codes_list);
+	eina_list_free(ad->country_names_list);
+	free(ad->country_code_buffer);
+
+	load_list_of_countries(ad);
 
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);

@@ -16,6 +16,9 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include "telegramtizen.h"
 #include "tg_splash_screen.h"
 #include "tg_registration.h"
@@ -35,7 +38,6 @@
 #include "tg_settings_view.h"
 #include "device_contacts_manager.h"
 #include "tg_search_peer_view.h"
-
 
 static void free_app_data(appdata_s *app_data, Eina_Bool destroy_server);
 static int init_service(appdata_s *app);
@@ -74,6 +76,108 @@ static int _app_send_response(appdata_s *app, bundle *const msg)
 	int res = SVC_RES_FAIL;
 	res = service_client_send_message(app->service_client, msg);
 	return res;
+}
+
+
+void load_list_of_countries(appdata_s *ad)
+{
+	if (!ad)
+		return;
+
+	int size_of_listed_countries = 0;
+	const char *file_name = ui_utils_get_resource(TG_LIST_OF_COUNTIRES);
+	if (!file_name)
+		return;
+
+	int fd;
+	char *ptr;
+	char *ptrToCode;
+	char *ptrToShortName;
+	char *ptrToFullName;
+	enum parse_state {
+		STATE_BEGIN,
+		STATE_CODE,
+		STATE_SHORT_NAME,
+		STATE_FULL_NAME,
+		STATE_ERROR
+	} state;
+
+	fd = open(file_name, O_RDONLY);
+	if (fd > 0) {
+		off_t file_size;
+
+		file_size = lseek(fd, 0L, SEEK_END);
+		if ((int)file_size == -1) {
+			if (close(fd) < 0) {
+
+			}
+		} else {
+			if (lseek(fd, 0L, SEEK_SET) < 0) {
+				// TODO: Error
+			}
+			ad->country_code_buffer = malloc(file_size);
+			if (!ad->country_code_buffer) {
+				// TODO: Error
+			}
+
+			if (read(fd, ad->country_code_buffer, file_size) != file_size) {
+				// TODO: Error
+			}
+
+			if (close(fd) < 0) {
+
+			}
+		}
+	} else {
+		// TODO: Error
+	}
+
+	ptr = ad->country_code_buffer;
+	state = STATE_BEGIN;
+	while (*ptr) {
+		switch (state) {
+		case STATE_BEGIN:
+			ptrToCode = NULL;
+			ptrToShortName = NULL;
+			ptrToFullName = NULL;
+			state = STATE_CODE;
+		case STATE_CODE:
+			if (ptrToCode == NULL) {
+				if (isdigit(*ptr)) {
+					ptrToCode = ptr;
+				}
+			} else if (*ptr == ';') {
+				*ptr = '\0';
+				state = STATE_SHORT_NAME;
+			}
+			ptr++;
+			break;
+		case STATE_SHORT_NAME:
+			if (ptrToShortName == NULL) {
+				ptrToShortName = ptr;
+			} else if (*ptr == ';') {
+				*ptr = '\0';
+				state = STATE_FULL_NAME;
+			}
+			ptr++;
+			break;
+		case STATE_FULL_NAME:
+			if (ptrToFullName == NULL) {
+				ptrToFullName = ptr;
+			} else if (*ptr == '\r' || *ptr == '\n') {
+				*ptr = '\0';
+				dlog_print(DLOG_DEBUG, LOG_TAG, "[%s] [%s] [%s]", ptrToCode, ptrToShortName, ptrToFullName);
+				ad->country_codes_list = eina_list_append(ad->country_codes_list, ptrToCode);
+				ad->country_names_list = eina_list_append(ad->country_names_list, ptrToFullName);
+				state = STATE_BEGIN;
+			}
+			ptr++;
+			break;
+		case STATE_ERROR:
+		default:
+			break;
+		}
+	}
 }
 
 void load_registered_user_data(appdata_s *ad)
@@ -3630,6 +3734,10 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 			ad->current_app_state = TG_SETTINGS_SCREEN_STATE;
 			delete_floating_button(ad);
 			break;
+		case TG_COUNTRY_SELECTION_VIEW:
+			elm_naviframe_item_pop(ad->nf);
+			ad->current_app_state = TG_REGISTRATION_STATE;
+			break;
 		case TG_REGISTRATION_STATE:
 			elm_win_lower(ad->win);
 			elm_exit();
@@ -3908,6 +4016,8 @@ static bool app_create(void *data)
 	ad->is_server_ready = EINA_FALSE;
 	ad->contact_list = NULL;
 	ad->main_item = NULL;
+	ad->country_codes_list = NULL;
+	ad->country_names_list = NULL;
 	//ad->msg_count = 0;
 	create_base_gui(ad);
 	int err = badge_new(TELEGRAM_APP_ID);
@@ -3964,6 +4074,10 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 
 		}
 	}
+	eina_list_free(app_data->country_codes_list);
+	eina_list_free(app_data->country_names_list);
+	free(app_data->country_code_buffer);
+
 	if (app_data->panel) {
 		Evas_Object *panel_list = evas_object_data_get(app_data->panel, "panel_list");
 		if (panel_list) {

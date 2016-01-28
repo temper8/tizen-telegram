@@ -16,11 +16,11 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef TG_REGISTRATION_H_
-#define TG_REGISTRATION_H_
+#ifndef TG_COUNTRY_SELECTION_VIEW_H_
+#define TG_COUNTRY_SELECTION_VIEW_H_
+
 #include "tg_common.h"
 
-extern void launch_registration_cb(appdata_s *ad);
-extern void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_List *count_code_list);
+extern void launch_country_selection_view(appdata_s *ad);
 
-#endif /* TG_REGISTRATION_H_ */
+#endif /* TG_COUNTRY_SELECTION_VIEW_H_ */
