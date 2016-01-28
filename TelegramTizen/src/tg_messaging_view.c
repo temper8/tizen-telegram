@@ -1499,7 +1499,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				elm_entry_single_line_set(entry, EINA_TRUE);
 				elm_entry_input_panel_enabled_set(entry, EINA_FALSE);
 			} else {
-				LOGD("This is label message!");
 				entry = elm_label_add(obj);
 			}
 			layout = elm_layout_add(obj);
@@ -1539,10 +1538,8 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			evas_object_size_hint_align_set(entry, EVAS_HINT_FILL, EVAS_HINT_FILL);
 			evas_object_show(entry);
 			// To be handled for group chat
-
 			Eina_Strbuf *buf = eina_strbuf_new();
 			char *caption = NULL;
-
 			LOGD("entry media type is %d", msg->media_type);
 			if (msg->media_type == tgl_message_media_none) {
 				char *temp_msg = replace(msg->message, '\n', "<br>");
@@ -1644,7 +1641,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				LOGD("caption is (%s)", caption);
 				free(caption);
 			}
-
 			//set time
 			time_t t = msg->date;
 			const char *format = "%I:%M %p";
@@ -1662,6 +1658,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			char time_str[20] = {0,};
 			snprintf(time_str, sizeof(time_str) - 1, "%s", res);
 			elm_object_part_text_set(entry, "time", time_str);
+
 			Evas_Object *status_obj;
 			status_obj = elm_icon_add(entry);
 			evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -2919,6 +2916,7 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 
 			message = on_message_item_content_get_cb((void *)message_id, chat_scroller, "elm.icon.entry");
 			elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)message_id);
+
 			scroller_push_item(chat_scroller, message);
 
 			eina_list_free(row_vals);
@@ -3550,6 +3548,35 @@ static void _scroll_cb(void *data, Evas_Object *scroller, void *event_info)
 	evas_object_data_set(layout, "is_end_edge", (void *) 0);
 }
 
+static Eina_Bool _load_history_cb(void *data)
+{
+	Evas_Object *nf = data;
+	if (!nf) {
+		LOGE("Fail to get the nf");
+		return ECORE_CALLBACK_CANCEL;
+	}
+	Evas_Object *scroller = evas_object_data_get(nf, "chat_list");
+	if (!scroller) {
+		LOGE("Fail to get the scroller");
+		return ECORE_CALLBACK_CANCEL;
+	}
+	Evas_Object *layout = evas_object_data_get(nf, "chat_list_no_msg_text");
+	if (!layout) {
+		LOGE("Fail to get the layout");
+		return ECORE_CALLBACK_CANCEL;
+	}
+
+	Eina_Bool ret = load_chat_history(scroller);
+	if (!ret) {
+		LOGD("There is no message in chat room");
+		// show no messages
+		elm_object_part_text_set(layout, "no_msg_text", i18n_get_text("IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"));
+		elm_object_signal_emit(layout, "show", "message");
+	}
+
+	return ECORE_CALLBACK_CANCEL;
+}
+
 void launch_messaging_view_cb(appdata_s* ad, int user_id)
 {
 	if (!ad)
@@ -3789,7 +3816,8 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	}
 	/******************** expand ************************/
 
-	Eina_Bool ret = load_chat_history(chat_scroller);
+	Ecore_Timer *timer = NULL;
+	timer = ecore_timer_add(0.001f, _load_history_cb, ad->nf);
 
 	int buddy_id = sel_item->use_data->peer_id;
 	char* tablename = get_table_name_from_number(buddy_id);
@@ -3800,12 +3828,6 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	}
 	free(tablename);
 
-	if (!ret) {
-		LOGD("There is no message in chat room");
-		// show no messages
-		elm_object_part_text_set(layout, "no_msg_text", i18n_get_text("IDS_TGRAM_BODY_NO_MESSAGES_HERE_YET_ING"));
-		elm_object_signal_emit(layout, "show", "message");
-	}
 	evas_object_data_set(ad->nf, "chat_list_no_msg_text", layout);
 
 	send_request_for_marked_as_read(ad, ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
