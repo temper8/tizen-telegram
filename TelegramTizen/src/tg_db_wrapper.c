@@ -2214,6 +2214,164 @@ tg_message_s* get_message_from_message_table(long long msg_id, char* table_name)
 	return message;
 }
 
+Eina_List *get_messages_from_message_table_order_by(char* table_name, const char *order_column, Eina_Bool is_asc, unsigned int limit, unsigned int offset)
+{
+	tg_message_s *message = NULL;
+	Eina_List *message_list = NULL;
+	Eina_List *message_details = NULL;
+	Eina_List *col_names = NULL;
+	Eina_List *col_types = NULL;
+	int message_count = 0;
+
+	/* Column names */
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FLAGS);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_FROM_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FWD_DATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_FROM_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_TO_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_OUT_MSG);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNREAD);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_DATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_SERVICE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_STATE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_LENGTH);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_TYPE);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MEDIA_ID);
+	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_UNIQUE_ID);
+
+	/* Column types */
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER_PRIMARY_KEY);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, order_column, is_asc, NULL, limit, offset);
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	if (message_details)
+		message_count = eina_list_count(message_details);
+
+	for (int i = 0; i < message_count; i++) {
+		Eina_List* ts_msg = eina_list_nth(message_details, i);
+
+		message = (tg_message_s*)malloc(sizeof(tg_message_s));
+		message_list = eina_list_append(message_list, message);
+
+		int *temp_msg_id = (int*)eina_list_nth(ts_msg, 0);
+		if (temp_msg_id) {
+			message->msg_id  = *temp_msg_id;
+			free(temp_msg_id);
+		}
+
+		int *temp_flags = (int*)eina_list_nth(ts_msg, 1);
+		if (temp_flags) {
+			message->flags  = *temp_flags;
+			free(temp_flags);
+		}
+
+		int *temp_fwd_from_id = (int*)eina_list_nth(ts_msg, 2);
+		if (temp_fwd_from_id) {
+			message->fwd_from_id  = *temp_fwd_from_id;
+			free(temp_fwd_from_id);
+		}
+
+		int *temp_fwd_date = (int*)eina_list_nth(ts_msg, 3);
+		if (temp_fwd_date) {
+			message->fwd_date  = *temp_fwd_date;
+			free(temp_fwd_date);
+		}
+
+		int *temp_from_id = (int*)eina_list_nth(ts_msg, 4);
+		if (temp_from_id) {
+			message->from_id  = *temp_from_id;
+			free(temp_from_id);
+		}
+
+		int *temp_to_id = (int*)eina_list_nth(ts_msg, 5);
+		if (temp_to_id) {
+			message->to_id  = *temp_to_id;
+			free(temp_to_id);
+		}
+
+		int *temp_out = (int*)eina_list_nth(ts_msg, 6);
+		if (temp_out) {
+			message->out  = *temp_out;
+			free(temp_out);
+		}
+
+		int *temp_unread = (int*)eina_list_nth(ts_msg, 7);
+		if (temp_unread) {
+			message->unread  = *temp_unread;
+			free(temp_unread);
+		}
+
+		int *temp_date = (int*)eina_list_nth(ts_msg, 8);
+		if (temp_date) {
+			message->date  = *temp_date;
+			free(temp_date);
+		}
+
+		int *temp_service = (int*)eina_list_nth(ts_msg, 9);
+		if (temp_service) {
+			message->service  = *temp_service;
+			free(temp_service);
+		}
+
+		char *temp_msg = (char*)eina_list_nth(ts_msg, 10);
+		if (temp_msg) {
+			message->message  = strdup(temp_msg);
+			free(temp_msg);
+		}
+
+		int *temp_message_state = (int*)eina_list_nth(ts_msg, 11);
+		if (temp_message_state) {
+			message->msg_state  = *temp_message_state;
+			free(temp_message_state);
+		}
+
+		int *temp_message_len = (int*)eina_list_nth(ts_msg, 12);
+		if (temp_message_len) {
+			message->message_len  = *temp_message_len;
+			free(temp_message_len);
+		}
+
+		int *temp_media_type = (int*)eina_list_nth(ts_msg, 13);
+		if (temp_media_type) {
+			message->media_type  = *temp_media_type;
+			free(temp_media_type);
+		}
+
+		char *temp_media_id = (char*)eina_list_nth(ts_msg, 14);
+		if (temp_media_id) {
+			message->media_id  = strdup(temp_media_id);
+			free(temp_media_id);
+		}
+
+		int *temp_unique_id = (int*)eina_list_nth(ts_msg, 15);
+		if (temp_unique_id) {
+			message->unique_id  = *temp_unique_id;
+			free(temp_unique_id);
+		}
+	}
+	return message_list;
+}
+
 
 
 void insert_or_update_peer_into_database(tg_peer_info_s* UC)

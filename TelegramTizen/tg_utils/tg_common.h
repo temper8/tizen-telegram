@@ -610,6 +610,7 @@ extern void load_peer_data(appdata_s *ad);
 extern void load_registered_user_data(appdata_s *ad);
 extern void load_main_list_data(appdata_s *ad);
 extern void launch_app_control(appdata_s *ad, char *media_type, char *url);
+extern void free_message(tg_message_s **message);
 
 #if 0
 static char *trim(char *s) {

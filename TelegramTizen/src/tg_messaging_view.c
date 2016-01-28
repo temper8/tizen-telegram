@@ -28,39 +28,6 @@
 #include <metadata_extractor.h>
 #include "tg_search_peer_view.h"
 
-#define PROFILE_BEGIN(pfid) \
-    unsigned int __prf_l1_##pfid = __LINE__;\
-    struct timeval __prf_1_##pfid;\
-    struct timeval __prf_2_##pfid;\
-    do {\
-        gettimeofday(&__prf_1_##pfid, 0);\
-        DBG("**PROFILE BEGIN** [TG: %s() :%s %u ~ ] " #pfid \
-        " ->  Start Time: %u.%06u seconds\n",\
-            __FUNCTION__,\
-        rindex(__FILE__,'/')+1, \
-        __prf_l1_##pfid,\
-        (unsigned int)__prf_1_##pfid.tv_sec,\
-        (unsigned int)__prf_1_##pfid.tv_usec );\
-    } while (0)
-
-
-#define PROFILE_END(pfid) \
-    unsigned int __prf_l2_##pfid = __LINE__;\
-    do { \
-        gettimeofday(&__prf_2_##pfid, 0);\
-        long __ds = __prf_2_##pfid.tv_sec - __prf_1_##pfid.tv_sec;\
-        long __dm = __prf_2_##pfid.tv_usec - __prf_1_##pfid.tv_usec;\
-        if ( __dm < 0 ) { __ds--; __dm = 1000000 + __dm; } \
-        DBG("**PROFILE END** [TG: %s() :%s %u ~ %u] " #pfid                            \
-        " -> Elapsed Time: %u.%06u seconds\n",\
-            __FUNCTION__,\
-        rindex(__FILE__, '/')+1,\
-        __prf_l1_##pfid,\
-        __prf_l2_##pfid,\
-        (unsigned int)(__ds),\
-        (unsigned int)(__dm));\
-    } while (0)
-
 static int scroller_show_bottom_edge(Evas_Object *scroller)
 {
 	if (!scroller) {
@@ -1101,6 +1068,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 		char* tablename = get_table_name_from_number(buddy_id);
 		tg_message_s* msg = get_message_from_message_table(message_id, tablename);
 		free(tablename);
+
 		if (!msg) {
 			return NULL;
 		}
@@ -1415,7 +1383,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 	if (!strcmp(part, "elm.icon.entry")) {
 
-		int message_id = (int)data;
+		tg_message_s *msg = (tg_message_s*)data;
 		Evas_Object *chat_scroller = obj;
 		appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 
@@ -1425,14 +1393,14 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 		}
 
 		int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
-		evas_object_data_set(chat_scroller, "message_id", data);
+		evas_object_data_set(chat_scroller, "message_id", msg->msg_id);
 
 
 		peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 		int buddy_id = sel_item->use_data->peer_id;
 
 		char* tablename = get_table_name_from_number(buddy_id);
-		tg_message_s* msg = get_message_from_message_table(message_id, tablename);
+
 		//Eina_Bool is_blur_image = EINA_FALSE;
 
 		if (msg) {
@@ -1490,7 +1458,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 				return layout;
 			}
 			evas_object_data_set(entry, "chat_list", (void*)chat_scroller);
-			evas_object_data_set(entry, "message_id", (void*)message_id);
+			evas_object_data_set(entry, "message_id", (void*)msg->msg_id);
 
 			if (msg->media_type != tgl_message_media_none) {
 				entry = elm_entry_add(obj);
@@ -1551,9 +1519,13 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
 				elm_entry_item_provider_append(entry, item_provider, chat_scroller);
 
+				LOGD("media id[%s]", msg->media_id);
 				tgl_media_s *media_msg = get_media_details_from_db(atoll(msg->media_id));
+				if (media_msg)
+					LOGD("file path[%s]", media_msg->file_path);
 				if (media_msg && media_msg->caption && strlen(media_msg->caption) > 0) {
 					caption = strdup(media_msg->caption);
+					LOGD("caption[%s]", caption);
 				}
 				if (msg->out) {
 					if (media_msg) {
@@ -1688,17 +1660,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			elm_object_part_content_set(entry, "status_icon", status_obj);
 			evas_object_show(status_obj);
 			free(tablename);
-			if (msg->message) {
-				free(msg->message);
-				msg->message = NULL;
-			}
-
-			if (msg->media_id) {
-				free(msg->media_id);
-				msg->media_id = NULL;
-			}
-
-			free(msg);
 		}
 #if 0
 		if (chat_scroller) {
@@ -2878,48 +2839,24 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 	int buddy_id = sel_item->use_data->peer_id;
-
 	char* tablename = get_table_name_from_number(buddy_id);
+	Eina_List *vals = get_messages_from_message_table_order_by(tablename, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
+	tg_message_s *message_item = NULL;
 
-	Eina_List* col_types = NULL;
-	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
-
-	Eina_List* col_names = NULL;
-	col_names = eina_list_append(col_names, MESSAGE_INFO_TABLE_MESSAGE_ID);
-
-	char unknown_str[50];
-	int unknown = 0;
-	sprintf(unknown_str, "%d", unknown);
-
-	char* where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(unknown_str) + 1);
-	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
-	strcat(where_clause, " = ");
-	strcat(where_clause, unknown_str);
-
-	Eina_List* vals = get_values_from_table_sync_order_by(tablename, col_names, col_types, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, where_clause, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
 	if (!vals) {
 		// set no messages yet
 		return EINA_FALSE;
 	} else {
 		int row_count = eina_list_count(vals);
 
-		if (row_count <= 0) {
-			// set no messages yet
-			return EINA_FALSE;
-		}
-
 		for (int i = 0 ; i < row_count ; i++) {
-			Eina_List* row_vals = eina_list_nth(vals, i);
-			int* temp_message_id = (int*)eina_list_nth(row_vals, 0);
-			int message_id = *temp_message_id;
 			Evas_Object *message = NULL;
 
-			message = on_message_item_content_get_cb((void *)message_id, chat_scroller, "elm.icon.entry");
-			elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)message_id);
-
+			message_item = eina_list_nth(vals, i);
+			message = on_message_item_content_get_cb((void *)message_item, chat_scroller, "elm.icon.entry");
+			elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)message_item->msg_id);
 			scroller_push_item(chat_scroller, message);
-
-			eina_list_free(row_vals);
+			free_message(&message_item);
 		}
 		eina_list_free(vals);
 	}

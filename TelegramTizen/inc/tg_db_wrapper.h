@@ -221,6 +221,8 @@ char* get_profile_pic_path(int buddy_id);
 
 tg_message_s* get_message_from_message_table(long long msg_id, char* table_name);
 
+Eina_List *get_messages_from_message_table_order_by(char* table_name, const char *order_column, Eina_Bool is_asc, unsigned int limit, unsigned int offset);
+
 char* get_video_thumb_path_from_db(long long media_id);
 
 char* get_media_path_from_db(long long media_id);

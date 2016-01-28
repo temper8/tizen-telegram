@@ -328,6 +328,26 @@ void launch_app_control(appdata_s *ad, char *media_type, char *url)
 
 }
 
+extern void free_message(tg_message_s **message)
+{
+	if (message == NULL || *message == NULL) {
+		return;
+	}
+
+	if ((*message)->message) {
+		free((*message)->message);
+		(*message)->message = NULL;
+	}
+
+	if ((*message)->media_id) {
+		free((*message)->media_id);
+		(*message)->media_id = NULL;
+	}
+
+	free(*message);
+	*message = NULL;
+}
+
 void free_user_data(user_data_s *user_data)
 {
 	if (!user_data) {
