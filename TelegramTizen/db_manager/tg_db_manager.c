@@ -41,6 +41,7 @@ sqlite3* create_database(char* database_name)
 	int ret;
 	sqlite3 *db;
 	ret = sqlite3_open(database_name, &db);
+	sqlite3_busy_timeout(db, 3000);
 	//ret = sqlite3_open_v2(database_name, &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE, NULL);
 	if(ret) {
 		return NULL;
