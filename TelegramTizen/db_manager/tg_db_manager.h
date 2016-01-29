@@ -23,6 +23,7 @@
 #include <sqlite3.h>
 
 #define TG_DBMGR_NOLIMITED 0
+#define TG_DBMGR_LIMITED 30
 
 extern sqlite3* create_database(char* database_name);
 extern Eina_Bool close_database(sqlite3* db);
