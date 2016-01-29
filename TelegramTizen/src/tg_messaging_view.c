@@ -1784,54 +1784,42 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	Evas_Object *message = NULL;
 
 	if (msg) {
-			// update peer table
-			if (peer_item) {
-				peer_item->last_msg_id = msg->msg_id;
-				peer_item->last_msg_date =  msg->date;
-				insert_or_update_peer_into_database(peer_item);
-			}
+		// update peer table
+		if (peer_item) {
+			peer_item->last_msg_id = msg->msg_id;
+			peer_item->last_msg_date =  msg->date;
+			insert_or_update_peer_into_database(peer_item);
+		}
 
-			Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
-			if (layout) {
-				int is_end_edge = (int) evas_object_data_get(layout, "is_end_edge");
-				if (!is_end_edge) {
-					Evas_Object *bubble_layout = NULL;
-					bubble_layout = elm_object_part_content_get(layout, "swallow.messagebubble");
+		Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
+		if (layout) {
+			int is_end_edge = (int) evas_object_data_get(layout, "is_end_edge");
+			if (!is_end_edge) {
+				Evas_Object *bubble_layout = NULL;
+				bubble_layout = elm_object_part_content_get(layout, "swallow.messagebubble");
 
-					int user_id = (int) evas_object_data_get(chat_scroller, "user_id");
-					peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
-					char *sender_name = NULL;
-					if (sel_item->use_data->peer_type == TGL_PEER_USER) {
-						sender_name = replace(sel_item->use_data->print_name, '_', " ");
-					} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
-						int from_id = msg->from_id;
-						// get name of buddy
-						char* buddy_name = get_buddy_name_from_id(from_id);
-						if (buddy_name) {
-							sender_name = replace(buddy_name, '_', " ");
-							free(buddy_name);
-						}
-					} else {
-						sender_name = replace(sel_item->use_data->print_name, '_', " ");
+				int user_id = (int) evas_object_data_get(chat_scroller, "user_id");
+				peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+				char *sender_name = NULL;
+				if (sel_item->use_data->peer_type == TGL_PEER_USER) {
+					sender_name = replace(sel_item->use_data->print_name, '_', " ");
+				} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+					int from_id = msg->from_id;
+					// get name of buddy
+					char* buddy_name = get_buddy_name_from_id(from_id);
+					if (buddy_name) {
+						sender_name = replace(buddy_name, '_', " ");
+						free(buddy_name);
 					}
-
-					elm_object_part_text_set(bubble_layout, "text_name", sender_name);
-					elm_object_part_text_set(bubble_layout, "text_message", msg->message);
-					elm_object_signal_emit(layout, "show", "bubblemessage");
+				} else {
+					sender_name = replace(sel_item->use_data->print_name, '_', " ");
 				}
+
+				elm_object_part_text_set(bubble_layout, "text_name", sender_name);
+				elm_object_part_text_set(bubble_layout, "text_message", msg->message);
+				elm_object_signal_emit(layout, "show", "bubblemessage");
 			}
-
-		if (msg->message) {
-			free(msg->message);
-			msg->message = NULL;
 		}
-
-		if (msg->media_id) {
-			free(msg->media_id);
-			msg->media_id = NULL;
-		}
-
-		free(msg);
 	}
 	free(tablename);
 
@@ -1845,6 +1833,9 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	send_request_for_marked_as_read(ad, ad->service_client, sel_item->use_data->peer_id, sel_item->use_data->peer_type);
 	ad->is_last_msg_changed = EINA_TRUE;
 	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
+
+	if (msg)
+		free_message(&msg);
 }
 
 
