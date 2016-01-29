@@ -141,7 +141,7 @@ static int scroller_show_previous_region(Evas_Object *scroller)
 	return 1;
 }
 
-static void scroller_push_item(Evas_Object *scroller, Evas_Object *item)
+static void scroller_push_item(Evas_Object *scroller, Evas_Object *item, int prepand)
 {
 	Evas_Object *box_layout = NULL;
 	Evas_Object *box = NULL;
@@ -167,9 +167,13 @@ static void scroller_push_item(Evas_Object *scroller, Evas_Object *item)
 
 	eina_list_free(list);
 
-	//elm_box_pack_end(box, item);
-	elm_box_pack_start(box, item);
-	//elm_box_recalculate(box);
+	if (!prepand) {
+		elm_box_pack_end(box, item);
+
+	} else {
+		elm_box_pack_start(box, item);
+		//elm_box_recalculate(box);
+	}
 
 	return;
 }
@@ -1833,7 +1837,7 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 
 	message = on_message_item_content_get_cb((void *)msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)message_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
@@ -2066,7 +2070,7 @@ Eina_Bool add_date_item_to_chat(void *data)
 
 		message = on_message_item_content_get_cb((void *)msg, chat_scroller, "elm.icon.entry");
 		elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)msg_id);
-		scroller_push_item(chat_scroller, message);
+		scroller_push_item(chat_scroller, message, 0);
 
 		free_message(&msg);
 
@@ -2139,7 +2143,7 @@ static Eina_Bool on_new_text_message_send_cb(void *data)
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	elm_entry_entry_set(text_entry, "");
 	ad->is_last_msg_changed = EINA_TRUE;
@@ -2217,7 +2221,7 @@ static void on_text_message_send_clicked(void *data, Evas_Object *obj, const cha
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	elm_entry_entry_set(text_entry, "");
 	ad->is_last_msg_changed = EINA_TRUE;
@@ -2547,7 +2551,7 @@ static Eina_Bool on_new_contact_message_send_cb(void *data)
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	free(msg.media_id);
 
@@ -2620,7 +2624,7 @@ void send_contact_message_to_buddy(void *data, char *first_name, char *last_name
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 	free(msg.media_id);
 }
 
@@ -2678,7 +2682,7 @@ static Eina_Bool on_new_location_message_send_cb(void *data)
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	free(msg.media_id);
 	return ECORE_CALLBACK_CANCEL;
@@ -2747,7 +2751,7 @@ void send_location_message_to_buddy(void *data, char *latitude, char *longitude)
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	free(msg.media_id);
 }
@@ -2815,7 +2819,7 @@ static Eina_Bool on_new_media_message_send_cb(void *data)
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	free(msg.media_id);
 	ad->is_last_msg_changed = EINA_TRUE;
@@ -2896,7 +2900,7 @@ void send_media_message_to_buddy(void *data, const char* file_path, enum tgl_mes
 
 	message = on_message_item_content_get_cb((void *)&msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)unique_id);
-	scroller_push_item(chat_scroller, message);
+	scroller_push_item(chat_scroller, message, 0);
 
 	free(msg.media_id);
 	ad->is_last_msg_changed = EINA_TRUE;
@@ -2951,7 +2955,7 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 			message_item = eina_list_nth(vals, i);
 			message = on_message_item_content_get_cb((void *)message_item, chat_scroller, "elm.icon.entry");
 			elm_object_signal_callback_add(message, "clicked", "item", on_list_media_item_clicked, (void*)message_item->msg_id);
-			scroller_push_item(chat_scroller, message);
+			scroller_push_item(chat_scroller, message, 1);
 			free_message(&message_item);
 		}
 		eina_list_free(vals);

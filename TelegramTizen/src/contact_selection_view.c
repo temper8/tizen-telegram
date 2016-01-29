@@ -302,7 +302,7 @@ void on_done_buton_clicked(void *data, Evas_Object *object, void *event_info)
 		// Load chat name entry view
 		launch_group_chat_name_entry_view(ad);
 	} else {
-		show_toast(ad, "Select atleast 2 buddies.");
+		show_toast(ad, "Select at least 2 buddies.");
 	}
 }
 
@@ -496,7 +496,7 @@ static Evas_Object *create_searchbar(Evas_Object* parent, void* data)
 	Evas_Object* layout = elm_layout_add(parent);
 	elm_layout_file_set(layout, edj_path, "");
 
-	/* editfield layout */
+	/* edit field layout */
 	Evas_Object* searchbar_layout = elm_layout_add(parent);
 	elm_layout_theme_set(searchbar_layout, "layout", "searchfield", "singleline");
 	evas_object_size_hint_align_set(searchbar_layout, EVAS_HINT_FILL, 0.0);
