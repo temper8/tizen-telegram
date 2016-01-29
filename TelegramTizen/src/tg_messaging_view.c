@@ -28,6 +28,11 @@
 #include <metadata_extractor.h>
 #include "tg_search_peer_view.h"
 
+typedef struct buddies_name_and_id{
+	char *name;
+	int id;
+}buddies_info;
+
 static int scroller_show_bottom_edge(Evas_Object *scroller)
 {
 	if (!scroller) {
@@ -64,6 +69,78 @@ static int scroller_show_bottom_edge(Evas_Object *scroller)
 	return 1;
 }
 
+static int scroller_previous_region_get(Evas_Object *scroller)
+{
+	if (!scroller) {
+		LOGE("Cannot get the scroller");
+		return 0;
+	}
+	Evas_Object *box_layout = NULL;
+	Evas_Object *box = NULL;
+	Eina_List *list = NULL;
+
+	box_layout = elm_object_content_get(scroller);
+	if (!box_layout) {
+		LOGE("Fail to get the box into scroller");
+		return 0;
+	}
+	list = elm_box_children_get(box_layout);
+	if (!list) {
+		LOGE("Fail to get the list into box");
+		return 0;
+	}
+
+	box = eina_list_nth(list, 0);
+	if (!box) {
+		LOGE("Fail to get the box into box layout");
+		return 0;
+	}
+
+	int h;
+	evas_object_geometry_get(box, NULL, NULL, NULL, &h);
+
+	eina_list_free(list);
+
+	return h;
+}
+
+static int scroller_show_previous_region(Evas_Object *scroller)
+{
+	if (!scroller) {
+		LOGE("Cannot get the scroller");
+		return 0;
+	}
+	Evas_Object *box_layout = NULL;
+	Evas_Object *box = NULL;
+	Eina_List *list = NULL;
+
+	box_layout = elm_object_content_get(scroller);
+	if (!box_layout) {
+		LOGE("Fail to get the box into scroller");
+		return 0;
+	}
+	list = elm_box_children_get(box_layout);
+	if (!list) {
+		LOGE("Fail to get the list into box");
+		return 0;
+	}
+
+	box = eina_list_nth(list, 0);
+	if (!box) {
+		LOGE("Fail to get the box into box layout");
+		return 0;
+	}
+
+	int h,prev_h;
+	prev_h = (int)evas_object_data_get(scroller, "previous_h");
+	evas_object_geometry_get(box, NULL, NULL, NULL, &h);
+	elm_scroller_region_show(scroller, 0, (h-prev_h), 720, 1280);
+
+	eina_list_free(list);
+
+	return 1;
+}
+
 static void scroller_push_item(Evas_Object *scroller, Evas_Object *item)
 {
 	Evas_Object *box_layout = NULL;
@@ -90,7 +167,8 @@ static void scroller_push_item(Evas_Object *scroller, Evas_Object *item)
 
 	eina_list_free(list);
 
-	elm_box_pack_end(box, item);
+	//elm_box_pack_end(box, item);
+	elm_box_pack_start(box, item);
 	//elm_box_recalculate(box);
 
 	return;
@@ -1315,14 +1393,20 @@ static void __resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 
 	int is_end_edge = 0;
 	is_end_edge = (int)evas_object_data_get(layout, "is_end_edge");
-
+	int is_end_edge_top = 0;
+	is_end_edge_top = (int)evas_object_data_get(chat_scroller, "is_end_edge_top");
 	if (is_end_edge) {
 		int ret = 1;
-		ret = scroller_show_bottom_edge(chat_scroller);
+		/*if(is_end_edge_top)
+			ret = scroller_show_previous_region(chat_scroller);
+		else*/
+			ret = scroller_show_bottom_edge(chat_scroller);
 		if (!ret) {
 			LOGE("Fail to show the bottom of scroller");
 		}
 	}
+	if(is_end_edge_top)
+		scroller_show_previous_region(chat_scroller);
 }
 
 static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *image, int size)
@@ -2251,8 +2335,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		int user_list_size = chat_info->user_list_size;
 		int online_members = 0;
 
-		char *names_of_buddies = NULL;
-
+		Eina_List *names_of_buddies = NULL;
 
 		for (int i = 0; i < user_list_size; i++) {
 
@@ -2273,14 +2356,10 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 			if (buddy_full_name) {
 				char *buddy_name =  replace(buddy_full_name, '_', " ");
 				if (buddy_name) {
-					if (!names_of_buddies) {
-						names_of_buddies = (char*)malloc(strlen(buddy_name) + 1);
-						strcpy(names_of_buddies, buddy_name);
-					} else {
-						names_of_buddies = (char*)realloc(names_of_buddies, strlen(names_of_buddies) + strlen(" / ") + strlen(buddy_name) + 1);
-						strcat(names_of_buddies, " / ");
-						strcat(names_of_buddies, buddy_name);
-					}
+					buddies_info *buddy_info = (buddies_info*)malloc(sizeof(buddies_info));
+					buddy_info->name = buddy_name;
+					buddy_info->id = buddy_id;
+					names_of_buddies = eina_list_append(names_of_buddies, (void*)(buddy_info));
 				}
 				free(buddy_full_name);
 			}
@@ -2827,12 +2906,15 @@ static Eina_Bool on_timer_expired(void *data)
 {
 	Evas_Object *scroller = data;
 	int ret = 1;
+	int is_end_edge_top = 0;
+	is_end_edge_top = (int)evas_object_data_get(scroller, "is_end_edge_top");
 
 	if (!scroller) {
 		LOGE("Cannot get the scroller");
 		return ECORE_CALLBACK_CANCEL;
 	}
-	ret = scroller_show_bottom_edge(scroller);
+	//ret = scroller_show_bottom_edge(scroller);
+	ret = scroller_show_previous_region(scroller);
 	if (!ret) {
 		LOGE("Fail to show the bottom of scroller");
 	}
@@ -2842,13 +2924,19 @@ static Eina_Bool on_timer_expired(void *data)
 
 Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 {
+	int offset_num = (int)evas_object_data_get(chat_scroller,"offset_num");
+	if(offset_num < -TG_DBMGR_LIMITED) return EINA_FALSE;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 	int buddy_id = sel_item->use_data->peer_id;
 	char* tablename = get_table_name_from_number(buddy_id);
-	Eina_List *vals = get_messages_from_message_table_order_by(tablename, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
+	Eina_List *vals = NULL;
+	if(offset_num >= 0)
+		vals = get_messages_from_message_table_order_by(tablename, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, TG_DBMGR_LIMITED, offset_num);
+	else
+		vals = get_messages_from_message_table_order_by(tablename, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, TG_DBMGR_LIMITED + offset_num, 0);
 	tg_message_s *message_item = NULL;
 
 	if (!vals) {
@@ -2857,7 +2945,7 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 	} else {
 		int row_count = eina_list_count(vals);
 
-		for (int i = 0 ; i < row_count ; i++) {
+		for (int i = row_count-1 ; i >= 0 ; i--) {
 			Evas_Object *message = NULL;
 
 			message_item = eina_list_nth(vals, i);
@@ -2869,10 +2957,11 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 		eina_list_free(vals);
 	}
 
-	Ecore_Timer *timer = NULL;
-	timer = ecore_timer_add(0.1, on_timer_expired, chat_scroller);
+//	Ecore_Timer *timer = NULL;
+//	timer = ecore_timer_add(0.1, on_timer_expired, chat_scroller);
 
 	free(tablename);
+	evas_object_data_set(chat_scroller, "offset_num", (void *)(offset_num-TG_DBMGR_LIMITED));
 	return EINA_TRUE;
 }
 
@@ -3391,6 +3480,41 @@ void refresh_messaging_view(appdata_s *ad)
 		}
 }
 
+static void click_user_name_cb(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = evas_object_data_get(obj,"app_data");
+	Elm_Object_Item *item = event_info;
+	const char *clicked_name = elm_object_item_text_get(item);
+	int peer_id = (int)elm_object_item_data_get(item);
+	peer_with_pic_s* prev_peer_in_chatting_data = ad->peer_in_cahtting_data;
+	user_data_with_pic_s* prev_buddy_in_chatting_data = ad->buddy_in_cahtting_data;
+
+	int buddy_list_counts = eina_list_count(ad->buddy_list);
+	for (int i = 0; i < buddy_list_counts; i++) {
+		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+		user_data_s* user_data = item->use_data;
+
+		if (user_data->user_id.id == peer_id) {
+			ad->buddy_in_cahtting_data = item;
+			break;
+		}
+	}
+	int peer_list_counts = eina_list_count(ad->peer_list);
+	for (int i = 0; i < peer_list_counts; i++) {
+		peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
+		tg_peer_info_s* item = pic_item->use_data;
+		if (item->peer_id == peer_id) {
+			ad->peer_in_cahtting_data = pic_item;
+			break;
+		}
+	}
+
+	launch_user_info_screen(ad, peer_id);
+
+	ad->buddy_in_cahtting_data = prev_buddy_in_chatting_data;
+	ad->peer_in_cahtting_data = prev_peer_in_chatting_data;
+}
+
 static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *expand_pic = data;
@@ -3409,14 +3533,15 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 		Evas_Object *grp_names_bg = elm_bg_add(ad->nf);
 		evas_object_size_hint_align_set(grp_names_bg, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_size_hint_weight_set(grp_names_bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_color_set(grp_names_bg, 45, 165, 224, 202);
+		evas_object_color_set(grp_names_bg, 255, 255, 255, 255);
 	    elm_image_resizable_set(grp_names_bg, EINA_TRUE, EINA_TRUE);
 	    elm_image_fill_outside_set(grp_names_bg, EINA_TRUE);
 	    evas_object_show(grp_names_bg);
 	    elm_object_part_content_set(parent_layout, "swallow.group_detail_box,bg", grp_names_bg);
 
-	    Evas_Object* grp_names_lbl = elm_entry_add(ad->nf);
-		elm_entry_cursor_end_set(grp_names_lbl);
+	    Evas_Object* grp_names_lbl = elm_multibuttonentry_add(ad->nf);
+
+	    elm_entry_cursor_end_set(grp_names_lbl);
 		evas_object_size_hint_weight_set(grp_names_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(grp_names_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		elm_entry_single_line_set(grp_names_lbl,  EINA_FALSE);
@@ -3424,17 +3549,30 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 		elm_entry_cnp_mode_set(grp_names_lbl, ELM_CNP_MODE_NO_IMAGE);
 		elm_entry_context_menu_disabled_set(grp_names_lbl, EINA_TRUE);
 		elm_object_focus_set(grp_names_lbl, EINA_FALSE);
-	    elm_entry_editable_set(grp_names_lbl, EINA_FALSE);
+		elm_multibuttonentry_editable_set(grp_names_lbl, EINA_FALSE);
 
 		evas_object_show(grp_names_lbl);
 
-		char *names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
+		evas_object_data_set(grp_names_lbl, "app_data", ad);
+
+		Eina_List *names_of_buddies = NULL;
+		names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
+
 		if (names_of_buddies) {
-			int len = strlen(names_of_buddies);
-			char *names_str = (char*)malloc(len + 256);
-			sprintf(names_str, "<font=Tizen:style=Bold color=#FAFAFA align=center><font_size=40>%s</font_size></font>", names_of_buddies);
-			elm_object_text_set(grp_names_lbl, names_str);
-			free(names_str);
+			int buddies_counts = eina_list_count(names_of_buddies);
+			buddies_info *buddy_info;
+			for(int i = 0 ; i < buddies_counts ; i++){
+				buddy_info = (buddies_info*)eina_list_nth(names_of_buddies,i);
+				if(buddy_info == NULL) continue;
+				int len = strlen(buddy_info->name);
+				char *name_str = (char*)malloc(len + 256);
+				if(name_str){
+					sprintf(name_str, "<font=Tizen:style=Bold align=center><font_size=40>%s</font_size></font>", buddy_info->name);
+					Elm_Object_Item *button_item = elm_multibuttonentry_item_append(grp_names_lbl, name_str, click_user_name_cb, ad);
+					elm_object_item_data_set(button_item, (void*)(buddy_info->id));
+					free(name_str);
+				}
+			}
 		}
 
 		elm_object_part_content_set(parent_layout, "swallow.group_detail_box", grp_names_lbl);
@@ -3471,6 +3609,17 @@ static Eina_Bool _pop_cb(void *data, Elm_Object_Item *it)
 	if (attach_panel) {
 		attach_panel_hide(attach_panel);
 	}
+	Eina_List *names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
+
+	if(names_of_buddies != NULL){
+		buddies_info *buddy = NULL;
+		EINA_LIST_FREE(names_of_buddies, buddy) {
+			if (buddy) {
+				if(buddy->name) free(buddy->name);
+			}
+		}
+		names_of_buddies = NULL;
+	}
 
 	return EINA_TRUE;
 }
@@ -3487,10 +3636,42 @@ static void _edge_cb(void *data, Evas_Object *scroller, void *event_info)
 	}
 }
 
+static void _edge_top_cb(void *data, Evas_Object *scroller, void *event_info)
+{
+	int is_end_edge_top = 0;
+	//int offset_num = (int)evas_object_data_get(scroller, "offset_num");
+	is_end_edge_top = (int)evas_object_data_get(scroller, "is_end_edge_top");
+
+	if (!is_end_edge_top) {
+		elm_scroller_movement_block_set(scroller,ELM_SCROLLER_MOVEMENT_BLOCK_VERTICAL );
+		int prev_h = scroller_previous_region_get(scroller);
+		evas_object_data_set(scroller, "previous_h",(void*)prev_h);
+		evas_object_data_set(scroller, "is_end_edge_top",(void*)1);
+		load_chat_history(scroller);
+		elm_scroller_movement_block_set(scroller,ELM_SCROLLER_MOVEMENT_NO_BLOCK);
+	}
+}
+
 static void _scroll_cb(void *data, Evas_Object *scroller, void *event_info)
 {
 	Evas_Object *layout = data;
 	evas_object_data_set(layout, "is_end_edge", (void *) 0);
+	evas_object_data_set(scroller, "is_end_edge_top", (void *) 0);
+//	evas_object_data_set(layout, "is_end_edge_top", (void *) 0);
+}
+
+int get_start_offset_num(char* table_name){
+	char unknown_str[50];
+	int unknown = 0;
+	sprintf(unknown_str, "%d", unknown);
+
+	char* where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(unknown_str) + 1);
+	sprintf(where_clause, "%s = %s", MESSAGE_INFO_TABLE_MARKED_FOR_DELETE, unknown_str);
+/*	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);*/
+	int row_counts = get_number_of_rows(table_name,where_clause);
+	return (row_counts-TG_DBMGR_LIMITED);
 }
 
 static Eina_Bool _load_history_cb(void *data)
@@ -3577,8 +3758,17 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	elm_scroller_policy_set(chat_scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
 	evas_object_show(chat_scroller);
 	evas_object_smart_callback_add(chat_scroller, "scroll", _scroll_cb, layout);
+	/*check_top*/
+	//evas_object_smart_callback_add(chat_scroller,"scroll,drag,start", _scroll_cb, layout);
 	evas_object_smart_callback_add(chat_scroller, "edge,bottom", _edge_cb, layout);
+	/*add top*/
+	evas_object_smart_callback_add(chat_scroller, "edge,top", _edge_top_cb, layout);
 	evas_object_data_set(layout, "is_end_edge", (void *) 1);
+	/*setting offset_num*/
+//	evas_object_data_set(chat_scroller, "offset_num", (void *) 1);
+	evas_object_data_set(chat_scroller, "prev_h", (void *) 0);
+	/*check edge is top*/
+	evas_object_data_set(chat_scroller, "is_end_edge_top",(void*)1);
 
 	Evas_Object *align_box = elm_box_add(chat_scroller);
 	if (!align_box) {
@@ -3766,6 +3956,8 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	int buddy_id = sel_item->use_data->peer_id;
 	char* tablename = get_table_name_from_number(buddy_id);
+	int offset_num = get_start_offset_num(tablename);
+	evas_object_data_set(chat_scroller, "offset_num", (void *)(offset_num));
 
 	Eina_Bool res = set_all_rows_read(tablename);
 	if (!res) {

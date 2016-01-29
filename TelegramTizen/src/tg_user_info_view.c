@@ -911,55 +911,53 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	elm_object_part_content_set(info_layout, "swallow.phone_type", phone_type);
 
+	if(ad->buddy_in_cahtting_data){
+		Evas_Object* msg_btn = elm_button_add(ad->nf);
+		elm_object_style_set(msg_btn, "transparent");
+		evas_object_size_hint_align_set(msg_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(msg_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	Evas_Object* msg_btn = elm_button_add(ad->nf);
-	elm_object_style_set(msg_btn, "transparent");
-	evas_object_size_hint_align_set(msg_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(msg_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		Evas_Object* msg_icon = elm_image_add(ad->nf);
+		evas_object_size_hint_align_set(msg_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(msg_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		elm_image_file_set(msg_icon, ui_utils_get_resource(TG_USER_INFO_MESSAGE), NULL);
+		evas_object_show(msg_icon);
+		evas_object_color_set(msg_icon, 45, 165, 224, 255);
+		elm_object_content_set(msg_btn, msg_icon);
 
-	Evas_Object* msg_icon = elm_image_add(ad->nf);
-	evas_object_size_hint_align_set(msg_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(msg_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(msg_icon, ui_utils_get_resource(TG_USER_INFO_MESSAGE), NULL);
-    evas_object_show(msg_icon);
-    evas_object_color_set(msg_icon, 45, 165, 224, 255);
-    elm_object_content_set(msg_btn, msg_icon);
+    	evas_object_smart_callback_add(msg_btn, "clicked", on_user_info_msg_clicked, ad);
+    	evas_object_smart_callback_add(msg_btn, "pressed", on_user_info_icon_pressed, msg_icon);
+    	evas_object_smart_callback_add(msg_btn, "unpressed", on_user_info_icon_unpressed, msg_icon);
+    	elm_object_part_content_set(info_layout, "swallow.phone_msg", msg_btn);
 
-    evas_object_smart_callback_add(msg_btn, "clicked", on_user_info_msg_clicked, ad);
-    evas_object_smart_callback_add(msg_btn, "pressed", on_user_info_icon_pressed, msg_icon);
-    evas_object_smart_callback_add(msg_btn, "unpressed", on_user_info_icon_unpressed, msg_icon);
-    elm_object_part_content_set(info_layout, "swallow.phone_msg", msg_btn);
+		Evas_Object* call_btn = elm_button_add(ad->nf);
+		elm_object_style_set(call_btn, "transparent");
+		evas_object_size_hint_align_set(call_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(call_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
+		Evas_Object* call_icon = elm_image_add(ad->nf);
+		evas_object_size_hint_align_set(call_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_size_hint_weight_set(call_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    	elm_image_file_set(call_icon, ui_utils_get_resource(TG_USER_INFO_CALL), NULL);
+    	evas_object_show(call_icon);
+    	evas_object_color_set(call_icon, 45, 165, 224, 255);
+    	elm_object_content_set(call_btn, call_icon);
 
-	Evas_Object* call_btn = elm_button_add(ad->nf);
-	elm_object_style_set(call_btn, "transparent");
-	evas_object_size_hint_align_set(call_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(call_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+    	evas_object_smart_callback_add(call_btn, "clicked", on_user_info_call_clicked, ad);
+    	evas_object_smart_callback_add(call_btn, "pressed", on_user_info_icon_pressed, call_icon);
+    	evas_object_smart_callback_add(call_btn, "unpressed", on_user_info_icon_unpressed, call_icon);
+    	elm_object_part_content_set(info_layout, "swallow.phone_call", call_btn);
 
-	Evas_Object* call_icon = elm_image_add(ad->nf);
-	evas_object_size_hint_align_set(call_icon, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_size_hint_weight_set(call_icon, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-    elm_image_file_set(call_icon, ui_utils_get_resource(TG_USER_INFO_CALL), NULL);
-    evas_object_show(call_icon);
-    evas_object_color_set(call_icon, 45, 165, 224, 255);
-    elm_object_content_set(call_btn, call_icon);
-
-    evas_object_smart_callback_add(call_btn, "clicked", on_user_info_call_clicked, ad);
-    evas_object_smart_callback_add(call_btn, "pressed", on_user_info_icon_pressed, call_icon);
-    evas_object_smart_callback_add(call_btn, "unpressed", on_user_info_icon_unpressed, call_icon);
-    elm_object_part_content_set(info_layout, "swallow.phone_call", call_btn);
-
-	Evas_Object *phone_num = elm_label_add(ad->nf);
-	elm_object_style_set(phone_num, "transparent");
-	char phone_num_str[256];
-	sprintf(phone_num_str, "<font=Tizen:style=Bold color=#000000 align=left><font_size=40>&nbsp;&nbsp;%s</font_size></font>", ad->buddy_in_cahtting_data->use_data->phone);
-	elm_object_text_set(phone_num, phone_num_str);
-	evas_object_size_hint_weight_set(phone_num, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	evas_object_size_hint_align_set(phone_num, EVAS_HINT_FILL, EVAS_HINT_FILL);
-	evas_object_show(phone_num);
-
-	elm_object_part_content_set(info_layout, "swallow.phone_number", phone_num);
-
+		Evas_Object *phone_num = elm_label_add(ad->nf);
+		elm_object_style_set(phone_num, "transparent");
+		char phone_num_str[256];
+		sprintf(phone_num_str, "<font=Tizen:style=Bold color=#000000 align=left><font_size=40>&nbsp;&nbsp;%s</font_size></font>", ad->buddy_in_cahtting_data->use_data->phone);
+		elm_object_text_set(phone_num, phone_num_str);
+		evas_object_size_hint_weight_set(phone_num, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+		evas_object_size_hint_align_set(phone_num, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		evas_object_show(phone_num);
+		elm_object_part_content_set(info_layout, "swallow.phone_number", phone_num);
+	}
 	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
 	evas_object_smart_callback_add(back_btn, "clicked", on_userinfo_back_button_clicked, ad);
 
