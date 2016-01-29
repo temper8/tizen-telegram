@@ -1161,17 +1161,16 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 			Eina_Bool is_blur_image = EINA_FALSE;
 			char* img_path = NULL;
-			Evas_Object *temp = NULL;
-			temp = evas_object_data_get(entry, "img_object");
-			if (temp == NULL) {
-				const char *tmp;
-				tmp = ui_utils_get_resource(BLUR_BG);
-				img_path = strdup(tmp);
-				is_blur_image = EINA_TRUE;
-			} else {
-				item_to_display = temp;
+			img_path = evas_object_data_get(entry, "img_object");
+			if (img_path == NULL) {
+				img_path = get_media_path_from_db(atoll(msg->media_id));
+				if (access(img_path, F_OK) == -1) {
+					const char *tmp;
+					tmp = ui_utils_get_resource(BLUR_BG);
+					img_path = strdup(tmp);
+					is_blur_image = EINA_TRUE;
+				}
 			}
-
 			if (msg->media_type == tgl_message_media_document) {
 				media_msg = get_media_details_from_db(atoll(msg->media_id));
 
@@ -1207,8 +1206,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 			} else if (msg->out) {
 
 				if (msg->media_type == tgl_message_media_photo) {
-
-					//item_to_display = get_image_from_path(img_path, entry);
+					item_to_display = get_image_from_path(img_path, entry);
 
 				} else {
 					if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
@@ -1216,7 +1214,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 						item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
 
 					} else {
-						//item_to_display = get_image_from_path(img_path, entry);
+						item_to_display = get_image_from_path(img_path, entry);
 						elm_image_animated_set(item_to_display, EINA_TRUE);
 						elm_image_animated_play_set(item_to_display, EINA_TRUE);
 					}
@@ -1226,7 +1224,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 				if (!is_blur_image) {
 
 					if (msg->media_type == tgl_message_media_photo) {
-
+						item_to_display = get_image_from_path(img_path, entry);
 						evas_object_data_set(entry, "image_object", (void*)item_to_display);
 
 					} else {
@@ -1444,7 +1442,7 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 	w = 0;
 	h = 0;
 	if (img_item) {
-		evas_object_data_set(entry, "img_object", img_item);
+		evas_object_data_set(entry, "img_object", img_path);
 		elm_image_object_size_get(img_item, &w, &h);
 	}
 
@@ -1934,7 +1932,7 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									entry_h = (318 * h) / w;
 									Eina_Strbuf *buf = eina_strbuf_new();
 									char image[256] = {0,};
-									evas_object_data_set(entry, "img_object", img_item);
+									evas_object_data_set(entry, "img_object", file_path);
 									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
 									eina_strbuf_append(buf, image);
 									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
@@ -1952,7 +1950,7 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									int w, h, entry_h;
 									elm_image_object_size_get(img_item, &w, &h);
 									entry_h = (318 * h) / w;
-									evas_object_data_set(entry, "img_object", img_item);
+									evas_object_data_set(entry, "img_object", file_path);
 									Eina_Strbuf *buf = eina_strbuf_new();
 									char image[256] = {0,};
 									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
