@@ -37,6 +37,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appcore-agent&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appfw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/attach-panel&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/badge&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/base&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/cairo&quot;"/>
@@ -51,11 +52,9 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/dlog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-audio-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-avahi-1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-buffer-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-con-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-evas-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-fb-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-file-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-evas-1&quot;"/>
@@ -87,6 +86,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/geofence&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/gio-unix-2.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/glib-2.0&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/harfbuzz&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/json-glib-1.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/location&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/maps&quot;"/>
@@ -215,6 +215,7 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1642053949" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="_DEBUG"/>
+									<listOptionValue builtIn="false" value="NDEBUG"/>
 									<listOptionValue builtIn="false" value="__OpenBSD__"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.621529398" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -230,6 +231,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appcore-agent&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appfw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/attach-panel&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/badge&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/base&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/cairo&quot;"/>
@@ -244,11 +246,9 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/dlog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-audio-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-avahi-1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-buffer-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-con-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-evas-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-fb-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-file-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-evas-1&quot;"/>
@@ -280,6 +280,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/geofence&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/gio-unix-2.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/glib-2.0&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/harfbuzz&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/json-glib-1.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/location&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/maps&quot;"/>
@@ -408,8 +409,10 @@
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.815019761" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="_DEBUG"/>
+									<listOptionValue builtIn="false" value="NDEBUG"/>
 									<listOptionValue builtIn="false" value="__OpenBSD__"/>
 								</option>
+								<option id="gnu.c.compiler.option.dialect.std.1039161074" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.919376836" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="org.tizen.nativeide.tool.sbi.gnu.c.linker.base.997634515" name="C Linker" superClass="org.tizen.nativeide.tool.sbi.gnu.c.linker.base"/>
@@ -433,84 +436,6 @@
 							<tool command="arm-linux-gnueabi-as" id="org.tizen.nativeapp.tool.sbi.gnu.assembler.base.667323528" name="Assembler" superClass="org.tizen.nativeapp.tool.sbi.gnu.assembler.base">
 								<option id="gnu.both.asm.option.include.paths.679561265" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="../tg-engine-service/tg-engine-service/inc"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/libxml2"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/library"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/appcore-agent"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/appfw"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/badge"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/base"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/cairo"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/calendar-service2"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ckm"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/contacts-svc"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/content"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/context-service"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/dali"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/dali-toolkit"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/dbus-1.0"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/device"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/dlog"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-audio-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-avahi-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-con-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-evas-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-fb-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-file-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-imf-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-imf-evas-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-input-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-input-evas-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-ipc-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ecore-x-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/e_dbus-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/edje-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eet-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/efl-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/efl-extension"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/efreet-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eina-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eina-1/eina"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eio-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eldbus-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/elementary-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/embryo-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eo-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/eom"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ethumb-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ethumb-client-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/evas-1"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ewebkit2-0"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/fontconfig"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/freetype2"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/geofence"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/gio-unix-2.0"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/glib-2.0"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/json-glib-1.0"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/location"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/maps"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/media"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/media-content"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/messaging"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/metadata-editor"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/minicontrol"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/minizip"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/network"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/notification"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/phonenumber-utils"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/sensor"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/shortcut"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/storage"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/system"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/telephony"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/ui"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/web"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/widget_service"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/widget_viewer_evas"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/include/wifi-direct"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/lib/dbus-1.0/include"/>
-									<listOptionValue builtIn="false" value="/home/sandeep/tizen-sdk-2.4/platforms/tizen-2.4/mobile/rootstraps/mobile-2.4-emulator.core/usr/lib/glib-2.0/include"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1353951193" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
@@ -569,6 +494,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appcore-agent&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appfw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/attach-panel&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/badge&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/base&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/cairo&quot;"/>
@@ -583,11 +509,9 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/dlog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-audio-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-avahi-1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-buffer-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-con-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-evas-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-fb-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-file-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-evas-1&quot;"/>
@@ -619,6 +543,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/geofence&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/gio-unix-2.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/glib-2.0&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/harfbuzz&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/json-glib-1.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/location&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/maps&quot;"/>
@@ -669,6 +594,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appcore-agent&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/appfw&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/attach-panel&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/badge&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/base&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/cairo&quot;"/>
@@ -683,11 +609,9 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/device&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/dlog&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-audio-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-avahi-1&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-buffer-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-con-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-evas-1&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-fb-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-file-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-1&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/ecore-imf-evas-1&quot;"/>
@@ -719,6 +643,7 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/geofence&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/gio-unix-2.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/glib-2.0&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/harfbuzz&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/json-glib-1.0&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/location&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/include/maps&quot;"/>

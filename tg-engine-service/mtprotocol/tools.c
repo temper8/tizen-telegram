@@ -35,6 +35,8 @@
 #include <sys/time.h>
 #include "tools.h"
 
+#include <dlog.h>
+
 #ifdef __MACH__
 #include <mach/clock.h>
 #include <mach/mach.h>
@@ -58,10 +60,22 @@ void logprintf(const char *format, ...) __attribute__((format(printf, 1, 2), wea
 
 void logprintf(const char *format, ...)
 {
+	/*
 	va_list ap;
 	va_start(ap, format);
 	vfprintf(stdout, format, ap);
 	va_end(ap);
+	*/
+	char buffer[1024];
+
+	va_list ap;
+
+	va_start(ap, format);
+	vsnprintf(buffer, sizeof(buffer), format, ap);
+	va_end(ap);
+
+	dlog_print(DLOG_DEBUG, "tg-engine-service", "%s", buffer);
+
 }
 
 int tgl_snprintf(char *buf, int len, const char *format, ...)

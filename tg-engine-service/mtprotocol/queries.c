@@ -369,20 +369,13 @@ int tglq_query_result(struct tgl_state *TLS, long long id)
 				vlogprintf(E_DEBUG, "in_ptr = %p, end_ptr = %p\n", in_ptr, in_end);
 				if (skip_type_any(q->type) < 0) {
 					vlogprintf(E_ERROR, "Skipped %ld int out of %ld(type %s)\n",(long)(in_ptr - save),(long)(in_end - save), q->type->type->id);
-					//sandeep
-					//assert(0);
-					return 0;
+					assert(0);
 				}
-				// sandeep
-				//assert(in_ptr == in_end);
-				if (in_ptr != in_end) {
-					return 0;
-				}
+				assert(in_ptr == in_end);
 				in_ptr = save;
 			}
 			q->methods->on_answer(TLS, q);
-			// sandeep
-			//assert(in_ptr == in_end);
+			assert(in_ptr == in_end);
 		}
 		tfree(q->data, 4 * q->data_len);
 		TLS->timer_methods->free(q->ev);

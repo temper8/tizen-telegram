@@ -2,6 +2,10 @@
 #include "tgl.h"
 #include "tools.h"
 
+#if !defined(NDEBUG)
+#error "NDEBUG MUST HAS TO BE DEFINED BEFORE RELEASE THIS"
+#endif
+
 static unsigned long long gcd(unsigned long long a, unsigned long long b)
 {
 	return b ? gcd(b, a % b) : a;
