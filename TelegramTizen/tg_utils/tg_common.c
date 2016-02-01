@@ -94,13 +94,9 @@ Evas_Object* create_circle_button(Evas_Object *parent, char* text, char* filepat
 
 char* get_table_name_from_number(const int id)
 {
-	char id_str[50];
-	sprintf(id_str, "%d", id);
-	char* msg_table = (char*)malloc(strlen("tg_") + strlen(id_str) + strlen("_msg") + 1);
-	strcpy(msg_table, "tg_");
-	strcat(msg_table, id_str);
-	strcat(msg_table, "_msg");
-	return msg_table;
+	char id_str[64];
+	snprintf(id_str, sizeof(id_str), "tg_%d_msg", id);
+	return strdup(id_str);
 }
 
 char* get_budy_state(appdata_s* ad, int buddy_id)

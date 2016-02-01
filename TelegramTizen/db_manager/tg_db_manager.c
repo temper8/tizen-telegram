@@ -281,7 +281,7 @@ Eina_Bool create_index(const char* table_name, const char *column_name)
 	}
 
 	char* err_msg = 0;
-	char *query_format = "CREATE INDEX tg_index_%s ON %s (%s);";
+	char *query_format = "CREATE INDEX tg_index_%s_%s ON %s (%s);";
 	char *query_string = NULL;
 	int   query_length = strlen(query_format) + strlen(table_name) + (strlen(column_name) * 2) + 20;
 	int   ret;
@@ -294,7 +294,7 @@ Eina_Bool create_index(const char* table_name, const char *column_name)
 		return EINA_FALSE;
 	}
 
-	snprintf(query_string, query_length, query_format, column_name, table_name, column_name);
+	snprintf(query_string, query_length, query_format, table_name, column_name, table_name, column_name);
 
 	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 
@@ -328,34 +328,15 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	if (!table_name) {
 		return EINA_FALSE;
 	}
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+
 	/*****No rows identification*****/
-
-	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
-	strcpy(row_cnt_qry, "SELECT COUNT(*) FROM ");
-	strcat(row_cnt_qry, table_name);
-	strcat(row_cnt_qry, ";");
-
-	int no_of_rows = 0;
-	//ret = sqlite3_exec(s_info.db,var_query, callback,(void*)s_info.db, &err_msg);
-
-	sqlite3_stmt *stmt;
-	if (sqlite3_prepare_v2(db, row_cnt_qry, -1, &stmt, NULL) == SQLITE_OK) {
-		if (sqlite3_step(stmt) == SQLITE_ERROR) {
-			no_of_rows = 0;
-		} else {
-			no_of_rows = sqlite3_column_int(stmt, 0);
-		}
-		sqlite3_finalize(stmt);
-	}
-	close_database(db);
-	free(row_cnt_qry);
-	if(no_of_rows <= 0) {
-		return EINA_FALSE;
+	if (get_number_of_rows(table_name, NULL) == 0) {
+		DBG("There are no rows on [%s]", table_name);
+		return NULL;
 	}
 
 	/********************************/
-	db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
 	int ret = 0 ;
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);

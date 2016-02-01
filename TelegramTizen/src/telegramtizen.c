@@ -1694,10 +1694,9 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 				int date_id = atoi(date_id_str);
 				on_text_message_received_from_buddy(app, date_id, type_of_chat);
 				wait_for(1);
-				on_text_message_received_from_buddy(app, message_id, type_of_chat);
-			} else {
-				on_text_message_received_from_buddy(app, message_id, type_of_chat);
 			}
+			on_text_message_received_from_buddy(app, message_id, type_of_chat);
+
 			return result;
 		}
 

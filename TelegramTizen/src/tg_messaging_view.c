@@ -1142,7 +1142,7 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 		Evas_Object* chat_scroller = data;
 		appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 		int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
-		int message_id = (int)evas_object_data_get(chat_scroller, "message_id");
+		int message_id = (int)evas_object_data_get(entry, "message_id");
 
 		peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
 		int buddy_id = sel_item->use_data->peer_id;
@@ -1466,6 +1466,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 	if (data == NULL) {
 		ERR("Invalid Parameter.");
+		return NULL;
 	}
 
 	char edj_path[PATH_MAX] = {0, };
@@ -1546,8 +1547,6 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 
 				return layout;
 			}
-			evas_object_data_set(entry, "chat_list", (void*)chat_scroller);
-			evas_object_data_set(entry, "message_id", (void*)msg->msg_id);
 
 			if (msg->media_type != tgl_message_media_none) {
 				entry = elm_entry_add(obj);
@@ -1558,6 +1557,10 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			} else {
 				entry = elm_label_add(obj);
 			}
+
+			evas_object_data_set(entry, "message_id", (void*)msg->msg_id);
+			evas_object_data_set(entry, "chat_list", (void*)chat_scroller);
+
 			layout = elm_layout_add(obj);
 
 			if (msg->out) {
@@ -1781,44 +1784,48 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 	Evas_Object* chat_scroller = evas_object_data_get(ad->nf, "chat_list");
 	Evas_Object *message = NULL;
 
-	if (msg) {
-		// update peer table
-		if (peer_item) {
-			peer_item->last_msg_id = msg->msg_id;
-			peer_item->last_msg_date =  msg->date;
-			insert_or_update_peer_into_database(peer_item);
-		}
+	if (msg == NULL) {
+		ERR("msg not found");
+		return;
+	}
 
-		Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
-		if (layout) {
-			int is_end_edge = (int) evas_object_data_get(layout, "is_end_edge");
-			if (!is_end_edge) {
-				Evas_Object *bubble_layout = NULL;
-				bubble_layout = elm_object_part_content_get(layout, "swallow.messagebubble");
+	// update peer table
+	if (peer_item) {
+		peer_item->last_msg_id = msg->msg_id;
+		peer_item->last_msg_date =  msg->date;
+		insert_or_update_peer_into_database(peer_item);
+	}
 
-				int user_id = (int) evas_object_data_get(chat_scroller, "user_id");
-				peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
-				char *sender_name = NULL;
-				if (sel_item->use_data->peer_type == TGL_PEER_USER) {
-					sender_name = replace(sel_item->use_data->print_name, '_', " ");
-				} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
-					int from_id = msg->from_id;
-					// get name of buddy
-					char* buddy_name = get_buddy_name_from_id(from_id);
-					if (buddy_name) {
-						sender_name = replace(buddy_name, '_', " ");
-						free(buddy_name);
-					}
-				} else {
-					sender_name = replace(sel_item->use_data->print_name, '_', " ");
+	Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
+	if (layout) {
+		int is_end_edge = (int) evas_object_data_get(layout, "is_end_edge");
+		if (!is_end_edge) {
+			Evas_Object *bubble_layout = NULL;
+			bubble_layout = elm_object_part_content_get(layout, "swallow.messagebubble");
+
+			int user_id = (int) evas_object_data_get(chat_scroller, "user_id");
+			peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+			char *sender_name = NULL;
+			if (sel_item->use_data->peer_type == TGL_PEER_USER) {
+				sender_name = replace(sel_item->use_data->print_name, '_', " ");
+			} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
+				int from_id = msg->from_id;
+				// get name of buddy
+				char* buddy_name = get_buddy_name_from_id(from_id);
+				if (buddy_name) {
+					sender_name = replace(buddy_name, '_', " ");
+					free(buddy_name);
 				}
-
-				elm_object_part_text_set(bubble_layout, "text_name", sender_name);
-				elm_object_part_text_set(bubble_layout, "text_message", msg->message);
-				elm_object_signal_emit(layout, "show", "bubblemessage");
+			} else {
+				sender_name = replace(sel_item->use_data->print_name, '_', " ");
 			}
+
+			elm_object_part_text_set(bubble_layout, "text_name", sender_name);
+			elm_object_part_text_set(bubble_layout, "text_message", msg->message);
+			elm_object_signal_emit(layout, "show", "bubblemessage");
 		}
 	}
+
 	free(tablename);
 
 	message = on_message_item_content_get_cb((void *)msg, chat_scroller, "elm.icon.entry");

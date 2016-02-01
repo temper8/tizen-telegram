@@ -4336,10 +4336,12 @@ void create_buddy_msg_table(const char* table_name)
 
 	Eina_Bool ret = create_table(table_name, col_names, col_types);
 	if (!ret) {
-		//("error: database creation failed");
+		DBG("create_table failed");
 	}
-
-	create_index(table_name, "date");
+	else {
+		/* Create index only when creating a table is suceeded */
+		create_index(table_name, "date");
+	}
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
