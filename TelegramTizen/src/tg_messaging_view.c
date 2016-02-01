@@ -1559,7 +1559,7 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			}
 
 			evas_object_data_set(entry, "message_id", (void*)msg->msg_id);
-			evas_object_data_set(entry, "chat_list", (void*)chat_scroller);
+			// evas_object_data_set(entry, "chat_list", (void*)chat_scroller);
 
 			layout = elm_layout_add(obj);
 
