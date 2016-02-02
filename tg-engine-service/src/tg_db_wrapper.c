@@ -5375,7 +5375,7 @@ Eina_Bool delete_message_from_table(char *tablename, int msg_id)
 	strcat(var_query, ";");
 	int ret;
 	char* err_msg = 0;
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
 	if (ret != SQLITE_OK) {

@@ -47,12 +47,12 @@ static void on_country_search_entry_changed(void *data, Evas_Object *obj, void *
 	if (!search_list)
 		return;
 
+	elm_genlist_clear(search_list);
 	entry_text = elm_entry_markup_to_utf8(elm_object_text_get(obj));
-	if (entry_text == NULL) {
+	if (entry_text == NULL || strlen(entry_text) == 0) {
+		append_country_item(search_list, ad, ad->country_names_list, ad->country_codes_list);
 		return;
 	}
-
-	elm_genlist_clear(search_list);
 
 	name_result_list = NULL;
 	code_result_list = NULL;

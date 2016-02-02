@@ -149,15 +149,9 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		tg_db_fini();
 
-#if 0
-		char *cmd = (char*)malloc(strlen("rm -r ") + strlen(DEFAULT_TELEGRAM_PATH) + 1);
-		strcpy(cmd, "rm -r ");
-		strcat(cmd, DEFAULT_TELEGRAM_PATH);
-		int ret = system(cmd);
-		free(cmd);
-#else
-		int ret = recursive_dir_delete(DEFAULT_TELEGRAM_PATH);
-#endif
+
+		int ret = recursive_dir_delete(app_get_data_path());
+
 		tgl_engine_var_init();
 		tg_db_init();
 		tg_data->tg_state = TG_ENGINE_STATE_NONE;

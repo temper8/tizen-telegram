@@ -3793,7 +3793,7 @@ void parse_config(void)
 
 	char *rsa_path = ui_utils_get_resource(DEFAULT_RSA_FILE_NAME);
 	tasprintf(&s_info.rsa_file_name, "%s", rsa_path);
-	tasprintf(&s_info.config_full_path, "%s%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY);
+	tasprintf(&s_info.config_full_path, "%s%s", app_get_data_path(), CONFIG_DIRECTORY);
 	struct stat st = { 0 };
 	if (stat(s_info.config_full_path, &st) == -1) {
 		mkdir(s_info.config_full_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
@@ -3803,18 +3803,18 @@ void parse_config(void)
 		//printf("File successfully deleted\n");
 	}
 
-	tasprintf(&s_info.downloads_directory, "%s%s/%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY, DOWNLOADS_DIRECTORY);
+	tasprintf(&s_info.downloads_directory, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, DOWNLOADS_DIRECTORY);
 
 	if (s_info.binlog_enabled) {
-		tasprintf(&s_info.binlog_file_name, "%s%s/%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY, BINLOG_FILE);
+		tasprintf(&s_info.binlog_file_name, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, BINLOG_FILE);
 		tgl_set_binlog_mode(s_info.TLS, 1);
 		tgl_set_binlog_path(s_info.TLS, s_info.binlog_file_name);
 	} else {
 		tgl_set_binlog_mode(s_info.TLS, 0);
 		//tgl_set_auth_file_path(auth_file_name;
-		tasprintf(&s_info.auth_file_name, "%s%s/%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY, AUTH_KEY_FILE);
-		tasprintf(&s_info.state_file_name, "%s%s/%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY, STATE_FILE);
-		tasprintf(&s_info.secret_chat_file_name, "%s%s/%s", DEFAULT_TELEGRAM_PATH, CONFIG_DIRECTORY, SECRET_CHAT_FILE);
+		tasprintf(&s_info.auth_file_name, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, AUTH_KEY_FILE);
+		tasprintf(&s_info.state_file_name, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, STATE_FILE);
+		tasprintf(&s_info.secret_chat_file_name, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, SECRET_CHAT_FILE);
 	}
 	tgl_set_download_directory(s_info.TLS, s_info.downloads_directory);
 	if (!mkdir(s_info.downloads_directory, CONFIG_DIRECTORY_MODE)) {
@@ -3832,7 +3832,7 @@ void running_for_first_time(void)
 	}
 
 	if (str_empty(s_info.config_directory)) {
-		s_info.config_directory = strdup(DEFAULT_TELEGRAM_PATH); // specific path for tizen application.
+		s_info.config_directory = strdup(app_get_data_path()); // specific path for tizen application.
 	}
 
 	struct stat st = {0};

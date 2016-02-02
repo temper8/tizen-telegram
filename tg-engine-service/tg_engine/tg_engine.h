@@ -63,11 +63,7 @@
 #define DOWNLOADS_DIRECTORY "downloads"
 #define BINLOG_FILE "binlog"
 #define RSA_KEY_FILE "tg-server.pub"
-#define DEFAULT_TELEGRAM_PATH "/opt/usr/media/telegram/"
-//#define DEFAULT_TELEGRAM_PATH "/opt/usr/apps/"PACKAGE"/"          /*app_get_data_path()*/
-//#define DEFAULT_TELEGRAM_PATH app_get_external_data_path()
-//#define DEFAULT_TG_DATABASE_PATH DEFAULT_TELEGRAM_PATH"tg_data_base.db"
-#define DEFAULT_TG_DATABASE_PATH "/opt/usr/media/telegram/tg_data_base.db"
+
 #define TELEGRAM_CLI_VERSION "1.0.0"
 #define CONFIG_DIRECTORY_MODE 0700
 #define DEFAULT_RSA_FILE_NAME "server.pub"
@@ -75,6 +71,7 @@
 #define TELEGRAM_CLI_APP_HASH "8b5082937b2eb8814559291b93caa8a5"
 #define TELEGRAM_CLI_APP_ID 26793
 
+#define DB_FILENAME "tg_data_base.db"
 #ifndef PATH_MAX
 #define PATH_MAX 4096
 #endif

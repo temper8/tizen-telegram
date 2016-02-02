@@ -2259,7 +2259,16 @@ Eina_List *get_messages_from_message_table_order_by(char* table_name, const char
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, order_column, is_asc, NULL, limit, offset);
+	char* where_clause = NULL;
+	char mark_delete_str[50];
+	sprintf(mark_delete_str, "%d", 1);
+	where_clause = (char*)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" != ") + strlen(mark_delete_str) + 1);
+	strcpy(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE);
+	strcat(where_clause, " != ");
+	strcat(where_clause, mark_delete_str);
+
+	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, order_column, is_asc, where_clause, limit, offset);
+	free(where_clause);
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
@@ -4368,7 +4377,7 @@ Eina_Bool mark_all_records_for_deletion(char *tablename)
 
 	char* err_msg = 0;
 	int ret;
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
 	if (ret != SQLITE_OK) {
@@ -4451,7 +4460,7 @@ Eina_Bool delete_date_messages_from_table(char *tablename)
 	strcat(var_query, ";");
 	int ret;
 	char* err_msg = 0;
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
 	if (ret != SQLITE_OK) {

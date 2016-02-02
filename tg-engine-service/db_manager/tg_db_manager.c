@@ -28,23 +28,29 @@ int errno;
 
 static struct _info {
 	sqlite3 *db;
-	const char *database_name;
 } s_info = {
 	.db = NULL,
-	.database_name = DEFAULT_TG_DATABASE_PATH,
 };
 
-sqlite3* create_database(char* database_name)
+sqlite3* create_database()
 {
-	if (!database_name)
-		return NULL;
-
 	int ret;
-	sqlite3 *db = NULL;
-	ret = sqlite3_open(database_name, &db);
+	sqlite3 *db;
+	char *dbfile;
+	int dbfile_len;
+
+	dbfile_len = strlen(app_get_data_path()) + strlen(DB_FILENAME) + 1;
+
+	dbfile = malloc(dbfile_len + 1);
+	snprintf(dbfile, dbfile_len, "%s" DB_FILENAME, app_get_data_path());
+
+	ret = sqlite3_open(dbfile, &db);
+
+	free(dbfile);
+
 	sqlite3_busy_timeout(db, 3000);
 	//ret = sqlite3_open_v2(database_name, &db, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE, NULL);
-	if (ret) {
+	if(ret) {
 		return NULL;
 	}
 	return db;
@@ -95,7 +101,7 @@ Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		return EINA_FALSE;
 	}
 
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 
 	int ret = 0 ;
 	char* err_msg = 0;
@@ -140,7 +146,7 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		return EINA_FALSE;
 	}
 
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	int ret = 0 ;
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
@@ -231,7 +237,7 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		return EINA_FALSE;
 	}
 
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 
 	int ret = 0 ;
 	char* err_msg = 0;
@@ -312,7 +318,7 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 		return EINA_FALSE;
 	}
 
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	/*****No rows identification*****/
 
 	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
@@ -345,7 +351,7 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);
 
-	db = create_database(DEFAULT_TG_DATABASE_PATH);
+	db = create_database();
 
 	int str_len = strlen("SELECT ") + 1;
 	char* var_query = (char*)malloc(str_len);
@@ -410,7 +416,7 @@ Eina_List *get_values_from_table_sync(const char* table_name, Eina_List* column_
 		return (Eina_List *)NULL;
 	}
 
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	/*****No rows identification*****/
 
 	char* row_cnt_qry = (char *)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
@@ -437,7 +443,7 @@ Eina_List *get_values_from_table_sync(const char* table_name, Eina_List* column_
 	}
 
 	/********************************/
-	db = create_database(DEFAULT_TG_DATABASE_PATH);
+	db = create_database();
 	int ret = 0 ;
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);
@@ -531,7 +537,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 	if (!table_name) {
 		return NULL;
 	}
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	/*****No rows identification*****/
 
 	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + strlen(";") +1);
@@ -558,7 +564,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 	}
 
 	/********************************/
-	db = create_database(DEFAULT_TG_DATABASE_PATH);
+	db = create_database();
 	int ret = 0 ;
 	char* err_msg = 0;
 	//int col_count = eina_list_count(column_names);
@@ -672,7 +678,7 @@ Eina_Bool delete_record(char *tablename, const char* where_clause)
 
 	int ret;
 	char* err_msg = 0;
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
 	if (ret != SQLITE_OK) {
@@ -695,7 +701,7 @@ Eina_Bool drop_table(char *tablename)
 	strcat(var_query, ";");
 	int ret;
 	char* err_msg = 0;
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
 	close_database(db);
 	if (ret != SQLITE_OK) {
@@ -712,7 +718,7 @@ int get_number_of_rows(char* table_name, char* where_clause)
 	if (!table_name) {
 		return no_of_rows;
 	}
-	sqlite3* db = create_database(DEFAULT_TG_DATABASE_PATH);
+	sqlite3* db = create_database();
 	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + 1);
 	strcpy(row_cnt_qry, "SELECT COUNT(*) FROM ");
 	strcat(row_cnt_qry, table_name);

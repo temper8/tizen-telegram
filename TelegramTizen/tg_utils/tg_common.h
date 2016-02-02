@@ -53,9 +53,7 @@
 
 
 #define GRP_MAIN "main"
-#define DEFAULT_TELEGRAM_PATH "/opt/usr/media/telegram/"
-#define DEFAULT_TG_DATABASE_PATH "/opt/usr/media/telegram/tg_data_base.db"
-
+#define DB_FILENAME "tg_data_base.db"
 #define FM_ICON_PATH "images/"
 #define DEFAULT_PROFILE_PIC       FM_ICON_PATH"default_profile_pic.png"
 #define DEFAULT_LIST_THUMB_SINGLE_PIC      FM_ICON_PATH"telegram_list_thumb_image_single.png"
@@ -155,6 +153,7 @@
 
 #define TG_CHAT_BG_PREFERENCE "chat_view_bg"
 
+#define OLD_DIR "/opt/usr/media/telegram"
 
 #define LIST_CONTACT_ROUND_MASK_ICON FM_ICON_PATH"/info_page_pic_mask.png"
 
@@ -1172,5 +1171,7 @@ extern char *str_replace(char *orig, char *rep, char *with);
 extern Eina_Bool on_load_main_view_requested(void *data);
 
 extern void launch_tg_server(void *data);
+
+extern void recursive_dir_copy(const char *src_dir, const char *tar_dir);
 
 #endif /* TG_COMMON_H_ */

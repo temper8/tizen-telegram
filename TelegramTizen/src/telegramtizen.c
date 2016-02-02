@@ -38,6 +38,7 @@
 #include "tg_settings_view.h"
 #include "device_contacts_manager.h"
 #include "tg_search_peer_view.h"
+#include <sys/stat.h>
 
 static void free_app_data(appdata_s *app_data, Eina_Bool destroy_server);
 static int init_service(appdata_s *app);
@@ -1950,6 +1951,7 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 		int unread_msg_cnt = get_number_of_unread_messages();
 
 		if (unread_msg_cnt <= 0) {
+			badge_set_count(TELEGRAM_APP_ID, 0);
 			return result;
 		}
 
@@ -3847,6 +3849,7 @@ Eina_Bool on_load_main_view_requested(void *data)
 		launch_user_main_view_cb(ad);
 		int unread_msg_cnt = get_number_of_unread_messages();
 		if (unread_msg_cnt <= 0) {
+			badge_set_count(TELEGRAM_APP_ID, 0);
 			return ECORE_CALLBACK_CANCEL;
 		}
 
@@ -3917,10 +3920,6 @@ static void create_base_gui(appdata_s *ad)
 
 	struct stat st = {0};
 
-	if (stat(DEFAULT_TELEGRAM_PATH, &st) == -1) {
-		mkdir(DEFAULT_TELEGRAM_PATH, S_IRWXU);
-	}
-
 	ad->win = elm_win_util_standard_add(PACKAGE, PACKAGE);
 	elm_win_conformant_set(ad->win, EINA_TRUE);
 	elm_win_autodel_set(ad->win, EINA_TRUE);
@@ -3983,6 +3982,198 @@ static void create_base_gui(appdata_s *ad)
 	ucol_init();
 }
 
+
+char *build_a_path(const char *path, const char *filename)
+{
+	char *ret;
+	int len;
+
+	len = strlen(path) + strlen(filename) + 2;
+	ret = malloc(len);
+	if (!ret) {
+		return NULL;
+	}
+
+	snprintf(ret, len, "%s/%s", path, filename);
+	return ret;
+}
+
+int remove_directory(const char *path)
+{
+	DIR *d = opendir(path);
+	size_t path_len = strlen(path);
+	int r = -1;
+
+	if (d)
+	{
+		struct dirent *p;
+
+		r = 0;
+
+		while (!r && (p=readdir(d)))
+		{
+			int r2 = -1;
+			char *buf;
+			size_t len;
+
+			/* Skip the names "." and ".." as we don't want to recurse on them. */
+			if (!strcmp(p->d_name, ".") || !strcmp(p->d_name, ".."))
+			{
+				continue;
+			}
+
+			len = path_len + strlen(p->d_name) + 2;
+			buf = malloc(len);
+
+			if (buf)
+			{
+				struct stat statbuf;
+
+				snprintf(buf, len, "%s/%s", path, p->d_name);
+
+				if (!stat(buf, &statbuf))
+				{
+					if (S_ISDIR(statbuf.st_mode))
+					{
+						r2 = remove_directory(buf);
+					}
+					else
+					{
+						r2 = unlink(buf);
+					}
+				}
+
+				free(buf);
+			}
+
+			r = r2;
+		}
+
+		closedir(d);
+	}
+
+	if (!r)
+	{
+		r = rmdir(path);
+	}
+
+	return r;
+}
+
+Eina_Bool copy_file_another_dir(const char *source_file, const char *target_file)
+{
+	char ch;
+	FILE *source, *target;
+
+	source = fopen(source_file, "rb+");
+
+	if( source == NULL )
+	{
+		return EINA_FALSE;
+	}
+
+	target = fopen(target_file, "wb+");
+
+	if (target == NULL )
+	{
+		fclose(source);
+		return EINA_FALSE;
+	}
+
+	char buffer[1024] = {0};    /*Buffer to store files content*/
+
+	int size = 0;
+	while((size = fread(buffer, 1, 1024, source)) != 0)
+	{
+		fwrite(buffer, 1, size, target);
+	}
+
+	fclose(source);
+	fclose(target);
+	return EINA_TRUE;
+}
+
+void recursive_dir_copy(const char *source_dir, const char *target_dir)
+{
+	DIR *open_src;
+	struct dirent *src_files;
+	Eina_List *src_dir_stack;
+	Eina_List *tar_dir_stack;
+
+	char *src_dir;
+	char *tar_dir;
+
+
+	src_dir_stack = NULL;
+	tar_dir_stack = NULL;
+
+
+	src_dir = strdup(source_dir);
+	tar_dir = strdup(target_dir);
+
+	do {
+		open_src = opendir(src_dir);
+		while((src_files = readdir(open_src))) {
+			if (src_files->d_type == DT_DIR) {
+				// create directory
+				// push to stack
+				if (src_files->d_name[0] == '.' && (src_files->d_name[1] == '\0' || (src_files->d_name[1] == '.' && src_files->d_name[2] == '\0'))) {
+					continue;
+				}
+
+				char *temp_dest = build_a_path(tar_dir, src_files->d_name);
+				mkdir(temp_dest, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+
+				char *temp_src = build_a_path(src_dir, src_files->d_name);
+
+				src_dir_stack = eina_list_prepend(src_dir_stack, temp_src);
+				tar_dir_stack = eina_list_prepend(tar_dir_stack, temp_dest);
+
+			} else {
+				// copy file to target src_dir.
+				char *temp_src = build_a_path(src_dir, src_files->d_name);
+				char *temp_dest = build_a_path(tar_dir, src_files->d_name);
+				//int ret = rename(temp_src, temp_dest);
+				Eina_Bool ret = copy_file_another_dir(temp_src, temp_dest);
+				if (ret) {
+					// file copy success
+				} else {
+					// file copy failed.
+				}
+				free(temp_src);
+				free(temp_dest);
+			}
+		}
+
+		if (open_src) {
+			closedir(open_src);
+		}
+
+		free(src_dir);
+		free(tar_dir);
+		src_dir = eina_list_nth(src_dir_stack, 0);
+		if (src_dir) {
+			src_dir_stack = eina_list_remove(src_dir_stack, src_dir);
+		}
+		tar_dir = eina_list_nth(tar_dir_stack, 0);
+		if (tar_dir) {
+			tar_dir_stack = eina_list_remove(tar_dir_stack, tar_dir);
+		}
+	} while (src_dir != NULL);
+}
+
+Eina_Bool dirExists(const char *path)
+{
+    struct stat info;
+
+    if (stat(path, &info ) != 0)
+        return EINA_FALSE;
+    else if (info.st_mode & S_IFDIR)
+        return EINA_TRUE;
+    else
+        return EINA_FALSE;
+}
+
 static bool app_create(void *data)
 {
 	/*
@@ -3993,6 +4184,11 @@ static bool app_create(void *data)
 	 */
 
 	appdata_s *ad = data;
+	if (dirExists(OLD_DIR)) {
+		char *new_dir = app_get_data_path();
+		recursive_dir_copy(OLD_DIR, new_dir);
+		remove_directory(OLD_DIR);
+	}
 
 	tg_db_init();
 
@@ -4041,6 +4237,7 @@ app_pause(void *data)
 		app_data->s_app_visible_state = APP_STATE_IN_BACKGROUND;
 		int unread_msg_cnt = get_number_of_unread_messages();
 		if (unread_msg_cnt <= 0) {
+			badge_set_count(TELEGRAM_APP_ID, 0);
 			return;
 		}
 		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
@@ -4072,6 +4269,8 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 		if (BADGE_ERROR_NONE != err) {
 
 		}
+	} else {
+		badge_set_count(TELEGRAM_APP_ID, 0);
 	}
 	eina_list_free(app_data->country_codes_list);
 	eina_list_free(app_data->country_names_list);
