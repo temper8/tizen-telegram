@@ -1150,27 +1150,24 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 		char* tablename = get_table_name_from_number(buddy_id);
 		tg_message_s* msg = get_message_from_message_table(message_id, tablename);
 		free(tablename);
-
 		if (!msg) {
 			return NULL;
 		}
-
 		Evas_Object *item_to_display = NULL;
 		tgl_media_s *media_msg = NULL;
 		if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
 
 			Eina_Bool is_blur_image = EINA_FALSE;
 			char* img_path = NULL;
-			img_path = evas_object_data_get(entry, "img_object");
-			if (img_path == NULL) {
-				img_path = get_media_path_from_db(atoll(msg->media_id));
-				if (access(img_path, F_OK) == -1) {
-					const char *tmp;
-					tmp = ui_utils_get_resource(BLUR_BG);
-					img_path = strdup(tmp);
-					is_blur_image = EINA_TRUE;
-				}
+
+			img_path = get_media_path_from_db(atoll(msg->media_id));
+			if (access(img_path, F_OK) == -1) {
+				const char *tmp;
+				tmp = ui_utils_get_resource(BLUR_BG);
+				img_path = strdup(tmp);
+				is_blur_image = EINA_TRUE;
 			}
+
 			if (msg->media_type == tgl_message_media_document) {
 				media_msg = get_media_details_from_db(atoll(msg->media_id));
 
@@ -1222,11 +1219,9 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 			} else {
 				if (!is_blur_image) {
-
 					if (msg->media_type == tgl_message_media_photo) {
 						item_to_display = get_image_from_path(img_path, entry);
 						evas_object_data_set(entry, "image_object", (void*)item_to_display);
-
 					} else {
 						if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 
@@ -1234,8 +1229,10 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 						} else {
 							if (media_msg && media_msg->mime_type && strstr(media_msg->mime_type, "webp") != NULL) {
+								item_to_display = get_image_from_path(img_path, entry);
 								evas_object_data_set(entry, "image_object", (void*)item_to_display);
 							} else {
+								item_to_display = get_image_from_path(img_path, entry);
 								evas_object_data_set(entry, "image_object", (void*)item_to_display);
 								elm_image_animated_set(item_to_display, EINA_TRUE);
 								elm_image_animated_play_set(item_to_display, EINA_TRUE);
@@ -1341,7 +1338,6 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 				}
 			}
 		}
-
 		evas_object_data_set(entry, "media_id", (void*)strdup(msg->media_id));
 		if (item_to_display) {
 			if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL) {
@@ -1471,7 +1467,6 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 			elm_image_object_size_get(img_item, &w, &h);
 			entry_h = (318 * h) / w;
 		}
-		set_string_data(entry, "img_object", img_path);
 		free(img_path);
 	} else {
 		entry_h = 200;
@@ -1966,8 +1961,6 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									entry_h = (318 * h) / w;
 									Eina_Strbuf *buf = eina_strbuf_new();
 									char image[256] = {0,};
-
-									set_string_data(entry, "img_object", file_path);
 									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
 									eina_strbuf_append(buf, image);
 									elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
@@ -1985,7 +1978,6 @@ void on_media_download_completed(appdata_s* ad, int buddy_id, long long media_id
 									int w, h, entry_h;
 									elm_image_object_size_get(img_item, &w, &h);
 									entry_h = (318 * h) / w;
-									set_string_data(entry, "img_object", file_path);
 									Eina_Strbuf *buf = eina_strbuf_new();
 									char image[256] = {0,};
 									snprintf(image, sizeof(image) - 1, "<item size=318x%d vsize=full href=itemprovider></item>", entry_h);
@@ -2364,6 +2356,17 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		int online_members = 0;
 
 		Eina_List *names_of_buddies = NULL;
+		names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
+
+		if(names_of_buddies != NULL){
+				buddies_info *buddy = NULL;
+				EINA_LIST_FREE(names_of_buddies, buddy) {
+					if (buddy) {
+						if(buddy->name) free(buddy->name);
+					}
+				}
+				names_of_buddies = NULL;
+			}
 
 		for (int i = 0; i < user_list_size; i++) {
 

@@ -3155,7 +3155,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 				doc_prop->mime_type = img_details->mime_type;
 			}
 
-			if (strstr(img_details->doc_type && img_details->doc_type, "video") != NULL) {
+			if (img_details->doc_type && strstr(img_details->doc_type, "video") != NULL) {
 				doc_prop->flags =  FLAG_DOCUMENT_VIDEO;
 			} else if (img_details->doc_type && strstr(img_details->doc_type, "audio") != NULL) {
 				doc_prop->flags =  FLAG_DOCUMENT_AUDIO;
