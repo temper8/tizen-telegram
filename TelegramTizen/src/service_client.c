@@ -186,15 +186,15 @@ static void _on_message_received_cb(int port_id,
 		void *user_data)
 {
 	DBG("Received message from port %d", port_id);
-	RETM_IF(!user_data, "user_data is NULL");
+	//RETM_IF(!user_data, "user_data is NULL");
 	service_client *service_cl = user_data;
 	int res = _service_client_set_remote_data(service_cl, rem_app_name, rem_port_name);
-	RETM_IF(res != SVC_RES_OK, "Failed to set remote data to message port");
+	//RETM_IF(res != SVC_RES_OK, "Failed to set remote data to message port");
 
 	if (service_cl->cb_func) {
 		res = service_cl->cb_func(service_cl->cb_data, rec_msg);
-		RETM_IF(res != SVC_RES_OK, "Message port callback function failed");
+		//RETM_IF(res != SVC_RES_OK, "Message port callback function failed");
 	} else {
-		DBG("Message port callback function not set");
+		//DBG("Message port callback function not set");
 	}
 }
