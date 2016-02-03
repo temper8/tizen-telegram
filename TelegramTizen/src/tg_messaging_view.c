@@ -1207,9 +1207,12 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 				} else {
 					if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
-
-						item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
-
+						char *thumb_path = get_video_thumb_path_from_db(media_msg->media_id);
+						if (!thumb_path) {
+							thumb_path = strdup(ui_utils_get_resource(BLUR_BG));
+						}
+						item_to_display = get_media_layout_with_play(thumb_path, entry, EINA_TRUE);
+						free(thumb_path);
 					} else {
 						item_to_display = get_image_from_path(img_path, entry);
 						elm_image_animated_set(item_to_display, EINA_TRUE);
@@ -1225,7 +1228,13 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 					} else {
 						if (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) {
 
-							item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
+							//item_to_display = get_media_layout_with_play(img_path, entry, EINA_TRUE);
+							char *thumb_path = get_video_thumb_path_from_db(media_msg->media_id);
+							if (!thumb_path) {
+								thumb_path = strdup(ui_utils_get_resource(BLUR_BG));
+							}
+							item_to_display = get_media_layout_with_play(thumb_path, entry, EINA_TRUE);
+							free(thumb_path);
 
 						} else {
 							if (media_msg && media_msg->mime_type && strstr(media_msg->mime_type, "webp") != NULL) {
@@ -1255,7 +1264,13 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 						img_item = get_image_from_path(img_path, entry);
 					} else {
 						if ((media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "video") != NULL) || (media_msg && media_msg->doc_type && strstr(media_msg->doc_type, "audio") != NULL)) {
-							img_item = get_media_layout_with_play(img_path, entry, EINA_FALSE);
+							//img_item = get_media_layout_with_play(img_path, entry, EINA_FALSE);
+							char *thumb_path = get_video_thumb_path_from_db(media_msg->media_id);
+							if (!thumb_path) {
+								thumb_path = strdup(ui_utils_get_resource(BLUR_BG));
+							}
+							img_item = get_media_layout_with_play(thumb_path, entry, EINA_FALSE);
+							free(thumb_path);
 						} else {
 							img_item = get_image_from_path(img_path, entry);
 						}
