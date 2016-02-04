@@ -1238,7 +1238,10 @@ static Evas_Object * item_provider(void *data, Evas_Object *entry, const char *i
 
 						} else {
 							if (media_msg && media_msg->mime_type && strstr(media_msg->mime_type, "webp") != NULL) {
-								item_to_display = get_image_from_path(img_path, entry);
+								char *tmp = ui_utils_get_resource(BROKEN_IMAGE);
+								//item_to_display = get_image_from_path(img_path, entry);
+								// To be fixed
+								item_to_display = get_image_from_path(tmp, entry);
 								evas_object_data_set(entry, "image_object", (void*)item_to_display);
 							} else {
 								item_to_display = get_image_from_path(img_path, entry);
@@ -1469,7 +1472,11 @@ static void _create_image_item(tg_message_s *msg, Evas_Object *entry, char *imag
 
 	if (img_path) {
 		if (strstr(img_path, ".webp") != NULL) {
-			img_item = get_image_from_path(img_path, entry);
+			char *tmp = ui_utils_get_resource(BROKEN_IMAGE);
+			LOGE("broken image(webp): %s", tmp);
+			// To Be Fixed.
+			//img_item = get_image_from_path(img_path, entry);
+			img_item = get_image_from_path(tmp, entry);
 			entry_h = 200;
 		} else {
 			if (msg->media_type == tgl_message_media_document) {
@@ -2377,10 +2384,13 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				buddies_info *buddy = NULL;
 				EINA_LIST_FREE(names_of_buddies, buddy) {
 					if (buddy) {
-						if(buddy->name) free(buddy->name);
+						if(buddy->name) {
+							free(buddy->name);
+						}
 					}
 				}
 				names_of_buddies = NULL;
+				evas_object_data_set(ad->nf, "names_of_buddies", NULL);
 			}
 
 		for (int i = 0; i < user_list_size; i++) {
@@ -3657,16 +3667,14 @@ static Eina_Bool _pop_cb(void *data, Elm_Object_Item *it)
 	}
 	Eina_List *names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
 
-	if(names_of_buddies != NULL){
-		buddies_info *buddy = NULL;
-		EINA_LIST_FREE(names_of_buddies, buddy) {
-			if (buddy) {
-				if(buddy->name) free(buddy->name);
-			}
+	buddies_info *buddy = NULL;
+	EINA_LIST_FREE(names_of_buddies, buddy) {
+		if (buddy) {
+			free(buddy->name);
 		}
-		names_of_buddies = NULL;
 	}
-
+	eina_list_free(names_of_buddies);
+	evas_object_data_set(ad->nf, "names_of_buddies", NULL);
 	return EINA_TRUE;
 }
 
@@ -3774,6 +3782,9 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_show(layout);
 
 	peer_with_pic_s *sel_item =  eina_list_nth(ad->peer_list, user_id);
+	if (!sel_item)
+		return;
+
 	tg_peer_info_s* user = sel_item->use_data;
 
 	/*************************** START: message list ************************************/
@@ -3952,11 +3963,13 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 				snprintf(temp_name, 512, "%s", "unknown");
 			}
 		} else {
-			snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+			if (phone_num) {
+				snprintf(temp_name, 512, "%s", phone_num);
+			} else {
+				snprintf(temp_name, 512, "%s", "unknown");
+			}
 		}
 		free(phone_num);
-
-
 	} else {
 		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
 		snprintf(temp_name, 512, "%s", user_name);

@@ -586,6 +586,28 @@ void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event_info)
 				break;
 			}
 		}
+
+		if (buddy_id == -1) {
+			load_peer_data(ad);
+			for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
+				peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
+				tg_peer_info_s* item = pic_item->use_data;
+
+				if (item->peer_id == sel_item->peer_id) {
+					ad->peer_in_cahtting_data = pic_item;
+					buddy_id = i;
+					break;
+				}
+			}
+		}
+
+		if (buddy_id == -1) {
+			show_toast(ad, "unable to get buddy info.");
+			ad->buddy_in_cahtting_data = NULL;
+			ad->peer_in_cahtting_data = NULL;
+			return;
+		}
+
 		ad->main_item_in_cahtting_data = sel_item;
 #if 0
 		if (ad->panel) {

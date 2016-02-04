@@ -157,6 +157,8 @@
 
 #define LIST_CONTACT_ROUND_MASK_ICON FM_ICON_PATH"/info_page_pic_mask.png"
 
+#define BROKEN_IMAGE FM_ICON_PATH"/T01_Nocontents_broken.png"
+
 #define TG_LIST_OF_COUNTIRES FM_ICON_PATH"countries.txt"
 
 
