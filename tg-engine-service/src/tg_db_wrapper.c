@@ -5281,6 +5281,59 @@ Eina_Bool is_user_present_buddy_table(int peer_id)
 	return ret;
 }
 
+
+Eina_List* get_chat_ids_to_be_deleted()
+{
+	Eina_List* peer_details = NULL;
+	char *table_name = PEER_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_CHAT_ID);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	char peer_type_str[50];
+	sprintf(peer_type_str, "%d", 2);
+
+	char unknown_str[50];
+	sprintf(unknown_str, "%d", 1);
+
+	char* where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_PEER_TYPE) + strlen(" = ") + strlen(peer_type_str) + strlen(" AND ") + strlen(USER_INFO_TABLE_IS_UNKNOWN_PEER) + strlen(" = ") + strlen(unknown_str) + 1);
+	strcpy(where_clause, PEER_INFO_TABLE_PEER_TYPE);
+	strcat(where_clause, " = ");
+	strcat(where_clause, peer_type_str);
+	strcat(where_clause, " AND ");
+	strcat(where_clause, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+	strcat(where_clause, " = ");
+	strcat(where_clause, unknown_str);
+	peer_details = get_values_from_table_sync(table_name, col_names, col_types, where_clause);
+	free(where_clause);
+
+	Eina_List *chat_id_list = NULL;
+
+	if (peer_details) {
+		for (int i = 0; i < eina_list_count(peer_details) ; i++) {
+			Eina_List* id_list = eina_list_nth(peer_details, i);
+			int chat_id = -1;
+			if (id_list && eina_list_count(id_list) > 0) {
+				int *temp_msg_id = (int*)eina_list_nth(id_list, 0);
+				if (temp_msg_id) {
+					chat_id  = *temp_msg_id;
+					chat_id_list = eina_list_append(chat_id_list, (void*)chat_id);
+					free(temp_msg_id);
+				}
+				eina_list_free(id_list);
+			}
+		}
+		eina_list_free(peer_details);
+	}
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+
+	return chat_id_list;
+}
+
+
 Eina_Bool is_user_present_peer_table(int peer_id)
 {
 	Eina_Bool ret = EINA_FALSE;

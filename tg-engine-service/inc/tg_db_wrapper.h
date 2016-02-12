@@ -294,4 +294,6 @@ Eina_List* get_all_message_ids_from_table(char *table_name);
 
 Eina_Bool delete_message_from_table(char *tablename, int msg_id);
 
+Eina_List* get_chat_ids_to_be_deleted();
+
 #endif /* TG_DB_WRAPPER_H_ */

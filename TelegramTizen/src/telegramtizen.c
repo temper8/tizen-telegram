@@ -487,6 +487,11 @@ void load_main_list_data(appdata_s *ad)
 		if (item) {
 			tg_peer_info_s* peer_info = item->use_data;
 			if (peer_info) {
+
+				if (peer_info->peer_type == TGL_PEER_CHAT && peer_info->is_unknown == 1) {
+					continue;
+				}
+
 				//if (peer_info->last_msg_id > 0) {
 
 					// get message from message table.
@@ -4107,7 +4112,6 @@ void recursive_dir_copy(const char *source_dir, const char *target_dir)
 	src_dir_stack = NULL;
 	tar_dir_stack = NULL;
 
-
 	src_dir = strdup(source_dir);
 	tar_dir = strdup(target_dir);
 
@@ -4162,6 +4166,27 @@ void recursive_dir_copy(const char *source_dir, const char *target_dir)
 	} while (src_dir != NULL);
 }
 
+void move_downloaded_files()
+{
+	// create download directory.
+	struct stat st = {0};
+	char dest_download_dir[512] = {0,};
+	sprintf(dest_download_dir, "%s/%s", app_get_shared_data_path(), "downloads");
+	if (stat(dest_download_dir, &st) == -1) {
+		mkdir(dest_download_dir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+	}
+
+	LOGE("dest Download directory: %s", dest_download_dir);
+	// create download directory.
+	char target_download_dir[512] = {0,};
+	sprintf(target_download_dir, "%s/%s/%s", app_get_data_path(), "telegram_tizen", "downloads");
+
+	LOGE("target Download directory: %s", target_download_dir);
+	recursive_dir_copy(target_download_dir, dest_download_dir);
+	remove_directory(target_download_dir);
+}
+
+
 Eina_Bool dirExists(const char *path)
 {
     struct stat info;
@@ -4172,6 +4197,320 @@ Eina_Bool dirExists(const char *path)
         return EINA_TRUE;
     else
         return EINA_FALSE;
+}
+
+void update_downloaded_video_thumb_paths_in_media_info_table()
+{
+	LOGE("Update media info table thumb files");
+	char *table_name = MEDIA_INFO_TABLE_NAME;
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_ID);
+	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE);
+
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, NULL, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
+	int val_size = eina_list_count(vals);
+	if (vals && val_size > 0) {
+		for (int i = 0; i < val_size; i++) {
+			Eina_List* row_vals = eina_list_nth(vals, i);
+			int user_id = 0;
+			char *file_path = NULL;
+
+			int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+			if (temp_user_id) {
+				user_id  = *temp_user_id;
+				free(temp_user_id);
+			}
+
+			file_path = (char*)eina_list_nth(row_vals, 1);
+
+			if (file_path) {
+				if (strlen(file_path) > 0 && strncmp(file_path, "/opt/usr/media/telegram/telegram_tizen", strlen("/opt/usr/media/telegram/telegram_tizen")) == 0) {
+					// update file name in db
+					char *new_path = str_replace(new_path, "/opt/usr/media/telegram/telegram_tizen", app_get_shared_data_path());
+					if (!new_path)
+						continue;
+					LOGE("Old file path: %s", file_path);
+					LOGE("New file path: %s", new_path);
+
+					//update database.
+					Eina_List* new_col_types = NULL;
+					new_col_types = eina_list_append(new_col_types, TG_DB_COLUMN_TEXT);
+
+					Eina_List* new_col_names = NULL;
+					new_col_names = eina_list_append(new_col_names, MEDIA_INFO_TABLE_DOCUMENT_THUMB_FILE);
+
+					Eina_List* new_col_values = NULL;
+					new_col_values = eina_list_append(new_col_values, new_path);
+
+					char* where_clause = NULL;
+					char usr_str[50];
+					sprintf(usr_str, "%d", user_id);
+					where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
+					strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
+					strcat(where_clause, " = ");
+					strcat(where_clause, usr_str);
+
+					Eina_Bool ret = update_table(table_name, new_col_names, new_col_types, new_col_values, where_clause);
+
+					if (!ret) {
+						LOGE("Media info table update failed.");
+					} else {
+						LOGE("Media info table update success.");
+					}
+					free(where_clause);
+					eina_list_free(new_col_types);
+					eina_list_free(new_col_names);
+					eina_list_free(new_col_values);
+				}
+
+				free(file_path);
+			}
+
+			eina_list_free(row_vals);
+		}
+	}
+	eina_list_free(col_types);
+	eina_list_free(col_names);
+}
+
+
+void update_downloaded_file_paths_in_media_info_table()
+{
+	LOGE("Update media info table");
+	char *table_name = MEDIA_INFO_TABLE_NAME;
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_MEDIA_ID);
+	col_names = eina_list_append(col_names, MEDIA_INFO_TABLE_FILE_PATH);
+
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, NULL, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
+	int val_size = eina_list_count(vals);
+	if (vals && val_size > 0) {
+		for (int i = 0; i < val_size; i++) {
+			Eina_List* row_vals = eina_list_nth(vals, i);
+			int user_id = 0;
+			char *file_path = NULL;
+
+			int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+			if (temp_user_id) {
+				user_id  = *temp_user_id;
+				free(temp_user_id);
+			}
+
+			file_path = (char*)eina_list_nth(row_vals, 1);
+
+			if (file_path) {
+				if (strlen(file_path) > 0 && strncmp(file_path, "/opt/usr/media/telegram/telegram_tizen", strlen("/opt/usr/media/telegram/telegram_tizen")) == 0) {
+					// update file name in db
+
+					char *new_path = str_replace(new_path, "/opt/usr/media/telegram/telegram_tizen", app_get_shared_data_path());
+					if (!new_path)
+						continue;
+					LOGE("Old file path: %s", file_path);
+					LOGE("New file path: %s", new_path);
+
+					//update database.
+					Eina_List* new_col_types = NULL;
+					new_col_types = eina_list_append(new_col_types, TG_DB_COLUMN_TEXT);
+
+					Eina_List* new_col_names = NULL;
+					new_col_names = eina_list_append(new_col_names, MEDIA_INFO_TABLE_FILE_PATH);
+
+					Eina_List* new_col_values = NULL;
+					new_col_values = eina_list_append(new_col_values, new_path);
+
+					char* where_clause = NULL;
+					char usr_str[50];
+					sprintf(usr_str, "%d", user_id);
+					where_clause = (char*)malloc(strlen(MEDIA_INFO_TABLE_MEDIA_ID) + strlen(" = ") + strlen(usr_str) + 1);
+					strcpy(where_clause, MEDIA_INFO_TABLE_MEDIA_ID);
+					strcat(where_clause, " = ");
+					strcat(where_clause, usr_str);
+
+					Eina_Bool ret = update_table(table_name, new_col_names, new_col_types, new_col_values, where_clause);
+
+					if (!ret) {
+						LOGE("Media info table update failed.");
+					} else {
+						LOGE("Media info table update success.");
+					}
+					free(where_clause);
+					eina_list_free(new_col_types);
+					eina_list_free(new_col_names);
+					eina_list_free(new_col_values);
+				}
+
+				free(file_path);
+			}
+
+			eina_list_free(row_vals);
+		}
+	}
+	eina_list_free(col_types);
+	eina_list_free(col_names);
+}
+
+
+void update_downloaded_file_paths_in_chat_info_table()
+{
+	LOGE("Update chat info table");
+	char *table_name = CHAT_INFO_TABLE_NAME;
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_CHAT_ID);
+	col_names = eina_list_append(col_names, CHAT_INFO_TABLE_PHOTO_PATH);
+
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, NULL, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
+	int val_size = eina_list_count(vals);
+	if (vals && val_size > 0) {
+		for (int i = 0; i < val_size; i++) {
+			Eina_List* row_vals = eina_list_nth(vals, i);
+			int user_id = 0;
+			char *file_path = NULL;
+
+			int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+			if (temp_user_id) {
+				user_id  = *temp_user_id;
+				free(temp_user_id);
+			}
+
+			file_path = (char*)eina_list_nth(row_vals, 1);
+
+			if (file_path) {
+				if (strlen(file_path) > 0 && strncmp(file_path, "/opt/usr/media/telegram/telegram_tizen", strlen("/opt/usr/media/telegram/telegram_tizen")) == 0) {
+					// update file name in db
+					char *new_path = str_replace(file_path, "/opt/usr/media/telegram/telegram_tizen", app_get_shared_data_path());
+					if (!new_path)
+						continue;
+					LOGE("Old file path: %s", file_path);
+					LOGE("New file path: %s", new_path);
+
+					//update database.
+					Eina_List* new_col_types = NULL;
+					new_col_types = eina_list_append(new_col_types, TG_DB_COLUMN_TEXT);
+
+					Eina_List* new_col_names = NULL;
+					new_col_names = eina_list_append(new_col_names, CHAT_INFO_TABLE_PHOTO_PATH);
+
+					Eina_List* new_col_values = NULL;
+					new_col_values = eina_list_append(new_col_values, new_path);
+
+					char* where_clause = NULL;
+					char usr_str[50];
+					sprintf(usr_str, "%d", user_id);
+					where_clause = (char*)malloc(strlen(CHAT_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(usr_str) + 1);
+					strcpy(where_clause, CHAT_INFO_TABLE_CHAT_ID);
+					strcat(where_clause, " = ");
+					strcat(where_clause, usr_str);
+
+					Eina_Bool ret = update_table(table_name, new_col_names, new_col_types, new_col_values, where_clause);
+
+					if (!ret) {
+						LOGE("Chat info table update failed.");
+					} else {
+						LOGE("Chat info table update success.");
+					}
+					free(where_clause);
+					eina_list_free(new_col_types);
+					eina_list_free(new_col_names);
+					eina_list_free(new_col_values);
+				}
+
+				free(file_path);
+			}
+
+			eina_list_free(row_vals);
+		}
+	}
+	eina_list_free(col_types);
+	eina_list_free(col_names);
+}
+
+void update_downloaded_file_paths_in_buddy_info_table(const char *table_name)
+{
+	LOGE("Update %s", table_name);
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_USER_ID);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_PHOTO_PATH);
+
+	Eina_List* vals = get_values_from_table_sync(table_name, col_names, col_types, NULL, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
+	int val_size = eina_list_count(vals);
+	if (vals && val_size > 0) {
+		for (int i = 0; i < val_size; i++) {
+			Eina_List* row_vals = eina_list_nth(vals, i);
+			int user_id = 0;
+			char *file_path = NULL;
+
+			int *temp_user_id = (int*)eina_list_nth(row_vals, 0);
+			if (temp_user_id) {
+				user_id  = *temp_user_id;
+				free(temp_user_id);
+			}
+
+			file_path = (char*)eina_list_nth(row_vals, 1);
+
+			if (file_path) {
+				if (strlen(file_path) > 0 && strncmp(file_path, "/opt/usr/media/telegram/telegram_tizen", strlen("/opt/usr/media/telegram/telegram_tizen")) == 0) {
+					// update file name in db
+					char *new_path = str_replace(file_path, "/opt/usr/media/telegram/telegram_tizen", app_get_shared_data_path());
+					if (!new_path)
+						continue;
+					LOGE("Old file path: %s", file_path);
+					LOGE("New file path: %s", new_path);
+
+					//update database.
+					Eina_List* new_col_types = NULL;
+					new_col_types = eina_list_append(new_col_types, TG_DB_COLUMN_TEXT);
+
+					Eina_List* new_col_names = NULL;
+					new_col_names = eina_list_append(new_col_names, USER_INFO_TABLE_PHOTO_PATH);
+
+					Eina_List* new_col_values = NULL;
+					new_col_values = eina_list_append(new_col_values, new_path);
+
+					char* where_clause = NULL;
+					char usr_str[50];
+					sprintf(usr_str, "%d", user_id);
+					where_clause = (char*)malloc(strlen(USER_INFO_TABLE_USER_ID) + strlen(" = ") + strlen(usr_str) + 1);
+					strcpy(where_clause, USER_INFO_TABLE_USER_ID);
+					strcat(where_clause, " = ");
+					strcat(where_clause, usr_str);
+
+					Eina_Bool ret = update_table(table_name, new_col_names, new_col_types, new_col_values, where_clause);
+
+					if (!ret) {
+						LOGE("Buddy info table update failed.");
+					} else {
+						LOGE("Buddy info table update success.");
+					}
+					free(where_clause);
+					eina_list_free(new_col_types);
+					eina_list_free(new_col_names);
+					eina_list_free(new_col_values);
+				}
+
+				free(file_path);
+			}
+
+			eina_list_free(row_vals);
+		}
+	}
+	eina_list_free(col_types);
+	eina_list_free(col_names);
 }
 
 static bool app_create(void *data)
@@ -4188,6 +4527,14 @@ static bool app_create(void *data)
 		char *new_dir = app_get_data_path();
 		recursive_dir_copy(OLD_DIR, new_dir);
 		remove_directory(OLD_DIR);
+		move_downloaded_files();
+		// update downloaded image paths in DB
+		update_downloaded_file_paths_in_buddy_info_table(BUDDY_INFO_TABLE_NAME);
+		update_downloaded_file_paths_in_buddy_info_table(USER_INFO_TABLE_NAME);
+		update_downloaded_file_paths_in_buddy_info_table(PEER_INFO_TABLE_NAME);
+		update_downloaded_file_paths_in_chat_info_table();
+		update_downloaded_file_paths_in_media_info_table();
+		update_downloaded_video_thumb_paths_in_media_info_table();
 	}
 
 	tg_db_init();

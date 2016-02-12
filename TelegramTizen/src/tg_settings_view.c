@@ -445,8 +445,6 @@ void on_chat_bg_change_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		app_control_set_mime(app_control, "image/jpg");
 		app_control_send_launch_request(app_control, &on_chat_bg_select_result_cb, ad);
 	} else {
-		app_control_set_launch_mode(app_control, APP_CONTROL_LAUNCH_MODE_GROUP);
-		app_control_set_app_id(app_control, "ug-gallery-efl");
 		app_control_set_operation(app_control, APP_CONTROL_OPERATION_PICK);
 		app_control_set_mime(app_control, "image/*");
 		app_control_send_launch_request(app_control, &on_chat_bg_select_result_cb, ad);

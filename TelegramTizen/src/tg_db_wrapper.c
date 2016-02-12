@@ -4470,3 +4470,43 @@ Eina_Bool delete_date_messages_from_table(char *tablename)
 	free(var_query);
 	return EINA_TRUE;
 }
+
+Eina_Bool mark_group_chat_as_unknown(int chat_id)
+{
+
+	char *table_name = PEER_INFO_TABLE_NAME;
+
+	Eina_List* col_names = NULL;
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	Eina_List* col_values = NULL;
+	int un_read_res = 1;
+	col_values = eina_list_append(col_values, &(un_read_res));
+
+	char* where_clause = NULL;
+	char usr_str[50];
+
+	sprintf(usr_str, "%d", chat_id);
+	where_clause = (char*)malloc(strlen(PEER_INFO_TABLE_CHAT_ID) + strlen(" = ") + strlen(usr_str) + 1);
+	strcpy(where_clause, PEER_INFO_TABLE_CHAT_ID);
+	strcat(where_clause, " = ");
+	strcat(where_clause, usr_str);
+
+	Eina_Bool ret = update_table(table_name, col_names, col_types, col_values, where_clause);
+
+	if (!ret) {
+		//("error: database creation failed");
+	} else {
+
+	}
+
+	free(where_clause);
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	eina_list_free(col_values);
+
+	return EINA_TRUE;
+}

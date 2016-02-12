@@ -130,7 +130,20 @@ Eina_List* get_contact_list_from_device_db()
 					// check contact exist in buddylist
 					Eina_Bool is_tg_contact = EINA_FALSE;
 					if (contact_data->phone_number) {
-						is_tg_contact = is_phone_number_exists_in_buddy_list(contact_data->phone_number);
+						char *temp_phone = NULL;
+						if (contact_data->phone_number[0] == '0') {
+							temp_phone = (char*)malloc(strlen(contact_data->phone_number));
+							int i = 0, j = 1;
+							for (;contact_data->phone_number[j] != '\0'; j++, i++) {
+								temp_phone[i] = contact_data->phone_number[j];
+							}
+							temp_phone[i] = '\0';
+						} else {
+							temp_phone = strdup(contact_data->phone_number);
+						}
+						LOGE("buddy phone number: %s", temp_phone);
+						is_tg_contact = is_phone_number_exists_in_buddy_list(temp_phone);
+						free(temp_phone);
 					}
 
 					if (contact_data->phone_number == NULL || is_tg_contact) {

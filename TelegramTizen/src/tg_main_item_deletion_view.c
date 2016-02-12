@@ -19,6 +19,7 @@
 #include "tg_main_item_deletion_view.h"
 #include "tg_user_main_view.h"
 #include "tg_db_manager.h"
+#include "tg_db_wrapper.h"
 #include "server_requests.h"
 
 static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
@@ -301,41 +302,20 @@ void on_delete_selected_items_clicked(void *data, Evas_Object *object, void *eve
 		if (sel_item && sel_item->is_selected) {
 			if (sel_item->peer_type == TGL_PEER_USER) {
 				char* tablename = get_table_name_from_number(sel_item->peer_id);
-				delete_all_records(tablename);
+				//delete_all_records(tablename);
+				mark_all_records_for_deletion(tablename);
+				// delete date messages
+				delete_date_messages_from_table(tablename);
 				free(tablename);
-#if 0
-				// delete from main list
-				if (sel_item->peer_print_name) {
-					free(sel_item->peer_print_name);
-					sel_item->peer_print_name = NULL;
-				}
-				if (sel_item->last_message) {
-					free(sel_item->last_message);
-					sel_item->last_message = NULL;
-				}
-				if (sel_item->profile_pic_path) {
-					free(sel_item->profile_pic_path);
-					sel_item->profile_pic_path = NULL;
-				}
-				sel_item->date_lbl = NULL;
-				sel_item->msg_status_lbl = NULL;
-				sel_item->main_item_layout = NULL;
-				sel_item->profile_pic = NULL;
-				sel_item->profile_pic_path = NULL;
-				sel_item->status_lbl = NULL;
-				sel_item->user_name_lbl = NULL;
-				//ad->main_list
-				ad->main_list = eina_list_remove(ad->main_list, sel_item);
-#endif
+				send_delete_all_messages_request(ad, ad->service_client, sel_item->peer_id, sel_item->peer_type);
 			} else if (sel_item->peer_type == TGL_PEER_CHAT) {
+				// mark group chat as unknown.
+				mark_group_chat_as_unknown(sel_item->peer_id);
 				sel_grp_chat = eina_list_append(sel_grp_chat, sel_item);
 			}
 			num_of_sel_items++;
 		}
 	}
-
-
-
 
 	if (num_of_sel_items <= 0) {
 		show_toast(ad, "Select items to delete.");

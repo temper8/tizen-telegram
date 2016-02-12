@@ -1997,6 +1997,25 @@ static Eina_Bool send_chat_loading_is_done_response(void *data)
 }
 #endif
 
+void delete_pending_group_chats(tg_engine_data_s *tg_data)
+{
+	Eina_List* id_list = get_chat_ids_to_be_deleted();
+	if (id_list && eina_list_count(id_list) > 0) {
+		for (int i = 0; i < eina_list_count(id_list); i++) {
+			int chat_id_val = (int)eina_list_nth(id_list, i);
+			if (chat_id_val > 0) {
+				tgl_peer_id_t chat_id;
+				chat_id.id = chat_id_val;
+				chat_id.type = TGL_PEER_CHAT;
+
+				tgl_peer_id_t self_id = tg_data->id;
+
+				tgl_do_del_user_from_chat(s_info.TLS, chat_id, self_id, NULL, NULL);
+			}
+		}
+	}
+}
+
 void on_offline_chat_received(struct tgl_state *TLS, void *callback_extra, int success, int size, struct tgl_message *list[])
 {
 	tg_engine_data_s *tg_data = TLS->callback_data;
@@ -2041,6 +2060,7 @@ void on_offline_chat_received(struct tgl_state *TLS, void *callback_extra, int s
 		}
 	}
 	if (!is_offline_msg_requested) {
+		delete_pending_group_chats(tg_data);
 		send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
 	}
 }
@@ -2145,6 +2165,7 @@ static Eina_Bool on_load_offline_messages(void *data)
 		}
 
 		if (!is_offline_msg_requested) {
+			delete_pending_group_chats(tg_data);
 			send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
 		}
 	}
@@ -3803,7 +3824,8 @@ void parse_config(void)
 		//printf("File successfully deleted\n");
 	}
 
-	tasprintf(&s_info.downloads_directory, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, DOWNLOADS_DIRECTORY);
+	//tasprintf(&s_info.downloads_directory, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, DOWNLOADS_DIRECTORY);
+	tasprintf(&s_info.downloads_directory, "%s/%s", app_get_shared_data_path(), DOWNLOADS_DIRECTORY);
 
 	if (s_info.binlog_enabled) {
 		tasprintf(&s_info.binlog_file_name, "%s%s/%s", app_get_data_path(), CONFIG_DIRECTORY, BINLOG_FILE);

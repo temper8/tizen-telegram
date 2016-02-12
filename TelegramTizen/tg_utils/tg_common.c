@@ -285,7 +285,6 @@ void launch_app_control(appdata_s *ad, char *media_type, char *url)
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_VIEW);
 	if (strstr(media_type, "video") != NULL) {
 		app_control_set_mime(app_control,"video/*");
-		app_control_set_app_id(app_control, "com.samsung.video-player-lite");
 	} else if (strstr(media_type, "audio") != NULL) {
 		app_control_set_mime(app_control,"audio/*");
 	} else if (strstr(media_type, "image") != NULL) {
