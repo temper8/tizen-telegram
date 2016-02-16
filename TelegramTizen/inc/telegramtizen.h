@@ -29,7 +29,7 @@
 #ifdef  LOG_TAG
 #undef  LOG_TAG
 #endif
-#define LOG_TAG "telegramtizen"
+#define LOG_TAG "telegram_tizen"
 
 #if !defined(PACKAGE)
 #define PACKAGE "org.tizen.telegram_tizen"

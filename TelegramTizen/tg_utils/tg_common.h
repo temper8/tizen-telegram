@@ -27,15 +27,8 @@
 #include <app_preference.h>
 #include "service_client.h"
 #include <notification.h>
+#include <telegramtizen.h>
 
-#ifdef  LOG_TAG
-#undef  LOG_TAG
-#endif
-#define LOG_TAG "telegram_tizen"
-
-#if !defined(PACKAGE)
-#define PACKAGE "org.tizen.telegram_tizen"
-#endif
 #define TELEGRAM_APP_ID "org.tizen.telegram_tizen"
 #define EDJ_REG_FILE "edje/telegram_tizen_reg.edj"
 #define EDJ_LOGIN_FILE "edje/telegram_tizen_login.edj"

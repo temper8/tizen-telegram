@@ -865,7 +865,7 @@ int insert_current_date_to_table(char* tb_name)
 		(void) localtime_r(&old_t, &old_lt);
 
 
-		int cur_time = time(NULL);
+		int cur_time = time(NULL) - 1;
 		time_t new_t = cur_time;
 
 		struct tm new_lt;
@@ -880,7 +880,7 @@ int insert_current_date_to_table(char* tb_name)
 
 			return -1;
 		} else {
-			int cur_time = time(NULL);
+			int cur_time = time(NULL) - 1;
 			time_t t = cur_time;
 #if 0
 			char *format = NULL;
@@ -923,7 +923,7 @@ int insert_current_date_to_table(char* tb_name)
 		}
 
 	} else {
-		int cur_time = time(NULL);
+		int cur_time = time(NULL) - 1;
 		time_t t = cur_time;
 #if 0
 		char *format = NULL;

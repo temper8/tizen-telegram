@@ -2179,19 +2179,25 @@ extern void on_peer_chat_info_received(struct tgl_state *TLS, void *callback_ext
 static Eina_Bool on_async_peer_info_requested(void *data)
 {
 	struct tgl_state *TLS = data;
-	if (TLS) {
-		tg_engine_data_s *tg_data = TLS->callback_data;
-		tg_data->current_chat_index = tg_data->current_chat_index + 1;
-		if (tg_data->current_chat_index < eina_list_count(tg_data->chat_list)) {
-			tgl_peer_t* UC = eina_list_nth(tg_data->chat_list, tg_data->current_chat_index);
-			if (UC) {
-				tgl_do_get_chat_info(TLS, UC->id, 0, &on_peer_chat_info_received, NULL);
-			}
-		} else {
-			//send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
-			ecore_timer_add(5, on_send_unsent_messages_requested, TLS);
-		}
+	if (!TLS)
+		return ECORE_CALLBACK_CANCEL;
+
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if (!tg_data)
+		return ECORE_CALLBACK_CANCEL;
+
+	tg_data->current_chat_index = tg_data->current_chat_index + 1;
+	if (tg_data->current_chat_index < eina_list_count(tg_data->chat_list)) {
+		tgl_peer_t* UC = eina_list_nth(tg_data->chat_list, tg_data->current_chat_index);
+		if (!UC)
+			return ECORE_CALLBACK_CANCEL;
+
+		tgl_do_get_chat_info(TLS, UC->id, 0, &on_peer_chat_info_received, NULL);
+	} else {
+		//send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
+		ecore_timer_add(5, on_send_unsent_messages_requested, TLS);
 	}
+
 	return ECORE_CALLBACK_CANCEL;
 }
 

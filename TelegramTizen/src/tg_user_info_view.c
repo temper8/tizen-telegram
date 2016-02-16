@@ -299,34 +299,46 @@ static void on_delete_selected_cb(appdata_s *ad)
 void on_user_info_menu_option_selected_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
-
-
 	Elm_Object_Item *it = event_info;
+
+	if(!ad || !it) {
+		return;
+	}
+
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 	int id = (int)elm_object_item_data_get(it);
-
 
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	tg_peer_info_s *user_data = sel_item->use_data;
 
 	if (!sel_item || !user_data) {
-		show_toast(ad, "Failed to get user info.");
 		return;
 	}
 
-	if (user_data->peer_type == TGL_PEER_USER) {
-
-		if (id == 0) {
-			on_block_selected_cb(ad);
-		} else if (id == 1) {
+	switch(id) {
+	case 0:
+		if (user_data->peer_type == TGL_PEER_USER) {
 			on_delete_selected_cb(ad);
 		} else {
 
 		}
+		break;
+	case 1:
+		show_toast(ad, i18n_get_text("IDS_TGRAM_OPT_EDIT"));
+		break;
+	case 2:
+		show_toast(ad, i18n_get_text("IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"));
+		break;
+	case 3:
+		show_toast(ad, i18n_get_text("IDS_TGRAM_OPT_SHARE"));
+		break;
+	case 4:
+		if (user_data->peer_type == TGL_PEER_USER) {
+			on_block_selected_cb(ad);
+		} else {
 
-	} else {
-
-
+		}
+		break;
 	}
 
 	if (ad->msg_popup) {
@@ -342,22 +354,30 @@ char* on_user_info_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 
 	appdata_s *ad = evas_object_data_get(obj, "app_data");
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
-	if (id == 0) {
-		if (ad && sel_item) {
-			if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
-				return strdup("UnBlock");
-			} else {
-				return strdup("Block");
-			}
-		}
 
-	} else {
-		if (ad && sel_item) {
-			if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 || get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
-				return strdup("Add");
-			} else {
-				return strdup("Delete");
-			}
+	if (!ad || !sel_item) {
+		return NULL;
+	}
+
+	switch(id) {
+	case 0:
+		if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 ||
+				get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_ADD_TO_TELEGRAM"));
+		} else {
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
+		}
+	case 1:
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_EDIT"));
+	case 2:
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB3"));
+	case 3:
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_SHARE"));
+	case 4:
+		if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_UNBLOCK"));
+		} else {
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_BLOCK"));
 		}
 	}
 	return NULL;
@@ -380,10 +400,7 @@ void on_user_info_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	}
 
 	static Elm_Genlist_Item_Class itc;
-	//Evas_Object *popup;
-	Evas_Object *box;
 	Evas_Object *genlist;
-	int i;
 	Evas_Object *win = ad->win;
 
 	ad->msg_popup = elm_popup_add(win);
@@ -392,34 +409,25 @@ void on_user_info_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	evas_object_size_hint_weight_set(ad->msg_popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	evas_object_data_set(ad->msg_popup, "app_data", ad);
-	box = elm_box_add(ad->msg_popup);
-	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-	genlist = elm_genlist_add(box);
+	genlist = elm_genlist_add(ad->msg_popup);
 	evas_object_size_hint_weight_set(genlist, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(genlist, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-	itc.item_style = "default";
-	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
-	if (sel_item->use_data->peer_type == TGL_PEER_USER) {
-		itc.func.text_get = on_user_info_menu_text_get_cb;
-
-		itc.func.content_get = NULL;
-		itc.func.state_get = NULL;
-		itc.func.del = NULL;
-
-		for (i = 0; i < 2; i++) {
-			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_user_info_menu_option_selected_cb, ad);
-		}
-
-	} else {
-
-	}
 	evas_object_data_set(genlist, "app_data", ad);
 
+	itc.item_style = "default";
+	itc.func.text_get = on_user_info_menu_text_get_cb;
+	itc.func.content_get = NULL;
+	itc.func.state_get = NULL;
+	itc.func.del = NULL;
+
+	for (int i = 0; i < 5; i++) {
+		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_user_info_menu_option_selected_cb, ad);
+	}
+
 	evas_object_show(genlist);
-	elm_box_pack_end(box, genlist);
-	elm_object_content_set(ad->msg_popup, box);
+	elm_object_content_set(ad->msg_popup, genlist);
 	evas_object_show(ad->msg_popup);
 }
 
@@ -963,7 +971,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	elm_object_item_part_content_set(navi_item, "title_left_btn", back_btn);
 
-
+	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_user_info_menu_button_clicked, ad);
 
 #endif
 }

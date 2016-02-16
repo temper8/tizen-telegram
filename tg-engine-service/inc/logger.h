@@ -20,11 +20,7 @@
 #define __LOGGER_H__
 
 #include <dlog.h>
-
-#ifdef  LOG_TAG
-#undef  LOG_TAG
-#endif
-#define LOG_TAG "hyb_service"
+#include <tg-engine-service.h>
 
 #define MODULE_INFO (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
