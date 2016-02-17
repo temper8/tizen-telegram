@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "אבגדהוזחטיכלמנסעפצקרשת"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "טוען..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "יישום העברת ההודעות %1$sהמהיר ביותר%2$s בעולם\nיישום %3$sחינמי%4$s %5$sובטוח%6$s."
 
@@ -54,9 +57,6 @@ msgstr "מבוסס ענן"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "פרטי"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "הקודם"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ביטול"
@@ -115,9 +115,6 @@ msgstr "בחר אנשי קשר"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "צ'אט קבוצתי"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "בחר הכל"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "יצירת קבוצה"
 
@@ -166,17 +163,11 @@ msgstr "חיבור הודעה"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "יצירת איש קשר"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "שם"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "שם פרטי"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "שם משפחה"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "נייד"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "מספר טלפון"
@@ -205,9 +196,6 @@ msgstr "איתורית"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "אחר"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "חיפוש"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "אנשי קשר"
 
@@ -219,9 +207,6 @@ msgstr "אין צ׳אטים"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "כדי להתחיל שיחה חדשה, הקש על לחצן 'צור קבוצה חדשה' בפינה הימנית התחתונה או לחץ על מקש התפריט כדי להציג אפשרויות נוספות."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "חיפוש"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "לא נמצאו תוצאות"
@@ -258,9 +243,6 @@ msgstr "נראה לאחרונה בחודש האחרון"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "הצג פרופיל"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "מחק"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "הגדרות התראה"
@@ -302,10 +284,7 @@ msgid "IDS_TGRAM_OPT_ADD_TO_TELEGRAM"
 msgstr "הוסף ל'מברק'"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
-msgstr "בלתי ידוע"
-
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "מחק"
+msgstr "לא ידוע"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s יוסר מרשימת אנשי הקשר שלך ביישום 'מברק'."
@@ -334,9 +313,6 @@ msgstr "בחירת פריטים"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "מחק"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "הפעל"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "השתק למשך שעה אחת"
 
@@ -345,9 +321,6 @@ msgstr "השתק למשך %d שעות"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "השתק למשך %d ימים"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "השבת"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "שיתוף פרטי איש קשר"
@@ -454,9 +427,6 @@ msgstr "בטל חסימה"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "חסימה"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s ייחסם."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "חסימת %s תבוטל."
 
@@ -487,6 +457,42 @@ msgstr "להתחיל %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "שלח הודעה אל %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "הקודם"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "בחר הכל"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "שם"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "נייד"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "חיפוש"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "חיפוש"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "מחק"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "מחק"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "הפעל"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "השבת"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ייחסם."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "איש קשר כבר קיים."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "בחר מדינה."
 

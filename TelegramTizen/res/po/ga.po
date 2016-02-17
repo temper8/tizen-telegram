@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Ag lódáil..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "An feidhmchlár cur teachtaireachtaí %1$sis tapa%2$s ar domhan\nTá sé %3$ssaor in aisce%4$s agus %5$sslán%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Néalbhunaithe"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Príobháideach"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Roimhe"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "CUIR AR CEAL"
@@ -115,9 +115,6 @@ msgstr "Rogh. teagmhálaithe"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Grúpchomhrá"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Roghnaigh gach"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Cruthaigh grúpa"
 
@@ -166,17 +163,11 @@ msgstr "Cum teachtaireacht"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Déan teagmhálaí"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Ainm"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Céadainm"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Sloinne"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Móibíleach"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Uimhir fóin"
@@ -205,9 +196,6 @@ msgstr "Glaoire"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Eile"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Cuardaigh"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Teagmhálaithe"
 
@@ -219,9 +207,6 @@ msgstr "Níl comhráite ann"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Le tosú ar chomhrá nua, tapáil an cnaipe Cruthaigh grúpa nua sa chúinne thíos ar dheis nó brúigh an eochair Roghchlár le haghaidh tuilleadh roghanna."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Cuardaigh"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Níor aimsíodh torthaí"
@@ -258,9 +243,6 @@ msgstr "Feicthe an mhí seo"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Féach próifíl"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Scrios"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Socruithe fógra"
@@ -304,9 +286,6 @@ msgstr "Cuir le Teileagram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Anaithnid"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Scrios"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Bainfear %s ó do liosta teagmhálaithe i dTeileagram."
 
@@ -334,9 +313,6 @@ msgstr "Rogh. míreanna"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "SCRIOS"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Cumasaigh"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Balbhaigh go ceann 1 uaire"
 
@@ -345,9 +321,6 @@ msgstr "Balbhaigh go ceann %d uair"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Balbhaigh go ceann %d lá"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Díchumasaigh"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Comhroinn sonraí teagmhála"
@@ -454,9 +427,6 @@ msgstr "Bain bac"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Cuir bac"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "Cuirfear bac ar %s"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Bainfear an bac ó %s."
 
@@ -487,6 +457,42 @@ msgstr "Tosaigh ar %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Seol teachtaireacht chuig %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Roimhe"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Roghnaigh gach"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ainm"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Móibíleach"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Cuardaigh"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Cuardaigh"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Scrios"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Scrios"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Cumasaigh"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Díchumasaigh"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Cuirfear bac ar %s"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Tá an teagmhálaí ann cheana"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Roghnaigh tír."
 

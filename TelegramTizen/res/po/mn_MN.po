@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "АБВГДЕЁЖЗИЙКЛМНОӨПРСТУҮФХЦЧШЩЪЬЫЭЮЯ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Ачаалж байна..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Дэлхийн %1$sхамгийн хурдан%2$s зурвас хэрэглүүр\n%3$sҮнэгүй%4$s бас %5$sнайдвартай%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Үүлэнд суурилсан"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Хувийн"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Өмнөх"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ЦУЦЛАХ"
@@ -115,9 +115,6 @@ msgstr "Харилцагчидаа сонго"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Бүлгийн чаат"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Бүгдийг сонгох"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Бүлэг үүсгэ"
 
@@ -166,17 +163,11 @@ msgstr "Зурвас бичих"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Харилцагч үүсгэ"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Нэр"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Нэр"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Овог"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Гар утас"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Утасны дугаар"
@@ -205,9 +196,6 @@ msgstr "Пейжэр"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Бусад"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Хайх"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Харилцагчид"
 
@@ -219,9 +207,6 @@ msgstr "Чаат байхгүй"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Шинэ яриа эхлүүлэхийн тулд баруун доод буланд Шинэ бүлэг үүсгэх дээр эсвэл Цэсний товчийг дараад нэмэлт сонголтуудыг харна уу."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Хайх"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Үр дүн олдсонгүй"
@@ -258,9 +243,6 @@ msgstr "Сар орчмын өмнө харсан"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Профиль харах"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Устгах"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Мэдэгдлийн тохиргоо"
@@ -304,9 +286,6 @@ msgstr "Telegram-д нэмэх"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Үл таних"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Устгах"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Telegram-н харилцагчийн жагсаалтнаас %s-г арилгана."
 
@@ -334,9 +313,6 @@ msgstr "Зүйлсийг сонго"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "УСТГАХ"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Идэвхжүүл"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 цаг дуу хаах"
 
@@ -345,9 +321,6 @@ msgstr "%d цаг дуу хаах"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d өдөр дуу хаах"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Идэвхгүй болгох"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Холбоо барих мэд. хуваалцах"
@@ -454,9 +427,6 @@ msgstr "Нээх"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Хориглох"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s-г хаана"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s-г нээнэ."
 
@@ -480,4 +450,49 @@ msgstr "Урьдчилан тохируулсан хугацааны дараа 
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Цааш илгээх боломжгүй"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s -г эхлүүлэх үү?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s-д зурвас илгээх"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Өмнөх"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Бүгдийг сонгох"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Нэр"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Гар утас"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Хайх"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Хайх"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Устгах"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Устгах"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Идэвхжүүл"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Идэвхгүй болгох"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s-г хаана"
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Харилцагч аль хэдийн байна"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Улс сонго."
 

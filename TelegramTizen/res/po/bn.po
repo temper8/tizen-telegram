@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "লোড হচ্ছে..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "বিশ্বের %1$sদ্রুততম%2$s মেসেজিং অ্যাপ\nএটি %3$sবিনামূল্যে%4$s এবং %5$sনিরাপদ%6$s।"
 
@@ -54,9 +57,6 @@ msgstr "ক্লাউড-ভিত্তিক"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ব্যক্তিগত"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "আগে"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "বাতিল"
@@ -115,9 +115,6 @@ msgstr "পরিচিতিগুলি নির্বাচন করুন"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "গোষ্ঠী চ্যাট"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "সব নির্বাচন"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "গোষ্ঠী তৈরী করুন"
 
@@ -166,17 +163,11 @@ msgstr "বার্তা রচনা করুন"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "পরিচিতি তৈরী করুন"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "নাম"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "প্রথম নাম"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "পদবি"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "মোবাইল"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ফোন নম্বর"
@@ -205,9 +196,6 @@ msgstr "পেজার"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "অন্যান্য"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "অনুসন্ধান করুন"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "পরিচিতি"
 
@@ -219,9 +207,6 @@ msgstr "কোনো চ্যাট নেই"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "একটি নতুন কথোপকথনের শুরু করতে, নীচের ডান দিকে নতুন গোষ্ঠী বোতাম তৈরি করুন বা আরও বিকল্পের জন্য মেনু কী চাপুন।"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "অনুসন্ধান"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "কোনও ফলাফল পাওয়া যায়নি"
@@ -258,9 +243,6 @@ msgstr "এক মাসের মধ্যে শেষ দেখা হয়ে�
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "প্রোফাইলটি দেখুন"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "মুছুন"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "বিজ্ঞপ্তি সেটিংস"
@@ -304,9 +286,6 @@ msgstr "টেলিগ্রামে যোগ করুন"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "অজানা"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "মুছুন"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%sকে টেলিগ্রামে আপনার পরিচিতির তালিকা থেকে অপসারণ করা হবে।"
 
@@ -334,9 +313,6 @@ msgstr "আইটেম নির্বাচন"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "মুছুন"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "সক্ষম"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 ঘন্টার জন্য নীরব আছে"
 
@@ -345,9 +321,6 @@ msgstr "%d ঘন্টার জন্য নীরব আছে"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d দিনের জন্য নীরব আছে"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "অক্ষম"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "পরিচিতির বিশদ শেয়ার করুন"
@@ -454,9 +427,6 @@ msgstr "অবরোধ মুক্ত করুন"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "অবরোধ করুন"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s অবরুদ্ধ হবে।"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s অবরোধমুক্ত করা হবে।"
 
@@ -487,6 +457,42 @@ msgstr "%s আরম্ভ করবেন?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s-এ বার্তা পাঠান"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "আগে"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "সব নির্বাচন"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "নাম"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "মোবাইল"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "অনুসন্ধান করুন"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "অনুসন্ধান"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "মুছুন"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "মুছুন"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "সক্ষম"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "অক্ষম"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s অবরুদ্ধ হবে।"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "পরিচিত ইতিমধ্যে রয়েছে।"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "একটি দেশ নির্বাচন করুন।"
 

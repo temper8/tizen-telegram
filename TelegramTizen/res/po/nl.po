@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Laden..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "'s Werelds snelste %1$sfastest%2$s berichtenapp\nIt is %3$sgratis%4$s en %5$sveilig%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Op cloud gebaseerd"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privé"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Vorige"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ANNULEREN"
@@ -115,9 +115,6 @@ msgstr "Contacten selecteren"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Groepchat"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Alles selecteren"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Groep maken"
 
@@ -166,17 +163,11 @@ msgstr "Bericht samenstellen"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Contact maken"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Naam"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Voornaam"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Achternaam"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobiel"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefoonnummer"
@@ -205,9 +196,6 @@ msgstr "Pieper"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Overige"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Zoeken"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Contacten"
 
@@ -219,9 +207,6 @@ msgstr "Geen chats"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Als u een nieuw gesprek wilt starten, tik u rechtsonder op de knop Nieuwe groep maken of drukt u op de Menutoets voor meer opties."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Zoeken"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Geen resultaten gevonden"
@@ -258,9 +243,6 @@ msgstr "Laatst gezien minder dan een maand"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Profiel"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Wissen"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Meldinginstellingen"
@@ -304,9 +286,6 @@ msgstr "Toevoegen aan Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Onbekend"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Verwijderen"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s wordt verwijderd uit uw contactenlijst in Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Items selecteren"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "VERW."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Inschakelen"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Dempen gedurende 1 uur"
 
@@ -345,9 +321,6 @@ msgstr "Dempen gedurende %d uur"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Dempen gedurende %d dagen"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Uitschakelen"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Contactgegevens delen"
@@ -454,9 +427,6 @@ msgstr "Blokkering opheffen"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokkeren"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s wordt geblokkeerd."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s wordt gedeblokkeerd."
 
@@ -487,6 +457,42 @@ msgstr "%s starten?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Bericht verzenden naar %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Vorige"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Alles selecteren"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Naam"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobiel"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Zoeken"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Zoeken"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Wissen"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Verwijderen"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Inschakelen"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Uitschakelen"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s wordt geblokkeerd."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Contactpersoon bestaat al."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Selecteer een land."
 

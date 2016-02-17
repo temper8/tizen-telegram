@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "AĄBCČDEĘĖFGHIĮYJKLMNOPRSŠTUŲŪVZŽ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Įkeliama..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Greičiausia %1$spasaulyje%2$s žinučių siuntimo programa\nji yra %3$snemokama%4$s ir %5$ssaugi%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Paremta debesiu"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privatu"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Ankstesnis"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ATŠAUKTI"
@@ -115,9 +115,6 @@ msgstr "Pasirinkite adresatus"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Grupės pokalbis"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Rinktis viską"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Kurti grupę"
 
@@ -166,17 +163,11 @@ msgstr "Kurti žinutę"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Kurti adresatą"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Vardas"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Vardas"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Pavardė"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobilusis"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefono numeris"
@@ -205,9 +196,6 @@ msgstr "Pranešimų gaviklis"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Kita"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Paieška"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Adresatai"
 
@@ -219,9 +207,6 @@ msgstr "Pokalbių nėra"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Jei norite pradėti naują pokalbį, apatiniame dešiniajame kampe bakstelėkite mygtuką „Kurti naują grupę“ arba paspauskite meniu klavišą, kad pamatytumėte daugiau parinkčių."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Ieška"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Rezultatų nerasta"
@@ -258,9 +243,6 @@ msgstr "Paskutinįkart matyt. šį mėnesį"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Žr. profilį"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Trinti"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Pranešimo nustatymai"
@@ -304,9 +286,6 @@ msgstr "Pridėti prie „Telegram“"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Nežinomas"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Trinti"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s bus pašalintas iš jūsų adresatų sąrašo „Telegram“."
 
@@ -334,9 +313,6 @@ msgstr "Pasir. elementų"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "TRINTI"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Įjungti"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Nutildyti 1 val."
 
@@ -345,9 +321,6 @@ msgstr "Nutildyti %d val."
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Nutildyti %d d."
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Išjungti"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Bendrint adresat.informaciją"
@@ -454,9 +427,6 @@ msgstr "Atblokuoti"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokuoti"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s bus užblokuotas (-a)."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s bus atblokuotas (-a)."
 
@@ -487,6 +457,42 @@ msgstr "Paleisti %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Siųsti žinutę %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Ankstesnis"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Rinktis viską"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Vardas"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobilusis"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Paieška"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Ieška"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Trinti"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Trinti"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Įjungti"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Išjungti"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s bus užblokuotas (-a)."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Adresatas jau egzistuoja."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Pasirinkite šalį."
 

@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "AÁBCDEÉFGHIÍJKLMNOÓÖŐPQRSTUÚÜŰVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Betöltés..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "A világ %1$sleggyorsabb%2$s üzenetküldő alkalmazása\n%3$sIngyenes%4$s és %5$sbiztonságos%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Felhőalapú"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Védett"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Előző"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "MÉGSE"
@@ -115,9 +115,6 @@ msgstr "Partnerek kijelölése"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Csoportos csevegés"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Összes kijelölése"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Csoport létreh."
 
@@ -166,17 +163,11 @@ msgstr "Üzenet írása"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Névjegy létrehozása"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Név"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Utónév"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Vezetéknév"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefonszám"
@@ -205,9 +196,6 @@ msgstr "Személyhívó"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Egyéb"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Keresés"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Névjegyzék"
 
@@ -219,9 +207,6 @@ msgstr "Nincs csevegés"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Új beszélgetés indításához érintse meg az Új csoport létrehozása gombot a jobb alsó sarokban, vagy nyomja meg a Menü gombot egyéb lehetőségekért."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Keresés"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nincs találat"
@@ -258,9 +243,6 @@ msgstr "Kevesebb mint 1 hónapja nézte utoljára"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Profil megjelen."
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Törlés"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Értesítési beállítások"
@@ -304,9 +286,6 @@ msgstr "Hozzáadás a Telegramhoz"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Ismeretlen"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Törlés"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Eltávolítja %s partnert a Telegram névjegyzékéből."
 
@@ -334,9 +313,6 @@ msgstr "Elemek kijelöl."
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "TÖRLÉS"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Engedélyezés"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Elnémítás 1 órára"
 
@@ -345,9 +321,6 @@ msgstr "Elnémítás %d órára"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Elnémítás %d napra"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Letiltás"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Névjegyadatok megosztása"
@@ -454,9 +427,6 @@ msgstr "Feloldás"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokkolás"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s blokkolva lesz."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Feloldja %s blokkolását."
 
@@ -487,6 +457,42 @@ msgstr "Elindítja: %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Üzenet küldése %s számára"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Előző"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Összes kijelölése"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Név"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobil"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Keresés"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Keresés"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Törlés"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Törlés"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Engedélyezés"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Letiltás"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s blokkolva lesz."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Már van ilyen név."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Válasszon országot."
 

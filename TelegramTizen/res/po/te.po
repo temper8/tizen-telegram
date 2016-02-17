@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "కఖగఘఙచఛజఝఞటఠడఢణతథదధనపఫబభమయరలళవశషసహఱABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "లోడ్ అవుతోంది..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ప్రపంచపు %1$sవేగవంతమైన%2$s మెసేజింగ్ అప్లికేషన్\nఇది %3$sఉచితం%4$s మరియు %5$sసురక్షితం%6$s."
 
@@ -54,9 +57,6 @@ msgstr "మేఘం-ఆధారితం"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ప్రైవేట్"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "మునుపటి"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "రద్దు చేయి"
@@ -115,9 +115,6 @@ msgstr "పరిచయాలను ఎంచుకోండి"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "సమూహ చాట్"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "అన్నింటినీ ఎన్నుకోండి"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "సమూహ సృష్టి"
 
@@ -166,17 +163,11 @@ msgstr "సందేశాన్ని కూర్చండి"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "పరిచయాన్ని రూపొందించు"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "పేరు"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "మొదటి పేరు"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "చివరి పేరు"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "మొబైల్"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ఫోన్ నంబర్"
@@ -205,9 +196,6 @@ msgstr "పేజర్"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "ఇతర"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "శోధన"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "పరిచయాలు"
 
@@ -219,9 +207,6 @@ msgstr "చాట్‌లు లేవు"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "కొత్త సంభాషణను ప్రారంభించడానికి, దిగువ కుడివైపున కొత్త సమూహాన్ని సృష్టించండి బటన్‌ను ట్యాప్ చేయండి లేదా మరిన్ని ఎంపికల కోసం మెను కీని నొక్కండి."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "శోధన"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "ఫలితాలు లేవు"
@@ -258,9 +243,6 @@ msgstr "చివరిగా ఒక నెల క్రితం చూసా�
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "ప్రొఫైల్‌ను వీక్షించండి"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "తొలగించు"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "నోటిఫికేషన్ సెట్టింగ్‌లు"
@@ -304,9 +286,6 @@ msgstr "టెలిగ్రామ్‌కు జోడించు"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "తెలియని"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "తొలగించు"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "టెలిగ్రామ్‌లో మీ పరిచయ జాబితా నుండి %s తీసివేయబడుతుంది."
 
@@ -334,9 +313,6 @@ msgstr "అంశాలను ఎంచుకోండి"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "తొలగించు"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "ప్రారంభించు"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 గంట పాటు మ్యూట్"
 
@@ -345,9 +321,6 @@ msgstr "%d గంటల పాటు మ్యూట్"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d రోజుల పాటు మ్యూట్"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "నిలిపివేయి"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "పరిచయ వివరాలను భాగస్వామ్యం చేయండి"
@@ -454,9 +427,6 @@ msgstr "అనుమతించు"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "నిరోధించు"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s బ్లాక్ చేయబడుతుంది."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s అనుమతించబడుతుంది."
 
@@ -487,6 +457,42 @@ msgstr "%s ను మొదలుపెట్టాలా?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sకు సందేశాన్ని పంపు"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "మునుపటి"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "అన్నింటినీ ఎన్నుకోండి"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "పేరు"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "మొబైల్"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "శోధన"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "శోధన"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "తొలగించు"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "తొలగించు"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ప్రారంభించు"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "నిలిపివేయి"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s బ్లాక్ చేయబడుతుంది."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "పరిచయం ఇప్పటికే ఉంది."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "దేశాన్ని ఎంచుకోండి."
 

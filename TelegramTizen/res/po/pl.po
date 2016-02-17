@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Ładuję..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sNajszybszy%2$s komunikator na świecie\n%3$sDarmowy%4$s i %5$sbezpieczny%6$s."
 
@@ -54,9 +57,6 @@ msgstr "W chmurze"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Prywatność"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Wstecz"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ANULUJ"
@@ -115,9 +115,6 @@ msgstr "Wybierz kontakty"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Czat grupowy"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Zaznacz wszystko"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Tworzenie grupy"
 
@@ -166,17 +163,11 @@ msgstr "Tworzenie wiadomości"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Tworzenie kontaktu"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Nazwa"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Imię"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Nazwisko"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Tel. kom."
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Numer telefonu"
@@ -205,9 +196,6 @@ msgstr "Pager"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Inny"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Szukaj"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontakty"
 
@@ -219,9 +207,6 @@ msgstr "Brak czatów"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Aby zacząć nową rozmowę, dotknij przycisku Utwórz nową grupę z prawej strony na dole lub naciśnij klawisz menu, aby uzyskać więcej opcji."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Wyszukiwanie"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nie znaleziono wyników"
@@ -258,9 +243,6 @@ msgstr "Ostatnio widziano w ciągu miesiąca"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Wyświetl profil"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Usuń"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Ustawienia powiadamiania"
@@ -304,9 +286,6 @@ msgstr "Dodaj do aplikacji Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Nieznany"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Usuń"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Kontakt %s zostanie usunięty z listy kontaktów w aplikacji Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Wybór elementów"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "USUŃ"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Włącz"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Wycisz na 1 godzinę"
 
@@ -345,9 +321,6 @@ msgstr "Wycisz na %d godz."
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Wycisz na %d dni"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Wyłącz"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Udost. szczegółów kontaktu"
@@ -454,9 +427,6 @@ msgstr "Odblokuj"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokowanie"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "Użytkownik %s zostanie zablokowany."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Użytkownik %s zostanie odblokowany."
 
@@ -487,6 +457,42 @@ msgstr "Uruchomić aplikację %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Wyślij wiadomość do %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Wstecz"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Zaznacz wszystko"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nazwa"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Tel. kom."
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Szukaj"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Wyszukiwanie"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Usuń"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Usuń"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Włącz"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Wyłącz"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Użytkownik %s zostanie zablokowany."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt już istnieje."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Wybierz kraj."
 

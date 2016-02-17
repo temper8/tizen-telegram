@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ابتثجحخدذرزسشصضطظعغفقكلمنهوي"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "جاري التحميل ..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "تطبيق المراسلة %1$sالأسرع%2$s حول العالم\nوهو %3$sمجاني%4$s و%5$sآمن%6$s."
 
@@ -54,9 +57,6 @@ msgstr "مستند إلى السحابة"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "خاص"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "السابق"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "إلغاء"
@@ -115,9 +115,6 @@ msgstr "تحديد جهات اتصال"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "دردشة جماعية"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "تحديد الكل"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "إنشاء مجموعة"
 
@@ -158,7 +155,7 @@ msgid "IDS_TGRAM_ACBUTTON_SEND_ABB3"
 msgstr "إرسال"
 
 msgid "IDS_TGRAM_BODY_P1SD_P2SD"
-msgstr "%1$d/%2$d"
+msgstr "%2$d\\%1$d"
 
 msgid "IDS_TGRAM_HEADER_COMPOSE_MESSAGE_ABB2"
 msgstr "إنشاء رسالة"
@@ -166,17 +163,11 @@ msgstr "إنشاء رسالة"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "إنشاء جهة اتصال"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "الاسم"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "الاسم الأول"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "اسم العائلة"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "هاتف محمول"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "رقم الهاتف"
@@ -205,9 +196,6 @@ msgstr "جهاز المناداة"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "غير ذلك"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "البحث"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "جهات الاتصال"
 
@@ -219,9 +207,6 @@ msgstr "ما من دردشات"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "لبدء محادثة جديدة، انقر فوق زر إنشاء مجموعة جديدة في الزاوية السفلية اليمنى أو اضغط على مفتاح القائمة للحصول على مزيد من الخيارات."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "بحث"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "لم يتم العثور على أي نتيجة"
@@ -258,9 +243,6 @@ msgstr "آخر ظهور في غضون شهر"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "عرض ملف التعريف"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "حذف"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "ضبط الإشعارات"
@@ -304,9 +286,6 @@ msgstr "إضافة إلى التلغراف"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "غير معروف"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "حذف"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "ستتم إزالة %s من قائمة جهات الاتصال في التلغراف."
 
@@ -334,9 +313,6 @@ msgstr "تحديد عناصر"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "حذف"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "تفعيل"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "تم كتم الصوت لمدة ساعة واحدة"
 
@@ -345,9 +321,6 @@ msgstr "تم كتم الصوت لمدة %d من الساعات"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "تم كتم الصوت لمدة %d من الأيام"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "إلغاء تفعيل"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "مشاركة تفاصيل جهة الاتصال"
@@ -454,9 +427,6 @@ msgstr "إلغاء الحظر"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "حظر"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "سيتم حظر %s."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "سيتم إلغاء حظر %s."
 
@@ -487,6 +457,42 @@ msgstr "هل ترغب في بدء %s؟"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "إرسال رسالة إلى %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "السابق"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "تحديد الكل"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "الاسم"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "هاتف محمول"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "البحث"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "بحث"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "تفعيل"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "إلغاء تفعيل"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "سيتم حظر %s."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "جهة الاتصال موجودة مسبقا."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "حدد بلداً."
 

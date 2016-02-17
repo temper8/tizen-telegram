@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ಅಆಇಈಉಊಋಎಏಐಒಓಔಅಕಖಗಘಙಚಛಜಝಞಟಠಡಢಣತಥದಧನಪಫಬಭಮಯರಲವಶಷಸಹಳABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "ಲೋಡಿಂಗ್..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ಜಗತ್ತಿನ %1$sಅತಿವೇಗದ%2$s ಮೆಸೇಜಿಂಗ್ ಅನ್ವಯಿಸುವಿಕೆ\nಇದು %3$sಉಚಿತವಾಗಿದೆ%4$s ಮತ್ತು %5$sಸುರಕ್ಷಿತವಾಗಿದೆ%6$s."
 
@@ -54,9 +57,6 @@ msgstr "ಕ್ಲೌಡ್-ಆಧಾರಿತ"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ವೈಯಕ್ತಿಕ"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "ಹಿಂದಿನ"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ರದ್ದುಮಾಡಿ"
@@ -115,9 +115,6 @@ msgstr "ಸಂಪರ್ಕಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "ಗುಂಪು ಚಾಟ್"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "ಎಲ್ಲ ಆರಿಸಿ"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "ಗುಂಪು ರಚಿಸಿ"
 
@@ -166,17 +163,11 @@ msgstr "ಸಂದೇಶ ರಚಿಸಿ"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "ಸಂಪರ್ಕ ರಚಿಸಿ"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "ಹೆಸರು"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "ಮೊದಲ ಹೆಸರು"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "ಕೊನೆಯ ಹೆಸರು"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "ಮೊಬೈಲ್"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ಫೋನ್ ಸಂಖ್ಯೆ"
@@ -205,9 +196,6 @@ msgstr "ಪೇಜರ್"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "ಇತರೆ"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "ಹುಡುಕಿ"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "ಸಂಪರ್ಕಗಳು"
 
@@ -219,9 +207,6 @@ msgstr "ಯಾವುದೇ ಚಾಟ್‌ಗಳಿಲ್ಲ"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "ಹೊಸ ಸಂಭಾಷಣೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು, ಕೆಳಗಿನ ಬಲಭಾಗದಲ್ಲಿರುವ ಹೊಸ ಗುಂಪು ರಚಿಸು ಬಟನ್ ತಟ್ಟಿ ಅಥವಾ ಹೆಚ್ಚಿನ ಆಯ್ಕೆಗಳಿಗಾಗಿ ಮೆನು ಕೀ ಒತ್ತಿ."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "ಶೋಧಿಸಿ"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "ಫಲಿತಾಂಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
@@ -258,9 +243,6 @@ msgstr "ಕೊನೆಯದಾಗಿ ನೋಡಿದ್ದು ಒಂದು ತಿ
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಿಸಿ"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "ಅಳಿಸಿ"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "ಪ್ರಕಟಣೆ ಸಂಯೋ."
@@ -304,9 +286,6 @@ msgstr "ಟೆಲಿಗ್ರಾಂಗೆ ಸೇರಿಸಿ"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "ಅಪರಿಚಿತ"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "ಅಳಿಸಿ"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%sರನ್ನು ನಿಮ್ಮ ಟೆಲಿಗ್ರಾಂ ಸಂಪರ್ಕ ಪಟ್ಟಿಯಿಂದ ತೆಗೆದುಹಾಕಲಾಗುತ್ತದೆ."
 
@@ -334,9 +313,6 @@ msgstr "ಐಟಂ ಆರಿಸಿ"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ಅಳಿಸಿ"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "ಶಕ್ತಗೊಳಿಸು"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 ಗಂಟೆ ಮ್ಯೂಟ್ ಮಾಡಿ"
 
@@ -345,9 +321,6 @@ msgstr "%d ಗಂಟೆಗಳವರೆಗೆ ಮ್ಯೂಟ್ ಮಾಡಿ"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d ದಿನಗಳವರೆಗೆ ಮ್ಯೂಟ್ ಮಾಡಿ"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "ನಿಶಕ್ತಗೊಳಿಸಿ"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ"
@@ -454,9 +427,6 @@ msgstr "ಅನ್‌ಬ್ಲಾಕ್ ಮಾಡಿ"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "ನಿರ್ಬಂಧಿಸಿ"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s ಅನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗುತ್ತದೆ."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s ಅನಿರ್ಬಂಧಿಸಲಾಗುತ್ತದೆ."
 
@@ -487,6 +457,42 @@ msgstr "%s ಆರಂಭಿಸುವುದೆ?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sಗೆ ಸಂದೇಶ ಕಳುಹಿಸಿ"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "ಹಿಂದಿನ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "ಎಲ್ಲ ಆರಿಸಿ"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "ಹೆಸರು"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "ಮೊಬೈಲ್"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ಹುಡುಕಿ"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ಶೋಧಿಸಿ"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ಅಳಿಸಿ"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ಅಳಿಸಿ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ಶಕ್ತಗೊಳಿಸು"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ನಿಶಕ್ತಗೊಳಿಸಿ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ಅನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗುತ್ತದೆ."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "ಸಂಪರ್ಕ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "ದೇಶವನ್ನು ಆಯ್ಕೆಮಾಡಿ."
 

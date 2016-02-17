@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Caricamento..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "L'applicazione di messaggistica %1$spiù veloce%2$s al mondo\nÈ %3$sgratuita%4$s e %5$ssicura%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Basato su cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privato"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Precedente"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ANNULLA"
@@ -115,9 +115,6 @@ msgstr "Seleziona contatti"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Chat di gruppo"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Seleziona tutto"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Crea gruppo"
 
@@ -166,17 +163,11 @@ msgstr "Componi messaggio"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Crea contatto"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Nome"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Nome"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Cognome"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Disp. mobile"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Numero di telefono"
@@ -205,9 +196,6 @@ msgstr "Cercapersone"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Altro"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Cerca"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Rubrica"
 
@@ -219,9 +207,6 @@ msgstr "Nessuna chat"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Per iniziare una nuova conversazione, toccate il pulsante Crea nuovo gruppo in basso a destra o premete il tasto Opzioni per altre opzioni."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Cerca"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nessun risultato trovato"
@@ -258,9 +243,6 @@ msgstr "Ultimo accesso un mese fa"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Vedi profilo"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Elimina"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Impostazioni notifiche"
@@ -304,9 +286,6 @@ msgstr "Aggiungi a Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Sconosciuto"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Elimina"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s verrà rimosso dall'elenco dei contatti di Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Selez. elementi"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ELIMINA"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Attiva"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Audio disattivato per 1 ora"
 
@@ -345,9 +321,6 @@ msgstr "Audio disattivato per %d ore"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Audio disattivato per %d giorni"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Disattiva"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Condividi dettagli contatto"
@@ -454,9 +427,6 @@ msgstr "Sblocca"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blocca"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s verrà bloccato."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s verrà sbloccato."
 
@@ -487,6 +457,42 @@ msgstr "Avviare %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Invia messaggio a %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Precedente"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Seleziona tutto"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nome"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Disp. mobile"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Cerca"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Cerca"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Elimina"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Elimina"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Attiva"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Disattiva"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s verrà bloccato."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Contatto già esistente."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Selezionate un Paese."
 

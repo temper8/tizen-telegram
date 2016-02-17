@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ابپتٹثجچحخدڈذرڑژسشصضطظعغفقکگلمنوہھءیے"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "لوڈنگ..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "دنیا کا %1$sتیز ترین%2$s پیغامات بھیجنے والا ایپلیکیشن\nیہ %3$sمفت%4$s اور %5$sمحفوظ%6$s ہے۔"
 
@@ -54,9 +57,6 @@ msgstr "کلاؤڈ پر مبنی"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ذاتی"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "سابقہ"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "منسوخ کریں"
@@ -115,9 +115,6 @@ msgstr "روابط منتخب کریں"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "گروپ چیٹ"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "سب منتخب کریں"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "گروپ بنائیں"
 
@@ -166,17 +163,11 @@ msgstr "پیغام کمپوز کریں"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "رابطہ بنائیں"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "نام"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "پہلا نام"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "آخری نام"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "موبائل"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "فون نمبر"
@@ -205,9 +196,6 @@ msgstr "پیجر"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "دیگر"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "تلاش کریں"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "روابط"
 
@@ -219,9 +207,6 @@ msgstr "کوئی چیٹس نہيں"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "ایک نئی گفتگو شروع کرنے کے لیے، نچلے دائیں حصّے میں نیا گروپ بنائیں بٹن پر تھپکی دیں یا مزید اختیارات کے لیے مینیو کيی دبائیں۔"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "تلاش"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "کوئی نتائج نہیں ملے"
@@ -258,9 +243,6 @@ msgstr "آخری بار ایک مہینے میں دیکھا گیا"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "پروفائل دیکھیں"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "حذف کریں"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "نوٹیفکیشن کی سیٹنگز"
@@ -304,9 +286,6 @@ msgstr "ٹیلیگرام میں شامل کریں"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "نامعلوم"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "حذف کریں"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "ٹیلیگرام میں آپ کی رابطہ کی فہرست سے %s ہٹادیا جائے گا۔"
 
@@ -334,9 +313,6 @@ msgstr "اشیاء منتخب کریں"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "حذف کریں"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "فعال کریں"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 گھنٹہ کے لیے خاموش"
 
@@ -345,9 +321,6 @@ msgstr "%d گھنٹے کے لیے خاموش"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d دنوں کے لیے خاموش"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "نا اہل بنانا"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "رابطہ کی تفصیلات شئیر کریں"
@@ -454,9 +427,6 @@ msgstr "غیر مسدود کریں"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "بلاک کریں"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s بلاک کردیا جائے گا"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s کو ان بلاک کر دیا جائے گا۔"
 
@@ -487,6 +457,42 @@ msgstr "%s شروع کریں؟"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s کو پیغام بھیجیں"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "سابقہ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "سب منتخب کریں"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "نام"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "موبائل"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "تلاش کریں"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "تلاش"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "حذف کریں"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "حذف کریں"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "فعال کریں"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "نا اہل بنانا"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s بلاک کردیا جائے گا"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "رابطہ پہلے سے موجود ہے"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "ایک ملک منتخب کریں۔"
 

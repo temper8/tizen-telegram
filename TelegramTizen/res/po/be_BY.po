@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "АБВГДЕЁЖЗІЙКЛМНОПРСТУЎФХЦЧШЫЬЭЮЯ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Загрузка..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Самая %1$sхуткая%2$s праграма абмену паведамленняў у свеце\nЯна %3$sбясплатная%4$s і %5$sбяспечная%6$s."
 
@@ -54,9 +57,6 @@ msgstr "На аснове воблака"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Прыватны"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Назад"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "АДМЯНІЦЬ"
@@ -115,9 +115,6 @@ msgstr "Выбраць кантакты"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Групавы чат"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Вылучыць усё"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Стварыць групу"
 
@@ -166,17 +163,11 @@ msgstr "Стварыць паведамленне"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Стварыць кантакт"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Назва"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Імя"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Прозвішча"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Мабільны"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Тэлефонны нумар"
@@ -205,9 +196,6 @@ msgstr "Пэйджар"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Іншы"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Пошук"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Кантакты"
 
@@ -219,9 +207,6 @@ msgstr "Няма чатаў"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Каб пачаць новую размову, націсніце кнопку «Стварыць новую групу» у правым ніжнім куце, або націсніце клавішу «Меню», каб праглядзець іншыя параметры."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Пошук"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Вынікі не знойдзены"
@@ -258,9 +243,6 @@ msgstr "Апошні раз быў тут цягам месяца"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Прагляд профілю"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Выдаліць"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Налады апавяшчэнняў"
@@ -304,9 +286,6 @@ msgstr "Дадаць у Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Невядома"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Выдаліць"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s будзе выдалены з вашага спіса кантактаў у Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Выбр. элементы"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ВЫДАЛ."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Уключыць"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Адключыць гук на 1 гадзіну"
 
@@ -345,9 +321,6 @@ msgstr "Адключыць гук на %d гадзін(ы)"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Адключыць гук на %d дні (дзён)"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Адключыць"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Сум дос да звест пра кант"
@@ -454,9 +427,6 @@ msgstr "Unblock"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Заблак."
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s will be blocked."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s будзе разблакіравана."
 
@@ -480,4 +450,49 @@ msgstr "Аўтаматычна выдалена праз перадвызнач�
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Немагчыма пераадрасаваць"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Start %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Адправіць паведамленне да %s"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Назад"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Вылучыць усё"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Назва"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мабільны"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Выдаліць"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Выдаліць"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Уключыць"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Адключыць"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Кантакт ужо існуе."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Выберыце краіну."
 

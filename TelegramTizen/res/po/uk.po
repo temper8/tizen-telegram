@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Завантаження..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sНайшвидша%2$s у світі %3$sбезкоштовна%4$s та %5$sзахищена%6$s\nпрограма обміну повідомленнями."
 
@@ -54,9 +57,6 @@ msgstr "Базується на хмарних технологіях"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Приватна"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Попередній"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "СКАСУВАТИ"
@@ -115,9 +115,6 @@ msgstr "Виберіть контакти"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Груповий чат"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Вибрати всі"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Створення групи"
 
@@ -166,17 +163,11 @@ msgstr "Створення повідомлення"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Створення контакту"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Ім'я"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Ім’я"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Прізвище"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Мобільний"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Номер телефону"
@@ -205,9 +196,6 @@ msgstr "Пейджер"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Інший"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Пошук"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Контакти"
 
@@ -219,9 +207,6 @@ msgstr "Немає чатів"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Щоб розпочати нову розмову, торкніться кнопки «Створити нову групу», яка розташована у правій нижній частині екрана, або натисніть клавішу «Меню» для відображення додаткових параметрів."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Пошук"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Результів не знайдено"
@@ -258,9 +243,6 @@ msgstr "Востаннє у мережі: у цьому місяці"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Перегл. профіль"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Видалити"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Налаштування сповіщення"
@@ -304,9 +286,6 @@ msgstr "Додати до Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Невідомо"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Видалити"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s буде видалено зі списку контактів у Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Вибір об’єктів"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ВИДАЛ."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Увімкнути"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Без звуку: 1 година"
 
@@ -345,9 +321,6 @@ msgstr "Без звуку: %d год."
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Без звуку: %d дн."
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Вимкнути"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Надсилання контактних даних"
@@ -454,9 +427,6 @@ msgstr "Розблокувати"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Блокування"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "Абонента %s буде заблоковано."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Абонента %s буде розблоковано."
 
@@ -487,6 +457,42 @@ msgstr "Запустити %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Надіслати повідомлення абоненту %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Попередній"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Вибрати всі"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ім'я"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мобільний"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Пошук"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Видалити"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Видалити"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Увімкнути"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Вимкнути"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Абонента %s буде заблоковано."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Контакт вже існує."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Виберіть країну."
 

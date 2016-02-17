@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "အခ်က္အလက္ျဖည့္သြင္းေနပါသည္…"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ကမၻာ့ %1$sအျမန္ဆံုး%2$sမက္ေဆ့ခ်္ေပးပုိ႔သည့္ အက္ပ္\n%3$sအခမဲ့%4$sျဖစ္ၿပီး %5$sလံုျခံဳမႈ%6$sရွိပါသည္။"
 
@@ -54,9 +57,6 @@ msgstr "ကေလာက္ အေျချပဳ"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "သီးသန္႔႔"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "လြန္ခဲ့ေသာ"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ပယ္ဖ်က္ပါ"
@@ -115,9 +115,6 @@ msgstr "အဆက္အသြယ္မ်ား ေရြးပါ"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "အုပ္စု ခ်တ္"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "အားလံုးကိုေရြးပါ"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "အဖြဲ႔ ဖန္တီးပါ"
 
@@ -166,17 +163,11 @@ msgstr "မက္ေဆ့ခ်္ အသစ္ ေရးပါ"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "အဆက္အသြယ္ ဖန္တီးပါ"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "အမည္"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "ပထမ အမည္"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "ေနာက္ဆုံး အမည္"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "မိုဘိုင္း"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ဖုန္း နံပါတ္"
@@ -205,9 +196,6 @@ msgstr "ေပဂ်ာ"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "အျခား"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "ရွာေဖြပါ"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "အဆက္အသြယ္မ်ား"
 
@@ -219,9 +207,6 @@ msgstr "ခ်တ္မ်ား မရွိပါ"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "စကားစျမည္အသစ္တစ္ခု စတင္ရန္ ေအာက္ဖက္ ညာဖက္ရွိ အုပ္စုအသစ္ ဖန္တီးပါကုိ ႏွိပ္ပါ (သုိ႔) ေနာက္ထပ္ ေရြးစရာမ်ားအတြက္ မီႏူးခလုတ္ကုိ ႏွိပ္ပါ။"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "ရွာေဖြပါ"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "ရလဒ္မ်ား မေတြ႔ပါ"
@@ -258,9 +243,6 @@ msgstr "တစ္လအတြင္းေနာက္ဆုံးၾကည့္
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "အေၾကာင္းအခ်က္ ၾကည့္ပါ"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "ဖ်က္ပစ္ပါ"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "သတိေပးခ်က္ သတ္မွတ္ခ်က္မ်ား"
@@ -304,9 +286,6 @@ msgstr "တယ္လီဂရမ္သုိ႔ ထည့္ပါ"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "အမည္မသိေသာ"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "ပယ္ဖ်က္ပါ"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s ကုိ တယ္လီဂရမ္ရွိ သင့္ဆက္သြယ္ရန္စာရင္းထဲမွ ဖယ္ရွားလိမ့္မည္။"
 
@@ -334,9 +313,6 @@ msgstr "အရာဝတၳဳမ်ားကိုေ႐ြးပါ"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ဖ်က္ပစ္ပါ"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "ဖြင့္ပါ"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "၁ နာရီၾကာ အသံပိတ္ပါ"
 
@@ -345,9 +321,6 @@ msgstr "%d နာရီၾကာ အသံပိတ္ပါ"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d ရက္ၾကာ အသံပိတ္ပါ"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "ပိတ္ရန္"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "အဆက္အသြယ္ အေသးစိတ္ အခ်က္မ်ားကုိ မွ်ေဝပါ"
@@ -454,9 +427,6 @@ msgstr "ပိတ္ဆုိ႔မႈဖြင့္ပါ"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "ပိတ္ဆီးပါ"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s ကို ပိတ္ဆီးမည္"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s ကို ေသာ့ဖြင့္သြားမည္။"
 
@@ -480,4 +450,49 @@ msgstr "ႀကိဳတင္သတ္မွတ္ခ်ိန္ၿပီးေ
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "လုိင္းလႊဲေျပာင္း၍ မရပါ"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s စတင္မည္လား?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "မက္ေဆ့ခ်္ကို %s သို႔ ပို႔ပါ"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "လြန္ခဲ့ေသာ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "အားလံုးကိုေရြးပါ"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "အမည္"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "မိုဘိုင္း"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ရွာေဖြပါ"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ရွာေဖြပါ"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ဖ်က္ပစ္ပါ"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ပယ္ဖ်က္ပါ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ဖြင့္ပါ"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ပိတ္ရန္"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ကို ပိတ္ဆီးမည္"
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "အဆက္အသြယ္ ရွိျပီးျဖစ္သည္။"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "ႏိုင္ငံတစ္ခု ေရြးခ်ယ္ပါ။"
 

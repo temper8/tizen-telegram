@@ -246,7 +246,8 @@ void show_loading_popup(appdata_s* ad)
 	app_get_resource(TELEGRAM_POPUP_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(layout, edj_path, "processing_view_layout");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	elm_object_part_text_set(layout, "elm.text", "<font=Tizen:style=Normal color=#666362 align=left><font_size=36>Loading...</font_size></font>");
+	elm_object_part_text_set(layout, "elm.text", i18n_get_text("IDS_COM_BODY_LOADING"));
+	elm_object_domain_translatable_part_text_set(layout, "elm.text", NULL, "IDS_COM_BODY_LOADING");
 	progressbar = elm_progressbar_add(layout);
 	elm_object_style_set(progressbar, "process_medium");
 	evas_object_size_hint_align_set(progressbar, EVAS_HINT_FILL, 0.5);

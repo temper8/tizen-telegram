@@ -3394,7 +3394,7 @@ void on_media_attach_dismissed_cb(void *data, Evas_Object *obj, void *event_info
 	evas_object_del(obj);
 }
 
-static void on_media_attach_clicked(void *data, Evas_Object *obj, const char *emission, const char *source)
+static void on_media_attach_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object* chat_scroller = data;
 	if (!chat_scroller) {
@@ -3407,6 +3407,9 @@ static void on_media_attach_clicked(void *data, Evas_Object *obj, const char *em
 	attach_panel_h attach_panel = NULL;
 	int ret;
 	bool visible = false;
+
+	Evas_Object* text_entry = evas_object_data_get(chat_scroller, "text_entry");
+	elm_entry_input_panel_hide(text_entry);
 
 	attach_panel = evas_object_data_get(ad->conform, "attach_panel");
 	if (attach_panel) {
@@ -3589,7 +3592,7 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 		Evas_Object *grp_names_bg = elm_bg_add(ad->nf);
 		evas_object_size_hint_align_set(grp_names_bg, EVAS_HINT_FILL, EVAS_HINT_FILL);
 		evas_object_size_hint_weight_set(grp_names_bg, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_color_set(grp_names_bg, 255, 255, 255, 255);
+		evas_object_color_set(grp_names_bg, 45, 165, 224, 229);
 	    elm_image_resizable_set(grp_names_bg, EINA_TRUE, EINA_TRUE);
 	    elm_image_fill_outside_set(grp_names_bg, EINA_TRUE);
 	    evas_object_show(grp_names_bg);
@@ -3623,7 +3626,7 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 				int len = strlen(buddy_info->name);
 				char *name_str = (char*)malloc(len + 256);
 				if(name_str){
-					sprintf(name_str, "<font=Tizen:style=Bold align=center><font_size=40>%s</font_size></font>", buddy_info->name);
+					sprintf(name_str, "<font=Tizen:style=Bold color=#FFFFFF align=center><font_size=40>%s</font_size></font>", buddy_info->name);
 					Elm_Object_Item *button_item = elm_multibuttonentry_item_append(grp_names_lbl, name_str, click_user_name_cb, ad);
 					elm_object_item_data_set(button_item, (void*)(buddy_info->id));
 					free(name_str);
@@ -3892,9 +3895,17 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 	evas_object_smart_callback_add(text_entry, "clicked", on_message_text_entry_clicked, NULL);
 	elm_object_part_content_set(entry_box_layout, "swallow.text_entry", entry_layout);
 
+	Evas_Object *attach_btn = NULL;
+	attach_btn = elm_button_add(entry_layout);
+	evas_object_size_hint_align_set(attach_btn, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_size_hint_weight_set(attach_btn, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	elm_object_style_set(attach_btn, "focus");
+	evas_object_show(attach_btn);
+	elm_object_part_content_set(entry_box_layout, "swallow,attach", attach_btn);
+	evas_object_smart_callback_add(attach_btn, "clicked", on_media_attach_clicked, chat_scroller);
+
 	/* button clicked event */
 	elm_object_signal_callback_add(entry_box_layout, "smile", "clicked", on_message_smiley_clicked, text_entry);
-	elm_object_signal_callback_add(entry_box_layout, "attach", "clicked", on_media_attach_clicked, chat_scroller);
 	elm_object_signal_callback_add(entry_box_layout, "send", "clicked", on_text_message_send_clicked, chat_scroller);
 	elm_object_part_content_set(layout, "swallow.entry", entry_box_layout);
 

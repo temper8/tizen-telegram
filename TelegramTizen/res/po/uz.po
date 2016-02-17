@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABDEFGHIJKLMNOPQRSTUVXYZO‘G‘ChShNg"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Yuklanmoqda..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Dunyodagi %1$seng tez%2$s xabarlar ilovasi\nU %3$sbepul%4$s va %5$sxavfsiz%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Bulutga asoslangan"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Maxfiy"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Avvalgi"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "BEKOR QILISH"
@@ -115,9 +115,6 @@ msgstr "Kontaktlar tanlash"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Guruh chati"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Hammasini belgilash"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Guruh yaratish"
 
@@ -166,17 +163,11 @@ msgstr "Xabar yaratish"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Kontakt yaratish"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Nom"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Ism"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Familiya"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefon raqami"
@@ -205,9 +196,6 @@ msgstr "Peyjer"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Boshqa"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Qidirish"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontaktlar"
 
@@ -219,9 +207,6 @@ msgstr "Chatlar yo‘q"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Yangi suhbat boshlash uchun quyi o‘ng qismidagi Yangi guruh yaratish tugmasini cherting yoki ko‘proq opsiyalar ko‘rish uchun menyu tugmasini bosing."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Qidiruv"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Natijalar topilmadi"
@@ -258,9 +243,6 @@ msgstr "Oxirgi marta bir oy oldin ko‘rilgan"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Profilni ko‘r"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Yo‘q qilish"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Bildirishnoma parametrlari"
@@ -304,9 +286,6 @@ msgstr "Telegram’ga qo‘shish"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Noma’lum"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Yo‘q qilish"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Telegram’dagi kontaktlar ro‘yxatidan %s olib tashlanadi."
 
@@ -334,9 +313,6 @@ msgstr "Element tanlash"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "O‘CH"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Yoqish"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 soat mobaynida ovozsiz"
 
@@ -345,9 +321,6 @@ msgstr "%d soat mobaynida ovozsiz"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d kun mobaynida ovozsiz"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "O‘chirish"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Kontakt tafsilotlarini ulash"
@@ -454,9 +427,6 @@ msgstr "Blokdan chiqarish"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Bloklash"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s bloklanadi."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s blokdan chiqariladi."
 
@@ -487,6 +457,42 @@ msgstr "%s Ishga tushirilsinmi?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sga xabar yuborish"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Avvalgi"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Hammasini belgilash"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nom"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobil"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Qidirish"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Qidiruv"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Yo‘q qilish"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Yo‘q qilish"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Yoqish"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "O‘chirish"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s bloklanadi."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt avvaldan mavjud."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Mamlakat tanlang."
 

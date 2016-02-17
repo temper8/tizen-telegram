@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "लोड हुँदै छ..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "विश्वको %1$sसबैभन्दा द्रुत%2$s मेसेजिङ एप\nयो %3$sनिःशुल्क%4$s र %5$sसुरक्षित%6$s छ।"
 
@@ -54,9 +57,6 @@ msgstr "क्लाउड-आधारित"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "व्यक्तिगत"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "अघिल्लो"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "रद्द गर्नुहोस्"
@@ -115,9 +115,6 @@ msgstr "सम्पर्कहरू चयन गर्नु"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "समूह च्याट"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "सबै चयन गर"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "समूह सिर्जना"
 
@@ -166,17 +163,11 @@ msgstr "संदेश लेख्‍नुहोस्"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "सम्पर्क सिर्जना गर्नु"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "नाम"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "पहिलो नाम"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "अन्तिम नाम"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "मोबाइल"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "फोन नम्बर"
@@ -205,9 +196,6 @@ msgstr "पेजर"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "अन्य"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "खोज्‍नुहोस्"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "सम्पर्कहरू"
 
@@ -219,9 +207,6 @@ msgstr "च्याटहरू छैनन्"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "नयाँ वार्तालाप सुरु गर्न, तल्लो दायाँ छेउमा रहेको नयाँ समूह सिर्जना गर्नुहोस् बटन ट्याप गर्नुहोस् वा थप विकल्पहरूको लागि मेनु कुञ्जी थिच्नुहोस्।"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "खोज्‍नुहोस्"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "कुनैपनि परिणामहरू भेट्टाइएन"
@@ -258,9 +243,6 @@ msgstr "पछिल्लो पटक देखिएको एक महि�
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "प्रोफाइल हेर्नु"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "मेटाउनुहोस्"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "सूचना सेटिङहरू"
@@ -304,9 +286,6 @@ msgstr "टेलीग्राममा थप्नुहोस्"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "अज्ञात"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "मेटाउनुहोस्"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "टेलीग्राममा तपाईको सम्पर्क सूचीबाट %s लाई हटाइनेछ।"
 
@@ -334,9 +313,6 @@ msgstr "वस्तु चयन गर्नु"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "मेटाउनु"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "सक्षम गर्नुहोस्"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 घण्टाको लागि म्यूट गर्नुहोस्"
 
@@ -345,9 +321,6 @@ msgstr "%d घण्टाको लागि म्यूट गर्नुह
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d दिनको लागि म्यूट गर्नुहोस्"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "असक्षम गर्नुहोस्"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "सम्पर्क विवरण साझा गर्नुहोस्"
@@ -454,9 +427,6 @@ msgstr "अनब्लक गर्नुहोस्"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "ब्लक गर्नुहोस्"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s लाई ब्लक गरिनेछ।"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s अनब्लक गरिनेछ।"
 
@@ -480,4 +450,49 @@ msgstr "पूर्वनिश्चित समयपछि स्वचा�
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "फवार्ड गर्न सकिँदैन"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s सुरु गर्नुहुन्छ?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s मा संदेश पठाउनुहोस्"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "अघिल्लो"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "सबै चयन गर"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "नाम"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "मोबाइल"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "खोज्‍नुहोस्"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "खोज्‍नुहोस्"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "मेटाउनुहोस्"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "मेटाउनुहोस्"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "सक्षम गर्नुहोस्"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "असक्षम गर्नुहोस्"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s लाई ब्लक गरिनेछ।"
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "सम्पर्क पहिल्यै अस्तित्वमा छ।"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "देश चयन गर्नुहोस्।"
 

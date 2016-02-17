@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCÇDEƏFGĞHXIİJKQLMNOÖPRSŞTUÜVYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Yüklənir..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Dünyanın %1$sən sürətli%2$s mesajlaşma proqramı\nO %3$spulsuz%4$s və %5$stəhlükəsizdir%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Bulud əsaslı"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Şəxsi"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Əvvəlki"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "LƏĞV ET"
@@ -115,9 +115,6 @@ msgstr "Kontaktları seç"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Qrup söhbəti"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Hamısını seç"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Qrup yarat"
 
@@ -166,17 +163,11 @@ msgstr "Mesaj yaz"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Kontakt yarat"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Ad"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Ad"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Soyad"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefon nömrəsi"
@@ -205,9 +196,6 @@ msgstr "Peycer"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Digər"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Axtar"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Əlaqə şəxsləri"
 
@@ -219,9 +207,6 @@ msgstr "Söhbət yoxdur"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Yeni söhbəti başlatmaq üçün aşağı sağ tərəfdə Yeni qrup yarat düyməsinə toxunun və ya daha çox seçim üçün Menyu düyməsinə basın."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Axtar"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nəticə tapılmadı"
@@ -258,9 +243,6 @@ msgstr "Son dəfə ay ərzində göründü"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Profilə bax"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Sil"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Bildiriş parametrləri"
@@ -304,9 +286,6 @@ msgstr "Telegrama əlavə et"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Naməlum"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Sil"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s Telegramda kontakt siyahısından silinəcək."
 
@@ -334,9 +313,6 @@ msgstr "Elementləri seç"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "SİL"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivləşdir"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 saatlıq səssiz et"
 
@@ -345,9 +321,6 @@ msgstr "%d saatlıq səssiz et"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d günlük səssiz et"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Qeyri-aktiv et"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Kontakt məlumatlarnı paylaş"
@@ -454,9 +427,6 @@ msgstr "Blokdan çıxar"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokla"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s bloklanacaqdır."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s blokdan açılacaq."
 
@@ -487,6 +457,42 @@ msgstr "%s başladılsın?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s-a mesaj göndər"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Əvvəlki"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Hamısını seç"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ad"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobil"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Axtar"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Axtar"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Sil"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Sil"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Aktivləşdir"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Qeyri-aktiv et"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s bloklanacaqdır."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt hazırda mövcuddur."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Ölkə seçin."
 

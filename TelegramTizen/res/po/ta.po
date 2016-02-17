@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "அஆஇஈஉஊஎஏஐஒஓஔஃகஙசஞடணதநபமயரலவழளறனABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "லோடிங்..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "உலகின் %1$sஅதிவேகமான%2$s மெசேஜிங் பயன்பாடு\nஇது %3$sஇலவசமானது%4$s மற்றும் %5$sபாதுகாப்பானது%6$s."
 
@@ -54,9 +57,6 @@ msgstr "கிளெளடு-சார்ந்தது"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "தனிப்பட்டவை"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "முந்தையது"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ரத்துசெய்க"
@@ -115,9 +115,6 @@ msgstr "தொடர்புகளை தேர்வுசெய்க"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "குழு அரட்டை"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "எல்லாம் தேர்வு"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "குழு உருவாக்குக"
 
@@ -166,17 +163,11 @@ msgstr "தகவல் உருவாக்கவும்"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "தொடர்பு உருவாக்குக"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "பெயர்"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "முதல் பெயர்"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "கடைசிப் பெயர்"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "மொபைல்"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ஃபோன் எண்"
@@ -205,9 +196,6 @@ msgstr "பேஜர்"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "மற்றவை"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "தேடவும்"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "தொடர்புகள்"
 
@@ -219,9 +207,6 @@ msgstr "அரட்டைகள் இல்லை"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "புதிய உரையாடலை துவங்க, கீழ் வலதில் உள்ள புதிய குழுவை உருவாக்கவும் என்ற பொத்தானை டேப் செய்யவும் அல்லது மேலும் தெரிவுகளுக்கு மெனு விசையை அழுத்தவும்."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "தேடல்"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "முடிவுகள் எதுவும் இல்லை"
@@ -258,9 +243,6 @@ msgstr "ஒரு மாதத்திற்குள் கடைசியா�
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "ப்ரொஃபைல் காண்க"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "நீக்கவும்"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "அறிவிப்பு அமைவுகள்"
@@ -304,9 +286,6 @@ msgstr "டெலிகிராமில் சேர்க்கவும்"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "அறியாதது"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "நீக்குக"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "டெலிகிராமில் உங்கள் தொடர்பு பட்டியலிலிருந்து %s அகற்றப்படுவார்."
 
@@ -334,9 +313,6 @@ msgstr "உருப்படி. தேர்வு"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "நீக்குக"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "செயலாக்குக"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 மணிநேரத்திற்கு ஒலிதடுக்கவும்"
 
@@ -345,9 +321,6 @@ msgstr "%d மணிநேரங்களுக்கு ஒலிதடுக�
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d நாட்களுக்கு ஒலிதடுக்கவும்"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "செயலிநீக்கம்"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "தொடர்பு விவரங்களைப் பகிரவும்"
@@ -454,9 +427,6 @@ msgstr "தடை நீக்கவும்"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "தடுக்கவும்"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s தடுக்கப்படும்."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s தடுப்பு நீக்கப்படும்."
 
@@ -487,6 +457,42 @@ msgstr "%s துவக்கவா?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s-க்கு தகவல் அனுப்பவும்"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "முந்தையது"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "எல்லாம் தேர்வு"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "பெயர்"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "மொபைல்"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "தேடவும்"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "தேடல்"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "நீக்கவும்"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "நீக்குக"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "செயலாக்குக"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "செயலிநீக்கம்"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s தடுக்கப்படும்."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "தொடர்பு முன்பே உள்ளது."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "நாட்டை தேர்வுசெய்க."
 
