@@ -498,11 +498,6 @@ void tg_marked_read(struct tgl_state *TLS, int num, struct tgl_message *list[])
 
 }
 
-void tg_logprintf(const char *format, ...)
-{
-
-}
-
 void on_code_via_phone_result(struct tgl_state *TLS, void *callback_extra, int success)
 {
 	if (success) {
@@ -2117,58 +2112,62 @@ static Eina_Bool on_load_offline_messages(void *data)
 static Eina_Bool on_load_offline_messages(void *data)
 {
 	struct tgl_state *TLS = data;
-	if (TLS) {
-		tg_engine_data_s *tg_data = TLS->callback_data;
+	if (!TLS) {
+		return ECORE_CALLBACK_CANCEL;
+	}
+	tg_engine_data_s *tg_data = TLS->callback_data;
+	if(!tg_data) {
+		return ECORE_CALLBACK_CANCEL;
+	}
 
+	if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
+		for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
+			tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
+			char* msg_table = get_table_name_from_number(UC->id.id);
+			create_buddy_msg_table(msg_table);
+			delete_all_messages_from_chat(UC->id.id, UC->id.type);
+			free(msg_table);
+		}
+	}
 
-		if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
-			for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
-				tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
+	Eina_Bool is_offline_msg_requested = EINA_FALSE;
+
+	if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
+		for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
+
+			tg_data->current_offline_buddy_index = i;
+
+			tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
+
+			if (UC->id.id == 333000 || UC->id.id == 777000) {
+				continue;
+			}
+
+			struct tgl_message *last_msg = UC->last;
+			if (last_msg) {
+				// check last message in message table
 				char* msg_table = get_table_name_from_number(UC->id.id);
-				create_buddy_msg_table(msg_table);
-				delete_all_messages_from_chat(UC->id.id, UC->id.type);
+				struct tgl_message* org_last_msg = get_message_from_message_tableby_message_id(msg_table, last_msg->id);
+				if (!org_last_msg) {
+					tgl_do_get_history(s_info.TLS, UC->id, 10, 0, on_offline_chat_received, UC);
+					is_offline_msg_requested = EINA_TRUE;
+					break;
+				} else {
+					if (org_last_msg->message) {
+						free(org_last_msg->message);
+					}
+					free(org_last_msg);
+				}
 				free(msg_table);
 			}
 		}
-
-		Eina_Bool is_offline_msg_requested = EINA_FALSE;
-
-		if (tg_data->peer_list && eina_list_count(tg_data->peer_list) > 0) {
-			for (int i = 0; i < eina_list_count(tg_data->peer_list); i++) {
-
-				tg_data->current_offline_buddy_index = i;
-
-				tgl_peer_t* UC = eina_list_nth(tg_data->peer_list, i);
-
-				if (UC->id.id == 333000 || UC->id.id == 777000) {
-					continue;
-				}
-
-				struct tgl_message *last_msg = UC->last;
-				if (last_msg) {
-					// check last message in message table
-					char* msg_table = get_table_name_from_number(UC->id.id);
-					struct tgl_message* org_last_msg = get_message_from_message_tableby_message_id(msg_table, last_msg->id);
-					if (!org_last_msg) {
-						tgl_do_get_history(s_info.TLS, UC->id, 10, 0, on_offline_chat_received, UC);
-						is_offline_msg_requested = EINA_TRUE;
-						break;
-					} else {
-						if (org_last_msg->message) {
-							free(org_last_msg->message);
-						}
-						free(org_last_msg);
-					}
-					free(msg_table);
-				}
-			}
-		}
-
-		if (!is_offline_msg_requested) {
-			delete_pending_group_chats(tg_data);
-			send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
-		}
 	}
+
+	if (!is_offline_msg_requested) {
+		delete_pending_group_chats(tg_data);
+		send_contacts_and_chats_load_done_response(TLS->callback_data, EINA_TRUE);
+	}
+
 	return ECORE_CALLBACK_CANCEL;
 }
 
@@ -3905,6 +3904,7 @@ void init_tl_engine(void *cbdata)
 
 	tgl_set_rsa_key(s_info.TLS, s_info.rsa_file_name);
 	tgl_set_callback(s_info.TLS, &upd_cb, cbdata);
+	tgl_set_verbosity(s_info.TLS, E_ERROR);
 	tgl_set_net_methods(s_info.TLS, &tgl_conn_methods);
 	tgl_set_timer_methods(s_info.TLS, &tgl_libevent_timers);
 	assert(s_info.TLS->timer_methods);

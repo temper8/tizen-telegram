@@ -47,6 +47,8 @@
 #include "tree.h"
 #include "tools.h"
 
+#include "logger.h"
+
 #ifndef POLLRDHUP
 #define POLLRDHUP 0
 #endif
@@ -111,9 +113,11 @@ static void start_ping_timer(struct connection *c);
 
 Eina_Bool ping_alarm(void *arg)
 {
+	assert(NULL != arg);
+
 	struct connection *c = arg;
 	struct tgl_state *TLS = c->TLS;
-	vlogprintf(E_DEBUG + 2,"ping alarm\n");
+	vlogprintf(E_SOCKET + 2,"ping alarm\n");
 	//assert(c->state == conn_ready || c->state == conn_connecting);
 	if(c->state != conn_ready || c->state != conn_connecting) {
 		return ECORE_CALLBACK_CANCEL;
@@ -182,7 +186,7 @@ static void delete_connection_buffer(struct connection_buffer *b)
 int tgln_write_out(struct connection *c, const void *_data, int len)
 {
 	struct tgl_state *TLS = c->TLS;
-	vlogprintf(E_DEBUG, "write_out: %d bytes\n", len);
+	vlogprintf(E_SOCKET, "write_out: %d bytes\n", len);
 	const unsigned char *data = _data;
 	if (!len) { return 0; }
 	assert(len > 0);
@@ -328,7 +332,7 @@ static Eina_Bool conn_try_read(void *arg, Ecore_Fd_Handler *handler)
 {
 	struct connection *c = arg;
 	struct tgl_state *TLS = c->TLS;
-	vlogprintf(E_DEBUG + 1, "Try read. Fd = %d\n", c->fd);
+	vlogprintf(E_SOCKET + 1, "Try read. Fd = %d\n", c->fd);
 	try_read(c);
 	return ECORE_CALLBACK_RENEW;
 }
@@ -561,7 +565,7 @@ static void fail_connection(struct connection *c)
 static void try_write(struct connection *c)
 {
 	struct tgl_state *TLS = c->TLS;
-	vlogprintf(E_DEBUG, "try write: fd = %d\n", c->fd);
+	vlogprintf(E_SOCKET, "try write: fd = %d\n", c->fd);
 	int x = 0;
 
 	while(c->out_head) {
@@ -589,7 +593,9 @@ static void try_write(struct connection *c)
 		}
 	}
 
-	vlogprintf(E_DEBUG, "Sent %d bytes to %d\n", x, c->fd);
+	if(x>0)
+		vlogprintf(E_SOCKET, "Sent %d bytes to %d\n", x, c->fd);
+
 	c->out_bytes -= x;
 }
 
@@ -639,7 +645,7 @@ static void try_rpc_read(struct connection *c)
 static void try_read(struct connection *c)
 {
 	struct tgl_state *TLS = c->TLS;
-	vlogprintf(E_DEBUG, "try read: fd = %d\n", c->fd);
+	vlogprintf(E_SOCKET, "try read: fd = %d\n", c->fd);
 
 	if (c->TLS == NULL || c->fd <= 0) {
 		return;
@@ -677,7 +683,8 @@ static void try_read(struct connection *c)
 		}
 	}
 
-	vlogprintf(E_DEBUG, "Received %d bytes from %d\n", x, c->fd);
+	if(x>0)
+		vlogprintf(E_SOCKET, "Received %d bytes from %d\n", x, c->fd);
 
 	c->in_bytes += x;
 

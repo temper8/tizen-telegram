@@ -36,6 +36,7 @@
 #include "tools.h"
 
 #include <dlog.h>
+#include <tg-engine-service.h>
 
 #ifdef __MACH__
 #include <mach/clock.h>
@@ -74,7 +75,7 @@ void logprintf(const char *format, ...)
 	vsnprintf(buffer, sizeof(buffer), format, ap);
 	va_end(ap);
 
-	dlog_print(DLOG_DEBUG, "tg-engine-service", "%s", buffer);
+	dlog_print(DLOG_DEBUG, LOG_TAG, "%s", buffer);
 
 }
 

@@ -19,8 +19,7 @@
 #ifndef __tg_engine_service_H__
 #define __tg_engine_service_H__
 
-#include <dlog.h>
-#include "tg_common.h"
+#include <eina_types.h>
 
 #ifdef  LOG_TAG
 #undef  LOG_TAG

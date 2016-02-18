@@ -168,6 +168,7 @@ struct tgl_timer_methods {
 #define E_WARNING 1
 #define E_NOTICE 2
 #define E_DEBUG 6
+#define E_SOCKET 7
 
 #define TGL_LOCK_DIFF 1
 #define TGL_LOCK_PASSWORD 2

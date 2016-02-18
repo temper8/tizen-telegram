@@ -26,6 +26,7 @@
 #include <net_connection.h>
 #include "tg_db_wrapper.h"
 #include <badge.h>
+#include "tg_common.h"
 
 static void free_connection(tg_engine_data_s* tg_data);
 static Eina_Bool on_restart_service_requested(void *data);

@@ -81,6 +81,9 @@
   "# Feel free to put something here\n"
 
 extern void logprintf (const char *format, ...) __attribute__ ((format (printf, 1, 2)));
+
+#define tg_logprintf logprintf
+
 extern void check_type_sizes(void);
 extern int str_empty(char *str);
 extern void parse_config(void);
