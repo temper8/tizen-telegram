@@ -3456,7 +3456,7 @@ static void on_text_message_send_unpressed(void *data, Evas_Object *obj, void *e
 }
 #endif
 
-void on_message_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
+static void on_message_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
 	if (!ad)

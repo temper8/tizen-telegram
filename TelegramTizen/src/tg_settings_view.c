@@ -976,6 +976,15 @@ void refresh_settings_screen(appdata_s* ad)
 	}
 }
 
+static void on_message_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	app_nf_back_cb(data, obj, event_info);
+}
+
 void launch_settings_screen(appdata_s* ad)
 {
 	if (!ad) {
@@ -1010,6 +1019,10 @@ void launch_settings_screen(appdata_s* ad)
 	elm_genlist_item_append(list, &itc, (void*) 1, NULL, ELM_GENLIST_ITEM_NONE, on_settings_info_item_clicked, (void*)1);
 
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_OPT_SETTINGS"), NULL, NULL, list, NULL);
+
+	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
+	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
+	elm_object_item_part_content_set(navi_item, "elm.swallow.prev_btn", back_btn);
 
 	elm_naviframe_item_pop_cb_set(navi_item, _pop_cb, ad);
 	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, _create_more_popup, ad);

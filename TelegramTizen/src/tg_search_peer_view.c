@@ -1586,41 +1586,50 @@ static void _index_selected_cb(void *data, Evas_Object *obj, void *event_info)
 }
 
 static Evas_Object* create_fastscroll(appdata_s *ad)
-	{
-		Evas_Object *parent = ad->nf;
-		Evas_Object *index;
-		int i = 0, j, len;
-		char *str;
-		char buf[PATH_MAX] = {0, };
+{
+	Evas_Object *parent = ad->nf;
+	Evas_Object *index;
+	int i = 0, j, len;
+	char *str;
+	char buf[PATH_MAX] = {0, };
 
-		index = elm_index_add(parent);
-		elm_object_part_content_set(parent, "elm.swallow.fastscroll", index);
-		elm_index_autohide_disabled_set(index, EINA_TRUE);
-		elm_index_omit_enabled_set(index, EINA_TRUE);
+	index = elm_index_add(parent);
+	elm_object_part_content_set(parent, "elm.swallow.fastscroll", index);
+	elm_index_autohide_disabled_set(index, EINA_TRUE);
+	elm_index_omit_enabled_set(index, EINA_TRUE);
 
-		/* 1. Special character & Numbers */
-		elm_index_item_append(index, "#", NULL, NULL);
+	/* 1. Special character & Numbers */
+	elm_index_item_append(index, "#", NULL, NULL);
 
-		/* 2. Local language */
-		str = i18n_get_text("IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-		len = strlen(str);
+	/* 2. Local language */
+	str = i18n_get_text("IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+	len = strlen(str);
 
-		while (i < len) {
-			j = i;
-			eina_unicode_utf8_next_get(str, &i);
-			snprintf(buf, i - j + 1, "%s", str + j);
-			buf[i - j + 1] = 0;
+	while (i < len) {
+		j = i;
+		eina_unicode_utf8_next_get(str, &i);
+		snprintf(buf, i - j + 1, "%s", str + j);
+		buf[i - j + 1] = 0;
 
-			elm_index_item_append(index, buf, NULL, NULL);
-		}
-		elm_index_level_go(index, 0);
-
-		evas_object_smart_callback_add(index, "selected", _index_selected_cb, ad);
-		//evas_object_smart_callback_add(index, "changed", _index_changed_cb, NULL);
-		//evas_object_smart_callback_add(index, "language,changed", _index_language_changed_cb, NULL);
-
-		return index;
+		elm_index_item_append(index, buf, NULL, NULL);
 	}
+	elm_index_level_go(index, 0);
+
+	evas_object_smart_callback_add(index, "selected", _index_selected_cb, ad);
+	//evas_object_smart_callback_add(index, "changed", _index_changed_cb, NULL);
+	//evas_object_smart_callback_add(index, "language,changed", _index_language_changed_cb, NULL);
+
+	return index;
+}
+
+static void on_message_back_button_clicked(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return;
+
+	app_nf_back_cb(data, obj, event_info);
+}
 
 void launch_start_peer_search_view(appdata_s* ad)
 {
@@ -1683,6 +1692,8 @@ void launch_start_peer_search_view(appdata_s* ad)
 	evas_object_data_set(ad->nf, "main_layout", layout);
 	evas_object_data_set(ad->nf, "search_list", peer_list);
 
-	elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_CONTACTS_ABB"), NULL, NULL, layout, NULL);
-
+	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_CONTACTS_ABB"), NULL, NULL, layout, NULL);
+	Evas_Object *back_btn = create_button(ad->nf, "naviframe/back_btn/default", NULL);
+	evas_object_smart_callback_add(back_btn, "clicked", on_message_back_button_clicked, ad);
+	elm_object_item_part_content_set(navi_item, "elm.swallow.prev_btn", back_btn);
 }
