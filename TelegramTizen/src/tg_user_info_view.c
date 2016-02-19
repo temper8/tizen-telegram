@@ -970,7 +970,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 	evas_object_smart_callback_add(back_btn, "clicked", on_userinfo_back_button_clicked, ad);
 	elm_object_item_part_content_set(navi_item,  "elm.swallow.prev_btn", back_btn);
 
-	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_user_info_menu_button_clicked, ad);
+	//eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_user_info_menu_button_clicked, ad);
 
 #endif
 }
