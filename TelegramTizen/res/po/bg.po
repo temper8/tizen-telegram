@@ -496,3 +496,6 @@ msgstr "Контактът вече съществува."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "Изберете държава."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "Инициализиране. Моля, изчакайте..."
+

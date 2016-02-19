@@ -496,3 +496,6 @@ msgstr "ସମ୍ପର୍କ ପୂର୍ବରୁ ବିଦ୍ୟମାନ ଅ
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "ଏକ ଦେଶ ଚୟନ କରନ୍ତୁ।"
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "ପ୍ରାରମ୍ଭ କରୁଛି । ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ..."
+

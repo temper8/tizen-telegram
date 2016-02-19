@@ -496,3 +496,6 @@ msgstr "Харилцагч аль хэдийн байна"
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "Улс сонго."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "Таниулж байна. Хүлээнэ үү..."
+

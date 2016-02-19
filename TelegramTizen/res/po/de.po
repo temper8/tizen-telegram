@@ -496,3 +496,6 @@ msgstr "Kontakt bereits vorhanden"
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "Wählen Sie ein Land aus."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "Initialisierung. Bitte warten..."
+

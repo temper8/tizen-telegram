@@ -496,3 +496,6 @@ msgstr "সম্পৰ্ক ইতিমধ্যে মজুত আছে৷
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "এখন দেশ চয়ন কৰক৷"
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "আৰম্ভ কৰি আছে৷ অনুগ্ৰহ কৰি অপেক্ষা..."
+

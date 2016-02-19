@@ -1,5 +1,5 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-msgstr "अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr "अआइईउऊऋएऐओऔकखगघड़चछजझञटठडढणतथदधनपफबभमयरलवशषसहABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 msgid "IDS_COM_BODY_LOADING"
 msgstr "लोड होत आहे..."
@@ -495,4 +495,7 @@ msgstr "संपर्क आधीच अस्तित्वात आहे
 
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "देश निवडा."
+
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "आरंभ करत आहे. कृपया प्रतीक्षा करा..."
 

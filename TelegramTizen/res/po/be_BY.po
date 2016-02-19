@@ -496,3 +496,6 @@ msgstr "Кантакт ужо існуе."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "Выберыце краіну."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "Initialising. Please wait..."
+

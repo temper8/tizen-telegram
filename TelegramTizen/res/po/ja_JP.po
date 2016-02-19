@@ -496,3 +496,6 @@ msgstr "連絡先は既に存在します。"
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "国を選択してください。"
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "初期化中。しばらくお待ちください..."
+

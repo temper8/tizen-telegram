@@ -496,3 +496,6 @@ msgstr "සබඳතාව දැනටමත් ඇත."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "රට තෝරන්න."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "ඇරඹෙමින්. රැඳී සිටින්න..."
+

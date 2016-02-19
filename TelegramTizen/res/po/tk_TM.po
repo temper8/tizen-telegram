@@ -496,3 +496,6 @@ msgstr "Contact already exists."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "Ýurt saýlaň."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "Başladylýar. Garaşyň..."
+

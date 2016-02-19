@@ -496,3 +496,6 @@ msgstr "동일한 연락처가 있습니다."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "국가를 선택하세요."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "초기화 중입니다. 잠시 기다리세요..."
+

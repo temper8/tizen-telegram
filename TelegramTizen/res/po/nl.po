@@ -496,3 +496,6 @@ msgstr "Contactpersoon bestaat al."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "Selecteer een land."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "Initialiseren. Even geduld..."
+

@@ -496,3 +496,6 @@ msgstr "איש קשר כבר קיים."
 msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "בחר מדינה."
 
+msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
+msgstr "מאתחל. אנא המתן..."
+
