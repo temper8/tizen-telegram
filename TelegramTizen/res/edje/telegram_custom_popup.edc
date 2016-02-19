@@ -18,7 +18,7 @@
 
 collections {
    /* This is EFL-oriented features */
-   base_scale: 1.8;
+   base_scale: 2.6;
 #define POPUP_CONTENT_DEFAULT_PADDING_TOP_MIN_INC 27
 #define POPUP_CONTENT_DEFAULT_PADDING_LEFT_MIN_INC 15
 #define POPUP_CONTENT_DEFAULT_PADDING_RIGHT_MIN_INC 15
@@ -293,7 +293,7 @@ group { name: "popup_checkview_layout";
 group { name: "processing_view_layout";
    styles {
       style { name: "popup_processing_style";
-         base: "font=Tizen:style=Regular align=left font_size="POPUP_TEXT_FONT_SIZE1" color=#FFFFFF color_class=T123 wrap=mixed ellipsis=1.0 text_class=T123";
+         base: "font=Tizen:style=Large align=left font_size=40 color=#000000 wrap=mixed ellipsis=1.0";
          tag:  "br" "\n";
          tag:  "tab" "\t";
       }

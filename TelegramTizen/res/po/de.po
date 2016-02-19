@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Lädt..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Die %1$sschnellste%2$s Nachrichten-App der Welt\nSie ist %3$sgratis%4$s und %5$ssicher%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Cloud-basiert"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privat"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Vorherige"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ABBRECHEN"
@@ -115,9 +115,6 @@ msgstr "Kontaktauswahl"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Gruppenchat"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Alle auswählen"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Gruppenerstellung"
 
@@ -166,17 +163,11 @@ msgstr "Verfassen einer Nachricht"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Erstellen von Kontakten"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Name"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Vorname"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Nachname"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefonnummer"
@@ -205,9 +196,6 @@ msgstr "Pager"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Sonstiges"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Suche"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontakte"
 
@@ -219,9 +207,6 @@ msgstr "Keine Chats"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Tippen Sie unten rechts auf die Schaltfläche „Neue Gruppe erstellen“ oder drücken Sie die Menü-Taste, um weitere Optionen anzuzeigen."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Suche"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Keine Ergebnisse"
@@ -258,9 +243,6 @@ msgstr "Zuletzt diesen Monat gesehen"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Profil anzeigen"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Löschen"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Benachrichtigungseinstellungen"
@@ -304,9 +286,6 @@ msgstr "Zu Telegram hinzufügen"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Unbekannt"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Löschen"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s wird aus Ihrer Kontaktliste in Telegram entfernt."
 
@@ -334,9 +313,6 @@ msgstr "Elementauswahl"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "LÖSCHEN"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivieren"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Für 1 h stummschalten"
 
@@ -345,9 +321,6 @@ msgstr "Für %d Stunden stummschalten"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Für %d Tage stummschalten"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivieren"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Teilen von Kontaktdetails"
@@ -454,9 +427,6 @@ msgstr "Aufheben"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Sperren"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s wird blockiert."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s wird entsperrt."
 
@@ -487,6 +457,42 @@ msgstr "%s starten?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Nachricht an %s senden"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Vorherige"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Alle auswählen"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Name"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobil"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Suche"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Suche"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Löschen"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Löschen"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Aktivieren"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Deaktivieren"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s wird blockiert."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt bereits vorhanden"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Wählen Sie ein Land aus."
 

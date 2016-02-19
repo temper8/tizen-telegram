@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ#"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Боркунӣ..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Барномаи паёмнависии %1$sзудкортарин%2$s дар ҷаҳон\nОн %3$sройгон%4$s ва %5$sамн%6$s аст."
 
@@ -54,9 +57,6 @@ msgstr "Воқеъ дар абр"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Махфӣ"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Қаблӣ"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "БЕКОР КАРДАН"
@@ -115,9 +115,6 @@ msgstr "Интихоби алоқаҳо"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Чати гуруҳӣ"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Интихоби ҳама"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Эҷод к-ни гурӯҳ"
 
@@ -166,17 +163,11 @@ msgstr "Тартиб додани паём"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Эҷод кардани алоқа"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Ном"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Ном"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Насаб"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Мобилӣ"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Рақами телефон"
@@ -205,9 +196,6 @@ msgstr "Пейҷер"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Дигар"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Ҷустуҷӯ"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Алоқаҳо"
 
@@ -219,9 +207,6 @@ msgstr "Ягон чат нест"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Барои оғоз кардани гуфтугӯи нав, Эҷод кардани гурӯҳи навро дар қисми поёнӣ зарба занед ё барои имконоти бештар тугмаи Менюро пахш кунед."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Ҷустуҷӯ кардан"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Ягон натиҷа ёфт нашуд"
@@ -258,9 +243,6 @@ msgstr "Охирин бор давоми як моҳ дида шуд"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Дидани профил"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Нест кардан"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Танзимоти огоҳиҳо"
@@ -304,9 +286,6 @@ msgstr "Илова ба Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Номаълум"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Нест кардан"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s аз рӯйхати алоқаҳои Telegram нест карда мешавад."
 
@@ -334,9 +313,6 @@ msgstr "Интихоби ҷузъҳо"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "НЕСТ К."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Фаъол кардан"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Бесадо кардан 1 соат"
 
@@ -345,9 +321,6 @@ msgstr "Бесадо кардан барои %d соат"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Бесадо кардан дар давоми %d рӯз"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Ғайрифаъол"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Мубодилаи тафсилоти алоқа"
@@ -454,9 +427,6 @@ msgstr "Лағв кардани мамнӯият"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Мамнуъ кардан"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s will be blocked."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s ғайримамнуъ карда мешавад."
 
@@ -480,4 +450,49 @@ msgstr "Баъди вақти таъйиншуда ба таври худкор 
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Бозфиристӣ ғайриимкон аст"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s-ро оғоз медиҳед?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Ба %s паём фиристед"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Қаблӣ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Интихоби ҳама"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ном"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Мобилӣ"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Ҷустуҷӯ"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Ҷустуҷӯ кардан"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Нест кардан"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Нест кардан"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Фаъол кардан"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Ғайрифаъол"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Contact already exists."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Интихоби кишвар."
 

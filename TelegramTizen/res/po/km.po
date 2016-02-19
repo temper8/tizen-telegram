@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "កខគឃងចឆជឈញដឋឌឍណតថទធនបផពភមយរលវសហឡអABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "កំពុង​ផ្ទុក..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "កម្មវិធី​សារ%1$sលឿន​បំផុត%2$s របស់​ពិភពលោក\nវា​គឺ %3$sឥតគិតថ្លៃ%4$s និង %5$sមាន​សន្តិសុខ%6$s។"
 
@@ -54,9 +57,6 @@ msgstr "មាន​មូលដ្ឋាន​ក្លោដ"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ឯកជន"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "ពី​មុន"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "បោះបង់"
@@ -115,9 +115,6 @@ msgstr "ជ្រើស​ទំនាក់ទំនង"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "ឆាត​ជាក្រុម"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "ជ្រើស​ទាំងអស់"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "បង្កើត​ក្រុម"
 
@@ -166,17 +163,11 @@ msgstr "តែង​សារ"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "បង្កើត​ទំនាក់ទំនង"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "ឈ្មោះ"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "នាម​ខ្លួន"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "នាម​ត្រកូល"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "ម៉ូបាល"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "លេខ​ទូរសព្ទ"
@@ -205,9 +196,6 @@ msgstr "ភែកជឺ"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "ផ្សេងទៀត"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "ស្វែងរក"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "ទំនាក់ទំនង"
 
@@ -219,9 +207,6 @@ msgstr "គ្មាន​ឆាត"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "ដើម្បី​ចាប់ផ្ដើម​សន្ទនា​ថ្មី សូម​ប៉ះ​ប៊ូតុង​បង្កើត​ក្រុម​ថ្មី នៅ​ជ្រុង​ស្ដាំ​ខាងក្រោម ឬ​ក៏​ចុច​គ្រាប់ចុច​ម៉ឺនុយ​សម្រាប់​ជម្រើស​ច្រើនទៀត។"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "ស្វែងរក"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "រក​មិនឃើញ​លទ្ធផល​ណា​មួយ"
@@ -258,9 +243,6 @@ msgstr "បាន​ឃើញ​ចុងក្រោយ​ក្នុង​ព
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "បង្ហាញ​ទម្រង់"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "លុប"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "ការកំណត់​ការជូនដំណឹង"
@@ -304,9 +286,6 @@ msgstr "ថែម​ទៅ​ទូរលេខ"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "មិនស្គាល់"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "លុប"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "នឹង​លុប %s ពី​បញ្ជី​ទំនាក់ទំនង​របស់​អ្នក​ក្នុង​ទូរលេខ។"
 
@@ -334,9 +313,6 @@ msgstr "ជ្រើស​ធាតុ"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "លុប"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "បើកប្រើ"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "បិទ​សំឡេង​ក្នុង​ពេល 1 ម៉ោង"
 
@@ -345,9 +321,6 @@ msgstr "បិទ​សំឡេង​ក្នុង​ពេល %d ម៉ោ�
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "បិទ​សំឡេង​ក្នុង​ពេល %d ថ្ងៃ"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "បិទ"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "ចែករំលែក​ព័ត៌មាន​លម្អិត​នៃ​ទំនាក់ទំនង"
@@ -454,9 +427,6 @@ msgstr "ឈប់​ខ្ទប់"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "ខ្ទប់"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "នឹង​ខ្ទប់ %s។"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "នឹង​ឈប់​ខ្ទប់ %s។"
 
@@ -480,4 +450,49 @@ msgstr "បាន​លុប​ដោយ​ស្វ័យប្រវត្ត
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "មិន​អាច​បញ្ជូនបន្ត"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "ចាប់​ផ្តើម %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "ផ្ញើ​សារ​ទៅ %s"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "ពី​មុន"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "ជ្រើស​ទាំងអស់"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "ឈ្មោះ"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "ម៉ូបាល"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ស្វែងរក"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ស្វែងរក"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "លុប"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "លុប"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "បើកប្រើ"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "បិទ"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "នឹង​ខ្ទប់ %s។"
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "ទំនាក់ទំនង​មាន​ហើយ។"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "ជ្រើស​ប្រទេស។"
 

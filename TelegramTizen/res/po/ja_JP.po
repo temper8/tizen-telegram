@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "あかさたなはまやらわ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "読み込み中..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "世界で%1$s最も速い%2$sメッセージングアプリ\n%3$s無料%4$sで%5$s安全%6$sに使用できます。"
 
@@ -54,9 +57,6 @@ msgstr "クラウドベース"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "プライベート"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "前へ"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "キャンセル"
@@ -115,9 +115,6 @@ msgstr "連絡先を選択"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "グループチャット"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "全て選択"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "グループを作成"
 
@@ -166,17 +163,11 @@ msgstr "メッセージを作成"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "連絡先を作成"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "名前"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "名"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "姓"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "携帯"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "電話番号"
@@ -205,9 +196,6 @@ msgstr "ポケベル"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "その他"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "検索"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "連絡先"
 
@@ -219,9 +207,6 @@ msgstr "チャットがありません"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "新しい会話を開始するには、右下の新規グループを作成ボタンをタップするか、メニューキーを押して詳細オプションを表示します。"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "検索"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "検索結果がありません"
@@ -258,9 +243,6 @@ msgstr "前回アクセス: 1か月以内"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "ﾌﾟﾛﾌｨｰﾙを表示"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "削除"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "通知設定"
@@ -304,9 +286,6 @@ msgstr "Telegramに追加"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "不明"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "削除"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%sをTelegramの連絡先リストから削除します。"
 
@@ -334,9 +313,6 @@ msgstr "アイテムを選択"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "削除"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "有効"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1時間消音"
 
@@ -345,9 +321,6 @@ msgstr "%d時間消音"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d日間消音"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "無効にする"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "連絡先の詳細を共有"
@@ -454,9 +427,6 @@ msgstr "ブロック解除"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "ブロック"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%sをブロックします。"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%sのブロックを解除します。"
 
@@ -487,6 +457,42 @@ msgstr "%sを開始しますか？"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%sにメッセージを送信します。"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "前へ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "全て選択"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "名前"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "携帯"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "検索"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "検索"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "削除"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "削除"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "有効"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "無効にする"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%sをブロックします。"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "連絡先は既に存在します。"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "国を選択してください。"
 

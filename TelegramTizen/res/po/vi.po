@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Đang tải…"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Ứng dụng nhắn tin %1$snhanh nhất%2$s thế giới\n%3$sMiễn phí%4$s và %5$sbảo mật%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Dựa trên cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Riêng tư"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Trước"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "THOÁT"
@@ -115,9 +115,6 @@ msgstr "Chọn danh bạ"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Chat nhóm"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Chọn tất cả"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Tạo nhóm"
 
@@ -166,17 +163,11 @@ msgstr "Soạn tin nhắn"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Tạo danh bạ"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Tên"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Tên"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Họ"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Di động"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Số điện thoại"
@@ -205,9 +196,6 @@ msgstr "Máy nhắn tin"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Khác"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Tìm kiếm"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Danh bạ"
 
@@ -219,9 +207,6 @@ msgstr "Không có đoạn chat"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Để bắt đầu hội thoại mới, hãy chạm phím Tạo nhóm mới ở dưới cùng bên phải hoặc nhấn phím Menu để có thêm tùy chọn."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Tìm kiếm"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Không tìm thấy kết quả"
@@ -258,9 +243,6 @@ msgstr "Nhìn thấy lần cuối trong tháng"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Xem hồ sơ"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Xóa"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Cài đặt thông báo"
@@ -304,9 +286,6 @@ msgstr "Thêm vào Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Không xác định"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Xóa"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s sẽ bị xóa khỏi danh bạ của bạn trong Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Chọn mục"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "XÓA"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Bật"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Tắt âm 1 giờ"
 
@@ -345,9 +321,6 @@ msgstr "Tắt âm %d giờ"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Tắt âm %d ngày"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Tắt"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Chia sẻ chi tiết danh bạ"
@@ -454,9 +427,6 @@ msgstr "Bỏ chặn"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Chặn"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s sẽ bị chặn."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s sẽ được bỏ chặn."
 
@@ -480,4 +450,49 @@ msgstr "Tự động xóa sau thời gian đặt sẵn"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Không thể chuyển tiếp"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Khởi động %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Gửi tin nhắn đến %s"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Trước"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Chọn tất cả"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Tên"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Di động"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Tìm kiếm"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Tìm kiếm"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Xóa"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Xóa"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Bật"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Tắt"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s sẽ bị chặn."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Danh bạ đã tồn tại."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Chọn một quốc gia."
 

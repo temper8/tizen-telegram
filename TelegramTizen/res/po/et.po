@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSŠZŽTUVWÕÄÖÜXY"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Laadimine..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Maailma %1$skiireim%2$s sõnumsiderakendus\nSee on %3$stasuta%4$s ja %5$sturvaline%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Pilvepõhine"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privaatne"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Eelmine"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "TÜHISTA"
@@ -115,9 +115,6 @@ msgstr "Kontaktide valimine"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Rühmavestlus"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Vali kõik"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Rühma loomine"
 
@@ -166,17 +163,11 @@ msgstr "Sõnumi koostamine"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Kontakti loomine"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Nimi"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Eesnimi"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Perekonnanimi"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobile"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefoninumber"
@@ -205,9 +196,6 @@ msgstr "Piipar"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Muu"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Otsi"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontaktid"
 
@@ -219,9 +207,6 @@ msgstr "Vestlusi pole"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Uue vestluse alustamiseks toksake all paremal nuppu Loo uus rühm või vajutage lisavalikute jaoks menüüklahvi."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Otsi"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Tulemusi ei leitud"
@@ -258,9 +243,6 @@ msgstr "Viimati nähtud kuu jooksul"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Kuva profiil"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Kustuta"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Teavituse seaded"
@@ -304,9 +286,6 @@ msgstr "Lisa rakendusse Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Tundmatu"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Kustuta"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s eemaldatakse Telegramis sinu kontaktiloendist."
 
@@ -334,9 +313,6 @@ msgstr "Üksuste valim."
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "KUSTUTA"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktiveeri"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Vaigista 1 tunniks"
 
@@ -345,9 +321,6 @@ msgstr "Vaigista %d tunniks"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Vaigista %d päevaks"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Desaktiveeri"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Kontakti üksikasjade jagam."
@@ -454,9 +427,6 @@ msgstr "Eemalda blokeering"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokeerimine"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s blokeeritakse."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s deblokeeritakse."
 
@@ -487,6 +457,42 @@ msgstr "Käivitada %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Saada sõnum kontaktile %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Eelmine"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Vali kõik"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nimi"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobile"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Otsi"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Otsi"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Kustuta"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Kustuta"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Aktiveeri"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Desaktiveeri"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s blokeeritakse."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt on juba olemas."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Valige riik."
 

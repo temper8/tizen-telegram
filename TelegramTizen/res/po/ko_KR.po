@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "불러오는 중..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "세상에서 %1$s가장 빠른%2$s메시지 앱\n%3$s무료%4$s이며 %5$s안전%6$s합니다."
 
@@ -54,9 +57,6 @@ msgstr "클라우드 기반으로"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "프라이빗하게"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "이전"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "취소"
@@ -115,9 +115,6 @@ msgstr "연락처 선택"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "그룹 대화"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "모두 선택"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "새 그룹 추가"
 
@@ -166,17 +163,11 @@ msgstr "메시지 작성"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "새 연락처 추가"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "이름"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "이름"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "성"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "휴대전화"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "전화번호"
@@ -205,9 +196,6 @@ msgstr "호출기"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "기타"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "검색"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "연락처"
 
@@ -219,9 +207,6 @@ msgstr "대화가 없습니다"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "새 대화를 시작하려면 상단 오른쪽에 있는 새 그룹 추가 버튼을 누르거나, 메뉴 버튼을 누르세요."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "검색"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "검색 결과가 없습니다"
@@ -258,9 +243,6 @@ msgstr "마지막 접속: 한 달 이내"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "프로필 보기"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "삭제"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "알림 설정"
@@ -304,9 +286,6 @@ msgstr "Telegram에 추가"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "알 수 없음"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "삭제"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Telegram의 내 연락처 목록에서 %s 님을 삭제합니다."
 
@@ -334,9 +313,6 @@ msgstr "항목 선택"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "삭제"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "사용"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1시간 동안 무음"
 
@@ -345,9 +321,6 @@ msgstr "%d시간 동안 무음"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d일 동안 무음"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "해제"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "연락처 정보 공유"
@@ -454,9 +427,6 @@ msgstr "차단 해제"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "차단"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s 님을 차단합니다."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s 님의 차단을 해제합니다."
 
@@ -487,6 +457,42 @@ msgstr "%s을(를) 시작할까요?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s 님에게 메시지 전송"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "이전"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "모두 선택"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "이름"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "휴대전화"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "검색"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "검색"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "삭제"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "삭제"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "사용"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "해제"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s 님을 차단합니다."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "동일한 연락처가 있습니다."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "국가를 선택하세요."
 

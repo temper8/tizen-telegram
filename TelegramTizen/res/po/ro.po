@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Încărcare..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sCea mai rapidă%2$s aplicaţie de mesagerie\nEste %3$sgratuită%4$s şi %5$ssigură%6$s."
 
@@ -54,9 +57,6 @@ msgstr "În cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privată"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Înapoi"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ANULARE"
@@ -115,9 +115,6 @@ msgstr "Selectare contacte"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Chat de grup"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Select. totală"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Creare grup"
 
@@ -166,17 +163,11 @@ msgstr "Compunere mesaj"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Creare contact"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Nume"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Prenume"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Nume de familie"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Număr de telefon"
@@ -205,9 +196,6 @@ msgstr "Pager"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Altele"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Căutare"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Contacte"
 
@@ -219,9 +207,6 @@ msgstr "Nicio conversaţie"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Pentru a începe o conversaţie nouă, atingeţi butonul Creare grup nou din partea din dreapta jos sau apăsaţi tasta Meniu pentru mai multe opţiuni."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Căutaţi"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nu au fost găsite rezultate"
@@ -258,9 +243,6 @@ msgstr "Văzut ultima dată în această lună"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Viz. profil"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Ştergere"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Setări pentru notificări"
@@ -304,9 +286,6 @@ msgstr "Adăugare la aplicaţia Telegramă"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Necunoscut"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Ştergeţi"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s va fi eliminat din lista de contacte a aplicaţiei Telegramă."
 
@@ -334,9 +313,6 @@ msgstr "Selectare elem."
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ŞTERG."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Activare"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Sunet dezactivat pentru 1 oră"
 
@@ -345,9 +321,6 @@ msgstr "Sunet dezactivat pentru %d ore"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Sunet dezactivat pentru %d zile"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Dezactivaţi"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Partajare detalii contact"
@@ -454,9 +427,6 @@ msgstr "Deblocare"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blocare"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "Prietenul %s va fi blocat."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Blocarea utilizatorului %s va fi anulată."
 
@@ -487,6 +457,42 @@ msgstr "Porniţi %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Trimitere mesaj către %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Înapoi"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Select. totală"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nume"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobil"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Căutare"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Căutaţi"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Ştergere"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Ştergeţi"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Activare"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Dezactivaţi"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Prietenul %s va fi blocat."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Contact deja existent"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Selectaţi o ţară."
 

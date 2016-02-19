@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "در حال دانلود..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sسریع‌ترین%2$s برنامه پیام‌رسانی جهانی\nاین برنامه %3$sرایگان%4$s و %5$sایمن%6$s است."
 
@@ -54,9 +57,6 @@ msgstr "مبتنی بر Cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "خصوصی"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "قبلی"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "لغو"
@@ -115,9 +115,6 @@ msgstr "انتخاب مخاطبین"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "چت گروهی"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "انتخاب همه"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "ایجاد گروه"
 
@@ -166,17 +163,11 @@ msgstr "نوشتن پیام"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "ایجاد مخاطب"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "نام"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "نام"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "نام خانوادگی"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "موبایل"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "شماره تلفن"
@@ -205,9 +196,6 @@ msgstr "پی‌جو"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "موارد دیگر"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "جستجو"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "مخاطبین"
 
@@ -219,9 +207,6 @@ msgstr "چت وجود ندارد"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "برای شروع یک مکالمه جدید، روی دکمه ایجاد گروه جدید در گوشه سمت راست پایین صفحه ضربه بزنید یا برای گزینه‌های بیشتر، کلید منو را فشار دهید."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "جستجو"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "نتیجه‌ای یافت نشد"
@@ -258,9 +243,6 @@ msgstr "آخرین بازدید یک ماه قبل"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "مشاهده نمایه"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "حذف"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "تنظیمات اعلان"
@@ -304,9 +286,6 @@ msgstr "افزودن به تلگرام"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "ناشناخته"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "حذف"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s از لیست مخاطبین شما در تلگرام حذف خواهد شد."
 
@@ -334,9 +313,6 @@ msgstr "انتخاب موارد"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "حذف"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "فعال کردن"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "بی‌صدا برای ۱ ساعت"
 
@@ -345,9 +321,6 @@ msgstr "بی‌صدا برای %d ساعت"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "بی‌صدا برای %d روز"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "غیرفعال"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "اشتراک‌گذاری جزئیات مخاطب"
@@ -454,9 +427,6 @@ msgstr "رفع انسداد"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "انسداد"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s مسدود خواهد شد."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s رفع انسداد خواهد شد."
 
@@ -487,6 +457,42 @@ msgstr "%s راه اندازی شود؟"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "ارسال پیام به ‎%s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "قبلی"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "انتخاب همه"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "نام"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "موبایل"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "جستجو"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "جستجو"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "حذف"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "فعال کردن"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "غیرفعال"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s مسدود خواهد شد."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "مخاطب از قبل وجود دارد."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "یک کشور انتخاب کنید."
 

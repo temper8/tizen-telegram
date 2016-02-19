@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "අආඇඈඉඊඋඌඍඎඑඒඓඔඕඖකඛගඝඞඟචඡජඣඤඦටඨඩඪණඬතථදධනඳපඵබභමඹයරලවශෂසහළෆABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "ප්‍රෙව්ශනය කරමින්..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ලොව %1$sවේගවත්ම%2$s පණිවිඩකරණ යෙදුම\nඑය %3$sනොමිලේ%4$s සහ %5$sආරක්ෂිතය%6$s."
 
@@ -54,9 +57,6 @@ msgstr "ක්ලවුඩ්-මූලස්ථ"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "පෞද්ගලික"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "පෙර"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "අවලංගු කර."
@@ -115,9 +115,6 @@ msgstr "සබඳතා තෝරන්න"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "සමූහ සංවාදය"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "සියල්ල තෝරන්න"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "සමූහය තැනීම"
 
@@ -166,17 +163,11 @@ msgstr "පණිවිඩය නිර්මාණය"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "සබඳතාව තැනීම"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "නම"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "මුල් නම"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "අවසන් නම"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "ජංගමය"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "දුරකථන අංකය"
@@ -205,9 +196,6 @@ msgstr "පේජර්"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "වෙනත්"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "සොයන්න"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "සබඳතා"
 
@@ -219,9 +207,6 @@ msgstr "සංවාද නැත"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "නව කතාබහක් ඇරඹීමට, පහළ දකුණු පස නව සමූහයක් තනන්න බොත්තම තට්ටු කරන්න හෝ වැඩිදුර විකල්ප සඳහා මෙනු යතුර ඔබන්න."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "සොයන්න"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "ප්‍රතිඵල හමු නොවිණි"
@@ -258,9 +243,6 @@ msgstr "අවසන් දැක්ම මාසයක් තුළ"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "පැතිකඩ බලන්න"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "මකන්න"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "දැනුම්දීම් සැකසුම්"
@@ -304,9 +286,6 @@ msgstr "ටෙලිග්‍රෑම් වෙත එක් කරන්න"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "නොදන්නා"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "මකන්න"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s ටෙලිග්‍රෑම් තුළ ඇති ඔබේ සබඳතා ලැයිස්තුව වෙතින් ඉවත් කෙරෙනු ඇත."
 
@@ -334,9 +313,6 @@ msgstr "අයිතම තේරීම"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "මකන්න"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "සක්‍රියයි"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "පැය 1 ක් සඳහා නිහඬ කරන්න"
 
@@ -345,9 +321,6 @@ msgstr "පැය %d ක් සඳහා නිහඬ කරන්න"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "දවස් %d ක් සඳහා නිහඬ කරන්න"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "අක්‍රිය කරන්න"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "සබඳතාවයේ විස්තර බෙදා ගැනීම"
@@ -454,9 +427,6 @@ msgstr "අවහිර කිරීම ඉවත් කරන්න"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "අවහිරය"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s අවහිර කරනු ඇත."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s අනවහිර කෙරෙනු ඇත."
 
@@ -487,6 +457,42 @@ msgstr "%s අරඹන්නද?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "පණිවිඩය %s වෙත යවන්න"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "පෙර"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "සියල්ල තෝරන්න"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "නම"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "ජංගමය"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "සොයන්න"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "සොයන්න"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "මකන්න"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "මකන්න"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "සක්‍රියයි"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "අක්‍රිය කරන්න"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s අවහිර කරනු ඇත."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "සබඳතාව දැනටමත් ඇත."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "රට තෝරන්න."
 

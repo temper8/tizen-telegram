@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "অআইঈউঊঋএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফবভমযরলশষসহABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "লোড হচ্ছে..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "বিশ্বের %1$sসবচেয়ে নিরাপদ%2$s মেসেজিং অ্যাপ\nএটি %3$sফ্রি%4$s ও %5$sনিরাপদ%6$s৷"
 
@@ -54,9 +57,6 @@ msgstr "Cloud-ভিত্তিক"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ব্যক্তিগত"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "পূর্ববর্তী"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "বাতিল"
@@ -115,9 +115,6 @@ msgstr "কন্টাক্ট বেছে নিন"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "গ্রুপ চ্যাট"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "সব নির্বাচন করুন"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "গ্রুপ তৈরি করুন"
 
@@ -166,17 +163,11 @@ msgstr "মেসেজ লিখুন"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "কন্টাক্ট তৈরি করুন"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "নাম"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "নামের প্রথমাংশ"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "নামের শেষাংশ"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "মোবাইল"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ফোন নম্বর"
@@ -205,9 +196,6 @@ msgstr "পেজার"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "অন্যান্য"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "অনুসন্ধান করুন"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "কন্টাক্টসমূহ"
 
@@ -219,9 +207,6 @@ msgstr "কোনো চ্যাট নেই"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "নতুন কথোপকথন শুরু করতে, নিচে ডানদিকে ‘নতুন গ্রুপ তৈরি করুন’ বাটন ট্যাপ করুন অথবা আরো অপশনের জন্য ‘মেনু’ কী চাপুন৷"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "অনুসন্ধান"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "কোনো ফলাফল পাওয়া যায়নি"
@@ -258,9 +243,6 @@ msgstr "সর্বশেষ এক মাসের মধ্যে দেখ�
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "প্রোফাইল দেখুন"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "মুছে ফেলুন"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "বিজ্ঞপ্তির সেটিংস"
@@ -304,9 +286,6 @@ msgstr "Telegram-এ যোগ করুন"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Unknown"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "মুছে ফেলুন"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Telegram-এ আপনার কন্টাক্ট তালিকা থেকে %s অপসারণ করা হবে৷"
 
@@ -334,9 +313,6 @@ msgstr "আইটেম বেছে নিন"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "মুছুন"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "সক্রিয়"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 ঘণ্টার জন্য মৌন করুন"
 
@@ -345,9 +321,6 @@ msgstr "%d ঘণ্টার জন্য মৌন করুন"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d দিনের জন্য মৌন করুন"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "নিষ্ক্রিয়"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "কন্টাক্টের বিবরণ শেয়ার করুন"
@@ -454,9 +427,6 @@ msgstr "Unblock"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "ব্লক করুন"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s will be blocked."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s আনব্লক হবে।"
 
@@ -480,4 +450,49 @@ msgstr "পূর্বনির্ধারিত সময় পরে স্ব
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "ফরোয়ার্ড করা যাবে না"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Start %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s-এ বার্তা পাঠান"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "পূর্ববর্তী"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "সব নির্বাচন করুন"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "নাম"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "মোবাইল"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "অনুসন্ধান করুন"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "অনুসন্ধান"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "মুছে ফেলুন"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "মুছে ফেলুন"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "সক্রিয়"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "নিষ্ক্রিয়"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "পরিচিতি বিদ্যমান রয়েছে।"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "একটি দেশ নির্বাচন করুন।"
 

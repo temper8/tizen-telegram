@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "लोड होत आहे..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "जगातील%1$sसर्वात जलद%2$s संदेश प्रेषण अनुप्रयोग\nहा %3$sविनामूल्य%4$s आणि %5$sसुरक्षित%6$s आहे."
 
@@ -54,9 +57,6 @@ msgstr "क्लाउड-आधारित"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "खाजगी"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "मागील"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "रद्द करा"
@@ -115,9 +115,6 @@ msgstr "संपर्क निवडा"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "समूह चॅट"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "सर्व निवडा"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "समूह तयार करा"
 
@@ -166,17 +163,11 @@ msgstr "संदेशाची रचना करा"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "संपर्क तयार करा"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "नाव"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "नाव"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "आडनाव"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "मोबाईल"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "फोन नंबर"
@@ -205,9 +196,6 @@ msgstr "पेजर"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "इतर"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "शोधा"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "संपर्क"
 
@@ -219,9 +207,6 @@ msgstr "कोणतेही चॅट्स नाहीत"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "नवीन संभाषण सुरू करण्यासाठी, तळाशी उजवीकडील नवीन समूह बटण तयार करा टॅप करा किंवा अधिक पर्यायांसाठी मेनू की दाबा."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "शोध"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "कोणतेही परिणाम आढळले नाही"
@@ -258,9 +243,6 @@ msgstr "महिन्याच्या आत अंतिम पाहिल
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "प्रोफाइल पहा"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "हटवा"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "अधिसूचना सेटिंग्स"
@@ -304,9 +286,6 @@ msgstr "टेलिग्रामवर जोडा"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "अज्ञात"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "हटवा"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "टेलिग्राममधील आपल्या संपर्क यादीमधून %s काढून टाकले जाईल."
 
@@ -334,9 +313,6 @@ msgstr "आयटम्‍स निवडा"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "हटवा"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "सक्षम करा"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 तासासाठी मूक करा"
 
@@ -345,9 +321,6 @@ msgstr "%d तासांसाठी मूक करा"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d दिवसांसाठी मूक करा"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "अक्षम करा"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "संपर्क तपशील सामायिक करा"
@@ -454,9 +427,6 @@ msgstr "अनब्‍लॉक करा"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "अवरोधित करा"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s ब्‍लॉक केले जातील."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s अनाव‍रोधित करण्‍यात येईल."
 
@@ -480,4 +450,49 @@ msgstr "स्वयंचलितपणे प्रीसेट वेळा�
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "अग्रेषित केले जाऊ शकत नाही"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s सुरू करावे?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "%s ला संदेश पाठवा"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "मागील"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "सर्व निवडा"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "नाव"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "मोबाईल"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "शोधा"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "शोध"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "हटवा"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "हटवा"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "सक्षम करा"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "अक्षम करा"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s ब्‍लॉक केले जातील."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "संपर्क आधीच अस्तित्वात आहे."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "देश निवडा."
 

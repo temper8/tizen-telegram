@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Nahrávám..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "The world's %1$sNejrychlejší%2$s aplikace pro zasílání zpráv na světě\nJe %3$szdarma%4$s a %5$szabezpečená%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Cloudový"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Soukromý"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Předchozí"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ZRUŠIT"
@@ -115,9 +115,6 @@ msgstr "Vyberte kontakty"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Skupinový chat"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Vybrat vše"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Vytv. skupinu"
 
@@ -166,17 +163,11 @@ msgstr "Vytvořit zprávu"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Vytvořit kontakt"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Jméno"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Křestní jméno"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Příjmení"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobil"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefonní číslo"
@@ -205,9 +196,6 @@ msgstr "Pager"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Jiné"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Hledat"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontakty"
 
@@ -219,9 +207,6 @@ msgstr "Žádné chaty"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Chcete-li zahájit novou konverzaci, klepněte na tlačítko Vytvořit novou skupinu v pravém dolním rohu nebo stiskněte tlačítko Menu a zobrazte další možnosti."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Hledat"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nebylo nic nalezeno"
@@ -258,9 +243,6 @@ msgstr "Naposledy viděn maximálně do měsíce"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Zobrazit profil"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Odstranit"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Nastavení upozorňování"
@@ -304,9 +286,6 @@ msgstr "Přidat do Telegramu"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Neznámý"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Odstranit"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s bude odebrán ze seznamu kontaktů v Telegramu."
 
@@ -334,9 +313,6 @@ msgstr "Vyberte položky"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ODSTR."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Zapnout"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Zlumit na 1 hodinu"
 
@@ -345,9 +321,6 @@ msgstr "Ztlumit na %d hodin"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Ztlumit na %d dnů"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Vypnout"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Sdílet detaily kontaktu"
@@ -454,9 +427,6 @@ msgstr "Odblokovat"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokovat"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s bude zablokován(a)."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s bude odblokován(a)."
 
@@ -487,6 +457,42 @@ msgstr "Spustit %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Odeslat zprávu uživateli %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Předchozí"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Vybrat vše"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Jméno"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobil"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Hledat"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Hledat"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Odstranit"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Odstranit"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Zapnout"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Vypnout"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s bude zablokován(a)."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt již existuje."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Vyberte zemi."
 

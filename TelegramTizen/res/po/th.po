@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลวศษสหฬอฮ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "กำลังประมวลผล..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "แอพรับส่งข้อความที่ %1$sเร็วที่สุด%2$s ในโลก\n ซึ่งทั้ง %3$sฟรี%4$s และ %5$sปลอดภัย%6$s"
 
@@ -54,9 +57,6 @@ msgstr "ใช้ระบบ Cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "ส่วนตัว"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "ก่อน​หน้า"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ยกเลิก"
@@ -115,9 +115,6 @@ msgstr "เลือกรายชื่อ"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "การสนทนาแบบกลุ่ม"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "เลือกทั้งหมด"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "สร้าง​กลุ่ม​"
 
@@ -166,17 +163,11 @@ msgstr "เขียนข้อความ"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "สร้างรายชื่อ"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "ชื่อ"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "ชื่อ"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "ชื่อสกุล"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "มือ​ถือ"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "หมายเลขโทรศัพท์"
@@ -205,9 +196,6 @@ msgstr "เพจเจอร์"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "อื่น ๆ"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "ค้นหา"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "รายชื่อ"
 
@@ -219,9 +207,6 @@ msgstr "ไม่มีการสนทนา"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "ในการเริ่มการสนทนาใหม่ สัมผัสปุ่มสร้างกลุ่มใหม่ที่ด้านล่างขวา หรือกดปุ่มเมนูสำหรับตัวเลือกเพิ่มเติม"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "ค้นหา"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "ไม่พบผลลัพธ์"
@@ -258,9 +243,6 @@ msgstr "เห็นครั้งสุดท้ายภายในเดื
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "ดูโปรไฟล์"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "ลบ"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "การตั้งค่าการแจ้งเตือน"
@@ -304,9 +286,6 @@ msgstr "เพิ่มไปยัง Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "ไม่​รู้จัก"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "ลบ"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s จะถูกลบออกจากรายชื่อผู้ติดต่อของคุณใน Telegram"
 
@@ -334,9 +313,6 @@ msgstr "เลือกรายการ"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ลบ"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "ทำงาน"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "ปิดเสียงนาน 1 ชั่วโมง"
 
@@ -345,9 +321,6 @@ msgstr "ปิดเสียงนาน %d ชั่วโมง"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "ปิดเสียงนาน %d วัน"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "ปิดใช้งาน"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "แชร์รายละเอียดรายชื่อ"
@@ -454,9 +427,6 @@ msgstr "ปลดบล็อค"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "บล็อค"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s จะถูกบล็อค"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s จะถูกปลดบล็อค"
 
@@ -487,6 +457,42 @@ msgstr "เริ่ม %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "ส่งข้อความถึง %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "ก่อน​หน้า"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "เลือกทั้งหมด"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "ชื่อ"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "มือ​ถือ"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "ค้นหา"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "ค้นหา"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ลบ"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ลบ"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "ทำงาน"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "ปิดใช้งาน"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s จะถูกบล็อค"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "ราย​ชื่อ​มี​อยู่​แล้ว"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "เลือกประเทศ"
 

@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "AĀBCČDEĒFGĢHIĪJKĶLĻMNŅOPRSŠTUŪVZŽ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Ielādē..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Pasaulē %1$svisātrākā%2$s ziņapmaiņas programma\nTā ir %3$sbezmaksas%4$s un %5$sdroša%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Atrodas mākonī"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privāta"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Iepriekšējais"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ATCELT"
@@ -115,9 +115,6 @@ msgstr "Kontaktu izvēle"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Grupas tērzēšana"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Izvēlēties visu"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Grupas izveid."
 
@@ -166,17 +163,11 @@ msgstr "Ziņas rakstīšana"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Kontakta izveidošana"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Vārds"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Vārds"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Uzvārds"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobilais"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Tālruņa numurs"
@@ -205,9 +196,6 @@ msgstr "Peidžeris"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Cits"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Meklēt"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontakti"
 
@@ -219,9 +207,6 @@ msgstr "Nav nevienas tērzēšanas"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Lai sāktu jaunu sarunu, apakšējā labajā pusē pieskarieties pogai Izveidot jaunu grupu vai nospiediet izvēlnes taustiņu, lai atvērtu citas iespējas."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Meklēt"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nav atrasts neviens rezultāts"
@@ -258,9 +243,6 @@ msgstr "Pēdējoreiz redzēts šomēnes"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Skatīt profilu"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Dzēst"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Paziņojumu iestatījumi"
@@ -304,9 +286,6 @@ msgstr "Pievienot Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Nezināms"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Dzēst"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Lietotājs %s tiks noņemts no jūsu kontaktu saraksta programmā Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Izvēl. objektus"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "DZĒST"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktivizēt"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Izslēgt uz 1 stundu"
 
@@ -345,9 +321,6 @@ msgstr "Izslēgt uz %d stundām"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Izslēgt uz %d dienām"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Deaktivizēt"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Kopīgot kontakta datus"
@@ -454,9 +427,6 @@ msgstr "Atbloķēt"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Bloķēt"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "Lietotājs %s tiks bloķēts."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Kontakts %s tiks atbloķēts."
 
@@ -487,6 +457,42 @@ msgstr "Vai aktivizēt %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Sūtīt ziņu adresātam %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Iepriekšējais"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Izvēlēties visu"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Vārds"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobilais"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Meklēt"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Meklēt"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Dzēst"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Dzēst"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Aktivizēt"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Deaktivizēt"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Lietotājs %s tiks bloķēts."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakts jau pastāv."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Izvēlieties valsti."
 

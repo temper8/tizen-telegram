@@ -4538,6 +4538,7 @@ static bool app_create(void *data)
 	}
 
 	tg_db_init();
+	bindtextdomain(PACKAGE, "/opt/usr/apps/org.tizen.telegram_tizen/res/locale");
 
 	ad->phone_number = NULL;
 	ad->buddy_list = NULL;

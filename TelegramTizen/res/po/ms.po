@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Memuat…"
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Aplikasi mesej %1$sterpantas%2$s di dunia\nIa adalah %3$spercuma%4$s dan %5$sselamat%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Berdasarkan Cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Peribadi"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Sebelumnya"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "BATAL"
@@ -115,9 +115,6 @@ msgstr "Pilih kenalan"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Sembang kumpulan"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Pilih semua"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Cipta kumpulan"
 
@@ -166,17 +163,11 @@ msgstr "Karang mesej"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Cipta kenalan"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Nama"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Nama pertama"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Nama akhir"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mudah alih"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Nombor telefon"
@@ -205,9 +196,6 @@ msgstr "Alat kelui"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Lain"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Cari"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kenalan"
 
@@ -219,9 +207,6 @@ msgstr "Tiada sembang"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Untuk memulakan perbualan yang baru, ketik butang Cipta kumpulan baru di bahagian bawah sebelah kanan atau tekan kekunci Menu untuk lebih pilihan."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Cari"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Tiada kptsn ditemui"
@@ -259,9 +244,6 @@ msgstr "Terakhir dilihat dalam bulan"
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Lihat profil"
 
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Padam"
-
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Aturan pemberitahuan"
 
@@ -293,7 +275,7 @@ msgid "IDS_TGRAM_POP_YOU_WILL_LEAVE_THIS_GROUP"
 msgstr "Anda akan meninggalkan kumpulan ini."
 
 msgid "IDS_TGRAM_BUTTON_CANCEL_ABB5"
-msgstr "Batalkan"
+msgstr "Batal"
 
 msgid "IDS_TGRAM_BUTTON_LEAVE_ABB2"
 msgstr "Tinggalkan"
@@ -303,9 +285,6 @@ msgstr "Tambah ke Telegram"
 
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Tidak diketahui"
-
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Padam"
 
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s akan dialih keluarkan daripada senarai kenalan anda dalam Telegram."
@@ -334,9 +313,6 @@ msgstr "Pilih item"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "PADAM"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aktif"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Dibisukan untuk 1 jam"
 
@@ -345,9 +321,6 @@ msgstr "Dibisukan untuk %d jam"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Dibisukan untuk %d hari"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Nyahaktif"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Kongsikan butiran kenalan"
@@ -454,9 +427,6 @@ msgstr "Nyahsekat"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Sekat"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s akan disekat."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s akan dinyahsekat."
 
@@ -480,4 +450,49 @@ msgstr "Dipadam secara automatik selepas masa pratetap"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Tidak boleh dimajukan"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "Mulakan %s?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Hantar mesej kepada %s"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Sebelumnya"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Pilih semua"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Nama"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mudah alih"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Cari"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Cari"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Padam"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Padam"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Aktif"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Nyahaktif"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s akan disekat."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Kenalan telah wujud."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Pilih negara."
 

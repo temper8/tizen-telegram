@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Φόρτωση..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Η πιο %1$sγρήγορη%2$s εφαρμογή ανταλλαγής μηνυμάτων στον κόσμο\nΕίναι %3$sδωρεάν%4$s και %5$sασφαλής%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Βασισμένο στο cloud"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Απόρρητη"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Προηγούμενο"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ΑΚΥΡΟ"
@@ -115,9 +115,6 @@ msgstr "Επιλογή επαφών"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Ομαδική συνομιλία"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Επιλογή όλων"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Δημιουρ. ομάδας"
 
@@ -166,17 +163,11 @@ msgstr "Νέο μήνυμα"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Δημιουργία επαφής"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Όνομα"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Όνομα"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Επώνυμο"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Κινητό"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Αριθμός τηλεφώνου"
@@ -205,9 +196,6 @@ msgstr "Συσκευή τηλεειδοποίησης"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Άλλο"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Αναζήτηση"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Επαφές"
 
@@ -219,9 +207,6 @@ msgstr "Καμία συνομιλία"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Για να ξεκινήσετε μια νέα συζήτηση, πατήστε το κουμπί «Δημιουργία νέας ομάδας» στην κάτω δεξιά γωνία ή πιέστε το πλήκτρο μενού για περισσότερες επιλογές."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Αναζήτηση"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Δεν βρέθηκαν αποτελέσματα"
@@ -258,9 +243,6 @@ msgstr "Τελευταία εμφάνιση εντός του μήνα"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Προβολή προφίλ"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Διαγραφή"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Ρυθμίσεις ειδοποιήσεων"
@@ -304,9 +286,6 @@ msgstr "Προσθήκη στο Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Άγνωστο"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Διαγραφή"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Ο χρήστης %s θα καταργηθεί από τη λίστα επαφών στο Telegram."
 
@@ -334,9 +313,6 @@ msgstr "Επιλογή στοιχ."
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ΔΙΑΓΡ."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Ενεργοποίηση"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Σίγαση για 1 ώρα"
 
@@ -345,9 +321,6 @@ msgstr "Σίγαση για %d ώρες"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Σίγαση για %d ημέρες"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Απενεργοποίηση"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Κοινή χρήση λεπτομερ. επαφής"
@@ -454,9 +427,6 @@ msgstr "Κατάργηση αποκλεισμού"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Αποκλεισμός"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "Ο χρήστης %s θα αποκλειστεί."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Ο αποκλεισμός της επαφής %s θα αναιρεθεί."
 
@@ -487,6 +457,42 @@ msgstr "Να γίνει εκκίνηση του %s;"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Αποστολή μηνύματος σε %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Προηγούμενο"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Επιλογή όλων"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Όνομα"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Κινητό"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Αναζήτηση"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Αναζήτηση"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Διαγραφή"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Διαγραφή"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Ενεργοποίηση"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Απενεργοποίηση"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "Ο χρήστης %s θα αποκλειστεί."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Η επαφή υπάρχει ήδη."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Επιλέξτε χώρα."
 

@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Učitavanje..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "%1$sNajbrža%2$s aplikacija za poruke na svijetu\n%3$sBesplatna%4$s je i %5$ssigurna%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Na oblaku"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Privatno"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Nazad"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ODUSTANI"
@@ -115,9 +115,6 @@ msgstr "Odabir kontakata"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Grupno čavrljanje"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Odaberi sve"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Stvaranje grupe"
 
@@ -166,17 +163,11 @@ msgstr "Nova poruka"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Stvaranje kontakta"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Naziv"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Ime"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Prezime"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mobitel"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefonski broj"
@@ -205,9 +196,6 @@ msgstr "Dojavljivač"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Ostalo"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Traži"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Imenik"
 
@@ -219,9 +207,6 @@ msgstr "Nema čavrljanja"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Da biste započeli novi razgovor, dodirnite gumb Nova grupa u donjem desnom kutu ili pritisnite tipku izbornika za više opcija."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Traži"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Nema rezultata"
@@ -258,9 +243,6 @@ msgstr "Zadnji put viđeno unutar mjesec dana"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Prikaži profil"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Obriši"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Postavke obavijesti"
@@ -304,9 +286,6 @@ msgstr "Dodaj u Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Nepoznato"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Obriši"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s će se ukloniti s popisa kontakta u Telegramu."
 
@@ -334,9 +313,6 @@ msgstr "Odabir stavki"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "IZBRIŠI"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Uključi"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Utišaj na 1 sat"
 
@@ -345,9 +321,6 @@ msgstr "Utišaj na %d h"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Utišaj na %d dan/a"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Isključi"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Dijelj. detalja o kontaktu"
@@ -454,9 +427,6 @@ msgstr "Deblokiraj"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokiranje"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s će biti blokirano."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "Kontakt %s bit će odblokiran."
 
@@ -487,6 +457,42 @@ msgstr "Pokrenuti %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Slanje poruke %s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Nazad"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Odaberi sve"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Naziv"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mobitel"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Traži"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Traži"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Obriši"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Obriši"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Uključi"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Isključi"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s će biti blokirano."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontakt već postoji."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Odaberite državu."
 

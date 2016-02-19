@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Kargatzen..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Munduko mezularitza aplikaziorik %1$sazkarrena%2$s\n%3$sDoakoa%4$s eta %5$ssegurua%6$s da."
 
@@ -54,9 +57,6 @@ msgstr "Hodeian oinarrituta"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Pribatua"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Aurrekoa"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "UTZI"
@@ -115,9 +115,6 @@ msgstr "Hautatu kontaktuak"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Talde txata"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Hautatu denak"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Sortu taldea"
 
@@ -166,17 +163,11 @@ msgstr "Sortu mezua"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Sortu kontaktua"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Izena"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Izena"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Abizena"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Mugikorra"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefono zenbakia"
@@ -205,9 +196,6 @@ msgstr "Bilagailua"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Beste bat"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Bilatu"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontaktuak"
 
@@ -219,9 +207,6 @@ msgstr "Ez dago txatik"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Elkarrizketa bat hasteko, ukitu behean eskuinaldean dagoen Sortu talde berria botoia, edo sakatu Menua tekla aukera gehiago ikusteko."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Bilatu"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Ez da emaitzarik aurkitu"
@@ -258,9 +243,6 @@ msgstr "Azken hilabetean ikusitakoak"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Ikusi profila"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Ezabatu"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Jakinarazpen ezarpenak"
@@ -304,9 +286,6 @@ msgstr "Gehitu Telegram programan"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Ezezaguna"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Ezabatu"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "Telegram eginbideko kontaktu zerrendatik kenduko da %s."
 
@@ -334,9 +313,6 @@ msgstr "Hautatu"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "EZABATU"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Gaitu"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Isilarazi 1 orduz"
 
@@ -345,9 +321,6 @@ msgstr "Isilarazi %d orduz"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Isilarazi %d egunez"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Ezgaitu"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Partekatu kontaktu xehetas."
@@ -454,9 +427,6 @@ msgstr "Desblokeatu"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Blokeatu"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s blokeatuko da"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s desblokeatuko da."
 
@@ -487,6 +457,42 @@ msgstr "Hasi %s?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Bidali mezua %s-(e)ri"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Aurrekoa"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Hautatu denak"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Izena"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Mugikorra"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Bilatu"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Bilatu"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Ezabatu"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Ezabatu"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Gaitu"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Ezgaitu"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s blokeatuko da"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Kontaktua dagoeneko bada"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Hautatu herrialdea."
 

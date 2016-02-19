@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "അആഇഈഉഊഋഎഏഐഒഓഔകഖഗഘങചഛജഝഞടഠഡഢണതഥദധനപഫബഭമയരലവശഷസഹളഴറABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "ലോഡ്‌ ചെയ്യുന്നു..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "ലോകത്തിലെ %1$sഏറ്റവും വേഗമേറിയ%2$s സന്ദേശമയയ്ക്കൽ ആപ്ലിക്കേഷൻ\nഇത് %3$sസൗജന്യവും%4$s %5$sസുരക്ഷിതവുമാണ്%6$s."
 
@@ -54,9 +57,6 @@ msgstr "ക്ലൗഡ്-അധിഷ്ഠിതം"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "സ്വകാര്യം"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "മുന്‍"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "റദ്ദാക്കുക"
@@ -115,9 +115,6 @@ msgstr "കോൺടാക്റ്റുകൾ തിരഞ്ഞെടുക�
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "ഗ്രൂപ്പ് ചാറ്റ്"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "എല്ലാം തിരഞ്ഞെടുക്കുക"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "ഗ്രൂപ്പ് സൃഷ്ടിക്കുക"
 
@@ -166,17 +163,11 @@ msgstr "സന്ദേശം രചിക്കുക"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "കോണ്‍‌ടാക്ട് സൃഷ്‌ടിക്കുക"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "പേര്"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "പ്രഥമ നാമം"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "അന്തിമ നാമം"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "മൊബൈല്‍"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "ഫോൺ നമ്പർ"
@@ -205,9 +196,6 @@ msgstr "പേജർ"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "മറ്റുള്ളത്"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "തിരയുക"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "കോൺടാക്ടുകൾ"
 
@@ -219,9 +207,6 @@ msgstr "ചാറ്റുകൾ ഒന്നുമില്ല"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "ഒരു പുതിയ സംഭാഷണം ആരംഭിക്കുന്നതിന്, താഴ്ഭാഗത്ത് വലത് വശത്തുള്ള പുതിയ ഗ്രൂപ്പ് സൃഷ്ടിക്കുക ബട്ടണിൽ സ്പർശിക്കുക അല്ലെങ്കിൽ കൂടുതൽ ഐച്ഛികങ്ങൾക്കായി മെനു കീയിൽ സ്പർശിക്കുക."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "തിരയുക"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "ഫലങ്ങളൊന്നും കണ്ടെത്തിയില്ല"
@@ -258,9 +243,6 @@ msgstr "അവസാനം കണ്ടത് ഒരു മാസത്തിന
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "പ്രൊഫൈൽ കാണുക"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "ഇല്ലാതാക്കുക"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "അറിയിപ്പ് ക്രമീകരണങ്ങൾ"
@@ -304,9 +286,6 @@ msgstr "ടെലിഗ്രാമിലേക്ക് ചേർക്കു�
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "അജ്ഞാതം"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "ഇല്ലാതാക്കുക"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "ടെലിഗ്രാമിലെ നിങ്ങളുടെ കോൺടാക്ട് ലിസ്റ്റിൽ നിന്നും %s നീക്കംചെയ്യപ്പെടും."
 
@@ -334,9 +313,6 @@ msgstr "ഇനങ്ങൾ തിരഞ്ഞെ."
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ഇല്ലാതാ."
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "പ്രാപ്തമാക്കുക"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 മണിക്കൂർ നിശബ്ദമാക്കുക"
 
@@ -345,9 +321,6 @@ msgstr "%d മണിക്കൂർ നിശബ്ദമാക്കുക"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d ദിവസം നിശബ്ദമാക്കുക"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "അപ്രാപ്‌തമാക്കുക"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "കോൺടാക്ട് വിശദാംശങ്ങൾ പങ്കിടുക"
@@ -454,9 +427,6 @@ msgstr "തടയൽ മാറ്റുക"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "തടയുക"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s തടയപ്പെടും."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s-ന്‍റെ തടയൽ മാറ്റപ്പെടും."
 
@@ -487,6 +457,42 @@ msgstr "%s ആരംഭിക്കണമോ?"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "%s-ലേക്ക് സന്ദേശമയയ്ക്കുക"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "മുന്‍"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "എല്ലാം തിരഞ്ഞെടുക്കുക"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "പേര്"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "മൊബൈല്‍"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "തിരയുക"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "തിരയുക"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "ഇല്ലാതാക്കുക"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "ഇല്ലാതാക്കുക"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "പ്രാപ്തമാക്കുക"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "അപ്രാപ്‌തമാക്കുക"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s തടയപ്പെടും."
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "കോണ്‍‌ടാക്ട് ഇതിനകം തന്നെ നിലവിലുണ്ട്."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "ഒരു രാജ്യം തിരഞ്ഞെടുക്കുക."
 

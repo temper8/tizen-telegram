@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "正在載入..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "全球%1$s最快速%2$s的傳訊應用程式\n%3$s免費使用%4$s且%5$s高度安全%6$s。"
 
@@ -54,9 +57,6 @@ msgstr "雲端"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "私人"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "上一頁"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "取消"
@@ -115,9 +115,6 @@ msgstr "選擇聯絡人"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "群組聊天"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "全選"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "建立群組"
 
@@ -166,17 +163,11 @@ msgstr "撰寫訊息"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "建立聯絡人"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "名稱"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "名"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "姓"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "手機"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "電話號碼"
@@ -205,9 +196,6 @@ msgstr "呼叫器"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "其他"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "搜尋"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "聯絡人"
 
@@ -219,9 +207,6 @@ msgstr "無聊天"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "若要開始新對話，請輕觸右下方的 [建立新群組] 按鈕或按 [功能表] 鍵，即可取得更多選項。"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "搜尋"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "找不到結果"
@@ -258,9 +243,6 @@ msgstr "最後上線時間為一個月內"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "檢視個人資料"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "刪除"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "通知設定"
@@ -304,9 +286,6 @@ msgstr "新增至 Telegram"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "未知"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "刪除"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "將自 Telegram 聯絡人清單移除%s。"
 
@@ -334,9 +313,6 @@ msgstr "選擇項目"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "刪除"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "啟用"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "靜音 1 小時"
 
@@ -345,9 +321,6 @@ msgstr "靜音 %d 小時"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "靜音 %d 天"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "停用"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "分享聯絡人詳細資訊"
@@ -454,9 +427,6 @@ msgstr "解除封鎖"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "封鎖"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "將封鎖%s。"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "將取消封鎖%s。"
 
@@ -487,6 +457,42 @@ msgstr "要開始%s嗎？"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "傳送訊息至%s"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "上一頁"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "全選"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "名稱"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "手機"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "搜尋"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "搜尋"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "刪除"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "刪除"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "啟用"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "停用"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "將封鎖%s。"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "聯絡人已存在。"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "選擇國家。"
 

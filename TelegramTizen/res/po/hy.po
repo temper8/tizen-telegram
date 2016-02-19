@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "#ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՈՒՓՔԵՎՕՖ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Բեռնում է..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Աշխարհի %1$sամենաարագ%2$s հաղորդագրման ծրագիրը\nԱյն %3$sանվճար%4$s և %5$sապահով%6$s է:"
 
@@ -54,9 +57,6 @@ msgstr "Ամպային տեխնոլոգիայի վրա հիմնված"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Գաղտնի"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Նախորդ"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ԴԱԴԱՐԵՑՆԵԼ"
@@ -115,9 +115,6 @@ msgstr "Ընտրել կոնտակտներ"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Խմբազրույց"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Ընտրել բոլորը"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Ստեղծել խումբ"
 
@@ -166,17 +163,11 @@ msgstr "Գրել հաղորդագրություն"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Ստեղծել կոնտակտ"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Անուն"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "Անուն"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Ազգանուն"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Բջջային"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Հեռախոսահամար"
@@ -205,9 +196,6 @@ msgstr "Փեյջեր"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Այլ"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Որոնել"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Կոնտակտներ"
 
@@ -219,9 +207,6 @@ msgstr "Զրույցներ չկան"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Նոր խոսակցություն սկսելու համար թակեք «Ստեղծել նոր խումբ» կոճակը ստորին աջ մասում կամ այլ ընտրանքների համար սեղմեք Ընտրացանկի ստեղնը:"
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Որոնել"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Արդյունքներ չեն գտնվել"
@@ -258,9 +243,6 @@ msgstr "Վերջին հանդիպումը՝ մեկ ամսվա մեջ"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Դիտել պրոֆիլը"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Վերացնել"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Ծանուցման դրվածքներ"
@@ -304,9 +286,6 @@ msgstr "Ավելացնել Telegram-ին"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Անհայտ"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Վերացնել"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s կոնտակտը կհեռացվի Telegram-ում առկա կոնտակտների ցանկից:"
 
@@ -334,9 +313,6 @@ msgstr "Ընտրել տարրեր"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ՎԵՐԱՑՆԼ"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Միացնել"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "Խլացնել 1 ժամ"
 
@@ -345,9 +321,6 @@ msgstr "Խլացնել %d ժամ"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "Խլացնել %d օր"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Անջատված է"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Համօգտ. կոնտակտային տվյալներ"
@@ -454,9 +427,6 @@ msgstr "Արգելաբացել"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Արգելափակել"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s կարգելափակվի:"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s կոնտակտը կարգելահանվի:"
 
@@ -487,6 +457,42 @@ msgstr "Սկսե՞լ %s-ը"
 msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
 msgstr "Ուղարկել հաղորդագրություն %sին"
 
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Նախորդ"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Ընտրել բոլորը"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Անուն"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Բջջային"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Որոնել"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Որոնել"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Վերացնել"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Վերացնել"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Միացնել"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Անջատված է"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s կարգելափակվի:"
+
 msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
 msgstr "Կոնտակտը արդեն գոյություն ունի:"
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Ընտրեք երկիր:"
 

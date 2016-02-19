@@ -1,6 +1,9 @@
 msgid "IDS_COM_BODY_ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 msgstr "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+msgid "IDS_COM_BODY_LOADING"
+msgstr "Ýükleýär..."
+
 msgid "IDS_TGRAM_SBODY_THE_WORLDS_P1SSFASTESTP2SS_MESSAGING_APP_NIT_IS_P3SSFREEP4SS_AND_P5SSSECUREP6SS"
 msgstr "Dünýäniň %1$siň çalt%2$s hat alyşma goýmasy\nOl %3$smugt%4$s we %5$showpsuz%6$s."
 
@@ -54,9 +57,6 @@ msgstr "Bulut esasly"
 
 msgid "IDS_TGRAM_HEADER_PRIVATE"
 msgstr "Şahsy"
-
-msgid "IDS_TGRAM_BUTTON_PREVIOUS"
-msgstr "Öňki"
 
 msgid "IDS_TGRAM_ACBUTTON_CANCEL_ABB"
 msgstr "ÝATYR"
@@ -115,9 +115,6 @@ msgstr "Kontakt saýla"
 msgid "IDS_TGRAM_MBODY_GROUP_CHAT"
 msgstr "Topar söhbeti"
 
-msgid "IDS_TGRAM_MBODY_SELECT_ALL"
-msgstr "Ählisini saýla"
-
 msgid "IDS_TGRAM_HEADER_CREATE_GROUP_ABB"
 msgstr "Topar döret"
 
@@ -166,17 +163,11 @@ msgstr "Hat ýaz"
 msgid "IDS_TGRAM_HEADER_CREATE_CONTACT_ABB"
 msgstr "Kontakt döret"
 
-msgid "IDS_TGRAM_BODY_NAME_ABB"
-msgstr "Ady"
-
 msgid "IDS_TGRAM_BODY_FIRST_NAME_ABB"
 msgstr "At"
 
 msgid "IDS_TGRAM_BODY_LAST_NAME_ABB"
 msgstr "Familiýa"
-
-msgid "IDS_TGRAM_BODY_MOBILE_ABB"
-msgstr "Ykjam"
 
 msgid "IDS_TGRAM_OPT_PHONE_NUMBER_ABB"
 msgstr "Telefon belgi"
@@ -205,9 +196,6 @@ msgstr "Peýjer"
 msgid "IDS_TGRAM_OPT_OTHER"
 msgstr "Başga"
 
-msgid "IDS_TGRAM_OPT_SEARCH"
-msgstr "Gözleg"
-
 msgid "IDS_TGRAM_OPT_CONTACTS"
 msgstr "Kontaktlar"
 
@@ -219,9 +207,6 @@ msgstr "Söhbet ýok"
 
 msgid "IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"
 msgstr "Täze gepleşik başlatmak üçin, aşak sagda Täze topar döret düwmesine basyň ýa-da goşmaça opsiýalar üçin Menýu düwmesine basyň."
-
-msgid "IDS_TGRAM_HEADER_SEARCH"
-msgstr "Gözleg"
 
 msgid "IDS_TGRAM_NPBODY_NO_RESULTS_FOUND_ABB"
 msgstr "Hiç hili netije tapylmady"
@@ -258,9 +243,6 @@ msgstr "Soňky görleni geçen aý"
 
 msgid "IDS_TGRAM_OPT_VIEW_PROFILE_ABB"
 msgstr "Profili gör"
-
-msgid "IDS_TGRAM_OPT_DELETE"
-msgstr "Aýyr"
 
 msgid "IDS_TGRAM_OPT_NOTIFICATION_SETTINGS_ABB"
 msgstr "Habarnama sazlamalary"
@@ -304,9 +286,6 @@ msgstr "Telegram-a goş"
 msgid "IDS_TGRAM_SBODY_UNKNOWN"
 msgstr "Näbelli"
 
-msgid "IDS_TGRAM_HEADER_DELETE"
-msgstr "Pozmak"
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_REMOVED_FROM_YOUR_CONTACT_LIST_IN_TELEGRAM"
 msgstr "%s Telegram-daky kontakt sanawyňyzdan aýrylar."
 
@@ -334,9 +313,6 @@ msgstr "Element saýla"
 msgid "IDS_TGRAM_ACBUTTON_DELETE_ABB2"
 msgstr "ÖÇÜR"
 
-msgid "IDS_TGRAM_OPT_ENABLE"
-msgstr "Aç"
-
 msgid "IDS_TGRAM_OPT_MUTE_FOR_1_HOUR_ABB"
 msgstr "1 sagat sessiz"
 
@@ -345,9 +321,6 @@ msgstr "%d sagat sessiz"
 
 msgid "IDS_TGRAM_OPT_MUTE_FOR_PD_DAYS_ABB"
 msgstr "%d gün sessiz"
-
-msgid "IDS_TGRAM_OPT_DISABLE"
-msgstr "Ýap"
 
 msgid "IDS_TGRAM_HEADER_SHARE_CONTACT_DETAILS_ABB"
 msgstr "Kontakt jikme-jikligi paýlaş"
@@ -454,9 +427,6 @@ msgstr "Bökdelmekden aýyr"
 msgid "IDS_TGRAM_HEADER_BLOCK"
 msgstr "Bekle"
 
-msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
-msgstr "%s will be blocked."
-
 msgid "IDS_TGRAM_POP_PS_WILL_BE_UNBLOCKED"
 msgstr "%s beklemeden aýrylar."
 
@@ -480,4 +450,49 @@ msgstr "Öňbellenen wagtdan soň awtomatik öçürildi"
 
 msgid "IDS_TGRAM_BODY_CANNOT_BE_FORWARDED_M_NOUN"
 msgstr "Gönükdirip bolmaýar"
+
+msgid "IDS_JAVA_BODY_START_PS_Q"
+msgstr "%s başlatmalymy?"
+
+msgid "IDS_PB_OPT_SEND_MESSAGE_TO_PS"
+msgstr "Şuňa hat iber: %s"
+
+msgid "IDS_TGRAM_BUTTON_PREVIOUS"
+msgstr "Öňki"
+
+msgid "IDS_TGRAM_MBODY_SELECT_ALL"
+msgstr "Ählisini saýla"
+
+msgid "IDS_TGRAM_BODY_NAME_ABB"
+msgstr "Ady"
+
+msgid "IDS_TGRAM_BODY_MOBILE_ABB"
+msgstr "Ykjam"
+
+msgid "IDS_TGRAM_OPT_SEARCH"
+msgstr "Gözleg"
+
+msgid "IDS_TGRAM_HEADER_SEARCH"
+msgstr "Gözleg"
+
+msgid "IDS_TGRAM_OPT_DELETE"
+msgstr "Aýyr"
+
+msgid "IDS_TGRAM_HEADER_DELETE"
+msgstr "Pozmak"
+
+msgid "IDS_TGRAM_OPT_ENABLE"
+msgstr "Aç"
+
+msgid "IDS_TGRAM_OPT_DISABLE"
+msgstr "Ýap"
+
+msgid "IDS_TGRAM_POP_PS_WILL_BE_BLOCKED"
+msgstr "%s will be blocked."
+
+msgid "IDS_CST_BODY_CONTACT_ALREADY_EXISTS"
+msgstr "Contact already exists."
+
+msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
+msgstr "Ýurt saýlaň."
 
