@@ -971,7 +971,7 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 
 	elm_object_item_part_content_set(navi_item, "title_left_btn", back_btn);
 
-	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_user_info_menu_button_clicked, ad);
+	//eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_user_info_menu_button_clicked, ad);
 
 #endif
 }
