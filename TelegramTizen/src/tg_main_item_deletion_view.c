@@ -67,17 +67,60 @@ char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part
 	}
 }
 
+void set_buddy_sel_nav_components(appdata_s *ad, int number_of_selected_items)
+{
+	Elm_Object_Item* buddy_sel_nav_item = elm_naviframe_top_item_get(ad->nf);
+	if(!buddy_sel_nav_item)
+		return;
+
+	char title_buf[64];
+	Evas_Object *delete_btn = elm_object_item_part_content_get(buddy_sel_nav_item, "title_right_btn");
+	if(!delete_btn)
+		return;
+
+	if(0 == number_of_selected_items) {
+		elm_object_disabled_set(delete_btn, EINA_TRUE);
+		strncpy(title_buf, i18n_get_text("IDS_TGRAM_HEADER_SELECT_CHATS_ABB"), sizeof(title_buf));
+	} else {
+		elm_object_disabled_set(delete_btn, EINA_FALSE);
+		snprintf(title_buf, sizeof(title_buf), i18n_get_text("IDS_TGRAM_BUTTON_PD_SELECTED_ABB"), number_of_selected_items);
+	}
+	elm_object_item_part_text_set(buddy_sel_nav_item, "default", title_buf);
+}
+
+void set_buddy_sel_nav_language_changed(void *data, Evas_Object *obj, void *event_info)
+{
+	appdata_s* ad = (appdata_s*)data;
+	if(!ad)
+		return;
+
+	Eina_List *l = NULL;
+	tg_main_list_item_s *item = NULL;
+	int number_of_selected_item = 0;
+	EINA_LIST_FOREACH(ad->main_list, l, item) {
+		if (item->is_selected)
+			number_of_selected_item += 1;
+	}
+	set_buddy_sel_nav_components(ad, number_of_selected_item);
+}
 
 void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina_Bool checked, int org_id)
 {
-	if (!ad || !gen_list) {
+	if (!ad || !gen_list)
 		return;
-	}
+
 	if (ad->main_list && eina_list_count(ad->main_list) > 0) {
 
 		if (org_id == 0) {
 			Eina_Bool all_items_selected = checked;
 			evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
+
+			if (all_items_selected) {
+				set_buddy_sel_nav_components(ad, eina_list_count(ad->main_list));
+			} else {
+				set_buddy_sel_nav_components(ad, 0);
+			}
+
 			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
 				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
 				item->is_selected = checked;
@@ -92,6 +135,20 @@ void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina
 		} else {
 			tg_main_list_item_s *item = eina_list_nth(ad->main_list, org_id - 1);
 			item->is_selected = checked;
+
+			Eina_List *l = NULL;
+			tg_main_list_item_s *data = NULL;
+			int number_of_selected_item = 0;
+			Eina_Bool all_items_selected = EINA_TRUE;
+			EINA_LIST_FOREACH(ad->main_list, l, data) {
+				if (data->is_selected) {
+					number_of_selected_item += 1;
+				} else {
+					all_items_selected = EINA_FALSE;
+				}
+			}
+			set_buddy_sel_nav_components(ad, number_of_selected_item);
+
 			if (!checked) {
 				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
 				if (list_item) {
@@ -103,13 +160,6 @@ void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina
 					elm_check_state_set(lcheckbox, EINA_FALSE);
 				}
 			} else {
-				Eina_Bool all_items_selected = EINA_TRUE;
-				for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
-					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
-					if (!item->is_selected) {
-						all_items_selected = EINA_FALSE;
-					}
-				}
 				if (all_items_selected) {
 					Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
 					if (list_item) {
@@ -436,15 +486,19 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 	elm_object_style_set(delete_btn, "naviframe/title_left");
 	evas_object_smart_callback_add(delete_btn, "clicked", on_delete_selected_items_clicked, ad);
 	elm_object_text_set(delete_btn, i18n_get_text("IDS_TGRAM_OPT_DELETE"));
+	elm_object_domain_translatable_text_set(delete_btn, NULL, "IDS_TGRAM_OPT_DELETE");
+	elm_object_disabled_set(delete_btn, EINA_TRUE);
 	evas_object_show(delete_btn);
 
 	Evas_Object* cancel_btn = elm_button_add(ad->layout);
 	elm_object_style_set(cancel_btn, "naviframe/title_right");
 	evas_object_smart_callback_add(cancel_btn, "clicked", on_selection_cancel_clicked, ad);
 	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_BUTTON_CANCEL_ABB5"));
+	elm_object_domain_translatable_text_set(cancel_btn, NULL, "IDS_TGRAM_BUTTON_CANCEL_ABB5");
 	evas_object_show(cancel_btn);
 
 	elm_object_item_part_content_set(buddy_sel_nav_item, "title_right_btn", delete_btn);
 	elm_object_item_part_content_set(buddy_sel_nav_item, "title_left_btn", cancel_btn);
+	evas_object_smart_callback_add(delete_btn, "language,changed", set_buddy_sel_nav_language_changed, ad);
 }
 
