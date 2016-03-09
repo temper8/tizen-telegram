@@ -34,14 +34,7 @@ static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Ob
 
 char* on_mainlist_title_requested(void *data, Evas_Object *obj, const char *part)
 {
-	int org_id = (int) data;
-	if (org_id == 0) {
-		if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
-			return strdup(i18n_get_text("IDS_TGRAM_MBODY_SELECT_ALL"));
-		}
-		return NULL;
-	}
-	int id = org_id - 1;
+	int id = (int) data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
@@ -104,124 +97,39 @@ void set_buddy_sel_nav_language_changed(void *data, Evas_Object *obj, void *even
 	set_buddy_sel_nav_components(ad, number_of_selected_item);
 }
 
-void change_main_item_selection_state(appdata_s *ad, Evas_Object *gen_list, Eina_Bool checked, int org_id)
+void on_handle_item_selection(appdata_s *ad, Evas_Object *gen_list, Eina_Bool checked, int org_id)
 {
-	if (!ad || !gen_list)
+	if (!ad->main_list || eina_list_count(ad->main_list) <= 0)
 		return;
 
-	if (ad->main_list && eina_list_count(ad->main_list) > 0) {
+	tg_main_list_item_s *item = eina_list_nth(ad->main_list, org_id);
+	item->is_selected = checked;
 
-		if (org_id == 0) {
-			Eina_Bool all_items_selected = checked;
-			evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
-
-			if (all_items_selected) {
-				set_buddy_sel_nav_components(ad, eina_list_count(ad->main_list));
-			} else {
-				set_buddy_sel_nav_components(ad, 0);
-			}
-
-			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
-				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
-				item->is_selected = checked;
-				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, i + 1);
-				if (list_item) {
-					elm_genlist_item_selected_set(list_item, EINA_FALSE);
-					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
-					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
-					elm_check_state_set(lcheckbox, checked);
-				}
-			}
-		} else {
-			tg_main_list_item_s *item = eina_list_nth(ad->main_list, org_id - 1);
-			item->is_selected = checked;
-
-			Eina_List *l = NULL;
-			tg_main_list_item_s *data = NULL;
-			int number_of_selected_item = 0;
-			Eina_Bool all_items_selected = EINA_TRUE;
-			EINA_LIST_FOREACH(ad->main_list, l, data) {
-				if (data->is_selected) {
-					number_of_selected_item += 1;
-				} else {
-					all_items_selected = EINA_FALSE;
-				}
-			}
-			set_buddy_sel_nav_components(ad, number_of_selected_item);
-
-			if (!checked) {
-				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
-				if (list_item) {
-					Eina_Bool all_items_selected = checked;
-					evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
-					elm_genlist_item_selected_set(list_item, EINA_FALSE);
-					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
-					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
-					elm_check_state_set(lcheckbox, EINA_FALSE);
-				}
-			} else {
-				if (all_items_selected) {
-					Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
-					if (list_item) {
-						elm_genlist_item_selected_set(list_item, EINA_TRUE);
-						Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
-						Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
-						elm_check_state_set(lcheckbox, EINA_TRUE);
-						evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
-					}
-				}
-			}
-		}
-
-#if 0
-		if (org_id == 0) {
-			for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
-				tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
-				item->is_selected = checked;
-				Eina_Bool all_items_selected = checked;
-				evas_object_data_set(gen_list, "all_selected", (void *)((int)all_items_selected));
-				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, i + 1);
-				if (list_item) {
-					elm_genlist_item_selected_set(list_item, EINA_FALSE);
-					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
-					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
-					elm_check_state_set(lcheckbox, checked);
-				}
-			}
-		} else {
-			tg_main_list_item_s *item = eina_list_nth(ad->main_list, org_id - 1);
-			item->is_selected = checked;
-
-			if (!checked) {
-				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
+	if (checked) {
+		Eina_List *l = NULL;
+		tg_main_list_item_s *data = NULL;
+		int i = 0;
+		EINA_LIST_FOREACH(ad->main_list, l, data) {
+			if ( i != org_id) {
+				if (data)
+					data->is_selected = EINA_FALSE;
+				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, i);
 				if (list_item) {
 					elm_genlist_item_selected_set(list_item, EINA_FALSE);
 					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
 					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
 					elm_check_state_set(lcheckbox, EINA_FALSE);
 				}
-			} else {
-				Eina_Bool all_items_selected = EINA_TRUE;
-				for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
-					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
-					if (!item->is_selected) {
-						all_items_selected = EINA_FALSE;
-						break;
-					}
-				}
-				Elm_Object_Item* list_item = elm_genlist_nth_item_get(gen_list, 0);
-				if (list_item) {
-					elm_genlist_item_selected_set(list_item, EINA_FALSE);
-					Evas_Object *llayout = elm_object_item_part_content_get(list_item, "elm.swallow.end");
-					Evas_Object *lcheckbox = elm_object_part_content_get(llayout, "elm.swallow.content");
-					elm_check_state_set(lcheckbox, all_items_selected);
-				}
 			}
+			i++;
 		}
-#endif
+		set_buddy_sel_nav_components(ad, 1);
+	} else {
+		set_buddy_sel_nav_components(ad, 0);
 	}
-
+	return;
 }
+
 
 void on_main_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -229,10 +137,11 @@ void on_main_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info
 	appdata_s *ad = evas_object_data_get(obj, "app_data");
 	Evas_Object *gen_list = evas_object_data_get(obj, "selection_gen_list");
 	Eina_Bool checked = elm_check_state_get(obj);
-	change_main_item_selection_state(ad, gen_list, checked, org_id);
+	on_handle_item_selection(ad, gen_list, checked, org_id);
+
 }
 
-void on_main_item_selected(void *data, Evas_Object *obj, void *event_info)
+void on_main_item_selected(void *data, Evas_Object *gen_list, void *event_info)
 {
 	int org_id = (int) data;
 	Elm_Object_Item *it = event_info;
@@ -243,15 +152,15 @@ void on_main_item_selected(void *data, Evas_Object *obj, void *event_info)
 	appdata_s *ad = evas_object_data_get(checkbox, "app_data");
 	checked = !checked;
 	elm_check_state_set(checkbox, checked);
-	change_main_item_selection_state(ad, obj, checked, org_id);
+	on_handle_item_selection(ad, gen_list, checked, org_id);
 }
 
 Evas_Object* on_mainlist_content_requested(void *data, Evas_Object *obj, const char *part)
 {
-	int org_id = (int) data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	Evas_Object *eo = NULL;
-	int id = org_id - 1;
+	int id = (int) data;
+
 	if (ad->main_list == NULL || eina_list_count(ad->main_list) <= 0) {
 		return NULL;
 	}
@@ -266,18 +175,9 @@ Evas_Object* on_mainlist_content_requested(void *data, Evas_Object *obj, const c
 		evas_object_data_set(check, "selection_gen_list", obj);
 		evas_object_smart_callback_add(check, "changed", on_main_item_checkbox_sel_cb, data);
 		elm_layout_content_set(eo, "elm.swallow.content", check);
-		if (org_id == 0) {
-			Eina_Bool all_items_selected = (Eina_Bool)evas_object_data_get(obj, "all_selected");
-			elm_check_state_set(check, all_items_selected);
-		} else {
-			tg_main_list_item_s* item = eina_list_nth(ad->main_list, id);
-			elm_check_state_set(check, item->is_selected);
-		}
+		tg_main_list_item_s* item = eina_list_nth(ad->main_list, id);
+		elm_check_state_set(check, item->is_selected);
 		return eo;
-	}
-
-	if (org_id == 0) {
-		return NULL;
 	}
 
 	tg_main_list_item_s* item = eina_list_nth(ad->main_list, id);
@@ -465,7 +365,7 @@ void launch_main_item_deletion_view_cb(appdata_s* ad)
 
 		int size = eina_list_count(ad->main_list);
 		if (size > 0) {
-			for (i = 0; i <= size; i++) {
+			for (i = 0; i < size; i++) {
 				if (i < size) {
 					tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
 					item->is_selected = EINA_FALSE;
