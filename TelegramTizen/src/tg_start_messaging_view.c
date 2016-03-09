@@ -35,57 +35,54 @@ static void on_new_msg_menu_item_selected(void *data, Evas_Object *obj, void *ev
 	// int index = (int)data;
 }
 
-
 static char* on_new_msg_menu_item_name_get_cb(void *data, Evas_Object *obj, const char *part)
 {
-		if (!strcmp(part, "elm.text")) {
-			int id = (int) data;
+	if (strcmp(part, "elm.text")) {
+		return NULL;
+	}
+	int id = (int) data;
 
-			char temp_text[256];
-			sprintf(temp_text, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
-
-			return strdup(temp_text);
-		} else {
-			return NULL;
-		}
+	char temp_text[256];
+	sprintf(temp_text, "<font=Tizen:style=Normal color=#000000 align=left><font_size=30>%s</font_size></font>", main_view_menu_items[id][0]);
+	return strdup(temp_text);
 }
 
 static Evas_Object* on_new_msg_menu_item_image_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int)data;
-	if (!strcmp(part, "elm.swallow.icon")) {
-		Evas_Object *img = elm_image_add(obj);
-		elm_image_file_set(img, ui_utils_get_resource(main_view_menu_items[id][1]), NULL);
-		evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(36), ELM_SCALE_SIZE(36));
-		return img;
+	if (strcmp(part, "elm.swallow.icon")) {
+		return NULL;
 	}
-	return NULL;
+	Evas_Object *img = elm_image_add(obj);
+	elm_image_file_set(img, ui_utils_get_resource(main_view_menu_items[id][1]), NULL);
+	evas_object_size_hint_min_set(img, ELM_SCALE_SIZE(36), ELM_SCALE_SIZE(36));
+	return img;
 }
-
-
-
 
 static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info)
 {
+	int peer_id = -1;
+	Eina_List *l = NULL;
+	peer_with_pic_s* pic_item = NULL;
+	int pos = 0;
+	int item_id = (int) data;
+	tg_main_list_item_s *item = NULL;
+
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
-
-	int item_id = (int) data;
-	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	user_data_with_pic_s* sel_item = eina_list_nth(ad->buddy_list, item_id);
 	ad->buddy_in_cahtting_data = sel_item;
 
-	int peer_id = -1;
-	for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
-		peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
+	EINA_LIST_FOREACH(ad->peer_list, l, pic_item) {
 		tg_peer_info_s* item = pic_item->use_data;
-
 		if (item->peer_id == sel_item->use_data->user_id.id) {
 			ad->peer_in_cahtting_data = pic_item;
-			peer_id = i;
+			peer_id = pos;
 			break;
 		}
+		pos++;
 	}
 
 	if (peer_id == -1) {
@@ -96,25 +93,21 @@ static void on_buddy_item_clicked(void *data, Evas_Object *obj, void *event_info
 	}
 
 	ad->main_item_in_cahtting_data = NULL;
-	for (int i = 0 ; i < eina_list_count(ad->main_list) ; i++) {
-		tg_main_list_item_s *item = eina_list_nth(ad->main_list, i);
+	l = NULL;
+	EINA_LIST_FOREACH(ad->main_list, l, item) {
 		if (item->peer_id == sel_item->use_data->user_id.id) {
 			ad->main_item_in_cahtting_data = item;
 			break;
 		}
 	}
-
 	elm_naviframe_item_pop(ad->nf);
 	launch_messaging_view_cb(ad, peer_id);
 }
 
 char* on_buddy_list_name_requested(void *data, Evas_Object *obj, const char *part)
 {
-
 	int id = (int) data;
-
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
-
 	int size = eina_list_count(ad->buddy_list);
 
 	if (size <= 0) {
@@ -127,10 +120,8 @@ char* on_buddy_list_name_requested(void *data, Evas_Object *obj, const char *par
 			return NULL;
 		}
 	}
-
 	user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
 	user_data_s* user = item->use_data;
-
 	if (!strcmp(part, "elm.text")) {
 		char* user_name = replace(user->print_name, '_', " ");
 		char buf[512] = {'\0'};
@@ -140,11 +131,9 @@ char* on_buddy_list_name_requested(void *data, Evas_Object *obj, const char *par
 
 	} else if (!strcmp(part, "elm.text.sub")) {
 		char* last_seen = get_budy_state(ad, user->user_id.id);
-		if (last_seen) {
+		if (last_seen)
 			return last_seen;
-		}
 	}
-
 	return NULL;
 }
 
@@ -157,47 +146,41 @@ void on_chat_icon_deleted(void *data, Evas *e, Evas_Object *icon, void *event_in
 Evas_Object* on_buddy_list_image_requested(void *data, Evas_Object *obj, const char *part)
 {
 	Evas_Object *eo = NULL;
-	if (!strcmp(part, "elm.swallow.icon")) {
-
-		int id = (int) data;
-		appdata_s* ad = evas_object_data_get(obj, "app_data");
-		int size = eina_list_count(ad->buddy_list);
-		if (size <= 0) {
-			return eo;
-		}
-		user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
-		user_data_s* user = item->use_data;
-		Evas_Object *profile_pic = NULL;
-		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
-			profile_pic = create_image_object_from_file(user->photo_path, obj);
-/*			elm_image_resizable_set(profile_pic, EINA_TRUE, EINA_TRUE);
-			elm_image_smooth_set(profile_pic, EINA_FALSE);
-			elm_image_aspect_fixed_set(profile_pic, EINA_TRUE);
-			elm_image_fill_outside_set(profile_pic, EINA_FALSE);
-			elm_image_editable_set(profile_pic, EINA_TRUE);
-			int pre_scale = elm_image_prescale_get(profile_pic);
-			elm_image_prescale_set(profile_pic, pre_scale/4);
-			evas_object_resize(profile_pic, 128, 128);*/
-		} else {
-			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
-		}
-
-		item->contact_icon = profile_pic;
-		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, on_chat_icon_deleted, item);
-
-		char edj_path[PATH_MAX] = {0, };
-		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
-		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
-		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_show(user_pic_layout);
-		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
-
-		eo = elm_layout_add(obj);
-		elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
-		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+	if (strcmp(part, "elm.swallow.icon")) {
+		return eo;
 	}
+
+	int id = (int) data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	int size = eina_list_count(ad->buddy_list);
+	if (size <= 0)
+		return eo;
+
+	user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
+	user_data_s* user = item->use_data;
+	Evas_Object *profile_pic = NULL;
+
+	if (user->photo_path && strcmp(user->photo_path, "") != 0) {
+		profile_pic = create_image_object_from_file(user->photo_path, obj);
+	} else {
+		profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
+	}
+
+	item->contact_icon = profile_pic;
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+	Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
+	evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(user_pic_layout);
+	elm_object_part_content_set(user_pic_layout, "content", profile_pic);
+
+	eo = elm_layout_add(obj);
+	elm_layout_theme_set(eo, "layout", "list/C/type.3", "default");
+	elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+
 	return eo;
 }
 
@@ -236,7 +219,6 @@ void launch_start_messaging_view(appdata_s* ad)
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
 
-
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
 	elm_scroller_policy_set(scroller, ELM_SCROLLER_POLICY_OFF, ELM_SCROLLER_POLICY_AUTO);
@@ -247,7 +229,6 @@ void launch_start_messaging_view(appdata_s* ad)
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
 	elm_object_content_set(scroller, layout);
-
 
 	/******************* menu items ****************************/
 	Evas_Object* menu_gen_list = elm_genlist_add(ad->nf);
@@ -296,9 +277,8 @@ void launch_start_messaging_view(appdata_s* ad)
 	itc1.func.del = NULL;
 
 	int size = 0;
-	if (ad->buddy_list) {
+	if (ad->buddy_list)
 		size = eina_list_count(ad->buddy_list);
-	}
 
 	if (size > 0) {
 		for (i = 0; i < size; i++) {

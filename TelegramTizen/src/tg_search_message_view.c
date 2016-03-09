@@ -52,68 +52,65 @@ static void on_main_chat_item_selected(void *data, Evas_Object *obj, void *event
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	Eina_List *list = evas_object_data_get(obj, "result_list");
 	int item_id = (int) data;
-	//int item_id = (int)elm_object_item_data_get(it);
 
 	tg_main_list_item_s* sel_item = eina_list_nth(list, item_id);
-
 	ad->buddy_in_cahtting_data = NULL;
 	ad->peer_in_cahtting_data = NULL;
 	int buddy_id = -1;
-	if (sel_item) {
+	if (!sel_item) {
+		return;
+	}
 
-		if (sel_item->peer_type == TGL_PEER_CHAT) {
+	if (sel_item->peer_type == TGL_PEER_CHAT) {
+		tg_chat_info_s* chat_info = get_chat_info(sel_item->peer_id);
+		if (!chat_info) {
+			show_loading_popup(ad);
+			send_update_chat_request(ad, ad->service_client, sel_item->peer_id);
+			return;
+		}
+	}
 
-			tg_chat_info_s* chat_info = get_chat_info(sel_item->peer_id);
-			if (!chat_info) {
-				// request chat info
-				//show_toast(ad, "Loading chat info. Please wait.");
-				show_loading_popup(ad);
-				send_update_chat_request(ad, ad->service_client, sel_item->peer_id);
-				return;
+	Eina_List *l = NULL;
+	if (sel_item->peer_type == TGL_PEER_USER) {
+		user_data_with_pic_s *item = NULL;
+		EINA_LIST_FOREACH(ad->buddy_list, l, item) {
+			user_data_s* user_data = item->use_data;
+			if (user_data->user_id.id == sel_item->peer_id) {
+				ad->buddy_in_cahtting_data = item;
+				break;
 			}
 		}
 
-		if (sel_item->peer_type == TGL_PEER_USER) {
-			for (int i = 0; i < eina_list_count(ad->buddy_list); i++) {
-				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+		if (ad->buddy_in_cahtting_data == NULL) {
+			l = NULL;
+			user_data_with_pic_s *item = NULL;
+			EINA_LIST_FOREACH(ad->unknown_buddy_list, l, item) {
 				user_data_s* user_data = item->use_data;
-
 				if (user_data->user_id.id == sel_item->peer_id) {
 					ad->buddy_in_cahtting_data = item;
 					break;
 				}
 			}
-
-			if (ad->buddy_in_cahtting_data == NULL) {
-				for (int i = 0; i < eina_list_count(ad->unknown_buddy_list); i++) {
-					user_data_with_pic_s *item = eina_list_nth(ad->unknown_buddy_list, i);
-					user_data_s* user_data = item->use_data;
-
-					if (user_data->user_id.id == sel_item->peer_id) {
-						ad->buddy_in_cahtting_data = item;
-						break;
-					}
-				}
-			}
 		}
-
-		for (int i = 0; i < eina_list_count(ad->peer_list); i++) {
-			peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
-			tg_peer_info_s* item = pic_item->use_data;
-
-			if (item->peer_id == sel_item->peer_id) {
-				ad->peer_in_cahtting_data = pic_item;
-				buddy_id = i;
-				break;
-			}
-		}
-		ad->main_item_in_cahtting_data = sel_item;
-
-		elm_naviframe_item_pop(ad->nf);
-		delete_floating_button(ad);
-		launch_messaging_view_cb(ad, buddy_id);
-
 	}
+
+	l = NULL;
+	peer_with_pic_s *pic_item = NULL;
+	int pos = 0;
+	EINA_LIST_FOREACH(ad->peer_list, l, pic_item) {
+		tg_peer_info_s* item = pic_item->use_data;
+		if (item->peer_id == sel_item->peer_id) {
+			ad->peer_in_cahtting_data = pic_item;
+			buddy_id = pos;
+			break;
+		}
+		pos++;
+	}
+
+	ad->main_item_in_cahtting_data = sel_item;
+	elm_naviframe_item_pop(ad->nf);
+	delete_floating_button(ad);
+	launch_messaging_view_cb(ad, buddy_id);
 }
 
 static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, const char *part)
@@ -121,18 +118,17 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 	int id = (int) data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	Eina_List *list = evas_object_data_get(obj, "result_list");
-	if (list == NULL || eina_list_count(list) <= 0) {
+	if (list == NULL || eina_list_count(list) <= 0)
 		return NULL;
-	}
+
 	tg_main_list_item_s *item = eina_list_nth(list, id);
-	if (!item) {
+	if (!item)
 		return NULL;
-	}
 
 	Eina_Bool is_empty_msg = EINA_FALSE;
-
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+	Eina_Bool is_success =EINA_FALSE;
 
 	if (!strcmp(part, "elm.swallow.icon")) {
 		Evas_Object *profile_pic = NULL;
@@ -141,34 +137,24 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 			evas_object_size_hint_weight_set(profile_pic, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 			evas_object_size_hint_align_set(profile_pic, EVAS_HINT_FILL, EVAS_HINT_FILL);
 			elm_object_focus_set(profile_pic, EINA_FALSE);
-
-			Eina_Bool is_success = elm_image_file_set(profile_pic, item->profile_pic_path, NULL);
-
-			if (!is_success) {
-				if (item->peer_type == TGL_PEER_USER) {
-					profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_SINGLE_PIC), obj);
-					// send download request again To-Do
-				} else if (item->peer_type == TGL_PEER_CHAT) {
-					profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_MULTI_PIC), obj);
-					// send download request again To-Do
-				} else {
-
-				}
-				evas_object_color_set(profile_pic, 45, 165, 224, 255);
-			}
-			evas_object_show(profile_pic);
-		} else {
-
+			is_success = elm_image_file_set(profile_pic, item->profile_pic_path, NULL);
+		}
+		if (!is_success || !item->profile_pic_path || strcmp(item->profile_pic_path, "") == 0) {
 			if (item->peer_type == TGL_PEER_USER) {
 				profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_SINGLE_PIC), obj);
+				// send download request again To-Do
 			} else if (item->peer_type == TGL_PEER_CHAT) {
 				profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_LIST_THUMB_MULTI_PIC), obj);
+				// send download request again To-Do
 			} else {
-
+				profile_pic = NULL;
 			}
-			evas_object_color_set(profile_pic, 45, 165, 224, 255);
 		}
 
+		if (profile_pic) {
+			evas_object_color_set(profile_pic, 45, 165, 224, 255);
+			evas_object_show(profile_pic);
+		}
 		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
 		elm_layout_file_set(user_pic_layout, edj_path, "circle_layout");
 		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -188,48 +174,22 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 
 		Eina_Bool is_today = compare_date_with_current_date(item->last_seen_time);
 		Evas_Object* time_lbl = elm_label_add(ad->nf);
+		char *format = NULL;
+		time_t t = item->last_seen_time;
+		struct tm lt;
+		char res[28] = {'\0'};
+		char time_str[128] = {0,};
 		if (is_today) {
-			//elm_object_text_set(time_lbl, "<font=Tizen:style=Normal color=#000000 align=left><font_size=27>Today</font_size></font>");
-			// get time to display
-
-			char *format = NULL;
-			time_t t = item->last_seen_time;
 			format = "%I:%M %p";
-			struct tm lt;
-			char res[28] = {'\0'};
-			(void) localtime_r(&t, &lt);
-
-			if (strftime(res, sizeof(res), format, &lt) == 0) {
-				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-						"date/time into buffer of size %u "
-						"using: '%s'\n",
-						sizeof(res), format);
-			}
-
-			char time_str[128] = {0,};
-			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
-
-			elm_object_text_set(time_lbl, time_str);
 		} else {
-			char *format = NULL;
-			time_t t = item->last_seen_time;
 			format = "%b %d";
-			struct tm lt;
-			char res[28] = {'\0'};
-			(void) localtime_r(&t, &lt);
-
-			if (strftime(res, sizeof(res), format, &lt) == 0) {
-				(void) fprintf(stderr,  "strftime(3): cannot format supplied "
-						"date/time into buffer of size %u "
-						"using: '%s'\n",
-						sizeof(res), format);
-			}
-
-			char time_str[128] = {0,};
-			sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
-
-			elm_object_text_set(time_lbl, time_str);
 		}
+		(void) localtime_r(&t, &lt);
+		if (strftime(res, sizeof(res), format, &lt) == 0)
+			snprintf(res, sizeof(res) - 1, "%s", "wrong time");
+
+		sprintf(time_str, "<font=Tizen:style=Regular color=#666666 align=right><font_size=30>%s</font_size></font>", res);
+		elm_object_text_set(time_lbl, time_str);
 
 		evas_object_size_hint_weight_set(time_lbl, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 		evas_object_size_hint_align_set(time_lbl, EVAS_HINT_FILL, EVAS_HINT_FILL);
@@ -243,56 +203,46 @@ static Evas_Object *on_chat_item_load_requested(void *data, Evas_Object *obj, co
 		/*************************** date ***************************************/
 
 		/*************************** sent message status ***************************************/
-		if (!is_empty_msg) {
-			if (item->is_out_msg && !(item->last_msg_service)) {
+		if (is_empty_msg) {
+			return item_layout;
+		}
 
-				Evas_Object *status_obj;
-				status_obj = elm_icon_add(obj);
-				evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-				evas_object_size_hint_align_set(status_obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
+		if (item->is_out_msg && !(item->last_msg_service)) {
+			Evas_Object *status_obj;
+			status_obj = elm_icon_add(obj);
+			evas_object_size_hint_weight_set(status_obj, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+			evas_object_size_hint_align_set(status_obj, EVAS_HINT_FILL, EVAS_HINT_FILL);
 
-				if (item->last_msg_status == TG_MESSAGE_STATE_SENDING) {
-					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENDING_ICON), NULL);
-				} else if (item->last_msg_status == TG_MESSAGE_STATE_SENT) {
-					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENT_ICON), NULL);
-				} else if (item->last_msg_status == TG_MESSAGE_STATE_DELIVERED) {
-					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_DELIVERED_ICON), NULL);
-				} else if (item->last_msg_status == TG_MESSAGE_STATE_RECEIVED) {
+			if (item->last_msg_status == TG_MESSAGE_STATE_SENDING) {
+				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENDING_ICON), NULL);
+			} else if (item->last_msg_status == TG_MESSAGE_STATE_SENT) {
+				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_SENT_ICON), NULL);
+			} else if (item->last_msg_status == TG_MESSAGE_STATE_DELIVERED) {
+				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_DELIVERED_ICON), NULL);
+			} else if (item->last_msg_status == TG_MESSAGE_STATE_RECEIVED) {
 
-				} else if (item->last_msg_status == TG_MESSAGE_STATE_FAILED) {
-					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_FAILED_ICON), NULL);
-				} else if (item->last_msg_status == TG_MESSAGE_STATE_READ) {
-					elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_READ_ICON), NULL);
-				} else if (item->last_msg_status == TG_MESSAGE_STATE_UNKNOWN) {
+			} else if (item->last_msg_status == TG_MESSAGE_STATE_FAILED) {
+				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_FAILED_ICON), NULL);
+			} else if (item->last_msg_status == TG_MESSAGE_STATE_READ) {
+				elm_image_file_set(status_obj, ui_utils_get_resource(MESSAGE_READ_ICON), NULL);
+			} else if (item->last_msg_status == TG_MESSAGE_STATE_UNKNOWN) {
 
-				}
-#if 0
-				Evas_Object *msg_status = elm_layout_add(ad->nf);
-				elm_layout_file_set(msg_status, edj_path, "status_bg_layout");
+			}
+			evas_object_color_set(status_obj, 75, 96, 178, 255);
+			elm_object_part_content_set(item_layout, "swallow.read_unread_status", status_obj);
+		} else {
+			if (item->number_of_unread_msgs > 0) {
+				char unread_msgs[256];
+				sprintf(unread_msgs, "%d", item->number_of_unread_msgs);
+				Evas_Object* msg_status = elm_layout_add(ad->nf);
+				elm_layout_file_set(msg_status, edj_path, "count_bg_layout");
 				evas_object_size_hint_weight_set(msg_status, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 				evas_object_size_hint_align_set(msg_status, EVAS_HINT_FILL, EVAS_HINT_FILL);
 				evas_object_show(msg_status);
-				elm_object_part_content_set(msg_status, "content", status_obj);
-#endif
-				evas_object_color_set(status_obj, 75, 96, 178, 255);
-				elm_object_part_content_set(item_layout, "swallow.read_unread_status", status_obj);
-
-			} else {
-				if (item->number_of_unread_msgs > 0) {
-					char unread_msgs[256];
-					sprintf(unread_msgs, "%d", item->number_of_unread_msgs);
-
-					Evas_Object* msg_status = elm_layout_add(ad->nf);
-					elm_layout_file_set(msg_status, edj_path, "count_bg_layout");
-					evas_object_size_hint_weight_set(msg_status, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-					evas_object_size_hint_align_set(msg_status, EVAS_HINT_FILL, EVAS_HINT_FILL);
-					evas_object_show(msg_status);
-					elm_object_part_text_set(msg_status, "content", unread_msgs);
-					elm_object_part_content_set(item_layout, "swallow.unread_count", msg_status);
-				}
+				elm_object_part_text_set(msg_status, "content", unread_msgs);
+				elm_object_part_content_set(item_layout, "swallow.unread_count", msg_status);
 			}
 		}
-
 		return item_layout;
 	}
 	return NULL;
@@ -302,36 +252,32 @@ static char* on_chat_text_load_requested(void *data, Evas_Object *obj, const cha
 {
 	int id = (int) data;
 	Eina_List *list = evas_object_data_get(obj, "result_list");
-	if (list == NULL || eina_list_count(list) <= 0) {
+	if (list == NULL || eina_list_count(list) <= 0)
 		return NULL;
-	}
+
 	tg_main_list_item_s *item = eina_list_nth(list, id);
-	if (!item) {
+	if (!item)
 		return NULL;
-	}
 
 	if (!strcmp(part, "elm.text")) {
 		char* user_name = str_replace(item->buddy_display_name, "_null_", "");
 		char buf[512] = {'\0'};
-		snprintf(buf, 512, "<font=Tizen:style=Large color=#000000 align=left><font_size=40>%s</font_size></font>", user_name);
+		snprintf(buf, sizeof(buf), "<font=Tizen:style=Large color=#000000 align=left><font_size=40>%s</font_size></font>", user_name);
 		free(user_name);
-
 		return strdup(buf);
 	} else if (!strcmp(part, "elm.text.sub")) {
 		char* org_msg = NULL;
+		char status_buf[126] = {'\0'};
 		if (item->last_message) {
 			org_msg = str_replace(item->last_message, "<br/>", " ");
 		} else {
 			org_msg = strdup("");
 		}
-
-		char status_buf[126] = {'\0'};
 		if (item->last_msg_service) {
-			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
+			snprintf(status_buf, sizeof(status_buf), "<font=Tizen:style=Bold color=#158CB0 align=left><font_size=28>%s</font_size></font>", org_msg);
 		} else {
-			snprintf(status_buf, 125, "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
+			snprintf(status_buf, sizeof(status_buf), "<font=Tizen:style=Bold color=#A4A4A4 align=left><font_size=28>%s</font_size></font>", org_msg);
 		}
-
 		free(org_msg);
 		return strdup(status_buf);
 	}
@@ -339,7 +285,7 @@ static char* on_chat_text_load_requested(void *data, Evas_Object *obj, const cha
 }
 
 
-static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
+static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List *item_list)
 {
 	int i;
 	static Elm_Genlist_Item_Class itc;
@@ -366,47 +312,38 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 {
 	appdata_s* ad = data;
 	char* entry_text = NULL;
+	tg_main_list_item_s* item = NULL;
+	Eina_List *result_list = NULL;
+	Eina_List *l = NULL;
 
 	Evas_Object *peer_list = evas_object_data_get(ad->nf, "peer_list");
 	Evas_Object *main_layout = evas_object_data_get(ad->nf, "main_layout");
-
-	tg_main_list_item_s* item;
-
 	if (!peer_list) {
 		DBG("peer_list is null");
 		return;
 	}
 
 	elm_genlist_clear(peer_list);
-
 	entry_text = trim(elm_entry_markup_to_utf8(elm_object_text_get(obj)));
-
-	Eina_List *result_list = NULL;
-	Eina_List *l = NULL;
 
 	if (ucol_is_jamo(entry_text)) {
 		LOGD("entry_text is jamo, %s", entry_text);
 		EINA_LIST_FOREACH(ad->main_list, l, item) {
 			int result;
 			result = ucol_compare_first_letters(item->peer_print_name, entry_text);
-			if (result == 0) {
+			if (result == 0)
 				result_list = eina_list_append(result_list, item);
-			}
 		}
 	} else {
 		LOGD("entry_text is not jamo, %s", entry_text);
 		EINA_LIST_FOREACH(ad->main_list, l, item) {
-			//user = item->use_data;
-
-			if (ucol_search(item->peer_print_name, entry_text) != -ENOENT) {
+			if (ucol_search(item->peer_print_name, entry_text) != -ENOENT)
 				result_list = eina_list_append(result_list, item);
-			}
 		}
 	}
 
-	if ((entry_text == NULL || strlen(entry_text) == 0) && result_list == NULL) {
+	if ((entry_text == NULL || strlen(entry_text) == 0) && result_list == NULL)
 		result_list = ad->main_list;
-	}
 
 	LOGD("count of result_list is %d", eina_list_count(result_list));
 
@@ -420,9 +357,7 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 			elm_object_part_content_unset(main_layout, "elm.swallow.content");
 			evas_object_hide(content);
 		}
-
 		elm_object_part_content_set(main_layout, "elm.swallow.content", peer_list);
-
 	} else {
 		if (content == peer_list) {
 			elm_object_part_content_unset(main_layout, "elm.swallow.content");
@@ -431,9 +366,8 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		elm_object_part_content_set(main_layout, "elm.swallow.content", no_contents);
 	}
 	elm_genlist_realized_items_update(peer_list);
-	if (entry_text) {
+	if (entry_text)
 		free(entry_text);
-	}
 }
 
 static void _on_search_entry_focused(void *data, Evas_Object *obj, void *event_info)
@@ -474,7 +408,6 @@ static Evas_Object *_create_searchbar(Evas_Object* parent, void* data)
 
 	limit_filter_data.max_char_count = 255;
 	elm_entry_markup_filter_append(searchbar_entry, elm_entry_filter_limit_size, &limit_filter_data);
-
 
 	evas_object_smart_callback_add(searchbar_entry, "changed", _on_search_entry_changed, data);
 	evas_object_smart_callback_add(searchbar_entry, "preedit,changed", _on_search_entry_changed, data);

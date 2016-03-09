@@ -33,9 +33,7 @@ static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Ob
 char* on_buddy_select_list_name_requested(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int) data;
-
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
-
 	int size = eina_list_count(ad->buddy_list);
 
 	if (size <= 0) {
@@ -43,10 +41,8 @@ char* on_buddy_select_list_name_requested(void *data, Evas_Object *obj, const ch
 			char buf[512] = {'\0'};
 			snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", "No Items");
 			return strdup(buf);
-
-		} else if (!strcmp(part, "elm.text.sub")) {
-			return NULL;
 		}
+		return NULL;
 	}
 
 	user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
@@ -58,59 +54,61 @@ char* on_buddy_select_list_name_requested(void *data, Evas_Object *obj, const ch
 		snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
 		free(user_name);
 		return strdup(buf);
-
 	} else if (!strcmp(part, "elm.text.sub")) {
 		char* last_seen = get_budy_state(ad, user->user_id.id);
 		if (last_seen) {
 			return last_seen;
 		}
 	}
-
 	return NULL;
 }
 
 void on_buddy_selected_icon_deleted(void *data, Evas *e, Evas_Object *icon, void *event_info)
 {
+	if (!data)
+		return;
 	user_data_with_pic_s *item  = data;
 	item->contact_icon = NULL;
 }
 
 Evas_Object* on_buddy_select_list_image_requested(void *data, Evas_Object *obj, const char *part)
 {
-	Evas_Object *eo = NULL;
-	if (!strcmp(part, "elm.swallow.icon")) {
-
-		int id = (int) data;
-		appdata_s* ad = evas_object_data_get(obj, "app_data");
-		int size = eina_list_count(ad->buddy_list);
-		if (size <= 0) {
-			return eo;
-		}
-		user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
-		user_data_s* user = item->use_data;
-		Evas_Object *profile_pic = NULL;
-		if (user->photo_path && strcmp(user->photo_path, "") != 0) {
-			profile_pic = create_image_object_from_file(user->photo_path, obj);
-		} else {
-			profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
-		}
-
-		item->contact_icon = profile_pic;
-		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, on_buddy_selected_icon_deleted, item);
-
-		char edj_path[PATH_MAX] = {0, };
-		app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-		Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
-		elm_layout_file_set(user_pic_layout, edj_path, "search_circle_layout");
-		evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_show(user_pic_layout);
-		elm_object_part_content_set(user_pic_layout, "content", profile_pic);
-
-		eo = elm_layout_add(obj);
-		elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
-		elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+	if (strcmp(part, "elm.swallow.icon")) {
+		return NULL;
 	}
+
+	Evas_Object *eo = NULL;
+	int id = (int) data;
+	appdata_s* ad = evas_object_data_get(obj, "app_data");
+	int size = eina_list_count(ad->buddy_list);
+	if (size <= 0) {
+		return eo;
+	}
+	user_data_with_pic_s* item = eina_list_nth(ad->buddy_list, id);
+	user_data_s* user = item->use_data;
+	Evas_Object *profile_pic = NULL;
+	if (user->photo_path && strcmp(user->photo_path, "") != 0) {
+		profile_pic = create_image_object_from_file(user->photo_path, obj);
+	} else {
+		profile_pic = create_image_object_from_file(ui_utils_get_resource(DEFAULT_PROFILE_PIC), obj);
+	}
+
+	item->contact_icon = profile_pic;
+	//evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, on_buddy_selected_icon_deleted, item);
+
+	char edj_path[PATH_MAX] = {0, };
+	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
+	Evas_Object* user_pic_layout = elm_layout_add(ad->nf);
+	elm_layout_file_set(user_pic_layout, edj_path, "search_circle_layout");
+	evas_object_size_hint_weight_set(user_pic_layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(user_pic_layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_show(user_pic_layout);
+	elm_object_part_content_set(user_pic_layout, "content", profile_pic);
+
+	eo = elm_layout_add(obj);
+	elm_layout_theme_set(eo, "layout", "list/B/type.2", "default");
+	elm_layout_content_set(eo, "elm.swallow.content", user_pic_layout);
+
 	return eo;
 }
 
@@ -139,10 +137,8 @@ static void on_buddy_add_to_chat_ok_selected(void *data, Evas_Object *obj, void 
 
 static void on_new_buddy_to_chat_selected_cb(appdata_s *ad)
 {
-
-	if (!ad->selected_buddy_item) {
+	if (!ad->selected_buddy_item)
 		return;
-	}
 
 	Evas_Object *popup, *btn;
 
@@ -153,7 +149,7 @@ static void on_new_buddy_to_chat_selected_cb(appdata_s *ad)
 	evas_object_size_hint_weight_set(popup, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
 	char* user_name = replace(ad->selected_buddy_item->print_name, '_', " ");
-	char *msg_data = (char*)malloc(strlen("Add ") + strlen(user_name) + strlen(" to the group?") + 1);
+	char *msg_data = (char *)malloc(strlen("Add ") + strlen(user_name) + strlen(" to the group?") + 1);
 	strcpy(msg_data, "Add ");
 	strcat(msg_data, user_name);
 	strcat(msg_data, " to the group?");
@@ -210,7 +206,6 @@ static void on_buddy_item_selected(void *data, Evas_Object *obj, void *event_inf
 		return;
 	}
 
-
 	int user_list_size = chat_info->user_list_size;
 	int online_members = 0;
 
@@ -240,8 +235,6 @@ static void on_buddy_item_selected(void *data, Evas_Object *obj, void *event_inf
 	} else {
 		ad->selected_buddy_item = sel_item->use_data;
 		on_new_buddy_to_chat_selected_cb(ad);
-		/*elm_naviframe_item_pop(ad->nf);
-		ad->current_app_state = TG_SET_CHAT_INFO_STATE;*/
 		return;
 	}
 
@@ -255,11 +248,8 @@ void launch_select_buddy_view(appdata_s* ad)
 		return;
 
 	ad->current_app_state = TG_SELECT_BUDDY_VIEW;
-
-
 	char edj_path[PATH_MAX] = {0, };
 	app_get_resource(TELEGRAM_INIT_VIEW_EDJ, edj_path, (int)PATH_MAX);
-
 
 	Evas_Object* scroller = elm_scroller_add(ad->nf);
 	elm_scroller_bounce_set(scroller, EINA_FALSE, EINA_TRUE);
@@ -297,9 +287,7 @@ void launch_select_buddy_view(appdata_s* ad)
 	elm_object_content_set(scroller, buddy_list);
 
 	/***************** contacts list *************************/
-
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "<font=Tizen:style=Regular color=#ffffff align=left><font_size=40>Select Buddy</font_size></font>", NULL, NULL, scroller, NULL);
-
 }
 
 

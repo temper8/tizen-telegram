@@ -73,8 +73,8 @@ contacts_list_h sc_list_utils_run_query(const char *table_uri, contacts_filter_h
 	RETVM_IF(!sc_db_utils_is_connected(), NULL, "not connected to DB");
 	RETVM_IF(NULL == table_uri, NULL, "table_uri is null");
 	RETVM_IF(NULL == filter, NULL, "filter is null");
-	contacts_list_h  list  = NULL;
-	contacts_query_h query       = NULL;
+	contacts_list_h  list = NULL;
+	contacts_query_h query = NULL;
 	if( sc_db_utils_is_success(contacts_query_create(table_uri, &query))
 			&& sc_db_utils_is_success(contacts_query_set_filter(query, filter)))
 	{

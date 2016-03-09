@@ -20,7 +20,7 @@
 #include "tg_registration.h"
 #include "ucol.h"
 
-extern void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List* country_name_list, Eina_List* country_code_list);
+extern void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List *country_name_list, Eina_List *country_code_list);
 static void on_country_search_entry_focused(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *layout = data;
@@ -43,7 +43,7 @@ static void on_country_search_entry_changed(void *data, Evas_Object *obj, void *
 	int i;
 	int result;
 
-	search_list = evas_object_data_get(ad->nf, "search_list");
+	search_list = evas_object_data_get(ad->nf, "country_search_list");
 	if (!search_list)
 		return;
 
@@ -64,7 +64,6 @@ static void on_country_search_entry_changed(void *data, Evas_Object *obj, void *
 				name_result_list = eina_list_append(name_result_list, name);
 				code_result_list = eina_list_append(code_result_list, (void *)i);
 			}
-
 			i++;
 		}
 	} else {
@@ -74,7 +73,6 @@ static void on_country_search_entry_changed(void *data, Evas_Object *obj, void *
 				name_result_list = eina_list_append(name_result_list, name);
 				code_result_list = eina_list_append(code_result_list, (void *)i);
 			}
-
 			i++;
 		}
 	}
@@ -188,7 +186,7 @@ static void on_country_item_clicked(void *data, Evas_Object *obj, void *event_in
 	}
 }
 
-void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List* country_name_list, Eina_List* country_code_list)
+void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List *country_name_list, Eina_List *country_code_list)
 {
 
 	if (!genlist || !ad || !country_name_list || !country_code_list) {
@@ -264,7 +262,7 @@ void launch_country_selection_view(appdata_s *ad)
 	Evas_Object* peer_list = create_country_genlist(ad, fs_layout);
 	evas_object_data_set(peer_list, "app_data", ad);
 	elm_object_part_content_set(fs_layout, "elm.swallow.content", peer_list);
-	evas_object_data_set(ad->nf, "search_list", peer_list);
+	evas_object_data_set(ad->nf, "country_search_list", peer_list);
 
 	append_country_item(peer_list, ad, ad->country_names_list, ad->country_codes_list);
 

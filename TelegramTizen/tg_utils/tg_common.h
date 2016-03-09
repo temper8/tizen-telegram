@@ -20,14 +20,10 @@
 #define TG_COMMON_H_
 
 #include <app.h>
-#include <Elementary.h>
-#include <system_settings.h>
-#include <efl_extension.h>
-#include <dlog.h>
+#include <telegramtizen.h>
 #include <app_preference.h>
 #include "service_client.h"
 #include <notification.h>
-#include <telegramtizen.h>
 
 #define TELEGRAM_APP_ID "org.tizen.telegram_tizen"
 #define EDJ_REG_FILE "edje/telegram_tizen_reg.edj"
@@ -549,14 +545,14 @@ typedef struct appdata {
 	Evas_Object* panel;
 	char* phone_number;
 	char* sms_code;
-	Eina_List* buddy_list;
-	Eina_List* unknown_buddy_list;
-	//Eina_List* group_chat_list;
-	Eina_List* peer_list;
+	Eina_List *buddy_list;
+	Eina_List *unknown_buddy_list;
+	//Eina_List *group_chat_list;
+	Eina_List *peer_list;
 
-	Eina_List* main_list;
+	Eina_List *main_list;
 
-	Eina_List* search_peer_list;
+	Eina_List *search_peer_list;
 
 	int curtimezoneoffset;
 	int curtimeformat;
@@ -568,7 +564,7 @@ typedef struct appdata {
 	user_data_with_pic_s* buddy_in_cahtting_data;
 	service_client* service_client;
 	Eina_Bool is_first_time_registration;
-	Eina_List* loaded_msg_list;
+	Eina_List *loaded_msg_list;
 	int timer_value;
 	Eina_Bool is_last_msg_changed;
 	Evas_Object* loading_popup;
@@ -593,6 +589,7 @@ typedef struct appdata {
 	Eina_List *contact_list;
 	Elm_Naviframe_Item *main_item;
 	Eina_Bool is_loading_from_msg_view;
+	Eina_Bool is_loading_from_profile_view;
 	//int size_of_listed_countries;
 	//char *country_names[COUNTRIES_SIZE];
 	//char *country_codes[COUNTRIES_SIZE];

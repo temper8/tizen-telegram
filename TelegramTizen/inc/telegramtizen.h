@@ -20,8 +20,9 @@
 #ifndef __telegramtizen_H__
 #define __telegramtizen_H__
 
-#include <app.h>
+
 #include <Elementary.h>
+#include <app.h>
 #include <system_settings.h>
 #include <efl_extension.h>
 #include <dlog.h>

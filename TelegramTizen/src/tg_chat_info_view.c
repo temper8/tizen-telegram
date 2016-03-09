@@ -139,7 +139,7 @@ Evas_Object* on_chat_info_requested(void *data, Evas_Object *obj, const char *pa
 char* on_chat_info_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int)data;
-	Eina_List* selected_buddies = evas_object_data_get(obj, "selected_buddies");
+	Eina_List *selected_buddies = evas_object_data_get(obj, "selected_buddies");
 
 
 	int size = eina_list_count(selected_buddies);
@@ -176,7 +176,7 @@ Evas_Object* on_chat_info_buddy_selection_part_content_get_cb(void *data, Evas_O
 	if (!strcmp(part, "elm.swallow.icon")) {
 
 		int id = (int) data;
-		Eina_List* selected_buddies = evas_object_data_get(obj, "selected_buddies");
+		Eina_List *selected_buddies = evas_object_data_get(obj, "selected_buddies");
 		int size = eina_list_count(selected_buddies);
 		if (size <= 0) {
 			return eo;
@@ -393,7 +393,7 @@ void on_group_chat_info_updated(appdata_s *ad, char *type_of_change)
 		Evas_Object *users_list = evas_object_data_get(ad->nf, "group_chat_user_list");
 		if (users_list) {
 
-			Eina_List* selected_buddies = evas_object_data_get(users_list, "selected_buddies");
+			Eina_List *selected_buddies = evas_object_data_get(users_list, "selected_buddies");
 			if (selected_buddies) {
 				eina_list_free(selected_buddies);
 				selected_buddies = NULL;
@@ -707,7 +707,7 @@ static void on_user_list_longpress(void *data, Evas_Object *obj, void *event_inf
 		return;
 	}
 	appdata_s *ad = data;
-	Eina_List* selected_buddies = evas_object_data_get(obj, "selected_buddies");
+	Eina_List *selected_buddies = evas_object_data_get(obj, "selected_buddies");
 	user_data_s *user = eina_list_nth(selected_buddies, id);
 
 	ad->selected_buddy_item = user;
@@ -850,7 +850,7 @@ void launch_chat_info_screen(appdata_s* ad, int chat_id)
 	sitc.func.del = NULL;
 
 	/************** selected buddies **************/
-	Eina_List* selected_buddies = NULL;
+	Eina_List *selected_buddies = NULL;
 	tg_chat_info_s* chat_info = get_chat_info(chat_id);
 	if (chat_info) {
 		int mem_cnt = 0;

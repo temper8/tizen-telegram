@@ -20,6 +20,7 @@
 #include "tgl.h"
 #include <stdlib.h>
 #include <Ecore.h>
+#include "logger.h"
 
 #define TIMER_MAX_VALUE 1000
 
@@ -33,7 +34,9 @@ static Eina_Bool timer_alarm(void* arg)
 	struct timer_context *tc = arg;
 	tc->handler = NULL;
 	void **p = tc->cbdata;
-	((void (*)(struct tgl_state *, void *))p[1])(p[0], p[2]);
+	/* checking TLS and funtion pointer value, argument may be NULL */
+	if (p[0] && p[1])
+		((void (*)(struct tgl_state *, void *))p[1])(p[0], p[2]);
 	return ECORE_CALLBACK_CANCEL;
 }
 
@@ -57,14 +60,13 @@ struct tgl_timer *tgl_timer_alloc(struct tgl_state *TLS, void (*cb)(struct tgl_s
 
 void tgl_timer_insert(struct tgl_timer *t, double p)
 {
-	if (p <= 0) {
-		p = 0.000001;
-	}
+	if (p <= 0)
+		p = 0.01;
+
 	struct timer_context *tc = (struct timer_context *)t;
 	tc->handler = ecore_timer_add(p, timer_alarm, tc);
-	if (!tc->handler) {
-		// Something goes wrong
-	}
+	if (!tc->handler)
+		ERR("Timer add failed!!! second = %2f", p);
 	return;
 }
 
@@ -81,11 +83,8 @@ void tgl_timer_free(struct tgl_timer *t)
 {
 	struct timer_context *tc;
 	tc = (struct timer_context *)t;
-	if (tc->handler) {
-		// Something goes wrong, tgl_timer_delete is not called before.
-		// Exceptional cases.
+	if (tc->handler)
 		ecore_timer_del(tc->handler);
-	}
 	free(tc->cbdata);
 	free(tc);
 }

@@ -763,6 +763,9 @@ long long tglmp_encrypt_send_message(struct tgl_state *TLS, struct connection *c
 	struct tgl_dc *DC = TLS->net_methods->get_dc(c);
 	struct tgl_session *S = TLS->net_methods->get_session(c);
 	assert(S);
+	if (!DC || !S)
+		return -1;
+
 	if (!(DC->flags & 4) && !(flags & 2)) {
 		return generate_next_msg_id(TLS, DC, S);
 	}

@@ -39,7 +39,7 @@ void send_block_buddy_request(appdata_s *ad, service_client* service_client, con
 void send_unblock_buddy_request(appdata_s *ad, service_client* service_client, const int buddy_id);
 Eina_Bool send_request_for_media_downloading(appdata_s *ad, service_client* service_client, const int buddy_id, const long long media_id);
 void send_request_for_media_transport(appdata_s *ad, service_client* service_client, const int buddy_id, const int message_id, const int media_id,  const int msg_type, const char* file_path, const int type_of_chat);
-void send_group_creation_request_to_server(appdata_s *ad, service_client* service_client, Eina_List* buddy_list, const char* group_name, const char* group_image);
+void send_group_creation_request_to_server(appdata_s *ad, service_client* service_client, Eina_List *buddy_list, const char* group_name, const char* group_image);
 
 void send_add_buddy_to_group_chat_request(appdata_s *ad, service_client* service_client, int user_id, int chat_id);
 void send_set_group_chat_new_title_request(appdata_s *ad, service_client* service_client, int user_id, const char* new_title);

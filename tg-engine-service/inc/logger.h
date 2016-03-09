@@ -24,6 +24,8 @@
 
 #define MODULE_INFO (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
+#define _IS_USE_LOGGING
+#ifdef _IS_USE_LOGGING
 #define INF(fmt, arg...) dlog_print(DLOG_INFO, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
@@ -51,6 +53,18 @@
 #define LOGE(fmt, arg...) dlog_print(DLOG_ERROR, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
+
+#else
+
+#define INF(fmt, arg...)
+#define LOGI(fmt, arg...)
+#define DBG(fmt, arg...)
+#define LOGD(fmt, arg...)
+#define WARN(fmt, arg...)
+#define ERR(fmt, arg...)
+#define LOGE(fmt, arg...)
+#endif
+
 
 #define RETM_IF(expr, fmt, arg...) \
 { \

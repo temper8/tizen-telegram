@@ -143,7 +143,7 @@ void on_group_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 char* on_group_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int)data;
-	Eina_List* selected_buddies = evas_object_data_get(obj, "selected_buddies");
+	Eina_List *selected_buddies = evas_object_data_get(obj, "selected_buddies");
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
 	int size = eina_list_count(selected_buddies);
@@ -180,7 +180,7 @@ Evas_Object* on_group_buddy_selection_part_content_get_cb(void *data, Evas_Objec
 	if (!strcmp(part, "elm.swallow.icon")) {
 
 		int id = (int) data;
-		Eina_List* selected_buddies = evas_object_data_get(obj, "selected_buddies");
+		Eina_List *selected_buddies = evas_object_data_get(obj, "selected_buddies");
 		int size = eina_list_count(selected_buddies);
 		if (size <= 0) {
 			return eo;
@@ -233,7 +233,7 @@ void on_group_chat_done_buton_clicked(void *data, Evas_Object *object, void *eve
 		return;
 	}
 
-	Eina_List* selected_buddies = evas_object_data_get(name_entry, "selected_buddies");
+	Eina_List *selected_buddies = evas_object_data_get(name_entry, "selected_buddies");
 	//Evas_Object* cam_icon = evas_object_data_get(name_entry, "cam_icon");
 	Evas_Object* cam_icon = evas_object_data_get(ad->nf, "group_chat_profile_pic");
 	char* img_file_path = evas_object_data_get(cam_icon, "image_path");
@@ -401,7 +401,7 @@ void launch_group_chat_name_entry_view(void *data)
 
 	/***************** contacts header *************************/
 
-	Eina_List* selected_buddies = NULL;
+	Eina_List *selected_buddies = NULL;
 
 	for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
 		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);

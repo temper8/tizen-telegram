@@ -104,13 +104,13 @@ char* get_budy_state(appdata_s* ad, int buddy_id)
 	if (!ad)
 		return NULL;
 	char time_str[256]={0,};
-	Eina_List* buddy_details_array = get_buddy_info(buddy_id);
+	Eina_List *buddy_details_array = get_buddy_info(buddy_id);
 	if (buddy_details_array && eina_list_count(buddy_details_array) > 0) {
-		Eina_List* buddy_details = eina_list_nth(buddy_details_array, 0);
+		Eina_List *buddy_details = eina_list_nth(buddy_details_array, 0);
 		if (buddy_details && eina_list_count(buddy_details) > 0) {
-			int* temp_online = (int*)eina_list_nth(buddy_details, 12);
+			int* temp_online = (int *)eina_list_nth(buddy_details, 12);
 			int is_online = *temp_online;
-			int* temp_last_seen = (int*)eina_list_nth(buddy_details, 13);
+			int* temp_last_seen = (int *)eina_list_nth(buddy_details, 13);
 			int last_seen = *temp_last_seen;
 
 			char *format = NULL;
@@ -140,11 +140,11 @@ char* get_budy_state(appdata_s* ad, int buddy_id)
 				snprintf(time_str, sizeof(time_str), "<align=left><font_size=30><color=#808080>%s</color></font_size></align>", res);
 			}
 
-			for (int i = 0 ; i < eina_list_count(buddy_details_array); i++) {
-				void* val = eina_list_nth(buddy_details, i);
-				free(val);
+			void* val = NULL;
+			EINA_LIST_FREE(buddy_details,val) {
+				if (val)
+					free(val);
 			}
-			eina_list_free(buddy_details);
 		}
 		eina_list_free(buddy_details_array);
 	}
@@ -468,6 +468,7 @@ void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info)
 	case TG_PEER_SEARCH_VIEW_STATE:
 		//elm_image_file_set(image, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
 		ad->is_loading_from_msg_view = EINA_FALSE;
+		ad->is_loading_from_profile_view = EINA_FALSE;
 		on_create_new_contact(ad);
 		//delete_floating_button(ad);
 		break;

@@ -165,7 +165,7 @@ static void start_fail_timer(struct connection *c)
 		return;
 	}
 	c->in_fail_timer = 1;
-	c->fail_ev = ecore_timer_add(10, fail_alarm, c);
+	c->fail_ev = ecore_timer_add(3, fail_alarm, c);
 }
 
 static struct connection_buffer *new_connection_buffer(int size)
@@ -206,7 +206,7 @@ int tgln_write_out(struct connection *c, const void *_data, int len)
 			ecore_timer_del(c->write_ev);
 			c->write_ev = NULL;
 		}
-		c->write_ev = ecore_timer_add(0.000001, write_call, c);
+		c->write_ev = ecore_timer_add(0.01, write_call, c);
 #endif
 	}
 
@@ -363,7 +363,7 @@ void conn_try_write(void *arg)
 			ecore_timer_del(c->write_ev);
 			c->write_ev = NULL;
 		}
-		c->write_ev = ecore_timer_add(0.000001, write_call, c);
+		c->write_ev = ecore_timer_add(0.01, write_call, c);
 #endif
 	}
 }
@@ -459,9 +459,9 @@ struct connection *tgln_create_connection(struct tgl_state *TLS, const char *hos
 	assert(!Connections[fd]);
 	Connections[fd] = c;
 
-	Ecore_Timer* timer = ecore_timer_add(2, read_timer_alarm, c);
+	Ecore_Timer* timer = ecore_timer_add(0.01, read_timer_alarm, c);
 	if(!timer) {
-		//handle error
+		vlogprintf(E_ERROR, "start connection, read_timer_alarm adding failed\n");
 	}
 
 	start_ping_timer(c);
@@ -508,9 +508,9 @@ static void restart_connection(struct connection *c)
 	c->last_receive_time = tglt_get_double_time();
 	start_ping_timer(c);
 	Connections[fd] = c;
-	Ecore_Timer* timer = ecore_timer_add(2, read_timer_alarm, c);
+	Ecore_Timer* timer = ecore_timer_add(0.01, read_timer_alarm, c);
 	if(!timer) {
-
+		vlogprintf(E_ERROR, "restart connection, read_timer_alarm adding failed\n");
 	}
 
 	char byte = 0xef;

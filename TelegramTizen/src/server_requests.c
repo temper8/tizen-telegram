@@ -1069,7 +1069,7 @@ Eina_Bool send_request_for_media_downloading(appdata_s *ad, service_client* serv
 	return EINA_TRUE;
 }
 
-void send_group_creation_request_to_server(appdata_s *ad, service_client* service_client, Eina_List* buddy_list, const char* group_name, const char* group_image)
+void send_group_creation_request_to_server(appdata_s *ad, service_client* service_client, Eina_List *buddy_list, const char* group_name, const char* group_image)
 {
 	bundle *msg;
 	int count;

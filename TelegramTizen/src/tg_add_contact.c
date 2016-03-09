@@ -51,8 +51,8 @@ static void on_contact_name_entry_done_clicked(void *data, Evas_Object *obj, voi
 	if (!tlast_name) {
 		tlast_name = "";
 	}
-	char* first_name = trim((char*)tfirst_name);
-	char* last_name = trim((char*)tlast_name);
+	char *first_name = trim((char *)tfirst_name);
+	char *last_name = trim((char *)tlast_name);
 
 	// To-Do
 	if (!first_name || strlen(first_name) <= 0) {
@@ -237,7 +237,7 @@ void launch_add_contact_screen(appdata_s* ad)
 	}
 
 	char* info_txt = NULL;
-	info_txt = (char*)malloc(strlen(NEW_NAME_INFO_TEXT) + 1);
+	info_txt = (char *)malloc(strlen(NEW_NAME_INFO_TEXT) + 1);
 	strcpy(info_txt, NEW_NAME_INFO_TEXT);
 
 	char temp_txt[512] = {0,};

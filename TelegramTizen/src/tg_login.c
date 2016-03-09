@@ -167,7 +167,7 @@ void launch_login_cb(appdata_s* ad)
 	char* info_txt = NULL;
 
 	if (ad->phone_number) {
-		info_txt = (char*)malloc(strlen(ad->phone_number) + 1);
+		info_txt = (char *)malloc(strlen(ad->phone_number) + 1);
 		strcat(info_txt, ad->phone_number);
 	}
 

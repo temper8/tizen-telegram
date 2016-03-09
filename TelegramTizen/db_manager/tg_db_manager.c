@@ -64,7 +64,7 @@ Eina_Bool close_database(sqlite3* db)
 	return EINA_FALSE;
 }
 
-Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_List* column_types)
+Eina_Bool create_table(const char* table_name, Eina_List *column_names, Eina_List *column_types)
 {
 	if(!table_name || ! column_names || !column_types) {
 		return EINA_FALSE;
@@ -75,7 +75,7 @@ Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	int col_count = eina_list_count(column_names);
 
 	int str_len = strlen("CREATE TABLE IF NOT EXISTS ") + strlen(table_name) + strlen("(") + 1;
-	char* var_query = (char*)malloc(str_len);
+	char* var_query = (char *)malloc(str_len);
 	strcpy(var_query,"CREATE TABLE IF NOT EXISTS ");
 	strcat(var_query, table_name);
 	strcat(var_query, "(");
@@ -108,7 +108,7 @@ Eina_Bool create_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	return EINA_TRUE;
 }
 
-Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_List* column_types, Eina_List* column_values)
+Eina_Bool insert_table(const char* table_name, Eina_List *column_names, Eina_List *column_types, Eina_List *column_values)
 {
 	if( !table_name || ! column_names || !column_types || !column_values) {
 		return EINA_FALSE;
@@ -119,7 +119,7 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	int col_count = eina_list_count(column_names);
 
 	int str_len = strlen("INSERT INTO ") + strlen(table_name) + strlen("(") + 1;
-	char* var_query = (char*)malloc(str_len);
+	char* var_query = (char *)malloc(str_len);
 	strcpy(var_query,"INSERT INTO ");
 	strcat(var_query, table_name);
 	strcat(var_query, "(");
@@ -150,13 +150,13 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 
 #if 0
 			long long val = *tmp_value;
-			col_value = (char*)malloc(50);
+			col_value = (char *)malloc(50);
 			//sprintf(col_value, "%lld", *tmp_value);
 			sprintf(col_value, "%lld", val);
 #endif
 
 			int act_val = (*tmp_value);
-			col_value = (char*)malloc(50);
+			col_value = (char *)malloc(50);
 			sprintf(col_value, "%d", act_val);
 
 			var_query = realloc(var_query, strlen(var_query)+strlen(col_value) + 1);
@@ -164,7 +164,7 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 
 		} else if(!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
 			char* tmp_value = eina_list_nth(column_values, col);
-			col_value = (char*)malloc(strlen(tmp_value) + 1);
+			col_value = (char *)malloc(strlen(tmp_value) + 1);
 			strcpy(col_value,tmp_value);
 
 			var_query = realloc(var_query, strlen(var_query)+strlen("'") + 1);
@@ -198,7 +198,7 @@ Eina_Bool insert_table(const char* table_name, Eina_List* column_names, Eina_Lis
 }
 
 
-Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_List* column_types, Eina_List* column_values, const char* where_clause)
+Eina_Bool update_table(const char* table_name, Eina_List *column_names, Eina_List *column_types, Eina_List *column_values, const char* where_clause)
 {
 	if(!table_name || ! column_names || !column_types || !column_values) {
 		return EINA_FALSE;
@@ -209,7 +209,7 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 	int col_count = eina_list_count(column_names);
 
 	int str_len = strlen("UPDATE ") + strlen(table_name) + strlen(" SET ") + 1;
-	char* var_query = (char*)malloc(str_len);
+	char* var_query = (char *)malloc(str_len);
 	strcpy(var_query,"UPDATE ");
 	strcat(var_query, table_name);
 	strcat(var_query, " SET ");
@@ -226,7 +226,7 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 			int* tmp_value = eina_list_nth(column_values, col);
 
 			int act_val = (*tmp_value);
-			col_value = (char*)malloc(50);
+			col_value = (char *)malloc(50);
 			sprintf(col_value, "%d", act_val);
 
 			var_query = realloc(var_query, strlen(var_query) + strlen(col_name) + strlen(" = ") + strlen(col_value) + 1);
@@ -237,7 +237,7 @@ Eina_Bool update_table(const char* table_name, Eina_List* column_names, Eina_Lis
 		} else if(!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
 
 			char* tmp_value = eina_list_nth(column_values, col);
-			col_value = (char*)malloc(strlen(tmp_value) + 1);
+			col_value = (char *)malloc(strlen(tmp_value) + 1);
 			strcpy(col_value,tmp_value);
 
 			var_query = realloc(var_query, strlen(var_query)+ strlen(col_name) + strlen(" = ")+strlen("'") + 1);
@@ -329,7 +329,7 @@ CLEAN_UP:
 
 }
 
-Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names, int (*callback)(void*,int,char**,char**), const char* where_clause, void* data_to_callback)
+Eina_Bool get_values_from_table(const char* table_name, Eina_List *column_names, int (*callback)(void*,int,char**,char**), const char* where_clause, void* data_to_callback)
 {
 	if (!table_name) {
 		return EINA_FALSE;
@@ -348,7 +348,7 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List* column_names,
 	//int col_count = eina_list_count(column_names);
 
 	int str_len = strlen("SELECT ") + 1;
-	char* var_query = (char*)malloc(str_len);
+	char* var_query = (char *)malloc(str_len);
 	strcpy(var_query,"SELECT ");
 	if(!column_names) {
 		var_query = realloc(var_query, strlen(var_query) + 3);
@@ -409,7 +409,7 @@ int get_number_of_rows(char* table_name, char* where_clause)
 		return no_of_rows;
 	}
 	sqlite3* db = create_database();
-	char* row_cnt_qry = (char*)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + 1);
+	char* row_cnt_qry = (char *)malloc(strlen("SELECT COUNT(*) FROM ") + strlen(table_name) + 1);
 	strcpy(row_cnt_qry, "SELECT COUNT(*) FROM ");
 	strcat(row_cnt_qry, table_name);
 
@@ -436,9 +436,9 @@ int get_number_of_rows(char* table_name, char* where_clause)
 	return no_of_rows;
 }
 
-Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause, unsigned int limit, unsigned int offset)
+Eina_List *get_values_from_table_sync_order_by(const char* table_name, Eina_List *column_names, Eina_List *column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause, unsigned int limit, unsigned int offset)
 {
-	Eina_List* query_vals = NULL;
+	Eina_List *query_vals = NULL;
 
 
 	if (!table_name) {
@@ -459,7 +459,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 	//int col_count = eina_list_count(column_names);
 
 	int str_len = strlen("SELECT ") + 1;
-	char* var_query = (char*)malloc(str_len);
+	char* var_query = (char *)malloc(str_len);
 	strcpy(var_query,"SELECT ");
 	if(!column_names) {
 		var_query = realloc(var_query, strlen(var_query) + 3);
@@ -547,16 +547,16 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 	while(sqlite3_step(stmt) == SQLITE_ROW) {
 		int col_val_count = eina_list_count(column_names);
-		Eina_List* row_vals = NULL;
+		Eina_List *row_vals = NULL;
 		for(int col = 0; col < col_val_count ; col++) {
 			char* col_type = eina_list_nth(column_types, col);
 			if(!strcmp(col_type, "INTEGER") || !strcmp(col_type, "INTEGER PRIMARY KEY NOT NULL")) {
-				int temp = sqlite3_column_int64(stmt, col);
-				int* val_int = (int*)malloc(sizeof(int));
+				long long temp = sqlite3_column_int64(stmt, col);
+				int* val_int = (int *)malloc(sizeof(int));
 				*val_int = temp;
 				row_vals = eina_list_append(row_vals, val_int);
 			} else if(!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
-				char *temp_val = (char*)sqlite3_column_text(stmt, col);
+				char *temp_val = (char *)sqlite3_column_text(stmt, col);
 				char *val_text = NULL;
 				if (temp_val) {
 					val_text = strdup(temp_val);
@@ -575,7 +575,7 @@ Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 }
 
-Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* wc, unsigned int limit, unsigned int offset)
+Eina_List *get_values_from_table_sync(const char* table_name, Eina_List *column_names, Eina_List *column_types, const char* wc, unsigned int limit, unsigned int offset)
 {
 	return get_values_from_table_sync_order_by(table_name, column_names, column_types, NULL, EINA_FALSE, wc, limit, offset);
 }
@@ -975,7 +975,7 @@ Eina_Bool delete_all_records(char *tablename)
 	if (!tablename) {
 		return EINA_FALSE;
 	}
-	char *var_query = (char*)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(";") + 1);
+	char *var_query = (char *)malloc(strlen("DELETE FROM ") + strlen(tablename) + strlen(";") + 1);
 	strcpy(var_query, "DELETE FROM ");
 	strcat(var_query, tablename);
 	strcat(var_query, ";");

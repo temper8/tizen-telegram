@@ -208,14 +208,11 @@
 #define TG_DB_COLUMN_INTEGER_PRIMARY_AUTO_INC_KEY "INTEGER PRIMARY KEY   AUTOINCREMENT"
 #define TG_DB_COLUMN_TEXT "TEXT"
 
+Eina_List *get_registered_user_info();
 
-void create_data_base_tables();
+Eina_List *get_buddy_list_info();
 
-Eina_List* get_registered_user_info();
-
-Eina_List* get_buddy_list_info();
-
-Eina_List* get_buddy_info(int buddy_id);
+Eina_List *get_buddy_info(int buddy_id);
 
 char* get_profile_pic_path(int buddy_id);
 
@@ -229,9 +226,9 @@ char* get_media_path_from_db(long long media_id);
 
 tg_chat_info_s* get_chat_info(int chat_id);
 
-Eina_List* get_group_chat_details();
+Eina_List *get_group_chat_details();
 
-Eina_List* get_all_peer_details(char* start_name);
+Eina_List *get_all_peer_details(char* start_name);
 
 peer_with_pic_s* get_peer_info(int peer_id);
 
@@ -240,8 +237,8 @@ void insert_or_update_peer_into_database(tg_peer_info_s* UC);
 void insert_msg_into_db(tg_message_s *M, char* table_name, int unique_id);
 void insert_media_info_to_db(tg_message_s *M, char *file_path, int width, int height, int size, char *latitude, char *longitude, char *first_name, char *last_name, char *phone_number);
 
-Eina_List* get_image_details_from_db(long long media_id);
-Eina_List* get_image_sizes_from_db(long long media_id);
+Eina_List *get_image_details_from_db(long long media_id);
+Eina_List *get_image_sizes_from_db(long long media_id);
 
 tg_message_s* get_latest_message_from_message_table(char* table_name, Eina_Bool is_for_date);
 int get_unread_message_count(char* table_name);
@@ -258,7 +255,7 @@ char* get_buddy_phone_num_from_id(int buddy_id);
 
 int  get_buddy_unknown_status(int buddy_id);
 
-Eina_List* get_unknown_buddy_list_info();
+Eina_List *get_unknown_buddy_list_info();
 
 int  get_buddy_online_status(int buddy_id);
 
@@ -268,7 +265,7 @@ int  get_buddy_block_status(int buddy_id);
 
 int insert_current_date_to_table(char* tb_name);
 
-Eina_List* load_peer_data_by_name(char* name);
+Eina_List *load_peer_data_by_name(char* name);
 
 tgl_media_s* get_media_details_from_db(long long media_id);
 
@@ -278,8 +275,8 @@ int get_media_size_from_db(long long media_id);
 
 int get_number_of_unread_messages();
 
-Eina_List* load_buddy_data_by_name(int current_user, char* name);
-Eina_List* get_all_buddy_details(char* name);
+Eina_List *load_buddy_data_by_name(int current_user, char* name);
+Eina_List *get_all_buddy_details(char* name);
 
 void create_buddy_msg_table(const char* table_name);
 

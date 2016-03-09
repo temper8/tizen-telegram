@@ -82,7 +82,6 @@ int tg_server_send_message(tg_server *proxy_cl, bundle *const msg)
 			proxy_cl->remote_app_name,
 			proxy_cl->remote_port_name);
 
-	DBG("Message successfully send to: %s:%s", proxy_cl->remote_app_name, proxy_cl->remote_port_name);
 	return result;
 }
 

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ */
 
 #ifndef TG_COMMON_H_
 #define TG_COMMON_H_
@@ -50,9 +50,9 @@ typedef struct msg_list_container {
 
 static uint64_t get_time_stamp_in_macro()
 {
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 }
 
 extern char *ui_utils_get_resource(const char *res_name);
@@ -64,5 +64,7 @@ extern char *replace(const char *s, char ch, const char *repl);
 extern void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
 
 extern int recursive_dir_delete(const char *dir);
+
+extern Eina_Bool on_restart_service_requested(void *data);
 
 #endif /* TG_COMMON_H_ */

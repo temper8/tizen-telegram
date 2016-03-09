@@ -36,7 +36,7 @@ typedef struct contact_data {
 } contact_data_s;
 
 
-extern Eina_List* get_contact_list_from_device_db();
+extern Eina_List *get_contact_list_from_device_db();
 extern void free_contact_list(Eina_List *contact_data);
 
 

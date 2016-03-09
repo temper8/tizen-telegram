@@ -74,8 +74,12 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 				}
 			} else {
 				Eina_Bool all_items_selected = EINA_TRUE;
-				for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-					user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+
+				Eina_List *l = NULL;
+				user_data_with_pic_s *item = NULL;
+				EINA_LIST_FOREACH(ad->buddy_list, l, item) {
+					if (!item)
+						continue;
 					user_data_s* user = item->use_data;
 					if (!user->is_selected) {
 						all_items_selected = EINA_FALSE;
@@ -169,8 +173,11 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 				}
 			} else {
 				Eina_Bool all_items_selected = EINA_TRUE;
-				for (int i = 0 ; i < eina_list_count(list) ; i++) {
-					user_data_with_pic_s *item = eina_list_nth(list, i);
+				Eina_List *l = NULL;
+				user_data_with_pic_s *item = NULL;
+				EINA_LIST_FOREACH(list, l, item) {
+					if (!item)
+						continue;
 					user_data_s* user = item->use_data;
 					if (!user->is_selected) {
 						all_items_selected = EINA_FALSE;
@@ -226,7 +233,7 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 		}
 
 		item->contact_icon = image;
-		evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, buddy_icon_del_cb, item);
+		//evas_object_event_callback_add(item->contact_icon, EVAS_CALLBACK_DEL, buddy_icon_del_cb, item);
 
 		if (image) {
 			char edj_path[PATH_MAX] = {0, };
@@ -376,7 +383,7 @@ static void _update_index_item(void *data, void *item_data, int id, Eina_List *l
 }
 #endif
 
-static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List* item_list)
+static void _append_peer_item(Evas_Object *genlist, appdata_s *ad, Eina_List *item_list)
 {
 	int i;
 	static Elm_Genlist_Item_Class itc;
@@ -536,7 +543,7 @@ static void _index_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	user_data_with_pic_s* gl_item = NULL;//eina_list_nth(ad->search_peer_list, 0);
 
 	//tg_peer_info_s* user = item->use_data;
-	Eina_List* list = ad->buddy_list;
+	Eina_List *list = ad->buddy_list;
 	int index = 0;
 	Eina_List *l;
 

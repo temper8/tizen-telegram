@@ -29,9 +29,9 @@ static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *
 	Evas_Object* done_btn = evas_object_data_get(ad->nf, "reg_done_btn");
 	Evas_Object *layout = NULL;
 	char buf[256] = {'\0',};
-	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
-
 	char code_buf[256] = {'\0',};
+
+	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
 	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
 
 	layout = evas_object_data_get(ad->nf, "regi,layout");
@@ -55,32 +55,27 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 	Evas_Object* country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
 	Evas_Object* country_code_btn = evas_object_data_get(ad->nf, "country_code_btn");
 	Evas_Object* pn_number_entry = evas_object_data_get(ad->nf, "pn_number_entry");
-
-
 	char* phone_num = elm_entry_markup_to_utf8(elm_object_text_get(pn_number_entry));
 	char* cunt_code = elm_entry_markup_to_utf8(elm_object_text_get(country_code_btn));
-
-
 	char code_buf[256] = {'\0',};
-	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
-
 	char country_code[256] = {'\0',};
+
+	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
 	snprintf(country_code, sizeof(country_code), "%s", elm_object_text_get(country_code_btn));
 
-	if (strlen(phone_num) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0) {
+	if (strlen(phone_num) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0 && ad->is_server_ready) {
 		char phone_number[256];
-		strcpy(phone_number, cunt_code);
-		strcat(phone_number, phone_num);
+		snprintf(phone_number, sizeof(phone_number), "%s%s", cunt_code, phone_num);
 		ad->phone_number = strdup(phone_number);
 		show_loading_popup(ad);
 		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_TRUE);
 	} else {
-
+		if (strlen(phone_num) == MAX_NUM_LENGTH)
+		   show_toast(ad, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
 	}
 
 	free(phone_num);
 	free(cunt_code);
-
 }
 
 static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -88,11 +83,6 @@ static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *even
 	appdata_s* ad = data;
 	elm_win_lower(ad->win);
 	elm_exit();
-}
-
-static void country_name_popup_dismissed_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	evas_object_del(obj);
 }
 
 void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_List *country_code_list)
@@ -107,14 +97,12 @@ void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_Li
 	char temp_str[32];
 	const char *number_text;
 
-	if (!count_name_list || !country_code_list) {
+	if (!count_name_list || !country_code_list)
 		return;
-	}
 
 	country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
 	country_code_btn = evas_object_data_get(ad->nf, "country_code_btn");
 	pn_number_entry = evas_object_data_get(ad->nf, "pn_number_entry");
-
 	country_name = eina_list_nth(count_name_list, ad->selected_country_id);
 
 	if (ad->country_codes_list != country_code_list) {
@@ -139,48 +127,6 @@ void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_Li
 	}
 }
 
-static void country_name_popup_item_select_cb(void *data, Evas_Object *obj, void *event_info)
-{
-	appdata_s* ad = data;
-	Evas_Object* country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
-	Evas_Object* country_code_btn = evas_object_data_get(ad->nf, "country_code_btn");
-	Evas_Object* pn_number_entry = evas_object_data_get(ad->nf, "pn_number_entry");
-
-	const char *label = elm_object_item_text_get((Elm_Object_Item *)event_info);
-	if (label) {
-		elm_object_text_set(country_name_btn, label);
-
-		for (int i = 0 ; i < SIZE_CODE; i++) {
-			if (strcasecmp(phone_codes[i][0], label) == 0) {
-				char temp_str[50];
-				sprintf(temp_str, "<align=center>%s<align>", phone_codes[i][1]);
-				elm_object_text_set(country_code_btn, temp_str);
-
-				Evas_Object* done_btn = evas_object_data_get(ad->nf, "reg_done_btn");
-				char buf[256] = {'\0',};
-				snprintf(buf, sizeof(buf), "%s", elm_object_text_get(pn_number_entry));
-
-				if (strlen(buf) == MAX_NUM_LENGTH && strcasecmp(label, "Select your country") != 0) {
-					elm_object_disabled_set(done_btn, EINA_FALSE);
-				} else {
-					elm_object_disabled_set(done_btn, EINA_TRUE);
-				}
-
-				break;
-			}
-		}
-	}
-
-	evas_object_del(obj);
-}
-
-static void move_dropdown(Evas_Object *ctxpopup, Evas_Object *btn)
-{
-	Evas_Coord x, y, w , h;
-	evas_object_geometry_get(btn, &x, &y, &w, &h);
-	evas_object_move(ctxpopup, x + (w / 2), y + h);
-}
-
 static void delete_btn_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *pn_number_entry = data;
@@ -190,40 +136,13 @@ static void delete_btn_clicked(void *data, Evas_Object *obj, void *event_info)
 static void on_country_name_list_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
-
-#if 0
-	Evas_Object* country_name_popup = evas_object_data_get(ad->nf, "country_name_popup");
-
-	if (country_name_popup) {
-		evas_object_del(country_name_popup);
-	}
-
-	country_name_popup = elm_ctxpopup_add(ad->nf);
-	elm_object_style_set(country_name_popup, "dropdown/list");
-	eext_object_event_callback_add(country_name_popup, EEXT_CALLBACK_BACK, eext_ctxpopup_back_cb, NULL);
-	evas_object_smart_callback_add(country_name_popup, "dismissed", country_name_popup_dismissed_cb, NULL);
-
-
-	for (int i = 0 ; i < SIZE_CODE; i++) {
-		elm_ctxpopup_item_append(country_name_popup, phone_codes[i][0], NULL, country_name_popup_item_select_cb, ad);
-	}
-
-	elm_ctxpopup_direction_priority_set(country_name_popup, ELM_CTXPOPUP_DIRECTION_DOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN, ELM_CTXPOPUP_DIRECTION_UNKNOWN);
-
-	move_dropdown(country_name_popup, obj);
-	evas_object_show(country_name_popup);
-
-	evas_object_data_set(ad->nf, "country_name_popup", country_name_popup);
-#else
 	launch_country_selection_view(ad);
-#endif
 }
 
 void launch_registration_cb(appdata_s *ad)
 {
-	if (!ad) {
+	if (!ad)
 		return;
-	}
 
 	ad->current_app_state = TG_REGISTRATION_STATE;
 	eina_list_free(ad->country_codes_list);
