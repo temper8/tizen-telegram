@@ -499,3 +499,6 @@ msgstr "Елді таңдаңыз."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Қалпына келтірілуде. Күте тұрыңыз..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Жазба жойылды."
+

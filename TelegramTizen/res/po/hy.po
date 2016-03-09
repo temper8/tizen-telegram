@@ -499,3 +499,6 @@ msgstr "Ընտրեք երկիր:"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Նախակարգվում է: Խնդրում ենք սպասել..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Հաշիվը վերացված է:"
+

@@ -499,3 +499,6 @@ msgstr "దేశాన్ని ఎంచుకోండి."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "ప్రారంభమవుతోంది. దయచేసి వేచిఉండండి..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "ఖాతా తొలగించబడింది."
+

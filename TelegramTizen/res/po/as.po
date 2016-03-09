@@ -499,3 +499,6 @@ msgstr "এখন দেশ চয়ন কৰক৷"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "আৰম্ভ কৰি আছে৷ অনুগ্ৰহ কৰি অপেক্ষা..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "একাউণ্ট বিলোপ কৰা হ'ল৷"
+

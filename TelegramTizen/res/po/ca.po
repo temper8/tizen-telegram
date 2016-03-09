@@ -499,3 +499,6 @@ msgstr "Seleccioni un país."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "S'està inicialitzant. Esperi..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "S'ha esborrat el compte"
+

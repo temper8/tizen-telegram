@@ -499,3 +499,6 @@ msgstr "ഒരു രാജ്യം തിരഞ്ഞെടുക്കുക.
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "ഇനീഷ്യലൈസ് ചെയ്യുന്നു. ദയവായി കാത്തിരിക്കുക..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "അക്കൗണ്ട് മായ്ച്ചു."
+

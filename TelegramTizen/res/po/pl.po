@@ -434,7 +434,7 @@ msgid "IDS_TGRAM_HEADER_UNBLOCK"
 msgstr "Odblokowanie"
 
 msgid "IDS_TGRAM_OPT_SHARE"
-msgstr "Udostępniaj"
+msgstr "Udostępnij"
 
 msgid "IDS_TGRAM_HEADER_LOG_OUT"
 msgstr "Wylogowanie"
@@ -498,4 +498,7 @@ msgstr "Wybierz kraj."
 
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Inicjowanie. Czekaj..."
+
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Usunięto konto."
 

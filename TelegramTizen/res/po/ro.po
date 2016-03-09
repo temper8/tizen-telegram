@@ -499,3 +499,6 @@ msgstr "Selectaţi o ţară."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Se iniţializează. Aşteptaţi..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Contul a fost şters."
+

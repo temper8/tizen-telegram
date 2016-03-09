@@ -499,3 +499,6 @@ msgstr "Pasirinkite šalį."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Inicijuojama. Palaukite..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Paskyra ištrinta."
+

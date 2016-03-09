@@ -499,3 +499,6 @@ msgstr "Pumili ng bansa."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Sinisimulan. Mangyaring maghintay..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Na-delete ang account."
+

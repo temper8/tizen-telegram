@@ -499,3 +499,6 @@ msgstr "Izaberite zemlju."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Inicijalizacija. Sačekaj..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Nalog obrisan."
+

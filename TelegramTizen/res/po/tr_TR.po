@@ -499,3 +499,6 @@ msgstr "Bir ülke seçin."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Başlatılıyor. Lütfen bekleyin..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Hesap silindi."
+

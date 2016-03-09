@@ -499,3 +499,6 @@ msgstr "ایک ملک منتخب کریں۔"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "ابتدا کررہا ہے۔ برائے مہربانی انتظار کریں..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "اکاؤنٹ حذف کردیا۔"
+

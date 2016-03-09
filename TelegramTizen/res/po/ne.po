@@ -499,3 +499,6 @@ msgstr "देश चयन गर्नुहोस्।"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "चालू गरिँदै छ । कृपया पर्खनुहोस्..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "एकाउंट मेटियो।"
+

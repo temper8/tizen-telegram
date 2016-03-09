@@ -499,3 +499,6 @@ msgstr "Избери земја."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Се иницијализира. Почекајте..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Сметката е избришана."
+

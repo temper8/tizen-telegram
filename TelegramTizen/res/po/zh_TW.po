@@ -499,3 +499,6 @@ msgstr "選擇國家。"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "初始化中。請稍候…"
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "帳號已刪除。"
+

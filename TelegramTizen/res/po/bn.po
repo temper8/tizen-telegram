@@ -499,3 +499,6 @@ msgstr "একটি দেশ নির্বাচন করুন।"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "আরম্ভ হচ্ছে। অনুগ্রহ করে অপেক্ষা করুন..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "অ্যাকাউন্ট মোছা হয়েছে।"
+

@@ -499,3 +499,6 @@ msgstr "Hautatu herrialdea."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Abiarazten. Mesedez, itxaron..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Kontua ezabatu da"
+

@@ -499,3 +499,6 @@ msgstr "Ýurt saýlaň."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Başladylýar. Garaşyň..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Hasap Aýyryldy"
+

@@ -499,3 +499,6 @@ msgstr "ជ្រើស​ប្រទេស។"
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Initialising. Please wait..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "បាន​លុប​គណនី។"
+

@@ -499,3 +499,6 @@ msgstr "Выберите страну."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Инициализация. Подождите..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Учетная запись удалена."
+

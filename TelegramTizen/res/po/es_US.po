@@ -17,7 +17,7 @@ msgid "IDS_TGRAM_HEADER_FREE"
 msgstr "Gratis"
 
 msgid "IDS_TGRAM_ACBUTTON_START_MESSAGING"
-msgstr "INICIAR MENSAJES"
+msgstr "Inicio de Mensajería"
 
 msgid "IDS_TGRAM_BUTTON_NEXT_ABB5"
 msgstr "Siguiente"
@@ -498,4 +498,7 @@ msgstr "Seleccione un país."
 
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Inicializando. Espere..."
+
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Cuenta eliminada."
 

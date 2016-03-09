@@ -499,3 +499,6 @@ msgstr "Wählen Sie ein Land aus."
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
 msgstr "Initialisierung. Bitte warten..."
 
+msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
+msgstr "Konto gelöscht"
+
