@@ -1034,7 +1034,7 @@ int get_unread_message_count(char *table_name)
 
 	int num_of_rows = 0;
 	char where_clause[1024];
-	sprintf(where_clause, MESSAGE_INFO_TABLE_UNREAD " = 1 AND " MESSAGE_INFO_TABLE_OUT_MSG " != 1 AND " MESSAGE_INFO_TABLE_SERVICE " < 1");
+	sprintf(where_clause, MESSAGE_INFO_TABLE_UNREAD " = 1 AND " MESSAGE_INFO_TABLE_OUT_MSG " != 1 AND " MESSAGE_INFO_TABLE_SERVICE " < 1 AND " MESSAGE_INFO_TABLE_MARKED_FOR_DELETE " != 1");
 
 	num_of_rows = get_number_of_rows(table_name, where_clause);
 	return num_of_rows;

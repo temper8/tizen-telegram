@@ -30,6 +30,8 @@
 
 #define IMAGE_SIZE (36*1.4f)
 
+extern Evas_Object* create_main_chat_list(Evas_Object* buddy_list, appdata_s* ad);
+
 static Evas_Object *create_image_object_from_file(const char *icon_name, Evas_Object *parent)
 {
 	Evas_Object *icon = elm_image_add(parent);
@@ -842,30 +844,8 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 		if (layout)
 			elm_object_signal_emit(layout, "no_chat_hide", "no_chat_text");
 
-		int i;
-		static Elm_Genlist_Item_Class itc;
-		Evas_Object *buddy_list = elm_genlist_add(ad->nf);
-		elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
-		evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_data_set(buddy_list, "app_data", ad);
-
-		itc.item_style = "type1";
-		itc.func.text_get = on_chat_text_load_requested;
-		itc.func.content_get = on_chat_item_load_requested;
-		itc.func.state_get = NULL;
-		itc.func.del = NULL;
-
-		if (size > 0) {
-			for (i = 0; i < size; i++) {
-				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
-			}
-		} else {
-			i = 1;
-			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
-		}
-		evas_object_show(buddy_list);
-		evas_object_data_set(ad->nf, "buddy_list", buddy_list);
+		buddy_list = create_main_chat_list(buddy_list, ad);
+		elm_object_part_content_set(layout, "main_box", buddy_list);
 	}
 }
 
@@ -1007,6 +987,42 @@ static void _create_more_popup(void *data, Evas_Object *obj, void *event_info)
 	evas_object_show(ctxpopup);
 }
 
+Evas_Object* create_main_chat_list(Evas_Object* buddy_list, appdata_s* ad)
+{
+	int i;
+	static Elm_Genlist_Item_Class itc;
+	buddy_list = elm_genlist_add(ad->nf);
+	elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
+	evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND,
+			EVAS_HINT_EXPAND);
+	evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
+	evas_object_data_set(buddy_list, "app_data", ad);
+	elm_genlist_homogeneous_set(buddy_list, EINA_TRUE);
+	itc.item_style = "type1";
+	itc.func.text_get = on_chat_text_load_requested;
+	itc.func.content_get = on_chat_item_load_requested;
+	itc.func.state_get = NULL;
+	itc.func.del = NULL;
+	int size = eina_list_count(ad->main_list);
+	if (size > 0) {
+		for (i = 0; i < size; i++) {
+			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL,
+					ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+		}
+	} else {
+		i = 1;
+		elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL,
+				ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
+	}
+	evas_object_show(buddy_list);
+	evas_object_data_set(ad->nf, "buddy_list", buddy_list);
+	evas_object_smart_callback_add(buddy_list, "longpressed",
+			on_buddy_list_longpress, ad);
+	evas_object_smart_callback_add(buddy_list, "selected",
+			on_main_chat_item_selected, ad);
+	return buddy_list;
+}
+
 void launch_user_main_view_cb(appdata_s* ad)
 {
 	if (!ad)
@@ -1031,36 +1047,9 @@ void launch_user_main_view_cb(appdata_s* ad)
 		elm_object_part_text_set(layout, "explain_text", i18n_get_text("IDS_TGRAM_BODY_TO_START_A_NEW_CONVERSATION_TAP_THE_CREATE_NEW_GROUP_BUTTON_IN_THE_BOTTOM_RIGHT_OR_PRESS_THE_MENU_KEY_FOR_MORE_OPTIONS"));
 		elm_object_signal_emit(layout, "no_chat_show", "no_chat_text");
 		evas_object_data_set(ad->nf, "no_chat_image", layout);
+		evas_object_data_set(ad->nf, "buddy_list", NULL);
 	} else {
-		int i;
-		static Elm_Genlist_Item_Class itc;
-		buddy_list = elm_genlist_add(ad->nf);
-		elm_genlist_mode_set(buddy_list, ELM_LIST_COMPRESS);
-		evas_object_size_hint_weight_set(buddy_list, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		evas_object_size_hint_align_set(buddy_list, EVAS_HINT_FILL, EVAS_HINT_FILL);
-		evas_object_data_set(buddy_list, "app_data", ad);
-		elm_genlist_homogeneous_set(buddy_list, EINA_TRUE);
-
-		itc.item_style = "type1";
-		itc.func.text_get = on_chat_text_load_requested;
-		itc.func.content_get = on_chat_item_load_requested;
-		itc.func.state_get = NULL;
-		itc.func.del = NULL;
-
-		int size = eina_list_count(ad->main_list);
-		if (size > 0) {
-			for (i = 0; i < size; i++) {
-				elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
-			}
-		} else {
-			i = 1;
-			elm_genlist_item_append(buddy_list, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, NULL, (void*) i);
-		}
-		evas_object_show(buddy_list);
-		evas_object_data_set(ad->nf, "buddy_list", buddy_list);
-
-		evas_object_smart_callback_add(buddy_list, "longpressed", on_buddy_list_longpress, ad);
-		evas_object_smart_callback_add(buddy_list, "selected", on_main_chat_item_selected, ad);
+		buddy_list = create_main_chat_list(buddy_list, ad);
 		elm_object_part_content_set(layout, "main_box", buddy_list);
 	}
 
