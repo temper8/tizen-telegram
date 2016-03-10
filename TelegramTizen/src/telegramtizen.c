@@ -389,34 +389,30 @@ void load_peer_data(appdata_s *ad)
 	}
 }
 
-
-
 void load_main_list_data(appdata_s *ad)
 {
-	if (!ad || !ad->peer_list) {
+	if (!ad || !ad->peer_list)
 		return;
-	}
+
 	tg_main_list_item_s* main_item = NULL;
 	EINA_LIST_FREE(ad->main_list, main_item) {
-		if (!main_item)
-			continue;
 
-		if (main_item->peer_print_name) {
+		if (main_item->peer_print_name)
 			free(main_item->peer_print_name);
-			main_item->peer_print_name = NULL;
-		}
-		if (main_item->last_message) {
+		main_item->peer_print_name = NULL;
+
+		if (main_item->last_message)
 			free(main_item->last_message);
-			main_item->last_message = NULL;
-		}
-		if (main_item->profile_pic_path) {
+		main_item->last_message = NULL;
+
+		if (main_item->profile_pic_path)
 			free(main_item->profile_pic_path);
-			main_item->profile_pic_path = NULL;
-		}
-		if (main_item->buddy_display_name) {
+		main_item->profile_pic_path = NULL;
+
+		if (main_item->buddy_display_name)
 			free(main_item->buddy_display_name);
-			main_item->buddy_display_name = NULL;
-		}
+		main_item->buddy_display_name = NULL;
+
 		main_item->date_lbl = NULL;
 		main_item->msg_status_lbl = NULL;
 		main_item->profile_pic = NULL;
@@ -431,24 +427,19 @@ void load_main_list_data(appdata_s *ad)
 	peer_with_pic_s *item = NULL;
 	EINA_LIST_FOREACH(ad->peer_list, l, item) {
 
-		if (!item) {
-			continue;
-		}
 		tg_peer_info_s* peer_info = item->use_data;
-		if (!peer_info) {
+		if (!peer_info)
 			continue;
-		}
 
-		if (peer_info->peer_type == TGL_PEER_CHAT && get_buddy_unknown_status(peer_info->peer_id)) {
+		if (peer_info->peer_type == TGL_PEER_CHAT &&
+				get_buddy_unknown_status(peer_info->peer_id))
 			continue;
-		}
 
 		//if (peer_info->last_msg_id > 0) {
 
 		// get message from message table.
 
 		char* tablename = get_table_name_from_number(peer_info->peer_id);
-		//tg_message_s* msg = get_message_from_message_table(peer_info->last_msg_id, tablename);
 		tg_message_s *msg = get_latest_message_from_message_table(tablename, EINA_FALSE);
 
 		if (msg) {
@@ -463,11 +454,7 @@ void load_main_list_data(appdata_s *ad)
 
 				int media_type = msg->media_type;
 				if (media_type == tgl_message_media_none) {
-					if (msg->message && strlen(msg->message) > 0) {
-						item->last_message = strdup(msg->message);
-					} else {
-						item->last_message = strdup(" ");
-					}
+					item->last_message = strdup(msg->message ? msg->message : " ");
 				} else if (media_type == tgl_message_media_photo) {
 					item->last_message = strdup("Image");
 				} else if (media_type == tgl_message_media_document) {
@@ -507,12 +494,9 @@ void load_main_list_data(appdata_s *ad)
 			tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
 			main_list_item->peer_id = peer_info->peer_id;
 			main_list_item->peer_type = peer_info->peer_type;
-			if ((peer_info->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(peer_info->peer_id)) {
-				//set phone number
-				main_list_item->peer_print_name = strdup(get_buddy_phone_num_from_id(peer_info->peer_id));
-			} else {
-				main_list_item->peer_print_name = strdup(peer_info->print_name);
-			}
+
+			set_peer_names(peer_info, main_list_item);
+
 			main_list_item->last_seen_time = msg->date;
 			main_list_item->profile_pic = NULL;
 			main_list_item->last_msg_id = msg->msg_id;
@@ -523,70 +507,11 @@ void load_main_list_data(appdata_s *ad)
 			main_list_item->last_msg_service = msg->service;
 			main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
 
-
-			if (peer_info->peer_type == TGL_PEER_USER) {
-				if (get_buddy_unknown_status(peer_info->peer_id)) {
-					main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
-					if (main_list_item->buddy_display_name == NULL || (main_list_item->buddy_display_name && strcmp(main_list_item->buddy_display_name, "+") == 0)) {
-						char *user_name = NULL;
-						char *first_name = NULL;
-						char *last_name = NULL;
-						char *phone_num = NULL;
-						get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-						if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-							first_name = NULL;
-						}
-
-						if (!first_name && !last_name && phone_num) {
-							first_name = phone_num;
-						}
-
-						if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-							last_name = "";
-						}
-						user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-						strcpy(user_name, first_name);
-						strcat(user_name, " ");
-						strcat(user_name, last_name);
-						main_list_item->buddy_display_name = user_name;
-					}
-				} else {
-					char *user_name = NULL;
-					char *first_name = NULL;
-					char *last_name = NULL;
-					char *phone_num = NULL;
-					get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-					if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-						first_name = NULL;
-					}
-
-					if (!first_name && !last_name && phone_num) {
-						first_name = phone_num;
-					}
-
-					if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-						last_name = "";
-					}
-					user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-					strcpy(user_name, first_name);
-					strcat(user_name, " ");
-					strcat(user_name, last_name);
-					main_list_item->buddy_display_name = user_name;
-				}
-			} else if (peer_info->peer_type == TGL_PEER_CHAT) {
-				main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
-			} else {
-				main_list_item->buddy_display_name = strdup("");
-			}
-
-
-			if (peer_info->photo_path) {
+			if (peer_info->photo_path)
 				main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-			} else {
+			else
 				main_list_item->profile_pic_path = NULL;
-			}
+
 			main_list_item->user_name_lbl = NULL;
 			main_list_item->status_lbl = NULL;
 			main_list_item->date_lbl = NULL;
@@ -595,15 +520,13 @@ void load_main_list_data(appdata_s *ad)
 			ad->main_list = eina_list_append(ad->main_list, main_list_item);
 
 			// delete message object
-			if (msg->message) {
+			if (msg->message)
 				free(msg->message);
-				msg->message = NULL;
-			}
+			msg->message = NULL;
 
-			if (msg->media_id) {
+			if (msg->media_id)
 				free(msg->media_id);
-				msg->media_id = NULL;
-			}
+			msg->media_id = NULL;
 
 			free(msg);
 			msg = NULL;
@@ -614,12 +537,9 @@ void load_main_list_data(appdata_s *ad)
 				tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
 				main_list_item->peer_id = peer_info->peer_id;
 				main_list_item->peer_type = peer_info->peer_type;
-				if ((peer_info->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(peer_info->peer_id)) {
-					//set phone number
-					main_list_item->peer_print_name = strdup(get_buddy_phone_num_from_id(peer_info->peer_id));
-				} else {
-					main_list_item->peer_print_name = strdup(peer_info->print_name);
-				}
+
+				set_peer_names(peer_info, main_list_item);
+
 				main_list_item->last_seen_time = peer_info->last_seen_time;
 				main_list_item->profile_pic = NULL;
 				main_list_item->last_message = strdup(item->last_message);
@@ -629,34 +549,6 @@ void load_main_list_data(appdata_s *ad)
 				main_list_item->last_msg_id = -1;
 				main_list_item->last_msg_status = -1;
 				main_list_item->number_of_unread_msgs = 0;
-				if (peer_info->peer_type == TGL_PEER_USER) {
-					char *user_name = NULL;
-					char *first_name = NULL;
-					char *last_name = NULL;
-					char *phone_num = NULL;
-					get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-					if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-						first_name = NULL;
-					}
-
-					if (!first_name && !last_name && phone_num) {
-						first_name = phone_num;
-					}
-
-					if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-						last_name = "";
-					}
-					user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-					strcpy(user_name, first_name);
-					strcat(user_name, " ");
-					strcat(user_name, last_name);
-					main_list_item->buddy_display_name = user_name;
-				} else if (peer_info->peer_type == TGL_PEER_CHAT) {
-					main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
-				} else {
-					main_list_item->buddy_display_name = strdup("");
-				}
 
 				if (peer_info->photo_path) {
 					main_list_item->profile_pic_path = strdup(peer_info->photo_path);
@@ -678,225 +570,63 @@ void load_main_list_data(appdata_s *ad)
 		}
 	}
 }
-#if 0
-void load_group_chat_data(appdata_s *ad)
-{
-	if (!ad) {
-		return;
-	}
-	if (ad->group_chat_list) {
-		for (int i = 0; i < eina_list_count(ad->group_chat_list) ; i++) {
-			group_chat_with_pic_s* pic_item = eina_list_nth(ad->group_chat_list, i);
-			tg_chat_info_s* item = pic_item->use_data;
-			if (item) {
-				if (item->photo_path) {
-					free(item->photo_path);
-					item->photo_path = NULL;
-				}
-				if (item->print_title) {
-					free(item->print_title);
-					item->print_title = NULL;
-				}
-				if (item->title) {
-					free(item->title);
-					item->title = NULL;
-				}
-				free(item);
-			}
-			free(pic_item);
-		}
-		eina_list_free(ad->group_chat_list);
-	}
-	ad->group_chat_list = NULL;
-	Eina_List *chat_details = get_group_chat_details();
-
-	for (int i = 0; i < eina_list_count(chat_details) ; i++) {
-		Eina_List *ts_msg = eina_list_nth(chat_details, i);
-
-		tg_chat_info_s* chat_info = (tg_chat_info_s*)malloc(sizeof(tg_chat_info_s));
-
-
-		int *temp_chat_id = (int *)eina_list_nth(ts_msg, 0);
-		if (temp_chat_id) {
-			chat_info->chat_id  = *temp_chat_id;
-			free(temp_chat_id);
-		}
-
-		int *temp_flags = (int *)eina_list_nth(ts_msg, 1);
-		if (temp_flags) {
-			chat_info->flags  = *temp_flags;
-			free(temp_flags);
-		}
-
-		char *temp_print_title = (char *)eina_list_nth(ts_msg, 2);
-		if (temp_print_title) {
-			chat_info->print_title  = strdup(temp_print_title);
-			free(temp_print_title);
-		}
-
-		int *temp_struct_ver = (int *)eina_list_nth(ts_msg, 3);
-		if (temp_struct_ver) {
-			chat_info->struct_version  = *temp_struct_ver;
-			free(temp_struct_ver);
-		}
-
-		char *temp_photo_id = (char *)eina_list_nth(ts_msg, 4);
-		if (temp_photo_id) {
-			chat_info->photo_id  = atoll(temp_photo_id);
-			free(temp_photo_id);
-		}
-
-		char *temp_photo_path = (char *)eina_list_nth(ts_msg, 5);
-		if (temp_photo_path) {
-			chat_info->photo_path  = strdup(temp_photo_path);
-			free(temp_photo_path);
-		}
-
-		char *temp_title = (char *)eina_list_nth(ts_msg, 6);
-		if (temp_title) {
-			chat_info->title  = strdup(temp_title);
-			free(temp_title);
-		}
-
-		int *temp_users_num = (int *)eina_list_nth(ts_msg, 7);
-		if (temp_users_num) {
-			chat_info->users_num  = *temp_users_num;
-			free(temp_users_num);
-		}
-
-		int *temp_user_list_size = (int *)eina_list_nth(ts_msg, 8);
-		if (temp_user_list_size) {
-			chat_info->user_list_size  = *temp_user_list_size;
-			free(temp_user_list_size);
-		}
-
-		int *temp_user_list_version = (int *)eina_list_nth(ts_msg, 9);
-		if (temp_user_list_version) {
-			chat_info->user_list_version  = *temp_user_list_version;
-			free(temp_user_list_version);
-		}
-
-		int *temp_inviter_id = (int *)eina_list_nth(ts_msg, 10);
-		if (temp_inviter_id) {
-			chat_info->inviter_id  = *temp_inviter_id;
-			free(temp_inviter_id);
-		}
-
-		char *temp_full_ids = (char *)eina_list_nth(ts_msg, 11);
-		if (temp_full_ids) {
-			char* item = strtok(temp_full_ids, ",");
-			int count = 0;
-			chat_info->chat_users[count] = atoi(item);
-
-			while (item != NULL) {
-				count++;
-				item = strtok(NULL, ",");
-				if (item != NULL) {
-					chat_info->chat_users[count] = atoi(item);
-				}
-			}
-			free(temp_full_ids);
-		}
-
-		int *temp_date = (int *)eina_list_nth(ts_msg, 12);
-		if (temp_date) {
-			chat_info->date  = *temp_date;
-			free(temp_date);
-		}
-
-		int *temp_version = (int *)eina_list_nth(ts_msg, 13);
-		if (temp_version) {
-			chat_info->version  = *temp_version;
-			free(temp_version);
-		}
-
-		int *temp_admin_id = (int *)eina_list_nth(ts_msg, 14);
-		if (temp_admin_id) {
-			chat_info->admin_id  = *temp_admin_id;
-			free(temp_admin_id);
-		}
-		eina_list_free(ts_msg);
-
-		group_chat_with_pic_s *item = (group_chat_with_pic_s*) malloc(sizeof(group_chat_with_pic_s));
-		item->use_data = chat_info;
-		item->contact_icon = NULL;
-		ad->group_chat_list = eina_list_append(ad->group_chat_list, item);
-	}
-
-	eina_list_free(chat_details);
-}
-#endif
 
 void load_unknown_buddy_list_data(appdata_s *ad)
 {
 
-	if (!ad) {
+	if (!ad)
 		return;
-	}
-
 
 	user_data_with_pic_s *item = NULL;
 	EINA_LIST_FREE(ad->unknown_buddy_list, item) {
-
 		user_data_s* user_data = item->use_data;
 
-		if (user_data->print_name) {
+		if (user_data->print_name)
 			free(user_data->print_name);
-			user_data->print_name = NULL;
-		}
+		user_data->print_name = NULL;
 
-		if (user_data->photo_path) {
+		if (user_data->photo_path)
 			free(user_data->photo_path);
-			user_data->photo_path = NULL;
-		}
+		user_data->photo_path = NULL;
 
-		if (user_data->first_name) {
+		if (user_data->first_name)
 			free(user_data->first_name);
-			user_data->first_name = NULL;
-		}
+		user_data->first_name = NULL;
 
-		if (user_data->last_name) {
+		if (user_data->last_name)
 			free(user_data->last_name);
-			user_data->last_name = NULL;
-		}
+		user_data->last_name = NULL;
 
-		if (user_data->phone) {
+		if (user_data->phone)
 			free(user_data->phone);
-			user_data->phone = NULL;
-		}
-		if (user_data->real_first_name) {
+		user_data->phone = NULL;
+
+		if (user_data->real_first_name)
 			free(user_data->real_first_name);
-			user_data->real_first_name = NULL;
-		}
+		user_data->real_first_name = NULL;
 
-		if (user_data->real_last_name) {
+		if (user_data->real_last_name)
 			free(user_data->real_last_name);
-			user_data->real_last_name = NULL;
-		}
+		user_data->real_last_name = NULL;
 
-		if (user_data->username) {
+		if (user_data->username)
 			free(user_data->username);
-			user_data->username = NULL;
-		}
+		user_data->username = NULL;
+
 		free(user_data);
 		free(item);
 	}
 	ad->unknown_buddy_list = NULL;
 
 	Eina_List *user_info = get_unknown_buddy_list_info();
-
 	if (!user_info) {
 		//error
 		//show_toast(ad, "User info not loaded");
 		return;
 	}
 
-	int row_count = eina_list_count(user_info);
-
 	Eina_List *row_vals = NULL;
 	EINA_LIST_FREE(user_info, row_vals) {
-		if (!row_vals)
-			continue;
 
 		int *temp_user_id = (int *)eina_list_nth(row_vals, 0);
 		if (ad->user_id.id == (*temp_user_id)) {
@@ -999,49 +729,40 @@ void load_buddy_list_data(appdata_s *ad)
 
 	user_data_with_pic_s *item = NULL;
 	EINA_LIST_FREE(ad->buddy_list, item) {
-		if (!item)
-			continue;
-
 		user_data_s* user_data = item->use_data;
 
-		if (user_data->print_name) {
+		if (user_data->print_name)
 			free(user_data->print_name);
 			user_data->print_name = NULL;
-		}
 
-		if (user_data->photo_path) {
+		if (user_data->photo_path)
 			free(user_data->photo_path);
 			user_data->photo_path = NULL;
-		}
 
-		if (user_data->first_name) {
+		if (user_data->first_name)
 			free(user_data->first_name);
 			user_data->first_name = NULL;
-		}
 
-		if (user_data->last_name) {
+		if (user_data->last_name)
 			free(user_data->last_name);
 			user_data->last_name = NULL;
-		}
 
-		if (user_data->phone) {
+		if (user_data->phone)
 			free(user_data->phone);
 			user_data->phone = NULL;
-		}
-		if (user_data->real_first_name) {
+
+		if (user_data->real_first_name)
 			free(user_data->real_first_name);
 			user_data->real_first_name = NULL;
-		}
 
-		if (user_data->real_last_name) {
+		if (user_data->real_last_name)
 			free(user_data->real_last_name);
 			user_data->real_last_name = NULL;
-		}
 
-		if (user_data->username) {
+		if (user_data->username)
 			free(user_data->username);
 			user_data->username = NULL;
-		}
+
 		free(user_data);
 		free(item);
 	}
@@ -1054,8 +775,6 @@ void load_buddy_list_data(appdata_s *ad)
 		//show_toast(ad, "User info not loaded");
 		return;
 	}
-
-	int row_count = eina_list_count(user_info);
 
 	Eina_List *row_vals = NULL;
 	EINA_LIST_FREE(user_info, row_vals) {
@@ -1512,6 +1231,12 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 {
 	int result = SVC_RES_FAIL;
 
+	if (!app->peer_in_cahtting_data || !app->peer_in_cahtting_data->use_data) {
+		LOGE("Wrong status, previous chatting data are freed!!!");
+		return result;
+	}
+
+
 	char* from_id_str = NULL;
 	result = bundle_get_str(rec_msg, "from_id", &from_id_str);
 	int from_id = atoi(from_id_str);
@@ -1544,8 +1269,8 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 	}
 
 	if (type_of_chat == TGL_PEER_USER) {
-		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_USER_INFO_STATE) && app->peer_in_cahtting_data
-				&& app->peer_in_cahtting_data->use_data->peer_id == from_id) {
+		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_USER_INFO_STATE) &&
+				app->peer_in_cahtting_data && app->peer_in_cahtting_data->use_data->peer_id == from_id) {
 			if (with_date) {
 				char* date_id_str = NULL;
 				result = bundle_get_str(rec_msg, "date_id", &date_id_str);
@@ -1559,8 +1284,8 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 		}
 
 	} else if (type_of_chat == TGL_PEER_CHAT) {
-		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_CHAT_INFO_STATE) && app->peer_in_cahtting_data
-				&& app->peer_in_cahtting_data->use_data->peer_id == to_id) {
+		if ((app->current_app_state ==  TG_CHAT_MESSAGING_VIEW_STATE || app->current_app_state ==  TG_SET_CHAT_INFO_STATE) &&
+				app->peer_in_cahtting_data && app->peer_in_cahtting_data->use_data->peer_id == to_id) {
 			char* tablename = get_table_name_from_number(to_id);
 			tg_message_s* msg = get_message_from_message_table(message_id, tablename);
 			if (msg) {
@@ -1686,7 +1411,6 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 					org_msg = "";
 				}
 				elm_object_text_set(sel_item->status_lbl, "");
-				int len_org_str = strlen(org_msg);
 
 				char status_buf[126] = {'\0'};
 				const char *color;
@@ -2678,7 +2402,9 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 
 	result = bundle_get_str(rec_msg, "command", &rec_key_val);
 
-	if (strcmp(rec_key_val, "server_not_initialized") == 0 ) {
+	LOGI("MSG recv = %s", rec_key_val);
+
+	if (strcmp(rec_key_val, "server_not_initialized") == 0) {
 		hide_loading_popup(app);
 		return result;
 	} else if (strcmp(rec_key_val, "server_restart_notification") == 0) {
@@ -2724,6 +2450,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		app->phone_number = NULL;
 		app->buddy_list = NULL;
 		app->unknown_buddy_list = NULL;
+		app->known_buddy_list = NULL;
 		app->main_list = NULL;
 		app->peer_list = NULL;
 		app->search_peer_list = NULL;
@@ -2932,273 +2659,151 @@ void win_delete_request_cb(void *data, Evas_Object *obj, void *event_info)
 tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 {
 	tg_main_list_item_s* main_list_item = NULL;
-	if (item) {
-		tg_peer_info_s* peer_info = item->use_data;
-		if (peer_info) {
+	if (!item)
+		return NULL;
 
-				// get message from message table.
+	tg_peer_info_s* peer_info = item->use_data;
+	if (!peer_info)
+		return NULL;
 
-				char* tablename = get_table_name_from_number(peer_info->peer_id);
-				tg_message_s* msg = get_latest_message_from_message_table(tablename, EINA_FALSE);
+	// get message from message table.
 
-				if (msg) {
+	char* tablename = get_table_name_from_number(peer_info->peer_id);
+	tg_message_s* msg = get_latest_message_from_message_table(tablename, EINA_FALSE);
 
-					if (msg->service) {
-						if (msg->message && strlen(msg->message) > 0) {
-							item->last_message = strdup(msg->message);
-						} else {
-							item->last_message = strdup(" ");
-						}
-					} else {
+	if (msg) {
 
-						int media_type = msg->media_type;
-						if (media_type == tgl_message_media_none) {
-							if (msg->message && strlen(msg->message) > 0) {
-								item->last_message = strdup(msg->message);
-							} else {
-								item->last_message = strdup(" ");
-							}
-						} else if (media_type == tgl_message_media_photo) {
-							item->last_message = strdup("Image");
-						} else if (media_type == tgl_message_media_document) {
-							tgl_media_s *media_msg = NULL;
-							media_msg = get_media_details_from_db(atoll(msg->media_id));
+		if (msg->service) {
+			if (msg->message && strlen(msg->message) > 0) {
+				item->last_message = strdup(msg->message);
+			} else {
+				item->last_message = strdup(" ");
+			}
+		} else {
 
-							if (media_msg && media_msg->doc_type) {
-								if (strlen(media_msg->doc_type) > 0) {
-									item->last_message = strdup(media_msg->doc_type);
-								} else {
-									item->last_message = strdup("Document");
-								}
-								free_media_details(media_msg);
-							} else {
-								if (msg->message && strlen(msg->message) > 0) {
-									item->last_message = strdup(msg->message);
-								} else {
-									item->last_message = strdup("Document");
-								}
-							}
-
-						} else if (media_type == tgl_message_media_geo) {
-							item->last_message = strdup("Geo location");
-						} else if (media_type == tgl_message_media_contact) {
-							item->last_message = strdup("Contact");
-						} else if (media_type == tgl_message_media_unsupported) {
-							item->last_message = strdup(" ");
-						} else if (media_type == tgl_message_media_photo_encr) {
-							item->last_message = strdup("Image encrypted");
-						} else if (media_type == tgl_message_media_document_encr) {
-							item->last_message = strdup("Document encrypted");
-						} else  {
-							item->last_message = strdup(" ");
-						}
-					}
-
-					main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
-					main_list_item->peer_id = peer_info->peer_id;
-					main_list_item->peer_type = peer_info->peer_type;
-					if ((peer_info->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(peer_info->peer_id)) {
-						//set phone number
-						char *p_num = get_buddy_phone_num_from_id(peer_info->peer_id);
-						if (p_num && strlen(p_num) > 0) {
-							main_list_item->peer_print_name = strdup(p_num);
-						} else {
-							main_list_item->peer_print_name = strdup("");
-						}
-					} else {
-						if (peer_info->print_name && strlen(peer_info->print_name) > 0) {
-							main_list_item->peer_print_name = strdup(peer_info->print_name);
-						} else {
-							main_list_item->peer_print_name = strdup("");
-						}
-					}
-					main_list_item->last_seen_time = msg->date;
-					main_list_item->profile_pic = NULL;
-					main_list_item->last_msg_id = msg->msg_id;
-					main_list_item->last_message = strdup(item->last_message);
-					main_list_item->last_msg_type = msg->media_type;
-					main_list_item->is_out_msg = msg->out;
-					main_list_item->last_msg_status = msg->msg_state;
-					main_list_item->last_msg_service = msg->service;
-					main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
-
-
-					if (peer_info->peer_type == TGL_PEER_USER) {
-						if (peer_info->is_unknown == 1) {
-							main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
-							if (main_list_item->buddy_display_name == NULL || (main_list_item->buddy_display_name && strcmp(main_list_item->buddy_display_name, "+") == 0)) {
-								char *user_name = NULL;
-								char *first_name = NULL;
-								char *last_name = NULL;
-								char *phone_num = NULL;
-								get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-								if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-									first_name = NULL;
-								}
-
-								if (!first_name && !last_name && phone_num) {
-									first_name = phone_num;
-								}
-
-								if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-									last_name = "";
-								}
-								user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-								strcpy(user_name, first_name);
-								strcat(user_name, " ");
-								strcat(user_name, last_name);
-								main_list_item->buddy_display_name = user_name;
-							}
-						} else {
-							char *user_name = NULL;
-							char *first_name = NULL;
-							char *last_name = NULL;
-							char *phone_num = NULL;
-							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-							if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-								first_name = NULL;
-							}
-
-							if (!first_name && !last_name && phone_num) {
-								first_name = phone_num;
-							}
-
-							if (!first_name) {
-								first_name = "";
-							}
-
-							if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-								last_name = "";
-							}
-							user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-							strcpy(user_name, first_name);
-							strcat(user_name, " ");
-							strcat(user_name, last_name);
-							main_list_item->buddy_display_name = user_name;
-						}
-					} else if (peer_info->peer_type == TGL_PEER_CHAT) {
-						main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
-					} else {
-						main_list_item->buddy_display_name = strdup("");
-					}
-
-					if (peer_info->photo_path) {
-						main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-					} else {
-						main_list_item->profile_pic_path = NULL;
-					}
-					main_list_item->user_name_lbl = NULL;
-					main_list_item->status_lbl = NULL;
-					main_list_item->date_lbl = NULL;
-					main_list_item->msg_status_lbl = NULL;
-					main_list_item->main_item_layout = NULL;
-
-					// delete message object
-					if (msg->message) {
-						free(msg->message);
-						msg->message = NULL;
-					}
-
-					if (msg->media_id) {
-						free(msg->media_id);
-						msg->media_id = NULL;
-					}
-
-					free(msg);
-					msg = NULL;
-
+			int media_type = msg->media_type;
+			if (media_type == tgl_message_media_none) {
+				if (msg->message && strlen(msg->message) > 0) {
+					item->last_message = strdup(msg->message);
 				} else {
 					item->last_message = strdup(" ");
-					if (peer_info->peer_type == TGL_PEER_CHAT) {
-						main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
-						main_list_item->peer_id = peer_info->peer_id;
-						main_list_item->peer_type = peer_info->peer_type;
-						if ((peer_info->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(peer_info->peer_id)) {
-							//set phone number
-							char *p_num = get_buddy_phone_num_from_id(peer_info->peer_id);
-							if (p_num && strlen(p_num) > 0) {
-								main_list_item->peer_print_name = strdup(p_num);
-							} else {
-								main_list_item->peer_print_name = strdup("");
-							}
-						} else {
-							if (peer_info->print_name && strlen(peer_info->print_name) > 0) {
-								main_list_item->peer_print_name = strdup(peer_info->print_name);
-							} else {
-								main_list_item->peer_print_name = strdup("");
-							}
-						}
-						main_list_item->last_seen_time = peer_info->last_seen_time;
-						main_list_item->profile_pic = NULL;
-						main_list_item->last_message = strdup(item->last_message);
-						main_list_item->last_msg_type = -1;
-						main_list_item->last_msg_service = 0;
-						main_list_item->is_out_msg = -1;
-						main_list_item->last_msg_id = -1;
-						main_list_item->last_msg_status = -1;
-						main_list_item->number_of_unread_msgs = 0;
-						if (peer_info->peer_type == TGL_PEER_USER) {
-							char *user_name = NULL;
-							char *first_name = NULL;
-							char *last_name = NULL;
-							char *phone_num = NULL;
-							get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+				}
+			} else if (media_type == tgl_message_media_photo) {
+				item->last_message = strdup("Image");
+			} else if (media_type == tgl_message_media_document) {
+				tgl_media_s *media_msg = NULL;
+				media_msg = get_media_details_from_db(atoll(msg->media_id));
 
-							if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-								first_name = NULL;
-							}
-
-							if (!first_name && !last_name && phone_num) {
-								first_name = phone_num;
-							} if (!last_name)
-							if (!first_name) {
-								first_name = "";
-							}
-							if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-								last_name = "";
-							}
-							user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-							strcpy(user_name, first_name);
-							strcat(user_name, " ");
-							strcat(user_name, last_name);
-							main_list_item->buddy_display_name = user_name;
-						} else if (peer_info->peer_type == TGL_PEER_CHAT) {
-							if (peer_info->print_name) {
-								char *temp_name = replace(peer_info->print_name, '_', " ");
-								if (temp_name && strlen(temp_name) > 0) {
-									main_list_item->buddy_display_name = temp_name;
-								} else {
-									main_list_item->buddy_display_name = strdup("");
-								}
-							} else {
-								main_list_item->buddy_display_name = strdup("");
-							}
-						} else {
-							main_list_item->buddy_display_name = strdup("");
-						}
-
-						if (peer_info->photo_path && strlen(peer_info->photo_path) > 0) {
-							main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-						} else {
-							main_list_item->profile_pic_path = NULL;
-						}
-						main_list_item->user_name_lbl = NULL;
-						main_list_item->status_lbl = NULL;
-						main_list_item->date_lbl = NULL;
-						main_list_item->msg_status_lbl = NULL;
-						main_list_item->main_item_layout = NULL;
-
+				if (media_msg && media_msg->doc_type) {
+					if (strlen(media_msg->doc_type) > 0) {
+						item->last_message = strdup(media_msg->doc_type);
+					} else {
+						item->last_message = strdup("Document");
+					}
+					free_media_details(media_msg);
+				} else {
+					if (msg->message && strlen(msg->message) > 0) {
+						item->last_message = strdup(msg->message);
+					} else {
+						item->last_message = strdup("Document");
 					}
 				}
 
-				if (tablename) {
-					free(tablename);
-					tablename = NULL;
-				}
+			} else if (media_type == tgl_message_media_geo) {
+				item->last_message = strdup("Geo location");
+			} else if (media_type == tgl_message_media_contact) {
+				item->last_message = strdup("Contact");
+			} else if (media_type == tgl_message_media_unsupported) {
+				item->last_message = strdup(" ");
+			} else if (media_type == tgl_message_media_photo_encr) {
+				item->last_message = strdup("Image encrypted");
+			} else if (media_type == tgl_message_media_document_encr) {
+				item->last_message = strdup("Document encrypted");
+			} else  {
+				item->last_message = strdup(" ");
+			}
+		}
+
+		main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+		main_list_item->peer_id = peer_info->peer_id;
+		main_list_item->peer_type = peer_info->peer_type;
+
+		set_peer_names(peer_info, main_list_item);
+
+		main_list_item->last_seen_time = msg->date;
+		main_list_item->profile_pic = NULL;
+		main_list_item->last_msg_id = msg->msg_id;
+		main_list_item->last_message = strdup(item->last_message);
+		main_list_item->last_msg_type = msg->media_type;
+		main_list_item->is_out_msg = msg->out;
+		main_list_item->last_msg_status = msg->msg_state;
+		main_list_item->last_msg_service = msg->service;
+		main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
+
+		if (peer_info->photo_path) {
+			main_list_item->profile_pic_path = strdup(peer_info->photo_path);
+		} else {
+			main_list_item->profile_pic_path = NULL;
+		}
+		main_list_item->user_name_lbl = NULL;
+		main_list_item->status_lbl = NULL;
+		main_list_item->date_lbl = NULL;
+		main_list_item->msg_status_lbl = NULL;
+		main_list_item->main_item_layout = NULL;
+
+		// delete message object
+		if (msg->message) {
+			free(msg->message);
+			msg->message = NULL;
+		}
+
+		if (msg->media_id) {
+			free(msg->media_id);
+			msg->media_id = NULL;
+		}
+
+		free(msg);
+		msg = NULL;
+
+	} else {
+		item->last_message = strdup(" ");
+		if (peer_info->peer_type == TGL_PEER_CHAT) {
+			main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+			main_list_item->peer_id = peer_info->peer_id;
+			main_list_item->peer_type = peer_info->peer_type;
+
+			set_peer_names(peer_info, main_list_item);
+
+			main_list_item->last_seen_time = peer_info->last_seen_time;
+			main_list_item->profile_pic = NULL;
+			main_list_item->last_message = strdup(item->last_message);
+			main_list_item->last_msg_type = -1;
+			main_list_item->last_msg_service = 0;
+			main_list_item->is_out_msg = -1;
+			main_list_item->last_msg_id = -1;
+			main_list_item->last_msg_status = -1;
+			main_list_item->number_of_unread_msgs = 0;
+
+			if (peer_info->photo_path && strlen(peer_info->photo_path) > 0) {
+				main_list_item->profile_pic_path = strdup(peer_info->photo_path);
+			} else {
+				main_list_item->profile_pic_path = NULL;
+			}
+			main_list_item->user_name_lbl = NULL;
+			main_list_item->status_lbl = NULL;
+			main_list_item->date_lbl = NULL;
+			main_list_item->msg_status_lbl = NULL;
+			main_list_item->main_item_layout = NULL;
+
 		}
 	}
+
+	if (tablename) {
+		free(tablename);
+		tablename = NULL;
+	}
+
+
 	return main_list_item;
 }
 
@@ -3346,12 +2951,9 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 								tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
 								main_list_item->peer_id = peer_info->peer_id;
 								main_list_item->peer_type = peer_info->peer_type;
-								if ((peer_info->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(peer_info->peer_id)) {
-									//set phone number
-									main_list_item->peer_print_name = strdup(get_buddy_phone_num_from_id(peer_info->peer_id));
-								} else {
-									main_list_item->peer_print_name = strdup(peer_info->print_name);
-								}
+
+								set_peer_names(peer_info, main_list_item);
+
 								main_list_item->last_seen_time = msg->date;
 								main_list_item->profile_pic = NULL;
 								main_list_item->last_msg_id = msg->msg_id;
@@ -3361,65 +2963,6 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 								main_list_item->last_msg_status = msg->msg_state;
 								main_list_item->last_msg_service = msg->service;
 								main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
-
-
-								if (peer_info->peer_type == TGL_PEER_USER) {
-									if (peer_info->is_unknown == 1) {
-										main_list_item->buddy_display_name = get_buddy_phone_num_from_id(peer_info->peer_id);
-										if (main_list_item->buddy_display_name == NULL || (main_list_item->buddy_display_name && strcmp(main_list_item->buddy_display_name, "+") == 0)) {
-											char *user_name = NULL;
-											char *first_name = NULL;
-											char *last_name = NULL;
-											char *phone_num = NULL;
-											get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-											if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-												first_name = NULL;
-											}
-
-											if (!first_name && !last_name && phone_num) {
-												first_name = phone_num;
-											}
-
-											if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-												last_name = "";
-											}
-											user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-											strcpy(user_name, first_name);
-											strcat(user_name, " ");
-											strcat(user_name, last_name);
-											main_list_item->buddy_display_name = user_name;
-										}
-									} else {
-										char *user_name = NULL;
-										char *first_name = NULL;
-										char *last_name = NULL;
-										char *phone_num = NULL;
-										get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-										if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-											first_name = NULL;
-										}
-
-										if (!first_name && !last_name && phone_num) {
-											first_name = phone_num;
-										}
-
-										if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-											last_name = "";
-										}
-										user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-										strcpy(user_name, first_name);
-										strcat(user_name, " ");
-										strcat(user_name, last_name);
-										main_list_item->buddy_display_name = user_name;
-									}
-								} else if (peer_info->peer_type == TGL_PEER_CHAT) {
-									main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
-								} else {
-									main_list_item->buddy_display_name = strdup("");
-								}
-
 
 								if (peer_info->photo_path) {
 									main_list_item->profile_pic_path = strdup(peer_info->photo_path);
@@ -3453,12 +2996,9 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 									tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
 									main_list_item->peer_id = peer_info->peer_id;
 									main_list_item->peer_type = peer_info->peer_type;
-									if ((peer_info->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(peer_info->peer_id)) {
-										//set phone number
-										main_list_item->peer_print_name = strdup(get_buddy_phone_num_from_id(peer_info->peer_id));
-									} else {
-										main_list_item->peer_print_name = strdup(peer_info->print_name);
-									}
+
+									set_peer_names(peer_info, main_list_item);
+
 									main_list_item->last_seen_time = peer_info->last_seen_time;
 									main_list_item->profile_pic = NULL;
 									main_list_item->last_message = strdup(item->last_message);
@@ -3468,34 +3008,6 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 									main_list_item->last_msg_id = -1;
 									main_list_item->last_msg_status = -1;
 									main_list_item->number_of_unread_msgs = 0;
-									if (peer_info->peer_type == TGL_PEER_USER) {
-										char *user_name = NULL;
-										char *first_name = NULL;
-										char *last_name = NULL;
-										char *phone_num = NULL;
-										get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
-
-										if (!first_name || (first_name && strstr(first_name, "null") != 0)) {
-											first_name = NULL;
-										}
-
-										if (!first_name && !last_name && phone_num) {
-											first_name = phone_num;
-										}
-
-										if (!last_name || (last_name && strstr(last_name, "null") != 0)) {
-											last_name = "";
-										}
-										user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-										strcpy(user_name, first_name);
-										strcat(user_name, " ");
-										strcat(user_name, last_name);
-										main_list_item->buddy_display_name = user_name;
-									} else if (peer_info->peer_type == TGL_PEER_CHAT) {
-										main_list_item->buddy_display_name = replace(peer_info->print_name, '_', " ");
-									} else {
-										main_list_item->buddy_display_name = strdup("");
-									}
 
 									if (peer_info->photo_path) {
 										main_list_item->profile_pic_path = strdup(peer_info->photo_path);
@@ -3740,13 +3252,13 @@ void launch_tg_server(void *data)
 	int ret = APP_CONTROL_ERROR_NONE;
 
 	ret = app_control_create(&app_control);
-	ret_if(APP_CONTROL_ERROR_NONE != ret);
+	ret_if (APP_CONTROL_ERROR_NONE != ret);
 
 	ret = app_control_set_app_id(app_control, TELEGRAM_SERVER_APP_NAME);
-	goto_if(APP_CONTROL_ERROR_NONE != ret, out);
+	goto_if (APP_CONTROL_ERROR_NONE != ret, out);
 
 	ret = app_control_send_launch_request(app_control, &on_tg_service_result_cb, ad);
-	goto_if(APP_CONTROL_ERROR_NONE != ret, out);
+	goto_if (APP_CONTROL_ERROR_NONE != ret, out);
 
 out:
 	app_control_destroy(app_control);
@@ -3754,9 +3266,6 @@ out:
 
 static void create_base_gui(appdata_s *ad)
 {
-
-	struct stat st = {0};
-
 	ad->win = elm_win_util_standard_add(PACKAGE, PACKAGE);
 	elm_win_conformant_set(ad->win, EINA_TRUE);
 	elm_win_autodel_set(ad->win, EINA_TRUE);
@@ -3898,19 +3407,18 @@ int remove_directory(const char *path)
 
 Eina_Bool copy_file_another_dir(const char *source_file, const char *target_file)
 {
-	char ch;
 	FILE *source, *target;
 
 	source = fopen(source_file, "rb+");
 
-	if( source == NULL )
+	if (source == NULL)
 	{
 		return EINA_FALSE;
 	}
 
 	target = fopen(target_file, "wb+");
 
-	if (target == NULL )
+	if (target == NULL)
 	{
 		fclose(source);
 		return EINA_FALSE;
@@ -4022,7 +3530,7 @@ Eina_Bool dirExists(const char *path)
 {
     struct stat info;
 
-    if (stat(path, &info ) != 0)
+    if (stat(path, &info) != 0)
         return EINA_FALSE;
     else if (info.st_mode & S_IFDIR)
         return EINA_TRUE;
@@ -4166,6 +3674,7 @@ static bool app_create(void *data)
 	ad->phone_number = NULL;
 	ad->buddy_list = NULL;
 	ad->unknown_buddy_list = NULL;
+	ad->known_buddy_list = NULL;
 	ad->main_list = NULL;
 	ad->peer_list = NULL;
 	ad->search_peer_list = NULL;
@@ -4428,6 +3937,46 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 		free(item);
 	}
 	app_data->unknown_buddy_list = NULL;
+
+	EINA_LIST_FREE(app_data->known_buddy_list, item) {
+		user_data_s* user_data = item->use_data;
+
+		if (user_data->print_name)
+			free(user_data->print_name);
+			user_data->print_name = NULL;
+
+		if (user_data->photo_path)
+			free(user_data->photo_path);
+			user_data->photo_path = NULL;
+
+		if (user_data->first_name)
+			free(user_data->first_name);
+			user_data->first_name = NULL;
+
+		if (user_data->last_name)
+			free(user_data->last_name);
+			user_data->last_name = NULL;
+
+		if (user_data->phone)
+			free(user_data->phone);
+			user_data->phone = NULL;
+
+		if (user_data->real_first_name)
+			free(user_data->real_first_name);
+			user_data->real_first_name = NULL;
+
+		if (user_data->real_last_name)
+			free(user_data->real_last_name);
+			user_data->real_last_name = NULL;
+
+		if (user_data->username)
+			free(user_data->username);
+			user_data->username = NULL;
+
+		free(user_data);
+		free(item);
+	}
+	app_data->known_buddy_list = NULL;
 
 	eina_list_free(app_data->loaded_msg_list);
 	app_data->loaded_msg_list = NULL;

@@ -59,24 +59,52 @@ static long long total_allocated_bytes;
 
 void logprintf(const char *format, ...) __attribute__((format(printf, 1, 2), weak));
 
-void logprintf(const char *format, ...)
+void _printf(int level, char* buffer)
 {
-	/*
-	va_list ap;
-	va_start(ap, format);
-	vfprintf(stdout, format, ap);
-	va_end(ap);
-	*/
-	char buffer[1024];
+	switch(level)
+	{
+	case E_ERROR :
+		dlog_print(DLOG_ERROR, LOG_TAG, "%s", buffer);
+		return;
+	case E_WARNING :
+		dlog_print(DLOG_WARN, LOG_TAG, "%s", buffer);
+		return;
+	case E_NOTICE :
+		dlog_print(DLOG_INFO, LOG_TAG, "%s", buffer);
+		return;
+	case E_DEBUG :
+		dlog_print(DLOG_DEBUG, LOG_TAG, "%s", buffer);
+		return;
+	case E_SOCKET :
+		dlog_print(DLOG_VERBOSE, LOG_TAG, "%s", buffer);
+		return;
+	default:
+		dlog_print(DLOG_DEBUG, LOG_TAG, "%s", buffer);
+	}
+}
 
+void logprintf_x(int level, const char *format, ...)
+{
+	char buffer[2048];
 	va_list ap;
 
 	va_start(ap, format);
 	vsnprintf(buffer, sizeof(buffer), format, ap);
 	va_end(ap);
 
-	dlog_print(DLOG_DEBUG, LOG_TAG, "%s", buffer);
+	_printf(level, buffer);
+}
 
+void logprintf(const char *format, ...)
+{
+	char buffer[2048];
+	va_list ap;
+
+	va_start(ap, format);
+	vsnprintf(buffer, sizeof(buffer), format, ap);
+	va_end(ap);
+
+	_printf(E_DEBUG, buffer);
 }
 
 int tgl_snprintf(char *buf, int len, const char *format, ...)

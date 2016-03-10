@@ -14,7 +14,7 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ */
 
 #include <stdio.h>
 #include <unistd.h>
@@ -26,6 +26,20 @@
 #include "tg_search_peer_view.h"
 #include "tg_settings_view.h"
 #include "tg_add_contact.h"
+
+uint64_t get_time_stamp_in_macro()
+{
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
+}
+
+void wait_for(unsigned int secs)
+{
+    int retTime = time(0) + secs;
+    while (time(0) < retTime);
+}
+
 void app_get_resource(const char *edj_file_in, char *edj_path_out, int edj_path_max)
 {
 	char *res_path = app_get_resource_path();
@@ -390,7 +404,6 @@ void free_user_data(user_data_s *user_data)
 
 void tg_notification_create(appdata_s *app_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
 {
-	int err = NOTIFICATION_ERROR_NONE;
 	if (app_data && app_data->s_notififcation) {
 		//err = notification_delete(app_data->s_notififcation);
 		notification_delete_all(NOTIFICATION_TYPE_NOTI);
@@ -500,10 +513,10 @@ void create_floating_button(appdata_s* ad)
 	if (ad->floating_btn)
 		return;
 
-    Evas_Object *icon = elm_image_add(ad->nf);
+	Evas_Object *icon = elm_image_add(ad->nf);
 
-   // elm_image_file_set(icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
-    evas_object_show(icon);
+	// elm_image_file_set(icon, ui_utils_get_resource(TG_ICON_FLOATING_PENCIL), NULL);
+	evas_object_show(icon);
 	ad->floating_btn = eext_floatingbutton_add(ad->layout);
 	evas_object_color_set(ad->floating_btn, 255, 255, 255, 255);
 	elm_object_part_content_set(ad->layout, "elm.swallow.floatingbutton", ad->floating_btn);
@@ -589,7 +602,7 @@ char *str_replace(char *orig, char *rep, char *with)
 	len_with = strlen(with);
 
 	ins = orig;
-	for (count = 0; tmp = strstr(ins, rep); ++count) {
+	for (count = 0; (tmp = strstr(ins, rep)); ++count) {
 		ins = tmp + len_rep;
 	}
 
@@ -612,4 +625,104 @@ char *str_replace(char *orig, char *rep, char *with)
 	}
 	strcpy(tmp, orig);
 	return result;
+}
+
+
+
+char* get_display_name_from_contact(tg_peer_info_s* peer_info)
+{
+	char *first_name = NULL;
+	char *last_name = NULL;
+	char *phone_num = NULL;
+
+	get_buddy_contact_details_from_db(peer_info->peer_id, &first_name, &last_name, &phone_num);
+
+	if (first_name && strstr(first_name, "null") != 0) {
+		free(first_name);
+		first_name = NULL;
+	}
+
+	if (!first_name && !last_name && phone_num)
+		first_name = phone_num;
+
+	if (last_name && strstr(last_name, "null") != 0) {
+		free(last_name);
+		last_name = NULL;
+	}
+
+	char user_name[128];
+	snprintf(user_name, sizeof(user_name), "%s %s", first_name?first_name:"", last_name?last_name:"");
+
+	if (first_name)
+		free(first_name);
+	if (last_name)
+		free(last_name);
+	if (phone_num)
+		free(phone_num);
+
+	return strdup(user_name);
+}
+
+char* get_peer_name(tg_peer_info_s* peer_info)
+{
+	char *tmp_name = NULL;
+
+	switch(peer_info->peer_type) {
+	case TGL_PEER_USER:
+		if (get_buddy_delete_status(peer_info->peer_id)) {
+
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
+		} else if (get_buddy_unknown_status(peer_info->peer_id)) {
+
+			char *number = get_buddy_phone_num_from_id(peer_info->peer_id);
+			return (number && strlen(number)) ? number : strdup(" ");
+		} else {
+			tmp_name = get_display_name_from_contact(peer_info);
+			return tmp_name ? tmp_name : strdup(" ");
+		}
+		break;
+	case TGL_PEER_CHAT:
+	{
+		tmp_name = replace(peer_info->print_name, '_', " ");
+		return tmp_name ? tmp_name : strdup(" ");
+	}
+	default:
+		return strdup(" ");
+	}
+}
+
+void set_peer_names(tg_peer_info_s* peer_info,
+		tg_main_list_item_s* main_list_item)
+{
+	char *tmp_name = NULL;
+
+	switch(peer_info->peer_type) {
+	case TGL_PEER_USER:
+		if (get_buddy_delete_status(peer_info->peer_id)) {
+			main_list_item->buddy_display_name = strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
+			main_list_item->peer_print_name = strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
+		} else if (get_buddy_unknown_status(peer_info->peer_id)) {
+
+			char *number = get_buddy_phone_num_from_id(peer_info->peer_id);
+			if (number && strlen(number))
+				main_list_item->peer_print_name = number;
+			else
+				main_list_item->peer_print_name = strdup(" ");
+		} else {
+			tmp_name = get_display_name_from_contact(peer_info);
+			main_list_item->buddy_display_name = tmp_name ? tmp_name : strdup(" ");
+			main_list_item->peer_print_name = strdup(peer_info->print_name);
+		}
+		break;
+	case TGL_PEER_CHAT:
+	{
+		tmp_name = replace(peer_info->print_name, '_', " ");
+		main_list_item->buddy_display_name = tmp_name ? tmp_name : strdup(" ");
+		main_list_item->peer_print_name = strdup(peer_info->print_name);
+	}
+	break;
+	default:
+		main_list_item->buddy_display_name = strdup(" ");
+		main_list_item->peer_print_name = strdup(peer_info->print_name);
+	}
 }

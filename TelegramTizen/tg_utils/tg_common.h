@@ -159,14 +159,6 @@
 
 #define TELEGRAM_DEBUG_LOG(fmt, args...) LOGD(" +++ LOG : "fmt, ##args)
 
-#define retv_if (expr, val) do { \
-		if (expr) { \
-			TELEGRAM_DEBUG_LOG("(%s) -> %s() return", #expr, __func__); \
-			return (val); \
-		} \
-} while (0)
-
-#define _(str) gettext(str)
 #define SAFE_STRCMP(str1, str2)   ((str1 && str2) ? strcmp(str1, str2) : -1)
 #define SAFE_STRDUP(text)		(text == NULL ? NULL : strdup(text))	//what to use for strcpy?
 #define SAFE_STRLEN(src)	\
@@ -546,6 +538,7 @@ typedef struct appdata {
 	char* phone_number;
 	char* sms_code;
 	Eina_List *buddy_list;
+	Eina_List *known_buddy_list;
 	Eina_List *unknown_buddy_list;
 	//Eina_List *group_chat_list;
 	Eina_List *peer_list;
@@ -1064,18 +1057,9 @@ static inline TELEGRAM_APP_FILE_TYPE_E telegram_common_get_file_type(const char 
 	return file_type;
 }
 
-static uint64_t get_time_stamp_in_macro()
-{
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
-}
+extern uint64_t get_time_stamp_in_macro();
 
-static void wait_for(unsigned int secs)
-{
-    int retTime = time(0) + secs;
-    while (time(0) < retTime);
-}
+extern void wait_for(unsigned int secs);
 
 typedef struct _telegram_Time
 {
@@ -1165,5 +1149,9 @@ extern Eina_Bool on_load_main_view_requested(void *data);
 extern void launch_tg_server(void *data);
 
 extern void recursive_dir_copy(const char *src_dir, const char *tar_dir);
+
+extern char* get_peer_name(tg_peer_info_s* peer_info);
+
+extern void set_peer_names(tg_peer_info_s* peer_info, tg_main_list_item_s* main_list_item);
 
 #endif /* TG_COMMON_H_ */

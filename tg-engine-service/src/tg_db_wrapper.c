@@ -1946,6 +1946,7 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_ONLINE_STATUS);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_LAST_SEEN_TIME);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_BLOCKED);
+	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_DELETED);
 	col_names = eina_list_append(col_names, USER_INFO_TABLE_IS_UNKNOWN_PEER);
 
 	Eina_List* col_types = NULL;
@@ -1960,6 +1961,7 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_TEXT);
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
@@ -1994,6 +1996,8 @@ void init_insert_buddy_into_db(char* table_name, struct tgl_user* U)
 	col_values = eina_list_append(col_values, &(U->status.online));
 	col_values = eina_list_append(col_values, &(U->status.when));
 	col_values = eina_list_append(col_values, &(U->blocked));
+	int is_deleted = U->flags & FLAG_DELETED;
+	col_values = eina_list_append(col_values, &is_deleted);
 	col_values = eina_list_append(col_values, &(U->is_unknown));
 
 	Eina_Bool ret = insert_table(table_name, col_names, col_types,  col_values);

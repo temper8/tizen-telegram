@@ -6,10 +6,8 @@
 #undef assert
 #endif
 #define assert(a) do { \
-	int ret; \
-	ret = (a); \
-	if (!ret) { \
-		dlog_print(DLOG_DEBUG, LOG_TAG, "[%s:%d] assert(%s)", __FILE__, __LINE__, #a); \
+	if (!(a)) { \
+		dlog_print(DLOG_VERBOSE, LOG_TAG, "[%s:%d] assert(%s)", __FILE__, __LINE__, #a); \
 	} \
 } while (0)
 

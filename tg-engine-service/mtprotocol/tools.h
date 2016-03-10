@@ -42,6 +42,8 @@
 struct tgl_allocator *tgl_allocator;
 double tglt_get_double_time(void);
 
+void logprintf_x(int level, const char *format, ...);
+
 int tgl_inflate(void *input, int ilen, void *output, int olen);
 //void ensure(int r);
 //void ensure_ptr(void *p);

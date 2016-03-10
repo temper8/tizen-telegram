@@ -320,7 +320,6 @@ void on_camera_button_clicked(void *data, Evas_Object *obj, void *event_info)
 
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
-	Evas_Object *box;
 	Evas_Object *genlist;
 	int i;
 
@@ -438,7 +437,7 @@ void on_settings_info_item_clicked(void *data, Evas_Object *obj, void *event_inf
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
 
-	Evas_Object* cam_icon =  data;
+	/*Evas_Object* cam_icon =  data;*/
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
@@ -668,10 +667,8 @@ static void ctxpopup_profile_select_cb(void *data, Evas_Object *obj, void *event
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
 	on_camera_button_clicked(ad, obj, event_info);
-
-	/* please input here when set profile picture menu is clicked */
 }
-
+/*
 static void ctxpopup_edit_name_select_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;
@@ -680,9 +677,8 @@ static void ctxpopup_edit_name_select_cb(void *data, Evas_Object *obj, void *eve
 
 	_ctxpopup_dismiss_cb(ad, NULL, NULL);
 	launch_editname_screen(ad);
-	/* please input here when edit name menu is clicked */
 }
-
+*/
 static void ctxpopup_logout_select_cb(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s *ad = data;

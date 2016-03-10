@@ -263,6 +263,7 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 		res = bundle_get_str(rec_msg, "list_size", &count_str);
 		int size = atoi(count_str);
 		Eina_List* chat_id_list = NULL;
+		int chat_id = 0;
 
 		for (int count = 0 ; count < size ; count++) {
 			char chat_id_key[20];
@@ -271,8 +272,8 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 			char* chat_id_str = NULL;
 			res = bundle_get_str(rec_msg, chat_id_key, &chat_id_str);
 
-			int chat_id = atoi(chat_id_str);
-			chat_id_list = eina_list_append(chat_id_list, chat_id);
+			chat_id = atoi(chat_id_str);
+			chat_id_list = eina_list_append(chat_id_list, &chat_id);
 		}
 
 		if (chat_id_list && eina_list_count(chat_id_list) > 0)

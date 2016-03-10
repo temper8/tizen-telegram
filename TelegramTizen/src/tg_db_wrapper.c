@@ -896,6 +896,13 @@ int  get_buddy_delete_status(int buddy_id)
 	return is_unknown;
 }
 
+Eina_Bool is_telegram_account(int buddy_id)
+{
+	if(buddy_id == 333000 || buddy_id == 777000)
+		return EINA_TRUE;
+	return EINA_FALSE;
+}
+
 int  get_buddy_unknown_status(int buddy_id)
 {
 	Eina_List *buddy_details_array = NULL;
@@ -1087,7 +1094,7 @@ tg_message_s *get_latest_message_from_message_table(char *table_name, Eina_Bool 
 	char where_clause[1024] = { 0, };
 	char *wh_c = NULL;
 	if (!is_for_date) {
-		sprintf(where_clause, MESSAGE_INFO_TABLE_SERVICE" != 2 AND "MESSAGE_INFO_TABLE_MARKED_FOR_DELETE" != 1");
+		sprintf(where_clause, MESSAGE_INFO_TABLE_SERVICE " != 2 AND " MESSAGE_INFO_TABLE_MARKED_FOR_DELETE " != 1");
 		wh_c = where_clause;
 	}
 
@@ -1558,7 +1565,7 @@ Eina_List *get_messages_from_message_table_order_by(char *table_name, const char
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	char where_clause[1024];
-	sprintf(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE" != 1");
+	sprintf(where_clause, MESSAGE_INFO_TABLE_MARKED_FOR_DELETE " != 1");
 
 	message_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, order_column, is_asc, where_clause, limit, offset);
 
@@ -2553,8 +2560,9 @@ Eina_List *get_image_details_from_db(long long media_id)
 Eina_List *get_all_buddy_details(char *start_name)
 {
 	Eina_List *user_details = NULL;
-	if (!start_name) {
-		start_name = g_empty_char;
+	const char* _name = start_name;
+	if (!_name) {
+		_name = g_empty_char;
 	}
 
 	char *table_name = BUDDY_INFO_TABLE_NAME;
@@ -2598,7 +2606,7 @@ Eina_List *get_all_buddy_details(char *start_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
 	char where_clause[1024];
-	sprintf(where_clause, " ( "USER_INFO_TABLE_IS_UNKNOWN_PEER" = 0 AND "USER_INFO_TABLE_IS_DELETED" = 0 ) AND ("USER_INFO_TABLE_PRINT_NAME" LIKE '%s%s' )", start_name, "%");
+	sprintf(where_clause, " ( "USER_INFO_TABLE_LAST_SEEN_TIME " > 0 AND "USER_INFO_TABLE_USER_ID " != 333000 AND "USER_INFO_TABLE_USER_ID " != 777000 AND "USER_INFO_TABLE_IS_UNKNOWN_PEER" = 0 AND "USER_INFO_TABLE_IS_DELETED" = 0 ) AND ("USER_INFO_TABLE_PRINT_NAME" LIKE '%s%s' )", _name, "%");
 
 	user_details = get_values_from_table_sync_order_by(table_name, col_names, col_types, USER_INFO_TABLE_FIRST_NAME, EINA_TRUE, where_clause, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
 
@@ -3558,33 +3566,31 @@ void get_buddy_contact_details_from_db(int buddy_id, char **first_name, char **l
 
 	Eina_List *vals = get_values_from_table_sync(table_name, col_names, col_types, where_clause, TG_DBMGR_NOLIMITED, TG_DBMGR_NOLIMITED);
 	file_path = NULL;
-
-	if (!vals) {
-		//("DB error");
-		eina_list_free(col_names);
-		return;
-	} else {
-		Eina_List *row_vals = NULL;
-		int pos = 0;
-		EINA_LIST_FREE(vals, row_vals) {
-			if (pos == 0) {
-				char *temp_fname = (char *)eina_list_nth(row_vals, 0);
-				*first_name = strdup(temp_fname);
-				char *temp_lname = (char *)eina_list_nth(row_vals, 1);
-				*last_name = strdup(temp_lname);
-				char *temp_pnumber = (char *)eina_list_nth(row_vals, 2);
-				*phone_number = strdup(temp_pnumber);
-			}
-			void *val = NULL;
-			EINA_LIST_FREE(row_vals, val) {
-				if (val)
-					free(val);
-			}
-			pos++;
-		}
-		eina_list_free(vals);
-	}
 	eina_list_free(col_names);
+
+	if (!vals)
+		return;
+
+	Eina_List *row_vals = NULL;
+	int pos = 0;
+	EINA_LIST_FREE(vals, row_vals) {
+		if (pos == 0) {
+			char *temp_fname = (char *)eina_list_nth(row_vals, 0);
+			*first_name = strdup(temp_fname);
+			char *temp_lname = (char *)eina_list_nth(row_vals, 1);
+			*last_name = strdup(temp_lname);
+			char *temp_pnumber = (char *)eina_list_nth(row_vals, 2);
+			*phone_number = strdup(temp_pnumber);
+		}
+		void *val = NULL;
+		EINA_LIST_FREE(row_vals, val) {
+			if (val)
+				free(val);
+		}
+		pos++;
+	}
+	eina_list_free(vals);
+
 	return;
 }
 

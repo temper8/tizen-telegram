@@ -24,7 +24,7 @@
 #define vlogprintf(verbosity_level,...) \
   do { \
     if (TLS->verbosity >= verbosity_level) { \
-      TLS->callback.logprintf (__VA_ARGS__); \
+      logprintf_x(verbosity_level, __VA_ARGS__); \
     } \
   } while (0)
 

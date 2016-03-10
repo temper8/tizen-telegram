@@ -247,9 +247,9 @@ void on_group_chat_done_buton_clicked(void *data, Evas_Object *object, void *eve
 void on_group_chat_cancel_buton_clicked(void *data, Evas_Object *object, void *event_info)
 {
 	appdata_s* ad = data;
-	if (ad->buddy_list) {
-		for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+	if (ad->known_buddy_list) {
+		for (int i = 0 ; i < eina_list_count(ad->known_buddy_list) ; i++) {
+			user_data_with_pic_s *item = eina_list_nth(ad->known_buddy_list, i);
 			user_data_s* user = item->use_data;
 			user->is_selected = EINA_FALSE;
 		}
@@ -403,8 +403,8 @@ void launch_group_chat_name_entry_view(void *data)
 
 	Eina_List *selected_buddies = NULL;
 
-	for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+	for (int i = 0 ; i < eina_list_count(ad->known_buddy_list) ; i++) {
+		user_data_with_pic_s *item = eina_list_nth(ad->known_buddy_list, i);
 		user_data_s* user = item->use_data;
 		if (user->is_selected) {
 			selected_buddies = eina_list_append(selected_buddies, item);

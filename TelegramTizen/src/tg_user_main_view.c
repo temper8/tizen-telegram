@@ -68,7 +68,7 @@ static Evas_Object* on_menu_item_image_get_cb(void *data, Evas_Object *obj, cons
 static void launch_contact_picker(appdata_s* ad)
 {
 	app_control_h app_control;
-	int ret = app_control_create(&app_control);
+	/*int ret = app_control_create(&app_control);*/
 	app_control_set_operation(app_control, APP_CONTROL_OPERATION_COMPOSE);
 	app_control_set_mime(app_control, "text/html");
 	char *text = "Invite you to telegram! https://telegram.org/dl";
@@ -311,7 +311,7 @@ void on_chat_long_press_option_selected_cb(void *data, Evas_Object *obj, void *e
 	Evas_Object *popup = data;
 	appdata_s *ad = (appdata_s*)evas_object_data_get(popup, "app_data");
 	tg_main_list_item_s  *sel_item = (tg_main_list_item_s*)evas_object_data_get(popup, "selected_chat_item");
-	int item_id = (int)evas_object_data_get(popup, "selected_chat_item_index");
+	/*int item_id = (int)evas_object_data_get(popup, "selected_chat_item_index");*/
 
 	Elm_Object_Item *it = event_info;
 	elm_genlist_item_selected_set(it, EINA_FALSE);
@@ -426,7 +426,6 @@ static void on_buddy_list_longpress(void *data, Evas_Object *obj, void *event_in
 	}
 	static Elm_Genlist_Item_Class itc;
 	Evas_Object *popup;
-	Evas_Object *box;
 	Evas_Object *genlist;
 	int i;
 	Evas_Object *win = ad->win;
@@ -848,7 +847,7 @@ void refresh_main_list_view(appdata_s* ad, Eina_Bool is_new_item)
 		elm_object_part_content_set(layout, "main_box", buddy_list);
 	}
 }
-
+/*
 static void on_user_list_search_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
@@ -865,7 +864,7 @@ static void on_search_icon_unpressed(void *data, Evas_Object *obj, void *event_i
 {
 	elm_image_file_set(data, ui_utils_get_resource(TG_SEARCH_ICON), NULL);
 }
-
+*/
 static void _more_popup_rotate(void *data, Evas_Object *obj, void *event_info)
 {
 	int pos;

@@ -171,6 +171,81 @@ static void scroller_push_item(Evas_Object *scroller, Evas_Object *item, int pre
 }
 
 /************************ Menu Handler ********************/
+void clear_history_in_gui(appdata_s *ad, tg_peer_info_s *user_data, int peer_type, int peer_id)
+{
+	if(!ad || !user_data)
+		return;
+
+	{
+		char* tablename = get_table_name_from_number(user_data->peer_id);
+		mark_all_records_for_deletion(tablename);
+		delete_date_messages_from_table(tablename);
+		free(tablename);
+	}
+
+	/* what is better??
+	 * Evas_Object *genlist = evas_object_data_get(ad->nf, "chat_list");
+	 * elm_genlist_clear(genlist);
+	 */
+
+	Evas_Object *scroller = evas_object_data_get(ad->nf, "chat_list");
+	Evas_Object *box_layout = NULL;
+	Evas_Object *box = NULL;
+	Eina_List *list = NULL;
+
+	box_layout = elm_object_content_get(scroller);
+	if (!box_layout)
+		return;
+
+	list = elm_box_children_get(box_layout);
+	if (!list)
+		return;
+
+	box = eina_list_nth(list, 0);
+	if (!box)
+		return;
+
+	eina_list_free(list);
+	elm_box_clear(box);
+	elm_box_recalculate(box);
+
+	send_delete_all_messages_request(ad, ad->service_client, user_data->peer_id, user_data->peer_type);
+
+	if (ad->main_item_in_cahtting_data) {
+		tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+		if (old_item->last_message) {
+			free(old_item->last_message);
+			old_item->last_message = NULL;
+		}
+		old_item->last_message = strdup("");
+	}
+
+	Evas_Object *nomsg_layout = evas_object_data_get(ad->nf, "chat_list_no_msg_text");
+	if (nomsg_layout)
+		elm_object_signal_emit(nomsg_layout, "show", "message");
+}
+
+/*
+ * PEER_CHAT
+ * [1] IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3
+ * [2] IDS_TGRAM_OPT_DELETE
+ *
+ * PEER_USER
+ *
+ * known
+ * [0] IDS_TGRAM_OPT_VIEW_PROFILE_ABB
+ * [1] IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3
+ * [2] IDS_TGRAM_OPT_DELETE
+ *
+ * unknown
+ * [0] IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2
+ * [1] IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3
+ * [2] IDS_TGRAM_OPT_DELETE
+ *
+ * deleted
+ * [1] IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3
+ * [2] IDS_TGRAM_OPT_DELETE
+ */
 
 void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *event_info)
 {
@@ -190,229 +265,70 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		return;
 	}
 
-	if (get_buddy_unknown_status(user_data->peer_id) && user_data->peer_type == TGL_PEER_USER) {
-		if (id == 0) {
-			ad->is_loading_from_msg_view = EINA_TRUE;
-			on_create_new_contact(ad);
-		} else if (id == 1) {
+	switch(id)
+	{
+	case 0:
 
-			// mark all the massages for deletion.
-			char* tablename = get_table_name_from_number(user_data->peer_id);
-			mark_all_records_for_deletion(tablename);
-			// delete date messages
-			delete_date_messages_from_table(tablename);
-			free(tablename);
-			// clear screen
-			// clear all messages
-			Evas_Object *scroller = evas_object_data_get(ad->nf, "chat_list");
+		if (user_data->peer_type == TGL_PEER_USER) {
+			if (get_buddy_delete_status(user_data->peer_id)) {
 
-			Evas_Object *box_layout = NULL;
-			Evas_Object *box = NULL;
-			Eina_List *list = NULL;
+				/* do nothing */
+			} else if (get_buddy_unknown_status(user_data->peer_id)) {
 
-			box_layout = elm_object_content_get(scroller);
-			if (!box_layout) {
-				LOGE("Fail to get the box into scroller");
-				return;
+				ad->is_loading_from_msg_view = EINA_TRUE;
+				on_create_new_contact(ad);
+			}else {
+				launch_user_info_screen(ad, user_data->peer_id);
 			}
+		}
+		break;
+	case 1:
+		clear_history_in_gui(ad, user_data, user_data->peer_type, user_data->peer_id);
+		break;
+	case 2:
+		show_loading_popup(ad);
+		clear_history_in_gui(ad, user_data, user_data->peer_type, user_data->peer_id);
+		if (ad->main_item_in_cahtting_data) {
+			tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
+			if (old_item->peer_print_name)
+				free(old_item->peer_print_name);
+			old_item->peer_print_name = NULL;
 
-			list = elm_box_children_get(box_layout);
-			if (!list) {
-				LOGE("Fail to get the list into box");
-				return;
-			}
+			if (old_item->last_message)
+				free(old_item->last_message);
+			old_item->last_message = NULL;
 
-			box = eina_list_nth(list, 0);
-			if (!box) {
-				LOGE("Fail to get the box into box layout");
-				return;
-			}
+			if (old_item->profile_pic_path)
+				free(old_item->profile_pic_path);
+			old_item->profile_pic_path = NULL;
 
-			eina_list_free(list);
-			elm_box_clear(box);
-			elm_box_recalculate(box);
+			old_item->date_lbl = NULL;
+			old_item->msg_status_lbl = NULL;
+			old_item->main_item_layout = NULL;
+			old_item->profile_pic = NULL;
+			old_item->profile_pic_path = NULL;
+			old_item->status_lbl = NULL;
+			old_item->user_name_lbl = NULL;
 
-
-			// send request to server
-			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
-
-			if (ad->main_item_in_cahtting_data) {
-				tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
-				if (old_item->last_message) {
-					free(old_item->last_message);
-					old_item->last_message = NULL;
-				}
-				old_item->last_message = strdup("");
-			}
-
-			Evas_Object *nomsg_layout = evas_object_data_get(ad->nf, "chat_list_no_msg_text");
-			if (nomsg_layout) {
-				elm_object_signal_emit(nomsg_layout, "show", "message");
-			}
-
-		} else {
-			char* tablename = get_table_name_from_number(user_data->peer_id);
-			delete_all_records(tablename);
-			free(tablename);
-
-			// clear all messages
-			Evas_Object *genlist = evas_object_data_get(ad->nf, "chat_list");
-			elm_genlist_clear(genlist);
-
-			// remove main item from main list
-			if (ad->main_item_in_cahtting_data) {
-				tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
-				if (old_item->peer_print_name) {
-					free(old_item->peer_print_name);
-					old_item->peer_print_name = NULL;
-				}
-				if (old_item->last_message) {
-					free(old_item->last_message);
-					old_item->last_message = NULL;
-				}
-				if (old_item->profile_pic_path) {
-					free(old_item->profile_pic_path);
-					old_item->profile_pic_path = NULL;
-				}
-				old_item->date_lbl = NULL;
-				old_item->msg_status_lbl = NULL;
-				old_item->main_item_layout = NULL;
-				old_item->profile_pic = NULL;
-				old_item->profile_pic_path = NULL;
-				old_item->status_lbl = NULL;
-				old_item->user_name_lbl = NULL;
-				ad->main_list = eina_list_remove(ad->main_list,  ad->main_item_in_cahtting_data);
-
-				ad->main_item_in_cahtting_data = NULL;
-			}
-
+			ad->main_list = eina_list_remove(ad->main_list,  ad->main_item_in_cahtting_data);
+			ad->main_item_in_cahtting_data = NULL;
 			ad->is_last_msg_changed = EINA_FALSE;
-
-
-			app_nf_back_cb(ad, NULL, NULL);
 		}
-		if (ad->msg_popup) {
-			evas_object_del(ad->msg_popup);
-			ad->msg_popup = NULL;
-		}
-		return;
-	}
 
-	if (user_data->peer_type == TGL_PEER_USER) {
-		if (id == 0) {
-			launch_user_info_screen(ad, user_data->peer_id);
-		} else if (id == 1) {
-			// mark all the massages for deletion.
-			char* tablename = get_table_name_from_number(user_data->peer_id);
-			mark_all_records_for_deletion(tablename);
-			// delete date messages
-			delete_date_messages_from_table(tablename);
-			free(tablename);
-			// clear screen
-			// clear all messages
-			Evas_Object *scroller = evas_object_data_get(ad->nf, "chat_list");
+		if (user_data->peer_type == TGL_PEER_USER) {
 
-
-			Evas_Object *box_layout = NULL;
-			Evas_Object *box = NULL;
-			Eina_List *list = NULL;
-
-			box_layout = elm_object_content_get(scroller);
-			if (!box_layout) {
-				LOGE("Fail to get the box into scroller");
-				return;
-			}
-
-			list = elm_box_children_get(box_layout);
-			if (!list) {
-				LOGE("Fail to get the list into box");
-				return;
-			}
-
-			box = eina_list_nth(list, 0);
-			if (!box) {
-				LOGE("Fail to get the box into box layout");
-				return;
-			}
-
-			eina_list_free(list);
-			elm_box_clear(box);
-			elm_box_recalculate(box);
-
-			// send request to server
-			send_delete_all_messages_request(ad, ad->service_client, user_data->peer_id, user_data->peer_type);
-
-			Evas_Object *nomsg_layout = evas_object_data_get(ad->nf, "chat_list_no_msg_text");
-			if (nomsg_layout) {
-				elm_object_signal_emit(nomsg_layout, "show", "message");
-			}
-		}  else if (id == 2) {
-			show_loading_popup(ad);
-			char* tablename = get_table_name_from_number(user_data->peer_id);
-			delete_all_records(tablename);
-			free(tablename);
-
-			elm_naviframe_item_pop(ad->nf);
-			load_registered_user_data(ad);
-			load_buddy_list_data(ad);
-			load_unknown_buddy_list_data(ad);
-			load_peer_data(ad);
-			load_main_list_data(ad);
-			ecore_timer_add(1, on_load_main_view_requested, ad);
-		}
-	} else if (user_data->peer_type == TGL_PEER_CHAT) {
-		if (id == 0) {
-			// mark all the massages for deletion.
-			char* tablename = get_table_name_from_number(user_data->peer_id);
-			mark_all_records_for_deletion(tablename);
-			// delete date messages
-			delete_date_messages_from_table(tablename);
-			free(tablename);
-			// clear screen
-			// clear all messages
-			Evas_Object *scroller = evas_object_data_get(ad->nf, "chat_list");
-
-
-			Evas_Object *box_layout = NULL;
-			Evas_Object *box = NULL;
-			Eina_List *list = NULL;
-
-			box_layout = elm_object_content_get(scroller);
-			if (!box_layout) {
-				LOGE("Fail to get the box into scroller");
-				return;
-			}
-
-			list = elm_box_children_get(box_layout);
-			if (!list) {
-				LOGE("Fail to get the list into box");
-				return;
-			}
-
-			box = eina_list_nth(list, 0);
-			if (!box) {
-				LOGE("Fail to get the box into box layout");
-				return;
-			}
-
-			eina_list_free(list);
-			elm_box_clear(box);
-			elm_box_recalculate(box);
-
-			send_delete_all_messages_request(ad, ad->service_client, user_data->peer_id, user_data->peer_type);
-
-			Evas_Object *nomsg_layout = evas_object_data_get(ad->nf, "chat_list_no_msg_text");
-			if (nomsg_layout) {
-				elm_object_signal_emit(nomsg_layout, "show", "message");
-			}
-
-		} else if (id == 1) {
-			//send group chat delete request
-			show_loading_popup(ad);
+		} else if (user_data->peer_type == TGL_PEER_CHAT) {
 			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
 		}
+		elm_naviframe_item_pop(ad->nf);
+		load_registered_user_data(ad);
+		load_buddy_list_data(ad);
+		load_unknown_buddy_list_data(ad);
+		load_peer_data(ad);
+		load_main_list_data(ad);
+		ecore_timer_add(1, on_load_main_view_requested, ad);
+		break;
 	}
-
 	if (ad->msg_popup) {
 		evas_object_del(ad->msg_popup);
 		ad->msg_popup = NULL;
@@ -424,9 +340,12 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 char* on_messaging_menu_group_text_get_cb(void *data, Evas_Object *obj, const char *part)
 {
 	int id = (int) data;
-	if (id == 0) {
+	switch(id)
+	{
+	case 1 :
 		return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
-	} else {
+	case 2 :
+	default :
 		return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 	}
 }
@@ -437,22 +356,24 @@ char* on_messaging_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 	appdata_s *ad = evas_object_data_get(obj, "app_data");
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	tg_peer_info_s *user_data = sel_item->use_data;
-	if ((user_data->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user_data->peer_id)) {
-	    if (id == 0) {
-	    	return strdup(i18n_get_text("IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"));
-	    } else if (id == 1) {
-	    	return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
-		} else {
-			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
-		}
-	} else {
-		if (id == 0) {
+
+	if(user_data->peer_type != TGL_PEER_USER)
+		return NULL;
+
+	switch(id)
+	{
+	case 0 :
+		if (get_buddy_delete_status(user_data->peer_id))
+			return NULL;
+		else if (get_buddy_unknown_status(user_data->peer_id))
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_ADD_TO_CONTACTS_ABB2"));
+		else
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_VIEW_PROFILE_ABB"));
-		} else if (id == 1) {
-			return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
-		} else {
-			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
-		}
+	case 1 :
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_CLEAR_HISTORY_ABB3"));
+	case 2 :
+	default :
+		return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 	}
 }
 
@@ -504,11 +425,14 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	itc.func.del = NULL;
 
 	if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
-		for (i = 0; i < 2; i++) {
+		for (i = 1; i < 3; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
 		}
 	} else {
-		for (i = 0; i < 3; i++) {
+		int strart_number_of_menus = 0;
+		if(get_buddy_delete_status(sel_item->use_data->peer_id))
+			strart_number_of_menus = 1;
+		for (i = strart_number_of_menus; i < 3; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
 		}
 	}
@@ -1460,10 +1384,8 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 		return NULL;
 	}
 
-
-	if (strcmp(part, "elm.icon.entry")) {
+	if (strcmp(part, "elm.icon.entry"))
 		return NULL;
-	}
 
 	Evas_Object *entry = NULL;
 	Evas_Object *layout = NULL;
@@ -1476,9 +1398,8 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 
 	Evas_Object *nomsg_layout = evas_object_data_get(ad->nf, "chat_list_no_msg_text");
-	if (nomsg_layout) {
+	if (nomsg_layout)
 		elm_object_signal_emit(nomsg_layout, "hide", "message");
-	}
 
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 	evas_object_data_set(chat_scroller, "message_id", msg->msg_id);
@@ -1760,28 +1681,42 @@ void on_text_message_clicked(void *data, Evas_Object *obj, const char *emission,
 
 void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, int type_of_chat)
 {
-	if (!ad) {
-		return;
-	}
-	peer_with_pic_s* pic_peer_item = ad->peer_in_cahtting_data;
-	tg_peer_info_s* peer_item = pic_peer_item->use_data;
-	char* tablename = get_table_name_from_number(peer_item->peer_id);
-	tg_message_s* msg = get_message_from_message_table(message_id, tablename);
-
-	Evas_Object* chat_scroller = evas_object_data_get(ad->nf, "chat_list");
+	peer_with_pic_s* pic_peer_item = NULL;
+	tg_peer_info_s* peer_item = NULL;
+	char* tablename = NULL;
+	tg_message_s* msg = NULL;
+	Evas_Object* chat_scroller = NULL;
 	Evas_Object *message = NULL;
 
-	if (msg == NULL) {
-		ERR("msg not found");
+	if (!ad)
+		return;
+
+	pic_peer_item = ad->peer_in_cahtting_data;
+	if (!pic_peer_item)
+		return;
+
+	peer_item = pic_peer_item->use_data;
+	if (!peer_item)
+		return;
+
+	tablename = get_table_name_from_number(peer_item->peer_id);
+	if (!tablename)
+		return;
+
+	msg = get_message_from_message_table(message_id, tablename);
+	if (!msg) {
+		LOGE("received msg is not found in DB");
 		return;
 	}
+	free(tablename);
 
-	// update peer table
-	if (peer_item) {
+	chat_scroller = evas_object_data_get(ad->nf, "chat_list");
+	if (!chat_scroller)
+		return;
+
 		peer_item->last_msg_id = msg->msg_id;
 		peer_item->last_msg_date =  msg->date;
 		insert_or_update_peer_into_database(peer_item);
-	}
 
 	Evas_Object *layout = evas_object_data_get(ad->nf, "main_layout");
 	if (layout) {
@@ -1813,7 +1748,6 @@ void on_text_message_received_from_buddy(appdata_s* ad, long long message_id, in
 		}
 	}
 
-	free(tablename);
 
 	message = on_message_item_content_get_cb((void *)msg, chat_scroller, "elm.icon.entry");
 	elm_object_signal_callback_add(message, "clicked", "item", on_text_message_clicked, (void*)message_id);
@@ -3336,9 +3270,9 @@ static void on_media_attach_clicked(void *data, Evas_Object *obj, void *event_in
 	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VOICE, NULL);
 	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VIDEO, NULL);
 	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_AUDIO, NULL);
-	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_CONTACT, NULL);
-	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_MYFILES, NULL);
-	attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VIDEO_RECORDER, NULL);
+	//attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_CONTACT, NULL);
+	//attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_MYFILES, NULL);
+	//attach_panel_add_content_category(attach_panel, ATTACH_PANEL_CONTENT_CATEGORY_VIDEO_RECORDER, NULL);
 	attach_panel_set_result_cb(attach_panel, _result_cb, chat_scroller);
 
 	attach_panel_show(attach_panel);
@@ -3834,60 +3768,15 @@ void launch_messaging_view_cb(appdata_s* ad, int user_id)
 
 	/* Set the name in title area */
 
-	char temp_name[512] = {'\0'};
+	Elm_Object_Item *nf_it = NULL;
 
-	if ((user->peer_type == TGL_PEER_USER) && get_buddy_unknown_status(user->peer_id)) {
-		//snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(sel_item->use_data->peer_id));
+	{
+		char *temp_name = get_peer_name(sel_item->use_data);
 
-		char *phone_num = get_buddy_phone_num_from_id(sel_item->use_data->peer_id);
-
-		if (phone_num == NULL || (phone_num && strcmp(phone_num, "+") == 0)) {
-#if 0
-			char *user_name = NULL;
-			char *first_name = NULL;
-			char *last_name = NULL;
-			char *phone_num = NULL;
-			get_buddy_contact_details_from_db(sel_item->use_data->peer_id, &first_name, &last_name, &phone_num);
-
-			if (!first_name || strstr(first_name, "null") != 0) {
-				first_name = NULL;
-			}
-
-			if (!first_name && !last_name && phone_num) {
-				first_name = phone_num;
-			}
-
-			if (!last_name || strstr(last_name, "null") != 0) {
-				last_name = "";
-			}
-			user_name = (char *)malloc(strlen(first_name) + strlen(" ") + strlen(last_name) + 1);
-			strcpy(user_name, first_name);
-			strcat(user_name, " ");
-			strcat(user_name, last_name);
-			snprintf(temp_name, 512, "%s", user_name);
-			free(user_name);
-#endif
-			if (sel_item->use_data->print_name) {
-				snprintf(temp_name, 512, "%s", sel_item->use_data->print_name);
-			} else {
-				snprintf(temp_name, 512, "%s", "unknown");
-			}
-		} else {
-			if (phone_num) {
-				snprintf(temp_name, 512, "%s", phone_num);
-			} else {
-				snprintf(temp_name, 512, "%s", "unknown");
-			}
-		}
-		free(phone_num);
-	} else {
-		char* user_name = replace(sel_item->use_data->print_name, '_', " ");
-		snprintf(temp_name, 512, "%s", user_name);
-		free(user_name);
+		nf_it = elm_naviframe_item_push(ad->nf, temp_name, NULL, NULL, layout, NULL);
+		evas_object_data_set(ad->nf, "navi_item", nf_it);
+		free(temp_name);
 	}
-
-	Elm_Object_Item *nf_it = elm_naviframe_item_push(ad->nf, temp_name, NULL, NULL, layout, NULL);
-	evas_object_data_set(ad->nf, "navi_item", nf_it);
 
 	on_user_presence_state_changed(ad, sel_item->use_data->peer_id);
 

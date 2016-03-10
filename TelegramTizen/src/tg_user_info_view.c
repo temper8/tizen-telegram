@@ -342,21 +342,26 @@ char* on_user_info_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 
 	switch(id) {
 	case 0:
-		if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 || get_buddy_unknown_status(sel_item->use_data->peer_id) == 1) {
+		if (get_buddy_delete_status(sel_item->use_data->peer_id) == 1 ||
+				get_buddy_unknown_status(sel_item->use_data->peer_id) == 1)
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_ADD_TO_TELEGRAM"));
-		} else {
+		else
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
-		}
+
 	case 1:
-		return strdup(i18n_get_text("IDS_TGRAM_OPT_EDIT"));
+		if(!is_telegram_account(sel_item->use_data->peer_id))
+			return strdup(i18n_get_text("IDS_TGRAM_OPT_EDIT"));
+		else
+			return NULL;
+
 	case 2:
 		return strdup(i18n_get_text("IDS_TGRAM_OPT_SHARE"));
+
 	case 3:
-		if (get_buddy_block_status(sel_item->use_data->peer_id) == 1) {
+		if (get_buddy_block_status(sel_item->use_data->peer_id) == 1)
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_UNBLOCK"));
-		} else {
+		else
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_BLOCK"));
-		}
 	}
 	return NULL;
 }
@@ -400,7 +405,17 @@ void on_user_info_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	for (int i = 0; i < 4; i++) {
+	int number_of_menus = 4;
+	Eina_Bool is_need_continue = EINA_FALSE;
+	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+	if(sel_item && is_telegram_account(sel_item->use_data->peer_id)) {
+		number_of_menus = 3;
+		is_need_continue = EINA_TRUE;
+	}
+
+	for (int i = 0; i < number_of_menus; i++) {
+		if(is_need_continue && i == 1)
+			continue;
 		elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_user_info_menu_option_selected_cb, ad);
 	}
 
@@ -710,9 +725,6 @@ void launch_user_info_screen(appdata_s* ad, int peer_id)
 			int is_online = *temp_online;
 			int* temp_last_seen = (int *)eina_list_nth(buddy_details, 13);
 			int last_seen = *temp_last_seen;
-
-			char *format = NULL;
-			Eina_Bool is_today = compare_date_with_current_date(last_seen);
 
 			if (is_online > 0) {
 				elm_object_item_part_text_set(navi_item, "subtitle", i18n_get_text("IDS_TGRAM_SBODY_ONLINE"));

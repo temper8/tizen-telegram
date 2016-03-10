@@ -22,14 +22,6 @@
 #include <string.h>
 #include "tg_common.h"
 
-int errno;
-
-static struct _info {
-	sqlite3 *db;
-} s_info = {
-		.db = NULL,
-};
-
 
 sqlite3* create_database(void)
 {
@@ -74,34 +66,30 @@ Eina_Bool create_table(const char* table_name, Eina_List *column_names, Eina_Lis
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
 
-	int str_len = strlen("CREATE TABLE IF NOT EXISTS ") + strlen(table_name) + strlen("(") + 1;
-	char* var_query = (char *)malloc(str_len);
-	strcpy(var_query,"CREATE TABLE IF NOT EXISTS ");
-	strcat(var_query, table_name);
-	strcat(var_query, "(");
-
-	for(int col = 0; col < col_count ; col++) {
-		char* col_name = eina_list_nth(column_names, col);
-		var_query = realloc(var_query, strlen(var_query)+strlen(col_name) + 1);
-		strcat(var_query, col_name);
-		var_query = realloc(var_query, strlen(var_query)+strlen(" ") + 1);
-		strcat(var_query, " ");
-		char* col_type = eina_list_nth(column_types, col);
-		var_query = realloc(var_query, strlen(var_query)+strlen(col_type) + 1);
-		strcat(var_query, col_type);
-		if(col < col_count - 1){
-			var_query = realloc(var_query, strlen(var_query) + 2);
-			strcat(var_query, ",");
-		} else {
-			var_query = realloc(var_query, strlen(var_query) + 3);
-			strcat(var_query, ");");
-		}
+	Eina_Strbuf *var_query = eina_strbuf_new();
+	if (!var_query) {
+		close_database(db);
+		return EINA_FALSE;
 	}
 
-	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
-	free(var_query);
+	eina_strbuf_append(var_query, "CREATE TABLE IF NOT EXISTS ");
+	eina_strbuf_append(var_query, table_name);
+	eina_strbuf_append(var_query, "(");
+
+	for(int col = 0; col < col_count ; col++) {
+		eina_strbuf_append_printf(var_query, "%s %s", eina_list_nth(column_names, col), eina_list_nth(column_types, col));
+
+		if (col < col_count - 1)
+			eina_strbuf_append(var_query, ", ");
+		else
+			eina_strbuf_append(var_query, ");");
+	}
+
+	ret = sqlite3_exec(db,eina_strbuf_string_get(var_query), NULL, NULL, &err_msg);
 	close_database(db);
+	eina_strbuf_free(var_query);
 	if( ret != SQLITE_OK ){
+		LOGE("table cretion failed, %s", err_msg);
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
@@ -110,91 +98,65 @@ Eina_Bool create_table(const char* table_name, Eina_List *column_names, Eina_Lis
 
 Eina_Bool insert_table(const char* table_name, Eina_List *column_names, Eina_List *column_types, Eina_List *column_values)
 {
-	if( !table_name || ! column_names || !column_types || !column_values) {
+	if( !table_name || ! column_names || !column_types || !column_values)
 		return EINA_FALSE;
-	}
+
 	sqlite3* db = create_database();
 	int ret = 0 ;
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
+	Eina_Strbuf *var_query = eina_strbuf_new();
+	if (!var_query) {
+		close_database(db);
+		return EINA_FALSE;
+	}
 
-	int str_len = strlen("INSERT INTO ") + strlen(table_name) + strlen("(") + 1;
-	char* var_query = (char *)malloc(str_len);
-	strcpy(var_query,"INSERT INTO ");
-	strcat(var_query, table_name);
-	strcat(var_query, "(");
+	eina_strbuf_append(var_query, "INSERT INTO ");
+	eina_strbuf_append(var_query, table_name);
+	eina_strbuf_append(var_query, "(");
 
 	for(int col = 0; col < col_count ; col++) {
 
-		char* col_name = eina_list_nth(column_names, col);
-		var_query = realloc(var_query, strlen(var_query)+strlen(col_name) + 1);
-		strcat(var_query, col_name);
+		char *col_name = eina_list_nth(column_names, col);
+		eina_strbuf_append(var_query, col_name);
 
-		if(col < col_count - 1){
-			var_query = realloc(var_query, strlen(var_query) + 2);
-			strcat(var_query, ",");
-		} else {
-			var_query = realloc(var_query, strlen(var_query) + strlen(") VALUES (") + 1);
-			strcat(var_query, ") VALUES (");
-		}
+		if (col < col_count - 1)
+			eina_strbuf_append(var_query, ",");
+		else
+			eina_strbuf_append(var_query, ") VALUES (");
 	}
 
 	int col_val_count = eina_list_count(column_values);
 
 	for(int col = 0; col < col_val_count ; col++) {
 
-		char* col_type = eina_list_nth(column_types, col);
-		char* col_value = NULL;
-		if(!strcmp(col_type, "INTEGER") || !strcmp(col_type, "INTEGER PRIMARY KEY NOT NULL")) {
-			int* tmp_value = eina_list_nth(column_values, col);
+		char *col_type = eina_list_nth(column_types, col);
+		if (!strcmp(col_type, "INTEGER") || !strcmp(col_type, "INTEGER PRIMARY KEY NOT NULL")) {
 
-#if 0
-			long long val = *tmp_value;
-			col_value = (char *)malloc(50);
-			//sprintf(col_value, "%lld", *tmp_value);
-			sprintf(col_value, "%lld", val);
-#endif
+			eina_strbuf_append_printf(var_query, "%d", *((int*)eina_list_nth(column_values, col)));
+		} else if (!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
 
-			int act_val = (*tmp_value);
-			col_value = (char *)malloc(50);
-			sprintf(col_value, "%d", act_val);
-
-			var_query = realloc(var_query, strlen(var_query)+strlen(col_value) + 1);
-			strcat(var_query, col_value);
-
-		} else if(!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
-			char* tmp_value = eina_list_nth(column_values, col);
-			col_value = (char *)malloc(strlen(tmp_value) + 1);
-			strcpy(col_value,tmp_value);
-
-			var_query = realloc(var_query, strlen(var_query)+strlen("'") + 1);
-			strcat(var_query, "'");
-
-			var_query = realloc(var_query, strlen(var_query)+strlen(col_value) + 1);
-			strcat(var_query, col_value);
-
-			var_query = realloc(var_query, strlen(var_query)+strlen("'") + 1);
-			strcat(var_query, "'");
+			char* escaped_text = replace(eina_list_nth(column_values, col), '\'', "''");
+			if (escaped_text) {
+				eina_strbuf_append_printf(var_query, "'%s'", escaped_text);
+				free(escaped_text);
+			}
 		}
 
-		if(col < col_count - 1){
-			var_query = realloc(var_query, strlen(var_query) + 3);
-			strcat(var_query, ", ");
-		} else {
-			var_query = realloc(var_query, strlen(var_query) + 3);
-			strcat(var_query, ");");
-		}
-		free(col_value);
+		if (col < col_count - 1)
+			eina_strbuf_append(var_query, ", ");
+		else
+			eina_strbuf_append(var_query, ");");
 	}
 
-	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
+	ret = sqlite3_exec(db,eina_strbuf_string_get(var_query), NULL, NULL, &err_msg);
 	close_database(db);
-	if( ret != SQLITE_OK ){
+	eina_strbuf_free(var_query);
+	if ( ret != SQLITE_OK ) {
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
 	return EINA_TRUE;
-
 }
 
 
@@ -208,12 +170,15 @@ Eina_Bool update_table(const char* table_name, Eina_List *column_names, Eina_Lis
 	char* err_msg = 0;
 	int col_count = eina_list_count(column_names);
 
-	int str_len = strlen("UPDATE ") + strlen(table_name) + strlen(" SET ") + 1;
-	char* var_query = (char *)malloc(str_len);
-	strcpy(var_query,"UPDATE ");
-	strcat(var_query, table_name);
-	strcat(var_query, " SET ");
+	Eina_Strbuf *var_query = eina_strbuf_new();
+	if (!var_query) {
+		close_database(db);
+		return EINA_FALSE;
+	}
 
+	eina_strbuf_append(var_query, "UPDATE ");
+	eina_strbuf_append(var_query, table_name);
+	eina_strbuf_append(var_query, " SET ");
 
 	int col_val_count = eina_list_count(column_values);
 
@@ -221,56 +186,33 @@ Eina_Bool update_table(const char* table_name, Eina_List *column_names, Eina_Lis
 		char* col_name = eina_list_nth(column_names, col);
 		char* col_type = eina_list_nth(column_types, col);
 
-		char* col_value = NULL;
 		if(!strcmp(col_type, "INTEGER") || !strcmp(col_type, "INTEGER PRIMARY KEY NOT NULL")) {
-			int* tmp_value = eina_list_nth(column_values, col);
 
-			int act_val = (*tmp_value);
-			col_value = (char *)malloc(50);
-			sprintf(col_value, "%d", act_val);
-
-			var_query = realloc(var_query, strlen(var_query) + strlen(col_name) + strlen(" = ") + strlen(col_value) + 1);
-			strcat(var_query, col_name);
-			strcat(var_query, " = ");
-			strcat(var_query, col_value);
+			eina_strbuf_append_printf(var_query, "%s = %d", col_name, *((int*)eina_list_nth(column_values, col)));
 
 		} else if(!strcmp(col_type, "TEXT") || !strcmp(col_type, "TEXT PRIMARY KEY NOT NULL")) {
 
-			char* tmp_value = eina_list_nth(column_values, col);
-			col_value = (char *)malloc(strlen(tmp_value) + 1);
-			strcpy(col_value,tmp_value);
-
-			var_query = realloc(var_query, strlen(var_query)+ strlen(col_name) + strlen(" = ")+strlen("'") + 1);
-			strcat(var_query, col_name);
-			strcat(var_query, " = ");
-			strcat(var_query, "'");
-
-			var_query = realloc(var_query, strlen(var_query)+strlen(col_value) + 1);
-			strcat(var_query, col_value);
-
-			var_query = realloc(var_query, strlen(var_query)+strlen("'") + 1);
-			strcat(var_query, "'");
+			char* escaped_text = replace(eina_list_nth(column_values, col), '\'', "''");
+			if (escaped_text) {
+				eina_strbuf_append_printf(var_query, "%s = '%s'", col_name, escaped_text);
+				free(escaped_text);
+			}
 		}
 
-		if(col < col_count - 1){
-			var_query = realloc(var_query, strlen(var_query) + 3);
-			strcat(var_query, ", ");
-		} else {
-			var_query = realloc(var_query, strlen(var_query) + 2);
-			strcat(var_query, " ");
-		}
-		free(col_value);
+		if (col < col_count - 1)
+			eina_strbuf_append(var_query, ", ");
+		else
+			eina_strbuf_append(var_query, " ");
 	}
 
-	var_query = realloc(var_query, strlen(var_query) + strlen(" WHERE ") + strlen(where_clause) + 2);
-	strcat(var_query, " WHERE ");
-	strcat(var_query, where_clause);
-	strcat(var_query, ";");
+	eina_strbuf_append(var_query, "WHERE ");
+	eina_strbuf_append(var_query, where_clause);
+	eina_strbuf_append(var_query, ";");
 
-	ret = sqlite3_exec(db, var_query, NULL, NULL, &err_msg);
+	ret = sqlite3_exec(db, eina_strbuf_string_get(var_query), NULL, NULL, &err_msg);
 
 	close_database(db);
-
+	eina_strbuf_free(var_query);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
@@ -335,74 +277,59 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List *column_names,
 		return EINA_FALSE;
 	}
 
-	/*****No rows identification*****/
 	if (get_number_of_rows(table_name, NULL) == 0) {
 		DBG("There are no rows on [%s]", table_name);
 		return EINA_FALSE;
 	}
 
-	/********************************/
 	sqlite3* db = create_database();
 	int ret = 0 ;
 	char* err_msg = 0;
-	//int col_count = eina_list_count(column_names);
 
-	int str_len = strlen("SELECT ") + 1;
-	char* var_query = (char *)malloc(str_len);
-	strcpy(var_query,"SELECT ");
+	Eina_Strbuf *var_query = eina_strbuf_new();
+	if (!var_query) {
+		close_database(db);
+		return EINA_FALSE;
+	}
+
+	eina_strbuf_append(var_query, "SELECT ");
+
 	if(!column_names) {
 		var_query = realloc(var_query, strlen(var_query) + 3);
-		strcat(var_query, "* ");
+		eina_strbuf_append(var_query, "* ");
 	} else {
 
 		int col_count = eina_list_count(column_names);
 		char* col_name = NULL;
 		for(int col = 0; col < col_count ; col++) {
-			col_name = eina_list_nth(column_names, col);
-			var_query = realloc(var_query, strlen(var_query)+strlen(col_name) + 1);
-			strcat(var_query, col_name);
-			col_name = NULL;
-			var_query = realloc(var_query, strlen(var_query)+strlen(" ") + 1);
-
-			if(col < col_count - 1){
-				var_query = realloc(var_query, strlen(var_query) + 3);
-				strcat(var_query, ", ");
-			} else {
-				var_query = realloc(var_query, strlen(var_query) + 2);
-				strcat(var_query, " ");
-			}
+			eina_strbuf_append(var_query, eina_list_nth(column_names, col));
+			if (col < col_count - 1)
+				eina_strbuf_append(var_query, ", ");
+			else
+				eina_strbuf_append(var_query, " ");
 		}
-
 	}
 
-	var_query = realloc(var_query, strlen(var_query) + strlen("FROM ") + 2);
-	strcat(var_query, "FROM ");
-	var_query = realloc(var_query, strlen(var_query) + strlen(table_name) + 1);
-	strcat(var_query, table_name);
+	eina_strbuf_append(var_query, "FROM ");
+	eina_strbuf_append(var_query, table_name);
 
 	if (where_clause) {
-		var_query = realloc(var_query, strlen(var_query)+strlen(" WHERE ") + 1);
-		strcat(var_query, " WHERE ");
-		var_query = realloc(var_query, strlen(var_query)+strlen(where_clause) + 1);
-		strcat(var_query, where_clause);
+		eina_strbuf_append(var_query, " WHERE ");
+		eina_strbuf_append(var_query, where_clause);
 	}
-
-	var_query = realloc(var_query, strlen(var_query) + 2);
-	strcat(var_query, ";");
-
-
-	ret = sqlite3_exec(db,var_query, callback,(void*)data_to_callback, &err_msg);
+	eina_strbuf_append(var_query, ";");
+	
+	ret = sqlite3_exec(db, eina_strbuf_string_get(var_query), callback,(void*)data_to_callback, &err_msg);
 	close_database(db);
+	eina_strbuf_free(var_query);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
-
-	free(var_query);
 	return EINA_TRUE;
 }
 
-int get_number_of_rows(char* table_name, char* where_clause)
+int get_number_of_rows(const char* table_name, char* where_clause)
 {
 	int no_of_rows = 0;
 	if (!table_name) {
@@ -440,10 +367,8 @@ Eina_List *get_values_from_table_sync_order_by(const char* table_name, Eina_List
 {
 	Eina_List *query_vals = NULL;
 
-
-	if (!table_name) {
+	if (!table_name)
 		return NULL;
-	}
 
 	/*****No rows identification*****/
 	if (get_number_of_rows(table_name, NULL) == 0) {
@@ -540,6 +465,8 @@ Eina_List *get_values_from_table_sync_order_by(const char* table_name, Eina_List
 
 
 	ret = sqlite3_prepare_v2(db, var_query, -1, &stmt, 0);
+	free(var_query);
+	var_query = NULL;
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return NULL;
@@ -569,8 +496,6 @@ Eina_List *get_values_from_table_sync_order_by(const char* table_name, Eina_List
 		query_vals = eina_list_append(query_vals, row_vals);
 	}
     close_database(db);
-	free(var_query);
-
 	return query_vals;
 
 }
@@ -984,10 +909,10 @@ Eina_Bool delete_all_records(char *tablename)
 	sqlite3* db = create_database();
 	ret = sqlite3_exec(db,var_query, NULL, NULL, &err_msg);
 	close_database(db);
+	free(var_query);
 	if( ret != SQLITE_OK ){
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
-	free(var_query);
 	return EINA_TRUE;
 }

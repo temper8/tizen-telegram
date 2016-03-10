@@ -2147,7 +2147,7 @@ static struct query_methods set_profile_name_methods = {
 	.type = TYPE_TO_PARAM(user)
 };
 
-void tgl_do_set_profile_name(struct tgl_state *TLS, char *first_name, char *last_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
+void tgl_do_set_profile_name(struct tgl_state *TLS, const char *first_name, const char *last_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
 {
 	clear_packet();
 	out_int(CODE_account_update_profile);
@@ -2743,7 +2743,7 @@ void tgl_do_load_photo_size(struct tgl_state *TLS, struct tgl_photo_size *P, voi
 void tgl_do_load_photo(struct tgl_state *TLS, struct tgl_photo *photo, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, char *filename), void *callback_extra)
 {
 	if (!photo->sizes_num) {
-		vlogprintf(E_WARNING, "No sizes\n");
+		//vlogprintf(E_WARNING, "No sizes\n");
 		if (callback) {
 			callback(TLS, callback_extra, 0, 0);
 		}

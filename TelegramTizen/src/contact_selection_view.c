@@ -18,6 +18,7 @@
 
 #include "contact_selection_view.h"
 #include "group_chat_entry_view.h"
+#include "tg_db_wrapper.h"
 #include "ucol.h"
 
 static Evas_Object* create_image_object_from_file(const char *icon_name, Evas_Object *parent)
@@ -43,10 +44,10 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 	int id = (int)data;
 	appdata_s* ad = evas_object_data_get(obj, "app_data");
 
-	if (ad && ad->buddy_list && eina_list_count(ad->buddy_list) > 0) {
+	if (ad && ad->known_buddy_list && eina_list_count(ad->known_buddy_list) > 0) {
 		if (id == 0) {
-			for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-				user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+			for (int i = 0 ; i < eina_list_count(ad->known_buddy_list) ; i++) {
+				user_data_with_pic_s *item = eina_list_nth(ad->known_buddy_list, i);
 				user_data_s* user = item->use_data;
 				user->is_selected = checked;
 
@@ -60,7 +61,7 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 				}
 			}
 		} else {
-			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, id - 1);
+			user_data_with_pic_s *item = eina_list_nth(ad->known_buddy_list, id - 1);
 			user_data_s* user = item->use_data;
 			user->is_selected = checked;
 
@@ -77,7 +78,7 @@ void on_buddy_selected(void *data, Evas_Object *obj, void *event_info)
 
 				Eina_List *l = NULL;
 				user_data_with_pic_s *item = NULL;
-				EINA_LIST_FOREACH(ad->buddy_list, l, item) {
+				EINA_LIST_FOREACH(ad->known_buddy_list, l, item) {
 					if (!item)
 						continue;
 					user_data_s* user = item->use_data;
@@ -105,7 +106,7 @@ char* on_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 	Eina_List *list = evas_object_data_get(obj, "result_list");
 
 	if (!list) {
-		list = ad->buddy_list;
+		list = ad->known_buddy_list;
 	}
 
 	if (list && eina_list_count(list) > 0) {
@@ -141,7 +142,7 @@ void on_item_checkbox_sel_cb(void *data, Evas_Object *obj, void *event_info)
 	Eina_List *list = evas_object_data_get(buddy_gen_list, "result_list");
 
 	if (!list) {
-		list = ad->buddy_list;
+		list = ad->known_buddy_list;
 	}
 	if (ad && list && eina_list_count(list) > 0) {
 		if (id == 0) {
@@ -212,7 +213,7 @@ Evas_Object* on_buddy_selection_part_content_get_cb(void *data, Evas_Object *obj
 	Eina_List *list = evas_object_data_get(obj, "result_list");
 
 	if (!list) {
-		list = ad->buddy_list;
+		list = ad->known_buddy_list;
 	}
 
 	if (!strcmp(part, "elm.swallow.icon")) {
@@ -293,9 +294,9 @@ void on_done_buton_clicked(void *data, Evas_Object *object, void *event_info)
 {
 	int selected_item_count = 0;
 	appdata_s* ad = data;
-	if (ad && ad->buddy_list) {
-		for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+	if (ad && ad->known_buddy_list) {
+		for (int i = 0 ; i < eina_list_count(ad->known_buddy_list) ; i++) {
+			user_data_with_pic_s *item = eina_list_nth(ad->known_buddy_list, i);
 			user_data_s* user = item->use_data;
 			if (user->is_selected) {
 				selected_item_count++;
@@ -316,9 +317,9 @@ void on_done_buton_clicked(void *data, Evas_Object *object, void *event_info)
 void on_cancel_buton_clicked(void *data, Evas_Object *object, void *event_info)
 {
 	appdata_s* ad = data;
-	if (ad && ad->buddy_list) {
-		for (int i = 0 ; i < eina_list_count(ad->buddy_list) ; i++) {
-			user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
+	if (ad && ad->known_buddy_list) {
+		for (int i = 0 ; i < eina_list_count(ad->known_buddy_list) ; i++) {
+			user_data_with_pic_s *item = eina_list_nth(ad->known_buddy_list, i);
 			user_data_s* user = item->use_data;
 			user->is_selected = EINA_FALSE;
 		}
@@ -437,7 +438,7 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 
 	if (ucol_is_jamo(entry_text)) {
 		LOGD("entry_text is jamo, %s", entry_text);
-		EINA_LIST_FOREACH(ad->buddy_list, l, item) {
+		EINA_LIST_FOREACH(ad->known_buddy_list, l, item) {
 			int result;
 			user = item->use_data;
 			result = ucol_compare_first_letters(user->print_name, entry_text);
@@ -447,7 +448,7 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		}
 	} else {
 		LOGD("entry_text is not jamo, %s", entry_text);
-		EINA_LIST_FOREACH(ad->buddy_list, l, item) {
+		EINA_LIST_FOREACH(ad->known_buddy_list, l, item) {
 			user = item->use_data;
 
 			if (ucol_search(user->print_name, entry_text) != -ENOENT) {
@@ -457,7 +458,7 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 	}
 
 	if ((entry_text == NULL || strlen(entry_text) == 0) && result_list == NULL) {
-		result_list = ad->buddy_list;
+		result_list = ad->known_buddy_list;
 	}
 
 	LOGD("count of result_list is %d", eina_list_count(result_list));
@@ -543,7 +544,7 @@ static void _index_selected_cb(void *data, Evas_Object *obj, void *event_info)
 	user_data_with_pic_s* gl_item = NULL;//eina_list_nth(ad->search_peer_list, 0);
 
 	//tg_peer_info_s* user = item->use_data;
-	Eina_List *list = ad->buddy_list;
+	Eina_List *list = ad->known_buddy_list;
 	int index = 0;
 	Eina_List *l;
 
@@ -599,11 +600,66 @@ static Evas_Object* create_fastscroll(appdata_s *ad)
 	return index;
 }
 
+void free_known_buddylist(appdata_s *ad)
+{
+	user_data_with_pic_s* item = NULL;
+	EINA_LIST_FREE(ad->known_buddy_list, item) {
+
+		if (!item)
+			continue;
+
+		user_data_s* user_data = item->use_data;
+
+		if (user_data->print_name) {
+			free(user_data->print_name);
+			user_data->print_name = NULL;
+		}
+
+		if (user_data->photo_path) {
+			free(user_data->photo_path);
+			user_data->photo_path = NULL;
+		}
+
+		if (user_data->first_name) {
+			free(user_data->first_name);
+			user_data->first_name = NULL;
+		}
+
+		if (user_data->last_name) {
+			free(user_data->last_name);
+			user_data->last_name = NULL;
+		}
+
+		if (user_data->phone) {
+			free(user_data->phone);
+			user_data->phone = NULL;
+		}
+		if (user_data->real_first_name) {
+			free(user_data->real_first_name);
+			user_data->real_first_name = NULL;
+		}
+
+		if (user_data->real_last_name) {
+			free(user_data->real_last_name);
+			user_data->real_last_name = NULL;
+		}
+
+		if (user_data->username) {
+			free(user_data->username);
+			user_data->username = NULL;
+		}
+		free(user_data);
+		free(item);
+	}
+	ad->known_buddy_list = NULL;
+}
+
 void launch_contact_selction_view(void *data)
 {
 	appdata_s* ad = data;
 	ad->current_app_state = TG_BUDDY_LIST_SELECTION_STATE;
-
+	free_known_buddylist(ad);
+	ad->known_buddy_list = load_buddy_data_by_name(ad->user_id.id, NULL);
 	if (ad->panel) {
 		evas_object_hide(ad->panel);
 		elm_panel_hidden_set(ad->panel, EINA_TRUE);
@@ -641,30 +697,10 @@ void launch_contact_selction_view(void *data)
 
 	Eina_Bool all_items_selected = EINA_FALSE;
 	evas_object_data_set(buddy_gen_list, "all_selected", (void *)((int)all_items_selected));
-#if 0
-	static Elm_Genlist_Item_Class itc;
 
-	itc.item_style = "type1";
-	itc.func.text_get = on_buddy_name_get_cb;
-	itc.func.content_get = on_buddy_selection_part_content_get_cb;
-	itc.func.state_get = NULL;
-	itc.func.del = NULL;
-
-	int size = 0;
-	if (ad->buddy_list) {
-		size = eina_list_count(ad->buddy_list);
-		size++;
-	} else {
-		size = 1; // no items
-	}
-
-	for (int i = 0; i < size; i++) {
-		elm_genlist_item_append(buddy_gen_list, &itc, (void*)i, NULL, ELM_GENLIST_ITEM_NONE, on_buddy_selected, (void*)i);
-	}
-#endif
 	evas_object_show(buddy_gen_list);
 
-	_append_peer_item(buddy_gen_list, ad, ad->buddy_list);
+	_append_peer_item(buddy_gen_list, ad, ad->known_buddy_list);
 
 	/* no contents */
 	Evas_Object *nocontents = elm_layout_add(ad->nf);

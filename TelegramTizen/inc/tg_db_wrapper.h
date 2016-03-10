@@ -290,6 +290,8 @@ Eina_Bool mark_group_chat_as_unknown(int chat_id);
 
 Eina_Bool insert_unsent_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *msg_type, const char * msg_data, const char *type_of_chat);
 Eina_Bool insert_unsent_media_message_to_db(const char *app_name, const char *command, const char *buddy_id, const char *msg_id, const char *media_id, const char *msg_type, const char *file_path, const char *type_of_chat);
+
+Eina_Bool is_telegram_account(int buddy_id);
 #if 0
 void set_chat_bg(char *file_path);
 char* get_chat_bg();
