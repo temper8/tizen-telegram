@@ -22,7 +22,6 @@
 #include "server_response.h"
 #include "tg_db_wrapper.h"
 #include "tg_common.h"
-#include <badge.h>
 #include "tg-engine-service.h"
 
 
@@ -603,22 +602,11 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 		bundle_free(msg);
 	}
 
-	int result = SVC_RES_FAIL;
-	result = tg_server_send_message(tg_data->tg_server, msg);
+	if (SVC_RES_OK != tg_server_send_message(tg_data->tg_server, msg))
+		display_new_message_badge(get_number_of_unread_messages(), tg_data);
 
-	if (result != SVC_RES_OK) {
-		int unread_msg_cnt = get_number_of_unread_messages();
-		ERR("unread_msg_cnt = %d", unread_msg_cnt);
-		if (unread_msg_cnt > 0) {
-			char content[512];
-			snprintf(content, sizeof(content), "%d new messages received.", unread_msg_cnt);
-			tg_notification_create(tg_data, ui_utils_get_resource(DEFAULT_TELEGRAM_ICON), "Telegram", content, NULL, TELEGRAM_APP_ID);
-			badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		}
-	}
 	bundle_free(msg);
 }
-
 
 void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int to_id, long long message_id, int type_of_chat)
 {
@@ -665,18 +653,9 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 		bundle_free(msg);
 	}
 
-	int result = SVC_RES_FAIL;
-	result = tg_server_send_message(tg_data->tg_server, msg);
-	if (result != SVC_RES_OK) {
-		int unread_msg_cnt = get_number_of_unread_messages();
-		ERR("unread_msg_cnt = %d", unread_msg_cnt);
-		if (unread_msg_cnt > 0) {
-			char content[512];
-			snprintf(content, sizeof(content), "%d new messages received.", unread_msg_cnt);
-			tg_notification_create(tg_data, ui_utils_get_resource(DEFAULT_TELEGRAM_ICON), "Telegram", content, NULL, TELEGRAM_APP_ID);
-			badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		}
-	}
+	if (SVC_RES_OK != tg_server_send_message(tg_data->tg_server, msg))
+		display_new_message_badge(get_number_of_unread_messages(), tg_data);
+
 	bundle_free(msg);
 }
 

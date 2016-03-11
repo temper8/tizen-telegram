@@ -18,6 +18,7 @@
 
 #include "tg_common.h"
 #include <fts.h>
+#include <badge.h>
 
 uint64_t get_time_stamp_in_macro()
 {
@@ -68,6 +69,26 @@ void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const c
 	ret = notification_free(tg_data->s_notififcation);
 	return;
 }
+
+
+void display_new_message_badge(int unread_msg_cnt, tg_engine_data_s* tg_data)
+{
+	if (unread_msg_cnt <= 0)
+		return;
+
+	unsigned int count = 0;
+	if (badge_get_count(TELEGRAM_APP_ID, &count) != BADGE_ERROR_NONE)
+		count = 0;
+
+	if (unread_msg_cnt > count) {
+		char content[512];
+		snprintf(content, sizeof(content), "%d new messages received.", unread_msg_cnt);
+		tg_notification_create(tg_data,ui_utils_get_resource(DEFAULT_TELEGRAM_ICON), "Telegram",
+				content, NULL, TELEGRAM_APP_ID);
+		badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+	}
+}
+
 
 char *replace(const char *s, char ch, const char *repl)
 {

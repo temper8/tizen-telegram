@@ -674,9 +674,7 @@ void create_buddy_msg_table(const char* table_name)
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
 
-	Eina_Bool ret = create_table(table_name, col_names, col_types);
-	if (!ret)
-		ERR("Table (%s) creation error!, %d", table_name, ret);
+	create_table(table_name, col_names, col_types);
 
 	eina_list_free(col_names);
 	eina_list_free(col_types);
