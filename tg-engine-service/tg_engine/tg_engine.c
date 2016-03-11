@@ -3171,7 +3171,7 @@ void on_new_buddy_added(struct tgl_state *TLS, void *callback_extra, int success
 			char* msg_table = get_table_name_from_number(buddy->id.id);
 			create_buddy_msg_table(msg_table);
 			free(msg_table);
-
+			buddy->is_unknown = 0;
 			init_insert_buddy_into_db(BUDDY_INFO_TABLE_NAME, buddy);
 			tgl_peer_t* UC = tgl_peer_get(TLS, buddy->id);
 			if (UC) {

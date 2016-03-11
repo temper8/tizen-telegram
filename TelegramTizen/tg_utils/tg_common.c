@@ -702,12 +702,12 @@ void set_peer_names(tg_peer_info_s* peer_info,
 			main_list_item->buddy_display_name = strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 			main_list_item->peer_print_name = strdup(i18n_get_text("IDS_TGRAM_OPT_DELETE"));
 		} else if (get_buddy_unknown_status(peer_info->peer_id)) {
-
 			char *number = get_buddy_phone_num_from_id(peer_info->peer_id);
 			if (number && strlen(number))
 				main_list_item->peer_print_name = number;
 			else
 				main_list_item->peer_print_name = strdup(" ");
+			main_list_item->buddy_display_name = strdup(main_list_item->peer_print_name);
 		} else {
 			tmp_name = get_display_name_from_contact(peer_info);
 			main_list_item->buddy_display_name = tmp_name ? tmp_name : strdup(" ");

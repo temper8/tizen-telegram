@@ -1231,11 +1231,12 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 {
 	int result = SVC_RES_FAIL;
 
+#if 0
 	if (!app->peer_in_cahtting_data || !app->peer_in_cahtting_data->use_data) {
 		LOGE("Wrong status, previous chatting data are freed!!!");
 		return result;
 	}
-
+#endif
 
 	char* from_id_str = NULL;
 	result = bundle_get_str(rec_msg, "from_id", &from_id_str);

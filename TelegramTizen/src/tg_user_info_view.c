@@ -316,10 +316,14 @@ void on_user_info_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		ad->is_loading_from_profile_view = EINA_TRUE;
 		on_create_new_contact(ad);
 		break;
+#if 0
 	case 2:
 		show_toast(ad, i18n_get_text("IDS_TGRAM_OPT_SHARE"));
 		break;
 	case 3:
+#else
+	case 2:
+#endif
 		if (user_data->peer_type == TGL_PEER_USER) {
 			on_block_selected_cb(ad);
 		}
@@ -353,11 +357,14 @@ char* on_user_info_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_EDIT"));
 		else
 			return NULL;
-
+#if 0
 	case 2:
 		return strdup(i18n_get_text("IDS_TGRAM_OPT_SHARE"));
 
 	case 3:
+#else
+	case 2:
+#endif
 		if (get_buddy_block_status(sel_item->use_data->peer_id) == 1)
 			return strdup(i18n_get_text("IDS_TGRAM_OPT_UNBLOCK"));
 		else
@@ -405,11 +412,11 @@ void on_user_info_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 	itc.func.state_get = NULL;
 	itc.func.del = NULL;
 
-	int number_of_menus = 4;
+	int number_of_menus = 3;
 	Eina_Bool is_need_continue = EINA_FALSE;
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	if(sel_item && is_telegram_account(sel_item->use_data->peer_id)) {
-		number_of_menus = 3;
+		number_of_menus = 2;
 		is_need_continue = EINA_TRUE;
 	}
 

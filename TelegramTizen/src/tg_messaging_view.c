@@ -3378,6 +3378,7 @@ void refresh_messaging_view(appdata_s *ad)
 
 static void click_user_name_cb(void *data, Evas_Object *obj, void *event_info)
 {
+#if 0
 	appdata_s *ad = evas_object_data_get(obj,"app_data");
 	Elm_Object_Item *item = event_info;
 	const char *clicked_name = elm_object_item_text_get(item);
@@ -3409,6 +3410,7 @@ static void click_user_name_cb(void *data, Evas_Object *obj, void *event_info)
 
 	ad->buddy_in_cahtting_data = prev_buddy_in_chatting_data;
 	ad->peer_in_cahtting_data = prev_peer_in_chatting_data;
+#endif
 }
 
 static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_info)
