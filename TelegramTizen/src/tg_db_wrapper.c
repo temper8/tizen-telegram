@@ -1108,101 +1108,82 @@ tg_message_s *get_latest_message_from_message_table(char *table_name, Eina_Bool 
 		message = (tg_message_s*)malloc(sizeof(tg_message_s));
 
 		int *temp_msg_id = (int *)eina_list_nth(ts_msg, 0);
-		if (temp_msg_id) {
+		if (temp_msg_id)
 			message->msg_id  = *temp_msg_id;
-			free(temp_msg_id);
-		}
 
 		int *temp_flags = (int *)eina_list_nth(ts_msg, 1);
-		if (temp_flags) {
+		if (temp_flags)
 			message->flags  = *temp_flags;
-			free(temp_flags);
-		}
 
 		int *temp_fwd_from_id = (int *)eina_list_nth(ts_msg, 2);
-		if (temp_fwd_from_id) {
+		if (temp_fwd_from_id)
 			message->fwd_from_id  = *temp_fwd_from_id;
-			free(temp_fwd_from_id);
-		}
 
 		int *temp_fwd_date = (int *)eina_list_nth(ts_msg, 3);
-		if (temp_fwd_date) {
+		if (temp_fwd_date)
 			message->fwd_date  = *temp_fwd_date;
-			free(temp_fwd_date);
-		}
 
 		int *temp_from_id = (int *)eina_list_nth(ts_msg, 4);
-		if (temp_from_id) {
+		if (temp_from_id)
 			message->from_id  = *temp_from_id;
-			free(temp_from_id);
-		}
 
 		int *temp_to_id = (int *)eina_list_nth(ts_msg, 5);
-		if (temp_to_id) {
+		if (temp_to_id)
 			message->to_id  = *temp_to_id;
-			free(temp_to_id);
-		}
 
 		int *temp_out = (int *)eina_list_nth(ts_msg, 6);
-		if (temp_out) {
+		if (temp_out)
 			message->out  = *temp_out;
-			free(temp_out);
-		}
 
 		int *temp_unread = (int *)eina_list_nth(ts_msg, 7);
-		if (temp_unread) {
+		if (temp_unread)
 			message->unread  = *temp_unread;
-			free(temp_unread);
-		}
 
 		int *temp_date = (int *)eina_list_nth(ts_msg, 8);
-		if (temp_date) {
+		if (temp_date)
 			message->date  = *temp_date;
-			free(temp_date);
-		}
 
 		int *temp_service = (int *)eina_list_nth(ts_msg, 9);
-		if (temp_service) {
+		if (temp_service)
 			message->service  = *temp_service;
-			free(temp_service);
-		}
 
 		char *temp_msg = (char *)eina_list_nth(ts_msg, 10);
-		if (temp_msg) {
+		if (temp_msg)
 			message->message  = strdup(temp_msg);
-			free(temp_msg);
-		}
 
 		int *temp_message_state = (int *)eina_list_nth(ts_msg, 11);
-		if (temp_message_state) {
+		if (temp_message_state)
 			message->msg_state  = *temp_message_state;
-			free(temp_message_state);
-		}
 
 		int *temp_message_len = (int *)eina_list_nth(ts_msg, 12);
-		if (temp_message_len) {
+		if (temp_message_len)
 			message->message_len  = *temp_message_len;
-			free(temp_message_len);
-		}
 
 		int *temp_media_type = (int *)eina_list_nth(ts_msg, 13);
-		if (temp_media_type) {
+		if (temp_media_type)
 			message->media_type  = *temp_media_type;
-			free(temp_media_type);
-		}
 
 		char *temp_media_id = (char *)eina_list_nth(ts_msg, 14);
-		if (temp_media_id) {
+		if (temp_media_id)
 			message->media_id  = strdup(temp_media_id);
-			free(temp_media_id);
-		}
 
 		int *temp_unique_id = (int *)eina_list_nth(ts_msg, 15);
-		if (temp_unique_id) {
+		if (temp_unique_id)
 			message->unique_id  = *temp_unique_id;
-			free(temp_unique_id);
+	}
+
+	Eina_List *row_vals = NULL;
+	void *val = NULL;
+	EINA_LIST_FREE(message_details, row_vals) {
+		val = NULL;
+		EINA_LIST_FREE(row_vals, val) {
+			if (val) {
+				free(val);
+				val = NULL;
+			}
 		}
 	}
+
 	return message;
 }
 

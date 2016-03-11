@@ -296,4 +296,6 @@ Eina_Bool delete_message_from_table(char *tablename, int msg_id);
 
 Eina_List* get_chat_ids_to_be_deleted();
 
+void update_last_message_time_in_peer_table(int peer_id, int last_msg_time);
+
 #endif /* TG_DB_WRAPPER_H_ */

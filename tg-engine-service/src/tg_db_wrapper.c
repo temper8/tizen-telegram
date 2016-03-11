@@ -829,6 +829,28 @@ int insert_current_date_to_table(char* tb_name)
 	return date_msg.id;
 }
 
+void update_last_message_time_in_peer_table(int peer_id, int last_msg_time)
+{
+	char* table_name = PEER_INFO_TABLE_NAME;
+	Eina_List* col_names = NULL;
+	col_names = NULL;
+	col_names = eina_list_append(col_names, PEER_INFO_TABLE_LAST_MESSAGE_DATE);
+
+	Eina_List* col_types = NULL;
+	col_types = eina_list_append(col_types, TG_DB_COLUMN_INTEGER);
+
+	Eina_List* col_values = NULL;
+	col_values = eina_list_append(col_values, &(last_msg_time));
+
+	char where_clause[1024];
+	snprintf(where_clause, sizeof(where_clause), PEER_INFO_TABLE_CHAT_ID " = %d", peer_id);
+	update_table(table_name, col_names, col_types, col_values, where_clause);
+
+	eina_list_free(col_names);
+	eina_list_free(col_types);
+	eina_list_free(col_values);
+}
+
 Eina_Bool insert_buddy_msg_to_db(struct tgl_message *M)
 {
 	int t = 0;
@@ -842,6 +864,7 @@ Eina_Bool insert_buddy_msg_to_db(struct tgl_message *M)
 	char* tb_name = get_table_name_from_number(user_id);
 	Eina_Bool ret = insert_msg_into_db(M, tb_name, t);
 	free(tb_name);
+	update_last_message_time_in_peer_table(user_id, M->date);
 	return ret;
 }
 
@@ -1370,7 +1393,6 @@ void init_insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_
 	eina_list_free(col_values);
 }
 
-
 void insert_peer_into_database(tgl_peer_t* UC, int last_msg_id, int unread_count, int is_unknown)
 {
 	if (!UC)
@@ -1830,6 +1852,14 @@ void update_msg_into_db(struct tgl_message *M, char* table_name, int unique_id)
 	eina_list_free(col_names);
 	eina_list_free(col_types);
 	eina_list_free(col_values);
+
+	int user_id = 0;
+	if (tgl_get_peer_type(M->to_id) == TGL_PEER_USER)
+		user_id = M->from_id.id;
+	else if (tgl_get_peer_type(M->to_id) == TGL_PEER_CHAT)
+		user_id = M->to_id.id;
+
+	update_last_message_time_in_peer_table(user_id, M->date);
 }
 
 Eina_List* get_registered_user_info()
