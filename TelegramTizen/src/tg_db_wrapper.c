@@ -2742,6 +2742,8 @@ Eina_List *load_buddy_data_by_name(int current_user, char *name)
 			free(temp_is_unknown);
 		}
 
+		user_data->highlight_name = NULL;
+
 		user_data_with_pic_s *item = (user_data_with_pic_s*) malloc(sizeof(user_data_with_pic_s));
 		item->use_data = user_data;
 		item->contact_icon = NULL;

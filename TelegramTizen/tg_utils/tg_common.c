@@ -26,6 +26,7 @@
 #include "tg_search_peer_view.h"
 #include "tg_settings_view.h"
 #include "tg_add_contact.h"
+#include "ucol.h"
 
 uint64_t get_time_stamp_in_macro()
 {
@@ -397,6 +398,11 @@ void free_user_data(user_data_s *user_data)
 		user_data->username = NULL;
 	}
 
+	if (user_data->highlight_name) {
+		free(user_data->highlight_name);
+		user_data->highlight_name = NULL;
+	}
+
 	free(user_data);
 	user_data = NULL;
 }
@@ -627,7 +633,61 @@ char *str_replace(char *orig, char *rep, char *with)
 	return result;
 }
 
+char *str_case_replace(char *orig, char *rep, char *with_pre, char *with_fi)
+{
+	char *result; // the return string
+	char *ins;    // the next insert point
+	char *tmp;    // varies
+	char *search_text;
+	int search_result = 0;
+	int len_rep;  // length of rep
+	int len_with; // length of with
+	int len_front; // distance between rep and end of last rep
+	int count = 0;    // number of replacements
 
+	if (!orig)
+		return NULL;
+	if (!rep)
+		rep = "";
+	len_rep = strlen(rep);
+	if (!with_pre)
+		with_pre = "";
+	if (!with_fi)
+		with_fi = "";
+	len_with = strlen(with_pre) + strlen(rep) + strlen(with_fi);
+
+	ins = orig;
+
+	while (search_result != -ENOENT) {
+		search_result = ucol_search(ins, rep);
+		tmp = ins + search_result;
+		ins = tmp + len_rep;
+		if (search_result != -ENOENT) count ++;
+	}
+
+	tmp = result = malloc(strlen(orig) + (len_with - len_rep) * count + 1);
+
+	if (!result)
+		return NULL;
+
+	while (count--) {
+		int tmp_length = 0;
+		search_result = ucol_search(orig, rep);
+		ins = orig + search_result;
+		search_text = (char *)malloc(len_rep+1);
+		strncpy(search_text, ins, len_rep);
+		search_text[len_rep] = '\0';
+
+		len_front = ins - orig;
+		tmp_length = len_front + strlen(with_pre) + len_rep + 1 + strlen(with_fi);
+		snprintf(tmp, tmp_length, "%.*s%s%s%s",len_front, orig, with_pre, search_text, with_fi);
+		tmp += (tmp_length-1);
+		orig += len_front+len_rep; // move to next "end of rep"
+	}
+
+	strcpy(tmp, orig);
+	return result;
+}
 
 char* get_display_name_from_contact(tg_peer_info_s* peer_info)
 {

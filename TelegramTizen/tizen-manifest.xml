@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <manifest xmlns="http://tizen.org/ns/packages" api-version="2.4" package="org.tizen.telegram_tizen_client" version="1.0.1">
     <profile name="mobile"/>
-    <ui-application appid="org.tizen.telegram_tizen_client" auto-restart="false" exec="telegram_tizen" hw-acceleration="on" multiple="false" nodisplay="false" taskmanage="true" type="capp">
+    <ui-application appid="org.tizen.telegram_tizen_client" auto-restart="false" exec="telegram_tizen_client" hw-acceleration="on" multiple="false" nodisplay="false" taskmanage="true" type="capp">
         <label>Telegram</label>
         <icon>ic_launcher.png</icon>
     </ui-application>
     <privileges>
+        <privilege>http://tizen.org/privilege/call</privilege>
         <privilege>http://tizen.org/privilege/location</privilege>
-        <privilege>http://tizen.org/privilege/datasharing</privilege>
-        <privilege>http://tizen.org/privilege/network.get</privilege>
-        <privilege>http://tizen.org/privilege/keymanager</privilege>
-        <privilege>http://tizen.org/privilege/callhistory.read</privilege>
-        <privilege>http://tizen.org/privilege/contact.write</privilege>
-        <privilege>http://tizen.org/privilege/content.write</privilege>
-        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
-        <privilege>http://tizen.org/privilege/message.write</privilege>
-        <privilege>http://tizen.org/privilege/push</privilege>
+        <privilege>http://tizen.org/privilege/contact.read</privilege>
         <privilege>http://tizen.org/privilege/account.read</privilege>
+        <privilege>http://tizen.org/privilege/network.set</privilege>
+        <privilege>http://tizen.org/privilege/keymanager</privilege>
+        <privilege>http://tizen.org/privilege/email</privilege>
+        <privilege>http://tizen.org/privilege/datasharing</privilege>
         <privilege>http://tizen.org/privilege/externalstorage</privilege>
-        <privilege>http://tizen.org/privilege/recorder</privilege>
+        <privilege>http://tizen.org/privilege/content.write</privilege>
+        <privilege>http://tizen.org/privilege/callhistory.write</privilege>
+        <privilege>http://tizen.org/privilege/network.get</privilege>
+        <privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+        <privilege>http://tizen.org/privilege/contact.write</privilege>
+        <privilege>http://tizen.org/privilege/push</privilege>
+        <privilege>http://tizen.org/privilege/message.write</privilege>
         <privilege>http://tizen.org/privilege/bluetooth</privilege>
         <privilege>http://tizen.org/privilege/internet</privilege>
-        <privilege>http://tizen.org/privilege/network.set</privilege>
+        <privilege>http://tizen.org/privilege/callhistory.read</privilege>
         <privilege>http://tizen.org/privilege/notification</privilege>
+        <privilege>http://tizen.org/privilege/recorder</privilege>
         <privilege>http://tizen.org/privilege/externalstorage.appdata</privilege>
-        <privilege>http://tizen.org/privilege/callhistory.write</privilege>
-        <privilege>http://tizen.org/privilege/email</privilege>
-        <privilege>http://tizen.org/privilege/call</privilege>
-        <privilege>http://tizen.org/privilege/contact.read</privilege>
     </privileges>
     <feature name="http://tizen.org/feature/screen.size.normal.720.1280">true</feature>
 </manifest>

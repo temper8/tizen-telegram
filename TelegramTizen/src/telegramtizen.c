@@ -517,6 +517,7 @@ void load_main_list_data(appdata_s *ad)
 			main_list_item->date_lbl = NULL;
 			main_list_item->msg_status_lbl = NULL;
 			main_list_item->main_item_layout = NULL;
+			main_list_item->highlight_text = NULL;
 			ad->main_list = eina_list_append(ad->main_list, main_list_item);
 
 			// delete message object
@@ -560,6 +561,7 @@ void load_main_list_data(appdata_s *ad)
 				main_list_item->date_lbl = NULL;
 				main_list_item->msg_status_lbl = NULL;
 				main_list_item->main_item_layout = NULL;
+				main_list_item->highlight_text = NULL;
 				ad->main_list = eina_list_append(ad->main_list, main_list_item);
 			}
 		}
@@ -711,6 +713,7 @@ void load_unknown_buddy_list_data(appdata_s *ad)
 			user_data->is_unknown = *temp_is_unknown;
 			free(temp_is_unknown);
 		}
+		user_data->highlight_name = NULL;
 
 		user_data_with_pic_s *item = (user_data_with_pic_s *)malloc(sizeof(*item));
 		item->use_data = user_data;
@@ -762,6 +765,10 @@ void load_buddy_list_data(appdata_s *ad)
 		if (user_data->username)
 			free(user_data->username);
 			user_data->username = NULL;
+
+		if (user_data->highlight_name)
+			free(user_data->highlight_name);
+			user_data->highlight_name = NULL;
 
 		free(user_data);
 		free(item);
@@ -863,6 +870,7 @@ void load_buddy_list_data(appdata_s *ad)
 			user_data->is_unknown = *temp_is_unknown;
 			free(temp_is_unknown);
 		}
+		user_data->highlight_name = NULL;
 
 		user_data_with_pic_s *item = (user_data_with_pic_s *) malloc(sizeof(*item));
 		item->use_data = user_data;
@@ -3020,6 +3028,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 									main_list_item->date_lbl = NULL;
 									main_list_item->msg_status_lbl = NULL;
 									main_list_item->main_item_layout = NULL;
+									main_list_item->highlight_text = NULL;
 									ad->main_list = eina_list_prepend(ad->main_list, main_list_item);
 								}
 							}
@@ -3883,6 +3892,10 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 			free(user_data->username);
 			user_data->username = NULL;
 		}
+		if (user_data->highlight_name) {
+			free(user_data->highlight_name);
+			user_data->highlight_name = NULL;
+		}
 		free(user_data);
 		free(item);
 	}
@@ -3934,6 +3947,10 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 			free(user_data->username);
 			user_data->username = NULL;
 		}
+		if (user_data->highlight_name) {
+			free(user_data->highlight_name);
+			user_data->highlight_name = NULL;
+		}
 		free(user_data);
 		free(item);
 	}
@@ -3973,6 +3990,9 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 		if (user_data->username)
 			free(user_data->username);
 			user_data->username = NULL;
+		if (user_data->highlight_name)
+			free(user_data->highlight_name);
+			user_data->highlight_name = NULL;
 
 		free(user_data);
 		free(item);
