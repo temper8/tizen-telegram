@@ -3671,7 +3671,7 @@ void init_tl_engine(void *cbdata)
 
 	tgl_set_rsa_key(s_info.TLS, s_info.rsa_file_name);
 	tgl_set_callback(s_info.TLS, &upd_cb, cbdata);
-	tgl_set_verbosity(s_info.TLS, E_DEBUG);
+	//tgl_set_verbosity(s_info.TLS, E_DEBUG);
 	tgl_set_net_methods(s_info.TLS, &tgl_conn_methods);
 	tgl_set_timer_methods(s_info.TLS, &tgl_libevent_timers);
 	assert(s_info.TLS->timer_methods);

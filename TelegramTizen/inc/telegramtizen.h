@@ -33,7 +33,7 @@
 #define LOG_TAG "telegram_tizen"
 
 #if !defined(PACKAGE)
-#define PACKAGE "org.tizen.telegram_tizen"
+#define PACKAGE "org.tizen.telegram_tizen_client"
 #endif
 
 #define EDJ_FILE "edje/telegramtizen.edj"
@@ -43,6 +43,6 @@
 
 static const char *TELEGRAM_CLIENT_PORT_NAME = "TIZEN_CLIENT_PORT";
 static const char *TELEGRAM_SERVER_PORT_NAME = "TIZEN_SERVER_PORT";
-static const char *TELEGRAM_SERVER_APP_NAME = "org.tizen.tg-engine-service";
+static const char *TELEGRAM_SERVER_APP_NAME = "org.tizen.telegram_service";
 
 #endif /* __telegramtizen_H__ */

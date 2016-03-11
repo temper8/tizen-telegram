@@ -27,7 +27,7 @@
 #define LOG_TAG "tg-engine-service"
 static const char *TELEGRAM_CLIENT_PORT_NAME = "TIZEN_CLIENT_PORT";
 static const char *TELEGRAM_SERVER_PORT_NAME = "TIZEN_SERVER_PORT";
-static const char *TELEGRAM_CLIENT_APP_NAME = "org.tizen.telegram_tizen";
+static const char *TELEGRAM_CLIENT_APP_NAME = "org.tizen.telegram_tizen_client";
 
 extern Eina_Bool event_idler_cb(void *data);
 

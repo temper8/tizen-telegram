@@ -25,7 +25,7 @@
 #include "service_client.h"
 #include <notification.h>
 
-#define TELEGRAM_APP_ID "org.tizen.telegram_tizen"
+#define TELEGRAM_APP_ID "org.tizen.telegram_tizen_client"
 #define EDJ_REG_FILE "edje/telegram_tizen_reg.edj"
 #define EDJ_LOGIN_FILE "edje/telegram_tizen_login.edj"
 #define EDJ_CHAT_LIST_FILE "edje/telegram_chat_list.edj"

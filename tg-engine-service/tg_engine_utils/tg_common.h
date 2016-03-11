@@ -24,7 +24,7 @@
 #include <notification.h>
 #include "tg_engine.h"
 
-#define TELEGRAM_APP_ID "org.tizen.telegram_tizen"
+#define TELEGRAM_APP_ID "org.tizen.telegram_tizen_client"
 
 typedef enum MESSAGE_STATE {
 	TG_MESSAGE_STATE_SENDING = 1,

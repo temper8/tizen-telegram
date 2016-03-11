@@ -24,7 +24,6 @@
 
 #define MODULE_INFO (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define _IS_USE_LOGGING
 #ifdef _IS_USE_LOGGING
 #define INF(fmt, arg...) dlog_print(DLOG_INFO, \
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
