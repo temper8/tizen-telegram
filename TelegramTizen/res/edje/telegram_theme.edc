@@ -870,7 +870,7 @@ styles {
 			}
 			program {
 				name: "text_changed";
-				signal: "entry,changed";
+				signal: "label,changed";
 				source: "*";
 				script {
 					check_multiline();
@@ -1162,7 +1162,7 @@ styles {
 			}
 			program {
 				name: "text_changed";
-				signal: "entry,changed";
+				signal: "label,changed";
 				source: "*";
 				script {
 					check_multiline();

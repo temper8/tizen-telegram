@@ -165,8 +165,8 @@ static void scroller_push_item(Evas_Object *scroller, Evas_Object *item, int pre
 
 	} else {
 		elm_box_pack_start(box, item);
-		//elm_box_recalculate(box);
 	}
+	elm_box_recalculate(box);
 	return;
 }
 
@@ -1525,6 +1525,8 @@ Evas_Object *on_message_item_content_get_cb(void *data, Evas_Object *obj, const 
 			//eina_strbuf_append(buf, temp_msg);
 			//elm_entry_entry_set(entry, eina_strbuf_string_get(buf));
 			eina_strbuf_free(buf);
+			edje_object_signal_emit(elm_layout_edje_get(entry), "label,changed", "*");
+			edje_object_message_signal_process(elm_layout_edje_get(entry));
 
 		} else if (msg->media_type == tgl_message_media_photo || msg->media_type == tgl_message_media_document) {
 			elm_entry_item_provider_append(entry, item_provider, chat_scroller);
