@@ -1015,10 +1015,8 @@ Evas_Object* create_main_chat_list(Evas_Object* buddy_list, appdata_s* ad)
 	}
 	evas_object_show(buddy_list);
 	evas_object_data_set(ad->nf, "buddy_list", buddy_list);
-	evas_object_smart_callback_add(buddy_list, "longpressed",
-			on_buddy_list_longpress, ad);
-	evas_object_smart_callback_add(buddy_list, "selected",
-			on_main_chat_item_selected, ad);
+	//evas_object_smart_callback_add(buddy_list, "longpressed", on_buddy_list_longpress, ad);
+	evas_object_smart_callback_add(buddy_list, "selected", on_main_chat_item_selected, ad);
 	return buddy_list;
 }
 
