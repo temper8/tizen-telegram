@@ -209,7 +209,8 @@ void clear_history_in_gui(appdata_s *ad, tg_peer_info_s *user_data, int peer_typ
 	elm_box_clear(box);
 	elm_box_recalculate(box);
 
-	send_delete_all_messages_request(ad, ad->service_client, user_data->peer_id, user_data->peer_type);
+	if (peer_type == TGL_PEER_USER)
+		send_delete_all_messages_request(ad, ad->service_client, user_data->peer_id, user_data->peer_type);
 
 	if (ad->main_item_in_cahtting_data) {
 		tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
@@ -287,6 +288,14 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 		break;
 	case 2:
 		show_loading_popup(ad);
+		if (user_data->peer_type == TGL_PEER_CHAT) {
+			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
+			if (ad->msg_popup) {
+				evas_object_del(ad->msg_popup);
+				ad->msg_popup = NULL;
+			}
+			return;
+		}
 		clear_history_in_gui(ad, user_data, user_data->peer_type, user_data->peer_id);
 		if (ad->main_item_in_cahtting_data) {
 			tg_main_list_item_s* old_item = ad->main_item_in_cahtting_data;
@@ -315,11 +324,6 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 			ad->is_last_msg_changed = EINA_FALSE;
 		}
 
-		if (user_data->peer_type == TGL_PEER_USER) {
-
-		} else if (user_data->peer_type == TGL_PEER_CHAT) {
-			send_delete_group_chat_request(ad, ad->service_client, user_data->peer_id);
-		}
 		elm_naviframe_item_pop(ad->nf);
 		load_registered_user_data(ad);
 		load_buddy_list_data(ad);
