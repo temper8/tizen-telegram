@@ -24,11 +24,10 @@ extern void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List *
 static void on_country_search_entry_focused(void *data, Evas_Object *obj, void *event_info)
 {
 	Evas_Object *layout = data;
-	if (elm_object_focus_get(layout)) {
+	if (elm_object_focus_get(layout))
 		elm_object_signal_emit(layout, "elm,state,focused", "");
-	} else{
+	else
 		elm_object_signal_emit(layout, "elm,state,unfocused", "");
-	}
 }
 
 static void on_country_search_entry_changed(void *data, Evas_Object *obj, void *event_info)
@@ -80,7 +79,7 @@ static void on_country_search_entry_changed(void *data, Evas_Object *obj, void *
 	if (name_result_list && code_result_list) {
 		append_country_item(search_list, ad, name_result_list, code_result_list);
 	} else {
-		// TODO: Handles me
+		/* TODO: Handles me */
 	}
 
 	free(entry_text);
@@ -95,14 +94,11 @@ static Evas_Object *create_country_search_bar(Evas_Object* parent, void* data)
 	Evas_Object* layout = elm_layout_add(parent);
 	elm_layout_file_set(layout, edj_path, "");
 
-	/* editfield layout */
 	Evas_Object* searchbar_layout = elm_layout_add(parent);
 	elm_layout_theme_set(searchbar_layout, "layout", "searchfield", "singleline");
 	evas_object_size_hint_align_set(searchbar_layout, EVAS_HINT_FILL, 0.0);
 	evas_object_size_hint_weight_set(searchbar_layout, EVAS_HINT_EXPAND, 0.0);
-	//evas_object_event_callback_add(searchbar_layout, EVAS_CALLBACK_DEL, _searchbar_layout_del_cb, NULL);
 
-	/* entry */
 	Evas_Object* searchbar_entry = elm_entry_add(searchbar_layout);
 	elm_entry_cursor_end_set(searchbar_entry);
 	evas_object_size_hint_weight_set(searchbar_entry, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
@@ -148,7 +144,9 @@ char* on_country_name_requested(void *data, Evas_Object *obj, const char *part)
 		int x, y, w, h;
 		evas_object_geometry_get(obj, &x, &y, &w, &h);
 
-		dlog_print(DLOG_DEBUG, LOG_TAG, "Did I call even though I'm not in the screen? %s (%lf) (%dx%d)", data, total_time / count, w, h);
+		/*
+		 * dlog_print(DLOG_DEBUG, LOG_TAG, "Did I call even though I'm not in the screen? %s (%lf) (%dx%d)", data, total_time / count, w, h);
+		 */
 		return str;
 	}
 
@@ -176,22 +174,18 @@ static void on_country_item_clicked(void *data, Evas_Object *obj, void *event_in
 
 	country_name_selected_cb(ad, country_name_list, country_code_list);
 
-
-	if (country_name_list != ad->country_names_list) {
+	if (country_name_list != ad->country_names_list)
 		eina_list_free(country_name_list);
-	}
 
-	if (country_code_list != ad->country_codes_list) {
+	if (country_code_list != ad->country_codes_list)
 		eina_list_free(country_code_list);
-	}
 }
 
 void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List *country_name_list, Eina_List *country_code_list)
 {
 
-	if (!genlist || !ad || !country_name_list || !country_code_list) {
+	if (!genlist || !ad || !country_name_list || !country_code_list)
 		return;
-	}
 
 	int i;
 	Eina_List *l;
@@ -206,14 +200,12 @@ void append_country_item(Evas_Object *genlist, appdata_s *ad, Eina_List *country
 	itc.func.del = NULL;
 
 	l = evas_object_data_del(genlist, "country_name_list");
-	if (l != ad->country_names_list) {
+	if (l != ad->country_names_list)
 		eina_list_free(l);
-	}
 
 	l = evas_object_data_del(genlist, "country_code_list");
-	if (l != ad->country_codes_list) {
+	if (l != ad->country_codes_list)
 		eina_list_free(l);
-	}
 
 	evas_object_data_set(genlist, "country_name_list", country_name_list);
 	evas_object_data_set(genlist, "country_code_list", country_code_list);
@@ -240,9 +232,8 @@ static Evas_Object* create_country_genlist(appdata_s *ad, Evas_Object *layout)
 
 void launch_country_selection_view(appdata_s *ad)
 {
-	if (!ad) {
+	if (!ad)
 		return;
-	}
 
 	ad->current_app_state = TG_COUNTRY_SELECTION_VIEW;
 
@@ -270,7 +261,3 @@ void launch_country_selection_view(appdata_s *ad)
 	it = elm_naviframe_item_push(ad->nf, "MIDS_SPAY_BODY_SELECT_A_COUNTRY", NULL, NULL, layout, NULL);
 	elm_object_item_domain_text_translatable_set(it, NULL, EINA_TRUE);
 }
-
-
-
-

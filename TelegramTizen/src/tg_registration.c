@@ -14,7 +14,7 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+ */
 
 #include "tg_registration.h"
 #include "tg_db_manager.h"
@@ -25,43 +25,50 @@
 static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
+	if (!ad)
+		return;
+
 	Evas_Object* country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
 	Evas_Object* done_btn = evas_object_data_get(ad->nf, "reg_done_btn");
 	Evas_Object *layout = NULL;
-	char buf[256] = {'\0',};
-	char code_buf[256] = {'\0',};
+	char buf[256];
+	char code_buf[256];
+
+	if (!country_name_btn || !done_btn)
+		return;
 
 	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
 	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
 
 	layout = evas_object_data_get(ad->nf, "regi,layout");
-	if (strcasecmp(buf, "") != 0) {
+	if (strcasecmp(buf, "") != 0)
 		elm_object_signal_emit(layout, "show", "delete");
-	} else {
+	else
 		elm_object_signal_emit(layout, "hide", "delete");
-	}
 
-	if (strlen(buf) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0) {
+	if (strlen(buf) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0)
 		elm_object_disabled_set(done_btn, EINA_FALSE);
-	} else {
+	else
 		elm_object_disabled_set(done_btn, EINA_TRUE);
-	}
-
 }
 
 static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
+	if (!ad)
+		return;
+
 	Evas_Object* country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
 	Evas_Object* country_code_btn = evas_object_data_get(ad->nf, "country_code_btn");
 	Evas_Object* pn_number_entry = evas_object_data_get(ad->nf, "pn_number_entry");
 	char* phone_num = elm_entry_markup_to_utf8(elm_object_text_get(pn_number_entry));
 	char* cunt_code = elm_entry_markup_to_utf8(elm_object_text_get(country_code_btn));
-	char code_buf[256] = {'\0',};
-	char country_code[256] = {'\0',};
+	char code_buf[256];
+
+	if (!country_name_btn || !country_code_btn || !pn_number_entry)
+		return;
 
 	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
-	snprintf(country_code, sizeof(country_code), "%s", elm_object_text_get(country_code_btn));
 
 	if (strlen(phone_num) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0 && ad->is_server_ready) {
 		char phone_number[256];
@@ -71,7 +78,7 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_TRUE);
 	} else {
 		if (strlen(phone_num) == MAX_NUM_LENGTH)
-		   show_toast(ad, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
+			show_toast(ad, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
 	}
 
 	free(phone_num);
@@ -97,7 +104,7 @@ void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_Li
 	char temp_str[32];
 	const char *number_text;
 
-	if (!count_name_list || !country_code_list)
+	if (!ad || !count_name_list || !country_code_list)
 		return;
 
 	country_name_btn = evas_object_data_get(ad->nf, "country_name_btn");
@@ -119,12 +126,13 @@ void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_Li
 
 	done_btn = evas_object_data_get(ad->nf, "reg_done_btn");
 	number_text = elm_object_text_get(pn_number_entry);
+	if (pn_number_entry)
+		elm_object_focus_set(pn_number_entry, EINA_TRUE);
 
-	if (number_text && strlen(number_text) == MAX_NUM_LENGTH) {
+	if (number_text && strlen(number_text) == MAX_NUM_LENGTH)
 		elm_object_disabled_set(done_btn, EINA_FALSE);
-	} else {
+	else
 		elm_object_disabled_set(done_btn, EINA_TRUE);
-	}
 }
 
 static void delete_btn_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -205,13 +213,11 @@ void launch_registration_cb(appdata_s *ad)
 	limit_filter_data.max_char_count = MAX_NUM_LENGTH;
 
 	elm_entry_markup_filter_append(pn_number_entry, elm_entry_filter_limit_size, &limit_filter_data);
-	//Set the entry field to accept only numbers
 	elm_entry_markup_filter_append(pn_number_entry, elm_entry_filter_accept_set, &accept_set);
 
 	Ecore_IMF_Context *imf_context;
 	imf_context = elm_entry_imf_context_get(pn_number_entry);
 	ecore_imf_context_input_panel_layout_set(imf_context, ECORE_IMF_INPUT_PANEL_LAYOUT_PHONENUMBER);
-	//Enable OK button if no of chars has reached to 10 then
 	evas_object_smart_callback_add(pn_number_entry, "changed", on_text_change_enable_ok_button, ad);
 
 	Evas_Object* delete_btn = elm_button_add(layout);
@@ -223,10 +229,8 @@ void launch_registration_cb(appdata_s *ad)
 	elm_object_part_content_set(layout, "phone_number_delete", delete_btn);
 	evas_object_show(delete_btn);
 
-	//confirm text
 	elm_object_part_text_set(layout, "text_display", i18n_get_text("IDS_TGRAM_BODY_CONFIRM_YOUR_COUNTRY_CODE_MSG"));
 
-	//naviframe GUI
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_ENTER_NUMBER_ABB"), NULL, NULL, scroller, NULL);
 
 	Evas_Object *cancel_btn = elm_button_add(ad->nf);

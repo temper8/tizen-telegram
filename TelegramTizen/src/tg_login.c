@@ -24,15 +24,13 @@ static void on_code_change_enable_ok_button(void *data, Evas_Object *obj, void *
 {
 	appdata_s* ad = data;
 	Evas_Object* done_btn = evas_object_data_get(ad->nf, "code_done_btn");
-	char buf[256] = {'\0',};
+	char buf[256];
 	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
 
-	if (strlen(buf) == MAX_CODE_LENGTH) {
+	if (strlen(buf) == MAX_CODE_LENGTH)
 		elm_object_disabled_set(done_btn, EINA_FALSE);
-	} else {
+	else
 		elm_object_disabled_set(done_btn, EINA_TRUE);
-	}
-
 }
 
 static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -67,9 +65,8 @@ static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event
 			return;
 		}
 		Ecore_Timer *timer = evas_object_data_get(ad->nf, "code_timer");
-		if (timer) {
+		if (timer)
 			ecore_timer_del(timer);
-		}
 
 		send_request_for_validation(ad, ad->service_client, val);
 		show_loading_popup(ad);
@@ -84,7 +81,7 @@ static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event
 	launch_first_registration_cb(ad);
 #endif
 }
-
+/*
 static void on_wrong_num_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
@@ -95,7 +92,7 @@ static void on_wrong_num_clicked(void *data, Evas_Object *obj, void *event_info)
 	elm_naviframe_item_pop(ad->nf);
 	ad->current_app_state = TG_REGISTRATION_STATE;
 }
-
+*/
 static Eina_Bool on_code_timer_cb(void* data)
 {
 	appdata_s* ad = data;
@@ -106,11 +103,10 @@ static Eina_Bool on_code_timer_cb(void* data)
 		Ecore_Timer* timer = evas_object_data_get(ad->nf, "code_timer");
 		ecore_timer_del(timer);
 
-		char temp_txt[512] = {0,};
+		char temp_txt[512];
 		snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 0, 0);
 		Evas_Object *layout = evas_object_data_get(ad->nf, "layout");
 		elm_object_part_text_set(layout, "timer_text", temp_txt);
-		// send request to get phone call
 		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_FALSE);
 		return ECORE_CALLBACK_CANCEL;
 	}
@@ -118,7 +114,7 @@ static Eina_Bool on_code_timer_cb(void* data)
 	int seconds = cur_time_in_secs % 60;
 	int minutes = (cur_time_in_secs / 60) % 60;
 
-	char temp_txt[512] = {0,};
+	char temp_txt[512];
 	snprintf(temp_txt, sizeof(temp_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), minutes, seconds);
 
 	Evas_Object *layout = evas_object_data_get(ad->nf, "layout");
@@ -143,10 +139,8 @@ void start_timer(appdata_s* ad)
 
 void launch_login_cb(appdata_s* ad)
 {
-
-	if (!ad) {
+	if (!ad)
 		return;
-	}
 
 	ad->current_app_state = TG_LOGIN_STATE;
 
@@ -171,9 +165,7 @@ void launch_login_cb(appdata_s* ad)
 		strcat(info_txt, ad->phone_number);
 	}
 
-	// phone number
 	elm_object_part_text_set(layout, "phone_status", info_txt);
-	// inform textblock
 	elm_object_part_text_set(layout, "inform", i18n_get_text("IDS_TGRAM_BODY_A_VERIFICATION_CODE_HAS_BEEN_SENT_MSG"));
 
 	Evas_Object* code_number_entry = elm_entry_add(layout);
@@ -191,21 +183,17 @@ void launch_login_cb(appdata_s* ad)
 
 	evas_object_data_set(ad->nf, "code_number_entry", (void*)code_number_entry);
 
-
 	limit_filter_data.max_char_count = MAX_CODE_LENGTH;
 
 	elm_entry_markup_filter_append(code_number_entry, elm_entry_filter_limit_size, &limit_filter_data);
-	//Set the entry field to accept only numbers
 	elm_entry_markup_filter_append(code_number_entry, elm_entry_filter_accept_set, &accept_set);
 
 	Ecore_IMF_Context *imf_context;
 	imf_context = elm_entry_imf_context_get(code_number_entry);
 	ecore_imf_context_input_panel_layout_set(imf_context, ECORE_IMF_INPUT_PANEL_LAYOUT_PHONENUMBER);
-	//Enable OK button if no of chars has reached to 10 then
 	evas_object_smart_callback_add(code_number_entry, "changed", on_code_change_enable_ok_button, ad);
 
-
-	char temp_timer_txt[512] = {0,};
+	char temp_timer_txt[512];
 	snprintf(temp_timer_txt, sizeof(temp_timer_txt), i18n_get_text("IDS_TGRAM_BODY_TELEGRAM_WILL_CALL_IN_P1SD_CP2SD"), 2, 00);
 	elm_object_part_text_set(layout, "timer_text", temp_timer_txt);
 
@@ -218,7 +206,6 @@ void launch_login_cb(appdata_s* ad)
 	elm_object_text_set(done_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_DONE_ABB"));
 	evas_object_smart_callback_add(done_btn, "clicked", on_code_entry_done_clicked, ad);
 
-
 	Evas_Object *cancel_btn = elm_button_add(ad->nf);
 	elm_object_style_set(cancel_btn, "naviframe/title_left");
 	elm_object_text_set(cancel_btn, i18n_get_text("IDS_TGRAM_ACBUTTON_CANCEL_ABB"));
@@ -229,6 +216,8 @@ void launch_login_cb(appdata_s* ad)
 
 	evas_object_data_set(ad->nf, "code_done_btn", (void*)done_btn);
 	elm_object_disabled_set(done_btn, EINA_TRUE);
+
+	elm_object_focus_set(code_number_entry, EINA_TRUE);
 
 	start_timer(ad);
 
