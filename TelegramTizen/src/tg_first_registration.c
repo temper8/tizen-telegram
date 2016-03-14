@@ -24,15 +24,14 @@ static void on_first_name_change_enable_ok_button(void *data, Evas_Object *obj, 
 {
 	appdata_s* ad = data;
 	Evas_Object* done_btn = evas_object_data_get(ad->nf, "name_done_btn");
-	char buf[256] = {'\0',};
+	char buf[256];
 	snprintf(buf, sizeof(buf), "%s", elm_object_text_get(obj));
 	char* org_buf = trim(buf);
 
-	if (strlen(org_buf) > 0) {
+	if (strlen(org_buf) > 0)
 		elm_object_disabled_set(done_btn, EINA_FALSE);
-	} else {
+	else
 		elm_object_disabled_set(done_btn, EINA_TRUE);
-	}
 	free(org_buf);
 }
 
@@ -55,9 +54,9 @@ static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event
 		return;
 	}
 	const char* tlast_name = elm_object_text_get(last_name_entry);
-	if (!tlast_name) {
+	if (!tlast_name)
 		tlast_name = "";
-	}
+
 	char *first_name = trim((char *)tfirst_name);
 	char *last_name = trim((char *)tlast_name);
 	send_request_for_profile_registration(ad, ad->service_client, first_name, last_name);
@@ -72,9 +71,9 @@ static void on_name_entry_done_clicked(void *data, Evas_Object *obj, void *event
 
 void launch_first_registration_cb(appdata_s *ad)
 {
-
 	if (!ad)
 		return;
+
 	ad->current_app_state = TG_PROFILE_REGISTRATION_STATE;
 
 	char edj_path[PATH_MAX] = {0, };
@@ -130,7 +129,6 @@ void launch_first_registration_cb(appdata_s *ad)
 
 	evas_object_data_set(ad->nf, "second_name_entry", (void*)second_name_entry);
 
-
 	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, i18n_get_text("IDS_TGRAM_HEADER_ENTER_NAME_ABB2"), NULL, NULL, scroller, NULL);
 
 	Evas_Object *done_btn = elm_button_add(ad->nf);
@@ -148,5 +146,7 @@ void launch_first_registration_cb(appdata_s *ad)
 
 	evas_object_data_set(ad->nf, "name_done_btn", (void*)done_btn);
 	elm_object_disabled_set(done_btn, EINA_TRUE);
+
+	elm_object_focus_set(first_name_entry, EINA_TRUE);
 
 }
