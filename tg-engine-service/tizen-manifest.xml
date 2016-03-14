@@ -3,12 +3,11 @@
     <profile name="mobile"/>
     <service-application appid="org.tizen.telegram_service" auto-restart="true" exec="tg-engine-service" multiple="false" nodisplay="true" on-boot="true" type="capp">
         <label>tg-engine-service</label>
+		<icon>tg-engine-service.png</icon>
         <background-category value="background-network"/>
         <background-category value="download"/>
-        <background-category value="iot-communication"/>
         <background-category value="location"/>
         <background-category value="media"/>
-        <background-category value="sensor"/>
     </service-application>
     <privileges>
         <privilege>http://tizen.org/privilege/location</privilege>

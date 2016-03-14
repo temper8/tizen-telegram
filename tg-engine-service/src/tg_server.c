@@ -57,7 +57,6 @@ int tg_server_register_port(tg_server *proxy_cl, const char *const port_name)
 		return result;
 	}
 
-	DBG("Message port %s registered with id: %d", port_name, temp_id);
 	proxy_cl->local_port_id = temp_id;
 
 	return SVC_RES_OK;
@@ -68,9 +67,6 @@ int tg_server_send_message(tg_server *proxy_cl, bundle *const msg)
 	int result = SVC_RES_FAIL;
 
 	RETVM_IF(!proxy_cl, result , "Proxy client is NULL");
-	RETVM_IF(!(proxy_cl->local_port_id), result, "Message port is not registered");
-	RETVM_IF(!(proxy_cl->remote_app_name), result, "Remote application name is not registered");
-	RETVM_IF(!(proxy_cl->remote_port_name), result, "Remote message port is not registered");
 
 	result = _tg_server_convert_msg_port_result(message_port_send_message_with_local_port(
 				proxy_cl->remote_app_name,
