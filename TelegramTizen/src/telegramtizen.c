@@ -1737,8 +1737,6 @@ static int on_group_chat_deleted_response(appdata_s *app, bundle *const rec_msg)
 	}
 
 	if (is_success) {
-
-
 		Eina_List *l = NULL;
 		peer_with_pic_s *pitem = NULL;
 		EINA_LIST_FOREACH(app->peer_list, l, pitem) {
@@ -3236,14 +3234,10 @@ Eina_Bool on_init_view_requested(void *data)
 
 void on_tg_service_result_cb(app_control_h request, app_control_h reply, app_control_result_e result, void *user_data)
 {
-	appdata_s *ad = user_data;
-	if (result == APP_CONTROL_RESULT_SUCCEEDED) {
-		if (ad) {
-			show_toast(ad, "Server launched successfully.");
-		} else {
-			show_toast(ad, "Server not launched.");
-		}
-	}
+	if (result == APP_CONTROL_ERROR_NONE)
+		LOGE("Server launched successfully.");
+	else
+		LOGE("Server not launched.");
 }
 
 void launch_tg_server(void *data)
@@ -3256,6 +3250,9 @@ void launch_tg_server(void *data)
 	ret_if (APP_CONTROL_ERROR_NONE != ret);
 
 	ret = app_control_set_app_id(app_control, TELEGRAM_SERVER_APP_NAME);
+	goto_if (APP_CONTROL_ERROR_NONE != ret, out);
+
+	ret = app_control_set_operation(app_control, APP_CONTROL_OPERATION_DEFAULT);
 	goto_if (APP_CONTROL_ERROR_NONE != ret, out);
 
 	ret = app_control_send_launch_request(app_control, &on_tg_service_result_cb, ad);

@@ -77,10 +77,9 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 		show_loading_popup(ad);
 		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_TRUE);
 	} else {
-		if (strlen(phone_num) == MAX_NUM_LENGTH)
-			show_toast(ad, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
+		launch_tg_server(ad);
+		show_toast(ad, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
 	}
-
 	free(phone_num);
 	free(cunt_code);
 }
@@ -152,6 +151,7 @@ void launch_registration_cb(appdata_s *ad)
 	if (!ad)
 		return;
 
+	launch_tg_server(ad);
 	ad->current_app_state = TG_REGISTRATION_STATE;
 	eina_list_free(ad->country_codes_list);
 	eina_list_free(ad->country_names_list);
