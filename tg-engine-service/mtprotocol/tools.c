@@ -34,9 +34,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include "tools.h"
-
-#include <dlog.h>
-#include <tg-engine-service.h>
+#include "logger.h"
 
 #ifdef __MACH__
 #include <mach/clock.h>
@@ -64,22 +62,22 @@ void _printf(int level, char* buffer)
 	switch(level)
 	{
 	case E_ERROR :
-		dlog_print(DLOG_ERROR, LOG_TAG, "%s", buffer);
+		LOGE("%s", buffer);
 		return;
 	case E_WARNING :
-		dlog_print(DLOG_WARN, LOG_TAG, "%s", buffer);
+		WARN("%s", buffer);
 		return;
 	case E_NOTICE :
-		dlog_print(DLOG_INFO, LOG_TAG, "%s", buffer);
+		LOGI("%s", buffer);
 		return;
 	case E_DEBUG :
-		dlog_print(DLOG_DEBUG, LOG_TAG, "%s", buffer);
+		LOGD("%s", buffer);
 		return;
 	case E_SOCKET :
-		dlog_print(DLOG_VERBOSE, LOG_TAG, "%s", buffer);
+		LOGV("%s", buffer);
 		return;
 	default:
-		dlog_print(DLOG_DEBUG, LOG_TAG, "%s", buffer);
+		LOGD("%s", buffer);
 	}
 }
 

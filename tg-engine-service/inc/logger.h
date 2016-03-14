@@ -53,6 +53,9 @@
         LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
         __func__, __LINE__, ##arg)
 
+#define LOGV(fmt, arg...) dlog_print(DLOG_VERBOSE, \
+        LOG_TAG, "%s: %s(%d) > " fmt, MODULE_INFO, \
+        __func__, __LINE__, ##arg)
 #else
 
 #define INF(fmt, arg...)
@@ -62,6 +65,7 @@
 #define WARN(fmt, arg...)
 #define ERR(fmt, arg...)
 #define LOGE(fmt, arg...)
+#define LOGV(fmt, arg...)
 #endif
 
 
