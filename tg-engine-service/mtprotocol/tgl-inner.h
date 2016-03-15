@@ -21,11 +21,30 @@
 #ifndef __TGL_INNER_H__
 #define __TGL_INNER_H__
 
+#include "logger.h"
+
 #define vlogprintf(verbosity_level,...) \
-  do { \
-    if (TLS->verbosity >= verbosity_level) { \
-      logprintf_x(verbosity_level, __VA_ARGS__); \
-    } \
-  } while (0)
+		do { \
+			if (TLS->verbosity >= (verbosity_level)) { \
+				switch(verbosity_level) \
+				{ \
+				case E_ERROR :\
+					LOGE(__VA_ARGS__);\
+					break;\
+				case E_WARNING : \
+					WARN(__VA_ARGS__); \
+					break;\
+				case E_NOTICE : \
+					LOGI(__VA_ARGS__); \
+					break;\
+				case E_SOCKET : \
+					LOGV(__VA_ARGS__); \
+					break;\
+				case E_DEBUG : \
+				default: \
+					LOGD(__VA_ARGS__); \
+				} \
+			} \
+		} while (0)
 
 #endif

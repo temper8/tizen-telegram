@@ -260,4 +260,6 @@ void launch_country_selection_view(appdata_s *ad)
 	Elm_Object_Item *it = NULL;
 	it = elm_naviframe_item_push(ad->nf, "MIDS_SPAY_BODY_SELECT_A_COUNTRY", NULL, NULL, layout, NULL);
 	elm_object_item_domain_text_translatable_set(it, NULL, EINA_TRUE);
+
+	elm_object_focus_set(searchbar_layout, EINA_TRUE);
 }

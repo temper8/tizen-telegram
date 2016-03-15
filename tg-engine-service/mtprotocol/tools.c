@@ -57,42 +57,6 @@ static long long total_allocated_bytes;
 
 void logprintf(const char *format, ...) __attribute__((format(printf, 1, 2), weak));
 
-void _printf(int level, char* buffer)
-{
-	switch(level)
-	{
-	case E_ERROR :
-		LOGE("%s", buffer);
-		return;
-	case E_WARNING :
-		WARN("%s", buffer);
-		return;
-	case E_NOTICE :
-		LOGI("%s", buffer);
-		return;
-	case E_DEBUG :
-		LOGD("%s", buffer);
-		return;
-	case E_SOCKET :
-		LOGV("%s", buffer);
-		return;
-	default:
-		LOGD("%s", buffer);
-	}
-}
-
-void logprintf_x(int level, const char *format, ...)
-{
-	char buffer[2048];
-	va_list ap;
-
-	va_start(ap, format);
-	vsnprintf(buffer, sizeof(buffer), format, ap);
-	va_end(ap);
-
-	_printf(level, buffer);
-}
-
 void logprintf(const char *format, ...)
 {
 	char buffer[2048];
@@ -102,7 +66,7 @@ void logprintf(const char *format, ...)
 	vsnprintf(buffer, sizeof(buffer), format, ap);
 	va_end(ap);
 
-	_printf(E_DEBUG, buffer);
+	LOGD("%s", buffer);
 }
 
 int tgl_snprintf(char *buf, int len, const char *format, ...)
