@@ -52,6 +52,18 @@ static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *
 		elm_object_disabled_set(done_btn, EINA_TRUE);
 }
 
+Eina_Bool on_login_timer_expired(void *data)
+{
+	appdata_s *ad = data;
+	if (!ad)
+		return ECORE_CALLBACK_CANCEL;
+		
+	hide_loading_popup(ad);
+	send_request_for_restart_server(ad, ad->service_client);
+    return ECORE_CALLBACK_CANCEL;
+}
+
+
 static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_info)
 {
 	appdata_s* ad = data;
@@ -74,8 +86,11 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 		char phone_number[256];
 		snprintf(phone_number, sizeof(phone_number), "%s%s", cunt_code, phone_num);
 		ad->phone_number = strdup(phone_number);
-		show_loading_popup(ad);
 		send_request_for_registration(ad, ad->service_client, ad->phone_number, EINA_TRUE);
+
+		if (!ad->is_waiting_for_phone_num)
+			ad->login_timer = ecore_timer_add(60, on_login_timer_expired, ad);
+		show_loading_popup(ad);
 	} else {
 		launch_tg_server(ad);
 		show_toast(ad, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
