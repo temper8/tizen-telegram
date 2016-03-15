@@ -575,6 +575,8 @@ typedef struct appdata {
 	app_visible_state s_app_visible_state;
 	notification_h s_notififcation;
 	Eina_Bool is_server_ready;
+	Eina_Bool is_waiting_for_phone_num;
+	Ecore_Timer *login_timer;
 	TelegramAppDirection target_direction;
 	Evas_Object *floating_btn;
 	Elm_Theme *theme;
