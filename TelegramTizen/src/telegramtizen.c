@@ -2408,13 +2408,18 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		return result;
 	} else if (strcmp(rec_key_val, "server_restart_notification") == 0) {
 		hide_loading_popup(app);
-		show_toast(app, i18n_get_text("IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"));
+		if (!app->is_waiting_for_phone_num)
+			show_toast(app, "Network error. Please try again");
+
 		ecore_timer_add(1, on_start_server_requested, app);
 	} else if (strcmp(rec_key_val, "registration_done") == 0) {
 
 		char* is_success_val = NULL;
 		result = bundle_get_str(rec_msg, "is_success", &is_success_val);
-
+		if (app->login_timer)
+			ecore_timer_del(app->login_timer);
+		app->login_timer = NULL;
+		
 		if (strncmp("true", is_success_val, strlen("true")) == 0) {
     		//show_toast(app, is_success_val);
 			// Launch login view
@@ -2439,6 +2444,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 	} else if (strcmp(rec_key_val, "request_phone_num_again") == 0) {
 		show_toast(app, "Please enter a valid phone number.");
 		hide_loading_popup(app);
+	} else if (strcmp(rec_key_val, "request_phone_new_num") == 0) {
+		app->is_waiting_for_phone_num = EINA_TRUE;
 	} else if (strcmp(rec_key_val, "server_connection_failed") == 0) {
 		show_toast(app, "Server connection failed. please check network connection");
 		hide_loading_popup(app);
@@ -2464,6 +2471,8 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		app->s_notififcation = NULL;
 		app->panel = NULL;
 		app->is_server_ready = EINA_FALSE;
+		app->is_waiting_for_phone_num = EINA_FALSE;
+		app->login_timer = NULL;
 		app->contact_list = NULL;
 
 		char *chat_bg = NULL;
@@ -3687,6 +3696,8 @@ static bool app_create(void *data)
 	ad->s_notififcation = NULL;
 	ad->panel = NULL;
 	ad->is_server_ready = EINA_FALSE;
+	ad->is_waiting_for_phone_num = EINA_FALSE;
+	ad->login_timer = NULL;
 	ad->contact_list = NULL;
 	ad->main_item = NULL;
 	ad->country_codes_list = NULL;

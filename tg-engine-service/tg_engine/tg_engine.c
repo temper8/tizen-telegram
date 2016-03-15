@@ -529,19 +529,14 @@ void tg_get_string(struct tgl_state *TLS, const char *prompt, int flags, void(*c
 		if (tg_data->tg_state == TG_ENGINE_STATE_REGISTRATION) {
 			send_request_phone_num_again(tg_data);
 		} else {
-			//tg_data->is_first_time_registration = EINA_TRUE;
 			tg_data->tg_state = TG_ENGINE_STATE_REGISTRATION;
-			if (tg_data && tg_data->phone_number) {
+			if (tg_data && tg_data->phone_number)
 				tg_data->get_string(TLS, tg_data->phone_number, tg_data->callback_arg);
-				//tg_data->code_response_timer = ecore_timer_add(60, on_code_request_timer_expired, tg_data);
-			}
+			else
+				send_request_phone_new_num(tg_data);
 		}
-	} else if (strcmp(prompt, "code('call' for phone call):") == 0) {
 
-/*		if (tg_data->code_response_timer) {
-			ecore_timer_del(tg_data->code_response_timer);
-			tg_data->code_response_timer = NULL;
-		}*/
+	} else if (strcmp(prompt, "code('call' for phone call):") == 0) {
 
 		void **T = arg;
 		tg_data->mhash = strdup(T[1]);

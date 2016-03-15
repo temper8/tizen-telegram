@@ -462,6 +462,11 @@ void send_request_phone_num_again(tg_engine_data_s *tg_data)
 	make_arg1_response(tg_data, "request_phone_num_again", "phone_number", tg_data->phone_number);
 }
 
+void send_request_phone_new_num(tg_engine_data_s *tg_data)
+{
+	make_base_response(tg_data, "request_phone_new_num");
+}
+
 void send_request_code_again(tg_engine_data_s *tg_data)
 {
 	make_arg1_response(tg_data, "request_reg_code_again", "phone_number", tg_data->phone_number);
