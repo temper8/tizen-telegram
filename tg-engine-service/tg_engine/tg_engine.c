@@ -697,6 +697,7 @@ static Eina_Bool on_send_unsent_messages_requested(void *data)
 	sent_media_data_s* media_info = NULL;
 	EINA_LIST_FREE(unset_media_msgs, media_info) {
 		sent_media_data_s* new_media_info = (sent_media_data_s*)malloc(sizeof(sent_media_data_s));
+		memset(new_media_info, 0, sizeof(sent_media_data_s));
 		new_media_info->app_name = strdup(media_info->app_name);
 		new_media_info->command = strdup(media_info->command);
 		new_media_info->buddy_id = strdup(media_info->buddy_id);
@@ -1183,6 +1184,7 @@ void on_requested_chat_info_received(struct tgl_state *TLS, void *callback_extra
 	if (msg_id > 0) {
 		send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
 		struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
+		memset(msg_data, 0, sizeof(struct tg_temp_msg_data));
 		msg_data->M = M;
 		msg_data->TLS = TLS;
 		msg_data->send_timer = ecore_timer_add(1, on_msg_received_cb, msg_data);
@@ -1316,6 +1318,7 @@ void on_new_buddy_info_loaded(struct tgl_state *TLS, void *callback_extra, int s
 			send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id, msg_id, tgl_get_peer_type(M->to_id));
 
 			struct tg_temp_msg_data *msg_data = (struct tg_temp_msg_data*)malloc(sizeof(struct tg_temp_msg_data));
+			memset(msg_data, 0, sizeof(struct tg_temp_msg_data));
 			msg_data->M = M;
 			msg_data->TLS = TLS;
 			msg_data->send_timer = ecore_timer_add(3, on_msg_received_cb, msg_data);
@@ -1387,7 +1390,7 @@ void tg_msg_receive(struct tgl_state *TLS, struct tgl_message *M)
 
 					char* msg_table = get_table_name_from_number(M->to_id.id);
 					create_buddy_msg_table(msg_table);
-					int msg_id = insert_current_date_to_table(msg_table);
+					/* int msg_id = insert_current_date_to_table(msg_table); */
 					free(msg_table);
 					struct tgl_photo *pic = &(M->action.photo);
 					if (pic) {
@@ -2416,7 +2419,7 @@ void on_new_group_icon_loaded(struct tgl_state *TLS, void *callback_extra, int s
 
 			char* msg_table = get_table_name_from_number(M->to_id.id);
 			create_buddy_msg_table(msg_table);
-			int msg_id = insert_current_date_to_table(msg_table);
+			/* int msg_id = insert_current_date_to_table(msg_table); */
 
 			tgl_peer_t* UC = tgl_peer_get(TLS, M->from_id);
 			int msg_len = strlen(UC->user.first_name) + strlen(" changed profile photo") + 1;
@@ -2467,7 +2470,7 @@ void on_new_group_created(struct tgl_state *TLS, void *callback_extra, int succe
 				create_buddy_msg_table(msg_table);
 
 
-				int msg_id = insert_current_date_to_table(msg_table);
+				/* int msg_id = insert_current_date_to_table(msg_table); */
 				//send_message_received_response(TLS->callback_data, M->from_id.id, M->to_id.id,msg_id, tgl_get_peer_type(M->to_id));
 
 
@@ -2836,6 +2839,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 		} else if (img_details->media_type == tgl_message_media_photo) {
 
 			struct tgl_photo* photo_prop = (struct tgl_photo*)malloc(sizeof(struct tgl_photo));
+			memset(photo_prop, 0, sizeof(struct tgl_photo));
 			photo_prop->id = img_details->media_id;
 			photo_prop->access_hash = img_details->access_hash;
 			photo_prop->user_id = img_details->user_id;
@@ -2921,6 +2925,7 @@ void media_download_request(tg_engine_data_s *tg_data, int buddy_id, long long m
 
 		} else if (img_details->media_type == tgl_message_media_document) {
 			struct tgl_document* doc_prop = (struct tgl_document*)malloc(sizeof(struct tgl_document));
+			memset(doc_prop, 0, sizeof(struct tgl_document));
 			doc_prop->id = img_details->media_id;;
 			doc_prop->access_hash = img_details->access_hash;
 			doc_prop->user_id = img_details->user_id;
@@ -3070,6 +3075,7 @@ void delete_all_messages_from_chat(int buddy_id, int type_of_chat)
 
 	if (msg_ids && eina_list_count(msg_ids) > 0) {
 		msg_list_container_s *msg_list_container = (msg_list_container_s*)malloc(sizeof(msg_list_container_s));
+		memset(msg_list_container, 0, sizeof(msg_list_container_s));
 		msg_list_container->message_ids = msg_ids;
 		msg_list_container->buddy_id = buddy_id;
 		msg_list_container->current_index = 0;
@@ -3256,6 +3262,7 @@ void on_message_deleted(struct tgl_state *TLS, void *callback_extra, int success
 void do_delete_message(int buddy_id, int message_id)
 {
 	msg_container_s *msg_details = (msg_container_s*)malloc(sizeof(msg_container_s));
+	memset(msg_details, 0, sizeof(msg_container_s));
 	msg_details->buddy_id = buddy_id;
 	msg_details->message_id = message_id;
 	tgl_do_delete_msg(s_info.TLS, message_id, &on_message_deleted , (void*)(msg_details));

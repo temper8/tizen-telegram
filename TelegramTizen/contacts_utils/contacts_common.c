@@ -142,9 +142,8 @@ struct tm sc_common_int_to_date(int date_value)
 char *sc_common_date_to_str(struct tm *date)
 {
 	char *ret_str = malloc(DATE_STRING_LENGTH);
-	if(ret_str)
-	{
-		sprintf(ret_str, "%d/%d/%d", date->tm_year + 1900, date->tm_mon + 1, date->tm_mday);
+	if (ret_str) {
+		snprintf(ret_str, DATE_STRING_LENGTH, "%d/%d/%d", date->tm_year + 1900, date->tm_mon + 1, date->tm_mday);
 	}
 	return ret_str;
 }

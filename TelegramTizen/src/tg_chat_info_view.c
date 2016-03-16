@@ -561,7 +561,7 @@ void on_chat_info_longpress_clicked_cb(void *data, Evas_Object *obj, void *event
 	} else if (user_data->peer_type == TGL_PEER_CHAT) {
 		if (id == 0) {
 			if (ad->selected_buddy_item) {
-				user_data_s *sel_user = ad->selected_buddy_item;
+				/* user_data_s *sel_user = ad->selected_buddy_item; */
 				show_loading_popup(ad);
 				send_remove_buddy_from_group_chat_request(ad, ad->service_client, ad->selected_buddy_item->user_id.id, ad->peer_in_cahtting_data->use_data->peer_id);
 			}
@@ -928,7 +928,7 @@ void launch_chat_info_screen(appdata_s* ad, int chat_id)
 	evas_object_smart_callback_add(msg_btn, "clicked", on_chat_camera_button_clicked, msg_btn);
 	evas_object_data_set(msg_btn, "app_data", ad);
 
-	Elm_Object_Item* navi_item = elm_naviframe_item_push(ad->nf, "Chat Info", NULL, NULL, scroller, NULL);
+	elm_naviframe_item_push(ad->nf, "Chat Info", NULL, NULL, scroller, NULL);
 	eext_object_event_callback_add(ad->nf, EEXT_CALLBACK_MORE, on_chat_info_menu_button_clicked, ad);
 
 }

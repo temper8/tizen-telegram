@@ -2156,7 +2156,7 @@ void tgl_do_set_profile_name(struct tgl_state *TLS, const char *first_name, cons
 	tglq_send_query(TLS, TLS->DC_working, packet_ptr - packet_buffer, packet_buffer, &set_profile_name_methods, 0, callback, callback_extra);
 }
 
-void tgl_do_set_username(struct tgl_state *TLS, char *name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
+void tgl_do_set_username(struct tgl_state *TLS, const char *name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra)
 {
 	clear_packet();
 	out_int(CODE_account_update_username);
@@ -4424,7 +4424,7 @@ void tgl_do_send_broadcast(struct tgl_state *TLS, int num, tgl_peer_id_t id[], c
 }
 
 /* {{{ block user */
-static int block_user_on_answer (struct tgl_state *TLS, struct query *q, void *D) {
+static int block_user_on_answer (struct tgl_state *TLS, struct query *q) {
   if (q->callback) {
     ((void (*)(struct tgl_state *, void *, int))q->callback)(TLS, q->callback_extra, 1);
   }

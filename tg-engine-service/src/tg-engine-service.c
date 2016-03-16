@@ -395,9 +395,7 @@ static int _on_tg_server_msg_received_cb(void *data, bundle *const rec_msg)
 
 		for (int count = 0 ; count < size ; count++) {
 			contact_data_s* contact = (contact_data_s*)malloc(sizeof(contact_data_s));
-			contact->first_name = NULL;
-			contact->last_name = NULL;
-			contact->phone_number = NULL;
+			memset(contact, 0, sizeof(contact_data_s));
 
 			char first_name_key[20];
 			snprintf(first_name_key, sizeof(first_name_key), "first_name_%d", count);

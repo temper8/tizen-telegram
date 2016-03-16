@@ -175,12 +175,6 @@ int numbers_only(const char *s)
 	return 1;
 }
 
-static bool mp_util_svc_iterate_for_get_video_item_cb(media_info_h item, void *user_data)
-{
-	return TRUE;
-}
-
-
 
 static bool __thumbnail_cb(media_info_h item, void *user_data)
 {
@@ -412,7 +406,7 @@ void free_user_data(user_data_s *user_data)
 }
 
 
-void tg_notification_create(appdata_s *app, char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
+void tg_notification_create(appdata_s *app, const char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
 {
 	if (app && app->s_notififcation)
 		notification_delete_all(NOTIFICATION_TYPE_NOTI);

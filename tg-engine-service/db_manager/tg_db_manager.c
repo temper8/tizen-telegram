@@ -127,6 +127,7 @@ Eina_Bool create_table(const char *table_name, Eina_List *column_names, Eina_Lis
 		sqlite3_free(err_msg);
 		return EINA_FALSE;
 	}
+	return EINA_TRUE;
 }
 
 Eina_Bool insert_table(const char *table_name, Eina_List *column_names, Eina_List *column_types, Eina_List *column_values)
@@ -284,12 +285,10 @@ Eina_Bool get_values_from_table(const char *table_name, Eina_List *column_names,
 		eina_strbuf_append(var_query, "SELECT ");
 
 		if(!column_names) {
-			var_query = realloc(var_query, strlen(var_query) + 3);
 			eina_strbuf_append(var_query, "* ");
 		} else {
 
 			int col_count = eina_list_count(column_names);
-			char* col_name = NULL;
 			for(int col = 0; col < col_count ; col++) {
 				eina_strbuf_append(var_query, eina_list_nth(column_names, col));
 				if (col < col_count - 1)
@@ -653,7 +652,7 @@ Eina_Bool drop_table(char *tablename)
 	return EINA_TRUE;
 }
 
-int get_number_of_rows(char *table_name, char *where_clause)
+int get_number_of_rows(const char *table_name, char *where_clause)
 {
 	int no_of_rows = 0;
 	if (!table_name || !where_clause)

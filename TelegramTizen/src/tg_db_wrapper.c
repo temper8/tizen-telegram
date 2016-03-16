@@ -20,7 +20,7 @@
 #include <mime_type.h>
 #include <utils_i18n.h>
 
-static const char* g_empty_char = "";
+static char* g_empty_char = "";
 static const char* g_zero_char = "0.000";
 static const int g_base_int = -1;
 static const int g_zero_int = 0;
@@ -216,6 +216,7 @@ peer_with_pic_s* get_peer_info(int peer_id)
 	EINA_LIST_FREE(peer_details, ts_msg) {
 		if (pos == 0) {
 			tg_peer_info_s* peer_info = (tg_peer_info_s*)malloc(sizeof(tg_peer_info_s));
+			memset(peer_info, 0, sizeof(tg_peer_info_s));
 
 			int *temp_peer_id = (int *)eina_list_nth(ts_msg, 0);
 			if (temp_peer_id) {
@@ -297,6 +298,7 @@ peer_with_pic_s* get_peer_info(int peer_id)
 			eina_list_free(ts_msg);
 
 			item = (peer_with_pic_s*) malloc(sizeof(peer_with_pic_s));
+			memset(item, 0, sizeof(peer_with_pic_s));
 			item->use_data = peer_info;
 			item->contact_icon = NULL;
 		} else {
@@ -413,6 +415,7 @@ tg_chat_info_s* get_chat_info(int chat_id)
 		Eina_List *ts_msg = eina_list_nth(chat_details, 0);
 
 		chat_info = (tg_chat_info_s*)malloc(sizeof(tg_chat_info_s));
+		memset(chat_info, 0, sizeof(tg_chat_info_s));
 
 		int *temp_chat_id = (int *)eina_list_nth(ts_msg, 0);
 		if (temp_chat_id) {
@@ -1106,6 +1109,7 @@ tg_message_s *get_latest_message_from_message_table(char *table_name, Eina_Bool 
 	if (message_details && eina_list_count(message_details) > 0) {
 		Eina_List *ts_msg = eina_list_nth(message_details, 0);
 		message = (tg_message_s*)malloc(sizeof(tg_message_s));
+		memset(message, 0, sizeof(tg_message_s));
 
 		int *temp_msg_id = (int *)eina_list_nth(ts_msg, 0);
 		if (temp_msg_id)
@@ -1401,6 +1405,7 @@ tg_message_s *get_message_from_message_table(long long msg_id, char *table_name)
 	if (message_details && eina_list_count(message_details) > 0) {
 		Eina_List *ts_msg = eina_list_nth(message_details, 0);
 		message = (tg_message_s*)malloc(sizeof(tg_message_s));
+		memset(message, 0, sizeof(tg_message_s));
 		int *temp_msg_id = (int *)eina_list_nth(ts_msg, 0);
 		if (temp_msg_id) {
 			message->msg_id  = *temp_msg_id;
@@ -1557,6 +1562,7 @@ Eina_List *get_messages_from_message_table_order_by(char *table_name, const char
 
 	EINA_LIST_FREE(message_details, ts_msg) {
 		message = (tg_message_s*)malloc(sizeof(tg_message_s));
+		memset(message, 0, sizeof(tg_message_s));
 		message_list = eina_list_append(message_list, message);
 
 		int *temp_msg_id = (int *)eina_list_nth(ts_msg, 0);
@@ -2185,7 +2191,7 @@ void insert_media_info_to_db(tg_message_s *M, char *file_path, int width, int he
 	int doc_dc = 0;
 	col_values = eina_list_append(col_values, &doc_dc);
 
-	const char *doc_thumb = NULL;
+	char *doc_thumb = NULL;
 	get_thumbnail_from_video_url(file_path, &doc_thumb);
 
 	if (!doc_thumb) {
@@ -2621,6 +2627,7 @@ Eina_List *load_buddy_data_by_name(int current_user, char *name)
 		}
 
 		user_data_s* user_data = (user_data_s*)malloc(sizeof(user_data_s));
+		memset(user_data, 0, sizeof(user_data_s));
 		user_data->is_selected = EINA_FALSE;
 
 		if (temp_user_id) {
@@ -2745,6 +2752,7 @@ Eina_List *load_buddy_data_by_name(int current_user, char *name)
 		user_data->highlight_name = NULL;
 
 		user_data_with_pic_s *item = (user_data_with_pic_s*) malloc(sizeof(user_data_with_pic_s));
+		memset(item, 0, sizeof(user_data_with_pic_s));
 		item->use_data = user_data;
 		item->contact_icon = NULL;
 		buddy_list = eina_list_append(buddy_list, item);
@@ -2762,6 +2770,7 @@ Eina_List *load_peer_data_by_name(char *name)
 	Eina_List *ts_msg = NULL;
 	EINA_LIST_FREE(peer_details, ts_msg) {
 		tg_peer_info_s* peer_info = (tg_peer_info_s*)malloc(sizeof(tg_peer_info_s));
+		memset(peer_info, 0, sizeof(tg_peer_info_s));
 		int *temp_peer_id = (int *)eina_list_nth(ts_msg, 0);
 		if (temp_peer_id) {
 			peer_info->peer_id  = *temp_peer_id;
@@ -2842,6 +2851,7 @@ Eina_List *load_peer_data_by_name(char *name)
 
 		eina_list_free(ts_msg);
 		peer_with_pic_s *item = (peer_with_pic_s*) malloc(sizeof(peer_with_pic_s));
+		memset(item, 0, sizeof(peer_with_pic_s));
 		item->use_data = peer_info;
 		item->contact_icon = NULL;
 		peer_list = eina_list_append(peer_list, item);
@@ -2915,6 +2925,7 @@ tgl_media_s *get_media_details_from_db(long long media_id)
 	}
 
 	tgl_media_s* media_info = (tgl_media_s*)malloc(sizeof(tgl_media_s));
+	memset(media_info, 0, sizeof(tgl_media_s));
 
 	Eina_List *row_vals = eina_list_nth(img_details, 0);
 

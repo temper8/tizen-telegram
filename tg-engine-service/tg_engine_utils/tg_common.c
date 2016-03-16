@@ -30,7 +30,7 @@ uint64_t get_time_stamp_in_macro()
 	return tv.tv_sec*(uint64_t)1000000+tv.tv_usec;
 }
 
-void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
+void tg_notification_create(tg_engine_data_s* tg_data, const char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
 {
 	if (tg_data && tg_data->s_notififcation)
 		notification_delete_all(NOTIFICATION_TYPE_NOTI);

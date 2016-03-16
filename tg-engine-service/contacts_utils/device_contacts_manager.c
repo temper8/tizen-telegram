@@ -64,6 +64,7 @@ Eina_List* get_contact_list_from_device_db()
 			if (sc_db_utils_is_success(contacts_record_get_str_p(record, _contacts_person.display_name, &name))
 					&& sc_db_utils_is_success(contacts_record_get_int(record, _contacts_person.id, &id))) {
 				contact_data_s* contact_data = (contact_data_s*)malloc(sizeof(contact_data_s));
+				memset(contact_data, 0, sizeof(contact_data_s));
 				contact_data->display_name = NULL;
 				contact_data->first_name = NULL;
 				contact_data->last_name = NULL;

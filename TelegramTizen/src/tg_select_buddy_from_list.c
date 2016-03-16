@@ -207,7 +207,6 @@ static void on_buddy_item_selected(void *data, Evas_Object *obj, void *event_inf
 	}
 
 	int user_list_size = chat_info->user_list_size;
-	int online_members = 0;
 
 	Eina_Bool is_already_present = EINA_FALSE;
 	for (int i = 0; i < user_list_size; i++) {

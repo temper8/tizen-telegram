@@ -85,7 +85,6 @@ void load_list_of_countries(appdata_s *ad)
 	if (!ad)
 		return;
 
-	int size_of_listed_countries = 0;
 	const char *file_name = ui_utils_get_resource(TG_LIST_OF_COUNTIRES);
 	if (!file_name)
 		return;
@@ -196,6 +195,7 @@ void load_registered_user_data(appdata_s *ad)
 	}
 
 	ad->current_user_data = (user_data_s*)malloc(sizeof(user_data_s));
+	memset(ad->current_user_data, 0, sizeof(user_data_s));
 
 
 	Eina_List *row_vals = NULL;
@@ -312,6 +312,7 @@ void load_peer_data(appdata_s *ad)
 	Eina_List *ts_msg = NULL;
 	EINA_LIST_FREE(peer_details, ts_msg) {
 		tg_peer_info_s* peer_info = (tg_peer_info_s*)malloc(sizeof(*peer_info));
+		memset(peer_info, 0, sizeof(tg_peer_info_s));
 
 		int *temp_peer_id = (int *)eina_list_nth(ts_msg, 0);
 		if (temp_peer_id) {
@@ -381,9 +382,8 @@ void load_peer_data(appdata_s *ad)
 		eina_list_free(ts_msg);
 
 		peer_with_pic_s *item = (peer_with_pic_s*) malloc(sizeof(*item));
+		memset(item, 0, sizeof(peer_with_pic_s));
 		item->use_data = peer_info;
-		item->contact_icon = NULL;
-
 		ad->peer_list = eina_list_append(ad->peer_list, item);
 
 	}
@@ -492,13 +492,13 @@ void load_main_list_data(appdata_s *ad)
 			}
 
 			tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+			memset(main_list_item, 0, sizeof(tg_main_list_item_s));
 			main_list_item->peer_id = peer_info->peer_id;
 			main_list_item->peer_type = peer_info->peer_type;
 
 			set_peer_names(peer_info, main_list_item);
 
 			main_list_item->last_seen_time = msg->date;
-			main_list_item->profile_pic = NULL;
 			main_list_item->last_msg_id = msg->msg_id;
 			main_list_item->last_message = strdup(item->last_message);
 			main_list_item->last_msg_type = msg->media_type;
@@ -509,15 +509,7 @@ void load_main_list_data(appdata_s *ad)
 
 			if (peer_info->photo_path)
 				main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-			else
-				main_list_item->profile_pic_path = NULL;
 
-			main_list_item->user_name_lbl = NULL;
-			main_list_item->status_lbl = NULL;
-			main_list_item->date_lbl = NULL;
-			main_list_item->msg_status_lbl = NULL;
-			main_list_item->main_item_layout = NULL;
-			main_list_item->highlight_text = NULL;
 			ad->main_list = eina_list_append(ad->main_list, main_list_item);
 
 			// delete message object
@@ -536,13 +528,13 @@ void load_main_list_data(appdata_s *ad)
 			item->last_message = strdup(" ");
 			if (peer_info->peer_type == TGL_PEER_CHAT) {
 				tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+				memset(main_list_item, 0, sizeof(tg_main_list_item_s));
 				main_list_item->peer_id = peer_info->peer_id;
 				main_list_item->peer_type = peer_info->peer_type;
 
 				set_peer_names(peer_info, main_list_item);
 
 				main_list_item->last_seen_time = peer_info->last_seen_time;
-				main_list_item->profile_pic = NULL;
 				main_list_item->last_message = strdup(item->last_message);
 				main_list_item->last_msg_type = -1;
 				main_list_item->last_msg_service = 0;
@@ -551,17 +543,8 @@ void load_main_list_data(appdata_s *ad)
 				main_list_item->last_msg_status = -1;
 				main_list_item->number_of_unread_msgs = 0;
 
-				if (peer_info->photo_path) {
+				if (peer_info->photo_path)
 					main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-				} else {
-					main_list_item->profile_pic_path = NULL;
-				}
-				main_list_item->user_name_lbl = NULL;
-				main_list_item->status_lbl = NULL;
-				main_list_item->date_lbl = NULL;
-				main_list_item->msg_status_lbl = NULL;
-				main_list_item->main_item_layout = NULL;
-				main_list_item->highlight_text = NULL;
 				ad->main_list = eina_list_append(ad->main_list, main_list_item);
 			}
 		}
@@ -641,8 +624,8 @@ void load_unknown_buddy_list_data(appdata_s *ad)
 		}
 
 		user_data_s *user_data = (user_data_s*)malloc(sizeof(*user_data));
+		memset(user_data, 0, sizeof(user_data_s));
 		user_data->is_selected = EINA_FALSE;
-
 
 		if (temp_user_id) {
 			user_data->user_id.id = *temp_user_id;
@@ -716,8 +699,8 @@ void load_unknown_buddy_list_data(appdata_s *ad)
 		user_data->highlight_name = NULL;
 
 		user_data_with_pic_s *item = (user_data_with_pic_s *)malloc(sizeof(*item));
+		memset(item, 0, sizeof(user_data_with_pic_s));
 		item->use_data = user_data;
-		item->contact_icon = NULL;
 		ad->unknown_buddy_list = eina_list_append(ad->unknown_buddy_list, item);
 
 		eina_list_free(row_vals);
@@ -798,6 +781,7 @@ void load_buddy_list_data(appdata_s *ad)
 		}
 
 		user_data_s *user_data = (user_data_s *)malloc(sizeof(*user_data));
+		memset(user_data, 0, sizeof(user_data_s));
 		user_data->is_selected = EINA_FALSE;
 
 
@@ -873,6 +857,7 @@ void load_buddy_list_data(appdata_s *ad)
 		user_data->highlight_name = NULL;
 
 		user_data_with_pic_s *item = (user_data_with_pic_s *) malloc(sizeof(*item));
+		memset(item, 0, sizeof(user_data_with_pic_s));
 		item->use_data = user_data;
 		item->contact_icon = NULL;
 		ad->buddy_list = eina_list_append(ad->buddy_list, item);
@@ -2721,13 +2706,13 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 		}
 
 		main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+		memset(main_list_item, 0, sizeof(tg_main_list_item_s));
 		main_list_item->peer_id = peer_info->peer_id;
 		main_list_item->peer_type = peer_info->peer_type;
 
 		set_peer_names(peer_info, main_list_item);
 
 		main_list_item->last_seen_time = msg->date;
-		main_list_item->profile_pic = NULL;
 		main_list_item->last_msg_id = msg->msg_id;
 		main_list_item->last_message = strdup(item->last_message);
 		main_list_item->last_msg_type = msg->media_type;
@@ -2736,16 +2721,8 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 		main_list_item->last_msg_service = msg->service;
 		main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
 
-		if (peer_info->photo_path) {
+		if (peer_info->photo_path)
 			main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-		} else {
-			main_list_item->profile_pic_path = NULL;
-		}
-		main_list_item->user_name_lbl = NULL;
-		main_list_item->status_lbl = NULL;
-		main_list_item->date_lbl = NULL;
-		main_list_item->msg_status_lbl = NULL;
-		main_list_item->main_item_layout = NULL;
 
 		// delete message object
 		if (msg->message) {
@@ -2765,13 +2742,13 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 		item->last_message = strdup(" ");
 		if (peer_info->peer_type == TGL_PEER_CHAT) {
 			main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+			memset(main_list_item, 0, sizeof(tg_main_list_item_s));
 			main_list_item->peer_id = peer_info->peer_id;
 			main_list_item->peer_type = peer_info->peer_type;
 
 			set_peer_names(peer_info, main_list_item);
 
 			main_list_item->last_seen_time = peer_info->last_seen_time;
-			main_list_item->profile_pic = NULL;
 			main_list_item->last_message = strdup(item->last_message);
 			main_list_item->last_msg_type = -1;
 			main_list_item->last_msg_service = 0;
@@ -2780,16 +2757,8 @@ tg_main_list_item_s* get_latest_item(appdata_s *ad,  peer_with_pic_s *item)
 			main_list_item->last_msg_status = -1;
 			main_list_item->number_of_unread_msgs = 0;
 
-			if (peer_info->photo_path && strlen(peer_info->photo_path) > 0) {
+			if (peer_info->photo_path && strlen(peer_info->photo_path) > 0)
 				main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-			} else {
-				main_list_item->profile_pic_path = NULL;
-			}
-			main_list_item->user_name_lbl = NULL;
-			main_list_item->status_lbl = NULL;
-			main_list_item->date_lbl = NULL;
-			main_list_item->msg_status_lbl = NULL;
-			main_list_item->main_item_layout = NULL;
 
 		}
 	}
@@ -2945,13 +2914,13 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 								}
 
 								tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+								memset(main_list_item, 0, sizeof(tg_main_list_item_s));
 								main_list_item->peer_id = peer_info->peer_id;
 								main_list_item->peer_type = peer_info->peer_type;
 
 								set_peer_names(peer_info, main_list_item);
 
 								main_list_item->last_seen_time = msg->date;
-								main_list_item->profile_pic = NULL;
 								main_list_item->last_msg_id = msg->msg_id;
 								main_list_item->last_message = strdup(item->last_message);
 								main_list_item->last_msg_type = msg->media_type;
@@ -2960,16 +2929,9 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 								main_list_item->last_msg_service = msg->service;
 								main_list_item->number_of_unread_msgs = get_unread_message_count(tablename);
 
-								if (peer_info->photo_path) {
+								if (peer_info->photo_path)
 									main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-								} else {
-									main_list_item->profile_pic_path = NULL;
-								}
-								main_list_item->user_name_lbl = NULL;
-								main_list_item->status_lbl = NULL;
-								main_list_item->date_lbl = NULL;
-								main_list_item->msg_status_lbl = NULL;
-								main_list_item->main_item_layout = NULL;
+
 								ad->main_list = eina_list_prepend(ad->main_list, main_list_item);
 
 								// delete message object
@@ -2990,13 +2952,13 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 								item->last_message = strdup(" ");
 								if (peer_info->peer_type == TGL_PEER_CHAT) {
 									tg_main_list_item_s* main_list_item = (tg_main_list_item_s*)malloc(sizeof(tg_main_list_item_s));
+									memset(main_list_item, 0, sizeof(tg_main_list_item_s));
 									main_list_item->peer_id = peer_info->peer_id;
 									main_list_item->peer_type = peer_info->peer_type;
 
 									set_peer_names(peer_info, main_list_item);
 
 									main_list_item->last_seen_time = peer_info->last_seen_time;
-									main_list_item->profile_pic = NULL;
 									main_list_item->last_message = strdup(item->last_message);
 									main_list_item->last_msg_type = -1;
 									main_list_item->last_msg_service = 0;
@@ -3005,17 +2967,9 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 									main_list_item->last_msg_status = -1;
 									main_list_item->number_of_unread_msgs = 0;
 
-									if (peer_info->photo_path) {
+									if (peer_info->photo_path)
 										main_list_item->profile_pic_path = strdup(peer_info->photo_path);
-									} else {
-										main_list_item->profile_pic_path = NULL;
-									}
-									main_list_item->user_name_lbl = NULL;
-									main_list_item->status_lbl = NULL;
-									main_list_item->date_lbl = NULL;
-									main_list_item->msg_status_lbl = NULL;
-									main_list_item->main_item_layout = NULL;
-									main_list_item->highlight_text = NULL;
+
 									ad->main_list = eina_list_prepend(ad->main_list, main_list_item);
 								}
 							}
@@ -3322,9 +3276,8 @@ char *build_a_path(const char *path, const char *filename)
 
 	len = strlen(path) + strlen(filename) + 2;
 	ret = malloc(len);
-	if (!ret) {
+	if (!ret)
 		return NULL;
-	}
 
 	snprintf(ret, len, "%s/%s", path, filename);
 	return ret;
@@ -3357,20 +3310,15 @@ int remove_directory(const char *path)
 			len = path_len + strlen(p->d_name) + 2;
 			buf = malloc(len);
 
-			if (buf)
-			{
+			if (buf) {
 				struct stat statbuf;
 
 				snprintf(buf, len, "%s/%s", path, p->d_name);
 
-				if (!stat(buf, &statbuf))
-				{
-					if (S_ISDIR(statbuf.st_mode))
-					{
+				if (!stat(buf, &statbuf)) {
+					if (S_ISDIR(statbuf.st_mode)) {
 						r2 = remove_directory(buf);
-					}
-					else
-					{
+					} else {
 						r2 = unlink(buf);
 					}
 				}
