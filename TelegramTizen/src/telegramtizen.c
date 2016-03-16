@@ -33,12 +33,12 @@
 #include "tg_user_info_view.h"
 #include "tg_chat_info_view.h"
 #include "ucol.h"
-#include <notification.h>
-#include <badge.h>
 #include "tg_settings_view.h"
 #include "device_contacts_manager.h"
 #include "tg_search_peer_view.h"
 #include <sys/stat.h>
+#include "tg_common.h"
+#include <badge.h>
 
 static void free_app_data(appdata_s *app_data, Eina_Bool destroy_server);
 static int init_service(appdata_s *app);
@@ -1516,29 +1516,9 @@ static int on_message_received_from_buddy(appdata_s *app, bundle *const rec_msg,
 		 }
 	}
 
-	if (app->s_app_visible_state == APP_STATE_IN_BACKGROUND || app->current_app_state !=  TG_USER_MAIN_VIEW_STATE) {
-		// show notification
-		char *icon_path = (char *)ui_utils_get_resource(DEFAULT_TELEGRAM_ICON);
-		char *title = "Telegram";
-		char content[512];
-
-		int unread_msg_cnt = get_number_of_unread_messages();
-
-		if (unread_msg_cnt <= 0) {
-			badge_set_count(TELEGRAM_APP_ID, 0);
-			return result;
-		}
-
-		sprintf(content, "%d new messages received.", unread_msg_cnt);
-
-		char *sound_track = NULL;
-		char *app_id = TELEGRAM_APP_ID;
-		tg_notification_create(app, icon_path, title, content, sound_track, app_id);
-		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		if (BADGE_ERROR_NONE != err) {
-
-		}
-	}
+	if (app->s_app_visible_state == APP_STATE_IN_BACKGROUND ||
+			app->current_app_state !=  TG_USER_MAIN_VIEW_STATE)
+		display_badge_with_notification(get_number_of_unread_messages(), app);
 
 	return result;
 }
@@ -3213,16 +3193,7 @@ Eina_Bool on_load_main_view_requested(void *data)
 		ad->is_loading_from_msg_view = EINA_FALSE;
 		ad->is_loading_from_profile_view = EINA_FALSE;
 		launch_user_main_view_cb(ad);
-		int unread_msg_cnt = get_number_of_unread_messages();
-		if (unread_msg_cnt <= 0) {
-			badge_set_count(TELEGRAM_APP_ID, 0);
-			return ECORE_CALLBACK_CANCEL;
-		}
-
-		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		if (BADGE_ERROR_NONE != err) {
-
-		}
+		display_badge(get_number_of_unread_messages(), ad, EINA_FALSE);
 	}
     return ECORE_CALLBACK_CANCEL;
 }
@@ -3712,10 +3683,11 @@ static bool app_create(void *data)
 	ad->country_codes_list = NULL;
 	ad->country_names_list = NULL;
 	//ad->msg_count = 0;
-	create_base_gui(ad);
-	int err = badge_new(TELEGRAM_APP_ID);
-	if (BADGE_ERROR_NONE != err) {
 
+	create_base_gui(ad);
+	int err = badge_add(TELEGRAM_APP_ID);
+	if (BADGE_ERROR_NONE != err) {
+		LOGE("Badge add is failed, %d", err);
 	}
 	init_service(ad);
 	return true;
@@ -3731,93 +3703,69 @@ static void
 app_pause(void *data)
 {
 	appdata_s *app_data = data;
-	if (app_data) {
-		app_data->s_app_visible_state = APP_STATE_IN_BACKGROUND;
-		int unread_msg_cnt = get_number_of_unread_messages();
-		if (unread_msg_cnt <= 0) {
-			badge_set_count(TELEGRAM_APP_ID, 0);
-			return;
-		}
-		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		if (BADGE_ERROR_NONE != err) {
+	if (!app_data)
+		return;
 
-		}
-	}
+	app_data->s_app_visible_state = APP_STATE_IN_BACKGROUND;
+	display_badge(get_number_of_unread_messages(), app_data, EINA_FALSE);
 }
 
 static void
 app_resume(void *data)
 {
 	appdata_s *app_data = data;
-	if (app_data) {
+	if (app_data)
 		app_data->s_app_visible_state = APP_STATE_IN_FOREGROUND;
-	}
 }
 
 
 void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 {
-	if (!app_data) {
+	if (!app_data)
 		return;
-	}
 
-	int unread_msg_cnt = get_number_of_unread_messages();
-	if (unread_msg_cnt > 0) {
-		int err = badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
-		if (BADGE_ERROR_NONE != err) {
+	display_badge(get_number_of_unread_messages(), app_data, EINA_FALSE);
 
-		}
-	} else {
-		badge_set_count(TELEGRAM_APP_ID, 0);
-	}
 	eina_list_free(app_data->country_codes_list);
 	eina_list_free(app_data->country_names_list);
 	free(app_data->country_code_buffer);
 
 	if (app_data->panel) {
 		Evas_Object *panel_list = evas_object_data_get(app_data->panel, "panel_list");
-		if (panel_list) {
+		if (panel_list)
 			evas_object_del(panel_list);
-		}
 		evas_object_del(app_data->panel);
 		app_data->panel = NULL;
 	}
 
-	if (app_data->phone_number) {
+	if (app_data->phone_number)
 		free(app_data->phone_number);
-		app_data->phone_number = NULL;
-	}
+	app_data->phone_number = NULL;
 
-	if (app_data->sms_code) {
+	if (app_data->sms_code)
 		free(app_data->sms_code);
-		app_data->sms_code = NULL;
-	}
+	app_data->sms_code = NULL;
 
-	if (app_data->current_user_data) {
+	if (app_data->current_user_data)
 		free_user_data(app_data->current_user_data);
-	}
-	if (app_data->chat_background) {
+
+	if (app_data->chat_background)
 		app_data->chat_background = NULL;
-	}
-	if (app_data && app_data->s_notififcation) {
+
+	if (app_data && app_data->s_notififcation)
 		notification_delete_all(NOTIFICATION_TYPE_NOTI);
-		app_data->s_notififcation = NULL;
-	}
+	app_data->s_notififcation = NULL;
 
 	peer_with_pic_s* pic_item = NULL;
 	EINA_LIST_FREE(app_data->peer_list, pic_item) {
-		if (!pic_item)
-			continue;
 		tg_peer_info_s* item = pic_item->use_data;
 		if (item) {
-			if (item->print_name) {
+			if (item->print_name)
 				free(item->print_name);
-				item->print_name = NULL;
-			}
-			if (item->photo_path) {
+			item->print_name = NULL;
+			if (item->photo_path)
 				free(item->photo_path);
-				item->photo_path = NULL;
-			}
+			item->photo_path = NULL;
 			pic_item->contact_icon = NULL;
 			pic_item->msg_object = NULL;
 			pic_item->name_object = NULL;

@@ -27,6 +27,10 @@
 #include "tg_settings_view.h"
 #include "tg_add_contact.h"
 #include "ucol.h"
+#include <notification.h>
+#include <badge.h>
+
+static int g_last_unread_msg_cnt;
 
 uint64_t get_time_stamp_in_macro()
 {
@@ -408,55 +412,60 @@ void free_user_data(user_data_s *user_data)
 }
 
 
-void tg_notification_create(appdata_s *app_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
+void tg_notification_create(appdata_s *app, char * icon_path, const char *title, char *content, char *sound_path, char *app_id)
 {
-	if (app_data && app_data->s_notififcation) {
-		//err = notification_delete(app_data->s_notififcation);
+	if (app && app->s_notififcation)
 		notification_delete_all(NOTIFICATION_TYPE_NOTI);
-		app_data->s_notififcation = NULL;
-	}
+	app->s_notififcation = NULL;
 
-	notification_error_e ret = NOTIFICATION_ERROR_NONE;
-	app_data->s_notififcation = notification_create(NOTIFICATION_TYPE_NOTI);
-	ret = notification_set_property(app_data->s_notififcation, NOTIFICATION_PROP_DISABLE_TICKERNOTI);
-	ret = notification_set_layout(app_data->s_notififcation, NOTIFICATION_LY_NOTI_EVENT_SINGLE);
+	app->s_notififcation = notification_create(NOTIFICATION_TYPE_NOTI);
+	notification_set_property(app->s_notififcation, NOTIFICATION_PROP_DISABLE_TICKERNOTI);
+	notification_set_layout(app->s_notififcation, NOTIFICATION_LY_NOTI_EVENT_SINGLE);
+	if (icon_path)
+		notification_set_image(app->s_notififcation, NOTIFICATION_IMAGE_TYPE_ICON, icon_path);
+	if (title)
+		notification_set_text(app->s_notififcation, NOTIFICATION_TEXT_TYPE_TITLE, title, NULL, NOTIFICATION_VARIABLE_TYPE_NONE);
+	if (content)
+		notification_set_text(app->s_notififcation, NOTIFICATION_TEXT_TYPE_CONTENT, content, NULL, NOTIFICATION_VARIABLE_TYPE_NONE);
+	if (sound_path)
+		notification_set_sound(app->s_notififcation, NOTIFICATION_SOUND_TYPE_USER_DATA, sound_path);
+	else
+		notification_set_sound(app->s_notififcation, NOTIFICATION_SOUND_TYPE_DEFAULT, NULL);
+	notification_set_vibration(app->s_notififcation, NOTIFICATION_VIBRATION_TYPE_DEFAULT, NULL);
 
-	if (icon_path) {
-		ret = notification_set_image(app_data->s_notififcation, NOTIFICATION_IMAGE_TYPE_ICON, icon_path);
-	}
-	if (title) {
-		ret = notification_set_text(app_data->s_notififcation, NOTIFICATION_TEXT_TYPE_TITLE, title, NULL, NOTIFICATION_VARIABLE_TYPE_NONE);
-	}
-	if (content) {
-		ret = notification_set_text(app_data->s_notififcation, NOTIFICATION_TEXT_TYPE_CONTENT, content, NULL, NOTIFICATION_VARIABLE_TYPE_NONE);
-	}
-
-	if (sound_path) {
-		ret = notification_set_sound(app_data->s_notififcation, NOTIFICATION_SOUND_TYPE_USER_DATA, sound_path);
-	} else {
-		ret = notification_set_sound(app_data->s_notififcation, NOTIFICATION_SOUND_TYPE_DEFAULT, NULL);
-	}
-	ret = notification_set_vibration(app_data->s_notififcation, NOTIFICATION_VIBRATION_TYPE_DEFAULT, NULL);
-	if (ret != NOTIFICATION_ERROR_NONE) {
-		//failed
-	}
 	app_control_h service = NULL;
 	app_control_create(&service);
 	app_control_set_app_id(service, app_id);
 	app_control_set_operation(service, APP_CONTROL_OPERATION_DEFAULT);
 
-	//notification_update()
-
-	ret  = notification_set_launch_option(app_data->s_notififcation, NOTIFICATION_LAUNCH_OPTION_APP_CONTROL, service);
-	if (ret != NOTIFICATION_ERROR_NONE) {
-		//failed
-	}
-	notification_post(app_data->s_notififcation);
+	notification_set_launch_option(app->s_notififcation, NOTIFICATION_LAUNCH_OPTION_APP_CONTROL, service);
+	notification_post(app->s_notififcation);
 	app_control_destroy(service);
-	ret = notification_free(app_data->s_notififcation);
-	if(ret != NOTIFICATION_ERROR_NONE) {
-	}
+
+	notification_free(app->s_notififcation);
 	return;
+}
+
+
+void display_badge(int unread_msg_cnt, appdata_s *app, Eina_Bool is_need_notification)
+{
+	if (unread_msg_cnt <= 0)
+		unread_msg_cnt = 0;
+
+	badge_set_count(TELEGRAM_APP_ID, unread_msg_cnt);
+	if (unread_msg_cnt != g_last_unread_msg_cnt) {
+		if (is_need_notification) {
+			char content[512];
+			snprintf(content, sizeof(content), "%d new messages received.", unread_msg_cnt);
+			tg_notification_create(app, ui_utils_get_resource(DEFAULT_TELEGRAM_ICON), "Telegram", content, NULL, TELEGRAM_APP_ID);
+		}
+		g_last_unread_msg_cnt = unread_msg_cnt;
+	}
+}
+
+void display_badge_with_notification(int unread_msg_cnt, appdata_s *app)
+{
+	display_badge(unread_msg_cnt, app, EINA_TRUE);
 }
 
 void on_new_message_clicked(void *data, Evas_Object *obj, void *event_info)

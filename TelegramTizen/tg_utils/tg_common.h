@@ -1132,7 +1132,9 @@ extern TelegramAppDirection tg_get_device_orientation();
 
 extern void update_ccurrent_view(appdata_s *ad);
 
-extern void tg_notification_create(appdata_s *app_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
+extern void display_badge_with_notification(int unread_msg_cnt, appdata_s *app);
+
+extern void display_badge(int unread_msg_cnt, appdata_s *app, Eina_Bool is_need_notification);
 
 extern void create_floating_button(appdata_s* ad);
 
