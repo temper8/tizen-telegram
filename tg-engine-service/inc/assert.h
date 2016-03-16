@@ -7,7 +7,7 @@
 #endif
 #define assert(a) do { \
 	if (!(a)) { \
-		dlog_print(DLOG_VERBOSE, LOG_TAG, "[%s:%d] assert(%s)", __FILE__, __LINE__, #a); \
+		dlog_print(DLOG_INFO, LOG_TAG, "[%s:%d] assert(%s)", __FILE__, __LINE__, #a); \
 	} \
 } while (0)
 
