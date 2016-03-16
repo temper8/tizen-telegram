@@ -33,6 +33,7 @@ typedef struct contact_data {
 	char *last_name;
 	char *phone_number;
 	char *pic_url;
+	char *highlight_name;
 } contact_data_s;
 
 

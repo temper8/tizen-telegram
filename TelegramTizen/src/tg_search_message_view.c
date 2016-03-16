@@ -260,7 +260,12 @@ static char* on_chat_text_load_requested(void *data, Evas_Object *obj, const cha
 		return NULL;
 
 	if (!strcmp(part, "elm.text")) {
-		char* user_name = str_replace(item->buddy_display_name, "_null_", "");
+		char* user_name = NULL;
+		if (item->highlight_text) {
+			user_name = str_replace(item->highlight_text, "_null_", "");
+		} else {
+			user_name = str_replace(item->buddy_display_name, "_null_", "");
+		}
 		char buf[512] = {'\0'};
 		snprintf(buf, sizeof(buf), "<font=Tizen:style=Large color=#000000 align=left><font_size=40>%s</font_size></font>", user_name);
 		free(user_name);
@@ -337,8 +342,19 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 	} else {
 		LOGD("entry_text is not jamo, %s", entry_text);
 		EINA_LIST_FOREACH(ad->main_list, l, item) {
-			if (ucol_search(item->peer_print_name, entry_text) != -ENOENT)
+			if (!item) continue;
+			int select_start = -ENOENT;
+			if (item->highlight_text) {
+				free(item->highlight_text);
+				item->highlight_text = NULL;
+			}
+
+			select_start = ucol_search(item->peer_print_name, entry_text);
+			if (select_start != -ENOENT) {
+				char *last_name = str_case_replace(item->buddy_display_name, entry_text, "<font=Tizen:style=Large color=#2da5e0 align=left>", "</font>");
+				item->highlight_text = last_name;
 				result_list = eina_list_append(result_list, item);
+			}
 		}
 	}
 

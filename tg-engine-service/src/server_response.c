@@ -608,7 +608,7 @@ void send_message_with_date_received_response(tg_engine_data_s *tg_data, int fro
 	}
 
 	if (SVC_RES_OK != tg_server_send_message(tg_data->tg_server, msg))
-		display_new_message_badge(get_number_of_unread_messages(), tg_data);
+		display_badge_with_notification(get_number_of_unread_messages(), tg_data);
 
 	bundle_free(msg);
 }
@@ -659,7 +659,7 @@ void send_message_received_response(tg_engine_data_s *tg_data, int from_id, int 
 	}
 
 	if (SVC_RES_OK != tg_server_send_message(tg_data->tg_server, msg))
-		display_new_message_badge(get_number_of_unread_messages(), tg_data);
+		display_badge_with_notification(get_number_of_unread_messages(), tg_data);
 
 	bundle_free(msg);
 }

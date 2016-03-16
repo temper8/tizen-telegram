@@ -333,7 +333,7 @@ extern void tgl_do_send_video(struct tgl_state *TLS, int flags, tgl_peer_id_t to
 extern void tgl_do_set_chat_photo(struct tgl_state *TLS, tgl_peer_id_t chat_id, char *file_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra);
 extern void tgl_do_set_profile_photo(struct tgl_state *TLS, char *file_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success), void *callback_extra);
 extern void tgl_do_set_profile_name(struct tgl_state *TLS, const char *first_name, const char *last_name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra);
-extern void tgl_do_set_username(struct tgl_state *TLS, char *name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra);
+extern void tgl_do_set_username(struct tgl_state *TLS, const char *name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_user *U), void *callback_extra);
 extern void tgl_do_forward_message(struct tgl_state *TLS, tgl_peer_id_t id, int n, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra);
 extern void tgl_do_rename_chat(struct tgl_state *TLS, tgl_peer_id_t id, char *name, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_message *M), void *callback_extra);
 extern void tgl_do_get_chat_info(struct tgl_state *TLS, tgl_peer_id_t id, int offline_mode, void(*callback)(struct tgl_state *TLS, void *callback_extra, int success, struct tgl_chat *C), void *callback_extra);

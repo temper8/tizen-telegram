@@ -81,6 +81,7 @@ Eina_List *get_contact_list_from_device_db()
 				&& sc_db_utils_is_success(contacts_record_get_int(record, _contacts_person.id, &id)))
 		{
 			contact_data_s *contact_data = (contact_data_s*)malloc(sizeof(*contact_data));
+			memset(contact_data, 0, sizeof(contact_data_s));
 
 			contact_data->display_name = NULL;
 			contact_data->first_name = NULL;
@@ -89,6 +90,7 @@ Eina_List *get_contact_list_from_device_db()
 
 			contact_data->contact_id = id;
 			contact_data->display_name = strdup(elm_entry_utf8_to_markup(name));
+			contact_data->highlight_name = NULL;
 
 			char *first_name = NULL;
 			if (sc_cdetails_get_contact_val(CF_FIRST_NAME, contact_data->contact_id, &first_name)) {
@@ -191,7 +193,7 @@ Eina_List *get_contact_list_from_device_db()
 
 void free_contact_list(Eina_List *contact_data)
 {
-	contact_data_s* contact = NULL;
+	contact_data_s *contact = NULL;
 	EINA_LIST_FREE(contact_data,contact) {
 		if (contact) {
 			if (contact->display_name) {
@@ -209,6 +211,10 @@ void free_contact_list(Eina_List *contact_data)
 			if (contact->phone_number) {
 				free(contact->phone_number);
 				contact->phone_number = NULL;
+			}
+			if (contact->highlight_name) {
+					free(contact->highlight_name);
+					contact->highlight_name = NULL;
 			}
 		}
 		free(contact);

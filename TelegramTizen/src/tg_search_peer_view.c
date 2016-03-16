@@ -82,7 +82,12 @@ char* on_peer_list_name_requested(void *data, Evas_Object *obj, const char *part
 		return NULL;
 
 	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
-		char *full_name = replace(user->print_name, '_', " ");
+		char *full_name = NULL;
+		if (user->highlight_name) {
+			full_name = replace(user->highlight_name, '_', " ");
+		} else {
+			full_name = replace(user->print_name, '_', " ");
+		}
 		return full_name;
 	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
 		char* last_seen = get_budy_state(ad, user->user_id.id);
@@ -1158,7 +1163,11 @@ char* on_contact_list_name_requested(void *data, Evas_Object *obj, const char *p
 		return NULL;
 
 	if (!strcmp(part, "elm.text.main.left.top") || !strcmp(part, "elm.text")) {
-		return strdup(contact->display_name);
+		if (contact->highlight_name) {
+			return strdup(contact->highlight_name);
+		} else {
+			return strdup(contact->display_name);
+		}
 	} else if (!strcmp(part, "elm.text.sub.left.bottom") || !strcmp(part, "elm.text.sub")) {
 		return NULL;
 	}
@@ -1297,8 +1306,15 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		LOGD("entry_text is not jamo, %s", entry_text);
 		EINA_LIST_FOREACH(ad->search_peer_list, l, tl_item) {
 			tl_user = tl_item->use_data;
+			if (!tl_user) continue;
+			if (tl_user->highlight_name) {
+				free(tl_user->highlight_name);
+				tl_user->highlight_name = NULL;
+			}
 
 			if (ucol_search(tl_user->print_name, entry_text) != -ENOENT) {
+				char *last_name = str_case_replace(tl_user->print_name, entry_text, "<font=Tizen:style=Large color=#2da5e0 align=left>", "</font>");
+				tl_user->highlight_name = last_name;
 				tl_result_list = eina_list_append(tl_result_list, tl_item);
 			}
 		}
@@ -1316,8 +1332,17 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 	} else {
 		LOGD("entry_text is not jamo, %s", entry_text);
 		EINA_LIST_FOREACH(ad->contact_list, l, cn_item) {
-			if (ucol_search(cn_item->display_name, entry_text) != -ENOENT)
+			if (!cn_item) continue;
+
+			if (cn_item->highlight_name) {
+				free(cn_item->highlight_name);
+				cn_item->highlight_name = NULL;
+			}
+			if (ucol_search(cn_item->display_name, entry_text) != -ENOENT) {
+				char *last_name = str_case_replace(cn_item->display_name, entry_text, "<font=Tizen:style=Large color=#2da5e0 align=left>", "</font>");
+				cn_item->highlight_name = last_name;
 				contact_result_list = eina_list_append(contact_result_list, cn_item);
+			}
 		}
 	}
 

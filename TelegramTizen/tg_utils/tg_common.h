@@ -345,6 +345,7 @@ typedef struct user_data {
 	char *real_first_name;
 	char *real_last_name;
 	char *username;
+	char *highlight_name;
 	int online;
 	int last_seen;
 	Eina_Bool is_selected;
@@ -527,6 +528,7 @@ typedef struct tg_main_list_item {
 	Evas_Object* main_item_layout;
 	Eina_Bool is_selected;
 	char *buddy_display_name;
+	char *highlight_text;
 } tg_main_list_item_s;
 
 typedef struct appdata {
@@ -1130,7 +1132,9 @@ extern TelegramAppDirection tg_get_device_orientation();
 
 extern void update_ccurrent_view(appdata_s *ad);
 
-extern void tg_notification_create(appdata_s *app_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
+extern void display_badge_with_notification(int unread_msg_cnt, appdata_s *app);
+
+extern void display_badge(int unread_msg_cnt, appdata_s *app, Eina_Bool is_need_notification);
 
 extern void create_floating_button(appdata_s* ad);
 
@@ -1145,6 +1149,8 @@ extern void on_new_message_clicked(void *data, Evas_Object *obj, void *event_inf
 extern void on_floating_icon_clicked(void *data, Evas_Object *obj, void *event_info);
 
 extern char *str_replace(char *orig, char *rep, char *with);
+
+extern char *str_case_replace(char *orig, char *rep, char *with_pre, char *with_fi);
 
 extern Eina_Bool on_load_main_view_requested(void *data);
 

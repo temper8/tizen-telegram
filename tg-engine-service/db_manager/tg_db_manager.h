@@ -34,5 +34,5 @@ extern Eina_List* get_values_from_table_sync(const char* table_name, Eina_List* 
 extern Eina_List* get_values_from_table_sync_order_by(const char* table_name, Eina_List* column_names, Eina_List* column_types, const char* order_column, Eina_Bool is_asc, const char* where_clause);
 extern Eina_Bool delete_record(char *tablename, const char* where_clause);
 extern Eina_Bool drop_table(char *tablename);
-extern int get_number_of_rows(char* table_name, char* where_clause);
+extern int get_number_of_rows(const char* table_name, char* where_clause);
 #endif /* TG_DB_MANAGER_H_ */

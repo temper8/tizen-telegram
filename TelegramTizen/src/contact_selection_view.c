@@ -121,7 +121,12 @@ char* on_buddy_name_get_cb(void *data, Evas_Object *obj, const char *part)
 			user_data_s* user = item->use_data;
 
 			if (user && user->print_name) {
-				char* user_name = replace(user->print_name, '_', " ");
+				char* user_name = NULL;
+				if (user->highlight_name) {
+					user_name = replace(user->highlight_name, '_', " ");
+				} else {
+					user_name = replace(user->print_name, '_', " ");
+				}
 				char buf[512] = {'\0'};
 				snprintf(buf, 512, "<align=left><font_size=35><color=#000000>%s</color></font_size></align>", user_name);
 				free(user_name);
@@ -450,8 +455,15 @@ static void _on_search_entry_changed(void *data, Evas_Object *obj, void *event_i
 		LOGD("entry_text is not jamo, %s", entry_text);
 		EINA_LIST_FOREACH(ad->known_buddy_list, l, item) {
 			user = item->use_data;
+			if (!user) continue;
+			if (user->highlight_name) {
+				free(user->highlight_name);
+				user->highlight_name = NULL;
+			}
 
 			if (ucol_search(user->print_name, entry_text) != -ENOENT) {
+				char *last_name = str_case_replace(user->print_name, entry_text, "<font=Tizen:style=Large color=#2da5e0 align=left>", "</font>");
+				user->highlight_name = last_name;
 				result_list = eina_list_append(result_list, item);
 			}
 		}
@@ -647,6 +659,11 @@ void free_known_buddylist(appdata_s *ad)
 		if (user_data->username) {
 			free(user_data->username);
 			user_data->username = NULL;
+		}
+
+		if (user_data->highlight_name) {
+			free(user_data->highlight_name);
+			user_data->highlight_name = NULL;
 		}
 		free(user_data);
 		free(item);

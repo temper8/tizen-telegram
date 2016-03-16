@@ -455,6 +455,7 @@ Eina_List* get_all_unsent_text_messages()
 	EINA_LIST_FREE(unsent_msg_details, ts_msg) {
 
 		sent_message_data_s* msg_info = (sent_message_data_s*)malloc(sizeof(sent_message_data_s));
+		memset(msg_info, 0, sizeof(sent_message_data_s));
 
 		char *temp_app_name = (char*)eina_list_nth(ts_msg, 0);
 		if (temp_app_name) {
@@ -558,6 +559,7 @@ Eina_List* get_all_unsent_media_messages()
 	Eina_List* ts_msg = NULL;
 	EINA_LIST_FREE(unsent_msg_details, ts_msg) {
 		sent_media_data_s* msg_info = (sent_media_data_s*)malloc(sizeof(sent_media_data_s));
+		memset(msg_info, 0, sizeof(sent_message_data_s));
 
 		char *temp_app_name = (char*)eina_list_nth(ts_msg, 0);
 		if (temp_app_name) {
@@ -1114,6 +1116,7 @@ struct tgl_message* get_message_from_message_tableby_message_id(char *table_name
 	if (message_details && eina_list_count(message_details) > 0) {
 		ts_msg = eina_list_nth(message_details, 0);
 		message = (struct tgl_message*)malloc(sizeof(struct tgl_message));
+		memset(message, 0, sizeof(struct tgl_message));
 
 		int *temp_msg_id = (int*)eina_list_nth(ts_msg, 0);
 		if (temp_msg_id) {
@@ -1528,6 +1531,7 @@ struct tgl_message* get_message_from_message_table(long long msg_id, char* table
 	if (message_details && eina_list_count(message_details) > 0) {
 		ts_msg = eina_list_nth(message_details, 0);
 		message = (struct tgl_message*)malloc(sizeof(struct tgl_message));
+		memset(message, 0, sizeof(struct tgl_message));
 
 		int *temp_msg_id = (int*)eina_list_nth(ts_msg, 0);
 		if (temp_msg_id) {
@@ -3191,6 +3195,7 @@ struct tgl_media* get_media_details_from_db(long long media_id)
 		return NULL;
 
 	struct tgl_media* media_info = (struct tgl_media*)malloc(sizeof(struct tgl_media));
+	memset(media_info, 0, sizeof(struct tgl_media));
 	Eina_List* row_vals = eina_list_nth(img_details, 0);
 	char *temp_media_id = (char *)eina_list_nth(row_vals, 0);
 

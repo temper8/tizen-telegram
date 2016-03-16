@@ -173,7 +173,7 @@ static void scroller_push_item(Evas_Object *scroller, Evas_Object *item, int pre
 /************************ Menu Handler ********************/
 void clear_history_in_gui(appdata_s *ad, tg_peer_info_s *user_data, int peer_type, int peer_id)
 {
-	if(!ad || !user_data)
+	if (!ad || !user_data)
 		return;
 
 	{
@@ -361,7 +361,7 @@ char* on_messaging_menu_text_get_cb(void *data, Evas_Object *obj, const char *pa
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
 	tg_peer_info_s *user_data = sel_item->use_data;
 
-	if(user_data->peer_type != TGL_PEER_USER)
+	if (user_data->peer_type != TGL_PEER_USER)
 		return NULL;
 
 	switch(id)
@@ -416,6 +416,9 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 
 	itc.item_style = "default";
 	peer_with_pic_s  *sel_item = ad->peer_in_cahtting_data;
+	if (!sel_item || !sel_item->use_data)
+		return;
+
 	if (sel_item->use_data->peer_type == TGL_PEER_USER) {
 		itc.func.text_get = on_messaging_menu_text_get_cb;
 	} else if (sel_item->use_data->peer_type == TGL_PEER_CHAT) {
@@ -434,7 +437,7 @@ void on_messaging_menu_button_clicked(void *data, Evas_Object *obj, void *event_
 		}
 	} else {
 		int strart_number_of_menus = 0;
-		if(get_buddy_delete_status(sel_item->use_data->peer_id))
+		if (get_buddy_delete_status(sel_item->use_data->peer_id))
 			strart_number_of_menus = 1;
 		for (i = strart_number_of_menus; i < 3; i++) {
 			elm_genlist_item_append(genlist, &itc, (void *) i, NULL, ELM_GENLIST_ITEM_NONE, on_messaging_menu_option_selected_cb, ad);
@@ -812,7 +815,11 @@ static void on_message_play_pause_clicked(void *data, Evas_Object *obj, void *ev
 	appdata_s * ad = evas_object_data_get(data, "app_data");
 	char *audio_file = evas_object_data_get(data, "audio_file_path");
 	char *media_id = evas_object_data_get(data, "media_id");
-	if (!audio_file  || strlen(audio_file) <= 0 || (audio_file && strstr(audio_file, "_null_")) != NULL) {
+
+	if (!ad)
+		return;
+
+	if (!audio_file  || strlen(audio_file) <= 0 || !media_id) {
 		//there is no file. download it.
 		Evas_Object *progressbar = evas_object_data_get(data, "progress_control");
 		Eina_Bool is_download_in_progress = (Eina_Bool)evas_object_data_get(progressbar, "is_download_in_progress");
@@ -1306,7 +1313,7 @@ static void __resize_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 			LOGE("Fail to show the bottom of scroller");
 		}
 	}
-	if(is_end_edge_top)
+	if (is_end_edge_top)
 		scroller_show_previous_region(chat_scroller);
 }
 
@@ -2252,11 +2259,11 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 		Eina_List *names_of_buddies = NULL;
 		names_of_buddies = evas_object_data_get(ad->nf, "names_of_buddies");
 
-		if(names_of_buddies != NULL){
+		if (names_of_buddies != NULL){
 			buddies_info *buddy = NULL;
 			EINA_LIST_FREE(names_of_buddies, buddy) {
 				if (buddy) {
-					if(buddy->name) {
+					if (buddy->name) {
 						free(buddy->name);
 					}
 				}
@@ -2285,6 +2292,7 @@ void on_user_presence_state_changed(appdata_s* ad, int buddy_id)
 				char *buddy_name =  replace(buddy_full_name, '_', " ");
 				if (buddy_name) {
 					buddies_info *buddy_info = (buddies_info*)malloc(sizeof(buddies_info));
+					memset(buddy_info, 0, sizeof(buddies_info));
 					buddy_info->name = buddy_name;
 					buddy_info->id = buddy_id;
 					names_of_buddies = eina_list_append(names_of_buddies, (void*)(buddy_info));
@@ -2824,7 +2832,7 @@ static Eina_Bool on_timer_expired(void *data)
 Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 {
 	int offset_num = (int)evas_object_data_get(chat_scroller,"offset_num");
-	if(offset_num < -TG_DBMGR_LIMITED) return EINA_FALSE;
+	if (offset_num < -TG_DBMGR_LIMITED) return EINA_FALSE;
 	appdata_s* ad = evas_object_data_get(chat_scroller, "app_data");
 	int user_id = (int)evas_object_data_get(chat_scroller, "user_id");
 
@@ -2832,7 +2840,7 @@ Eina_Bool load_chat_history(Evas_Object *chat_scroller)
 	int buddy_id = sel_item->use_data->peer_id;
 	char* tablename = get_table_name_from_number(buddy_id);
 	Eina_List *vals = NULL;
-	if(offset_num >= 0)
+	if (offset_num >= 0)
 		vals = get_messages_from_message_table_order_by(tablename, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, TG_DBMGR_LIMITED, offset_num);
 	else
 		vals = get_messages_from_message_table_order_by(tablename, MESSAGE_INFO_TABLE_DATE, EINA_TRUE, TG_DBMGR_LIMITED + offset_num, 0);
@@ -3467,11 +3475,11 @@ static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_i
 			buddies_info *buddy_info;
 			for(int i = 0 ; i < buddies_counts ; i++){
 				buddy_info = (buddies_info*)eina_list_nth(names_of_buddies,i);
-				if(buddy_info == NULL) continue;
+				if (buddy_info == NULL) continue;
 				int len = strlen(buddy_info->name);
 				char *name_str = (char *)malloc(len + 256);
-				if(name_str){
-					sprintf(name_str, "<font=Tizen:style=Bold color=#FFFFFF align=center><font_size=40>%s</font_size></font>", buddy_info->name);
+				if (name_str){
+					snprintf(name_str, len + 256, "<font=Tizen:style=Bold color=#FFFFFF align=center><font_size=40>%s</font_size></font>", buddy_info->name);
 					Elm_Object_Item *button_item = elm_multibuttonentry_item_append(grp_names_lbl, name_str, click_user_name_cb, ad);
 					elm_object_item_data_set(button_item, (void*)(buddy_info->id));
 					free(name_str);
@@ -3566,8 +3574,9 @@ int get_start_offset_num(char* table_name){
 	int unknown = 0;
 	sprintf(unknown_str, "%d", unknown);
 
-	char* where_clause = (char *)malloc(strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(unknown_str) + 1);
-	sprintf(where_clause, "%s = %s", MESSAGE_INFO_TABLE_MARKED_FOR_DELETE, unknown_str);
+	int len_where = strlen(MESSAGE_INFO_TABLE_MARKED_FOR_DELETE) + strlen(" = ") + strlen(unknown_str) + 1;
+	char* where_clause = (char *)malloc(len_where );
+	snprintf(where_clause, len_where , "%s = %s", MESSAGE_INFO_TABLE_MARKED_FOR_DELETE, unknown_str);
 	int row_counts = get_number_of_rows(table_name,where_clause);
 	return (row_counts-TG_DBMGR_LIMITED);
 }

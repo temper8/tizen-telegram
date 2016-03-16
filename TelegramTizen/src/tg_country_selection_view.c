@@ -157,8 +157,6 @@ static void on_country_item_clicked(void *data, Evas_Object *obj, void *event_in
 {
 	Eina_List *country_name_list;
 	Eina_List *country_code_list;
-	Evas_Object *popup;
-	Evas_Object *btn;
 	appdata_s* ad;
 
 	elm_genlist_item_selected_set(event_info, EINA_FALSE);

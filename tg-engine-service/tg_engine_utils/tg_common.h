@@ -56,9 +56,9 @@ extern char *get_table_name_from_number(const int id);
 
 extern char *replace(const char *s, char ch, const char *repl);
 
-extern void tg_notification_create(tg_engine_data_s* tg_data, char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
+extern void tg_notification_create(tg_engine_data_s* tg_data, const char * icon_path, const char *title, char *content, char *sound_path, char *app_id);
 
-extern void display_new_message_badge(int unread_msg_cnt, tg_engine_data_s* tg_data);
+extern void display_badge_with_notification(int unread_msg_cnt, tg_engine_data_s* tg_data);
 
 extern int recursive_dir_delete(const char *dir);
 

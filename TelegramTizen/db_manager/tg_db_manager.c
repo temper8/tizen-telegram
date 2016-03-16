@@ -295,12 +295,10 @@ Eina_Bool get_values_from_table(const char* table_name, Eina_List *column_names,
 	eina_strbuf_append(var_query, "SELECT ");
 
 	if(!column_names) {
-		var_query = realloc(var_query, strlen(var_query) + 3);
 		eina_strbuf_append(var_query, "* ");
 	} else {
 
 		int col_count = eina_list_count(column_names);
-		char* col_name = NULL;
 		for(int col = 0; col < col_count ; col++) {
 			eina_strbuf_append(var_query, eina_list_nth(column_names, col));
 			if (col < col_count - 1)

@@ -92,9 +92,8 @@ static Eina_Bool write_call(void* data)
 {
 	struct connection *c = data;
 
-	if (c->TLS == NULL || c->fd <= 0) {
+	if (c->TLS == NULL || c->fd <= 0)
 		return ECORE_CALLBACK_CANCEL;
-	}
 
 	fd_set writeset;
 	FD_ZERO(&writeset);
@@ -113,21 +112,19 @@ static void start_ping_timer(struct connection *c);
 
 Eina_Bool ping_alarm(void *arg)
 {
-	assert(NULL != arg);
+	if (!arg)
+		return ECORE_CALLBACK_CANCEL;
 
 	struct connection *c = arg;
 	struct tgl_state *TLS = c->TLS;
-	vlogprintf(E_SOCKET + 2,"ping alarm\n");
-	//assert(c->state == conn_ready || c->state == conn_connecting);
-	if(c->state != conn_ready || c->state != conn_connecting) {
+	if (c->state != conn_ready && c->state != conn_connecting)
 		return ECORE_CALLBACK_CANCEL;
-	}
 
-	if (tglt_get_double_time() - c->last_receive_time > 6 * PING_TIMEOUT) {
-		vlogprintf(E_WARNING, "fail connection: reason: ping timeout\n");
+	if (tglt_get_double_time() - c->last_receive_time > 12 * PING_TIMEOUT) {
+		vlogprintf(E_ERROR, "fail connection: reason: ping timeout\n");
 		c->state = conn_failed;
 		fail_connection(c);
-	} else if (tglt_get_double_time() - c->last_receive_time > 3 * PING_TIMEOUT && c->state == conn_ready) {
+	} else if (tglt_get_double_time() - c->last_receive_time > 6 * PING_TIMEOUT && c->state == conn_ready) {
 		tgl_do_send_ping(c->TLS, c);
 		start_ping_timer(c);
 	} else {
@@ -138,10 +135,9 @@ Eina_Bool ping_alarm(void *arg)
 
 static void stop_ping_timer(struct connection *c)
 {
-	if(c->ping_ev) {
+	if (c->ping_ev)
 		ecore_timer_del(c->ping_ev);
-		c->ping_ev = NULL;
-	}
+	c->ping_ev = NULL;
 }
 
 static void start_ping_timer(struct connection *c)
@@ -153,6 +149,9 @@ static void restart_connection(struct connection *c);
 
 Eina_Bool fail_alarm(void *arg)
 {
+	if (!arg)
+		return ECORE_CALLBACK_CANCEL;
+
 	struct connection *c = arg;
 	c->in_fail_timer = 0;
 	restart_connection(c);
@@ -161,9 +160,9 @@ Eina_Bool fail_alarm(void *arg)
 
 static void start_fail_timer(struct connection *c)
 {
-	if (c->in_fail_timer) {
+	if (c->in_fail_timer)
 		return;
-	}
+
 	c->in_fail_timer = 1;
 	c->fail_ev = ecore_timer_add(3, fail_alarm, c);
 }
@@ -188,24 +187,24 @@ int tgln_write_out(struct connection *c, const void *_data, int len)
 	struct tgl_state *TLS = c->TLS;
 	vlogprintf(E_SOCKET, "write_out: %d bytes\n", len);
 	const unsigned char *data = _data;
-	if (!len) { return 0; }
-	assert(len > 0);
+	if (len <= 0)
+		return 0;
 	int x = 0;
 	if (!c->out_bytes) {
 		/*		Ecore_Idler *idler_for_event;
 				idler_for_event = ecore_idler_add(th_do, c);*/
 #if 0
-		if(c->thrd) {
+		if (c->thrd) {
 			ecore_thread_cancel(c->thrd);
 			c->thrd = NULL;
 		}
 
 		c->thrd = ecore_thread_feedback_run(th_do, th_feedback, th_end, th_cancel, c, EINA_FALSE);
 #else
-		if(c->write_ev) {
+		if (c->write_ev)
 			ecore_timer_del(c->write_ev);
-			c->write_ev = NULL;
-		}
+		c->write_ev = NULL;
+
 		c->write_ev = ecore_timer_add(0.01, write_call, c);
 #endif
 	}
@@ -352,14 +351,14 @@ void conn_try_write(void *arg)
 		/*		Ecore_Idler *idler_for_event;
 				idler_for_event = ecore_idler_add(th_do, c);*/
 #if 0
-		if(c->thrd) {
+		if (c->thrd) {
 			ecore_thread_cancel(c->thrd);
 			c->thrd = NULL;
 		}
 
 		c->thrd = ecore_thread_feedback_run(th_do, th_feedback, th_end, th_cancel, c, EINA_FALSE);
 #else
-		if(c->write_ev) {
+		if (c->write_ev) {
 			ecore_timer_del(c->write_ev);
 			c->write_ev = NULL;
 		}
@@ -428,7 +427,7 @@ static int my_connect(struct connection *c, const char *host)
 static Eina_Bool read_timer_alarm(void* arg)
 {
 	struct connection *c = arg;
-	if(c->read_ev) {
+	if (c->read_ev) {
 		ecore_main_fd_handler_del(c->read_ev);
 		c->read_ev = NULL;
 	}
@@ -460,7 +459,7 @@ struct connection *tgln_create_connection(struct tgl_state *TLS, const char *hos
 	Connections[fd] = c;
 
 	Ecore_Timer* timer = ecore_timer_add(0.01, read_timer_alarm, c);
-	if(!timer) {
+	if (!timer) {
 		vlogprintf(E_ERROR, "start connection, read_timer_alarm adding failed\n");
 	}
 
@@ -509,7 +508,7 @@ static void restart_connection(struct connection *c)
 	start_ping_timer(c);
 	Connections[fd] = c;
 	Ecore_Timer* timer = ecore_timer_add(0.01, read_timer_alarm, c);
-	if(!timer) {
+	if (!timer) {
 		vlogprintf(E_ERROR, "restart connection, read_timer_alarm adding failed\n");
 	}
 
@@ -525,17 +524,17 @@ static void fail_connection(struct connection *c)
 		stop_ping_timer(c);
 	}
 
-	if(c->read_ev) {
+	if (c->read_ev) {
 		ecore_main_fd_handler_del(c->read_ev);
 		c->read_ev = NULL;
 	}
 #if 0
-	if(c->thrd) {
+	if (c->thrd) {
 		ecore_thread_cancel(c->thrd);
 		c->thrd = NULL;
 	}
 #else
-	if(c->write_ev) {
+	if (c->write_ev) {
 		ecore_timer_del(c->write_ev);
 		c->write_ev = NULL;
 	}
@@ -593,7 +592,7 @@ static void try_write(struct connection *c)
 		}
 	}
 
-	if(x>0)
+	if (x>0)
 		vlogprintf(E_SOCKET, "Sent %d bytes to %d\n", x, c->fd);
 
 	c->out_bytes -= x;
@@ -683,7 +682,7 @@ static void try_read(struct connection *c)
 		}
 	}
 
-	if(x>0)
+	if (x>0)
 		vlogprintf(E_SOCKET, "Received %d bytes from %d\n", x, c->fd);
 
 	c->in_bytes += x;
@@ -725,32 +724,33 @@ static void tgln_free(struct connection *c)
 		delete_connection_buffer(d);
 	}
 
-	if(c->ping_ev) {
+	if (c->ping_ev) {
 		ecore_timer_del(c->ping_ev);
 		c->ping_ev = NULL;
 	}
-	if(c->fail_ev) {
+	if (c->fail_ev) {
 		ecore_timer_del(c->fail_ev);
 		c->fail_ev = NULL;
 	}
 
-	if(c->read_ev) {
+	if (c->read_ev) {
 		ecore_main_fd_handler_del(c->read_ev);
 		c->read_ev = NULL;
 	}
 #if 0
-	if(c->thrd) {
+	if (c->thrd) {
 		ecore_thread_cancel(c->thrd);
 		c->thrd = NULL;
 	}
 #else
-	if(c->write_ev) {
+	if (c->write_ev)
 		ecore_timer_del(c->write_ev);
-		c->write_ev = NULL;
-	}
+	c->write_ev = NULL;
+
 #endif
 	if (c->fd >= 0) {
-		Connections[c->fd] = 0; close(c->fd);
+		Connections[c->fd] = 0;
+		close(c->fd);
 	}
 
 	tfree(c, sizeof(*c));
