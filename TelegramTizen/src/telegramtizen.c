@@ -263,6 +263,8 @@ void load_registered_user_data(appdata_s *ad)
 				ad->current_user_data->last_seen = *temp_last_seen;
 				free(temp_last_seen);
 			}
+
+			ad->current_user_data->highlight_name = NULL;
 		} else {
 			void* val = NULL;
 			EINA_LIST_FREE(row_vals, val) {

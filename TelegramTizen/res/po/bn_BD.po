@@ -497,7 +497,7 @@ msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "একটি দেশ নির্বাচন করুন।"
 
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
-msgstr "Initialising. Please wait..."
+msgstr "Initializing. Please restart app if this is continuing"
 
 msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
 msgstr "অ্যাকাউন্ট মোছা হয়েছে।"
