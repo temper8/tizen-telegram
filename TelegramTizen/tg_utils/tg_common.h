@@ -221,7 +221,8 @@ static Elm_Entry_Filter_Accept_Set accept_set = {
        .rejected = NULL
  };
 
-#define MAX_NUM_LENGTH 10
+#define MAX_NUM_LENGTH 20
+#define MIN_NUM_LENGTH 5
 #define MAX_CODE_LENGTH 5
 #define MAX_USERNAME_LENGTH 15
 #define MIN_USERNAME_LENGTH 5

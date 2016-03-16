@@ -46,7 +46,7 @@ static void on_text_change_enable_ok_button(void *data, Evas_Object *obj, void *
 	else
 		elm_object_signal_emit(layout, "hide", "delete");
 
-	if (strlen(buf) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0)
+	if (strlen(buf) >= MIN_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0)
 		elm_object_disabled_set(done_btn, EINA_FALSE);
 	else
 		elm_object_disabled_set(done_btn, EINA_TRUE);
@@ -82,7 +82,7 @@ static void on_naviframe_done_clicked(void *data, Evas_Object *obj, void *event_
 
 	snprintf(code_buf, sizeof(code_buf), "%s", elm_object_text_get(country_name_btn));
 
-	if (strlen(phone_num) == MAX_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0 && ad->is_server_ready) {
+	if (strlen(phone_num) >= MIN_NUM_LENGTH && strcasecmp(code_buf, "Select your country") != 0 && ad->is_server_ready) {
 		char phone_number[256];
 		snprintf(phone_number, sizeof(phone_number), "%s%s", cunt_code, phone_num);
 		ad->phone_number = strdup(phone_number);
@@ -143,7 +143,7 @@ void country_name_selected_cb(appdata_s *ad, Eina_List *count_name_list, Eina_Li
 	if (pn_number_entry)
 		elm_object_focus_set(pn_number_entry, EINA_TRUE);
 
-	if (number_text && strlen(number_text) == MAX_NUM_LENGTH)
+	if (number_text && strlen(number_text) >= MIN_NUM_LENGTH)
 		elm_object_disabled_set(done_btn, EINA_FALSE);
 	else
 		elm_object_disabled_set(done_btn, EINA_TRUE);
