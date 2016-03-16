@@ -497,7 +497,7 @@ msgid "MIDS_SPAY_BODY_SELECT_A_COUNTRY"
 msgstr "ႏိုင္ငံတစ္ခု ေရြးခ်ယ္ပါ။"
 
 msgid "IDS_NFC_POP_INITIALISING_PLEASE_WAIT_ING"
-msgstr "Initialising. Please wait..."
+msgstr "Initializing. Please restart app if this is continuing"
 
 msgid "IDS_EMAIL_POP_ACCOUNT_DELETED"
 msgstr "စာရင္း ပဖ်က္ၿပီး။"

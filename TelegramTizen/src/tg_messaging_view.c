@@ -814,16 +814,15 @@ static void on_message_play_pause_clicked(void *data, Evas_Object *obj, void *ev
 
 	appdata_s * ad = evas_object_data_get(data, "app_data");
 	char *audio_file = evas_object_data_get(data, "audio_file_path");
-	char *media_id = evas_object_data_get(data, "media_id");
 
 	if (!ad)
 		return;
 
-	if (!audio_file  || strlen(audio_file) <= 0 || !media_id) {
-		//there is no file. download it.
+	if (!audio_file  || strlen(audio_file) <= 0 || (audio_file && strstr(audio_file, "_null_")) != NULL) {
 		Evas_Object *progressbar = evas_object_data_get(data, "progress_control");
 		Eina_Bool is_download_in_progress = (Eina_Bool)evas_object_data_get(progressbar, "is_download_in_progress");
-		if (!is_download_in_progress) {
+		char *media_id = evas_object_data_get(data, "media_id");
+		if (!is_download_in_progress && media_id) {
 			elm_object_style_set(progressbar, "pending");
 			Eina_Bool ret = send_request_for_media_downloading(ad, ad->service_client, ad->peer_in_cahtting_data->use_data->peer_id, atoll(media_id));
 			if (!ret) {
