@@ -600,6 +600,10 @@ void load_unknown_buddy_list_data(appdata_s *ad)
 			free(user_data->username);
 		user_data->username = NULL;
 
+		if (user_data->highlight_name)
+			free(user_data->highlight_name);
+		user_data->highlight_name = NULL;
+
 		free(user_data);
 		free(item);
 	}
@@ -906,6 +910,16 @@ static int on_contacts_loaded(appdata_s *app, bundle *const rec_msg)
 	return result;
 }
 
+Eina_Bool on_main_view_load_requested(void *data)
+{
+	appdata_s *app = data;
+	if (app) {
+		elm_naviframe_item_pop(app->nf);
+		hide_loading_popup(app);
+		launch_user_main_view_cb(app);
+	}
+    return ECORE_CALLBACK_CANCEL;
+}
 
 static int on_contacts_and_chats_loaded(appdata_s *app, bundle *const rec_msg)
 {
@@ -925,9 +939,8 @@ static int on_contacts_and_chats_loaded(appdata_s *app, bundle *const rec_msg)
 			load_peer_data(app);
 			load_main_list_data(app);
 			elm_naviframe_item_pop(app->nf);
-			elm_naviframe_item_pop(app->nf);
-			//launch_buddy_list_cb(app);
-			launch_user_main_view_cb(app);
+			show_loading_popup(app);
+			ecore_timer_add(1, on_main_view_load_requested, app);
 		} else if (app->current_app_state == TG_BUDDY_LIST_STATE) {
 			app->current_app_state = TG_BUDDY_LIST_STATE;
 			evas_object_show(app->panel);
@@ -2350,8 +2363,9 @@ Eina_Bool on_logout_completed(void *data)
 	appdata_s *ad = data;
 	if (ad) {
 		elm_naviframe_item_pop(ad->nf);
-		ad->current_app_state = TG_REGISTRATION_STATE;
+		hide_loading_popup(ad);
 		launch_init_screen(ad);
+		ad->is_server_ready = EINA_TRUE;
 	}
     return ECORE_CALLBACK_CANCEL;
 }
@@ -2398,7 +2412,7 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		if (strncmp("true", is_success_val, strlen("true")) == 0) {
     		//show_toast(app, is_success_val);
 			// Launch login view
-			//elm_naviframe_item_pop(app->nf);
+			elm_naviframe_item_pop(app->nf);
 			launch_login_cb(data);
 		} else {
 			// error handling
@@ -2464,10 +2478,13 @@ static int _on_service_client_msg_received_cb(void *data, bundle *const rec_msg)
 		init_service(app);
 
 		elm_naviframe_item_pop(app->nf);
-		//ecore_timer_add(1, on_logout_completed, app);
+		show_loading_popup(app);
+		ecore_timer_add(1, on_logout_completed, app);
+#if 0
 		elm_naviframe_item_pop(app->nf);
 		app->current_app_state = TG_REGISTRATION_STATE;
 		launch_init_screen(app);
+#endif
 		return result;
 	} else if (strcmp(rec_key_val, "server_connection_status") == 0) {
 		return on_server_connection_status_changed(data, rec_msg);
@@ -3043,6 +3060,7 @@ void app_nf_back_cb(void *data, Evas_Object *obj, void *event_info)
 
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_REGISTRATION_STATE;
+			launch_registration_cb(ad);
 			break;
 		case TG_PROFILE_REGISTRATION_STATE:
 			/*			ad->current_app_state = TG_REGISTRATION_STATE;
@@ -3608,31 +3626,7 @@ static bool app_create(void *data)
 	tg_db_init();
 	bindtextdomain(PACKAGE, "/opt/usr/apps/org.tizen.telegram_tizen_client/res/locale");
 
-	ad->phone_number = NULL;
-	ad->buddy_list = NULL;
-	ad->unknown_buddy_list = NULL;
-	ad->known_buddy_list = NULL;
-	ad->main_list = NULL;
-	ad->peer_list = NULL;
-	ad->search_peer_list = NULL;
-	ad->is_first_time_registration = EINA_FALSE;
-	ad->panel = NULL;
-	ad->loaded_msg_list = NULL;
-	ad->loading_popup = NULL;
-	ad->current_user_data = NULL;
-	ad->is_tg_initilized = EINA_FALSE;
-	ad->chat_background = NULL;
-	ad->msg_popup = NULL;
-	ad->s_notififcation = NULL;
-	ad->panel = NULL;
-	ad->is_server_ready = EINA_FALSE;
-	ad->is_waiting_for_phone_num = EINA_FALSE;
-	ad->login_timer = NULL;
-	ad->contact_list = NULL;
-	ad->main_item = NULL;
-	ad->country_codes_list = NULL;
-	ad->country_names_list = NULL;
-	//ad->msg_count = 0;
+
 
 	create_base_gui(ad);
 	int err = badge_add(TELEGRAM_APP_ID);
@@ -3678,7 +3672,9 @@ void free_app_data(appdata_s *app_data, Eina_Bool destroy_server)
 
 	eina_list_free(app_data->country_codes_list);
 	eina_list_free(app_data->country_names_list);
-	free(app_data->country_code_buffer);
+	if (app_data->country_code_buffer)
+		free(app_data->country_code_buffer);
+	app_data->country_code_buffer = NULL;
 
 	if (app_data->panel) {
 		Evas_Object *panel_list = evas_object_data_get(app_data->panel, "panel_list");

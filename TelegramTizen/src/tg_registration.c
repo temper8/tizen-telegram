@@ -167,10 +167,17 @@ void launch_registration_cb(appdata_s *ad)
 		return;
 
 	launch_tg_server(ad);
+	if (ad->phone_number)
+		free(ad->phone_number);
+	ad->phone_number = NULL;
 	ad->current_app_state = TG_REGISTRATION_STATE;
 	eina_list_free(ad->country_codes_list);
+	ad->country_codes_list = NULL;
 	eina_list_free(ad->country_names_list);
-	free(ad->country_code_buffer);
+	ad->country_names_list = NULL;
+	if (ad->country_code_buffer)
+		free(ad->country_code_buffer);
+	ad->country_code_buffer = NULL;
 
 	load_list_of_countries(ad);
 

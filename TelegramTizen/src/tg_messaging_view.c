@@ -272,10 +272,30 @@ void on_messaging_menu_option_selected_cb(void *data, Evas_Object *obj, void *ev
 
 		if (user_data->peer_type == TGL_PEER_USER) {
 			if (get_buddy_delete_status(user_data->peer_id)) {
-
 				/* do nothing */
 			} else if (get_buddy_unknown_status(user_data->peer_id)) {
-
+				if (!ad->buddy_in_cahtting_data) {
+					Eina_List *l = NULL;
+					user_data_with_pic_s *item = NULL;
+					EINA_LIST_FOREACH(ad->buddy_list, l, item) {
+						user_data_s* luser_data = item->use_data;
+						if (luser_data->user_id.id == sel_item->use_data->peer_id) {
+							ad->buddy_in_cahtting_data = item;
+							break;
+						}
+					}
+					if (ad->buddy_in_cahtting_data == NULL) {
+						l = NULL;
+						item = NULL;
+						EINA_LIST_FOREACH(ad->unknown_buddy_list, l, item) {
+							user_data_s* luser_data = item->use_data;
+							if (luser_data->user_id.id == sel_item->use_data->peer_id) {
+								ad->buddy_in_cahtting_data = item;
+								break;
+							}
+						}
+					}
+				}
 				ad->is_loading_from_msg_view = EINA_TRUE;
 				on_create_new_contact(ad);
 			}else {
@@ -3391,39 +3411,50 @@ void refresh_messaging_view(appdata_s *ad)
 
 static void click_user_name_cb(void *data, Evas_Object *obj, void *event_info)
 {
-#if 0
 	appdata_s *ad = evas_object_data_get(obj,"app_data");
+
 	Elm_Object_Item *item = event_info;
 	const char *clicked_name = elm_object_item_text_get(item);
+	if (!clicked_name)		
+		return;
+	
 	int peer_id = (int)elm_object_item_data_get(item);
-	peer_with_pic_s* prev_peer_in_chatting_data = ad->peer_in_cahtting_data;
-	user_data_with_pic_s* prev_buddy_in_chatting_data = ad->buddy_in_cahtting_data;
 
-	int buddy_list_counts = eina_list_count(ad->buddy_list);
-	for (int i = 0; i < buddy_list_counts; i++) {
-		user_data_with_pic_s *item = eina_list_nth(ad->buddy_list, i);
-		user_data_s* user_data = item->use_data;
+	if (peer_id == ad->current_user_data->user_id.id)
+		return;
 
-		if (user_data->user_id.id == peer_id) {
-			ad->buddy_in_cahtting_data = item;
-			break;
+	ad->buddy_in_cahtting_data = NULL;
+
+	Eina_List *l = NULL;
+	user_data_with_pic_s *user_item = NULL;
+	EINA_LIST_FOREACH(ad->buddy_list, l, user_item) {
+		if (user_item) {
+			user_data_s* user_data = user_item->use_data;
+			if (user_data && user_data->user_id.id == peer_id) {
+				ad->buddy_in_cahtting_data = user_item;
+				break;
+			}
 		}
 	}
-	int peer_list_counts = eina_list_count(ad->peer_list);
-	for (int i = 0; i < peer_list_counts; i++) {
-		peer_with_pic_s* pic_item = eina_list_nth(ad->peer_list, i);
-		tg_peer_info_s* item = pic_item->use_data;
-		if (item->peer_id == peer_id) {
-			ad->peer_in_cahtting_data = pic_item;
-			break;
+
+	if (!ad->buddy_in_cahtting_data) {
+		user_item = NULL;
+		EINA_LIST_FOREACH(ad->unknown_buddy_list, l, user_item) {
+			if (user_item) {
+				user_data_s* user_data = user_item->use_data;
+				if (user_data && user_data->user_id.id == peer_id) {
+					ad->buddy_in_cahtting_data = user_item;
+					break;
+				}
+			}
 		}
 	}
+
+	if (!ad->buddy_in_cahtting_data)
+		show_toast(ad, i18n_get_text("IDS_TGRAM_SBODY_UNKNOWN"));
 
 	launch_user_info_screen(ad, peer_id);
 
-	ad->buddy_in_cahtting_data = prev_buddy_in_chatting_data;
-	ad->peer_in_cahtting_data = prev_peer_in_chatting_data;
-#endif
 }
 
 static void on_expand_button_clicked(void *data, Evas_Object *obj, void *event_info)

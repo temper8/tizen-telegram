@@ -253,6 +253,9 @@ void launch_country_selection_view(appdata_s *ad)
 	elm_object_part_content_set(fs_layout, "elm.swallow.content", peer_list);
 	evas_object_data_set(ad->nf, "country_search_list", peer_list);
 
+	evas_object_data_set(peer_list, "country_name_list", NULL);
+	evas_object_data_set(peer_list, "country_code_list", NULL);
+
 	append_country_item(peer_list, ad, ad->country_names_list, ad->country_codes_list);
 
 	Elm_Object_Item *it = NULL;

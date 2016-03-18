@@ -259,6 +259,8 @@ void launch_destroy_screen(Evas_Object *layout)
 
 void launch_init_screen(appdata_s* ad)
 {
+	if (!ad)
+		return;
 	Evas_Object *layout = NULL;
 	Evas_Object *bg = NULL;
 	Evas_Object *content_layout = NULL;
@@ -266,11 +268,10 @@ void launch_init_screen(appdata_s* ad)
 	Evas_Object *index = NULL;
 	Evas_Object *bottom_button = NULL;
 	char edj_path[PATH_MAX] = {0, };
-
+	ad->current_app_state = TG_INIT_SCREEN_STATE;
 	layout = elm_layout_add(ad->win);
 	app_get_resource(TELEGRAM_START_VIEW_EDJ, edj_path, (int)PATH_MAX);
 	elm_layout_file_set(layout, edj_path, "setup,layout");
-	ad->current_app_state = TG_INIT_SCREEN_STATE;
 	evas_object_data_set(layout, "page_idx", (void *) 0);
 
 	bg = evas_object_rectangle_add(evas_object_evas_get(layout));

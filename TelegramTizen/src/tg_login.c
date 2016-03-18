@@ -19,6 +19,7 @@
 #include "tg_login.h"
 #include "server_requests.h"
 #include "tg_first_registration.h"
+#include "tg_registration.h"
 
 static void on_code_change_enable_ok_button(void *data, Evas_Object *obj, void *event_info)
 {
@@ -47,6 +48,7 @@ static void on_naviframe_cancel_clicked(void *data, Evas_Object *obj, void *even
 
 	elm_naviframe_item_pop(ad->nf);
 	ad->current_app_state = TG_REGISTRATION_STATE;
+	launch_registration_cb(ad);
 }
 
 static void on_code_entry_done_clicked(void *data, Evas_Object *obj, void *event_info)

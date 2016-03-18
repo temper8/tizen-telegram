@@ -326,11 +326,18 @@ static Evas_Object *_get_content_cb(void *data, Evas_Object *obj, const char *pa
 		appdata_s *ad = evas_object_data_get(obj, "app_data");
 		if (!ad)
 			return layout;
-		if (ad->is_loading_from_msg_view || ad->is_loading_from_profile_view) {
-			char temp_name[512] = {'\0'};
-			snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(ad->peer_in_cahtting_data->use_data->peer_id));
-			elm_object_text_set(phone_entry, temp_name);
-			elm_entry_editable_set(phone_entry, EINA_FALSE);
+
+		if (ad->buddy_in_cahtting_data && ad->buddy_in_cahtting_data->use_data) {
+			char *Phone_num = get_buddy_phone_num_from_id(ad->buddy_in_cahtting_data->use_data->user_id.id);
+
+			if (ad->is_loading_from_msg_view || ad->is_loading_from_profile_view || (Phone_num && strlen(Phone_num) > 2)) {
+				char temp_name[512] = {'\0'};
+				snprintf(temp_name, 512, "%s", get_buddy_phone_num_from_id(ad->buddy_in_cahtting_data->use_data->user_id.id));
+				elm_object_text_set(phone_entry, temp_name);
+				elm_entry_editable_set(phone_entry, EINA_FALSE);
+			}
+			if (Phone_num)
+				free(Phone_num);
 		}
 		evas_object_data_set(ad->nf, "add_contact_phone_number", phone_entry);
 		return layout;
@@ -751,22 +758,14 @@ void launch_previous_view(appdata_s *ad, int buddy_id)
 void on_new_contact_added_response_received(appdata_s *ad, int buddy_id, Eina_Bool is_success)
 {
 	if (is_success) {
-		if (ad->is_loading_from_msg_view) {
+
+		if (ad->is_loading_from_msg_view || ad->is_loading_from_profile_view) {
 			show_loading_popup(ad);
 			elm_naviframe_item_pop(ad->nf);
 			ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
 			ad->peer_in_cahtting_data = NULL;
 			ad->main_item_in_cahtting_data = NULL;
 			ad->buddy_in_cahtting_data = NULL;
-			elm_naviframe_item_pop(ad->nf);
-			launch_previous_view(ad, buddy_id);
-			return;
-		} else if (ad->is_loading_from_profile_view) {
-			show_loading_popup(ad);
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_SET_USER_INFO_STATE;
-			elm_naviframe_item_pop(ad->nf);
-			ad->current_app_state = TG_CHAT_MESSAGING_VIEW_STATE;
 			elm_naviframe_item_pop(ad->nf);
 			launch_previous_view(ad, buddy_id);
 			return;
@@ -1476,6 +1475,9 @@ void launch_start_peer_search_view(appdata_s* ad)
 	clear_search_list(ad);
 
 	free_contact_list(ad->contact_list);
+	ad->buddy_in_cahtting_data = NULL;
+	ad->peer_in_cahtting_data = NULL;
+	ad->main_item_in_cahtting_data = NULL;
 
 	ad->search_peer_list = load_buddy_data_by_name(ad->user_id.id, NULL);
 	ad->contact_list = get_contact_list_from_device_db();
